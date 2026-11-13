@@ -1,0 +1,32 @@
+pid,model,buggy,off_repaired,off_tried,off_pruned,off_cut,off_seconds,off_rules,off_patch,on_repaired,on_tried,on_pruned,on_cut,on_seconds,on_rules,on_patch
+cf_10C,gpt-5.4-mini,134903349,True,2,0,False,2.915,fix_input_to_int_for_digital_root,"def d(n):
+	while len(str(n))!=1:
+		n = sum(int(d) for d in str(n))
+	return n
+
+n_1 = int(input())
+q, r = divmod(n_1, 9)
+d = [q] + [q + 1] * r + [q] * (8 - r)
+res = 0
+for i in range(9):
+    for j in range(9):
+        res += d[i] * d[j] * d[i * j % 9]
+for i in range(1, n_1 + 1):
+    res -= n_1 // i
+print(res)",True,2,0,False,4.248,fix_input_to_int_for_digital_root,"def d(n):
+	while len(str(n))!=1:
+		n = sum(int(d) for d in str(n))
+	return n
+
+n_1 = int(input())
+q, r = divmod(n_1, 9)
+d = [q] + [q + 1] * r + [q] * (8 - r)
+res = 0
+for i in range(9):
+    for j in range(9):
+        res += d[i] * d[j] * d[i * j % 9]
+for i in range(1, n_1 + 1):
+    res -= n_1 // i
+print(res)"
+cf_10C,gpt-5.4-mini,70108877,False,1000,0,True,5.992,,,False,1000,0,True,5.962,,
+cf_10C,gpt-5.4-mini,82322301,False,1000,0,True,5.555,,,False,1000,0,True,5.48,,

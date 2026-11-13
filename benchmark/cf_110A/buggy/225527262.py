@@ -1,0 +1,1 @@
+print("YES" if len(input().replace('7','').replace('4',''))==0 else "NO")

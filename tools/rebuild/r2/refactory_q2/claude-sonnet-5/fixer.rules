@@ -1,0 +1,213 @@
+rule free_var_mismatch_in_comparison
+symptoms: wrong, err:NameError
+match:
+    $b[$i] == $X:Name
+    |
+    $X:Name == $b[$i]
+where: inside("def $f($p:Name, $q:Name): $B:Stmts") and text($X) in {"day", "date", "month"} and text($X) != text($p) and text($X) != text($q)
+rewrite: $b[$i] == $p
+
+rule unique_day_days_day_confusion
+symptoms: wrong, err:NameError
+match:
+    if $b[$i] == days:
+        day = day + 1
+where: inside("def unique_day($p:Name, $q:Name): $B:Stmts")
+rewrite:
+    if $b[$i] == $p:
+        days = days + 1
+
+rule unique_month_months_month_confusion
+symptoms: wrong, err:NameError
+match:
+    if $b[$i] == months:
+        month = month + 1
+where: inside("def unique_month($p:Name, $q:Name): $B:Stmts")
+rewrite:
+    if $b[$i] == $p:
+        months = months + 1
+
+rule month_param_compared_wrong_index
+symptoms: wrong
+match:
+    $i[1] == $m:Name
+    |
+    $m:Name == $i[1]
+where: inside("def $f($m2:Name, $q:Name): $B:Stmts") and $m == $m2 and text($m) == "month"
+rewrite: $i[0] == $m
+
+rule day_param_compared_wrong_index
+symptoms: wrong
+match:
+    $i[0] == $d:Name
+    |
+    $d:Name == $i[0]
+where: inside("def $f($d2:Name, $q:Name): $B:Stmts") and $d == $d2 and text($d) in {"day", "date"}
+rewrite: $i[1] == $d
+
+rule call_wrong_function_name_unique_date
+symptoms: wrong, err:NameError
+match: unique_date($*args)
+rewrite: unique_day($*args)
+
+rule unique_day_call_wrong_index
+symptoms: wrong
+match: unique_day($i[0], $pb)
+where: inside("def contains_unique_day($m:Name, $q:Name): $B:Stmts")
+rewrite: unique_day($i[1], $pb)
+
+rule contains_unique_day_missing_month_check
+symptoms: wrong
+match:
+    for $i in $seq:
+        if unique_day($i[1], $pb):
+            return True
+    return False
+where: inside("def contains_unique_day($m:Name, $q:Name): $B:Stmts")
+rewrite:
+    for $i in $seq:
+        if $i[0] == $m and unique_day($i[1], $pb):
+            return True
+    return False
+
+rule le1_should_be_eq1
+symptoms: wrong
+match: $cnt <= 1
+where: inside("def unique_day($p:Name, $q:Name): $B:Stmts") or inside("def unique_month($p:Name, $q:Name): $B:Stmts")
+rewrite: $cnt == 1
+
+rule ge2_should_be_neq1
+symptoms: wrong
+match: $cnt >= 2
+where: inside("def unique_day($p:Name, $q:Name): $B:Stmts") or inside("def unique_month($p:Name, $q:Name): $B:Stmts")
+rewrite: $cnt != 1
+
+rule gt1_returnfalse_should_be_noteq1
+symptoms: wrong
+match:
+    if $cnt > 1:
+        return False
+    return True
+rewrite:
+    if $cnt != 1:
+        return False
+    return True
+
+rule gt1_else_returnfalse_should_be_eq1
+symptoms: wrong
+match:
+    if $cnt > 1:
+        return False
+    else:
+        return True
+rewrite:
+    if $cnt == 1:
+        return True
+    else:
+        return False
+
+rule for_loop_premature_false_branch
+symptoms: wrong
+match:
+    for $i in $seq:
+        if $cond:
+            return True
+        else:
+            return False
+where: last() and inside("def contains_unique_day($m:Name, $q:Name): $B:Stmts")
+rewrite:
+    for $i in $seq:
+        if $cond:
+            return True
+    return False
+
+rule pull_count_check_out_of_loop_with_else
+symptoms: wrong
+match:
+    for $v in $seq:
+        $pre:Stmts
+        if $cnt > 1:
+            return False
+        else:
+            return True
+where: last()
+rewrite:
+    for $v in $seq:
+        $pre
+    if $cnt != 1:
+        return False
+    return True
+
+rule pull_count_check_out_of_loop_no_else
+symptoms: wrong
+match:
+    for $v in $seq:
+        $pre:Stmts
+        if $cnt > 1:
+            return False
+    return True
+rewrite:
+    for $v in $seq:
+        $pre
+        if $cnt > 1:
+            return False
+    return $cnt == 1
+
+rule stub_contains_unique_day
+symptoms: wrong, err:TypeError
+match: return
+where: inside("def contains_unique_day($m:Name, $pb:Name): return")
+rewrite:
+    for bday in $pb:
+        if bday[0] == $m:
+            if unique_day(bday[1], $pb):
+                return True
+    return False
+
+rule stub_contains_unique_day_pass
+symptoms: wrong, err:TypeError
+match: pass
+where: inside("def contains_unique_day($m:Name, $pb:Name): pass")
+rewrite:
+    for bday in $pb:
+        if bday[0] == $m:
+            if unique_day(bday[1], $pb):
+                return True
+    return False
+
+rule stub_unique_day
+symptoms: wrong, err:TypeError
+match: return
+where: inside("def unique_day($d:Name, $pb:Name): return")
+rewrite:
+    count = 0
+    for i in $pb:
+        if i[1] == $d:
+            count = count + 1
+    return count == 1
+
+rule stub_unique_month
+symptoms: wrong, err:TypeError
+match: return
+where: inside("def unique_month($m:Name, $pb:Name): return")
+rewrite:
+    count = 0
+    for i in $pb:
+        if i[0] == $m:
+            count = count + 1
+    return count == 1
+
+rule missing_accumulator_init
+symptoms: wrong, err:NameError
+match:
+    for $i in $seq:
+        if $cond:
+            $acc:Name = $acc2:Name or $expr
+    return $acc3:Name
+where: $acc == $acc2 and $acc == $acc3 and first()
+rewrite:
+    $acc = False
+    for $i in $seq:
+        if $cond:
+            $acc = $acc or $expr
+    return $acc

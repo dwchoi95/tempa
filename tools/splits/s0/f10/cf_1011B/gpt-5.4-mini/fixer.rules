@@ -1,0 +1,55 @@
+rule use_max_of_counts_for_days
+symptoms: wrong
+match: return $E
+where: inside("def $f($*xs): $B:Stmts") and (
+    match($E, "min($N, len($A))") or
+    match($E, "min(len($A), $N)") or
+    match($E, "$N if $N < len($A) else len($A)") or
+    match($E, "len($A) if len($A) < $N else $N")
+) and (
+    some($B, "for $v in $it:\n    $cnt[$v] += 1") or
+    some($B, "for $v in $it:\n    $cnt[$v] = $cnt.get($v, 0) + 1")
+)
+rewrite: return max($N, len($A))
+
+rule fix_days_division_to_counting
+symptoms: wrong
+match: return $E
+where: inside("def $f($*xs): $B:Stmts") and (
+    match($E, "len($A) // $N") or
+    match($E, "len($A) / $N") or
+    match($E, "len($A) // len($B)") or
+    match($E, "len($A) / len($B)")
+) and (
+    some($B, "for $v in $it:\n    $cnt[$v] += 1") or
+    some($B, "for $v in $it:\n    $cnt[$v] = $cnt.get($v, 0) + 1")
+)
+rewrite: return max(counts.values()) // $N
+
+rule comparison_flip_lt_to_gt
+symptoms: wrong
+match: $a < $b
+rewrite: $a > $b
+
+rule comparison_flip_lte_to_gte
+symptoms: wrong
+match: $a <= $b
+rewrite: $a >= $b
+
+rule off_by_one_range_upper
+symptoms: wrong
+match: range($a, $b)
+where: text($b) == "m" or text($b) == "n"
+rewrite: range($a, $b + 1)
+
+rule off_by_one_loop_bound
+symptoms: wrong
+match: range($n)
+where: regex($n, r"^[A-Za-z_][A-Za-z0-9_]*$")
+rewrite: range($n + 1)
+
+rule wrong_return_zero_on_possible_one_day
+symptoms: wrong
+match: return 0
+where: inside("def $f($*xs): $B:Stmts") and some($B, "if $c:\n    return 0") and some($B, "max")
+rewrite: return 1

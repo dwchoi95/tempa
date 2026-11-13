@@ -1,0 +1,280 @@
+rule lucky_digit_membership_to_count
+symptoms: wrong
+match:
+    for $v in $S:
+        if $v in $L:
+            $B:Stmts
+where: some($B, "print(\"YES\")") and some($B, "print(\"NO\")")
+rewrite:
+    count = 0
+    for $v in $S:
+        if $v == '4' or $v == '7':
+            count += 1
+    if count == 4 or count == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule lucky_digit_membership_to_count_with_break
+symptoms: wrong
+match:
+    for $v in $S:
+        if $v != '4' and $v != '7':
+            $B:Stmts
+where: some($B, "break") and some($B, "print(\"YES\")") and some($B, "print(\"NO\")")
+rewrite:
+    count = 0
+    for $v in $S:
+        if $v == '4' or $v == '7':
+            count += 1
+    if count == 4 or count == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule lucky_digit_count_then_divisibility_check_to_lucky_count_check
+symptoms: wrong
+match:
+    count = $E
+    if $C % 4 == 0 or $C % 7 == 0:
+        print($Y)
+    else:
+        print($N)
+where: text($Y) == "\"YES\"" and text($N) == "\"NO\"" and (
+    match($E, "$X.count('4') + $X.count('7')") or
+    match($E, "$X.count('7') + $X.count('4')")
+)
+rewrite:
+    count = $E
+    if count == 4 or count == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule lucky_count_is_full_length_to_lucky_count_check
+symptoms: wrong
+match:
+    if $C == len($S):
+        print($Y)
+    else:
+        print($N)
+where: text($Y) == "\"YES\"" and text($N) == "\"NO\"" and (
+    match($C, "$X.count('4') + $X.count('7')") or
+    match($C, "$X.count('7') + $X.count('4')")
+)
+rewrite:
+    if $C == 4 or $C == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule lucky_count_mod_check_to_lucky_number_membership
+symptoms: wrong
+match:
+    if $C % 4 == 0 or $C % 7 == 0:
+        print($Y)
+    else:
+        print($N)
+where: text($Y) == "\"YES\"" and text($N) == "\"NO\"" and (
+    match($C, "$X.count('4') + $X.count('7')") or
+    match($C, "$X.count('7') + $X.count('4')")
+)
+rewrite:
+    if $C == 4 or $C == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule lucky_set_equality_to_count_check
+symptoms: wrong
+match:
+    if $S == {'4', '7'}:
+        print($Y)
+    else:
+        if $A:
+            print($Y2)
+        else:
+            print($N)
+where: text($Y) == "\"YES\"" and text($Y2) == "\"YES\"" and text($N) == "\"NO\""
+rewrite:
+    count = 0
+    for ch in $X:
+        if ch == '4' or ch == '7':
+            count += 1
+    if count == 4 or count == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule lucky_bool_initialization_to_count_check
+symptoms: wrong
+match:
+    lucky = True
+    while $num > 0:
+        if ($num % 10) == 4 or ($num % 10) == 7:
+            lucky = True
+            $num //= 10
+        else:
+            lucky = False
+            break
+    if lucky == True:
+        print($Y)
+    else:
+        print($N)
+where: text($Y) == "\"YES\"" and text($N) == "\"NO\""
+rewrite:
+    count = 0
+    while $num > 0:
+        if ($num % 10) == 4 or ($num % 10) == 7:
+            count += 1
+        $num //= 10
+    if count == 4 or count == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule lucky_length_check_to_count_check
+symptoms: wrong
+match:
+    if len($S) == 7 or len($S) == 4:
+        print($Y)
+    else:
+        print($N)
+where: text($Y) == "\"YES\"" and text($N) == "\"NO\""
+rewrite:
+    count = 0
+    for ch in $S:
+        if ch == '4' or ch == '7':
+            count += 1
+    if count == 4 or count == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule print_count_and_answer_to_lucky_count_only
+symptoms: wrong
+match:
+    for $i in $entrada:
+        if $i == "4" or $i == "7":
+            $cnt += 1
+    if $cnt == 4 or $cnt == 7:
+        print("YES")
+    else:
+        print("NO")
+    print($cnt)
+rewrite:
+    for $i in $entrada:
+        if $i == "4" or $i == "7":
+            $cnt += 1
+    if $cnt == 4 or $cnt == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule print_list_debug_to_plain_input
+symptoms: wrong
+match:
+    $x = list(input())
+    print($x)
+    $B:Stmts
+rewrite:
+    $x = input()
+    $B
+
+rule stray_yes_no_case_fix
+symptoms: wrong
+match:
+    print("yes")
+|   print("no")
+rewrite:
+    print("YES")
+|   print("NO")
+
+rule impossible_and_on_digits_to_or
+symptoms: wrong
+match:
+    if $a == '4' and $a == '7':
+        $B:Stmts
+rewrite:
+    if $a == '4' or $a == '7':
+        $B
+
+rule digit_scan_else_break_to_count_scan
+symptoms: wrong
+match:
+    for $d in $s:
+        if $d != '4' and $d != '7':
+            $B1:Stmts
+            break
+        $B2:Stmts
+where: some($B1, "print(\"NO\")") or some($B2, "print(\"YES\")")
+rewrite:
+    count = 0
+    for $d in $s:
+        if $d == '4' or $d == '7':
+            count += 1
+    if count == 4 or count == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule lucky_digit_count_return_to_lucky_number_return
+symptoms: wrong
+match:
+    def $f($*xs):
+        $B:Stmts
+    $r = $f($arg)
+where: some($B, "return is_lucky_digit(str(count))") or some($B, "return is_lucky_digit(lucky_count)") or some($B, "return is_lucky_digit(count)")
+rewrite:
+    def $f($*xs):
+        $B
+    $r = $f($arg)
+
+rule bool_all_digits_lucky_to_count_lucky_digits
+symptoms: wrong
+match:
+    if all($v in '47' for $v in $S):
+        print("YES")
+    else:
+        print("YES")
+rewrite:
+    count = 0
+    for $v in $S:
+        if $v == '4' or $v == '7':
+            count += 1
+    if count == 4 or count == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule set_of_digits_to_count_digits
+symptoms: wrong
+match:
+    if set($S) == {'4', '7'} or set($S) == {'7', '4'}:
+        print($Y)
+    else:
+        print($N)
+where: text($Y) == "\"YES\"" and text($N) == "\"NO\""
+rewrite:
+    count = 0
+    for ch in $S:
+        if ch == '4' or ch == '7':
+            count += 1
+    if count == 4 or count == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule count_divisibility_or_membership_to_exact_check
+symptoms: wrong
+match:
+    if ($c % 4 == 0 or $c % 7 == 0) and $c != 0:
+        print($Y)
+    else:
+        print($N)
+where: text($Y) == "\"YES\"" and text($N) == "\"NO\""
+rewrite:
+    if $c == 4 or $c == 7:
+        print("YES")
+    else:
+        print("NO")

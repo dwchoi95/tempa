@@ -1,0 +1,150 @@
+rule empty_check_or_bug
+symptoms: wrong
+match:
+    $seq == () or []
+    |
+    $seq == [] or ()
+rewrite:
+    $seq == () or $seq == []
+    |
+    $seq == [] or $seq == ()
+
+rule strict_less_should_be_lte_with_return
+symptoms: wrong
+match:
+    if $x < $e:
+        return $i
+rewrite:
+    if $x <= $e:
+        return $i
+
+rule missing_trailing_return_range
+symptoms: wrong
+match: for $i in range(len($seq)):
+where: last()
+rewrite:
+    for $i in range(len($seq)):
+    return len($seq)
+
+rule missing_trailing_return_enumerate
+symptoms: wrong
+match: for $i, $e in enumerate($seq):
+where: last()
+rewrite:
+    for $i, $e in enumerate($seq):
+    return len($seq)
+
+rule premature_return_range_form
+symptoms: wrong
+match:
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            return $i
+        return $m
+    |
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            return $i
+        else:
+            return $m
+rewrite:
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            return $i
+    return $m
+
+rule premature_return_enumerate_form
+symptoms: wrong
+match:
+    for $i, $e in enumerate($seq):
+        if $x <= $e:
+            return $i
+        return $m
+    |
+    for $i, $e in enumerate($seq):
+        if $x <= $e:
+            return $i
+        else:
+            return $m
+rewrite:
+    for $i, $e in enumerate($seq):
+        if $x <= $e:
+            return $i
+    return $m
+
+rule dangling_if_else_with_break
+symptoms: wrong
+match:
+    for $i in $seq:
+        if $cond:
+            $body1:Stmts
+        else:
+            $body2:Stmts
+    |
+    for $i, $e in enumerate($seq):
+        if $cond:
+            $body1:Stmts
+        else:
+            $body2:Stmts
+where: some($body1, "break")
+rewrite:
+    for $i in $seq:
+        if $cond:
+            $body1
+    else:
+        $body2
+    |
+    for $i, $e in enumerate($seq):
+        if $cond:
+            $body1
+    else:
+        $body2
+
+rule flipped_if_else_return_zero
+symptoms: wrong
+match:
+    if $x > $e:
+        return 0
+    else:
+        return $i
+rewrite:
+    if $x <= $e:
+        return $i
+
+rule return_length_plus_one
+symptoms: wrong
+match: return len($seq) + 1
+rewrite: return len($seq)
+
+rule return_i_plus_one_to_length
+symptoms: wrong
+match: return $i + 1
+where: inside("for $i2, $e in enumerate($seq): $B:Stmts") and $i2 == $i
+rewrite: return len($seq)
+
+rule last_element_boundary_strict
+symptoms: wrong
+match: $x >= $e
+where: match($e, "$seq[len($seq) - 1]") or match($e, "$seq[-1]")
+rewrite: $x > $e
+
+rule reversed_count_comparison
+symptoms: wrong
+match:
+    if $e > $x:
+        $c = $c + 1
+    |
+    if $e > $x:
+        $c += 1
+where: inside("for $e2 in $seq: $B:Stmts") and $e2 == $e
+rewrite:
+    if $x > $e:
+        $c = $c + 1
+    |
+    if $x > $e:
+        $c += 1
+
+rule off_by_one_range_bound
+symptoms: wrong
+match: range(len($seq) - 1)
+rewrite: range(len($seq))

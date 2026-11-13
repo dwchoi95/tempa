@@ -1,0 +1,389 @@
+Buggy,Model,Source,Patch,Fixed,RPS,ATT_all,ATT_cpu,ATT_api,InT,OuT,$API,Rules_L,Rules_SL
+119556210,claude-sonnet-5,llm,"def main():
+    x = int(input())
+    x = abs(x)
+    num = ans = 0
+
+    while num < x or (num - x) % 2 != 0:
+        ans += 1
+        num += ans
+
+    print(ans)
+
+if __name__ == ""__main__"":
+    main()",True,0.4928,101.4092,96.0912,5.318,746,488,0.006372,[],[]
+123564768,claude-sonnet-5,rules,"x = int(input())
+if (x < 0):
+    x = -x
+if (x < 0):
+    print(0)
+s = 0
+j = 1
+y = 0
+
+while (s<x):
+    y=y+1;
+    s = s+j
+    j=j+1
+
+diff = s-x
+
+if(diff % 2 == 0):
+    print(y)
+elif((diff + j) % 2 == 0):
+    print(y+1)
+else:
+    print(y+2)",True,0.0099,2.5155,2.5155,0.0,0,0,0.0,"[""generic_flip_compare"", ""generic_flip_compare""]",[]
+127863850,claude-sonnet-5,llm,"def findN(sum):
+    sum = abs(sum)
+    i = 0
+    num = 0
+    while num <= sum:
+        num += i
+        i += 1
+    num -= i - 1
+    i -= 2
+    if num == sum:
+        print(i)
+    else:
+        m = i + 1
+        tri = num + m
+        diff = tri - sum
+        if diff % 2 == 0:
+            print(m)
+        else:
+            if m % 2 == 0:
+                print(m + 1)
+            else:
+                print(m + 2)
+
+
+x = int(input())
+findN(x)",True,0.7143,59.7014,0.664,59.0374,746,5887,0.060362,[],[]
+128057340,claude-sonnet-5,none,,False,,130.9227,67.9925,62.9302,792,6150,0.063084,[],[]
+134777504,claude-sonnet-5,llm,"l=int(input())
+def county(l):
+    l=abs(l)
+    a=0
+    x=0
+    while a<l or (a-l)%2!=0:
+        x+=1
+        a+=x
+    return x
+nm=county(l)
+print(nm)",True,0.4898,8.2611,5.8707,2.3904,662,151,0.002834,[],[]
+136178882,claude-sonnet-5,llm,"import math
+x = abs(int(input()))
+nr = 0
+while(nr*(nr+1)/2 < x):
+	nr += 1
+while((nr*(nr+1)/2-x) % 2 == 1):
+	nr += 1
+print(nr)",True,0.0167,24.2602,22.5408,1.7194,627,111,0.002364,[],[]
+143315993,claude-sonnet-5,llm,"n, i=abs(int(input())), 0
+while n>0 or n%2==1:
+    i+=1; n-=i
+print(i)",True,0.0541,16.2563,10.4495,5.8068,666,431,0.005642,[],[]
+144626360,claude-sonnet-5,llm,"a = int(input())
+s = 0
+i = 0
+if a > 0:
+    while True:
+        i = i + 1
+        s = s + i
+        if s >= a and (s - a) % 2 == 0:
+            print(int(i))
+            break
+elif a == 0:
+    print('0')
+else:
+    a = -a
+    while True:
+        i = i + 1
+        s = s + i
+        if s >= a and (s - a) % 2 == 0:
+            print(int(i))
+            break",True,0.5301,19.9401,7.778,12.1621,732,1172,0.013184,[],[]
+145961586,claude-sonnet-5,rules,"x = abs(int(input()))
+k = 0
+i = 1
+
+while k < x:
+    k += i
+    i += 1
+
+while (k - x) % 2 != 0:
+    k += i
+    i += 1
+
+print(i-1)",True,0.0385,0.2586,0.2586,0.0,0,0,0.0,"[""missing_abs_on_input""]",[]
+156190173,claude-sonnet-5,llm,"x = abs(int(input()))
+csc = []
+
+for i in range(0, 45000):
+    csc.append(i * (i + 1) // 2)
+
+def solve(csc, x):
+    for i in range(45000):
+        if x <= csc[i]:
+            diff = csc[i] - x
+            if diff % 2 == 0:
+                return i
+            elif (csc[i + 1] - x) % 2 == 0:
+                return i + 1
+            else:
+                return i + 2
+
+print(solve(csc, x))",True,0.4159,20.8796,3.1795,17.7001,806,1868,0.020292,[],[]
+156190914,claude-sonnet-5,llm,"x = abs(int(input()))
+csc = []
+
+for i in range(0, 45000):
+    csc.append(i * (i + 1) // 2)
+
+def solve(csc, x):
+    for i in range(45000 + 1):
+        if x == csc[i]:
+            return i
+        elif x < csc[i]:
+            diff = csc[i] - x
+            if diff % 2 == 0:
+                return i
+            elif (diff + i + 1) % 2 == 0:
+                return i + 1
+            else:
+                return i + 2
+
+print(solve(csc, x))",True,0.3462,30.2046,3.523,26.6816,845,2769,0.02938,[],[]
+160252586,claude-sonnet-5,llm,"step = 1
+ans = 0
+x = int(input())
+if x < 0:
+    x = -x
+while True:
+    if x <= 0 and (-x) % 2 == 0:
+        break
+    x -= step
+    step += 1
+    ans += 1
+print(ans)",True,0.4528,109.5093,65.1244,44.3849,707,4323,0.044644,[],[]
+168631062,claude-sonnet-5,llm,"x = abs(int(input()))
+n = 0
+s = 0
+while s < x or (s - x) % 2 != 0:
+    n += 1
+    s += n
+print(n)",True,0.7045,7.0471,5.5126,1.5345,681,104,0.002402,[],[]
+172428652,claude-sonnet-5,llm,"import math
+from math import sqrt
+x=int(input())
+if x<0:
+    x=-x
+ans=int(0)
+r=int((-1+sqrt(1+8*x))/2)+1
+for i in range(max(0,r-6),r+6,1):
+    if i*(i+1)/2>=x:
+        ans=i
+        break
+if (ans*(ans+1)//2-x)%2==1:
+    ans=ans+1
+if (ans*(ans+1)//2-x)%2==1:
+    ans=ans+1
+print(ans)",True,0.0071,11.3537,3.4857,7.868,800,739,0.00899,[],[]
+178458907,claude-sonnet-5,none,,False,,2.0662,0.5042,1.562,743,128,0.002766,[],[]
+214031173,claude-sonnet-5,llm,"x=abs(int(input()))
+k=1
+cc=0
+s=0
+while s<x or (s-x)%2!=0:
+    s+=k
+    k+=1
+    cc+=1
+print(cc)",True,0.5217,4.5789,0.2667,4.3122,692,448,0.005864,[],[]
+216531543,claude-sonnet-5,llm,"class Solve:
+
+    def __init__(self):
+        self.x = 0;
+        self.dem = 0;
+
+    def vao(self):
+        self.x = int(input());
+    
+    def lam(self):
+        tong = 0;
+        target = abs(self.x);
+        while tong < target or (tong - target) % 2 != 0:
+            self.dem += 1;
+            tong += self.dem;
+    
+    def ra(self):
+        print(self.dem);
+
+
+def main():
+    p = Solve();
+    p.vao();
+    p.lam();
+    p.ra();
+
+main();",True,0.4324,3.9324,0.784,3.1484,850,312,0.00482,[],[]
+216624206,claude-sonnet-5,llm,"import queue
+
+class Solve:
+
+    def __init__(self) -> None:
+        self.x = 0;
+        self.dem = 0;
+
+    def vao(self) -> None:
+        self.x = int(input());
+    
+    def lam(self) -> None:
+        tong = 0;
+        x_abs = abs(self.x);
+        # Vòng while lặp đến khi tìm được số có hiệu của số đó với x chia hết cho 2
+        # Biến tổng được tính bằng cách cộng các chỉ số của mỗi bước nhảy tiến cho đến khi thỏa mãn điều kiện
+        # Vậy khi thay 1 bước nhảy bất kỳ thành lùi thì tổng sẽ giảm đi một lượng là 2 * chỉ số của bước nhảy tương ứng
+        while(tong < x_abs or (tong - x_abs) % 2 != 0):
+            self.dem += 1;
+            tong += self.dem;
+    
+    def ra(self) -> None:
+        print(self.dem);
+
+
+def main():
+    p = Solve();
+    p.vao();
+    p.lam();
+    p.ra();
+
+main();",True,0.1064,49.171,45.071,4.1,985,454,0.00651,[],[]
+218033753,claude-sonnet-5,llm,"x = int(input())
+x = abs(x)
+n = 0
+s = 0
+while s < x or (s - x) % 2 != 0:
+    n += 1
+    s += n
+print(n)",True,5.7143,1.9708,0.0731,1.8977,629,146,0.002718,[],[]
+119556210,gpt-5.4-mini,llm,"def main():
+    x = abs(int(input()))
+    num = ans = 0
+
+    while num < x or (num - x) % 2 != 0:
+        ans += 1
+        num += ans
+
+    print(ans)
+
+if __name__ == ""__main__"":
+    main()",True,0.4493,97.3848,96.255,1.1298,531,75,0.000736,[],[]
+123564768,gpt-5.4-mini,rules,"x = int(input())
+if (x < 0):
+    x = -x
+if (x < 0):
+    print(0)
+s = 0
+j = 1
+y = 0
+
+while (s<x):
+    y=y+1;
+    s = s+j
+    j=j+1
+
+diff = s-x
+
+if(diff % 2 == 0):
+    print(y)
+elif((diff + j) % 2 == 0):
+    print(y+1)
+else:
+    print(y+2)",True,0.0099,2.4768,2.4768,0.0,0,0,0.0,"[""generic_flip_compare"", ""generic_flip_compare""]",[]
+127863850,gpt-5.4-mini,none,,False,,2.2085,0.6357,1.5728,540,121,0.00095,[],[]
+128057340,gpt-5.4-mini,none,,False,,71.2559,69.5103,1.7456,573,131,0.001019,[],[]
+134777504,gpt-5.4-mini,none,,False,,7.8426,6.7478,1.0948,475,68,0.000662,[],[]
+136178882,gpt-5.4-mini,llm,"import math
+x = abs(int(input()))
+nr = 0
+while(nr*(nr+1)/2 < x):
+	nr += 1
+while((nr*(nr+1)/2-x) % 2 == 1):
+	nr += 1
+print(nr)",True,0.0167,24.1631,22.6069,1.5562,439,67,0.000631,[],[]
+143315993,gpt-5.4-mini,llm,"n, i = abs(int(input())), 0
+while n > 0 or n % 2 == 1:
+    i += 1
+    n -= i
+print(i)",True,0.0541,11.5833,10.483,1.1003,476,47,0.000568,[],[]
+144626360,gpt-5.4-mini,llm,"a = abs(int(input()))
+s = 0
+i = 0
+while s < a or (s - a) % 2 != 0:
+    i = i + 1
+    s = s + i
+print(i)",True,0.7108,7.3834,6.4752,0.9082,537,58,0.000664,[],[]
+145961586,gpt-5.4-mini,rules,"x = abs(int(input()))
+k = 0
+i = 1
+
+while k < x:
+    k += i
+    i += 1
+
+while (k - x) % 2 != 0:
+    k += i
+    i += 1
+
+print(i-1)",True,0.0385,0.2535,0.2535,0.0,0,0,0.0,"[""abs_input_for_negative_targets""]",[]
+156190173,gpt-5.4-mini,none,,False,,3.865,2.6941,1.1709,581,142,0.001075,[],[]
+156190914,gpt-5.4-mini,none,,False,,4.9147,3.2841,1.6306,614,172,0.001234,[],[]
+160252586,gpt-5.4-mini,none,,False,,66.2335,65.1258,1.1077,514,86,0.000772,[],[]
+168631062,gpt-5.4-mini,llm,"x = int(input())
+x = abs(x)
+result = 0
+s = 0
+while s < x or (s - x) % 2 != 0:
+    result += 1
+    s += result
+print(result)",True,0.7045,6.5192,5.5977,0.9215,480,64,0.000648,[],[]
+172428652,gpt-5.4-mini,none,,False,,4.8972,3.8853,1.0119,570,133,0.001026,[],[]
+178458907,gpt-5.4-mini,none,,False,,1.4756,0.5449,0.9307,528,79,0.000751,[],[]
+214031173,gpt-5.4-mini,none,,False,,1.4174,0.2801,1.1373,492,78,0.00072,[],[]
+216531543,gpt-5.4-mini,none,,False,,2.0267,0.7215,1.3052,597,164,0.001186,[],[]
+216624206,gpt-5.4-mini,llm,"import queue
+
+class Solve:
+
+    def __init__(self) -> None:
+        self.x = 0;
+        self.dem = 0;
+
+    def vao(self) -> None:
+        self.x = abs(int(input()));
+    
+    def lam(self) -> None:
+        tong = 0;
+        while(tong < self.x or (tong - self.x) % 2 != 0):
+            self.dem += 1;
+            tong += self.dem;
+    
+    def ra(self) -> None:
+        print(self.dem);
+
+
+def main():
+    p = Solve();
+    p.vao();
+    p.lam();
+    p.ra();
+
+main();",True,0.0213,46.3027,45.1033,1.1994,664,140,0.001128,[],[]
+218033753,gpt-5.4-mini,llm,"x = abs(int(input()))
+n = 0
+s = 0
+while s < x or (s - x) % 2:
+    n += 1
+    s += n
+print(n)",True,4.8571,0.9463,0.071,0.8753,443,57,0.000589,[],[]

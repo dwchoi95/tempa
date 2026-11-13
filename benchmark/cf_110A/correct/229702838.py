@@ -1,0 +1,10 @@
+n = input()  # Read the input number as a string
+
+# Count the number of lucky digits (4 and 7) in the string
+lucky_count = n.count('4') + n.count('7')
+
+# Check if the count is a lucky number (4 or 7)
+if lucky_count == 4 or lucky_count == 7:
+    print("YES")
+else:
+    print("NO")

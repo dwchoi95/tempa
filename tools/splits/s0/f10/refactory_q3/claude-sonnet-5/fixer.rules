@@ -1,0 +1,193 @@
+rule membership_against_source_list
+symptoms: wrong
+match:
+    if $i not in $lst:
+        $acc:Name.append($i)
+where: inside("for $i in $lst: $B:Stmts")
+rewrite:
+    if $i not in $acc:
+        $acc.append($i)
+
+rule insert_zero_should_append
+symptoms: wrong
+match:
+    if $i not in $acc:
+        $acc.insert(0, $i)
+rewrite:
+    if $i not in $acc:
+        $acc.append($i)
+
+rule call_as_list_init
+symptoms: wrong, err:TypeError
+match: $acc:Name = $lst(0)
+rewrite: $acc = []
+
+rule return_inside_loop
+symptoms: wrong
+match:
+    for $i in $lst:
+        if $i not in $acc:
+            $acc.append($i)
+        return $acc
+rewrite:
+    for $i in $lst:
+        if $i not in $acc:
+            $acc.append($i)
+    return $acc
+
+rule append_of_remove_call
+symptoms: wrong
+match: $acc.append($lst.remove($i))
+rewrite: $acc.append($i)
+
+rule init_as_first_element
+symptoms: wrong
+match: $acc:Name = $lst[0]
+where: inside("for $e in $lst: $B:Stmts")
+rewrite: $acc = []
+
+rule init_as_first_element_tuple
+symptoms: wrong
+match: $acc:Name = ($lst[0],)
+where: inside("for $e in $lst: $B:Stmts")
+rewrite: $acc = []
+
+rule tuple_accum_should_be_list
+symptoms: wrong
+match: $acc += ($e,)
+rewrite: $acc += [$e]
+
+rule tuple_concat_assign_should_be_list
+symptoms: wrong
+match: $acc = $acc + ($e,)
+rewrite: $acc = $acc + [$e]
+
+rule plus_equals_bare_element
+symptoms: wrong
+match: $acc += $i
+where: inside("for $i in $lst: $B:Stmts")
+rewrite: $acc += [$i]
+
+rule plus_equals_bare_indexed_element
+symptoms: wrong
+match: $acc += $lst[$i]
+where: inside("for $i in range(len($lst)): $B:Stmts")
+rewrite: $acc += [$lst[$i]]
+
+rule wrong_count_condition_and_target
+symptoms: wrong
+match:
+    $acc:Name = []
+    for $i:Name in $lst:
+        if $lst.count($i) == 1:
+            $lst.append($i)
+    return $acc
+rewrite:
+    $acc = []
+    for $i in $lst:
+        if $i not in $acc:
+            $acc.append($i)
+    return $acc
+
+rule index_compare_accumulator_reconstruct
+symptoms: wrong
+match:
+    $a:Name = []
+    for $r:Name in range(len($lst) + 1):
+        if $r != $a:
+            $a += $r
+    return $a
+rewrite:
+    $a = []
+    for $r in $lst:
+        if $r not in $a:
+            $a += [$r]
+    return $a
+
+rule pop_while_iterating_range_over_list
+symptoms: wrong, err:TypeError
+match:
+    for $i in range($lst):
+        if $lst[$i] in $lst[:$i]+$lst[$i+1:]:
+            $lst.pop($i)
+    return $lst
+rewrite:
+    return [$lst[$i] for $i in range(len($lst)) if $lst[$i] not in $lst[:$i]]
+
+rule remove_while_iterating_with_typo
+symptoms: wrong, err:NameError
+match:
+    for $x in range(len($lst)):
+        if $lst[$x] in $lst[:$x] or $lst[$x] in $ls[$x+1:]:
+            $lst.remove($lst[$x])
+    return $lst
+rewrite:
+    new_list = []
+    for $x in range(len($lst)):
+        if $lst[$x] in $lst[:$x]:
+            new_list = new_list
+        else:
+            new_list = new_list + [$lst[$x]]
+    return new_list
+
+rule nested_index_rebuild_double_loop
+symptoms: wrong
+match:
+    $n:Name = len($lst)
+    for $i:Name in range($n):
+        for $j:Name in range($n):
+            if $lst[$i] == $lst[$j] and $i != $j:
+                $a:Name = $lst[:$j]+$lst[$n-$j:]
+            else:
+                continue
+    return $a
+rewrite:
+    new_list = []
+    for $i in range(len($lst)):
+        if $lst[$i] in $lst[:$i]:
+            new_list = new_list
+        else:
+            new_list = new_list + [$lst[$i]]
+    return new_list
+
+rule while_index_nonsense_no_return
+symptoms: wrong, err:TypeError
+match:
+    $n:Name = 0
+    while $n < len($lst):
+        $B:Stmts
+    pass
+rewrite:
+    new_list = []
+    for $x in $lst:
+        if $x not in new_list:
+            new_list.append($x)
+    return new_list
+
+rule while_index_rebuild_list_copy
+symptoms: wrong
+match:
+    $i:Name = 0
+    while $i < len($lst):
+        $B:Stmts
+    return $lst
+rewrite:
+    result = []
+    counter = 0
+    while counter < len($lst):
+        temp = $lst[counter]
+        if temp not in result:
+            result.append(temp)
+        counter = counter + 1
+    return result
+
+rule pairwise_tuple_accumulation_return
+symptoms: wrong
+match: return $d:Name
+where: inside("def $f($p): $B:Stmts") and some($B, "$a:Name += ($p2:Name[$j:Name],)") and $p2 == $p
+rewrite:
+    new_list = []
+    for $x in $p:
+        if $x not in new_list:
+            new_list.append($x)
+    return new_list

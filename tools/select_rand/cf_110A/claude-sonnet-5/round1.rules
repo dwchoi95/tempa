@@ -1,0 +1,71 @@
+rule count_equals_length_should_check_lucky_count
+symptoms: wrong
+match: $c == len($s)
+| len($s) == $c
+where: not match($c, "$lit:Const")
+rewrite: $c == 4 or $c == 7
+
+rule modulo_check_should_be_equality
+symptoms: wrong
+match: $c % 4 == 0 or $c % 7 == 0
+| $c % 7 == 0 or $c % 4 == 0
+rewrite: $c == 4 or $c == 7
+
+rule length_instead_of_lucky_digit_count
+symptoms: wrong
+match: len($n) == 4 or len($n) == 7
+| len($n) == 7 or len($n) == 4
+| len($n) == 4
+| len($n) == 7
+rewrite: sum(1 for c in $n if c in '47') in (4, 7)
+
+rule set_equality_instead_of_lucky_count
+symptoms: wrong
+match: set($s) == {'4', '7'}
+| set($s) == {'7', '4'}
+| set($s) == {'4', '7'} or set($s) == {'7', '4'}
+| set($s) == {'7', '4'} or set($s) == {'4', '7'}
+| $v == {'4', '7'}
+| $v == {'7', '4'}
+rewrite: sum(1 for c in $s if c in '47') in (4, 7)
+| sum(1 for c in $s if c in '47') in (4, 7)
+| sum(1 for c in $s if c in '47') in (4, 7)
+| sum(1 for c in $s if c in '47') in (4, 7)
+| sum(1 for c in $v if c in '47') in (4, 7)
+| sum(1 for c in $v if c in '47') in (4, 7)
+
+rule mutually_exclusive_and_should_be_or
+symptoms: wrong
+match: $x == $a and $x == $b
+where: $a != $b
+rewrite: $x == $a or $x == $b
+
+rule mutually_exclusive_or_should_be_and
+symptoms: wrong
+match: $x != $a or $x != $b
+where: $a != $b
+rewrite: $x != $a and $x != $b
+
+rule bare_literal_in_or_disjunct
+symptoms: wrong
+match: $x == $a or $b:Str
+rewrite: $x == $a or $x == $b
+
+rule bare_literal_in_or_disjunct_notequal
+symptoms: wrong
+match: $x != $a or $b:Str
+rewrite: $x != $a and $x != $b
+
+rule range_off_by_one_upper
+symptoms: wrong
+match: range($a, $b - 1)
+rewrite: range($a, $b)
+
+rule zero_count_treated_as_lucky
+symptoms: wrong
+match: return True
+where: inside("def $f($n): $B:Stmts") and prev("while $n > 0: $W:Stmts")
+rewrite:
+    if $n == 0:
+        return False
+    return True

@@ -1,0 +1,106 @@
+rule abs_input_for_jumping_jack
+symptoms: wrong
+match: x = int(input())
+where: not some($_, "abs(int(input()))") and not some($_, "abs(x)") and inside("$_")
+rewrite: x = abs(int(input()))
+
+rule abs_existing_input_var_for_jumping_jack
+symptoms: wrong
+match: x = int(input())
+where: some($_, "x = int(input())") and not some($_, "abs(int(input()))")
+rewrite: x = abs(int(input()))
+
+rule zero_case_before_formula
+symptoms: wrong
+match:
+    x = abs(int(input()))
+    if x == 0:
+        print(0)
+    else:
+        $B:Stmts
+rewrite:
+    x = abs(int(input()))
+    if x == 0:
+        print(0)
+    else:
+        $B
+
+rule use_minimum_jumps_formula_from_triangular_sum
+symptoms: wrong
+match:
+    x = abs(int(input()))
+    if x == 0:
+        print(0)
+    else:
+        $B:Stmts
+where: some($B, "while True:") or some($B, "while num != x:") or some($B, "while(b-a>1):")
+rewrite:
+    x = abs(int(input()))
+    if x == 0:
+        print(0)
+    else:
+        n = (-1 + pow(1 + 8 * x, 0.5)) / 2
+        k = ceil(n)
+        if (k * (k + 1) // 2 - x) % 2 == 0:
+            print(k)
+        elif ((k + 1) * (k + 2) // 2 - x) % 2 == 0:
+            print(k + 1)
+        else:
+            print(k + 2)
+
+rule fix_binary_search_triangular_formula_parity
+symptoms: wrong
+match:
+    x = abs(int(input()))
+    if x == 0:
+        print(0)
+    else:
+        n = (-1+pow(1+4*2*x, 0.5))/2
+        ceil_n = ceil(n)
+        if check(calc_sum(ceil_n), x):
+            print(ceil_n)
+        else:
+            if check(calc_sum(ceil_n + 1), x):
+                print(ceil_n + 1)
+            else:
+                print(ceil_n + 2)
+rewrite:
+    x = abs(int(input()))
+    if x == 0:
+        print(0)
+    else:
+        n = (-1 + pow(1 + 8 * x, 0.5)) / 2
+        ceil_n = ceil(n)
+        if check(calc_sum(ceil_n), x):
+            print(ceil_n)
+        elif check(calc_sum(ceil_n + 1), x):
+            print(ceil_n + 1)
+        else:
+            print(ceil_n + 2)
+
+rule strict_inequality_to_non_strict
+symptoms: wrong
+match: $a $o:Cmp $b
+where: text($o) == "<"
+rewrite: $a <= $b
+
+rule strict_greater_to_non_strict
+symptoms: wrong
+match: $a $o:Cmp $b
+where: text($o) == ">"
+rewrite: $a >= $b
+
+rule off_by_one_in_jump_loop_condition
+symptoms: wrong
+match: while num != x:
+rewrite: while num != x and ans < 1000000000:
+
+rule fix_return_minimum_of_two_candidates
+symptoms: wrong
+match:
+    if a>=b:
+        print(b)
+    elif a<b:
+        print(a)
+rewrite:
+    print(min(a, b))

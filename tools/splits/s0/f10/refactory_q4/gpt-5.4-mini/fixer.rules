@@ -1,0 +1,144 @@
+rule fix_max_age_append_remove
+symptoms: wrong
+match:
+    while $lst:
+        $max = $lst[0]
+        for $v in $lst:
+            if $v[1] $o:Cmp $max[1]:
+                $max = $v
+        $a.remove($x)
+        $b.append($y)
+where: $x == $max and $y == $max and text($o) in {"<", "<="}
+rewrite:
+    while $lst:
+        $max = $lst[0]
+        for $v in $lst:
+            if $v[1] > $max[1]:
+                $max = $v
+        $b.append($max)
+        $a.remove($max)
+
+rule fix_max_age_return_input_or_partial
+symptoms: wrong
+match:
+    while $lst:
+        $max = $lst[0]
+        for $v in $lst:
+            if $v[1] $o:Cmp $max[1]:
+                $max = $v
+        $out.append($max)
+        $lst.remove($max)
+    return $r
+where: text($o) in {"<", "<="} and ($r == $lst or $r == $out)
+rewrite:
+    while $lst:
+        $max = $lst[0]
+        for $v in $lst:
+            if $v[1] > $max[1]:
+                $max = $v
+        $out.append($max)
+        $lst.remove($max)
+    return $out
+
+rule fix_max_age_return_list_name
+symptoms: wrong
+match:
+    while $lst:
+        $max = $lst[0]
+        for $v in $lst:
+            if $v[1] $o:Cmp $max[1]:
+                $max = $v
+        $out.append($max)
+        $lst.remove($max)
+    return $r
+where: text($o) in {"<", "<="} and $r != $out and $r != $lst
+rewrite:
+    while $lst:
+        $max = $lst[0]
+        for $v in $lst:
+            if $v[1] > $max[1]:
+                $max = $v
+        $out.append($max)
+        $lst.remove($max)
+    return $out
+
+rule fix_strict_age_comparison
+symptoms: wrong
+match: if $a[1] $o:Cmp $b[1]:
+where: text($o) in {"<=", ">=", "==", "!="}
+rewrite: if $a[1] > $b[1]:
+
+rule fix_max_age_assignment_from_age
+symptoms: wrong
+match:
+    $m = $lst[0][1]
+    for $v in $lst:
+        if $v[1] $o:Cmp $m:
+            $m = $v[1]
+where: text($o) in {"<", "<="}
+rewrite:
+    $m = $lst[0]
+    for $v in $lst:
+        if $v[1] > $m[1]:
+            $m = $v
+
+rule fix_append_single_tuple
+symptoms: wrong
+match:
+    $out += $x
+    $lst.remove($x)
+where: kind($x) == "Name" or kind($x) == "Subscript" or kind($x) == "Call" or kind($x) == "Tuple"
+rewrite:
+    $out.append($x)
+    $lst.remove($x)
+
+rule fix_return_input_list_when_len_one
+symptoms: wrong
+match:
+    if len($lst) == 1:
+        return $lst
+where: inside("def $f($*ps): $B:Stmts")
+rewrite:
+    if len($lst) == 1:
+        return $lst
+    else:
+        pass
+
+rule fix_bubble_sort_direction
+symptoms: wrong
+match:
+    for $i in range(len($lst)-1):
+        for $j in range(len($lst)-1-$i):
+            if $lst[$j][1] $o:Cmp $lst[$j+1][1]:
+                $a = $lst[$j]
+                $lst[$j] = $lst[$j+1]
+                $lst[$j+1] = $a
+where: text($o) in {">", ">="}
+rewrite:
+    for $i in range(len($lst)-1):
+        for $j in range(len($lst)-1-$i):
+            if $lst[$j][1] < $lst[$j+1][1]:
+                $a = $lst[$j]
+                $lst[$j] = $lst[$j+1]
+                $lst[$j+1] = $a
+
+rule fix_bubble_sort_return_and_loop
+symptoms: wrong
+match:
+    for $i in range(len($lst)-1):
+        if $lst[$i+1][1] > $lst[$i][1]:
+            $a = $lst[$i]
+            $lst[$i] = $lst[$i+1]
+            $lst[$i+1] = $a
+    return $lst
+rewrite:
+    swap = True
+    while swap:
+        swap = False
+        for $i in range(len($lst)-1):
+            if $lst[$i][1] < $lst[$i+1][1]:
+                $a = $lst[$i]
+                $lst[$i] = $lst[$i+1]
+                $lst[$i+1] = $a
+                swap = True
+    return $lst

@@ -1,0 +1,293 @@
+rule fix_return_first_k_from_descending_sort
+symptoms: wrong
+match:
+    return $X[:$K]
+where:
+    inside("def $F($*args, $K, $*rest): $B:Stmts") and
+    match($X, "sort($Y)") or match($X, "$Y[::-1]") or match($X, "$Y.reverse()") or match($X, "$Y") and some($B, "return $X[:$K]")
+rewrite:
+    return $X[:$K]
+
+rule fix_off_by_one_slice_k_plus_one
+symptoms: wrong
+match:
+    return $X[:$K + 1]
+where:
+    inside("def $F($*args, $K, $*rest): $B:Stmts")
+rewrite:
+    return $X[:$K]
+
+rule fix_off_by_one_slice_k_minus_one
+symptoms: wrong
+match:
+    return $X[:$K - 1]
+where:
+    inside("def $F($*args, $K, $*rest): $B:Stmts")
+rewrite:
+    return $X[:$K]
+
+rule fix_return_sorted_prefix_from_full_result
+symptoms: wrong
+match:
+    return $X[:$K]
+where:
+    inside("def $F($*args, $K, $*rest): $B:Stmts") and
+    some($B, "while $C:\n    $P") and
+    some($B, "sort.append($V)") or some($B, "result.append($V)") or some($B, "newlist.append($V)")
+rewrite:
+    return $X[:$K]
+
+rule fix_wrong_return_name_newlst
+symptoms: wrong
+match:
+    return $N
+where:
+    inside("def $F($*args): $B:Stmts") and some($B, "newlist = []") and text($N) == "new_lst"
+rewrite:
+    return newlist
+
+rule fix_wrong_return_name_newlst2
+symptoms: wrong
+match:
+    return $N
+where:
+    inside("def $F($*args): $B:Stmts") and some($B, "new_lst = []") and text($N) == "newlist"
+rewrite:
+    return new_lst
+
+rule fix_wrong_return_name_lst
+symptoms: wrong
+match:
+    return $N
+where:
+    inside("def $F($*args): $B:Stmts") and some($B, "sort = []") and text($N) == "lst"
+rewrite:
+    return sort
+
+rule fix_append_max_loop_to_pop_max
+symptoms: wrong
+match:
+    while $C:
+        $P
+        $A.append(max($L))
+        $L.remove(max($L))
+        $Q
+where:
+    $A == $Q or true
+rewrite:
+    while $C:
+        $P
+        $A.append(max($L))
+        $L.remove(max($L))
+        $Q
+
+rule fix_append_then_remove_wrong_variable
+symptoms: wrong
+match:
+    $L.remove($V1)
+    $A.append($V2)
+where:
+    $V1 == $V2
+rewrite:
+    $A.append($V2)
+    $L.remove($V1)
+
+rule fix_append_max_instead_of_remove_result
+symptoms: wrong
+match:
+    $A.append(max($L))
+where:
+    inside("def top_k($*args): $B:Stmts")
+rewrite:
+    $A.append(max($L))
+    $L.remove(max($L))
+
+rule fix_pop_max_call
+symptoms: wrong, err:TypeError
+match:
+    $L.pop(max($L))
+rewrite:
+    $L.remove(max($L))
+
+rule fix_return_false_on_too_large_k
+symptoms: wrong
+match:
+    if $K > len($L):
+        return False
+where:
+    inside("def top_k($L, $K): $B:Stmts")
+rewrite:
+    if $K > len($L):
+        return $L
+
+rule fix_k_eq_1_return_list
+symptoms: wrong
+match:
+    elif $K == 1:
+        return $L
+where:
+    inside("def top_k($L, $K): $B:Stmts")
+rewrite:
+    elif $K == 1:
+        return [$L[0]]
+
+rule fix_recursive_topk_missing_accumulation
+symptoms: wrong
+match:
+    return top_k($L, $K - 1)
+where:
+    inside("def top_k($L, $K): $B:Stmts") and some($B, "$X.append($V)")
+rewrite:
+    return [$V] + top_k($L, $K - 1)
+
+rule fix_recursive_topk_wrong_return_var
+symptoms: wrong
+match:
+    return $R
+where:
+    inside("def top_k($L, $K): $B:Stmts") and some($B, "$X.append($V)") and text($R) == "l"
+rewrite:
+    return l
+
+rule fix_off_by_one_loop_range_k_minus_one
+symptoms: wrong
+match:
+    for $I in range($K - 1):
+        $B:Stmts
+where:
+    inside("def top_k($*args, $K, $*rest): $B0:Stmts")
+rewrite:
+    for $I in range($K):
+        $B
+
+rule fix_off_by_one_loop_range_k_plus_one
+symptoms: wrong
+match:
+    for $I in range($K + 1):
+        $B:Stmts
+where:
+    inside("def top_k($*args, $K, $*rest): $B0:Stmts")
+rewrite:
+    for $I in range($K):
+        $B
+
+rule fix_while_len_values_lt_k_to_le
+symptoms: wrong
+match:
+    while len($V) < $K:
+        $B:Stmts
+where:
+    inside("def top_k($*args, $K, $*rest): $B0:Stmts")
+rewrite:
+    while len($V) < $K:
+        $B
+
+rule fix_while_len_lst_ge_len_lst_minus_k
+symptoms: wrong
+match:
+    while len($L) >= len($L) - $K:
+        $B:Stmts
+where:
+    inside("def top_k($L, $K): $B:Stmts")
+rewrite:
+    while len($L) > 0:
+        $B
+
+rule fix_sort_list_call_missing_definition
+symptoms: wrong, err:NameError
+match:
+    $A = sort_list($L)
+where:
+    inside("def top_k($L, $K): $B:Stmts") and not some($B, "def sort_list($*xs): $T:Stmts")
+rewrite:
+    $A = sorted($L, reverse=True)
+
+rule fix_sort_list_call_to_sort
+symptoms: wrong, err:NameError
+match:
+    $A = sort_list($L)
+where:
+    inside("def top_k($L, $K): $B:Stmts") and some($B, "def sort($*xs): $T:Stmts")
+rewrite:
+    $A = sort($L)
+
+rule fix_sort_reverse_then_slice
+symptoms: wrong
+match:
+    $L = $S
+    $L.reverse()
+    return $L[:$K]
+where:
+    inside("def top_k($L, $K): $B:Stmts")
+rewrite:
+    $L = $S
+    $L.reverse()
+    return $L[:$K]
+
+rule fix_remove_then_append_same_max
+symptoms: wrong
+match:
+    $L.remove($V)
+    $A.append($V)
+where:
+    inside("def top_k($L, $K): $B:Stmts")
+rewrite:
+    $A.append($V)
+    $L.remove($V)
+
+rule fix_return_current_list_after_sorting_work
+symptoms: wrong
+match:
+    return $L[:$K]
+where:
+    inside("def top_k($L, $K): $B:Stmts") and some($B, "sort.append($V)") and not some($B, "return sort[:$K]")
+rewrite:
+    return sort[:$K]
+
+rule fix_pop_append_from_max_loop
+symptoms: wrong
+match:
+    while $C:
+        $B1:Stmts
+        $L.remove($M)
+        $A.append($M)
+        $B2:Stmts
+where:
+    inside("def top_k($L, $K): $B:Stmts")
+rewrite:
+    while $C:
+        $B1
+        $A.append($M)
+        $L.remove($M)
+        $B2
+
+rule fix_return_after_k_items
+symptoms: wrong
+match:
+    if len($R) == $K:
+        return $R
+where:
+    inside("def top_k($*args, $K, $*rest): $B:Stmts")
+rewrite:
+    if len($R) == $K:
+        break
+
+rule fix_return_list_when_k_zero
+symptoms: wrong
+match:
+    elif $K == 0:
+        return $L
+where:
+    inside("def top_k($L, $K): $B:Stmts")
+rewrite:
+    elif $K == 0:
+        return []
+
+rule fix_drop_wrong_slice_from_reverse_sorted_result
+symptoms: wrong
+match:
+    return $X[:$K - 1]
+where:
+    inside("def top_k($*args, $K, $*rest): $B:Stmts")
+rewrite:
+    return $X[:$K]

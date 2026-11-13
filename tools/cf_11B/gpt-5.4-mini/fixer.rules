@@ -1,0 +1,129 @@
+rule abs_input_and_parity_loop
+symptoms: wrong
+match:
+    $x = int(input())
+    $s = 0
+    $n = 0
+    while $s != $x:
+        $n += 1
+        if $s + $n <= $x:
+            $s += $n
+        else:
+            $s -= $n
+    print($n)
+where:
+    text($x) == "x"
+rewrite:
+    x = abs(int(input()))
+    jumps = 0
+    pos = 0
+    while pos < x or (pos - x) % 2 != 0:
+        jumps += 1
+        pos += jumps
+    print(jumps)
+
+rule map_input_to_abs_int
+symptoms: wrong
+match:
+    $x = map(int,input())
+    print($x)
+rewrite:
+    x = abs(int(input()))
+    jumps = 0
+    pos = 0
+    while pos < x or (pos - x) % 2 != 0:
+        jumps += 1
+        pos += jumps
+    print(jumps)
+
+rule pos1_branch_to_parity_loop
+symptoms: wrong
+match:
+    $x = int(input())
+    $count = 0
+    $pos = 0
+    $pos1 = 0
+    while $pos != $x:
+        $count += 1
+        $pos1 = $pos + $count
+        if $pos1 < $x:
+            $pos = $pos + $count
+        elif $pos1 > $x:
+            $pos = $pos - $count
+        elif $pos1 == $x:
+            $pos = $pos + $count
+    print($count)
+rewrite:
+    x = abs(int(input()))
+    jumps = 0
+    pos = 0
+    while pos < x or (pos - x) % 2 != 0:
+        jumps += 1
+        pos += jumps
+    print(jumps)
+
+rule abs_and_formula_to_parity_loop
+symptoms: wrong
+match:
+    $a = int(input())
+    $n = 1
+    while True:
+        if $a == 0:
+            print(0)
+            break
+        elif $a > 0:
+            if ($n*$n+$n)/2 < $a:
+                $n += 1
+            elif ($n*$n+$n)/2 == $a:
+                print(int($n))
+                break
+            elif ($n*$n+$n)/2 > $a:
+                $c = int($n+((($n*$n+$n)/2)-$a)*2)
+                $d = int($n-1+($a-($n*($n-1))/2)*2)
+                print(min($c, $d))
+                break
+        elif $a < 0:
+            $a = abs($a)
+            if ($n*$n+$n)/2 < $a:
+                $n += 1
+            elif ($n*$n+$n)/2 == $a:
+                print(int($n))
+                break
+            elif ($n*$n+$n)/2 > $a:
+                $c = int($n+((($n*$n+$n)/2)-$a)*2)
+                $d = int($n-1+($a-($n*($n-1))/2)*2)
+                print(min($c, $d))
+                break
+rewrite:
+    x = abs(int(input()))
+    jumps = 0
+    pos = 0
+    while pos < x or (pos - x) % 2 != 0:
+        jumps += 1
+        pos += jumps
+    print(jumps)
+
+rule comparison_flip_less_to_leq
+symptoms: wrong
+match: $a $o:Cmp $b
+where: text($o) == "<"
+rewrite: $a <= $b
+
+rule comparison_flip_greater_to_geq
+symptoms: wrong
+match: $a $o:Cmp $b
+where: text($o) == ">"
+rewrite: $a >= $b
+
+rule wrong_return_name_or_length
+symptoms: wrong
+match: print($x)
+where: kind($x) == "Call" and some($x, "map(int, input())")
+rewrite:
+    x = abs(int(input()))
+    jumps = 0
+    pos = 0
+    while pos < x or (pos - x) % 2 != 0:
+        jumps += 1
+        pos += jumps
+    print(jumps)

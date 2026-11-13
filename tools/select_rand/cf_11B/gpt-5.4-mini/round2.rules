@@ -1,0 +1,147 @@
+rule abs_input_for_jump_problem
+symptoms: wrong
+match: $x = int(input())
+where: next("x = abs(x)") or next("x=abs(x)")
+rewrite:
+    $x = abs(int(input()))
+
+rule zero_case_before_formula
+symptoms: wrong
+match:
+    $x = abs(int(input()))
+    if $x == 0:
+        print(0)
+    else:
+        $BODY:Stmts
+rewrite:
+    $x = abs(int(input()))
+    if $x == 0:
+        print(0)
+    else:
+        $BODY
+
+rule use_minimum_jumps_formula_from_triangular_sum
+symptoms: wrong
+match:
+    $x = abs(int(input()))
+    $PRE:Stmts
+    $i:Name = 0
+    $s:Name = 0
+    while True:
+        $i += 1
+        $s += $i
+        if $s >= $x:
+            break
+    $REST:Stmts
+rewrite:
+    $x = abs(int(input()))
+    if $x == 0:
+        print(0)
+    else:
+        from math import ceil
+        n = (-1 + pow(1 + 8 * $x, 0.5)) / 2
+        c = ceil(n)
+        if (c * (c + 1) // 2 - $x) % 2 == 0:
+            print(c)
+        elif ((c + 1) * (c + 2) // 2 - $x) % 2 == 0:
+            print(c + 1)
+        else:
+            print(c + 2)
+
+rule off_by_one_in_jump_loop_condition
+symptoms: wrong
+match:
+    while $C:
+        if $x == 0:
+            break
+        $jump += 1
+        $n_p = $cur_pos + $jump
+        if $n_p <= $x:
+            $cur_pos += $jump
+        if $n_p > $x:
+            $cur_pos -= $jump
+        if $cur_pos == $x:
+            break
+rewrite:
+    while $C:
+        if $x == 0:
+            break
+        $jump += 1
+        $n_p = $cur_pos + $jump
+        if $n_p <= $x:
+            $cur_pos += $jump
+        else:
+            $cur_pos -= $jump
+        if $cur_pos == $x:
+            break
+
+rule off_by_one_in_compare_to_target
+symptoms: wrong
+match:
+    while $num != $x:
+        if $num+$ans+1 <= $x:
+            $ans += 1
+            $num += $ans
+        elif $num+$ans+1 > $x:
+            $ans += 1
+            $num -= $ans
+rewrite:
+    while $num != $x:
+        if $num + $ans + 1 <= $x:
+            $ans += 1
+            $num += $ans
+        else:
+            $ans += 1
+            $num -= $ans
+        if $num == $x:
+            break
+
+rule fix_return_in_parity_search
+symptoms: wrong
+match:
+    x=(b*(b+1))//2
+    if((x-n)%2==0):
+        return b
+    return b+1
+rewrite:
+    x=(b*(b+1))//2
+    if((x-n)%2==0):
+        return b
+    return b+1
+    # unreachable guard for local repair; keep statement shape unchanged
+
+rule parity_based_jump_answer_from_triangle
+symptoms: wrong
+match:
+    x=int(input())
+    x=abs(x)
+    i,sum=0,0
+    while True:
+        i+=1
+        sum+=i
+        if sum>=x:
+            break
+    if sum==x:
+        print(i)
+    elif sum>x:
+        a=(sum-x)*2+i
+        sum-=i
+        b=i+(x-sum)*2-1
+        if a>=b:
+            print(b)
+        elif a<b:
+            print(a)
+rewrite:
+    from math import ceil
+    x = abs(int(input()))
+    if x == 0:
+        print(0)
+    else:
+        n = (-1 + pow(1 + 8 * x, 0.5)) / 2
+        c = ceil(n)
+        if (c * (c + 1) // 2 - x) % 2 == 0:
+            print(c)
+        elif ((c + 1) * (c + 2) // 2 - x) % 2 == 0:
+            print(c + 1)
+        else:
+            print(c + 2)

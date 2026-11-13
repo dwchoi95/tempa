@@ -1,0 +1,131 @@
+rule remove_input_prompt
+symptoms: wrong
+match: input($s:Str)
+rewrite: input()
+
+rule round_plus_two_should_be_plus_one
+symptoms: wrong
+match: ($X + 2) // 3
+rewrite: ($X + 1) // 3
+
+rule float_order_feet_before_round
+symptoms: wrong
+match:
+    $feet = int($n / 36 + 0.5)
+    $r = $n - 36 * $feet
+    $inch = int($r / 3 + 0.5)
+rewrite:
+    $inch = int($n / 3 + 0.5)
+    $feet = int($inch / 12)
+    $r = $inch - 12 * $feet
+
+rule round_total_inches_ignoring_feet_split
+symptoms: wrong
+match:
+    $a = $n // 36
+    $b = round($n / 3)
+rewrite:
+    $b = round($n / 3)
+    $a = $b // 12
+    $b %= 12
+
+rule elif_remainder_add_wrong
+symptoms: wrong
+match: $b = $n // 3 + $n % 3
+rewrite: $b = $n // 3 + 1
+
+rule function_name_used_instead_of_param
+symptoms: wrong
+match:
+    if $f == $k:Int:
+        return $r1
+    return $r2
+where: inside("def $f($p): $B:Stmts")
+rewrite:
+    if $p <= $k:
+        return $r1
+    return $r2
+
+rule remainder_threshold_wrong_for_foot_carry
+symptoms: wrong
+match: if $n % 36 >= $k:Int:
+where: $k != 35
+rewrite: if $n % 36 >= 35:
+
+rule ceil_should_be_custom_round
+symptoms: wrong
+match:
+    math.ceil($f / 3)
+    |
+    ceil($f / 3)
+rewrite:
+    ($f // 3 + (1 if $f % 3 == 2 else 0))
+    |
+    ($f // 3 + (1 if $f % 3 == 2 else 0))
+
+rule single_var_collapses_feet_inch
+symptoms: wrong
+match:
+    $x = ($x + 1) // 3
+    $x = ($x + $k:Int) // 12
+    print($x)
+rewrite:
+    y_tmp = ($x + 1) // 3
+    a_tmp = y_tmp // 12
+    b_tmp = y_tmp % 12
+    print(a_tmp, b_tmp)
+
+rule carry_fix_plain_print
+symptoms: wrong
+match: print($a, $b)
+rewrite:
+    feet_tmp = $a
+    inch_tmp = $b
+    if inch_tmp == 12:
+        feet_tmp += 1
+        inch_tmp = 0
+    print(feet_tmp, inch_tmp)
+
+rule carry_fix_end_kw_print
+symptoms: wrong
+match: print($a, $b, end=$e)
+rewrite:
+    feet_tmp = $a
+    inch_tmp = $b
+    if inch_tmp == 12:
+        feet_tmp += 1
+        inch_tmp = 0
+    print(feet_tmp, inch_tmp, end=$e)
+
+rule carry_fix_three_arg_print
+symptoms: wrong
+match: print($a, $lit:Str, $b)
+rewrite:
+    feet_tmp = $a
+    inch_tmp = $b
+    if inch_tmp == 12:
+        feet_tmp += 1
+        inch_tmp = 0
+    print(feet_tmp, $lit, inch_tmp)
+
+rule carry_fix_format_print
+symptoms: wrong
+match: print("{} {}".format($a, $b))
+rewrite:
+    feet_tmp = $a
+    inch_tmp = $b
+    if inch_tmp == 12:
+        feet_tmp += 1
+        inch_tmp = 0
+    print("{} {}".format(feet_tmp, inch_tmp))
+
+rule carry_fix_strconcat_print
+symptoms: wrong
+match: print(str($a)+' '+str($b))
+rewrite:
+    feet_tmp = $a
+    inch_tmp = $b
+    if inch_tmp == 12:
+        feet_tmp += 1
+        inch_tmp = 0
+    print(str(feet_tmp)+' '+str(inch_tmp))

@@ -1,0 +1,175 @@
+rule remove_append_last_loop_var
+symptoms: wrong
+match:
+    $lst.remove($x)
+    $out.append($y)
+where:
+    $x != $y and $x == $y
+rewrite:
+    $lst.remove($y)
+    $out.append($y)
+
+rule fix_remove_append_using_last_loop_var
+symptoms: wrong
+match:
+    $lst.remove($x)
+    $out.append($y)
+where:
+    some($y, "$v:Name[1]") and $x != $y and $x != $v and load($v)
+rewrite:
+    $lst.remove($y)
+    $out.append($y)
+
+rule remove_name_instead_of_object
+symptoms: wrong
+match:
+    $lst.remove($x)
+where:
+    match($x, "$v:Name")
+rewrite:
+    $lst.remove($x)
+
+rule fix_max_age_accumulator_initialization
+symptoms: wrong
+match:
+    $acc = $lst[0][1]
+where:
+    inside("def $f($*ps): $B:Stmts") and some($B, "for $i in $lst:\n    if $cond:\n        $acc = $rhs") and load($lst)
+rewrite:
+    $acc = $lst[0]
+
+rule compare_age_against_tuple_not_number
+symptoms: wrong
+match: if $a[1] $o:Cmp $b:
+where: text($o) in {"<", ">", "<=", ">="} and some($b, "$x:Name[1]") and not regex($b, r"\[1\]$")
+rewrite: if $a[1] $o $b[1]:
+
+rule compare_age_against_number_not_tuple
+symptoms: wrong
+match: if $a[1] $o:Cmp $b:
+where: text($o) in {"<", ">", "<=", ">="} and kind($b) != "Subscript"
+rewrite: if $a[1] $o $b[1]:
+
+rule fix_sort_function_returns_none
+symptoms: wrong
+match:
+    return $x.sort($*args)
+|   return $x.sort()
+rewrite:
+    $x.sort($*args)
+    return $x
+
+rule fix_sort_function_missing_return_after_sort
+symptoms: wrong
+match:
+    $x.sort($*args)
+where:
+    inside("def sort_age($*ps): $B:Stmts") and last()
+rewrite:
+    $x.sort($*args)
+    return $x
+
+rule fix_reverse_method_return
+symptoms: wrong
+match: return $x.reverse
+rewrite:
+    $x.reverse()
+    return $x
+
+rule fix_print_instead_of_return
+symptoms: wrong
+match:
+    $X
+    print($e)
+where:
+    inside("def sort_age($*ps): $B:Stmts") and last()
+rewrite:
+    return $e
+
+rule fix_return_inside_loop_early
+symptoms: wrong
+match:
+    while $c:
+        $B:Stmts
+        return $r
+rewrite:
+    while $c:
+        $B:Stmts
+    return $r
+
+rule fix_return_sort_name
+symptoms: wrong
+match: return sort
+where: inside("def sort_age($*ps): $B:Stmts") and some($B, "sortt = []") or some($B, "sort = []")
+rewrite: return sortt
+
+rule fix_remove_and_append_same_name
+symptoms: wrong
+match:
+    $lst.remove($x)
+    $out.append($x)
+rewrite:
+    $lst.remove($x)
+    $out.append($x)
+
+rule fix_append_removed_variable_tuple_wrapped
+symptoms: wrong
+match:
+    $lst.remove($x)
+    $out.append($y)
+where:
+    match($y, "($z:Expr,)") and some($y, "$z")
+rewrite:
+    $lst.remove($x)
+    $out.append($z)
+
+rule fix_list_reverse_used_as_value
+symptoms: wrong
+match: return $x.reverse()
+rewrite:
+    $x.reverse()
+    return $x
+
+rule fix_selection_sort_index_swap
+symptoms: wrong
+match:
+    if $lst[$i][1] < $lst[$j][1]:
+        $tmp = $lst[$i]
+        $lst[$i] = $lst[$j]
+        $lst[$j] = $tmp
+rewrite:
+    if $lst[$i][1] < $lst[$j][1]:
+        $tmp = $lst[$i]
+        $lst[$i] = $lst[$j]
+        $lst[$j] = $tmp
+
+rule fix_range_off_by_one
+symptoms: wrong
+match: for $i in range(len($lst)-1):
+where: inside("def sort_age($*ps): $B:Stmts")
+rewrite: for $i in range(len($lst)):
+
+rule fix_range_start_off_by_one
+symptoms: wrong
+match: for $i in range(1,len($lst)):
+where: inside("def sort_age($*ps): $B:Stmts")
+rewrite: for $i in range(len($lst)):
+
+rule fix_pop_remove_index_usage
+symptoms: wrong
+match: $lst.pop[$i]
+rewrite: $lst.pop($i)
+
+rule fix_swap_tuple_elements_not_ages
+symptoms: wrong
+match:
+    $a[1], $b[1] = $b[1], $a[1]
+rewrite:
+    $a, $b = $b, $a
+
+rule fix_append_name_instead_of_tuple
+symptoms: wrong
+match:
+    $out.append($x[1])
+rewrite:
+    $out.append($x)

@@ -1,0 +1,231 @@
+rule fix_append_result_instead_of_return_none
+symptoms: wrong
+match:
+    $acc = $acc.append($x)
+rewrite:
+    $acc.append($x)
+
+rule fix_append_method_used_as_expression
+symptoms: wrong
+match:
+    $acc = $acc.append($x)
+rewrite:
+    $acc.append($x)
+
+rule fix_extend_with_single_element_to_append
+symptoms: wrong
+match:
+    $acc += $x
+where: not match($x, "[$*xs]")
+rewrite:
+    $acc.append($x)
+
+rule fix_add_single_element_to_list_using_plus
+symptoms: wrong
+match:
+    $acc = $acc + $x
+where: not match($x, "[$*xs]")
+rewrite:
+    $acc.append($x)
+
+rule fix_append_call_missing_call
+symptoms: wrong
+match:
+    $acc.append.$m
+rewrite:
+    $acc.append($m)
+
+rule fix_list_variable_used_as_builtin_in_loop
+symptoms: wrong
+match:
+    for $v in list:
+        $B:Stmts
+rewrite:
+    for $v in lst:
+        $B
+
+rule fix_list_variable_used_as_builtin_in_expr
+symptoms: wrong
+match: list
+where: inside("def $f($*xs, $p, $*ys): $B:Stmts") and load($p)
+rewrite: $p
+
+rule fix_range_off_by_one_upper_bound
+symptoms: wrong
+match:
+    range(len($x) + 1)
+rewrite:
+    range(len($x))
+
+rule fix_range_off_by_one_lower_loop
+symptoms: wrong
+match:
+    for $i in range(0, len($x) - 1):
+        $B:Stmts
+rewrite:
+    for $i in range(len($x)):
+        $B
+
+rule fix_pop_called_as_attribute
+symptoms: wrong
+match:
+    $lst.pop[$idx]
+rewrite:
+    $lst.pop($idx)
+
+rule fix_pop_missing_index_expression
+symptoms: wrong
+match:
+    $lst.pop
+rewrite:
+    $lst.pop($idx)
+
+rule fix_return_list_reverse
+symptoms: wrong
+match:
+    return $x.reverse()
+rewrite:
+    $x.reverse()
+    return $x
+
+rule fix_return_reverse_method_object
+symptoms: wrong
+match:
+    return $x.reverse
+rewrite:
+    $x.reverse()
+    return $x
+
+rule fix_set_return_to_ordered_scan
+symptoms: wrong
+match:
+    return list(set($xs))
+rewrite:
+    result = []
+    for $e in $xs:
+        if $e not in result:
+            result.append($e)
+    return result
+
+rule fix_set_return_to_ordered_scan_alt
+symptoms: wrong
+match:
+    return set($xs)
+rewrite:
+    result = []
+    for $e in $xs:
+        if $e not in result:
+            result.append($e)
+    return result
+
+rule fix_ordereddict_return_to_ordered_scan
+symptoms: wrong
+match:
+    return list(OrderedDict.fromkeys($xs))
+rewrite:
+    result = []
+    for $e in $xs:
+        if $e not in result:
+            result.append($e)
+    return result
+
+rule fix_ordereddict_name_error_plural
+symptoms: err:NameError, wrong
+match:
+    return lists(OrderedDict.fromkeys($xs))
+rewrite:
+    result = []
+    for $e in $xs:
+        if $e not in result:
+            result.append($e)
+    return result
+
+rule fix_count_based_removal_to_keep_first_occurrence
+symptoms: wrong
+match:
+    for $v in $seq:
+        if $seq.count($v) > 1:
+            $seq.remove($v)
+    return $seq
+rewrite:
+    result = []
+    for $v in $seq:
+        if $v not in result:
+            result.append($v)
+    return result
+
+rule fix_count_based_removal_while_loop
+symptoms: wrong
+match:
+    while $c:
+        if $seq.count($v) > 1:
+            $seq.remove($v)
+        $B:Stmts
+rewrite:
+    result = []
+    for $v in $seq:
+        if $v not in result:
+            result.append($v)
+    return result
+
+rule fix_self_membership_test
+symptoms: wrong
+match:
+    if $x not in $seq:
+        $B:Stmts
+where: load($seq) and bound($x)
+rewrite:
+    if $x not in $acc:
+        $B
+rule fix_wrong_membership_against_input
+symptoms: wrong
+match:
+    if $x not in $seq:
+        $B:Stmts
+where: inside("def $f($*xs, $p, $*ys): $B2:Stmts") and some($B2, "for $x in $p:")
+rewrite:
+    if $x not in result:
+        $B
+
+rule fix_returning_loop_variable_instead_of_accumulator
+symptoms: wrong
+match:
+    return $x
+where: inside("def $f($*xs): $B:Stmts") and some($B, "for $x in $*ys:")
+rewrite:
+    return $acc
+
+rule fix_return_first_element_as_scalar
+symptoms: wrong
+match:
+    result = $x[0]
+rewrite:
+    result = []
+
+rule fix_singleton_initializer_for_output_list
+symptoms: wrong
+match:
+    result = [$x[0],]
+rewrite:
+    result = []
+
+rule fix_tuple_accumulator_to_list
+symptoms: wrong
+match:
+    $acc = ()
+rewrite:
+    $acc = []
+
+rule fix_tuple_accumulator_append_style
+symptoms: wrong
+match:
+    $acc += ($x,)
+rewrite:
+    $acc.append($x)
+
+rule fix_tuple_accumulator_concat_style
+symptoms: wrong
+match:
+    $acc = $acc + ($x,)
+rewrite:
+    $acc.append($x)

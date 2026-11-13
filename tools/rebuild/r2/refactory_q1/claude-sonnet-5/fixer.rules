@@ -1,0 +1,355 @@
+rule empty_check_after_list_conversion
+symptoms: wrong
+match: if $seq == ():
+where: before("$seq = list($seq)")
+rewrite: if $seq == []:
+
+rule tuple_only_emptiness_to_not_seq
+symptoms: wrong, err:IndexError
+match: if $seq == ():
+rewrite: if not $seq:
+
+rule tuple_identity_check
+symptoms: wrong, err:IndexError
+match: if $seq is ():
+rewrite: if not $seq:
+
+rule list_seq_compared_to_tuple
+symptoms: wrong
+match: list($seq) == ()
+rewrite: list($seq) == []
+
+rule or_precedence_bug
+symptoms: wrong, err:IndexError
+match: $seq == $a or $b
+where: text($b) in {"()", "[]"}
+rewrite: $seq == $a or $seq == $b
+
+rule none_sentinel_to_zero
+symptoms: wrong
+match: return None
+where: inside("def search($p1, $p2): $B:Stmts") and parent("if $c:")
+rewrite: return 0
+
+rule string_sentinel_to_zero
+symptoms: wrong
+match: return $s:Str
+where: inside("def search($p1, $p2): $B:Stmts") and parent("if $c:")
+rewrite: return 0
+
+rule tuple_or_list_literal_return_to_zero
+symptoms: wrong
+match: return $t
+where: inside("def search($p1, $p2): $B:Stmts") and parent("if $c:") and (kind($t) == "Tuple" or kind($t) == "List")
+rewrite: return 0
+
+rule trailing_i_plus_one_to_len
+symptoms: wrong
+match: return $i + 1
+where: inside("for $i2, $elem in enumerate($seq): $B:Stmts") and $i2 == $i and last()
+rewrite: return len($seq)
+
+rule missing_trailing_return_after_enumerate_loop
+symptoms: wrong
+match:
+    for $i, $elem in enumerate($seq):
+        if $x <= $elem:
+            return $i
+where: last()
+rewrite:
+    for $i, $elem in enumerate($seq):
+        if $x <= $elem:
+            return $i
+    return len($seq)
+
+rule missing_trailing_return_after_range_loop
+symptoms: wrong
+match:
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            return $i
+where: last()
+rewrite:
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            return $i
+    return len($seq)
+
+rule missing_trailing_return_after_range_loop_ge
+symptoms: wrong
+match:
+    for $i in range(len($seq)):
+        if $seq[$i] >= $x:
+            return $i
+where: last()
+rewrite:
+    for $i in range(len($seq)):
+        if $seq[$i] >= $x:
+            return $i
+    return len($seq)
+
+rule dangling_docstring_at_end
+symptoms: wrong
+match: $doc:Str
+where: inside("def search($p1, $seq): $B:Stmts") and last() and (prev("for $i in $xs:") or prev("if $c:"))
+rewrite: return len($seq)
+
+rule dangling_doc_then_return_at_end
+symptoms: wrong
+match:
+    $doc:Str
+    return
+where: inside("def search($p1, $seq): $B:Stmts") and last()
+rewrite: return len($seq)
+
+rule bare_return_at_end_to_len
+symptoms: wrong
+match: return
+where: inside("def search($p1, $seq): $B:Stmts") and last() and (prev("for $i in $xs:") or prev("if $c:"))
+rewrite: return len($seq)
+
+rule seq_last_inclusive_to_exclusive
+symptoms: wrong
+match: $x >= $seq[-1]
+where: inside("def search($p1, $seq2): $B:Stmts") and $seq2 == $seq
+rewrite: $x > $seq[-1]
+
+rule max_seq_inclusive_to_exclusive
+symptoms: wrong
+match: $x >= max($seq)
+where: inside("def search($p1, $seq2): $B:Stmts") and $seq2 == $seq
+rewrite: $x > max($seq)
+
+rule assign_then_bare_return_to_break
+symptoms: wrong
+match:
+    $v = $e
+    return
+where: inside("for $i in $xs:")
+rewrite:
+    $v = $e
+    break
+
+rule if_else_return_wrong_first_branch
+symptoms: wrong
+match:
+    if $x > $e:
+        return 0
+    else:
+        return $i
+rewrite:
+    if $x <= $e:
+        return $i
+
+rule remove_premature_else_two_branch_enum
+symptoms: wrong
+match:
+    for $i, $elem in enumerate($seq):
+        if $x <= $elem:
+            return $i
+        else:
+            return len($seq)
+rewrite:
+    for $i, $elem in enumerate($seq):
+        if $x <= $elem:
+            return $i
+    return len($seq)
+
+rule remove_premature_else_two_branch_range
+symptoms: wrong
+match:
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            return $i
+        else:
+            return len($seq)
+rewrite:
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            return $i
+    return len($seq)
+
+rule remove_premature_else_two_branch_ge
+symptoms: wrong
+match:
+    for $i in range(len($seq)):
+        if $seq[$i] >= $x:
+            return $i
+        else:
+            return len($seq)
+rewrite:
+    for $i in range(len($seq)):
+        if $seq[$i] >= $x:
+            return $i
+    return len($seq)
+
+rule remove_premature_three_branch_else
+symptoms: wrong
+match:
+    for $i in range(len($seq)):
+        if $c1:
+            return $r1
+        elif $c2:
+            return $r2
+        else:
+            return $r3
+rewrite:
+    for $i in range(len($seq)):
+        if $c1:
+            return $r1
+        elif $c2:
+            return $r2
+    return $r3
+
+rule add_trailing_return_zero
+symptoms: wrong
+match:
+    for $i in range(len($seq)):
+        if $c1:
+            return $r1
+        elif $c2:
+            return $r2
+where: last()
+rewrite:
+    for $i in range(len($seq)):
+        if $c1:
+            return $r1
+        elif $c2:
+            return $r2
+    return 0
+
+rule for_loop_premature_return_to_else_range
+symptoms: wrong
+match:
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            return $i
+        return len($seq)
+rewrite:
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            return $i
+    else:
+        return len($seq)
+
+rule for_loop_premature_return_to_else_enum
+symptoms: wrong
+match:
+    for $i, $elem in enumerate($seq):
+        if $x <= $elem:
+            return $i
+        return len($seq)
+rewrite:
+    for $i, $elem in enumerate($seq):
+        if $x <= $elem:
+            return $i
+    else:
+        return len($seq)
+
+rule result_assign_index_to_count_increment
+symptoms: wrong
+match:
+    if $seq[$i] $o:Cmp $x:
+        $r = $i
+where: inside("for $i2 in range(len($seq)):") and $i2 == $i and text($o) in {">", ">="}
+rewrite:
+    if $x > $seq[$i]:
+        $r += 1
+
+rule result_assign_index_break_to_count_increment
+symptoms: wrong
+match:
+    if $seq[$i] $o:Cmp $x:
+        $r = $i
+        break
+where: inside("for $i2 in range(len($seq)):") and $i2 == $i and text($o) in {">", ">="}
+rewrite:
+    if $x > $seq[$i]:
+        $r += 1
+
+rule init_res_before_conditional_loop
+symptoms: wrong, err:UnboundLocalError
+match:
+    for $n in $lst:
+        if $x <= $n[1]:
+            $res = $n[0]
+            break
+        else:
+            $res = len($seq)
+    return $res
+where: not before("$res = _")
+rewrite:
+    $res = 0
+    for $n in $lst:
+        if $x <= $n[1]:
+            $res = $n[0]
+            break
+        else:
+            $res = len($seq)
+    return $res
+
+rule standalone_eq_typo
+symptoms: wrong, timeout
+match: $v == $c:Int
+where: inside("def search($p1, $p2): $B:Stmts")
+rewrite: $v = $c
+
+rule while_scan_missing_else_break
+symptoms: timeout, wrong
+match:
+    while $c < len($seq):
+        if $seq[$c] < $x:
+            $c += 1
+    return $c
+rewrite:
+    while $c < len($seq):
+        if $seq[$c] < $x:
+            $c += 1
+        else:
+            break
+    return $c
+
+rule wrong_range_len_order
+symptoms: wrong, err:TypeError
+match: for $i in len(range($seq)):
+rewrite: for $i in range(len($seq)):
+
+rule bare_len_as_iterable
+symptoms: wrong, err:TypeError
+match: for $i in len($seq):
+rewrite: for $i in range(len($seq)):
+
+rule missing_len_call
+symptoms: wrong, err:TypeError
+match: for $i in range($seq):
+where: not match($seq, "len($_)")
+rewrite: for $i in range(len($seq)):
+
+rule add_missing_empty_guard
+symptoms: wrong, err:IndexError
+match: if $x < $seq[0]:
+where: inside("def $f($p, $seq): $B:Stmts") and first()
+rewrite:
+    if not $seq:
+        return 0
+    if $x < $seq[0]:
+
+rule strict_lt_elem_return_relax
+symptoms: wrong
+match:
+    if $x < $elem:
+        return $i
+where: inside("for $i2, $elem2 in enumerate($seq):") and $i2 == $i and $elem2 == $elem
+rewrite:
+    if $x <= $elem:
+        return $i
+
+rule strict_lt_index_return_relax
+symptoms: wrong
+match:
+    if $x < $seq[$i]:
+        return $i
+where: inside("for $i2 in range(len($seq2)):") and $i2 == $i and $seq2 == $seq
+rewrite:
+    if $x <= $seq[$i]:
+        return $i

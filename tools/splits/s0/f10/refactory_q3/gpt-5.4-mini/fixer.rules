@@ -1,0 +1,199 @@
+rule fix_not_in_original_list_to_not_in_accumulator
+symptoms: wrong
+match:
+    $acc = []
+    for $v in $src:
+        if $v not in $src:
+            $acc.append($v)
+where:
+    inside("def $f($*ps): $B:Stmts")
+rewrite:
+    $acc = []
+    for $v in $src:
+        if $v not in $acc:
+            $acc.append($v)
+
+rule fix_count_based_duplicate_check
+symptoms: wrong
+match:
+    $acc = []
+    for $v in $src:
+        if $src.count($v) == 1:
+            $src.append($v)
+where:
+    inside("def $f($*ps): $B:Stmts")
+rewrite:
+    $acc = []
+    for $v in $src:
+        if $v not in $acc:
+            $acc.append($v)
+
+rule fix_count_based_duplicate_check_alt
+symptoms: wrong
+match:
+    $acc = []
+    for $v in $src:
+        if $src.count($v) == 1:
+            $acc.append($v)
+where:
+    inside("def $f($*ps): $B:Stmts")
+rewrite:
+    $acc = []
+    for $v in $src:
+        if $v not in $acc:
+            $acc.append($v)
+
+rule fix_list_constructor_call_to_empty_list
+symptoms: wrong, err:TypeError
+match: $x = $lst(0)
+rewrite: $x = []
+
+rule fix_tuple_accumulator_to_list
+symptoms: wrong
+match:
+    $acc = ($first,)
+    for $v in $src:
+        if $v not in $acc:
+            $acc = $acc + ($v,)
+    return $acc
+rewrite:
+    $acc = []
+    for $v in $src:
+        if $v not in $acc:
+            $acc = $acc + [$v]
+    return $acc
+
+rule fix_tuple_accumulator_append_style
+symptoms: wrong
+match:
+    $acc = ($first,)
+    for $v in $src:
+        if $v not in $acc:
+            $acc += ($v,)
+    return $acc
+rewrite:
+    $acc = []
+    for $v in $src:
+        if $v not in $acc:
+            $acc += [$v]
+    return $acc
+
+rule fix_return_inside_loop
+symptoms: wrong
+match:
+    for $v in $src:
+        if $cond:
+            $acc.append($v)
+        return $acc
+rewrite:
+    for $v in $src:
+        if $cond:
+            $acc.append($v)
+    return $acc
+
+rule fix_return_of_list_accumulator
+symptoms: wrong
+match:
+    return $acc
+where:
+    some($acc, "$x:Name.append($y)")
+rewrite:
+    return $acc
+
+rule fix_append_remove_result
+symptoms: wrong, err:AttributeError
+match:
+    $acc.append($lst.remove($v))
+rewrite:
+    $lst.remove($v)
+    $acc.append($v)
+
+rule fix_pop_based_duplicate_removal
+symptoms: wrong, err:TypeError
+match:
+    for $i in range($n):
+        if $lst[$i] in $lst[:$i] + $lst[$i+1:]:
+            $lst.pop($i)
+rewrite:
+    for $i in range($n):
+        if $lst[$i] in $lst[:$i]:
+            $lst[$i] = $lst[$i]
+
+rule fix_remove_based_duplicate_removal
+symptoms: wrong
+match:
+    for $i in range($n):
+        if $lst[$i] in $lst[:$i] or $lst[$i] in $lst[$i+1:]:
+            $lst.remove($lst[$i])
+rewrite:
+    for $i in range($n):
+        if $lst[$i] in $lst[:$i]:
+            $lst[$i] = $lst[$i]
+
+rule fix_range_len_to_len_plus_one
+symptoms: wrong
+match: range(len($lst))
+rewrite: range(len($lst) + 1)
+
+rule fix_range_of_list_to_range_len
+symptoms: wrong, err:TypeError
+match: range($lst)
+rewrite: range(len($lst))
+
+rule fix_wrong_empty_check_return
+symptoms: wrong
+match:
+    while $n < len($lst):
+        $lst = $e
+        $n = $n + 1
+    pass
+rewrite:
+    while $n < len($lst):
+        $lst = $e
+        $n = $n + 1
+    return $lst
+
+rule fix_missing_return_after_loop
+symptoms: wrong
+match:
+    $B:Stmts
+    pass
+where:
+    inside("def $f($*ps): $BODY:Stmts") and last()
+rewrite:
+    $B
+    return $acc
+
+rule fix_self_comparison_in_loop
+symptoms: wrong
+match:
+    if $v not in $acc:
+        $acc += $v
+rewrite:
+    if $v not in $acc:
+        $acc += [$v]
+
+rule fix_comparison_flip_membership
+symptoms: wrong
+match: $a in $b
+where: text($a) == text($b)
+rewrite: $a not in $b
+
+rule fix_off_by_one_range_start
+symptoms: wrong
+match: range(0, len($lst))
+rewrite: range(len($lst))
+
+rule fix_append_indexing_to_element
+symptoms: wrong
+match:
+    $acc += $lst[$i]
+rewrite:
+    $acc += [$lst[$i]]
+
+rule fix_extend_scalar_to_list
+symptoms: wrong
+match:
+    $acc += $v
+rewrite:
+    $acc += [$v]

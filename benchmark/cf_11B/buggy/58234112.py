@@ -1,0 +1,14 @@
+pos=int(input())
+i=1
+j=1
+curr=0
+cnt=0
+while(curr!=pos):
+	cnt+=1
+	if(curr<pos):
+		curr=curr+i
+		i+=1
+	else:
+		curr=curr-j
+		j+=1
+print(cnt)

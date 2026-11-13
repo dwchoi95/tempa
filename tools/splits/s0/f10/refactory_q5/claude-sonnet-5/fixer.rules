@@ -1,0 +1,39 @@
+rule off_by_one_slice_k_plus_one
+symptoms: wrong
+match: return $lst[:$k + 1]
+rewrite: return $lst[:$k]
+
+rule ascending_sort_front_k
+symptoms: wrong
+match:
+    $lst.sort()
+    for $i in range($k):
+        $B:Stmts
+    |
+    $lst.sort()
+    for $i in range($k - 1):
+        $B:Stmts
+where: some($B, "$lst[$i]")
+rewrite:
+    $lst.sort(reverse=True)
+    for $i in range($k):
+        $B:Stmts
+
+rule missing_break_after_max_pop
+symptoms: wrong, err:IndexError
+match:
+    if $lst[$i] == max($lst):
+        $results.append($lst.pop($i))
+        $counter += 1
+where: inside("for $_ in $_: $B:Stmts")
+rewrite:
+    if $lst[$i] == max($lst):
+        $results.append($lst.pop($i))
+        $counter += 1
+        break
+
+rule range_k_minus_one_generic
+symptoms: wrong
+match: range($k - 1)
+where: inside("def $f($*xs, $k, $*ys): $B:Stmts")
+rewrite: range($k)

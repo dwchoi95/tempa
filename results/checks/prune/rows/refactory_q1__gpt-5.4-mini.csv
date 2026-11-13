@@ -1,0 +1,2903 @@
+pid,model,buggy,off_repaired,off_tried,off_pruned,off_cut,off_seconds,off_rules,off_patch,on_repaired,on_tried,on_pruned,on_cut,on_seconds,on_rules,on_patch
+refactory_q1,gpt-5.4-mini,wrong_1_001,True,2,0,False,0.125,compare_x_to_elem_strict_lt,"def search(x, seq):
+    for i, e in enumerate(seq):
+        if x <= e:
+            return i
+    return len(seq)
+
+",True,2,0,False,0.181,compare_x_to_elem_strict_lt,"def search(x, seq):
+    for i, e in enumerate(seq):
+        if x <= e:
+            return i
+    return len(seq)
+
+"
+refactory_q1,gpt-5.4-mini,wrong_1_002,False,1000,0,True,3.562,,,False,1000,219,True,4.608,,
+refactory_q1,gpt-5.4-mini,wrong_1_003,False,1000,0,True,3.586,,,False,1000,219,True,4.759,,
+refactory_q1,gpt-5.4-mini,wrong_1_004,False,1000,0,True,1.87,,,False,1000,886,True,5.554,,
+refactory_q1,gpt-5.4-mini,wrong_1_005,False,1000,0,True,1.871,,,False,1000,664,True,5.227,,
+refactory_q1,gpt-5.4-mini,wrong_1_006,False,1000,0,True,2.421,,,False,1000,639,True,6.637,,
+refactory_q1,gpt-5.4-mini,wrong_1_007,True,7,0,False,0.111,loop_return_should_not_be_inside_else,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq) 
+",True,3,4,False,0.37,loop_return_should_not_be_inside_else,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq) 
+"
+refactory_q1,gpt-5.4-mini,wrong_1_008,True,579,0,False,1.109,while_return_minus_one|generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        seq_enum = [i for i in enumerate(seq)]
+        for j in range(len(seq_enum) - 1):
+            if x >= seq_enum[j][1] and x <= seq_enum[j+1][1]:
+                return j+1
+",True,412,167,False,1.903,while_return_minus_one|generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        seq_enum = [i for i in enumerate(seq)]
+        for j in range(len(seq_enum) - 1):
+            if x >= seq_enum[j][1] and x <= seq_enum[j+1][1]:
+                return j+1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_009,False,0,0,False,0.038,,,False,0,0,False,0.47,,
+refactory_q1,gpt-5.4-mini,wrong_1_010,False,0,0,False,0.058,,,False,0,0,False,0.534,,
+refactory_q1,gpt-5.4-mini,wrong_1_011,False,0,0,False,0.057,,,False,0,0,False,0.576,,
+refactory_q1,gpt-5.4-mini,wrong_1_012,False,1,0,False,0.12,,,False,0,1,False,0.602,,
+refactory_q1,gpt-5.4-mini,wrong_1_013,False,0,0,False,0.053,,,False,0,0,False,0.571,,
+refactory_q1,gpt-5.4-mini,wrong_1_014,False,1000,0,True,3.515,,,False,1000,107,True,4.149,,
+refactory_q1,gpt-5.4-mini,wrong_1_015,False,1000,0,True,4.329,,,False,1000,107,True,5.614,,
+refactory_q1,gpt-5.4-mini,wrong_1_016,False,1000,0,True,4.704,,,False,1000,145,True,6.379,,
+refactory_q1,gpt-5.4-mini,wrong_1_017,False,1000,0,True,3.98,,,False,1000,153,True,5.126,,
+refactory_q1,gpt-5.4-mini,wrong_1_018,False,1000,0,True,3.229,,,False,1000,157,True,4.655,,
+refactory_q1,gpt-5.4-mini,wrong_1_019,False,1000,0,True,2.95,,,False,1000,161,True,4.023,,
+refactory_q1,gpt-5.4-mini,wrong_1_020,False,1000,0,True,3.002,,,False,1000,161,True,4.022,,
+refactory_q1,gpt-5.4-mini,wrong_1_021,False,1000,0,True,2.201,,,False,1000,416,True,4.534,,
+refactory_q1,gpt-5.4-mini,wrong_1_022,False,1000,0,True,4.684,,,False,1000,473,True,6.097,,
+refactory_q1,gpt-5.4-mini,wrong_1_023,False,1000,0,True,2.296,,,False,1000,1031,True,6.399,,
+refactory_q1,gpt-5.4-mini,wrong_1_024,False,1000,0,True,1.982,,,False,1000,550,True,4.67,,
+refactory_q1,gpt-5.4-mini,wrong_1_025,False,1000,0,True,2.253,,,False,1000,994,True,6.453,,
+refactory_q1,gpt-5.4-mini,wrong_1_026,False,1000,0,True,4.673,,,False,0,10000,True,54.639,,
+refactory_q1,gpt-5.4-mini,wrong_1_027,False,1000,0,True,4.754,,,False,1000,307,True,7.014,,
+refactory_q1,gpt-5.4-mini,wrong_1_028,False,1000,0,True,2.669,,,False,1000,846,True,9.561,,
+refactory_q1,gpt-5.4-mini,wrong_1_029,False,1000,0,True,2.829,,,False,1000,1282,True,12.449,,
+refactory_q1,gpt-5.4-mini,wrong_1_030,False,1000,0,True,5.222,,,False,1000,1110,True,13.136,,
+refactory_q1,gpt-5.4-mini,wrong_1_031,True,14,0,False,0.15,generic_shift_range,"def search(x, seq):
+    
+    for i in range(len(seq) + 1):
+        if len(seq)==0:
+            return 0
+        elif x<=seq[i]:
+            return i
+        elif x>seq[len(seq)-1]:
+            return len(seq)
+        
+        else:
+            continue 
+",True,2,12,False,0.318,generic_shift_range,"def search(x, seq):
+    
+    for i in range(len(seq) + 1):
+        if len(seq)==0:
+            return 0
+        elif x<=seq[i]:
+            return i
+        elif x>seq[len(seq)-1]:
+            return len(seq)
+        
+        else:
+            continue 
+"
+refactory_q1,gpt-5.4-mini,wrong_1_032,False,1000,0,True,3.396,,,False,1000,557,True,6.571,,
+refactory_q1,gpt-5.4-mini,wrong_1_033,False,1000,0,True,2.711,,,False,1000,925,True,6.856,,
+refactory_q1,gpt-5.4-mini,wrong_1_034,False,1000,0,True,2.383,,,False,1000,1190,True,6.937,,
+refactory_q1,gpt-5.4-mini,wrong_1_035,False,1000,0,True,2.985,,,False,1000,952,True,6.381,,
+refactory_q1,gpt-5.4-mini,wrong_1_036,False,1000,0,True,2.843,,,False,1000,952,True,7.926,,
+refactory_q1,gpt-5.4-mini,wrong_1_037,False,1000,0,True,2.892,,,False,1000,925,True,5.71,,
+refactory_q1,gpt-5.4-mini,wrong_1_038,False,1000,0,True,2.372,,,False,1000,925,True,5.608,,
+refactory_q1,gpt-5.4-mini,wrong_1_039,False,1000,0,True,2.765,,,False,1000,90,True,4.078,,
+refactory_q1,gpt-5.4-mini,wrong_1_040,False,1000,0,True,2.324,,,False,1000,925,True,5.586,,
+refactory_q1,gpt-5.4-mini,wrong_1_041,False,1000,0,True,2.325,,,False,1000,413,True,4.175,,
+refactory_q1,gpt-5.4-mini,wrong_1_042,True,915,0,False,2.911,compare_x_to_elem_strict_lt|return_len_plus_one_to_len|generic_shift_index,"def search(x, seq):
+    for i in range(1, len(seq)+1):
+        if x <= seq[i - 1]:
+            return i - 1
+        elif seq[i - 1] < x <= seq[i - 1]:
+            return i
+    return len(seq)     
+        
+",True,497,418,False,3.104,compare_x_to_elem_strict_lt|return_len_plus_one_to_len|generic_shift_index,"def search(x, seq):
+    for i in range(1, len(seq)+1):
+        if x <= seq[i - 1]:
+            return i - 1
+        elif seq[i - 1] < x <= seq[i - 1]:
+            return i
+    return len(seq)     
+        
+"
+refactory_q1,gpt-5.4-mini,wrong_1_043,False,1000,0,True,2.735,,,False,1000,952,True,7.229,,
+refactory_q1,gpt-5.4-mini,wrong_1_044,True,915,0,False,2.476,compare_x_to_elem_strict_lt|return_len_plus_one_to_len|generic_shift_index,"def search(x, seq):
+    for i in range(1, len(seq)+1):
+        if x <= seq[i - 1]:
+            return i - 1
+        elif seq[i - 1] < x <= seq[i - 1]:
+            return i
+    return len(seq)     
+        
+",True,497,418,False,3.113,compare_x_to_elem_strict_lt|return_len_plus_one_to_len|generic_shift_index,"def search(x, seq):
+    for i in range(1, len(seq)+1):
+        if x <= seq[i - 1]:
+            return i - 1
+        elif seq[i - 1] < x <= seq[i - 1]:
+            return i
+    return len(seq)     
+        
+"
+refactory_q1,gpt-5.4-mini,wrong_1_045,False,1000,0,True,1.9,,,False,1000,2218,True,13.245,,
+refactory_q1,gpt-5.4-mini,wrong_1_046,False,1000,0,True,3.085,,,False,1000,1548,True,7.881,,
+refactory_q1,gpt-5.4-mini,wrong_1_047,False,1000,0,True,2.395,,,False,1000,3280,True,20.043,,
+refactory_q1,gpt-5.4-mini,wrong_1_048,False,1000,0,True,3.687,,,False,1000,570,True,10.506,,
+refactory_q1,gpt-5.4-mini,wrong_1_049,False,1000,0,True,3.119,,,False,1000,1892,True,9.632,,
+refactory_q1,gpt-5.4-mini,wrong_1_050,False,1000,0,True,2.037,,,False,1000,3280,True,14.328,,
+refactory_q1,gpt-5.4-mini,wrong_1_051,False,1000,0,True,50.803,,,False,1000,266,True,43.134,,
+refactory_q1,gpt-5.4-mini,wrong_1_052,False,1000,0,True,3.289,,,False,1000,71,True,4.897,,
+refactory_q1,gpt-5.4-mini,wrong_1_053,False,1000,0,True,2.435,,,False,1000,257,True,4.077,,
+refactory_q1,gpt-5.4-mini,wrong_1_054,False,1000,0,True,2.995,,,False,1000,243,True,4.412,,
+refactory_q1,gpt-5.4-mini,wrong_1_055,False,1000,0,True,2.41,,,False,1000,506,True,5.047,,
+refactory_q1,gpt-5.4-mini,wrong_1_056,False,1000,0,True,2.366,,,False,1000,700,True,5.135,,
+refactory_q1,gpt-5.4-mini,wrong_1_057,False,1000,0,True,2.536,,,False,1000,389,True,4.243,,
+refactory_q1,gpt-5.4-mini,wrong_1_058,False,1000,0,True,2.969,,,False,1000,329,True,4.893,,
+refactory_q1,gpt-5.4-mini,wrong_1_059,False,1000,0,True,3.636,,,False,1000,455,True,5.314,,
+refactory_q1,gpt-5.4-mini,wrong_1_060,False,15,0,False,0.379,,,False,0,15,False,0.255,,
+refactory_q1,gpt-5.4-mini,wrong_1_061,False,159,0,False,1.873,,,False,0,159,False,2.57,,
+refactory_q1,gpt-5.4-mini,wrong_1_062,False,5,0,False,0.203,,,False,5,0,False,0.754,,
+refactory_q1,gpt-5.4-mini,wrong_1_063,False,11,0,False,0.268,,,False,10,1,False,0.638,,
+refactory_q1,gpt-5.4-mini,wrong_1_064,False,299,0,False,3.358,,,False,287,12,False,3.792,,
+refactory_q1,gpt-5.4-mini,wrong_1_065,False,1000,0,True,3.541,,,False,1000,186,True,6.146,,
+refactory_q1,gpt-5.4-mini,wrong_1_066,False,1000,0,True,2.514,,,False,1000,1357,True,7.357,,
+refactory_q1,gpt-5.4-mini,wrong_1_067,False,1000,0,True,4.918,,,False,0,10000,True,70.878,,
+refactory_q1,gpt-5.4-mini,wrong_1_068,True,20,0,False,0.175,generic_shift_range,"def search(x, seq):
+    for i in range(0, len(seq) + 1):
+        if len(seq)==0:
+            return 0
+        elif x<seq[i]:
+            return i
+        elif x==seq[i]:
+            return i
+        elif x>seq[len(seq)-1]:
+            return len(seq)
+",True,3,17,False,0.288,generic_shift_range,"def search(x, seq):
+    for i in range(0, len(seq) + 1):
+        if len(seq)==0:
+            return 0
+        elif x<seq[i]:
+            return i
+        elif x==seq[i]:
+            return i
+        elif x>seq[len(seq)-1]:
+            return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_069,False,1000,0,True,5.593,,,False,0,10000,True,67.928,,
+refactory_q1,gpt-5.4-mini,wrong_1_070,False,1000,0,True,2.079,,,False,1000,1543,True,10.173,,
+refactory_q1,gpt-5.4-mini,wrong_1_071,False,1000,0,True,5.012,,,False,1000,397,True,7.193,,
+refactory_q1,gpt-5.4-mini,wrong_1_072,True,9,0,False,0.113,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+",True,7,2,False,0.154,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+"
+refactory_q1,gpt-5.4-mini,wrong_1_073,False,1000,0,True,2.917,,,False,1000,946,True,7.751,,
+refactory_q1,gpt-5.4-mini,wrong_1_074,False,1000,0,True,4.615,,,False,0,10000,True,57.443,,
+refactory_q1,gpt-5.4-mini,wrong_1_075,False,1000,0,True,5.314,,,False,1000,219,True,8.892,,
+refactory_q1,gpt-5.4-mini,wrong_1_076,False,1000,0,True,6.562,,,False,0,10000,True,54.829,,
+refactory_q1,gpt-5.4-mini,wrong_1_077,False,1000,0,True,4.713,,,False,0,10000,True,62.504,,
+refactory_q1,gpt-5.4-mini,wrong_1_078,True,5,0,False,0.174,missing_default_return_len,"def search(x, seq):
+    for count, ele in enumerate(seq):
+        if x <= ele:
+            return count
+    return len(seq)
+        
+    for ele in seq:
+        if x>ele:
+            return len(seq)
+",True,1,4,False,0.193,missing_default_return_len,"def search(x, seq):
+    for count, ele in enumerate(seq):
+        if x <= ele:
+            return count
+    return len(seq)
+        
+    for ele in seq:
+        if x>ele:
+            return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_079,True,8,0,False,0.12,missing_default_return_len,"def search(x, seq):
+    if seq==[]:
+        return 0
+    for count, ele in enumerate(seq):
+        if x <= ele:
+            return count
+    return len(seq)
+    for ele in seq:
+        if x>ele:
+            return len(seq)
+",True,4,4,False,0.158,missing_default_return_len,"def search(x, seq):
+    if seq==[]:
+        return 0
+    for count, ele in enumerate(seq):
+        if x <= ele:
+            return count
+    return len(seq)
+    for ele in seq:
+        if x>ele:
+            return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_080,True,9,0,False,0.118,missing_default_return_len,"def search(x, seq):
+    if seq==[]or():
+        return 0
+    for count, ele in enumerate(seq):
+        if x <= ele:
+            return count
+    return len(seq)
+    for ele in seq:
+        if x>ele:
+            return len(seq)
+",True,5,4,False,0.152,missing_default_return_len,"def search(x, seq):
+    if seq==[]or():
+        return 0
+    for count, ele in enumerate(seq):
+        if x <= ele:
+            return count
+    return len(seq)
+    for ele in seq:
+        if x>ele:
+            return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_081,True,3,0,False,0.107,missing_default_return_len,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    for index, value in enumerate(seq):
+        if x <= value:
+            return index
+    return len(seq)
+",True,1,2,False,0.258,missing_default_return_len,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    for index, value in enumerate(seq):
+        if x <= value:
+            return index
+    return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_082,False,1000,0,True,4.469,,,False,1000,250,True,7.34,,
+refactory_q1,gpt-5.4-mini,wrong_1_083,False,1000,0,True,4.201,,,False,1000,109,True,4.286,,
+refactory_q1,gpt-5.4-mini,wrong_1_084,False,1000,0,True,2.666,,,False,1000,379,True,4.249,,
+refactory_q1,gpt-5.4-mini,wrong_1_085,False,1000,0,True,2.456,,,False,1000,277,True,3.855,,
+refactory_q1,gpt-5.4-mini,wrong_1_086,False,1000,0,True,2.935,,,False,1000,51,True,3.705,,
+refactory_q1,gpt-5.4-mini,wrong_1_087,True,18,0,False,0.132,generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        count = 0
+        for i in range (0, len(seq)):
+            if seq[count] < x:
+                count += 1
+        return count if seq[-1] >= x else len(seq)
+",True,18,0,False,0.163,generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        count = 0
+        for i in range (0, len(seq)):
+            if seq[count] < x:
+                count += 1
+        return count if seq[-1] >= x else len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_088,False,1000,0,True,2.912,,,False,1000,51,True,3.682,,
+refactory_q1,gpt-5.4-mini,wrong_1_089,False,1000,0,True,2.463,,,False,1000,345,True,4.584,,
+refactory_q1,gpt-5.4-mini,wrong_1_090,False,1000,0,True,3.004,,,False,1000,51,True,3.609,,
+refactory_q1,gpt-5.4-mini,wrong_1_091,True,18,0,False,0.119,generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        count = 0
+        for i in range (0, len(seq)):
+            if seq[count] < x:
+                count += 1
+        return count if seq[-1] >= x else len(seq)
+",True,18,0,False,0.165,generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        count = 0
+        for i in range (0, len(seq)):
+            if seq[count] < x:
+                count += 1
+        return count if seq[-1] >= x else len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_092,True,18,0,False,0.12,generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        count = 0
+        for i in range (0, len(seq)):
+            if seq[i] >= x:
+                return i
+            elif seq[-1] < x:
+                return len(seq)
+",True,18,0,False,0.215,generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        count = 0
+        for i in range (0, len(seq)):
+            if seq[i] >= x:
+                return i
+            elif seq[-1] < x:
+                return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_093,False,1000,0,True,2.492,,,False,1000,440,True,4.279,,
+refactory_q1,gpt-5.4-mini,wrong_1_094,False,1000,0,True,2.228,,,False,1000,422,True,3.81,,
+refactory_q1,gpt-5.4-mini,wrong_1_095,False,1000,0,True,2.277,,,False,1000,422,True,5.249,,
+refactory_q1,gpt-5.4-mini,wrong_1_096,False,1000,0,True,2.34,,,False,1000,389,True,4.217,,
+refactory_q1,gpt-5.4-mini,wrong_1_097,False,1000,0,True,1.896,,,False,1000,389,True,3.88,,
+refactory_q1,gpt-5.4-mini,wrong_1_098,False,1000,0,True,1.885,,,False,1000,389,True,3.807,,
+refactory_q1,gpt-5.4-mini,wrong_1_099,False,1000,0,True,3.21,,,False,1000,899,True,6.303,,
+refactory_q1,gpt-5.4-mini,wrong_1_100,False,1000,0,True,2.842,,,False,1000,640,True,5.242,,
+refactory_q1,gpt-5.4-mini,wrong_1_101,False,1000,0,True,3.461,,,False,1000,640,True,6.532,,
+refactory_q1,gpt-5.4-mini,wrong_1_102,False,1000,0,True,2.794,,,False,1000,640,True,5.248,,
+refactory_q1,gpt-5.4-mini,wrong_1_103,False,1000,0,True,2.53,,,False,1000,640,True,5.734,,
+refactory_q1,gpt-5.4-mini,wrong_1_104,False,1000,0,True,2.766,,,False,1000,352,True,4.191,,
+refactory_q1,gpt-5.4-mini,wrong_1_105,False,1000,0,True,2.377,,,False,1000,676,True,4.928,,
+refactory_q1,gpt-5.4-mini,wrong_1_106,False,1000,0,True,1.881,,,False,1000,1083,True,6.39,,
+refactory_q1,gpt-5.4-mini,wrong_1_107,True,24,0,False,0.13,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq)-1):
+            if x > seq[i] and x <= seq[i+1]:
+                return i+1
+        return None
+",True,11,13,False,0.185,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq)-1):
+            if x > seq[i] and x <= seq[i+1]:
+                return i+1
+        return None
+"
+refactory_q1,gpt-5.4-mini,wrong_1_108,True,96,0,False,0.41,compare_x_to_elem_strict_lt|generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in seq:
+            if x <= i:
+                return seq.index(i)
+        return None
+",True,93,3,False,0.559,compare_x_to_elem_strict_lt|generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in seq:
+            if x <= i:
+                return seq.index(i)
+        return None
+"
+refactory_q1,gpt-5.4-mini,wrong_1_109,True,13,0,False,0.118,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in seq:
+            if x <= i:
+                return seq.index(i)
+        return None
+",True,11,2,False,0.162,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in seq:
+            if x <= i:
+                return seq.index(i)
+        return None
+"
+refactory_q1,gpt-5.4-mini,wrong_1_110,False,1000,0,True,2.679,,,False,0,10000,True,44.278,,
+refactory_q1,gpt-5.4-mini,wrong_1_111,False,1000,0,True,3.209,,,False,0,10000,True,48.64,,
+refactory_q1,gpt-5.4-mini,wrong_1_112,False,1000,0,True,2.905,,,False,0,10000,True,46.609,,
+refactory_q1,gpt-5.4-mini,wrong_1_113,False,1000,0,True,2.044,,,False,1000,340,True,4.12,,
+refactory_q1,gpt-5.4-mini,wrong_1_114,False,1000,0,True,1.91,,,False,1000,207,True,3.482,,
+refactory_q1,gpt-5.4-mini,wrong_1_115,False,1000,0,True,2.11,,,False,1000,207,True,3.493,,
+refactory_q1,gpt-5.4-mini,wrong_1_116,False,1000,0,True,2.339,,,False,1000,443,True,5.758,,
+refactory_q1,gpt-5.4-mini,wrong_1_117,False,1000,0,True,5.9,,,False,1000,3,True,6.569,,
+refactory_q1,gpt-5.4-mini,wrong_1_118,False,1000,0,True,5.376,,,False,1000,3,True,6.862,,
+refactory_q1,gpt-5.4-mini,wrong_1_119,False,1000,0,True,5.731,,,False,1000,3,True,8.18,,
+refactory_q1,gpt-5.4-mini,wrong_1_120,True,9,0,False,0.194,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    return
+",True,7,2,False,0.225,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    return
+"
+refactory_q1,gpt-5.4-mini,wrong_1_121,True,9,0,False,0.174,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+",True,7,2,False,0.235,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+"
+refactory_q1,gpt-5.4-mini,wrong_1_122,True,47,0,False,0.295,generic_flip_compare|generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+",True,44,3,False,0.423,generic_flip_compare|generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+"
+refactory_q1,gpt-5.4-mini,wrong_1_123,True,9,0,False,0.166,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+",True,7,2,False,0.218,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+"
+refactory_q1,gpt-5.4-mini,wrong_1_124,True,60,0,False,0.32,while_return_minus_one|generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if x <= elem:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+",True,51,9,False,0.794,while_return_minus_one|generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if x <= elem:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+"
+refactory_q1,gpt-5.4-mini,wrong_1_125,True,9,0,False,0.166,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+",True,7,2,False,0.21,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+"
+refactory_q1,gpt-5.4-mini,wrong_1_126,False,1000,0,True,4.699,,,False,1000,365,True,9.238,,
+refactory_q1,gpt-5.4-mini,wrong_1_127,False,1000,0,True,4.309,,,False,1000,402,True,5.132,,
+refactory_q1,gpt-5.4-mini,wrong_1_128,False,1000,0,True,2.855,,,False,1000,379,True,4.497,,
+refactory_q1,gpt-5.4-mini,wrong_1_129,False,1000,0,True,2.718,,,False,1000,379,True,4.331,,
+refactory_q1,gpt-5.4-mini,wrong_1_130,False,1000,0,True,2.43,,,False,1000,235,True,3.606,,
+refactory_q1,gpt-5.4-mini,wrong_1_131,False,1000,0,True,2.487,,,False,1000,277,True,4.133,,
+refactory_q1,gpt-5.4-mini,wrong_1_132,False,1000,0,True,1.813,,,False,1000,2872,True,13.428,,
+refactory_q1,gpt-5.4-mini,wrong_1_133,True,26,0,False,0.197,generic_shift_range,"def search(x, seq):
+    for i in range(len(seq) + 1):
+        if len(seq) == 0:
+            return 0
+        elif x <= seq[i] and i == 0:
+            return 0
+        elif seq[i-1] < x <= seq[i]:
+            return i
+        elif x > seq[i] and i == len(seq)-1:
+            return len(seq)
+",True,2,24,False,0.314,generic_shift_range,"def search(x, seq):
+    for i in range(len(seq) + 1):
+        if len(seq) == 0:
+            return 0
+        elif x <= seq[i] and i == 0:
+            return 0
+        elif seq[i-1] < x <= seq[i]:
+            return i
+        elif x > seq[i] and i == len(seq)-1:
+            return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_134,False,1000,0,True,3.623,,,False,0,10000,True,74.864,,
+refactory_q1,gpt-5.4-mini,wrong_1_135,False,10,0,False,0.268,,,False,0,10,False,0.749,,
+refactory_q1,gpt-5.4-mini,wrong_1_136,False,10,0,False,0.359,,,False,0,10,False,0.539,,
+refactory_q1,gpt-5.4-mini,wrong_1_137,False,1000,0,True,5.117,,,False,0,6911,False,94.002,,
+refactory_q1,gpt-5.4-mini,wrong_1_138,False,0,0,False,0.038,,,False,0,0,False,0.421,,
+refactory_q1,gpt-5.4-mini,wrong_1_139,False,3,0,False,0.121,,,False,0,3,False,0.146,,
+refactory_q1,gpt-5.4-mini,wrong_1_140,True,113,0,False,0.618,compare_x_to_elem_strict_lt|range_len_minus_one_to_len|generic_flip_compare,"def search(x, seq):
+    for i in range(len(seq)):
+        if seq[i] >= x:
+            return i
+    return len(seq)
+",True,112,1,False,0.935,compare_x_to_elem_strict_lt|range_len_minus_one_to_len|generic_flip_compare,"def search(x, seq):
+    for i in range(len(seq)):
+        if seq[i] >= x:
+            return i
+    return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_141,True,7,0,False,0.123,range_len_minus_one_to_len,"def search(x, seq):
+    for i in range(len(seq)):
+        if seq[i] >= x:
+            return i
+    return len(seq)
+",True,7,0,False,0.186,range_len_minus_one_to_len,"def search(x, seq):
+    for i in range(len(seq)):
+        if seq[i] >= x:
+            return i
+    return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_142,False,1000,0,True,5.329,,,False,0,10000,True,90.857,,
+refactory_q1,gpt-5.4-mini,wrong_1_143,False,1000,0,True,5.996,,,False,1000,1170,True,13.693,,
+refactory_q1,gpt-5.4-mini,wrong_1_144,False,1000,0,True,3.821,,,False,1000,743,True,9.469,,
+refactory_q1,gpt-5.4-mini,wrong_1_145,False,1000,0,True,4.245,,,False,0,10000,True,72.089,,
+refactory_q1,gpt-5.4-mini,wrong_1_146,False,1000,0,True,4.139,,,False,1000,1170,True,12.463,,
+refactory_q1,gpt-5.4-mini,wrong_1_147,False,1000,0,True,4.467,,,False,1000,219,True,6.49,,
+refactory_q1,gpt-5.4-mini,wrong_1_148,False,1000,0,True,3.803,,,False,1000,219,True,5.371,,
+refactory_q1,gpt-5.4-mini,wrong_1_149,False,1000,0,True,3.829,,,False,1000,219,True,6.868,,
+refactory_q1,gpt-5.4-mini,wrong_1_150,True,2,0,False,0.114,compare_x_to_elem_strict_lt,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    enumerated_list=enumerate(seq)
+    for i,elem in enumerated_list:
+        if x <= elem:
+            return i
+    return len(seq)
+",True,2,0,False,0.182,compare_x_to_elem_strict_lt,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    enumerated_list=enumerate(seq)
+    for i,elem in enumerated_list:
+        if x <= elem:
+            return i
+    return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_151,False,1000,0,True,2.899,,,False,1000,1534,True,8.932,,
+refactory_q1,gpt-5.4-mini,wrong_1_152,False,1000,0,True,2.594,,,False,1000,1534,True,8.19,,
+refactory_q1,gpt-5.4-mini,wrong_1_153,False,1000,0,True,2.842,,,False,1000,1534,True,9.36,,
+refactory_q1,gpt-5.4-mini,wrong_1_154,True,5,0,False,0.191,missing_default_return_len,"def search(x, seq):
+    for a, b in enumerate(seq):
+        if x <= b:
+            return a
+    return len(seq)
+    for i in seq:
+        if x>i:
+            return a+1
+",True,1,4,False,0.291,missing_default_return_len,"def search(x, seq):
+    for a, b in enumerate(seq):
+        if x <= b:
+            return a
+    return len(seq)
+    for i in seq:
+        if x>i:
+            return a+1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_155,True,8,0,False,0.188,missing_default_return_len,"def search(x, seq):
+    if seq==[]:
+        return 0
+    for a, b in enumerate(seq):
+        if x <= b:
+            return a
+    return len(seq)
+    for i in seq:
+        if x>i:
+            return a+1
+",True,4,4,False,0.227,missing_default_return_len,"def search(x, seq):
+    if seq==[]:
+        return 0
+    for a, b in enumerate(seq):
+        if x <= b:
+            return a
+    return len(seq)
+    for i in seq:
+        if x>i:
+            return a+1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_156,False,314,0,False,3.706,,,False,0,314,False,3.458,,
+refactory_q1,gpt-5.4-mini,wrong_1_157,True,8,0,False,0.126,missing_default_return_len,"def search(x, seq):
+    if seq==[]:
+        return 0
+    for a, b in enumerate(seq):
+        if x <= b:
+            return a
+    return len(seq)
+    for i in seq:
+        if x>i:
+            return a+1
+",True,4,4,False,0.157,missing_default_return_len,"def search(x, seq):
+    if seq==[]:
+        return 0
+    for a, b in enumerate(seq):
+        if x <= b:
+            return a
+    return len(seq)
+    for i in seq:
+        if x>i:
+            return a+1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_158,False,1000,0,True,3.203,,,False,1000,189,True,3.89,,
+refactory_q1,gpt-5.4-mini,wrong_1_159,False,1000,0,True,2.648,,,False,1000,189,True,5.31,,
+refactory_q1,gpt-5.4-mini,wrong_1_160,False,1000,0,True,2.445,,,False,1000,179,True,3.778,,
+refactory_q1,gpt-5.4-mini,wrong_1_161,True,8,0,False,0.116,missing_default_return_len,"def search(x, seq):
+    if seq==():
+        return 0
+    for a, b in enumerate(seq):
+        if x <= b:
+            return a
+    return len(seq)
+    for i in seq:
+        if x>i:
+            return a+1
+",True,4,4,False,0.149,missing_default_return_len,"def search(x, seq):
+    if seq==():
+        return 0
+    for a, b in enumerate(seq):
+        if x <= b:
+            return a
+    return len(seq)
+    for i in seq:
+        if x>i:
+            return a+1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_162,False,1000,0,True,2.548,,,False,1000,701,True,5.106,,
+refactory_q1,gpt-5.4-mini,wrong_1_163,False,1000,0,True,2.105,,,False,1000,604,True,4.857,,
+refactory_q1,gpt-5.4-mini,wrong_1_164,False,1000,0,True,2.23,,,False,1000,5,True,2.942,,
+refactory_q1,gpt-5.4-mini,wrong_1_165,False,1000,0,True,2.944,,,False,1000,524,True,5.372,,
+refactory_q1,gpt-5.4-mini,wrong_1_166,True,1000,0,False,2.128,range_len_minus_one_to_len|generic_flip_compare|generic_flip_compare,"def search(x, seq):
+    if len(seq)==0:
+        return 0
+    if len(seq)==1:
+        if x > seq[0]:
+            return 1
+        elif x<seq[0]:
+            return 0
+    for i in range(len(seq)):
+        if x<=seq[0]:
+            return 0
+        if seq[i]<=x<=seq[i+1]:
+            return i+1
+        if x > seq[-1]:
+            return len(seq)
+",True,1000,66,False,3.25,range_len_minus_one_to_len|generic_flip_compare|generic_flip_compare,"def search(x, seq):
+    if len(seq)==0:
+        return 0
+    if len(seq)==1:
+        if x > seq[0]:
+            return 1
+        elif x<seq[0]:
+            return 0
+    for i in range(len(seq)):
+        if x<=seq[0]:
+            return 0
+        if seq[i]<=x<=seq[i+1]:
+            return i+1
+        if x > seq[-1]:
+            return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_167,False,1000,0,True,2.807,,,False,1000,145,True,3.529,,
+refactory_q1,gpt-5.4-mini,wrong_1_168,False,3,0,False,0.124,,,False,0,3,False,0.218,,
+refactory_q1,gpt-5.4-mini,wrong_1_169,False,31,0,False,0.485,,,False,0,31,False,0.409,,
+refactory_q1,gpt-5.4-mini,wrong_1_170,False,191,0,False,2.158,,,False,0,191,False,2.006,,
+refactory_q1,gpt-5.4-mini,wrong_1_171,False,191,0,False,2.092,,,False,160,31,False,2.401,,
+refactory_q1,gpt-5.4-mini,wrong_1_172,False,191,0,False,2.422,,,False,160,31,False,2.436,,
+refactory_q1,gpt-5.4-mini,wrong_1_173,False,191,0,False,2.153,,,False,160,31,False,4.358,,
+refactory_q1,gpt-5.4-mini,wrong_1_174,False,191,0,False,2.217,,,False,160,31,False,2.612,,
+refactory_q1,gpt-5.4-mini,wrong_1_175,False,1000,0,True,10.005,,,False,1000,31,True,11.474,,
+refactory_q1,gpt-5.4-mini,wrong_1_176,False,1000,0,True,9.906,,,False,1000,1,True,10.747,,
+refactory_q1,gpt-5.4-mini,wrong_1_177,False,191,0,False,2.345,,,False,190,1,False,2.493,,
+refactory_q1,gpt-5.4-mini,wrong_1_178,False,1000,0,True,4.505,,,False,0,10000,True,50.045,,
+refactory_q1,gpt-5.4-mini,wrong_1_179,False,1000,0,True,4.777,,,False,0,10000,True,57.052,,
+refactory_q1,gpt-5.4-mini,wrong_1_180,False,1000,0,True,4.571,,,False,0,10000,True,56.551,,
+refactory_q1,gpt-5.4-mini,wrong_1_181,False,1000,0,True,4.963,,,False,0,10000,True,71.813,,
+refactory_q1,gpt-5.4-mini,wrong_1_182,False,191,0,False,2.4,,,False,190,1,False,2.551,,
+refactory_q1,gpt-5.4-mini,wrong_1_183,False,13,0,False,0.236,,,False,0,13,False,0.516,,
+refactory_q1,gpt-5.4-mini,wrong_1_184,False,13,0,False,0.235,,,False,0,13,False,0.497,,
+refactory_q1,gpt-5.4-mini,wrong_1_185,False,9,0,False,0.177,,,False,5,4,False,0.553,,
+refactory_q1,gpt-5.4-mini,wrong_1_186,False,1000,0,True,3.135,,,False,1000,509,True,5.739,,
+refactory_q1,gpt-5.4-mini,wrong_1_187,False,1000,0,True,2.442,,,False,1000,561,True,5.296,,
+refactory_q1,gpt-5.4-mini,wrong_1_188,False,1000,0,True,2.277,,,False,1000,142,True,3.493,,
+refactory_q1,gpt-5.4-mini,wrong_1_189,False,1000,0,True,2.361,,,False,1000,567,True,7.507,,
+refactory_q1,gpt-5.4-mini,wrong_1_190,False,1000,0,True,4.089,,,False,1000,757,True,7.044,,
+refactory_q1,gpt-5.4-mini,wrong_1_191,False,1000,0,True,3.347,,,False,1000,511,True,7.222,,
+refactory_q1,gpt-5.4-mini,wrong_1_192,True,7,0,False,0.172,while_return_minus_one,"def search(x, seq):
+    count=0
+    while count<len(seq):
+        if x>seq[count]:
+            count+=1
+            continue
+        else:
+            return count
+            break
+    return len(seq)
+        
+",True,7,0,False,0.557,while_return_minus_one,"def search(x, seq):
+    count=0
+    while count<len(seq):
+        if x>seq[count]:
+            count+=1
+            continue
+        else:
+            return count
+            break
+    return len(seq)
+        
+"
+refactory_q1,gpt-5.4-mini,wrong_1_193,False,1000,0,True,7.287,,,False,0,10000,True,60.374,,
+refactory_q1,gpt-5.4-mini,wrong_1_194,True,7,0,False,0.111,while_return_minus_one,"def search(x, seq):
+    count=0
+    while count<len(seq):
+        if x>seq[count]:
+            count+=1
+            continue
+        else:
+            return count
+    return len(seq)
+        
+",True,7,0,False,0.358,while_return_minus_one,"def search(x, seq):
+    count=0
+    while count<len(seq):
+        if x>seq[count]:
+            count+=1
+            continue
+        else:
+            return count
+    return len(seq)
+        
+"
+refactory_q1,gpt-5.4-mini,wrong_1_195,False,1000,0,True,3.945,,,False,0,10000,True,66.162,,
+refactory_q1,gpt-5.4-mini,wrong_1_196,False,1000,0,True,3.725,,,False,0,10000,True,94.907,,
+refactory_q1,gpt-5.4-mini,wrong_1_197,True,8,0,False,0.167,while_return_minus_one,"def search(x, seq):
+    count=0
+    while count<len(seq):
+        if x>seq[count]:
+            count+=1
+            continue
+        else:
+            if count!=0:
+                return count
+            else:
+                return 0
+    return len(seq)
+        
+",True,8,0,False,0.519,while_return_minus_one,"def search(x, seq):
+    count=0
+    while count<len(seq):
+        if x>seq[count]:
+            count+=1
+            continue
+        else:
+            if count!=0:
+                return count
+            else:
+                return 0
+    return len(seq)
+        
+"
+refactory_q1,gpt-5.4-mini,wrong_1_198,False,1000,0,True,4.405,,,False,1000,250,True,4.807,,
+refactory_q1,gpt-5.4-mini,wrong_1_199,True,24,0,False,0.128,generic_flip_compare,"def search(x, seq):
+    l=len(seq)
+    if len(seq)==0:
+        return 0
+    elif x<=seq[0]:
+        return 0
+    elif x > seq[l - 1]:
+        return l
+    else:
+        for i in range (l):
+            if x>=seq[i] and x<=seq[i+1]:
+                return i+1
+            else:   
+                continue
+",True,12,12,False,0.183,generic_flip_compare,"def search(x, seq):
+    l=len(seq)
+    if len(seq)==0:
+        return 0
+    elif x<=seq[0]:
+        return 0
+    elif x > seq[l - 1]:
+        return l
+    else:
+        for i in range (l):
+            if x>=seq[i] and x<=seq[i+1]:
+                return i+1
+            else:   
+                continue
+"
+refactory_q1,gpt-5.4-mini,wrong_1_200,False,1000,0,True,22.418,,,False,0,10000,True,64.518,,
+refactory_q1,gpt-5.4-mini,wrong_1_201,False,1000,0,True,26.841,,,False,1000,997,True,12.977,,
+refactory_q1,gpt-5.4-mini,wrong_1_202,False,1000,0,True,1.848,,,False,1000,1441,True,9.859,,
+refactory_q1,gpt-5.4-mini,wrong_1_203,False,1000,0,True,3.063,,,False,1000,1441,True,10.231,,
+refactory_q1,gpt-5.4-mini,wrong_1_204,True,24,0,False,0.173,generic_flip_compare,"def search(x, seq):
+    l=len(seq)
+    if len(seq)==0:
+        return 0
+    elif x<=seq[0]:
+        return 0
+    elif x > seq[l - 1]:
+        return l
+    else:
+        for i in range (l):
+            if x>=seq[i] and x<=seq[i+1]:
+                return i+1
+            else:   
+                continue
+",True,12,12,False,0.236,generic_flip_compare,"def search(x, seq):
+    l=len(seq)
+    if len(seq)==0:
+        return 0
+    elif x<=seq[0]:
+        return 0
+    elif x > seq[l - 1]:
+        return l
+    else:
+        for i in range (l):
+            if x>=seq[i] and x<=seq[i+1]:
+                return i+1
+            else:   
+                continue
+"
+refactory_q1,gpt-5.4-mini,wrong_1_205,False,1000,0,True,5.782,,,False,1000,167,True,6.628,,
+refactory_q1,gpt-5.4-mini,wrong_1_206,False,1000,0,True,2.374,,,False,1000,537,True,4.859,,
+refactory_q1,gpt-5.4-mini,wrong_1_207,False,1000,0,True,1.847,,,False,1000,898,True,5.615,,
+refactory_q1,gpt-5.4-mini,wrong_1_208,False,1000,0,True,1.848,,,False,1000,675,True,4.829,,
+refactory_q1,gpt-5.4-mini,wrong_1_209,False,1000,0,True,1.717,,,False,1000,578,True,4.493,,
+refactory_q1,gpt-5.4-mini,wrong_1_210,False,1000,0,True,1.841,,,False,1000,675,True,4.992,,
+refactory_q1,gpt-5.4-mini,wrong_1_211,False,1000,0,True,2.032,,,False,1000,242,True,3.948,,
+refactory_q1,gpt-5.4-mini,wrong_1_212,True,21,0,False,0.127,range_len_minus_one_to_len,"def search(x, seq):
+    if not seq:
+        return 0
+    elif x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq)):
+            if seq[i] == x:
+                return i
+            elif seq[i] < x < seq[i+1]:
+                return i+1
+",True,21,0,False,0.189,range_len_minus_one_to_len,"def search(x, seq):
+    if not seq:
+        return 0
+    elif x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq)):
+            if seq[i] == x:
+                return i
+            elif seq[i] < x < seq[i+1]:
+                return i+1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_213,False,1000,0,True,5.383,,,False,0,10000,True,74.718,,
+refactory_q1,gpt-5.4-mini,wrong_1_214,False,35,0,False,0.67,,,False,0,35,False,0.527,,
+refactory_q1,gpt-5.4-mini,wrong_1_215,False,1000,0,True,1.989,,,False,1000,576,True,4.66,,
+refactory_q1,gpt-5.4-mini,wrong_1_216,False,27,0,False,0.365,,,False,0,27,False,0.291,,
+refactory_q1,gpt-5.4-mini,wrong_1_217,False,167,0,False,1.673,,,False,140,27,False,1.779,,
+refactory_q1,gpt-5.4-mini,wrong_1_218,False,167,0,False,1.675,,,False,140,27,False,1.791,,
+refactory_q1,gpt-5.4-mini,wrong_1_219,False,191,0,False,1.811,,,False,0,191,False,1.965,,
+refactory_q1,gpt-5.4-mini,wrong_1_220,False,191,0,False,2.201,,,False,0,191,False,1.64,,
+refactory_q1,gpt-5.4-mini,wrong_1_221,False,1000,0,True,3.845,,,False,0,10000,True,40.457,,
+refactory_q1,gpt-5.4-mini,wrong_1_222,False,1000,0,True,4.05,,,False,0,10000,True,44.108,,
+refactory_q1,gpt-5.4-mini,wrong_1_223,False,3,0,False,0.121,,,False,0,3,False,0.292,,
+refactory_q1,gpt-5.4-mini,wrong_1_224,False,1000,0,True,4.347,,,False,0,10000,True,51.579,,
+refactory_q1,gpt-5.4-mini,wrong_1_225,True,7,0,False,0.111,return_len_plus_one_to_len,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+    #"""""" Takes in a value x and a sorted sequence seq, and returns the
+    #position that x should go to such that the sequence remains sorted """"""
+   
+",True,3,4,False,0.248,return_len_plus_one_to_len,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+    #"""""" Takes in a value x and a sorted sequence seq, and returns the
+    #position that x should go to such that the sequence remains sorted """"""
+   
+"
+refactory_q1,gpt-5.4-mini,wrong_1_226,True,36,0,False,0.213,missing_default_return_len|seq_empty_return_wrong_literal,"def search(x, seq):
+    if seq == ():
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i+1
+",True,22,14,False,0.284,missing_default_return_len|seq_empty_return_wrong_literal,"def search(x, seq):
+    if seq == ():
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i+1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_227,False,7,0,False,0.218,,,False,0,7,False,0.164,,
+refactory_q1,gpt-5.4-mini,wrong_1_228,True,10,0,False,0.114,empty_seq_returns_zero,"def search(x, seq):
+    result = None
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq == () or seq == []:
+        return 0
+
+    
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            result = i
+            break
+            
+        else:
+            result = len(seq)
+    return result
+        
+",True,8,2,False,0.186,empty_seq_returns_zero,"def search(x, seq):
+    result = None
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq == () or seq == []:
+        return 0
+
+    
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            result = i
+            break
+            
+        else:
+            result = len(seq)
+    return result
+        
+"
+refactory_q1,gpt-5.4-mini,wrong_1_229,False,1000,0,True,3.124,,,False,1000,317,True,4.968,,
+refactory_q1,gpt-5.4-mini,wrong_1_230,False,1000,0,True,2.697,,,False,1000,445,True,6.526,,
+refactory_q1,gpt-5.4-mini,wrong_1_231,False,1000,0,True,3.467,,,False,1000,361,True,8.013,,
+refactory_q1,gpt-5.4-mini,wrong_1_232,True,19,0,False,0.201,generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[len(seq) - 1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem <= x <= seq[i+1]:
+                return i+1
+",True,16,3,False,0.24,generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[len(seq) - 1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem <= x <= seq[i+1]:
+                return i+1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_233,True,14,0,False,0.202,generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        for i, elem in enumerate(seq):
+            if x <= elem:
+                return i
+            elif x > seq[len(seq) - 1]:
+                return len(seq)
+",True,14,0,False,0.23,generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        for i, elem in enumerate(seq):
+            if x <= elem:
+                return i
+            elif x > seq[len(seq) - 1]:
+                return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_234,True,4,0,False,0.167,missing_default_return_len,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i+1
+",True,2,2,False,0.307,missing_default_return_len,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i+1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_235,False,1000,0,True,5.312,,,False,1000,867,True,11.832,,
+refactory_q1,gpt-5.4-mini,wrong_1_236,False,1000,0,True,4.552,,,False,1000,145,True,4.825,,
+refactory_q1,gpt-5.4-mini,wrong_1_237,False,1000,0,True,3.483,,,False,1000,345,True,4.709,,
+refactory_q1,gpt-5.4-mini,wrong_1_238,False,1000,0,True,7.371,,,False,1000,3,True,8.644,,
+refactory_q1,gpt-5.4-mini,wrong_1_239,False,1000,0,True,13.236,,,False,1000,1,True,15.431,,
+refactory_q1,gpt-5.4-mini,wrong_1_240,False,1000,0,True,4.388,,,False,1000,1289,True,10.1,,
+refactory_q1,gpt-5.4-mini,wrong_1_241,False,1000,0,True,2.975,,,False,1000,867,True,6.56,,
+refactory_q1,gpt-5.4-mini,wrong_1_242,False,1000,0,True,4.022,,,False,0,10000,True,52.353,,
+refactory_q1,gpt-5.4-mini,wrong_1_243,False,1000,0,True,3.919,,,False,0,10000,True,40.35,,
+refactory_q1,gpt-5.4-mini,wrong_1_244,False,1000,0,True,3.654,,,False,1000,219,True,4.865,,
+refactory_q1,gpt-5.4-mini,wrong_1_245,False,1000,0,True,3.496,,,False,1000,139,True,4.192,,
+refactory_q1,gpt-5.4-mini,wrong_1_246,True,7,0,False,0.11,loop_return_should_not_be_inside_else,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+
+",True,3,4,False,0.389,loop_return_should_not_be_inside_else,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+
+"
+refactory_q1,gpt-5.4-mini,wrong_1_247,False,1000,0,True,3.184,,,False,1000,881,True,7.184,,
+refactory_q1,gpt-5.4-mini,wrong_1_248,False,1000,0,True,2.557,,,False,1000,416,True,4.099,,
+refactory_q1,gpt-5.4-mini,wrong_1_249,False,1000,0,True,2.726,,,False,1000,844,True,5.961,,
+refactory_q1,gpt-5.4-mini,wrong_1_250,False,1000,0,True,3.089,,,False,1000,416,True,4.975,,
+refactory_q1,gpt-5.4-mini,wrong_1_251,False,1000,0,True,2.338,,,False,1000,844,True,5.203,,
+refactory_q1,gpt-5.4-mini,wrong_1_252,False,1000,0,True,1.841,,,False,1000,1329,True,6.915,,
+refactory_q1,gpt-5.4-mini,wrong_1_253,False,1000,0,True,1.755,,,False,1000,458,True,3.675,,
+refactory_q1,gpt-5.4-mini,wrong_1_254,False,1000,0,True,2.065,,,False,1000,519,True,5.858,,
+refactory_q1,gpt-5.4-mini,wrong_1_255,False,1000,0,True,1.742,,,False,1000,587,True,4.778,,
+refactory_q1,gpt-5.4-mini,wrong_1_256,True,766,0,False,1.52,generic_flip_compare|generic_flip_compare,"def search(x, seq):
+    a = list(enumerate(seq))
+    seq = list(seq)
+    i = 0
+    while i <= len(seq):
+        if seq == []:
+            return 0
+        if x <= seq[i] and i == 0:
+            return 0
+        elif x <= a[i][1] and x >= a[i-1][1]:
+            return a[i][0]
+        elif x > a[len(seq)-1][1]:
+            return len(seq)
+        else:
+            i = i + 1
+            
+            
+    return seq
+    
+",True,75,691,False,2.583,generic_flip_compare|generic_flip_compare,"def search(x, seq):
+    a = list(enumerate(seq))
+    seq = list(seq)
+    i = 0
+    while i <= len(seq):
+        if seq == []:
+            return 0
+        if x <= seq[i] and i == 0:
+            return 0
+        elif x <= a[i][1] and x >= a[i-1][1]:
+            return a[i][0]
+        elif x > a[len(seq)-1][1]:
+            return len(seq)
+        else:
+            i = i + 1
+            
+            
+    return seq
+    
+"
+refactory_q1,gpt-5.4-mini,wrong_1_257,False,1000,0,True,2.522,,,False,1000,220,True,3.747,,
+refactory_q1,gpt-5.4-mini,wrong_1_258,False,1000,0,True,4.93,,,False,0,10000,True,57.602,,
+refactory_q1,gpt-5.4-mini,wrong_1_259,True,115,0,False,0.506,x_returns_value_not_position|compare_x_to_elem_strict_lt|generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    for i in range(len(seq)):
+        if seq[i] >= x:
+            return i
+    return len(seq)
+",True,114,1,False,0.85,x_returns_value_not_position|compare_x_to_elem_strict_lt|generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    for i in range(len(seq)):
+        if seq[i] >= x:
+            return i
+    return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_260,False,1000,0,True,3.154,,,False,1000,219,True,4.23,,
+refactory_q1,gpt-5.4-mini,wrong_1_261,False,1000,0,True,3.266,,,False,1000,219,True,4.534,,
+refactory_q1,gpt-5.4-mini,wrong_1_262,False,1000,0,True,3.718,,,False,1000,3,True,4.468,,
+refactory_q1,gpt-5.4-mini,wrong_1_263,False,1000,0,True,2.997,,,False,1000,1478,True,9.336,,
+refactory_q1,gpt-5.4-mini,wrong_1_264,False,1000,0,True,1.881,,,False,1000,837,True,4.944,,
+refactory_q1,gpt-5.4-mini,wrong_1_265,False,1000,0,True,1.781,,,False,1000,870,True,4.886,,
+refactory_q1,gpt-5.4-mini,wrong_1_266,False,1000,0,True,1.764,,,False,1000,479,True,3.862,,
+refactory_q1,gpt-5.4-mini,wrong_1_267,False,1000,0,True,1.742,,,False,1000,479,True,3.809,,
+refactory_q1,gpt-5.4-mini,wrong_1_268,False,1000,0,True,5.614,,,False,0,10000,True,76.156,,
+refactory_q1,gpt-5.4-mini,wrong_1_269,False,1000,0,True,4.39,,,False,1000,481,True,7.572,,
+refactory_q1,gpt-5.4-mini,wrong_1_270,False,1000,0,True,6.756,,,False,1000,523,True,10.324,,
+refactory_q1,gpt-5.4-mini,wrong_1_271,False,1000,0,True,3.274,,,False,1000,198,True,4.602,,
+refactory_q1,gpt-5.4-mini,wrong_1_272,False,1000,0,True,2.732,,,False,1000,503,True,4.738,,
+refactory_q1,gpt-5.4-mini,wrong_1_273,False,1000,0,True,2.33,,,False,1000,503,True,6.589,,
+refactory_q1,gpt-5.4-mini,wrong_1_274,False,1000,0,True,2.652,,,False,1000,503,True,7.775,,
+refactory_q1,gpt-5.4-mini,wrong_1_275,True,6,0,False,0.18,compare_x_to_elem_strict_lt,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+        else:
+            continue
+    return len(seq)
+",True,6,0,False,0.266,compare_x_to_elem_strict_lt,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+        else:
+            continue
+    return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_276,True,6,0,False,0.226,while_return_minus_one|generic_flip_compare,"def search(x, seq):
+    t = 0
+    for i in seq:
+        if x <= i:
+            return t
+        t += 1
+    return len(seq)
+    
+    
+",True,2,4,False,0.729,while_return_minus_one|generic_flip_compare,"def search(x, seq):
+    t = 0
+    for i in seq:
+        if x <= i:
+            return t
+        t += 1
+    return len(seq)
+    
+    
+"
+refactory_q1,gpt-5.4-mini,wrong_1_277,True,2,0,False,0.114,generic_flip_compare,"def search(x, seq):
+    t = 0
+    for i in seq:
+        if x > i:
+            t+=1
+
+    return t
+    
+    
+    
+",True,2,0,False,0.18,generic_flip_compare,"def search(x, seq):
+    t = 0
+    for i in seq:
+        if x > i:
+            t+=1
+
+    return t
+    
+    
+    
+"
+refactory_q1,gpt-5.4-mini,wrong_1_278,False,1000,0,True,4.834,,,False,1000,3,True,5.268,,
+refactory_q1,gpt-5.4-mini,wrong_1_279,False,1000,0,True,2.672,,,False,1000,277,True,5.151,,
+refactory_q1,gpt-5.4-mini,wrong_1_280,False,1000,0,True,2.184,,,False,1000,65,True,3.375,,
+refactory_q1,gpt-5.4-mini,wrong_1_281,False,1000,0,True,2.794,,,False,1000,65,True,3.421,,
+refactory_q1,gpt-5.4-mini,wrong_1_282,False,1000,0,True,3.277,,,False,1000,100,True,4.31,,
+refactory_q1,gpt-5.4-mini,wrong_1_283,False,1000,0,True,2.722,,,False,1000,414,True,9.957,,
+refactory_q1,gpt-5.4-mini,wrong_1_284,False,1000,0,True,4.213,,,False,1000,64,True,6.262,,
+refactory_q1,gpt-5.4-mini,wrong_1_285,False,1000,0,True,2.871,,,False,1000,414,True,7.832,,
+refactory_q1,gpt-5.4-mini,wrong_1_286,False,1000,0,True,3.628,,,False,1000,545,True,6.511,,
+refactory_q1,gpt-5.4-mini,wrong_1_287,False,1000,0,True,1.872,,,False,1000,545,True,4.639,,
+refactory_q1,gpt-5.4-mini,wrong_1_288,False,1000,0,True,1.799,,,False,1000,689,True,4.817,,
+refactory_q1,gpt-5.4-mini,wrong_1_289,True,29,0,False,0.13,range_len_minus_one_to_len,"def search(x, seq):
+    if len(seq)==0:
+        return 0
+    elif x<seq[0]:
+        return 0
+    elif x>seq[-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq)):
+            if x>seq[i] and x<seq[i+1]:
+                return i+1
+            elif x==seq[i]:
+                return i
+",True,29,0,False,0.194,range_len_minus_one_to_len,"def search(x, seq):
+    if len(seq)==0:
+        return 0
+    elif x<seq[0]:
+        return 0
+    elif x>seq[-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq)):
+            if x>seq[i] and x<seq[i+1]:
+                return i+1
+            elif x==seq[i]:
+                return i
+"
+refactory_q1,gpt-5.4-mini,wrong_1_290,False,1000,0,True,3.033,,,False,1000,219,True,4.526,,
+refactory_q1,gpt-5.4-mini,wrong_1_291,False,1000,0,True,3.14,,,False,1000,219,True,4.416,,
+refactory_q1,gpt-5.4-mini,wrong_1_292,False,1000,0,True,2.681,,,False,1000,712,True,6.507,,
+refactory_q1,gpt-5.4-mini,wrong_1_293,True,1000,0,False,2.848,generic_flip_compare|generic_flip_compare|compare_x_to_elem_strict_lt|loop_break_should_return,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+",True,565,452,False,4.896,generic_flip_compare|generic_flip_compare|compare_x_to_elem_strict_lt|loop_break_should_return,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_294,False,1000,0,True,4.57,,,False,1000,219,True,5.319,,
+refactory_q1,gpt-5.4-mini,wrong_1_295,True,1000,0,False,3.935,generic_flip_compare|generic_flip_compare|compare_x_to_elem_strict_lt|loop_break_should_return,"def search(x,seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+",True,565,452,False,3.346,generic_flip_compare|generic_flip_compare|compare_x_to_elem_strict_lt|loop_break_should_return,"def search(x,seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_296,False,1000,0,True,2.911,,,False,1000,956,True,10.413,,
+refactory_q1,gpt-5.4-mini,wrong_1_297,False,1000,0,True,3.151,,,False,1000,1028,True,8.111,,
+refactory_q1,gpt-5.4-mini,wrong_1_298,False,1000,0,True,3.205,,,False,1000,956,True,7.192,,
+refactory_q1,gpt-5.4-mini,wrong_1_299,False,1000,0,True,2.826,,,False,1000,524,True,5.417,,
+refactory_q1,gpt-5.4-mini,wrong_1_300,False,1000,0,True,2.912,,,False,1000,949,True,7.012,,
+refactory_q1,gpt-5.4-mini,wrong_1_301,True,15,0,False,0.117,generic_shift_range,"def search(x,seq):
+    for i in range(len(seq) + 1):
+        if len(seq) == 0:
+            return 0
+        elif x > max(seq):
+            return len(seq)
+        elif x > seq[i]:
+            continue
+        elif x <= seq[i]:
+            break
+        
+    return i
+",True,2,13,False,0.194,generic_shift_range,"def search(x,seq):
+    for i in range(len(seq) + 1):
+        if len(seq) == 0:
+            return 0
+        elif x > max(seq):
+            return len(seq)
+        elif x > seq[i]:
+            continue
+        elif x <= seq[i]:
+            break
+        
+    return i
+"
+refactory_q1,gpt-5.4-mini,wrong_1_302,True,15,0,False,0.117,generic_shift_range,"def search(x,seq):
+    for i in range(len(seq) + 1):
+        if len(seq) == 0:
+            return 0
+        elif x > max(seq):
+            return len(seq)
+        elif x > seq[i]:
+            continue
+        elif x <= seq[i]:
+            break
+        
+    return i
+",True,2,13,False,0.197,generic_shift_range,"def search(x,seq):
+    for i in range(len(seq) + 1):
+        if len(seq) == 0:
+            return 0
+        elif x > max(seq):
+            return len(seq)
+        elif x > seq[i]:
+            continue
+        elif x <= seq[i]:
+            break
+        
+    return i
+"
+refactory_q1,gpt-5.4-mini,wrong_1_303,True,15,0,False,0.115,generic_shift_range,"def search(x,seq):
+    for i in range(len(seq) + 1):
+        if len(seq) == 0:
+            return 0
+        elif x > max(seq):
+            return len(seq)
+        elif x > seq[i]:
+            continue
+        elif x <= seq[i]:
+            break
+        
+    return i
+",True,2,13,False,0.192,generic_shift_range,"def search(x,seq):
+    for i in range(len(seq) + 1):
+        if len(seq) == 0:
+            return 0
+        elif x > max(seq):
+            return len(seq)
+        elif x > seq[i]:
+            continue
+        elif x <= seq[i]:
+            break
+        
+    return i
+"
+refactory_q1,gpt-5.4-mini,wrong_1_304,False,359,0,False,5.592,,,False,324,35,False,5.859,,
+refactory_q1,gpt-5.4-mini,wrong_1_305,False,1000,0,True,5.54,,,False,0,3480,False,46.775,,
+refactory_q1,gpt-5.4-mini,wrong_1_306,False,1000,0,True,3.17,,,False,1000,306,True,4.915,,
+refactory_q1,gpt-5.4-mini,wrong_1_307,False,1000,0,True,3.619,,,False,0,10000,True,51.896,,
+refactory_q1,gpt-5.4-mini,wrong_1_308,False,1000,0,True,4.92,,,False,0,10000,True,59.323,,
+refactory_q1,gpt-5.4-mini,wrong_1_309,False,1000,0,True,3.841,,,False,0,10000,True,53.98,,
+refactory_q1,gpt-5.4-mini,wrong_1_310,False,1000,0,True,3.189,,,False,1000,250,True,4.298,,
+refactory_q1,gpt-5.4-mini,wrong_1_311,True,7,0,False,0.159,loop_break_should_return,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+",True,3,4,False,0.36,loop_break_should_return,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_312,False,1000,0,True,4.75,,,False,1000,250,True,7.844,,
+refactory_q1,gpt-5.4-mini,wrong_1_313,False,1000,0,True,3.655,,,False,1000,420,True,5.201,,
+refactory_q1,gpt-5.4-mini,wrong_1_314,False,1000,0,True,3.535,,,False,1000,250,True,5.521,,
+refactory_q1,gpt-5.4-mini,wrong_1_315,False,1000,0,True,4.357,,,False,1000,250,True,5.408,,
+refactory_q1,gpt-5.4-mini,wrong_1_316,False,3,0,False,0.156,,,False,0,3,False,0.155,,
+refactory_q1,gpt-5.4-mini,wrong_1_317,False,1000,0,True,3.657,,,False,1000,219,True,5.066,,
+refactory_q1,gpt-5.4-mini,wrong_1_318,False,1000,0,True,3.993,,,False,1000,0,True,4.209,,
+refactory_q1,gpt-5.4-mini,wrong_1_319,False,3,0,False,0.119,,,False,0,3,False,0.188,,
+refactory_q1,gpt-5.4-mini,wrong_1_320,True,3,0,False,0.108,missing_default_return_len,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+        
+       
+            
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+
+",True,1,2,False,0.247,missing_default_return_len,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+        
+       
+            
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+
+"
+refactory_q1,gpt-5.4-mini,wrong_1_321,False,31,0,False,0.454,,,False,0,31,False,0.379,,
+refactory_q1,gpt-5.4-mini,wrong_1_322,False,15,0,False,0.281,,,False,0,15,False,0.208,,
+refactory_q1,gpt-5.4-mini,wrong_1_323,False,95,0,False,1.027,,,False,0,95,False,0.918,,
+refactory_q1,gpt-5.4-mini,wrong_1_324,False,95,0,False,1.014,,,False,0,95,False,1.231,,
+refactory_q1,gpt-5.4-mini,wrong_1_325,False,191,0,False,2.116,,,False,0,191,False,1.739,,
+refactory_q1,gpt-5.4-mini,wrong_1_326,False,191,0,False,2.46,,,False,0,191,False,2.607,,
+refactory_q1,gpt-5.4-mini,wrong_1_327,False,15,0,False,0.372,,,False,0,15,False,0.266,,
+refactory_q1,gpt-5.4-mini,wrong_1_328,False,575,0,False,7.005,,,False,480,95,False,6.974,,
+refactory_q1,gpt-5.4-mini,wrong_1_329,False,1000,0,True,3.562,,,False,1000,405,True,6.365,,
+refactory_q1,gpt-5.4-mini,wrong_1_330,False,3,0,False,0.187,,,False,0,3,False,0.619,,
+refactory_q1,gpt-5.4-mini,wrong_1_331,False,1000,0,True,4.167,,,False,1000,219,True,5.529,,
+refactory_q1,gpt-5.4-mini,wrong_1_332,False,1000,0,True,4.696,,,False,1000,219,True,7.341,,
+refactory_q1,gpt-5.4-mini,wrong_1_333,True,7,0,False,0.171,loop_return_should_not_be_inside_else,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+",True,3,4,False,0.49,loop_return_should_not_be_inside_else,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_334,True,7,0,False,0.167,loop_return_should_not_be_inside_else,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+",True,3,4,False,0.497,loop_return_should_not_be_inside_else,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_335,False,1000,0,True,3.802,,,False,1000,889,True,8.16,,
+refactory_q1,gpt-5.4-mini,wrong_1_336,False,1000,0,True,2.992,,,False,1000,519,True,5.82,,
+refactory_q1,gpt-5.4-mini,wrong_1_337,True,2,0,False,0.174,compare_x_to_elem_strict_lt,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+",True,2,0,False,0.263,compare_x_to_elem_strict_lt,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_338,True,2,0,False,0.175,compare_x_to_elem_strict_lt,"def search(x, seq):
+    for i,elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+",True,2,0,False,0.262,compare_x_to_elem_strict_lt,"def search(x, seq):
+    for i,elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_339,True,2,0,False,0.173,compare_x_to_elem_strict_lt,"def search(x, seq):
+    for i,elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+",True,2,0,False,0.275,compare_x_to_elem_strict_lt,"def search(x, seq):
+    for i,elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_340,False,1000,0,True,2.483,,,False,1000,2087,True,10.603,,
+refactory_q1,gpt-5.4-mini,wrong_1_341,False,1000,0,True,2.511,,,False,1000,1478,True,8.279,,
+refactory_q1,gpt-5.4-mini,wrong_1_342,False,1000,0,True,3.046,,,False,1000,2177,True,11.844,,
+refactory_q1,gpt-5.4-mini,wrong_1_343,False,1000,0,True,2.23,,,False,1000,2177,True,13.373,,
+refactory_q1,gpt-5.4-mini,wrong_1_344,False,1000,0,True,4.125,,,False,1000,2033,True,12.555,,
+refactory_q1,gpt-5.4-mini,wrong_1_345,False,1000,0,True,3.419,,,False,1000,497,True,6.022,,
+refactory_q1,gpt-5.4-mini,wrong_1_346,False,1000,0,True,2.382,,,False,1000,497,True,4.79,,
+refactory_q1,gpt-5.4-mini,wrong_1_347,False,1000,0,True,4.785,,,False,1000,0,True,5.122,,
+refactory_q1,gpt-5.4-mini,wrong_1_348,False,1000,0,True,4.171,,,False,0,10000,True,47.347,,
+refactory_q1,gpt-5.4-mini,wrong_1_349,False,1000,0,True,4.34,,,False,1000,0,True,4.981,,
+refactory_q1,gpt-5.4-mini,wrong_1_350,False,1000,0,True,4.168,,,False,0,10000,True,52.055,,
+refactory_q1,gpt-5.4-mini,wrong_1_351,True,2,0,False,0.147,compare_x_to_elem_strict_lt,"def search(x, seq):
+    #Takes in a value x and a sorted sequence seq, and returns the
+    #position that x should go to such that the sequence remains sorted 
+            
+    for i, p in enumerate(seq):
+        if x <= p:
+            return i
+    return len(seq)
+    
+",True,2,0,False,0.18,compare_x_to_elem_strict_lt,"def search(x, seq):
+    #Takes in a value x and a sorted sequence seq, and returns the
+    #position that x should go to such that the sequence remains sorted 
+            
+    for i, p in enumerate(seq):
+        if x <= p:
+            return i
+    return len(seq)
+    
+"
+refactory_q1,gpt-5.4-mini,wrong_1_352,False,1000,0,True,3.505,,,False,1000,951,True,6.486,,
+refactory_q1,gpt-5.4-mini,wrong_1_353,False,1000,0,True,1.812,,,False,1000,2582,True,13.211,,
+refactory_q1,gpt-5.4-mini,wrong_1_354,True,117,0,False,31.657,while_increment_by_self|generic_flip_compare|generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    position = 0
+    found = False
+    
+    while position < len(seq) and not found:
+        if x <= seq[position]:
+            found = True
+        else:
+            position += 1
+    
+    return position
+",True,117,0,False,31.623,while_increment_by_self|generic_flip_compare|generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    position = 0
+    found = False
+    
+    while position < len(seq) and not found:
+        if x <= seq[position]:
+            found = True
+        else:
+            position += 1
+    
+    return position
+"
+refactory_q1,gpt-5.4-mini,wrong_1_355,True,26,0,False,17.199,while_increment_by_self|compare_x_to_elem_strict_lt,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    position = 0
+    found = False
+    
+    while position < len(seq) and not found:
+        if x <= seq[position]:
+            found = True
+        else:
+            position += 1
+    
+    return position
+",True,26,0,False,17.221,while_increment_by_self|compare_x_to_elem_strict_lt,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    position = 0
+    found = False
+    
+    while position < len(seq) and not found:
+        if x <= seq[position]:
+            found = True
+        else:
+            position += 1
+    
+    return position
+"
+refactory_q1,gpt-5.4-mini,wrong_1_356,True,7,0,False,0.167,compare_x_to_elem_strict_lt,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    position = 0
+    found = False
+    
+    while position < len(seq) and not found:
+        if x <= seq[position]:
+            found = True
+        else:
+            position += 1
+    
+    return position
+",True,7,0,False,0.283,compare_x_to_elem_strict_lt,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    position = 0
+    found = False
+    
+    while position < len(seq) and not found:
+        if x <= seq[position]:
+            found = True
+        else:
+            position += 1
+    
+    return position
+"
+refactory_q1,gpt-5.4-mini,wrong_1_357,False,1000,0,True,3.746,,,False,1000,1010,True,11.095,,
+refactory_q1,gpt-5.4-mini,wrong_1_358,False,1000,0,True,3.553,,,False,1000,562,True,5.482,,
+refactory_q1,gpt-5.4-mini,wrong_1_359,False,1000,0,True,2.856,,,False,1000,905,True,6.696,,
+refactory_q1,gpt-5.4-mini,wrong_1_360,False,1000,0,True,2.982,,,False,1000,905,True,8.495,,
+refactory_q1,gpt-5.4-mini,wrong_1_361,True,19,0,False,0.19,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    if x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(0, len(seq)-1):
+            if seq[i] <= x <= seq[i+1]:
+                return i+1
+",True,11,8,False,0.223,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    if x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(0, len(seq)-1):
+            if seq[i] <= x <= seq[i+1]:
+                return i+1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_362,True,19,0,False,0.175,generic_flip_compare,"def search(x, seq):
+    if len(seq)==0:
+        return 0
+    else:
+        if x <= seq[0]:
+            return 0
+        elif x > seq[-1]:
+            return len(seq)
+        else:
+            for i in range(0, len(seq)-1):
+                if seq[i] <= x <= seq[i+1]:
+                    return i+1
+",True,11,8,False,0.248,generic_flip_compare,"def search(x, seq):
+    if len(seq)==0:
+        return 0
+    else:
+        if x <= seq[0]:
+            return 0
+        elif x > seq[-1]:
+            return len(seq)
+        else:
+            for i in range(0, len(seq)-1):
+                if seq[i] <= x <= seq[i+1]:
+                    return i+1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_363,True,19,0,False,0.15,generic_flip_compare,"def search(x, seq):
+    if len(seq)==0:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(0, len(seq)-1):
+            if seq[i] <= x <= seq[i+1]:
+                return i+1
+",True,11,8,False,0.227,generic_flip_compare,"def search(x, seq):
+    if len(seq)==0:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(0, len(seq)-1):
+            if seq[i] <= x <= seq[i+1]:
+                return i+1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_364,True,19,0,False,0.163,generic_flip_compare,"def search(x, seq):
+    if len(seq)==0:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(0, len(seq)-1):
+            if seq[i] <= x <= seq[i+1]:
+                return i+1
+",True,11,8,False,0.207,generic_flip_compare,"def search(x, seq):
+    if len(seq)==0:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(0, len(seq)-1):
+            if seq[i] <= x <= seq[i+1]:
+                return i+1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_365,False,1000,0,True,2.538,,,False,1000,300,True,4.557,,
+refactory_q1,gpt-5.4-mini,wrong_1_366,True,19,0,False,0.167,generic_flip_compare,"def search(x, seq):
+    if len(seq)==0:
+        return 0
+    else:
+        if x <= seq[0]:
+            return 0
+        elif x > seq[-1]:
+            return len(seq)
+        else:
+            for i in range(0, len(seq)-1):
+                if seq[i] <= x <= seq[i+1]:
+                    return i+1
+",True,11,8,False,0.218,generic_flip_compare,"def search(x, seq):
+    if len(seq)==0:
+        return 0
+    else:
+        if x <= seq[0]:
+            return 0
+        elif x > seq[-1]:
+            return len(seq)
+        else:
+            for i in range(0, len(seq)-1):
+                if seq[i] <= x <= seq[i+1]:
+                    return i+1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_367,False,1000,0,True,2.319,,,False,1000,495,True,4.781,,
+refactory_q1,gpt-5.4-mini,wrong_1_368,False,1000,0,True,2.658,,,False,1000,1097,True,8.158,,
+refactory_q1,gpt-5.4-mini,wrong_1_369,False,1000,0,True,2.415,,,False,1000,639,True,6.534,,
+refactory_q1,gpt-5.4-mini,wrong_1_370,True,28,0,False,0.14,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if lst1 == []:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+    for i in range(len(lst2)):
+        if x == lst2[i]:
+            return i
+",True,21,7,False,0.207,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if lst1 == []:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+    for i in range(len(lst2)):
+        if x == lst2[i]:
+            return i
+"
+refactory_q1,gpt-5.4-mini,wrong_1_371,True,28,0,False,0.137,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if lst1 == []:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+    for i in range(len(lst2)):
+        if x == lst2[i]:
+            return i
+",True,21,7,False,0.21,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if lst1 == []:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+    for i in range(len(lst2)):
+        if x == lst2[i]:
+            return i
+"
+refactory_q1,gpt-5.4-mini,wrong_1_372,True,28,0,False,0.14,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if lst1 == []:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+    for i in range(len(lst2)):
+        if x == lst2[i]:
+            return i
+",True,21,7,False,0.206,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if lst1 == []:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+    for i in range(len(lst2)):
+        if x == lst2[i]:
+            return i
+"
+refactory_q1,gpt-5.4-mini,wrong_1_373,False,1000,0,True,3.827,,,False,0,10000,True,56.502,,
+refactory_q1,gpt-5.4-mini,wrong_1_374,False,1000,0,True,5.414,,,False,0,10000,True,42.376,,
+refactory_q1,gpt-5.4-mini,wrong_1_375,False,1000,0,True,4.339,,,False,0,10000,True,49.235,,
+refactory_q1,gpt-5.4-mini,wrong_1_376,False,1000,0,True,5.589,,,False,1000,219,True,5.504,,
+refactory_q1,gpt-5.4-mini,wrong_1_377,False,1000,0,True,3.083,,,False,1000,940,True,14.554,,
+refactory_q1,gpt-5.4-mini,wrong_1_378,False,1000,0,True,4.447,,,False,1000,769,True,11.275,,
+refactory_q1,gpt-5.4-mini,wrong_1_379,False,1000,0,True,3.552,,,False,1000,953,True,8.64,,
+refactory_q1,gpt-5.4-mini,wrong_1_380,False,1000,0,True,4.437,,,False,1000,707,True,7.116,,
+refactory_q1,gpt-5.4-mini,wrong_1_381,False,1000,0,True,2.338,,,False,1000,363,True,6.054,,
+refactory_q1,gpt-5.4-mini,wrong_1_382,False,1000,0,True,5.431,,,False,1000,879,True,11.71,,
+refactory_q1,gpt-5.4-mini,wrong_1_383,True,28,0,False,0.172,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if lst1 == []:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+        for i in range(len(lst2)):
+            if x == lst2[i]:
+                return i
+",True,21,7,False,0.32,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if lst1 == []:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+        for i in range(len(lst2)):
+            if x == lst2[i]:
+                return i
+"
+refactory_q1,gpt-5.4-mini,wrong_1_384,False,1000,0,True,4.742,,,False,1000,953,True,12.303,,
+refactory_q1,gpt-5.4-mini,wrong_1_385,False,1000,0,True,4.192,,,False,1000,707,True,6.902,,
+refactory_q1,gpt-5.4-mini,wrong_1_386,False,1000,0,True,3.142,,,False,1000,707,True,6.136,,
+refactory_q1,gpt-5.4-mini,wrong_1_387,False,1000,0,True,3.39,,,False,1000,879,True,9.001,,
+refactory_q1,gpt-5.4-mini,wrong_1_388,False,1000,0,True,2.899,,,False,1000,1052,True,9.494,,
+refactory_q1,gpt-5.4-mini,wrong_1_389,True,32,0,False,0.143,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if seq == () or seq ==[]:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+        for i in range(len(lst2)):
+            if x == lst2[i]:
+                return i
+",True,25,7,False,0.269,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if seq == () or seq ==[]:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+        for i in range(len(lst2)):
+            if x == lst2[i]:
+                return i
+"
+refactory_q1,gpt-5.4-mini,wrong_1_390,True,28,0,False,0.15,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if len(lst1) == 0:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+        for i in range(len(lst2)):
+            if x == lst2[i]:
+                return i
+",True,21,7,False,0.215,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if len(lst1) == 0:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+        for i in range(len(lst2)):
+            if x == lst2[i]:
+                return i
+"
+refactory_q1,gpt-5.4-mini,wrong_1_391,True,25,0,False,0.14,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if not seq:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+        for i in range(len(lst2)):
+            if x == lst2[i]:
+                return i
+",True,18,7,False,0.21,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if not seq:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+        for i in range(len(lst2)):
+            if x == lst2[i]:
+                return i
+"
+refactory_q1,gpt-5.4-mini,wrong_1_392,True,28,0,False,0.142,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if len(lst1) == 0:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+        for i in range(len(lst2)):
+            if x == lst2[i]:
+                return i
+",True,21,7,False,0.279,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if len(lst1) == 0:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+        for i in range(len(lst2)):
+            if x == lst2[i]:
+                return i
+"
+refactory_q1,gpt-5.4-mini,wrong_1_393,False,119,0,False,1.975,,,False,119,0,False,1.836,,
+refactory_q1,gpt-5.4-mini,wrong_1_394,False,1000,0,True,2.144,,,False,1000,2762,True,11.484,,
+refactory_q1,gpt-5.4-mini,wrong_1_395,False,1000,0,True,2.638,,,False,1000,639,True,7.873,,
+refactory_q1,gpt-5.4-mini,wrong_1_396,False,1000,0,True,3.327,,,False,1000,383,True,6.543,,
+refactory_q1,gpt-5.4-mini,wrong_1_397,False,1000,0,True,4.181,,,False,1000,490,True,5.82,,
+refactory_q1,gpt-5.4-mini,wrong_1_398,False,1000,0,True,4.48,,,False,1000,490,True,7.402,,
+refactory_q1,gpt-5.4-mini,wrong_1_399,False,1000,0,True,3.146,,,False,1000,170,True,4.555,,
+refactory_q1,gpt-5.4-mini,wrong_1_400,True,15,0,False,0.114,generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        for i in range(len(seq)):
+            if x <= seq[i]:
+                return i
+            elif x > max(seq):
+                return len(seq) 
+            else:
+                continue 
+
+",True,15,0,False,0.192,generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        for i in range(len(seq)):
+            if x <= seq[i]:
+                return i
+            elif x > max(seq):
+                return len(seq) 
+            else:
+                continue 
+
+"
+refactory_q1,gpt-5.4-mini,wrong_1_401,False,3,0,False,0.22,,,False,0,3,False,0.249,,
+refactory_q1,gpt-5.4-mini,wrong_1_402,False,143,0,False,1.852,,,False,0,143,False,1.739,,
+refactory_q1,gpt-5.4-mini,wrong_1_403,False,1000,0,True,3.012,,,False,1000,443,True,7.016,,
+refactory_q1,gpt-5.4-mini,wrong_1_404,True,3,0,False,0.135,generic_flip_compare,"def search(x, seq):
+    counter=0
+    for i in seq:
+        if x > i:
+            counter+=1
+        else:
+            break
+    return counter
+",True,3,0,False,0.455,generic_flip_compare,"def search(x, seq):
+    counter=0
+    for i in seq:
+        if x > i:
+            counter+=1
+        else:
+            break
+    return counter
+"
+refactory_q1,gpt-5.4-mini,wrong_1_405,False,1000,0,True,6.119,,,False,1000,31,True,4.542,,
+refactory_q1,gpt-5.4-mini,wrong_1_406,False,1000,0,True,3.504,,,False,0,10000,True,46.786,,
+refactory_q1,gpt-5.4-mini,wrong_1_407,False,1000,0,True,4.204,,,False,0,10000,True,48.818,,
+refactory_q1,gpt-5.4-mini,wrong_1_408,False,1000,0,True,2.712,,,False,0,10000,True,48.388,,
+refactory_q1,gpt-5.4-mini,wrong_1_409,True,2,0,False,0.111,compare_x_to_elem_strict_lt,"def search(x, seq):
+    for i, element in enumerate(seq):
+        if x <= element:
+            return i
+    return len(seq)
+",True,2,0,False,0.188,compare_x_to_elem_strict_lt,"def search(x, seq):
+    for i, element in enumerate(seq):
+        if x <= element:
+            return i
+    return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_410,False,3,0,False,0.135,,,False,0,3,False,0.191,,
+refactory_q1,gpt-5.4-mini,wrong_1_411,True,4,0,False,0.109,missing_default_return_len,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i + 1
+",True,2,2,False,0.198,missing_default_return_len,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i + 1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_412,False,1000,0,True,3.157,,,False,1000,223,True,4.261,,
+refactory_q1,gpt-5.4-mini,wrong_1_413,False,3,0,False,0.118,,,False,3,0,False,0.507,,
+refactory_q1,gpt-5.4-mini,wrong_1_414,True,4,0,False,0.121,missing_default_return_len,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i + 1
+",True,2,2,False,0.181,missing_default_return_len,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i + 1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_415,False,1000,0,True,2.644,,,True,1000,544,False,6.125,range_len_minus_one_to_len|generic_flip_compare|generic_flip_compare|compare_x_to_elem_strict_lt|loop_return_should_not_be_inside_else,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_416,True,4,0,False,0.17,missing_default_return_len,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i + 1
+",True,2,2,False,0.267,missing_default_return_len,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i + 1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_417,True,7,0,False,0.166,missing_default_return_len,"def search(x, seq):
+    if seq == () :
+        return 0 
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i + 1
+",True,5,2,False,0.234,missing_default_return_len,"def search(x, seq):
+    if seq == () :
+        return 0 
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i + 1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_418,False,1000,0,True,4.095,,,False,1000,676,True,6.182,,
+refactory_q1,gpt-5.4-mini,wrong_1_419,True,145,0,False,0.587,range_len_minus_one_to_len|generic_unshift_index|loop_break_should_return,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+",True,98,47,False,1.205,range_len_minus_one_to_len|generic_unshift_index|loop_break_should_return,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_420,True,42,0,False,0.27,range_len_minus_one_to_len|generic_shift_index,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i + 1 - 1]:
+            return i
+    return len(seq)
+",True,40,2,False,0.564,range_len_minus_one_to_len|generic_shift_index,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i + 1 - 1]:
+            return i
+    return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_421,False,1000,0,True,4.163,,,False,1000,846,True,7.075,,
+refactory_q1,gpt-5.4-mini,wrong_1_422,False,1000,0,True,2.766,,,False,1000,1227,True,8.126,,
+refactory_q1,gpt-5.4-mini,wrong_1_423,False,1000,0,True,2.704,,,False,1000,1227,True,7.386,,
+refactory_q1,gpt-5.4-mini,wrong_1_424,False,1000,0,True,2.618,,,False,1000,199,True,4.084,,
+refactory_q1,gpt-5.4-mini,wrong_1_425,False,1000,0,True,3.169,,,False,1000,199,True,4.02,,
+refactory_q1,gpt-5.4-mini,wrong_1_426,False,3,0,False,0.123,,,False,0,3,False,0.321,,
+refactory_q1,gpt-5.4-mini,wrong_1_427,False,3,0,False,0.122,,,False,0,3,False,0.305,,
+refactory_q1,gpt-5.4-mini,wrong_1_428,False,1000,0,True,2.818,,,False,0,10000,True,56.685,,
+refactory_q1,gpt-5.4-mini,wrong_1_429,False,34,0,False,0.566,,,False,0,34,False,0.387,,
+refactory_q1,gpt-5.4-mini,wrong_1_430,False,454,0,False,4.695,,,False,0,454,False,5.116,,
+refactory_q1,gpt-5.4-mini,wrong_1_431,False,244,0,False,3.025,,,False,0,244,False,2.904,,
+refactory_q1,gpt-5.4-mini,wrong_1_432,False,1000,0,True,3.318,,,False,1000,541,True,8.07,,
+refactory_q1,gpt-5.4-mini,wrong_1_433,True,35,0,False,0.207,range_len_minus_one_to_len|loop_return_should_not_be_inside_else,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+    
+",True,21,14,False,0.509,range_len_minus_one_to_len|loop_return_should_not_be_inside_else,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+    
+"
+refactory_q1,gpt-5.4-mini,wrong_1_434,False,4,0,False,0.155,,,False,0,4,False,0.45,,
+refactory_q1,gpt-5.4-mini,wrong_1_435,False,4,0,False,0.13,,,False,0,4,False,0.305,,
+refactory_q1,gpt-5.4-mini,wrong_1_436,False,47,0,False,0.762,,,False,40,7,False,1.107,,
+refactory_q1,gpt-5.4-mini,wrong_1_437,False,1000,0,True,10.041,,,False,1000,366,True,15.655,,
+refactory_q1,gpt-5.4-mini,wrong_1_438,False,1000,0,True,7.302,,,False,1000,366,True,14.625,,
+refactory_q1,gpt-5.4-mini,wrong_1_439,True,2,0,False,0.164,generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    a = 0
+    for i in seq:
+        if i < x:
+            a = a+1
+    return a
+",True,2,0,False,0.511,generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    a = 0
+    for i in seq:
+        if i < x:
+            a = a+1
+    return a
+"
+refactory_q1,gpt-5.4-mini,wrong_1_440,False,1000,0,True,9.484,,,False,1000,223,True,13.166,,
+refactory_q1,gpt-5.4-mini,wrong_1_441,False,1000,0,True,3.891,,,False,1000,250,True,4.923,,
+refactory_q1,gpt-5.4-mini,wrong_1_442,False,1000,0,True,2.984,,,False,1000,428,True,6.535,,
+refactory_q1,gpt-5.4-mini,wrong_1_443,False,1000,0,True,5.565,,,False,1000,109,True,4.604,,
+refactory_q1,gpt-5.4-mini,wrong_1_444,False,1000,0,True,2.326,,,False,1000,669,True,5.055,,
+refactory_q1,gpt-5.4-mini,wrong_1_445,False,1000,0,True,2.0,,,False,1000,1770,True,8.448,,
+refactory_q1,gpt-5.4-mini,wrong_1_446,False,1000,0,True,2.619,,,False,1000,416,True,4.544,,
+refactory_q1,gpt-5.4-mini,wrong_1_447,False,4,0,False,0.131,,,False,3,1,False,0.375,,
+refactory_q1,gpt-5.4-mini,wrong_1_448,True,2,0,False,0.121,compare_x_to_elem_strict_lt,"def search(x, seq):
+    count=0
+    for i in seq:
+        if x <= i:
+            return count
+        count+=1
+    return len(seq)
+",True,2,0,False,0.187,compare_x_to_elem_strict_lt,"def search(x, seq):
+    count=0
+    for i in seq:
+        if x <= i:
+            return count
+        count+=1
+    return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_449,False,1000,0,True,2.062,,,False,0,10000,True,39.604,,
+refactory_q1,gpt-5.4-mini,wrong_1_450,True,2,0,False,0.123,compare_x_to_elem_strict_lt,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+",True,2,0,False,0.18,compare_x_to_elem_strict_lt,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_451,False,1000,0,True,2.98,,,False,1000,879,True,6.454,,
+refactory_q1,gpt-5.4-mini,wrong_1_452,False,1000,0,True,3.296,,,False,1000,219,True,4.581,,
+refactory_q1,gpt-5.4-mini,wrong_1_453,False,1000,0,True,4.017,,,False,1000,295,True,5.065,,
+refactory_q1,gpt-5.4-mini,wrong_1_454,False,1000,0,True,3.335,,,False,1000,219,True,4.647,,
+refactory_q1,gpt-5.4-mini,wrong_1_455,True,1000,0,False,1.758,compare_x_to_elem_strict_lt|generic_flip_compare|generic_flip_compare,"def search(x, seq):
+    if seq == [] or seq == (): 
+        return 0
+    elif len(seq) == 1:
+        if seq[0] >= x:
+            return 0
+        else:
+            return 1
+    elif seq[-1] < x:
+        return len(seq)
+    elif seq[0] >= x:
+        return 0
+    else:
+        for i in range(len(seq)):
+            if x >= seq[i] and x <= seq[i+1]:
+                return i + 1
+",True,1000,451,False,4.352,compare_x_to_elem_strict_lt|generic_flip_compare|generic_flip_compare,"def search(x, seq):
+    if seq == [] or seq == (): 
+        return 0
+    elif len(seq) == 1:
+        if seq[0] >= x:
+            return 0
+        else:
+            return 1
+    elif seq[-1] < x:
+        return len(seq)
+    elif seq[0] >= x:
+        return 0
+    else:
+        for i in range(len(seq)):
+            if x >= seq[i] and x <= seq[i+1]:
+                return i + 1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_456,False,1000,0,True,1.78,,,False,1000,411,True,4.378,,
+refactory_q1,gpt-5.4-mini,wrong_1_457,False,1000,0,True,3.381,,,False,1000,219,True,4.67,,
+refactory_q1,gpt-5.4-mini,wrong_1_458,False,1000,0,True,3.349,,,False,1000,219,True,4.748,,
+refactory_q1,gpt-5.4-mini,wrong_1_459,False,1000,0,True,3.456,,,False,1000,219,True,4.689,,
+refactory_q1,gpt-5.4-mini,wrong_1_460,False,1000,0,True,1.957,,,False,1000,783,True,6.381,,
+refactory_q1,gpt-5.4-mini,wrong_1_461,False,1000,0,True,2.61,,,False,1000,451,True,4.817,,
+refactory_q1,gpt-5.4-mini,wrong_1_462,True,1000,0,False,1.785,compare_x_to_elem_strict_lt|generic_flip_compare|generic_flip_compare,"def search(x, seq):
+    if seq == [] or seq == (): 
+        return 0
+    elif len(seq) == 1:
+        if seq[0] >= x:
+            return 0
+        else:
+            return 1
+    elif seq[-1] < x:
+        return len(seq)
+    elif seq[0] >= x:
+        return 0
+    else:
+        for i in range(len(seq)):
+            if x >= seq[i] and x <= seq[i+1]:
+                return i + 1
+",True,1000,451,False,5.455,compare_x_to_elem_strict_lt|generic_flip_compare|generic_flip_compare,"def search(x, seq):
+    if seq == [] or seq == (): 
+        return 0
+    elif len(seq) == 1:
+        if seq[0] >= x:
+            return 0
+        else:
+            return 1
+    elif seq[-1] < x:
+        return len(seq)
+    elif seq[0] >= x:
+        return 0
+    else:
+        for i in range(len(seq)):
+            if x >= seq[i] and x <= seq[i+1]:
+                return i + 1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_463,False,1000,0,True,2.842,,,False,1000,780,True,6.584,,
+refactory_q1,gpt-5.4-mini,wrong_1_464,False,1000,0,True,1.898,,,False,1000,451,True,4.428,,
+refactory_q1,gpt-5.4-mini,wrong_1_465,False,1000,0,True,1.748,,,False,1000,451,True,4.477,,
+refactory_q1,gpt-5.4-mini,wrong_1_466,False,1000,0,True,2.444,,,False,1000,780,True,6.611,,
+refactory_q1,gpt-5.4-mini,wrong_1_467,True,1000,0,False,2.122,compare_x_to_elem_strict_lt|generic_flip_compare|generic_flip_compare,"def search(x, seq):
+    if seq == [] or seq == (): 
+        return 0
+    elif len(seq) == 1:
+        if seq[0] >= x:
+            return 0
+        else:
+            return 1
+    elif seq[-1] < x:
+        return len(seq)
+    elif seq[0] >= x:
+        return 0
+    else:
+        for i in range(len(seq)):
+            if x >= seq[i] and x <= seq[i+1]:
+                return i + 1
+",True,1000,451,False,4.709,compare_x_to_elem_strict_lt|generic_flip_compare|generic_flip_compare,"def search(x, seq):
+    if seq == [] or seq == (): 
+        return 0
+    elif len(seq) == 1:
+        if seq[0] >= x:
+            return 0
+        else:
+            return 1
+    elif seq[-1] < x:
+        return len(seq)
+    elif seq[0] >= x:
+        return 0
+    else:
+        for i in range(len(seq)):
+            if x >= seq[i] and x <= seq[i+1]:
+                return i + 1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_468,False,1000,0,True,3.11,,,False,1000,693,True,6.755,,
+refactory_q1,gpt-5.4-mini,wrong_1_469,False,7,0,False,0.175,,,False,0,7,False,0.174,,
+refactory_q1,gpt-5.4-mini,wrong_1_470,False,95,0,False,0.896,,,False,88,7,False,1.048,,
+refactory_q1,gpt-5.4-mini,wrong_1_471,False,39,0,False,0.562,,,False,0,39,False,0.374,,
+refactory_q1,gpt-5.4-mini,wrong_1_472,False,63,0,False,0.726,,,False,0,63,False,0.536,,
+refactory_q1,gpt-5.4-mini,wrong_1_473,False,47,0,False,0.512,,,False,40,7,False,0.621,,
+refactory_q1,gpt-5.4-mini,wrong_1_474,False,95,0,False,0.91,,,False,88,7,False,0.996,,
+refactory_q1,gpt-5.4-mini,wrong_1_475,False,95,0,False,0.948,,,False,88,7,False,1.055,,
+refactory_q1,gpt-5.4-mini,wrong_1_476,False,95,0,False,1.008,,,False,88,7,False,1.062,,
+refactory_q1,gpt-5.4-mini,wrong_1_477,False,95,0,False,1.068,,,False,88,7,False,1.138,,
+refactory_q1,gpt-5.4-mini,wrong_1_478,False,1000,0,True,3.517,,,False,1000,67,True,3.691,,
+refactory_q1,gpt-5.4-mini,wrong_1_479,False,1000,0,True,2.902,,,False,1000,31,True,3.24,,
+refactory_q1,gpt-5.4-mini,wrong_1_480,False,335,0,False,3.194,,,False,0,335,False,3.604,,
+refactory_q1,gpt-5.4-mini,wrong_1_481,False,1000,0,True,5.952,,,False,0,2015,False,25.906,,
+refactory_q1,gpt-5.4-mini,wrong_1_482,False,1000,0,True,5.778,,,False,1000,296,True,11.779,,
+refactory_q1,gpt-5.4-mini,wrong_1_483,False,1000,0,True,3.616,,,False,1000,219,True,5.205,,
+refactory_q1,gpt-5.4-mini,wrong_1_484,False,1000,0,True,3.398,,,False,1000,0,True,3.976,,
+refactory_q1,gpt-5.4-mini,wrong_1_485,False,1000,0,True,3.434,,,False,1000,0,True,3.834,,
+refactory_q1,gpt-5.4-mini,wrong_1_486,False,1000,0,True,3.336,,,False,1000,0,True,3.854,,
+refactory_q1,gpt-5.4-mini,wrong_1_487,False,1000,0,True,2.461,,,False,1000,383,True,4.056,,
+refactory_q1,gpt-5.4-mini,wrong_1_488,False,1000,0,True,3.113,,,False,1000,250,True,4.381,,
+refactory_q1,gpt-5.4-mini,wrong_1_489,False,1000,0,True,3.388,,,False,1000,1,True,4.262,,
+refactory_q1,gpt-5.4-mini,wrong_1_490,False,1000,0,True,4.777,,,False,1000,109,True,5.254,,
+refactory_q1,gpt-5.4-mini,wrong_1_491,False,1000,0,True,2.838,,,False,1000,49,True,6.211,,
+refactory_q1,gpt-5.4-mini,wrong_1_492,False,1000,0,True,6.776,,,False,0,10000,True,57.935,,
+refactory_q1,gpt-5.4-mini,wrong_1_493,False,1000,0,True,5.24,,,False,0,10000,True,58.602,,
+refactory_q1,gpt-5.4-mini,wrong_1_494,False,1000,0,True,4.197,,,False,1000,180,True,5.872,,
+refactory_q1,gpt-5.4-mini,wrong_1_495,False,1000,0,True,4.562,,,False,1000,180,True,5.845,,
+refactory_q1,gpt-5.4-mini,wrong_1_496,True,239,0,False,1.435,generic_flip_compare|generic_flip_compare|compare_x_to_elem_strict_lt|missing_default_return_len,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    length = len(seq)
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+",True,1,238,False,1.366,generic_flip_compare|generic_flip_compare|compare_x_to_elem_strict_lt|missing_default_return_len,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    length = len(seq)
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+"
+refactory_q1,gpt-5.4-mini,wrong_1_497,False,1000,0,True,41.402,,,False,1000,318,True,54.853,,
+refactory_q1,gpt-5.4-mini,wrong_1_498,False,1000,0,True,42.613,,,False,1000,193,True,27.699,,
+refactory_q1,gpt-5.4-mini,wrong_1_499,False,1000,0,True,42.154,,,False,1000,193,True,27.93,,
+refactory_q1,gpt-5.4-mini,wrong_1_500,False,1000,0,True,3.321,,,False,1000,250,True,4.661,,
+refactory_q1,gpt-5.4-mini,wrong_1_501,False,1000,0,True,3.896,,,False,1000,219,True,6.195,,
+refactory_q1,gpt-5.4-mini,wrong_1_502,False,1000,0,True,4.445,,,False,1000,13,True,5.205,,
+refactory_q1,gpt-5.4-mini,wrong_1_503,False,1000,0,True,4.69,,,False,1000,13,True,5.494,,
+refactory_q1,gpt-5.4-mini,wrong_1_504,False,1000,0,True,8.271,,,False,1000,7,True,9.257,,
+refactory_q1,gpt-5.4-mini,wrong_1_505,True,7,0,False,0.115,generic_flip_compare,"def search(x, seq):
+    i = 0
+    while (i<len(seq) and x > seq[i]):
+        i += 1
+    return i
+",True,7,0,False,0.527,generic_flip_compare,"def search(x, seq):
+    i = 0
+    while (i<len(seq) and x > seq[i]):
+        i += 1
+    return i
+"
+refactory_q1,gpt-5.4-mini,wrong_1_506,False,1000,0,True,18.469,,,False,1000,3,True,20.722,,
+refactory_q1,gpt-5.4-mini,wrong_1_507,False,1000,0,True,3.524,,,False,1000,219,True,4.669,,
+refactory_q1,gpt-5.4-mini,wrong_1_508,False,1000,0,True,3.176,,,False,1000,219,True,5.244,,
+refactory_q1,gpt-5.4-mini,wrong_1_509,False,1000,0,True,3.336,,,False,1000,314,True,4.817,,
+refactory_q1,gpt-5.4-mini,wrong_1_510,False,1000,0,True,3.061,,,False,1000,314,True,4.267,,
+refactory_q1,gpt-5.4-mini,wrong_1_511,False,1000,0,True,3.196,,,False,0,10000,True,61.365,,
+refactory_q1,gpt-5.4-mini,wrong_1_512,False,1000,0,True,2.942,,,False,1000,207,True,6.942,,
+refactory_q1,gpt-5.4-mini,wrong_1_513,False,1000,0,True,4.214,,,False,1000,207,True,6.25,,
+refactory_q1,gpt-5.4-mini,wrong_1_514,False,1000,0,True,4.769,,,False,1000,2011,True,18.494,,
+refactory_q1,gpt-5.4-mini,wrong_1_515,False,1000,0,True,2.503,,,False,1000,653,True,5.536,,
+refactory_q1,gpt-5.4-mini,wrong_1_516,False,1000,0,True,2.817,,,False,1000,331,True,7.159,,
+refactory_q1,gpt-5.4-mini,wrong_1_517,False,1000,0,True,3.079,,,False,1000,94,True,5.487,,
+refactory_q1,gpt-5.4-mini,wrong_1_518,False,107,0,False,1.166,,,False,99,8,False,1.311,,
+refactory_q1,gpt-5.4-mini,wrong_1_519,False,44,0,False,0.6,,,False,0,44,False,0.763,,
+refactory_q1,gpt-5.4-mini,wrong_1_520,False,1000,0,True,7.716,,,False,0,10000,True,86.093,,
+refactory_q1,gpt-5.4-mini,wrong_1_521,False,1000,0,True,3.405,,,False,1000,2,True,4.714,,
+refactory_q1,gpt-5.4-mini,wrong_1_522,False,1000,0,True,6.504,,,False,1000,19,True,8.272,,
+refactory_q1,gpt-5.4-mini,wrong_1_523,False,1000,0,True,5.164,,,False,1000,147,True,6.258,,
+refactory_q1,gpt-5.4-mini,wrong_1_524,True,4,0,False,0.151,missing_default_return_len,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i+1
+",True,2,2,False,0.188,missing_default_return_len,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i+1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_525,False,1000,0,True,4.762,,,False,1000,88,True,5.68,,
+refactory_q1,gpt-5.4-mini,wrong_1_526,True,36,0,False,0.201,missing_default_return_len|seq_empty_return_wrong_literal,"def search(x, seq):
+    if seq == ():
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i+1
+",True,22,14,False,0.312,missing_default_return_len|seq_empty_return_wrong_literal,"def search(x, seq):
+    if seq == ():
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i+1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_527,True,36,0,False,0.205,missing_default_return_len|seq_empty_return_wrong_literal,"def search(x, seq):
+    if seq == ():
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i+1
+",True,22,14,False,0.337,missing_default_return_len|seq_empty_return_wrong_literal,"def search(x, seq):
+    if seq == ():
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i+1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_528,False,1000,0,True,5.727,,,False,1000,23,True,7.032,,
+refactory_q1,gpt-5.4-mini,wrong_1_529,False,1000,0,True,6.05,,,False,1000,23,True,6.179,,
+refactory_q1,gpt-5.4-mini,wrong_1_530,False,27,0,False,0.38,,,False,0,27,False,0.288,,
+refactory_q1,gpt-5.4-mini,wrong_1_531,True,5,0,False,0.11,generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    counter = 0
+    if len(seq) == 0:
+        return 0
+        
+    for i in seq:
+        if x > i:
+            counter += 1
+        else:
+            return counter
+            
+    return counter
+",True,5,0,False,0.44,generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    counter = 0
+    if len(seq) == 0:
+        return 0
+        
+    for i in seq:
+        if x > i:
+            counter += 1
+        else:
+            return counter
+            
+    return counter
+"
+refactory_q1,gpt-5.4-mini,wrong_1_532,True,5,0,False,0.115,generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    counter = 0
+    if len(seq) == 0:
+        return 0
+        
+    for i in seq:
+        if x > i:
+            counter += 1
+        else:
+            return counter
+            
+    return counter
+",True,5,0,False,0.448,generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    counter = 0
+    if len(seq) == 0:
+        return 0
+        
+    for i in seq:
+        if x > i:
+            counter += 1
+        else:
+            return counter
+            
+    return counter
+"
+refactory_q1,gpt-5.4-mini,wrong_1_533,True,5,0,False,0.127,generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    counter = 0
+    if len(seq) == 0:
+        return 0
+        
+    for i in seq:
+        if x > i:
+            counter += 1
+        else:
+            return counter
+
+    return counter
+",True,5,0,False,0.441,generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    counter = 0
+    if len(seq) == 0:
+        return 0
+        
+    for i in seq:
+        if x > i:
+            counter += 1
+        else:
+            return counter
+
+    return counter
+"
+refactory_q1,gpt-5.4-mini,wrong_1_534,False,3,0,False,0.121,,,False,0,3,False,0.321,,
+refactory_q1,gpt-5.4-mini,wrong_1_535,True,5,0,False,0.113,compare_x_to_elem_strict_lt,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    counter = 0
+    if len(seq) == 0:
+        return 0
+
+    for i in seq:
+        if x <= i:
+            return counter
+        else:
+            counter += 1
+
+    return counter
+",True,5,0,False,0.192,compare_x_to_elem_strict_lt,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    counter = 0
+    if len(seq) == 0:
+        return 0
+
+    for i in seq:
+        if x <= i:
+            return counter
+        else:
+            counter += 1
+
+    return counter
+"
+refactory_q1,gpt-5.4-mini,wrong_1_536,False,63,0,False,0.56,,,False,48,15,False,0.837,,
+refactory_q1,gpt-5.4-mini,wrong_1_537,False,1000,0,True,2.911,,,False,1000,250,True,4.259,,
+refactory_q1,gpt-5.4-mini,wrong_1_538,False,1000,0,True,2.912,,,False,1000,250,True,4.232,,
+refactory_q1,gpt-5.4-mini,wrong_1_539,False,1000,0,True,2.837,,,False,1000,732,True,5.941,,
+refactory_q1,gpt-5.4-mini,wrong_1_540,False,1000,0,True,2.795,,,False,1000,209,True,3.9,,
+refactory_q1,gpt-5.4-mini,wrong_1_541,False,1000,0,True,3.118,,,False,1000,166,True,4.253,,
+refactory_q1,gpt-5.4-mini,wrong_1_542,False,1000,0,True,3.102,,,False,1000,852,True,7.039,,
+refactory_q1,gpt-5.4-mini,wrong_1_543,False,1000,0,True,3.18,,,False,1000,852,True,7.482,,
+refactory_q1,gpt-5.4-mini,wrong_1_544,False,1000,0,True,3.108,,,False,1000,852,True,7.492,,
+refactory_q1,gpt-5.4-mini,wrong_1_545,False,1000,0,True,3.388,,,False,0,10000,True,53.447,,
+refactory_q1,gpt-5.4-mini,wrong_1_546,False,15,0,False,0.263,,,False,12,3,False,0.551,,
+refactory_q1,gpt-5.4-mini,wrong_1_547,True,36,0,False,0.205,missing_default_return_len|seq_empty_return_wrong_literal,"def search(x, seq):
+    if seq == ():
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i+1
+",True,22,14,False,0.281,missing_default_return_len|seq_empty_return_wrong_literal,"def search(x, seq):
+    if seq == ():
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i+1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_548,False,1000,0,True,13.752,,,False,1000,211,True,21.436,,
+refactory_q1,gpt-5.4-mini,wrong_1_549,False,1000,0,True,14.927,,,False,1000,211,True,19.083,,
+refactory_q1,gpt-5.4-mini,wrong_1_550,False,1000,0,True,61.888,,,False,0,10000,True,15412.938,,
+refactory_q1,gpt-5.4-mini,wrong_1_551,False,1000,0,True,2.452,,,False,1000,203,True,3.487,,
+refactory_q1,gpt-5.4-mini,wrong_1_552,True,36,0,False,0.212,missing_default_return_len|seq_empty_return_wrong_literal,"def search(x, seq):
+    if seq == ():
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i+1
+",True,22,14,False,0.309,missing_default_return_len|seq_empty_return_wrong_literal,"def search(x, seq):
+    if seq == ():
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i+1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_553,True,36,0,False,0.246,missing_default_return_len|seq_empty_return_wrong_literal,"def search(x, seq):
+    if seq == ():
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i+1
+",True,22,14,False,0.272,missing_default_return_len|seq_empty_return_wrong_literal,"def search(x, seq):
+    if seq == ():
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i+1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_554,True,36,0,False,0.192,missing_default_return_len|seq_empty_return_wrong_literal,"def search(x, seq):
+    if seq == ():
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i+1
+",True,22,14,False,0.271,missing_default_return_len|seq_empty_return_wrong_literal,"def search(x, seq):
+    if seq == ():
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+    return i+1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_555,False,1000,0,True,2.991,,,False,1000,2011,True,15.097,,
+refactory_q1,gpt-5.4-mini,wrong_1_556,False,1000,0,True,2.985,,,False,1000,1805,True,14.967,,
+refactory_q1,gpt-5.4-mini,wrong_1_557,False,44,0,False,0.462,,,False,0,44,False,0.536,,
+refactory_q1,gpt-5.4-mini,wrong_1_558,False,44,0,False,0.448,,,False,0,44,False,0.516,,
+refactory_q1,gpt-5.4-mini,wrong_1_559,False,44,0,False,0.448,,,False,0,44,False,0.52,,
+refactory_q1,gpt-5.4-mini,wrong_1_560,False,1000,0,True,3.125,,,False,1000,937,True,7.131,,
+refactory_q1,gpt-5.4-mini,wrong_1_561,True,15,0,False,0.106,generic_flip_compare,"def search(x, seq):
+    if seq==[] or seq==():
+        return 0
+    elif x > max(seq):
+        return len(seq)
+    else:
+        for i in range(len(seq)):
+            if x<=seq[i]:
+                return i
+                break
+            else:
+                continue
+",True,9,6,False,0.146,generic_flip_compare,"def search(x, seq):
+    if seq==[] or seq==():
+        return 0
+    elif x > max(seq):
+        return len(seq)
+    else:
+        for i in range(len(seq)):
+            if x<=seq[i]:
+                return i
+                break
+            else:
+                continue
+"
+refactory_q1,gpt-5.4-mini,wrong_1_562,False,15,0,False,0.234,,,False,12,3,False,0.459,,
+refactory_q1,gpt-5.4-mini,wrong_1_563,False,63,0,False,0.499,,,False,48,15,False,0.741,,
+refactory_q1,gpt-5.4-mini,wrong_1_564,False,51,0,False,0.517,,,False,0,51,False,0.407,,
+refactory_q1,gpt-5.4-mini,wrong_1_565,False,263,0,False,2.271,,,False,0,263,False,2.163,,
+refactory_q1,gpt-5.4-mini,wrong_1_566,False,263,0,False,2.256,,,False,0,263,False,2.158,,
+refactory_q1,gpt-5.4-mini,wrong_1_567,False,263,0,False,2.283,,,False,0,263,False,2.173,,
+refactory_q1,gpt-5.4-mini,wrong_1_568,False,3,0,False,0.11,,,False,0,3,False,0.382,,
+refactory_q1,gpt-5.4-mini,wrong_1_569,False,3,0,False,0.105,,,False,0,3,False,0.383,,
+refactory_q1,gpt-5.4-mini,wrong_1_570,False,3,0,False,0.105,,,False,0,3,False,0.38,,
+refactory_q1,gpt-5.4-mini,wrong_1_571,False,1000,0,True,1.745,,,False,1000,557,True,4.353,,
+refactory_q1,gpt-5.4-mini,wrong_1_572,False,1000,0,True,1.706,,,False,1000,557,True,4.19,,
+refactory_q1,gpt-5.4-mini,wrong_1_573,False,1000,0,True,1.686,,,False,1000,557,True,4.06,,
+refactory_q1,gpt-5.4-mini,wrong_1_574,True,35,0,False,0.127,range_len_minus_one_to_len,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq == [] or seq == ():
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[len(seq)-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq)):
+            if seq[i] == x:
+                return i
+            elif seq[i] < x and seq[i+1] > x:
+                return i+1
+",True,35,0,False,0.189,range_len_minus_one_to_len,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq == [] or seq == ():
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[len(seq)-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq)):
+            if seq[i] == x:
+                return i
+            elif seq[i] < x and seq[i+1] > x:
+                return i+1
+"
+refactory_q1,gpt-5.4-mini,wrong_1_575,True,35,0,False,0.124,range_len_minus_one_to_len,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq == [] or seq == ():
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[len(seq)-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq)):
+            if seq[i] == x:
+                return i
+            elif seq[i] <= x and seq[i+1] > x:
+                return i+1
+",True,35,0,False,0.19,range_len_minus_one_to_len,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq == [] or seq == ():
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[len(seq)-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq)):
+            if seq[i] == x:
+                return i
+            elif seq[i] <= x and seq[i+1] > x:
+                return i+1
+"

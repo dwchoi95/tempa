@@ -1,0 +1,62 @@
+rule fix_seq_last_element_bound
+symptoms: wrong
+match: $seq[-1] < $x
+where: inside("def $f($*a, $x:Name, $*b): $B:Stmts")
+rewrite: $seq[-1] < $x
+# no-op placeholder to allow targeted adjustment via surrounding rule
+
+rule replace_wrong_newseq_last_check
+symptoms: wrong
+match:
+    if $seq == () or $seq == []:
+        return 0
+    elif $newseq[-1] < $x:
+        return len($newseq)
+where: inside("def $f($*a, $x:Name, $*b): $B:Stmts")
+rewrite:
+    if $seq == () or $seq == []:
+        return 0
+    elif $seq[-1] < $x:
+        return len($seq)
+
+rule replace_maxseq_index_offbyone
+symptoms: wrong
+match:
+    if list($seq) == []:
+        return 0
+    elif $seq == ():
+        return 0
+    else:
+        for $element in $seq:
+            if $x <= $element:
+                return list($seq).index($element)
+            elif $x >= max($seq):
+                return (list($seq).index(max($seq)))+1
+where: inside("def $f($*a, $x:Name, $*b): $B:Stmts")
+rewrite:
+    if len($seq) == 0:
+        return 0
+    else:
+        for $element in $seq:
+            if $x <= $element:
+                return $seq.index($element)
+            elif $x > max($seq):
+                return len($seq)
+
+rule flip_le_to_gt_in_prefix_search
+symptoms: wrong
+match: if $x <= $e:
+where: inside("def $f($*a, $x:Name, $*b): $B:Stmts")
+rewrite: if $x < $e:
+
+rule fix_max_index_plus_one
+symptoms: wrong
+match: return ($seq.index(max($seq)))+1
+where: inside("def $f($*a, $x:Name, $*b): $B:Stmts")
+rewrite: return len($seq)
+
+rule fix_len_list_empty_guard
+symptoms: wrong
+match: if list($seq) == []:
+where: inside("def $f($*a, $x:Name, $*b): $B:Stmts")
+rewrite: if len($seq) == 0:

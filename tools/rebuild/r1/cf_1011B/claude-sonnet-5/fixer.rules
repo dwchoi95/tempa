@@ -1,0 +1,22 @@
+rule small_binary_search_bound
+symptoms: wrong
+match: $r:Name = 100
+where: next("while $r2:Name - $l:Name > 1:") and $r2 == $r
+rewrite: $r = 100000
+
+rule greedy_redistribution_wrong_algorithm
+symptoms: wrong
+match: print($ans)
+where: last()
+       and before("$b:Name=[0]*len($food:Name)")
+       and before("$b2:Name[0]=$n:Name")
+       and $b2 == $b
+rewrite:
+    ans = 0
+    for i in range(1, 101):
+        total = 0
+        for c in $food:
+            total += c // i
+        if total >= $n:
+            ans = i
+    print(ans)

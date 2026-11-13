@@ -1,0 +1,200 @@
+rule fix_list_parameter_iterated_as_builtin_list
+symptoms: wrong, err:TypeError
+match:
+    for $x in list:
+        $BODY:Stmts
+rewrite:
+    for $x in lst:
+        $BODY
+
+rule fix_wrong_list_name_in_count_membership
+symptoms: wrong
+match: if $a.count($x) == 1:
+where: inside("def $f($*ps): $B:Stmts") and some($B, "for $x in $seq:") and some($B, "if $seq.count($x) == 1:")
+rewrite: if $a.count($x) == 0:
+
+rule fix_membership_against_input_list_to_output_list
+symptoms: wrong
+match: if $x not in lst:
+where: inside("def $f($*ps): $B:Stmts") and some($B, "new$*n = []") or some($B, "$out:Name = []")
+rewrite: if $x not in new_lst:
+
+rule fix_membership_against_input_list_to_output_list_alt
+symptoms: wrong
+match: if $x in lst:
+where: inside("def $f($*ps): $B:Stmts") and some($B, "new$*n = []") or some($B, "$out:Name = []")
+rewrite: if $x in new_lst:
+
+rule fix_membership_against_same_container
+symptoms: wrong
+match: if $x not in $a:
+where: inside("def $f($*ps): $B:Stmts") and some($B, "for $x in $a:") and some($B, "if $x not in $b:")
+rewrite: if $x not in $b:
+
+rule fix_membership_against_same_container_alt
+symptoms: wrong
+match: if $x in $a:
+where: inside("def $f($*ps): $B:Stmts") and some($B, "for $x in $a:") and some($B, "if $x not in $b:")
+rewrite: if $x in $b:
+
+rule fix_append_to_wrong_list_variable
+symptoms: wrong
+match: $a.append($x)
+where: inside("def $f($*ps): $B:Stmts") and some($B, "$a = []") and some($B, "$b = []") and some($B, "return $b")
+rewrite: $b.append($x)
+
+rule fix_extend_singleton_append
+symptoms: wrong
+match: $a.extend($x)
+where: inside("def $f($*ps): $B:Stmts") and some($B, "$a = []") and some($B, "for $x in $seq:")
+rewrite: $a.append($x)
+
+rule fix_extend_list_literal_singleton
+symptoms: wrong
+match: $a.extend(list($x))
+rewrite: $a.extend([$x])
+
+rule fix_extend_name_singleton
+symptoms: wrong
+match: $a.extend($x)
+where: not some($x, ",") and not some($x, "[") and not some($x, "(")
+rewrite: $a.append($x)
+
+rule fix_add_singleton_to_list
+symptoms: wrong
+match: $a += $x
+where: not some($x, ",") and not some($x, "[") and not some($x, "(")
+rewrite: $a += [$x]
+
+rule fix_add_list_literal_to_list
+symptoms: wrong
+match: $a += ($x,)
+rewrite: $a += [$x]
+
+rule fix_return_wrong_name
+symptoms: wrong
+match: return $x
+where: inside("def remove_extras($p): $B:Stmts") and some($B, "$y:Name = []") and $x != $y
+rewrite: return $y
+
+rule fix_return_input_list_to_output_list
+symptoms: wrong
+match: return lst
+where: inside("def remove_extras($p): $B:Stmts") and some($B, "$y:Name = []")
+rewrite: return $y
+
+rule fix_return_loop_variable
+symptoms: wrong
+match: return $x
+where: inside("for $x in $seq:\n    $B:Stmts") and some($B, "return $y")
+rewrite: return $y
+
+rule fix_empty_list_returns_none
+symptoms: wrong, err:TypeError
+match:
+    if $lst == []:
+        return None
+rewrite:
+    if $lst == []:
+        return []
+
+rule fix_reverse_not_called
+symptoms: wrong, err:TypeError
+match: $lst.reverse
+rewrite: $lst.reverse()
+
+rule fix_reverse_assignment
+symptoms: wrong, err:TypeError
+match: $x = $lst.reverse()
+rewrite: $lst.reverse()
+$x = $lst
+
+rule fix_pop_without_call
+symptoms: wrong, err:TypeError
+match: $lst.pop
+rewrite: $lst.pop()
+
+rule fix_remove_extras_recursive_list_concat_return
+symptoms: wrong, err:TypeError
+match: return $a + remove_extras($b)
+rewrite: return $a + [remove_extras($b)]
+
+rule fix_loop_over_range_on_list_length_name
+symptoms: wrong
+match: for $i in range(len($lst)):
+    $BODY:Stmts
+where: inside("def remove_extras($p): $B:Stmts")
+rewrite:
+    for $i in range(len($lst)):
+        $BODY
+
+rule fix_comparison_to_output_container
+symptoms: wrong
+match: if $x == $a:
+where: inside("def $f($*ps): $B:Stmts") and some($B, "$a = []") and some($B, "append($x)")
+rewrite: if $x in $a:
+
+rule fix_comparison_to_output_container_negated
+symptoms: wrong
+match: if $x != $a:
+where: inside("def $f($*ps): $B:Stmts") and some($B, "$a = []") and some($B, "append($x)")
+rewrite: if $x not in $a:
+
+rule fix_sorted_duplicate_elimination_to_preserve_order
+symptoms: wrong
+match:
+    $lst.sort()
+    $BODY:Stmts
+where: inside("def remove_extras($p): $B:Stmts")
+rewrite:
+    $BODY
+
+rule fix_set_based_return_to_ordered_dict
+symptoms: wrong
+match: return list(set($lst))
+rewrite:
+    from collections import OrderedDict
+    return list(OrderedDict.fromkeys($lst))
+
+rule fix_set_return_to_ordered_dict
+symptoms: wrong
+match: return set($lst)
+rewrite:
+    from collections import OrderedDict
+    return list(OrderedDict.fromkeys($lst))
+
+rule fix_ordereddict_without_list
+symptoms: wrong
+match: return OrderedDict.fromkeys($lst)
+rewrite: return list(OrderedDict.fromkeys($lst))
+
+rule fix_ordereddict_missing_import
+symptoms: wrong
+match:
+    def remove_extras($*ps):
+        return list(OrderedDict.fromkeys($lst))
+rewrite:
+    from collections import OrderedDict
+
+    def remove_extras($*ps):
+        return list(OrderedDict.fromkeys($lst))
+
+rule fix_off_by_one_range_end
+symptoms: wrong
+match: range(len($lst)-1)
+rewrite: range(len($lst))
+
+rule fix_off_by_one_range_start
+symptoms: wrong
+match: range(1,len($lst))
+rewrite: range(len($lst))
+
+rule fix_remove_extras_empty_tuple_accumulator
+symptoms: wrong
+match:
+    $acc = ()
+    $BODY:Stmts
+where: inside("def remove_extras($p): $B:Stmts") and some($B, "$acc += ($x,)") or some($B, "$acc += ($x,)")
+rewrite:
+    $acc = []
+    $BODY

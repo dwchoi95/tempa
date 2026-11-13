@@ -1,0 +1,74 @@
+Buggy,Model,Source,Patch,Fixed,RPS,ATT_all,ATT_cpu,ATT_api,InT,OuT,$API,Rules_L,Rules_SL
+134903349,claude-sonnet-5,rules,"def d(n):
+	while len(str(n))!=1:
+		n = sum(int(d) for d in str(n))
+	return n
+
+n_1 = int(input())
+q, r = divmod(n_1, 9)
+dcnt = [q] + [q + 1] * r + [q] * (8 - r)
+res = 0
+for di in range(9):
+    for dj in range(9):
+        res += dcnt[di] * dcnt[dj] * dcnt[di * dj % 9]
+for ii in range(1, n_1 + 1):
+    res -= n_1 // ii
+print(res)",True,2.5278,3.0035,3.0035,0.0,0,0,0.0,"[""digital_root_single_call_no_loop""]",[]
+70108877,claude-sonnet-5,rules,"def digr(n):
+    x = sum(int(dig) for dig in str(n))
+    if x<10:
+        return x
+    else:
+        return digr(x)
+n=int(input())
+q, r = divmod(n, 9)
+dcnt = [q] + [q + 1] * r + [q] * (8 - r)
+res = 0
+for di in range(9):
+    for dj in range(9):
+        res += dcnt[di] * dcnt[dj] * dcnt[di * dj % 9]
+for ii in range(1, n + 1):
+    res -= n // ii
+print(res)",True,0.8526,4.0714,4.0714,0.0,0,0,0.0,"[""digital_root_bruteforce_missing_c_loop""]",[]
+82322301,claude-sonnet-5,reference,"n = int(input())
+q,r = divmod(n,9)
+d = [q]+[q+1]*r+[q]*(8-r)
+res = 0
+for i in range(9):
+    for j in range(9):
+        res += d[i]*d[j]*d[(i*j)%9]
+for i in range(1,n+1): res -= n//i
+print(res)",True,0.9362,7.269,7.269,0.0,0,0,0.0,[],[]
+134903349,gpt-5.4-mini,rules,"def d(n):
+	while len(str(n))!=1:
+		n = sum(int(d) for d in str(n))
+	return n
+
+n_1 = int(input())
+q, r = divmod(n_1, 9)
+d = [q] + [q + 1] * r + [q] * (8 - r)
+res = 0
+for i in range(9):
+    for j in range(9):
+        res += d[i] * d[j] * d[i * j % 9]
+for i in range(1, n_1 + 1):
+    res -= n_1 // i
+print(res)",True,2.5278,2.9233,2.9233,0.0,0,0,0.0,"[""fix_input_to_int_for_digital_root""]",[]
+70108877,gpt-5.4-mini,reference,"n = int(input())
+q,r = divmod(n,9)
+d = [q]+[q+1]*r+[q]*(8-r)
+res = 0
+for i in range(9):
+    for j in range(9):
+        res += d[i]*d[j]*d[(i*j)%9]
+for i in range(1,n+1): res -= n//i
+print(res)",True,1.1158,7.6749,7.6749,0.0,0,0,0.0,[],[]
+82322301,gpt-5.4-mini,reference,"n = int(input())
+q,r = divmod(n,9)
+d = [q]+[q+1]*r+[q]*(8-r)
+res = 0
+for i in range(9):
+    for j in range(9):
+        res += d[i]*d[j]*d[(i*j)%9]
+for i in range(1,n+1): res -= n//i
+print(res)",True,0.9362,6.9817,6.9817,0.0,0,0,0.0,[],[]

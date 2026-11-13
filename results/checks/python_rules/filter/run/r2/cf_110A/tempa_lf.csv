@@ -1,0 +1,4926 @@
+Buggy,Model,Source,Patch,Fixed,RPS,ATT_all,ATT_cpu,ATT_api,InT,OuT,$API,Rules_L,Rules_SL
+222357031,gpt-5.4-mini,reference,"n=int(input())
+c=0
+while n>0:
+    if n%10==4 or n%10==7:
+        c+=1
+    n//=10
+if c==4 or c==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.4314,147.4346,147.4346,0.0,0,0,0.0,[],[]
+222359050,gpt-5.4-mini,reference,"n = int(input())
+count = 0
+flag = False
+while n > 0:
+    if n % 10 == 7 or n % 10 == 4:
+        count += 1
+    n //= 10
+if not flag and (count == 4 or count == 7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.0429,35.2535,35.2535,0.0,0,0,0.0,[],[]
+222381976,gpt-5.4-mini,reference,"n = int(input())
+b = str(n)
+arr2 = ['4','7']
+count =0
+for i in b:
+    if i in arr2:
+        count+=1
+if count ==4 or count ==7:
+    print('YES')
+else:
+    print('NO')",True,0.4884,0.3824,0.3824,0.0,0,0,0.0,[],[]
+222382409,gpt-5.4-mini,reference,"n = int(input())
+b = str(n)
+arr2 = ['4','7']
+count =0
+for i in b:
+    if i in arr2:
+        count+=1
+if count ==4 or count ==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.375,1.1171,1.1171,0.0,0,0,0.0,[],[]
+222398075,gpt-5.4-mini,rules,"num=(list(input()))
+n=set(num)
+if('4' in n or '7' in n):
+    a,b=num.count(""4""),num.count(""7"")
+    if(a+b==4 or a+b==7):
+        print(""YES"")
+    else:
+        print(""NO"")
+else:
+    print(""NO"")",True,0.0154,0.0783,0.0783,0.0,0,0,0.0,"[""generic_flip_bool_op""]",[]
+222398741,gpt-5.4-mini,reference,"n=int(input())
+c=0
+while(n>0):
+    
+    if (n%10==4 or n%10==7):
+        
+        c=c+1
+    n=n//10
+
+if (c==7 or c==4):
+    
+    print(""YES"")
+    
+else:
+    print(""NO"")",True,0.4898,54.2422,54.2422,0.0,0,0,0.0,[],[]
+222480008,gpt-5.4-mini,reference,"s=input()
+a,b=s.count('4'),s.count('7')
+print(""YES"" if (a+b)==7 or (a+b)==4 else ""NO"")",True,0.3333,3.0351,3.0351,0.0,0,0,0.0,[],[]
+222480513,gpt-5.4-mini,reference,"s=input()
+a,b=s.count('4'),s.count('7')
+print(""YES"" if (a+b)==7 or (a+b)==4 else ""NO"")",True,0.4426,3.5007,3.5007,0.0,0,0,0.0,[],[]
+222541769,gpt-5.4-mini,reference,"n = input()
+c = 0
+for i in n:
+    if i in '47':
+        c += 1
+if c == 4 or c == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.617,4.2806,4.2806,0.0,0,0,0.0,[],[]
+222554253,gpt-5.4-mini,reference,"n = int(input())
+s = str(n)
+flag =1
+count = 0
+for i in s:
+    if i=='4' or i=='7':
+        count+=1
+count=str(count)
+for i in count:
+    if i!='7' and i!='4':
+        flag=0
+        break
+if flag==1:
+    print('YES')
+else:
+    print(""NO"")",True,0.5781,6.0712,6.0712,0.0,0,0,0.0,[],[]
+222555010,gpt-5.4-mini,reference,"n = int(input())
+n = str(n)
+count = 0
+
+for i in n:
+    if i=='4' or i=='7':
+        count+=1
+        
+
+if count==4 or count==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.7164,10.2264,10.2264,0.0,0,0,0.0,[],[]
+222619846,gpt-5.4-mini,reference,"n=input()
+l=len(n)
+sum=0
+for i in range(l):
+    if n[i]==""4"" or n[i]==""7"":
+        sum+=1
+if sum==4 or sum==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2419,2.1099,2.1099,0.0,0,0,0.0,[],[]
+222620268,gpt-5.4-mini,reference,"n=input()
+lucky_numbers = 0
+for i in n:
+    if i== ""4"" :
+        lucky_numbers= lucky_numbers+1
+    if i == ""7"":
+        lucky_numbers = lucky_numbers + 1
+if lucky_numbers == 4 or lucky_numbers==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5,2.3375,2.3375,0.0,0,0,0.0,[],[]
+222620503,gpt-5.4-mini,reference,"n=input()
+lucky_numbers = 0
+for i in n:
+    if i== ""4"" :
+        lucky_numbers= lucky_numbers+1
+    if i == ""7"":
+        lucky_numbers = lucky_numbers + 1
+if lucky_numbers == 4 or lucky_numbers==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5,2.3873,2.3873,0.0,0,0,0.0,[],[]
+222627756,gpt-5.4-mini,reference,"# O(n)
+n = input()
+count = 0
+res = 'YES'
+for i in range(len(n)):
+    if n[i] == '4' or n[i] == '7':
+        count += 1
+count = str(count)
+for i in range(len(count)):
+    if count[i] != '4' and count[i] != '7':
+        res = 'NO'
+        break
+print(res)",True,1.0488,2.6239,2.6239,0.0,0,0,0.0,[],[]
+222631706,gpt-5.4-mini,reference,"# O(1)
+n = int(input())
+n = str(n)
+count = 0
+
+for i in n:
+    if i=='4' or i=='7':
+        count+=1
+        
+
+if count==4 or count==7:
+    print('YES')
+else:
+    print('NO')",True,0.6909,7.1007,7.1007,0.0,0,0,0.0,[],[]
+222643111,gpt-5.4-mini,reference,"n=int(input())
+count=0
+while n>0:
+   t=n%10
+   if t==4 or t==7:
+       count+=1
+   n=n//10
+if(count==4 or count==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.375,61.7876,61.7876,0.0,0,0,0.0,[],[]
+222643382,gpt-5.4-mini,reference,"n=int(input())
+ans=0
+while n>0:
+    r=n%10
+    if r==4 or r==7:
+        ans+=1 
+    n=n//10 
+if ans==4 or ans==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2,34.9347,34.9347,0.0,0,0,0.0,[],[]
+222657101,gpt-5.4-mini,reference,"x=str(input())
+sum=0
+for i in x:
+    if i=='7' or i=='4':
+        sum+=1
+if sum==7 or sum==4:
+    print('YES')
+else:
+    print('NO')",True,0.3774,4.1587,4.1587,0.0,0,0,0.0,[],[]
+222665290,gpt-5.4-mini,reference,"s=input()
+a,b=0,0
+for i in range(len(s)):
+    if int(s[i])==4 or int(s[i])==7:
+        a+=1
+a=str(a)
+for i in range(len(a)):
+    if int(a[i])==4 or int(a[i])==7:
+        b+=1
+if b==len(a):
+    print('YES')
+else:
+    print('NO')",True,0.4947,3.4714,3.4714,0.0,0,0,0.0,[],[]
+222679064,gpt-5.4-mini,reference,"n=int(input())
+c=0
+while n>0:
+    if n%10==4 or n%10==7:
+        c+=1
+    n//=10
+if c==4 or c==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.4464,36.168,36.168,0.0,0,0,0.0,[],[]
+222683519,gpt-5.4-mini,reference,"l=input()
+cnt=0
+c=1
+
+for i in l:
+
+    if i=='4' or i=='7':
+        cnt=cnt+1
+cnt=str(cnt)
+
+#####
+for i in cnt:
+    if i=='4' or i=='7':
+        continue
+    else:
+        print(""NO"")
+        c=0
+        break
+if c==1:
+    print(""YES"")",True,0.898,5.9696,5.9696,0.0,0,0,0.0,[],[]
+222683963,gpt-5.4-mini,reference,"n=int(input())
+c=0
+a=0
+while(n>0):
+    a=n%10
+    if a==4 or a==7:
+        c+=1
+    n=n//10
+if c==7 or c==4:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6724,7.4625,7.4625,0.0,0,0,0.0,[],[]
+222684227,gpt-5.4-mini,reference,"n=int(input())
+c=0
+a=0
+while(n>0):
+    a=n%10
+    if a==4 or a==7:
+        c+=1
+    n=n//10
+if c==7 or c==4:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6615,23.1718,23.1718,0.0,0,0,0.0,[],[]
+222685119,gpt-5.4-mini,reference,"n=int(input())
+c=0
+a=0
+while(n>0):
+    a=n%10
+    if a==4 or a==7:
+        c+=1
+    n=n//10
+if c==7 or c==4:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.4512,28.3818,28.3818,0.0,0,0,0.0,[],[]
+222696558,gpt-5.4-mini,reference,"petya_input = input()
+count = 0
+for i in range(len(petya_input)):
+    if petya_input[i] == ""4"" or petya_input[i] == ""7"":
+        count += 1
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.1132,1.8872,1.8872,0.0,0,0,0.0,[],[]
+222762005,gpt-5.4-mini,reference,"n = input()
+cnt = 0
+for char in n:
+  if char == '4' or char == '7':
+    cnt += 1
+for char in str(cnt):
+  if char != '4' and char != '7':
+    print('NO')
+    break
+else:
+  print('YES')",True,1.3929,8.0838,8.0838,0.0,0,0,0.0,[],[]
+222792153,gpt-5.4-mini,reference,"n = input()
+contador = 0
+for i in n:
+    if i == '4' or i == '7':
+        contador += 1
+if contador == 7 or contador == 4:
+    print(""YES"")
+else:
+  print('NO')",True,0.413,3.5625,3.5625,0.0,0,0,0.0,[],[]
+222809618,gpt-5.4-mini,reference,"a=input()
+t=0
+for i in a:
+    if i=='4' or i=='7':
+        t=t+1
+if t==4 or t==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.439,5.5224,5.5224,0.0,0,0,0.0,[],[]
+222848844,gpt-5.4-mini,reference,"n = input()
+cnt = 0
+for char in n:
+  if char == '4' or char == '7':
+    cnt += 1
+for char in str(cnt):
+  if char != '4' and char != '7':
+    print('NO')
+    break
+else:
+    print(""YES"")",True,0.7632,6.4366,6.4366,0.0,0,0,0.0,[],[]
+222866412,gpt-5.4-mini,reference,"n = input()
+c = 0
+for i in n:
+    if i in '47':
+        c += 1
+if c == 4 or c == 7:
+    print('YES')
+else:
+  print('NO')",True,0.5,0.3402,0.3402,0.0,0,0,0.0,[],[]
+222885144,gpt-5.4-mini,reference,"n = input()
+count = 0
+for i in range(len(n)):
+    c = n[i]
+    if c == '4' or c == '7':
+        count += 1
+    else:
+        continue
+if count == 4 or count == 7:
+    print('YES')
+else:
+    print('NO')",True,0.66,5.2988,5.2988,0.0,0,0,0.0,[],[]
+222897502,gpt-5.4-mini,reference,"n = input()
+count = 0
+for i in n:
+    if i == '4' or i == '7':
+        count += 1
+ris = 'YES'
+for i in str(count):
+    if i != '4' and i != '7':
+        ris = 'NO'
+print(ris)",True,0.9667,1.1067,1.1067,0.0,0,0,0.0,[],[]
+222898317,gpt-5.4-mini,reference,"n = str(input())
+ans = 'NO'
+counts = 0
+for i in n:
+	if i=='4' or i == '7':
+		counts += 1		
+if counts ==4 or counts==7:
+	ans = 'YES'		
+print(ans)",True,0.9,1.066,1.066,0.0,0,0,0.0,[],[]
+222898852,gpt-5.4-mini,reference,"n=input()
+total7=n.count('7')
+total4=n.count('4')
+
+
+if(total7+total4==4 or total7+total4==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2766,5.1661,5.1661,0.0,0,0,0.0,[],[]
+222910322,gpt-5.4-mini,reference,"n=input()
+t=0
+for i in n:
+    if int(i)==4 or int(i)==7:
+        t+=1
+    else:
+        continue
+if t==4 or t==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7619,0.831,0.831,0.0,0,0,0.0,[],[]
+222934097,gpt-5.4-mini,reference,"n = input()
+count = 0
+for i in n:
+  if i == ""4"" or i == ""7"":
+    count += 1
+
+print(""YES"" if count == 7 or count == 4 else ""NO"")",True,0.8667,0.9405,0.9405,0.0,0,0,0.0,[],[]
+222938267,gpt-5.4-mini,reference,"n = input()
+count = 0
+for i in n:
+  if i == ""4"" or i == ""7"":
+    count += 1
+
+print(""YES"" if count == 7 or count == 4 else ""NO"")",True,0.8286,0.2745,0.2745,0.0,0,0,0.0,[],[]
+223027096,gpt-5.4-mini,reference,"n=int(input())
+count=0
+while n>0:
+    if(n%10==7 or n%10==4):
+        count+=1
+    n=n//10
+if(count==4 or count==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2381,35.9059,35.9059,0.0,0,0,0.0,[],[]
+223028622,gpt-5.4-mini,reference,"n = int(input())
+count = 0
+
+while n != 0:
+    if n % 10 == 4 or n % 10 == 7:
+        count += 1
+    n //= 10
+
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5176,42.8074,42.8074,0.0,0,0,0.0,[],[]
+223052958,gpt-5.4-mini,reference,"list1 = list(input())
+
+num = list1.count(""4"") + list1.count(""7"")
+list2 =list(str(num))
+
+result = True
+for ch in list2:
+    if ch != ""4"" and ch != ""7"":
+        result = False
+        
+if result == False:
+    print(""NO"")
+else:
+    print(""YES"")",True,0.7209,2.085,2.085,0.0,0,0,0.0,[],[]
+223053698,gpt-5.4-mini,reference,"n = input()
+count = 0
+for i in n:
+    if i == '4' or i == '7':
+        count += 1
+ris = 'YES'
+for i in str(count):
+    if i != '4' and i != '7':
+        ris = 'NO'
+print(ris)",True,0.3857,8.9284,8.9284,0.0,0,0,0.0,[],[]
+223054040,gpt-5.4-mini,rules,"# -*- coding: utf-8 -*-
+""""""
+Created on Tue Sep 12 15:24:27 2023
+
+@author: 15110
+""""""
+lst1=[]
+lst2=[]
+num=input()
+for i in num:
+    if i=='4':
+        lst1.append(i)
+    elif i=='7':
+        lst2.append(i)
+x=len(lst1)+len(lst2)
+if x in (4, 7) :
+    print('YES')
+else:
+    print('NO')",True,0.0968,0.1252,0.1252,0.0,0,0,0.0,"[""modulo_used_as_count_check""]",[]
+223058606,gpt-5.4-mini,reference,"n = input()
+
+if len(n) < 4:
+    print('NO')
+else:
+    lucky_count = 0
+
+    for c in n:
+        if c == '4' or c == '7':
+            lucky_count += 1
+
+    if lucky_count == 4 or lucky_count == 7:
+        print('YES')
+    else:
+        print('NO')",True,0.5541,7.1106,7.1106,0.0,0,0,0.0,[],[]
+223068898,gpt-5.4-mini,reference,"a=input()
+l=list(a)
+c=0
+for i in l:
+    if i in '47':
+        c=c+1
+    else:
+        continue
+if c==4 or c==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.3191,9.1309,9.1309,0.0,0,0,0.0,[],[]
+223083146,gpt-5.4-mini,reference,"n=input()
+count=0
+for i in n:
+    if i ==""7"" or i==""4"":
+        count+=1
+if count==4 or count==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.4474,1.8035,1.8035,0.0,0,0,0.0,[],[]
+223093691,gpt-5.4-mini,reference,"n = input()
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+  print(""NO"")",True,0.3721,8.4793,8.4793,0.0,0,0,0.0,[],[]
+223094181,gpt-5.4-mini,rules,"if __name__ == '__main__':
+    num=input();
+    
+    cnt=0
+    dumcnt=0
+    new_num=str(num)
+    
+    for i in range(len(new_num)):
+        if new_num[i] == '4' or new_num[i]=='7':
+            cnt=cnt+1
+            
+            
+    if(cnt > len(new_num)):
+        print(""YES"")
+    else:
+        strcnt=str(cnt)
+        for i in range(len(strcnt)):
+            if strcnt[i]=='4' or strcnt[i]=='7':
+                dumcnt=dumcnt+1
+        
+             
+        if(dumcnt==len(strcnt)):
+            print(""YES"")
+        else:
+            print(""NO"")",True,0.0185,2.0847,2.0847,0.0,0,0,0.0,"[""normalize_yes_no_literals"", ""generic_flip_compare"", ""generic_flip_compare""]",[]
+223094886,gpt-5.4-mini,reference,"n = int(input())
+n = str(n)
+flag = 0
+for x in n:
+    if int(x) == 4 or int(x) == 7:
+        flag += 1
+if flag == 4 or flag == 7:
+    print(""YES"")
+else:
+  print(""NO"")",True,0.7297,4.6451,4.6451,0.0,0,0,0.0,[],[]
+223096399,gpt-5.4-mini,reference,"n=int(input())
+count=0
+while n>0:
+    if(n%10==7 or n%10==4):
+        count+=1
+    n=n//10
+if(count==4 or count==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2192,31.0721,31.0721,0.0,0,0,0.0,[],[]
+223099521,gpt-5.4-mini,rules,"inp=input()
+st1=''
+st2=''
+for i in inp:
+  if len(inp)>1:
+    if i==""4"":
+        st1+=i
+    elif i ==""7"":
+        st2+=i
+a=len(st1)+len(st2)
+if len(inp) < a or a==7 or a==4:
+  print(""YES"")
+else:
+  print(""NO"")",True,0.0135,0.4426,0.4426,0.0,0,0,0.0,"[""generic_flip_compare"", ""generic_flip_compare""]",[]
+223102222,gpt-5.4-mini,reference,"n = input()
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+    print('NO')",True,0.3659,5.7389,5.7389,0.0,0,0,0.0,[],[]
+223117990,gpt-5.4-mini,reference,"a=input()
+l=list(a)
+c=0
+for i in l:
+    if i in '47':
+        c=c+1
+    else:
+        continue
+if c==4 or c==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2439,0.7636,0.7636,0.0,0,0,0.0,[],[]
+223141936,gpt-5.4-mini,reference,"n=int(input())
+c=0
+while n>0:
+    if n%10==4 or n%10==7:
+        c+=1
+    n//=10
+if c==4 or c==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,1.2759,0.7294,0.7294,0.0,0,0,0.0,[],[]
+223143008,gpt-5.4-mini,reference,"n = input()
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+    print(""NO"")",True,1.1481,0.4404,0.4404,0.0,0,0,0.0,[],[]
+223144341,gpt-5.4-mini,reference,"def is_nearly_lucky(n):
+  count = 0
+  while n > 0:
+    if n % 10 == 4 or n % 10 == 7:
+      count += 1
+    n //= 10
+  return count in (4, 7)
+
+if __name__ == ""__main__"":
+  n = int(input())
+  print(""YES"" if is_nearly_lucky(n) else ""NO"")",True,1.3768,48.9192,48.9192,0.0,0,0,0.0,[],[]
+223144821,gpt-5.4-mini,reference,"def is_nearly_lucky(n):
+  count = 0
+  while n > 0:
+    if n % 10 == 4 or n % 10 == 7:
+      count += 1
+    n //= 10
+  return count in (4, 7)
+
+if __name__ == ""__main__"":
+  n = int(input())
+  print(""YES"" if is_nearly_lucky(n) else ""NO"")",True,1.4,52.1994,52.1994,0.0,0,0,0.0,[],[]
+223144877,gpt-5.4-mini,rules,"def nearlyLucky(money):
+    count = 0
+
+    while money > 0:
+        if money % 10 == 4 or money % 10 == 7:
+            count += 1
+        money //= 10
+
+    return count in ( 4 ,7)
+if __name__ == ""__main__"":
+    money = int(input())
+    print (""YES"" if nearlyLucky(money) else ""NO"")",True,0.0308,6.3276,6.3276,0.0,0,0,0.0,"[""normalize_yes_no_literals"", ""normalize_yes_no_literals""]",[]
+223145455,gpt-5.4-mini,reference,"def code(*args):
+    
+    num = args[0]
+    digit = 0
+    
+    while (num > 0):
+        last_digit = num % 10
+        if (last_digit == 4 or last_digit == 7):
+            digit += 1            
+        num //= 10
+    
+    if (digit == 4 or digit == 7):
+        return ""YES""
+    
+    return ""NO""
+
+def is_nearly_lucky(num):
+    count = 0
+    while num > 0:
+        digit = num % 10
+        if digit == 4 or digit == 7:
+            count += 1
+        num //= 10
+    return is_lucky(count)
+
+if __name__ == ""__main__"":
+    # Take inputs here
+    number = int(input())
+    result = code(number)  # Pass arguments
+    print(result)",True,1.0,45.649,45.649,0.0,0,0,0.0,[],[]
+223159171,gpt-5.4-mini,rules,"a = input()
+
+if a.count('4') + a.count('7') == len(a) and len(a) == 7 or a.count('4') + a.count('7') in {4, 7}:
+    print('YES')
+else:
+    print('NO')",True,0.3256,0.2535,0.2535,0.0,0,0,0.0,"[""len_equals_lucky_digit_should_be_count_of_lucky_digits"", ""generic_flip_first_or""]",[]
+223159437,gpt-5.4-mini,rules,"a = input()
+
+if len(a) == 7 or (a.count('4') + a.count('7')) in {4, 7}:
+    print('YES')
+else:
+    print('NO')",True,0.4286,0.1118,0.1118,0.0,0,0,0.0,"[""len_equals_lucky_digit_should_be_count_of_lucky_digits""]",[]
+223159576,gpt-5.4-mini,reference,"n=input()
+a=n.count('4')
+b=n.count('7')
+c=a+b
+if c==4 or c==7:
+    print('YES')
+else:
+    print('NO')",True,1.0811,0.2671,0.2671,0.0,0,0,0.0,[],[]
+223159593,gpt-5.4-mini,reference,"n = str(input())
+count = 0
+for i in range(len(n)):
+    if n[i] == '4' or n[i] == '7':
+        count+=1
+if count==4 or count==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.1569,2.5488,2.5488,0.0,0,0,0.0,[],[]
+223162878,gpt-5.4-mini,reference,"n=input()
+x=str(n.count('4')+n.count('7'))
+if x.count('4')+x.count('7')==len(x):
+    print('YES')
+else:
+    print('NO')",True,0.35,0.3968,0.3968,0.0,0,0,0.0,[],[]
+223163294,gpt-5.4-mini,rules,"a=input()
+x=[*a]
+if '4' or '7' in x:
+    if (x.count('4') + x.count('7')) in {4, 7} or len(x)==7:
+        print(""YES"")
+    else:
+        print(""NO"")
+else:
+    print(""No"")",True,0.3111,1.2426,1.2426,0.0,0,0,0.0,"[""len_equals_lucky_digit_should_be_count_of_lucky_digits"", ""normalize_yes_no_literals"", ""normalize_yes_no_literals""]",[]
+223167792,gpt-5.4-mini,reference,"n=input()
+l=len(n)
+sum=0
+for i in range(l):
+    if n[i]==""4"" or n[i]==""7"":
+        sum+=1
+if sum==4 or sum==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5714,3.2605,3.2605,0.0,0,0,0.0,[],[]
+223168009,gpt-5.4-mini,reference,"n = list(input())
+happy_nums = 0
+
+for num in n:
+    if num == '4' or num == '7':
+        happy_nums += 1
+
+if happy_nums == 4 or happy_nums == 7:
+    print('YES')
+else:
+    print(""NO"")",True,1.0385,0.2812,0.2812,0.0,0,0,0.0,[],[]
+223168717,gpt-5.4-mini,reference,"n = input()
+a=sum(1 for i in n if i in '47')
+if a == 4 or a == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.9583,0.2158,0.2158,0.0,0,0,0.0,[],[]
+223176636,gpt-5.4-mini,reference,"num=input()
+c=0
+for i in num:
+    if(i=='4' or i=='7'):
+        c+=1
+if(c==4 or c==7):
+    print('YES')
+else:
+    print(""NO"")",True,0.8136,8.3794,8.3794,0.0,0,0,0.0,[],[]
+223185505,gpt-5.4-mini,reference,"def isLucky(num):
+    num = str(num)
+    Lucky = 0
+    for i in range(0, len(num)):
+        if (num[i] == ""4"" or num[i] == ""7""):
+            Lucky += 1
+
+    return ""YES"" if Lucky == 7 or Lucky == 4 else ""NO""
+
+print(isLucky(input()))",True,0.3725,2.7919,2.7919,0.0,0,0,0.0,[],[]
+223188836,gpt-5.4-mini,reference,"a=input()
+t=0
+for i in a:
+    if i=='4' or i=='7':
+        t=t+1
+if t==4 or t==7:
+    print('YES')
+else:
+    print('NO')",True,0.4286,4.305,4.305,0.0,0,0,0.0,[],[]
+223189499,gpt-5.4-mini,reference,"a=input()
+t=0
+for i in a:
+    if i=='4' or i=='7':
+        t=t+1
+if t==4 or t==7:
+    print('YES')
+else:
+    print('NO')",True,0.2083,2.9114,2.9114,0.0,0,0,0.0,[],[]
+223218496,gpt-5.4-mini,reference,"n = input()
+length = list(str(len(n)))
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2549,5.5283,5.5283,0.0,0,0,0.0,[],[]
+223218821,gpt-5.4-mini,reference,"n= input()
+a=0
+for i in n:
+    if(i==""4"" or i==""7""):
+        a +=1
+b=0
+for i in str(a):
+    if(i==""4"" or i==""7""):
+        b+=1
+if(b==len(str(a))):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.4651,4.2966,4.2966,0.0,0,0,0.0,[],[]
+223221855,gpt-5.4-mini,reference,"n = input()
+su = 0
+for i in n:
+    if i == '4' or i == '7':
+        su += 1
+if su == 4 or su == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2667,3.7707,3.7707,0.0,0,0,0.0,[],[]
+223224405,gpt-5.4-mini,reference,"n=int(input())
+c=0
+while n>0:
+    if n%10==4 or n%10==7:
+        c+=1
+    n//=10
+if c==4 or c==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.4138,22.8344,22.8344,0.0,0,0,0.0,[],[]
+223297023,gpt-5.4-mini,rules,"n = input()
+x = n.count(""7"")
+y = n.count(""4"")
+z = x+y
+if x==0 and y==0:
+    print(""NO"")
+elif z in (4, 7) or z%7==0:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.0794,0.0823,0.0823,0.0,0,0,0.0,"[""modulo_used_as_count_check""]",[]
+223297140,gpt-5.4-mini,reference,"n=input()
+a=n.count('4')
+b=n.count('7')
+c=a+b
+if c==4 or c==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.5217,3.3703,3.3703,0.0,0,0,0.0,[],[]
+223299193,gpt-5.4-mini,reference,"s = input()
+if(s.count('4')+s.count('7') in {4,7}):
+    print(""YES"")
+else:
+    print('NO')",True,0.6471,4.089,4.089,0.0,0,0,0.0,[],[]
+223299389,gpt-5.4-mini,reference,"s=input()
+a= set(str(s.count('4')+s.count('7')))
+if a=={'4','7'} or a=={'4'} or a=={'7'} :
+    print ('YES')
+else:
+    print('NO')",True,0.6222,3.6721,3.6721,0.0,0,0,0.0,[],[]
+223323122,gpt-5.4-mini,reference,"n = input()
+
+lucky_count = n.count('4') + n.count('7')
+
+def is_lucky(number):
+    return all(digit in '47' for digit in str(number))
+
+if is_lucky(lucky_count):
+    print(""YES"")
+else:
+    print(""NO"")",True,1.1702,0.2718,0.2718,0.0,0,0,0.0,[],[]
+223392096,gpt-5.4-mini,reference,"n=int(input())
+count=0
+while n!=0:
+    a=n%10
+    if a==4 or a==7:
+        count+=1
+    n=n//10
+if count==4 or count==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,1.7895,19.2914,19.2914,0.0,0,0,0.0,[],[]
+223400436,gpt-5.4-mini,reference,"inp = input()
+count = 0
+for i in range(len(inp)):
+    if int(inp[i]) in [4,7]:
+        count +=1
+if count in [4, 7]:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7333,5.6619,5.6619,0.0,0,0,0.0,[],[]
+223412538,gpt-5.4-mini,reference,"a=int(input())
+s=0
+while a>0:
+    e=a%10
+    if e==4 or e==7:
+        s=s+1
+    a=a//10
+if s==4 or s==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.3966,37.548,37.548,0.0,0,0,0.0,[],[]
+223474466,gpt-5.4-mini,reference,"n = int(input())
+lucky = []
+unlucky = []
+for i in str(n):
+    if i == ""4"" or i == ""7"":
+        lucky.append(i)
+    else:
+        unlucky.append(i)
+        
+if len(lucky) == 4 or len(lucky) == 7:
+    print(""YES"")
+else :
+    print(""NO"")",True,0.4727,6.5399,6.5399,0.0,0,0,0.0,[],[]
+223500955,gpt-5.4-mini,reference,"number=list(input())
+n=0
+for digit in number:
+    if digit==""4"" or digit==""7"":
+        n+=1
+num=list(str(n))
+while ""4"" in num:
+    num.remove(""4"")
+while ""7"" in num:
+    num.remove(""7"")
+if num==[]:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7885,4.6907,4.6907,0.0,0,0,0.0,[],[]
+223501798,gpt-5.4-mini,rules,"x = input()
+numbers = []
+a = 0
+for i in range(len(x)):
+    numbers.append(x[i])
+while '4' in numbers:
+    numbers.remove('4')
+    a += 1
+while '7' in numbers:
+    numbers.remove('7')
+    a += 1
+if a in (4, 7) or a in (4, 7):
+    print('YES')
+else:
+    print('NO')",True,0.141,0.4488,0.4488,0.0,0,0,0.0,"[""modulo_used_as_count_check"", ""modulo_used_as_count_check""]",[]
+223525919,gpt-5.4-mini,rules,"s= input()
+if (s.count('4') + s.count('7')) in {4, 7} or len(s)==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.4286,0.0986,0.0986,0.0,0,0,0.0,"[""len_equals_lucky_digit_should_be_count_of_lucky_digits""]",[]
+223545787,gpt-5.4-mini,reference,"n = input()
+count = 0
+res = 0
+for i in n:
+    if i == '4' or i == '7':
+        res += 1
+if res == 4 or res == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.3,5.1769,5.1769,0.0,0,0,0.0,[],[]
+223545935,gpt-5.4-mini,rules,"n=input()
+l=n.count('4')+n.count('7')
+
+if l==4 or l==7 or l > len(n):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.0238,0.21,0.21,0.0,0,0,0.0,"[""generic_flip_compare"", ""generic_flip_compare""]",[]
+223546034,gpt-5.4-mini,rules,"n=input()
+l=n.count('4')+n.count('7')
+
+if l==4 or l==7 or all(d == '4' and d == '7'for d in n):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.0192,0.1099,0.1099,0.0,0,0,0.0,"[""generic_flip_bool_op""]",[]
+223546149,gpt-5.4-mini,reference,"n = input()
+z=n.count('4')+n.count('7')
+if z == 4 or z== 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.3125,2.2365,2.2365,0.0,0,0,0.0,[],[]
+223566689,gpt-5.4-mini,reference,"S = input()
+cnt_four = S.count(""4"")
+cnt_seven = S.count(""7"")
+cnt = cnt_four + cnt_seven
+cnt_str = str(cnt)
+for s in cnt_str:
+    if s != ""4"" and s != ""7"":
+        print(""NO"")
+        exit()
+
+print(""YES"")",True,0.9667,0.9434,0.9434,0.0,0,0,0.0,[],[]
+223567051,gpt-5.4-mini,reference,"n = input()
+c = 0
+for i in n:
+    if i in '47':
+        c += 1
+if c == 4 or c == 7:
+    print('YES')
+else:
+    print('NO')",True,1.0741,0.2119,0.2119,0.0,0,0,0.0,[],[]
+223567360,gpt-5.4-mini,reference,"n = input()
+count = 0
+res = 0
+for i in n:
+    if i == '4' or i == '7':
+        res += 1
+if res == 4 or res == 7:
+    print('YES')
+else:
+    print(""NO"")",True,1.0303,0.4417,0.4417,0.0,0,0,0.0,[],[]
+223572201,gpt-5.4-mini,reference,"n = input()
+c = 0
+for i in n:
+    if i in '47':
+        c += 1
+if c == 4 or c == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.5349,0.3887,0.3887,0.0,0,0,0.0,[],[]
+223585522,gpt-5.4-mini,reference,"n=input()
+a=[]
+count=0
+for i in n:
+    a.append(i)
+##print(a)
+
+for j in a:
+    if int(j)==4 or int(j)==7:
+        count+=1
+    else:
+        continue
+if count==4 or count==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.1579,5.7516,5.7516,0.0,0,0,0.0,[],[]
+223629881,gpt-5.4-mini,reference,"# -*- coding: utf-8 -*-
+""""""
+Created on Sat Sep 16 22:36:35 2023
+
+@author: He'Bing'Ru
+""""""
+
+num = list(input())
+out = 0
+for i in num :
+    if (i == '4') + (i == '7') :
+        out += 1
+if (out == 4) + (out == 7) + (out == 47) + (out == 74) :
+    print('YES')
+else:
+    print('NO')",True,0.2192,2.4533,2.4533,0.0,0,0,0.0,[],[]
+223673403,gpt-5.4-mini,reference,"n = str(input())
+ans = 'NO'
+counts = 0
+for i in n:
+	if i=='4' or i == '7':
+		counts += 1		
+if counts ==4 or counts==7:
+	ans = 'YES'		
+print(ans)",True,0.8378,1.0183,1.0183,0.0,0,0,0.0,[],[]
+223674371,gpt-5.4-mini,reference,"n = int(input())
+b = str(n)
+arr2 = ['4','7']
+count =0
+for i in b:
+    if i in arr2:
+        count+=1
+if count ==4 or count ==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.9268,0.5517,0.5517,0.0,0,0,0.0,[],[]
+223677918,gpt-5.4-mini,reference,"# -*- coding: utf-8 -*-
+""""""
+Created on Sun Sep 17 10:01:18 2023
+
+@author: lenovo
+""""""
+
+n=input()
+luc=0
+for i in range(len(n)):
+    if n[i]=='4' or n[i]=='7':
+        luc+=1
+#print(luc)
+if luc==4 or luc==7:
+    print('YES')
+else:print('NO')",True,0.2667,2.9706,2.9706,0.0,0,0,0.0,[],[]
+223726295,gpt-5.4-mini,reference,"x = input()
+c7 = x.count(""7"")
+c4 = x.count(""4"")
+s = c7 + c4
+if s == 7 or s == 4:
+	print(""YES"")
+else:
+        print(""NO"")",True,0.5366,0.4737,0.4737,0.0,0,0,0.0,[],[]
+223735227,gpt-5.4-mini,reference,"n=input()
+l=len(n)
+sum=0
+for i in range(l):
+    if n[i]==""4"" or n[i]==""7"":
+        sum+=1
+if sum==4 or sum==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2381,2.4892,2.4892,0.0,0,0,0.0,[],[]
+223735436,gpt-5.4-mini,reference,"n=input()
+l=len(n)
+sum=0
+for i in range(l):
+    if n[i]==""4"" or n[i]==""7"":
+        sum+=1
+if sum==4 or sum==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2462,2.9034,2.9034,0.0,0,0,0.0,[],[]
+223785791,gpt-5.4-mini,reference,"n=input()
+a=n.count('4')
+b=n.count('7')
+c=a+b
+if c==4 or c==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.6,0.4683,0.4683,0.0,0,0,0.0,[],[]
+223787021,gpt-5.4-mini,reference,"n=input()
+a=n.count('4')
+b=n.count('7')
+c=a+b
+if c==4 or c==7:
+    print('YES')
+else:
+    print('NO')",True,0.6444,0.9971,0.9971,0.0,0,0,0.0,[],[]
+223844233,gpt-5.4-mini,reference,"n = input()
+a=n.count('4')
+b=n.count('7')
+if a+b == 4 or a+b ==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.3966,2.6969,2.6969,0.0,0,0,0.0,[],[]
+223921590,gpt-5.4-mini,reference,"num = input()
+
+
+count = 0
+
+for n in num:
+    if n in ['4', '7']:
+        count += 1
+
+if count in [4, 7]:
+    print('YES')
+else:
+    print(""NO"")",True,0.7042,7.4362,7.4362,0.0,0,0,0.0,[],[]
+223951330,gpt-5.4-mini,reference,"n=int(input())
+a=str(n)
+l=0
+for i in range(len(a)):
+	if a[i] in '47':
+		l+=1
+if l==4 or l==7:
+	print('YES')
+else:
+    print(""NO"")",True,0.5818,3.7287,3.7287,0.0,0,0,0.0,[],[]
+223952142,gpt-5.4-mini,reference,"s = input()
+n = s.count('4') + s.count('7')
+if(n == 4 or n == 7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.3636,0.3425,0.3425,0.0,0,0,0.0,[],[]
+224004926,gpt-5.4-mini,rules,"in_str = input()
+cntr = 0
+
+if len(in_str) < 1 and len(in_str) > 18:
+    print(""Error_1"")
+
+for ch in in_str:
+    if (ch == '4') or (ch == '7'):
+        cntr +=1
+
+if (cntr == 4) or (cntr == 7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.0156,0.081,0.081,0.0,0,0,0.0,"[""generic_flip_bool_op""]",[]
+224019898,gpt-5.4-mini,reference,"x = list(input())
+count = 0
+for i in x:
+    if i =='4' or i == '7':
+        count += 1 
+if count == 4 or count == 7:
+    print('YES')
+else:
+	print(""NO"")",True,0.3966,5.1648,5.1648,0.0,0,0,0.0,[],[]
+224107759,gpt-5.4-mini,reference,"n = input()
+count = 0
+res = 'YES'
+for i in range(len(n)):
+    if n[i] == '4' or n[i] == '7':
+        count += 1
+count = str(count)
+for i in range(len(count)):
+    if count[i] != '4' and count[i] != '7':
+        res = 'NO'
+        break
+print(res)",True,0.75,3.0764,3.0764,0.0,0,0,0.0,[],[]
+224113939,gpt-5.4-mini,reference,"n = input()
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6744,0.7516,0.7516,0.0,0,0,0.0,[],[]
+224115828,gpt-5.4-mini,reference,"n = input()
+c = 0
+for i in n:
+    if i in '47':
+        c += 1
+if c == 4 or c == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.5778,0.5886,0.5886,0.0,0,0,0.0,[],[]
+224121778,gpt-5.4-mini,reference,"n = input()
+count = 0
+for i in range(len(n)):
+    c = n[i]
+    if c == '4' or c == '7':
+        count += 1
+    else:
+        continue
+if count == 4 or count == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.7615,5.0572,5.0572,0.0,0,0,0.0,[],[]
+224124126,gpt-5.4-mini,reference,"n = input()
+count = 0
+for i in n:
+    if (i == '4') or (i == '7'):
+        count+=1
+# print(str(count))
+flag=0
+# print(str(count))
+for j in str(count):
+    
+    if (j=='4') or (j=='7'):
+        flag=0
+    else:
+        flag=1
+# print(flag)
+if flag==0:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6887,3.0621,3.0621,0.0,0,0,0.0,[],[]
+224143246,gpt-5.4-mini,reference,"string = input()
+four = string.count(""4"")
+seven = string.count(""7"")
+a = str(four+seven)
+f1 = a.count(""4"")
+s1 = a.count(""7"")
+if (len(a)==f1+s1):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5556,0.3753,0.3753,0.0,0,0,0.0,[],[]
+224165624,gpt-5.4-mini,rules,"n = input()
+a = n.count(""4"")
+b = n.count(""7"")
+ 
+if a == 4 and b != 7 or a + b == 4 or a + b == 7 :
+    print(""YES"")
+else:
+    print(""NO"")",True,0.06,0.3537,0.3537,0.0,0,0,0.0,"[""generic_flip_compare"", ""generic_flip_first_or""]",[]
+224173412,gpt-5.4-mini,reference,"n=input()
+sum=n.count(""4"")+n.count(""7"")
+if sum==4 or sum==7:
+    print(""YES"")
+else:
+    print('NO')",True,0.7361,2.0043,2.0043,0.0,0,0,0.0,[],[]
+224175663,gpt-5.4-mini,reference,"n = input()
+
+if n.count('4') + n.count('7') in [4,7]:
+    print(""YES"")
+else:
+    print('NO')",True,0.537,0.4768,0.4768,0.0,0,0,0.0,[],[]
+224182478,gpt-5.4-mini,reference,"n=input()
+t=0
+for i in n:
+    if int(i)==4 or int(i)==7:
+        t+=1
+    else:
+        continue
+if t==4 or t==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6444,3.0848,3.0848,0.0,0,0,0.0,[],[]
+224193145,gpt-5.4-mini,reference,"n=input()
+a=n.count('4')
+b=n.count('7')
+if a+b==4 or a+b==7:
+    print('YES')
+else:
+    print('NO')",True,0.54,0.3609,0.3609,0.0,0,0,0.0,[],[]
+224196434,gpt-5.4-mini,rules,"n = input()
+c = int(n.count('4')) + int(n.count('7'))
+if c in (4, 7) or c in (4, 7):
+    print('YES')
+else:
+    print('NO')",True,0.2391,0.1749,0.1749,0.0,0,0,0.0,"[""modulo_used_as_count_check"", ""modulo_used_as_count_check""]",[]
+224220821,gpt-5.4-mini,reference,"n=int(input())
+a=str(n)
+l=0
+for i in range(len(a)):
+	if a[i] in '47':
+		l+=1
+if l==4 or l==7:
+	print('YES')
+else:
+    print(""NO"")",True,0.5867,49.2962,49.2962,0.0,0,0,0.0,[],[]
+224230326,gpt-5.4-mini,reference,"n = int(input())
+lucky = 0
+for i in str(n):
+    if i == '4':
+        lucky += 1
+    if i == '7':
+        lucky += 1
+
+# print(lucky)
+if lucky == 4 or lucky == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.4483,7.1247,7.1247,0.0,0,0,0.0,[],[]
+224236513,gpt-5.4-mini,reference,"n = input()
+count = 0
+for i in n:
+    if i == ""7"" or i == ""4"":
+        count += 1
+
+if count == 7 or count == 4:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.4156,3.0514,3.0514,0.0,0,0,0.0,[],[]
+224275407,gpt-5.4-mini,reference,"n = int(input())
+n = str(n)
+count = 0
+
+for i in n:
+    if i=='4' or i=='7':
+        count+=1
+        
+
+if count==4 or count==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.3478,4.7071,4.7071,0.0,0,0,0.0,[],[]
+224283905,gpt-5.4-mini,rules,"n=input()
+if((n.count('4') + n.count('7')) in {4, 7} or len(n)==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.4286,0.0775,0.0775,0.0,0,0,0.0,"[""len_equals_lucky_digit_should_be_count_of_lucky_digits""]",[]
+224292371,gpt-5.4-mini,reference,"s = input()
+t = 0
+for i in range(len(s)):
+    if s[i] == '4' or s[i] == '7':
+        t += 1
+t = str(t)
+for i in range(len(t)):
+    if t[i] == '4' or t[i] == '7':
+        u = 0
+    else:
+        u = 1
+        break
+if u == 0:
+    print('YES')
+else:
+    print('NO')",True,0.7222,2.9821,2.9821,0.0,0,0,0.0,[],[]
+224329149,gpt-5.4-mini,reference,"n = int(input())
+n = str(n)
+count = 0
+
+for i in n:
+    if i=='4' or i=='7':
+        count+=1
+        
+
+if count==4 or count==7:
+    print('YES')
+else:
+    print('NO')",True,0.9118,2.8674,2.8674,0.0,0,0,0.0,[],[]
+224530698,gpt-5.4-mini,rules,"n=input()
+if len(n)==7 or (n.count('4') + n.count('7')) in {4, 7}:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5,0.5825,0.5825,0.0,0,0,0.0,"[""len_equals_lucky_digit_should_be_count_of_lucky_digits"", ""normalize_yes_no_literals"", ""normalize_yes_no_literals""]",[]
+224530740,gpt-5.4-mini,rules,"n=input()
+if len(n)==7 or (n.count('4') + n.count('7')) in {4, 7}:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.4286,0.1185,0.1185,0.0,0,0,0.0,"[""len_equals_lucky_digit_should_be_count_of_lucky_digits""]",[]
+224587623,gpt-5.4-mini,reference,"n = input()
+
+set_n = set(n)
+
+total = 0
+
+for i in list(n):
+    if i == ""4"" or i == ""7"":
+        total += 1
+        
+    else:
+        total = total
+        
+if total == 4 or total == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2857,6.3124,6.3124,0.0,0,0,0.0,[],[]
+224588289,gpt-5.4-mini,reference,"n = input()
+
+indexes_4 = []
+indexes_7 = []
+
+for i, char in enumerate(n):
+    if char == '4':
+        indexes_4.append(i)
+    elif char == '7':
+        indexes_7.append(i)
+
+indexes = indexes_4 + indexes_7
+
+if len(indexes) == 4 or len(indexes) == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5,4.4902,4.4902,0.0,0,0,0.0,[],[]
+224595146,gpt-5.4-mini,reference,"n = input()
+
+count = 0
+
+count += n.count(""4"")
+count += n.count(""7"")
+
+if count == 7 or count == 4:
+	print(""YES"")
+else:
+	print(""NO"")",True,0.6053,0.5211,0.5211,0.0,0,0,0.0,[],[]
+224634853,gpt-5.4-mini,reference,"n=int(input())
+c=0
+a=0
+while(n>0):
+    a=n%10
+    if a==4 or a==7:
+        c+=1
+    n=n//10
+if c==7 or c==4:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7358,2.5876,2.5876,0.0,0,0,0.0,[],[]
+224637070,gpt-5.4-mini,reference,"def lucky_number(n):
+    c = 0
+    for i in n:
+        if i == '4' or i == '7':
+            c += 1
+    # print(count)
+    if c == 4 or c == 7:
+        return ""YES""
+    else:
+        return ""NO""
+
+
+if __name__ == ""__main__"":
+    num = input()
+    print(lucky_number(num))",True,0.52,4.7918,4.7918,0.0,0,0,0.0,[],[]
+224637501,gpt-5.4-mini,reference,"n = input()
+count = 0
+for i in n:
+    if i == '4' or i == '7':
+        count += 1
+ris = 'YES'
+for i in str(count):
+    if i != '4' and i != '7':
+        ris = 'NO'
+print(ris)",True,1.7778,1.0298,1.0298,0.0,0,0,0.0,[],[]
+224638269,gpt-5.4-mini,reference,"def lucky_number(num):
+    count = 0
+    for i in num:
+        if i == '4' or i == '7':
+            count += 1
+    # print(count)
+    if count == 4 or count == 7:
+        return ""YES""
+    else:
+        return ""NO""
+
+n = input()
+res = lucky_number(n)
+print(res)",True,0.7222,2.3194,2.3194,0.0,0,0,0.0,[],[]
+224640105,gpt-5.4-mini,reference,"def lucky_number(n):
+    n_str = str(n)
+    c = 0
+    for digit in n_str:
+        if digit == ""4"" or digit == ""7"":
+            c += 1
+    if c == 4 or c == 7:
+        return ""YES""
+    else:
+        return ""NO""
+n = int(input())
+res = lucky_number(n)
+print(res)",True,0.2281,4.9319,4.9319,0.0,0,0,0.0,[],[]
+224671057,gpt-5.4-mini,reference,"n=int(input())
+ans=0
+while n>0:
+    r=n%10
+    if r==4 or r==7:
+        ans+=1 
+    n=n//10 
+if ans==4 or ans==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.814,5.7168,5.7168,0.0,0,0,0.0,[],[]
+224671630,gpt-5.4-mini,reference,"n = input()
+c = int(n.count('4')) + int(n.count('7'))
+if c != 0 and c == 4 or c == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.9706,1.1979,1.1979,0.0,0,0,0.0,[],[]
+224694364,gpt-5.4-mini,reference,"n = input()
+luck = 0
+for i in range(len(n)):
+    if n[i] == '4' or n[i] == '7':
+        luck += 1
+luck = str(luck)
+flag = True
+for i in luck:
+    if i == '4' or i == '7':
+        continue
+    else:
+        flag = False
+        break
+if flag:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7963,4.4248,4.4248,0.0,0,0,0.0,[],[]
+224709356,gpt-5.4-mini,reference,"x = input()
+total = 0
+for i in range(len(x)):
+    if x[i] == '4' or x[i] == '7':
+        total += 1
+        if total > 7:
+            break
+if total == 4 or total == 7:
+    print('YES')
+else:
+    print('NO')",True,0.5763,3.6478,3.6478,0.0,0,0,0.0,[],[]
+224749407,gpt-5.4-mini,reference,"num = input()
+l1 = len(num)
+count = 0
+for x in range(l1):
+    if num[x] == '4':
+        count += 1
+    elif num[x] == '7':
+        count += 1
+if count == 4:
+    print('YES')
+elif count == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.3051,2.4942,2.4942,0.0,0,0,0.0,[],[]
+224757846,gpt-5.4-mini,reference,"def isLucky(x):
+    x = x
+    if (x == 0): return False
+    while (x > 0):
+        if not (x % 10 == 4 or x % 10 == 7):
+            return False
+        x = x // 10
+    return True
+
+n = sum((1 for x in input() if x == '4' or x == '7'))
+print(""YES"" if isLucky(n) else ""NO"")",True,0.2537,53.5501,53.5501,0.0,0,0,0.0,[],[]
+224761666,gpt-5.4-mini,reference,"s=input()
+count=0
+flag=1
+for i in s:
+    if i=='4' or i=='7':
+        count+=1
+count=str(count)
+for i in count:
+    if i!='7' and i!='4':
+        flag=0
+        break
+if flag==1:
+    print('YES')
+else:
+    print('NO')",True,0.7949,5.9784,5.9784,0.0,0,0,0.0,[],[]
+224774218,gpt-5.4-mini,reference,"S = input()
+cnt_four = S.count(""4"")
+cnt_seven = S.count(""7"")
+cnt = cnt_four + cnt_seven
+cnt_str = str(cnt)
+for s in cnt_str:
+    if s != ""4"" and s != ""7"":
+        print(""NO"")
+        exit(0)
+print(""YES"")",True,1.0,0.9784,0.9784,0.0,0,0,0.0,[],[]
+224812839,gpt-5.4-mini,rules,"def is_lucky_digit(digit):
+    return digit == 4 or digit == 7
+
+def is_nearly_lucky_number(n):
+    lucky_digit_count = 0
+
+    # Count the lucky digits (4 and 7) in the number
+    while n > 0:
+        digit = n % 10
+        if is_lucky_digit(digit):
+            lucky_digit_count += 1
+        n //= 10
+
+    # Check if the count of lucky digits is a lucky number
+    return lucky_digit_count == 0 and lucky_digit_count in (4, 7) or lucky_digit_count in (4, 7)
+
+if __name__ == ""__main__"":
+    n = int(input().strip())
+    if is_nearly_lucky_number(n):
+        print(""YES"")
+    else:
+        print(""NO"")",True,0.1413,23.9855,23.9855,0.0,0,0,0.0,"[""modulo_used_as_count_check"", ""modulo_used_as_count_check"", ""generic_flip_first_or""]",[]
+224820626,gpt-5.4-mini,reference,"n = input()
+c = int(n.count('4')) + int(n.count('7'))
+if c != 0 and c == 4 or c == 7:
+    print('YES')
+else:
+    print(""NO"")",True,1.0294,0.9322,0.9322,0.0,0,0,0.0,[],[]
+224821285,gpt-5.4-mini,rules,"lucky_number_count=0
+judge=True
+n=list(input())
+for i in n:
+    if i=='4' or i=='7':
+        lucky_number_count+=1
+    else:
+        judge=False
+if  lucky_number_count==4 or lucky_number_count==7:
+    print('YES')
+elif judge > True:
+    print('YES')
+else:
+    print('NO')",True,0.0161,0.3674,0.3674,0.0,0,0,0.0,"[""generic_flip_compare"", ""generic_flip_compare""]",[]
+224871136,gpt-5.4-mini,reference,"n = int(input())
+s = str(n)
+count = 0
+for i in s:
+    if i == '4' or i == '7':
+        count = count +1
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7381,0.9786,0.9786,0.0,0,0,0.0,[],[]
+224873188,gpt-5.4-mini,reference,"n = int(input())
+b = str(n)
+arr2 = ['4','7']
+count =0
+for i in b:
+    if i in arr2:
+        count+=1
+if count ==4 or count ==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.5932,0.5869,0.5869,0.0,0,0,0.0,[],[]
+224873253,gpt-5.4-mini,reference,"def is_lucky(num):
+    # Check if a number is lucky (contains only 4s and 7s)
+    while num > 0:
+        digit = num % 10
+        if digit != 4 and digit != 7:
+            return False
+        num //= 10
+    return True
+
+n = int(input())  # Input: The integer n
+
+# Count the number of lucky digits (4 and 7) in n
+lucky_count = 0
+while n > 0:
+    digit = n % 10
+    if digit == 4 or digit == 7:
+        lucky_count += 1
+    n //= 10
+
+# Verificar si el conteo de dígitos afortunados es un número afortunado
+if lucky_count == 4 or lucky_count == 7:
+    print(""YES"")
+else:
+    print(""NO"")   # Output: n is not a nearly lucky number",True,0.1047,54.078,54.078,0.0,0,0,0.0,[],[]
+224874339,gpt-5.4-mini,rules,"n=int(input())
+c=0
+while(n):
+    r=n%10
+    if(r==4 or r==7):
+        c+=1
+    n=n//10
+if c in (4, 7) or c in (4, 7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.1719,0.5306,0.5306,0.0,0,0,0.0,"[""modulo_used_as_count_check"", ""modulo_used_as_count_check""]",[]
+224985890,gpt-5.4-mini,rules,"""""""
+First we need to check whether the number
+contains only the digits 4 and 7.
+
+Next, we need to determine whether the 
+length of the string is 4 or 7.
+
+If both of these conditions are met,
+the output is YES. Else, NO.
+""""""
+
+input = input()
+listOfNumbers = list(input)
+
+output = """"
+
+
+def nearlyLucky():
+    for i in range(len(input)):
+        if listOfNumbers[i] == '4' and listOfNumbers[i] == '7':
+            return ""NO""
+
+    return ""YES""
+
+
+# Whether string is nearly lucky: 4 or 7
+
+""""""
+Only if the length of the string is nearly lucky,
+as defined as a 4 or a 7, then we will check to
+see if any of the digits are 4 or 7 by running
+the nearlyLucky() function. Else, we just print NO.
+""""""
+if (input.count('4') + input.count('7')) in {4, 7} or len(input) == 7:
+    output = nearlyLucky()
+else:
+    print(""NO"")
+
+
+# Outputs the right answer, hopefully.
+print(output)",True,0.1918,3.0722,3.0722,0.0,0,0,0.0,"[""len_equals_lucky_digit_should_be_count_of_lucky_digits"", ""generic_flip_compare"", ""generic_flip_compare""]",[]
+224987237,gpt-5.4-mini,reference,"n=int(input())
+a=str(n)
+l=0
+for i in range(len(a)):
+	if a[i] in '47':
+		l+=1
+if l==4 or l==7:
+	print('YES')
+else:
+	print('NO')",True,0.6,4.1349,4.1349,0.0,0,0,0.0,[],[]
+224987477,gpt-5.4-mini,reference,"n=input()
+a=n.count('4')
+b=n.count('7')
+if a+b==4 or a+b==7:
+    print('YES')
+else:
+    print('NO')",True,1.1714,1.0672,1.0672,0.0,0,0,0.0,[],[]
+225034507,gpt-5.4-mini,reference,"def count_lucky_digits(number):
+    count = 0
+    while number > 0:
+        digit = number % 10
+        if digit == 4 or digit == 7:
+            count += 1
+        number //= 10
+    return count
+n = int(input())
+lucky_digit_count = count_lucky_digits(n)
+if lucky_digit_count == 4 or lucky_digit_count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,2.0,30.2289,30.2289,0.0,0,0,0.0,[],[]
+225034690,gpt-5.4-mini,reference,"n = input()
+
+if len(n) < 4:
+    print('NO')
+else:
+    lucky_count = 0
+
+    for c in n:
+        if c == '4' or c == '7':
+            lucky_count += 1
+
+    if lucky_count == 4 or lucky_count == 7:
+        print('YES')
+    else:
+        print(""NO"")",True,0.7766,49.2914,49.2914,0.0,0,0,0.0,[],[]
+225042022,gpt-5.4-mini,reference,"n = input()
+s = 0
+for i in range(0, len(n)):
+    if n[i] == '4' or n[i] == '7':
+        s = s+1
+if s == 4 or s == 7:
+    print('YES')
+else:
+    print('NO')",True,0.3276,2.0606,2.0606,0.0,0,0,0.0,[],[]
+225042222,gpt-5.4-mini,reference,"a=input()
+t=0
+for i in a:
+    if i=='4' or i=='7':
+        t=t+1
+if t==4 or t==7:
+    print('YES')
+else :
+    print('NO')",True,0.3256,3.3204,3.3204,0.0,0,0,0.0,[],[]
+225042292,gpt-5.4-mini,reference,"a=input()
+t=0
+for i in a:
+    if i=='4' or i=='7':
+        t=t+1
+if t==4 or t==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.5,0.7773,0.7773,0.0,0,0,0.0,[],[]
+225042889,gpt-5.4-mini,reference,"n=input()
+l=len(n)
+sum=0
+for i in range(l):
+    if n[i]==""4"" or n[i]==""7"":
+        sum+=1
+if sum==4 or sum==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.4444,2.201,2.201,0.0,0,0,0.0,[],[]
+225043122,gpt-5.4-mini,reference,"def main():
+
+    inp = input()
+    IL = 0
+    for i in inp:
+        if i == ""4"" or i == ""7"":
+            IL += 1
+    
+    if IL == 4 or IL == 7:
+        print(""YES"")
+
+    else:
+        print(""NO"")
+    
+    
+
+main()",True,0.6286,0.9156,0.9156,0.0,0,0,0.0,[],[]
+225043439,gpt-5.4-mini,reference,"import sys
+n = input()
+s = 0
+for i in range(0, len(n)):
+    if n[i] == '4' or n[i] == '7':
+        s = s+1
+if s == 4 or s == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.806,3.9195,3.9195,0.0,0,0,0.0,[],[]
+225043938,gpt-5.4-mini,reference,"def count_lucky_digits(number):
+    count = 0
+    while number > 0:
+        digit = number % 10
+        if digit == 4 or digit == 7:
+            count += 1
+        number //= 10
+    return count
+n = int(input())
+lucky_digit_count = count_lucky_digits(n)
+if lucky_digit_count == 4 or lucky_digit_count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,2.9706,1.7344,1.7344,0.0,0,0,0.0,[],[]
+225043969,gpt-5.4-mini,reference,"n = input()
+s = 0
+for i in range(0, len(n)):
+    if n[i] == '4' or n[i] == '7':
+        s = s+1
+if s == 4 or s == 7:
+    print('YES')
+else:
+    print('NO')",True,0.3692,1.9953,1.9953,0.0,0,0,0.0,[],[]
+225044231,gpt-5.4-mini,reference,"import sys
+n = input()
+s = 0
+for i in range(0, len(n)):
+    if n[i] == '4' or n[i] == '7':
+        s = s+1
+if s == 4 or s == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.2679,2.2535,2.2535,0.0,0,0,0.0,[],[]
+225044439,gpt-5.4-mini,reference,"x = list(input())
+count = 0
+for i in x:
+    if i =='4' or i == '7':
+        count += 1 
+if count == 4 or count == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.8966,0.7072,0.7072,0.0,0,0,0.0,[],[]
+225044679,gpt-5.4-mini,reference,"n=str(input())
+cik=n.count(""4"")
+cik2=n.count(""7"")
+
+cik3=cik+cik2
+if (cik3==7):
+    print(""YES"")
+elif (cik3==4):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.8462,0.3675,0.3675,0.0,0,0,0.0,[],[]
+225044785,gpt-5.4-mini,reference,"n=str(input())
+cik=n.count(""4"")
+cik2=n.count(""7"")
+
+cik3=cik+cik2
+if (cik3==7):
+    print(""YES"")
+elif (cik3==4):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7188,0.5761,0.5761,0.0,0,0,0.0,[],[]
+225045500,gpt-5.4-mini,reference,"n=str(input())
+cik=n.count(""4"")
+cik2=n.count(""7"")
+
+cik3=cik+cik2
+
+if (cik3==7):
+    print(""YES"")
+elif (cik3==4):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.0213,0.7061,0.7061,0.0,0,0,0.0,[],[]
+225045660,gpt-5.4-mini,rules,"number = input()
+if len(number) == 7 or (number.count('4') + number.count('7')) in {4, 7}:
+  print(""YES"")
+else:
+  print(""NO"")",True,0.4286,0.0736,0.0736,0.0,0,0,0.0,"[""len_equals_lucky_digit_should_be_count_of_lucky_digits""]",[]
+225088091,gpt-5.4-mini,reference,"n = int(input())
+n = str(n)
+count = 0
+
+for i in n:
+    if i=='4' or i=='7':
+        count+=1
+        
+
+if count==4 or count==7:
+    print('YES')
+else:
+    print('NO')",True,0.4658,6.6957,6.6957,0.0,0,0,0.0,[],[]
+225187070,gpt-5.4-mini,reference,"n = int(input())
+lucky = 0
+for i in str(n):
+    if i == '4':
+        lucky += 1
+    if i == '7':
+        lucky += 1
+
+# print(lucky)
+if lucky == 4 or lucky == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.5349,5.6646,5.6646,0.0,0,0,0.0,[],[]
+225194980,gpt-5.4-mini,rules,"n=str(int(input()))
+for i in range (len(n)):
+ if (n[i] != 4 or n[i]==7) and (len(n)==7 or (n.count('4') + n.count('7')) in {4, 7}):
+      print(""YES"")
+      break
+ else:
+      print(""NO"")    
+      break",True,0.2281,0.7593,0.7593,0.0,0,0,0.0,"[""len_equals_lucky_digit_should_be_count_of_lucky_digits"", ""generic_flip_compare""]",[]
+225249773,gpt-5.4-mini,reference,"def nearlyLuckyNumber():
+    n = input()
+    nearlyLucky = False
+    count47 = 0
+    for char in n:
+        if char == ""4"" or char == ""7"":
+            count47 += 1   
+            if count47 > 7:
+                break
+        
+    if count47 == 4 or count47 == 7:
+        print(""YES"")
+    else:
+        print(""NO"")
+
+nearlyLuckyNumber()",True,0.66,5.3439,5.3439,0.0,0,0,0.0,[],[]
+225439113,gpt-5.4-mini,rules,"n=str(int(input()))
+for i in range (len(n)):
+ if (n[i] != 4 and (n.count('4') + n.count('7')) in {4, 7}) or (n[i]==7 and len(n)==7) :
+      print(""YES"")
+      break
+ else:
+      print(""NO"")    
+      break",True,0.2281,0.6086,0.6086,0.0,0,0,0.0,"[""len_equals_lucky_digit_should_be_count_of_lucky_digits"", ""generic_flip_compare""]",[]
+225439811,gpt-5.4-mini,rules,"n = int(input())
+
+s = set([i for i in str(n)])
+
+if s != {3,7}:
+    x = 0
+    for i in str(n):
+        if i == ""4"" or i ==""7"":
+            x+=1
+    if x != 7 and x != 4:
+        print(""NO"")
+    else: print(""YES"")
+else: print(""No"")",True,0.0282,0.5587,0.5587,0.0,0,0,0.0,"[""normalize_yes_no_literals"", ""generic_flip_bool_op""]",[]
+225461520,gpt-5.4-mini,reference,"def is_almost_happy(n):
+    n_str = str(n)
+    count = 0
+    for digit in n_str:
+        if digit == '4' or digit == '7':
+            count += 1
+    if count == 4 or count == 7:
+        return ""YES""
+    else:
+        return ""NO""
+n = int(input())
+result = is_almost_happy(n)
+print(result)",True,2.2353,0.8679,0.8679,0.0,0,0,0.0,[],[]
+225467692,gpt-5.4-mini,reference,"s=input()
+c=0
+for i in range(len(s)):
+    if s[i]==""4"" or s[i]==""7"":
+        c+=1
+if(c==4 or c==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6364,4.1656,4.1656,0.0,0,0,0.0,[],[]
+225479315,gpt-5.4-mini,reference,"n = int(input())
+b = str(n)
+arr2 = ['4','7']
+count =0
+for i in b:
+    if i in arr2:
+        count+=1
+if count ==4 or count ==7:
+    print('YES')
+else:
+    print('NO')",True,0.5424,1.9445,1.9445,0.0,0,0,0.0,[],[]
+225479982,gpt-5.4-mini,reference,"n = int(input())
+b = str(n)
+arr= ['0','1','2','3','5','6','8','9']
+arr2 = ['4','7']
+count =0
+for i in b:
+    if i in arr2:
+        count+=1
+if count ==4 or count ==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.1733,1.4971,1.4971,0.0,0,0,0.0,[],[]
+225527262,gpt-5.4-mini,reference,"n=input()
+s=str(n.count(""7"")+n.count(""4""))
+print(""YES"" if len(s.replace('7','').replace('4',''))==0 else ""NO"")",True,0.9091,0.2498,0.2498,0.0,0,0,0.0,[],[]
+225632764,gpt-5.4-mini,reference,"num = input()
+based = []
+for n in num:
+    if n not in ['4', '7']:
+        continue
+    based.append(n)
+
+n = str(len(based))
+
+for ele in n:
+    if ele != '4' and ele != '7':
+        print('NO')
+        break
+else:
+    print('YES')",True,0.5714,0.8886,0.8886,0.0,0,0,0.0,[],[]
+225675290,gpt-5.4-mini,reference,"n = input()
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+    print('NO')",True,0.7826,2.9546,2.9546,0.0,0,0,0.0,[],[]
+225691667,gpt-5.4-mini,rules,"n =  input()
+sum = 0
+for i in n:
+  if i == '4' or i == '7':
+    sum+=1
+if sum == 4 or sum == 7:
+  print(""YES"")
+else:
+  print(""NO"")",True,0.0444,0.5068,0.5068,0.0,0,0,0.0,"[""normalize_yes_no_literals"", ""normalize_yes_no_literals""]",[]
+225701316,gpt-5.4-mini,reference,"n=int(input())
+count=0
+while n>0:
+   t=n%10
+   if t==4 or t==7:
+       count+=1
+   n=n//10
+if(count==4 or count==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6731,16.7621,16.7621,0.0,0,0,0.0,[],[]
+225718042,gpt-5.4-mini,reference,"def lucky_number(n):
+    c=0
+    for i in n:
+        if i == '4' or i == '7':
+            c += 1
+    # print(count)
+    if c == 4 or c == 7:
+        return ""YES""
+    else:
+        return ""NO""
+
+
+if __name__ == ""__main__"":
+    num = input()
+    print(lucky_number(num))",True,0.5091,3.1472,3.1472,0.0,0,0,0.0,[],[]
+225744103,gpt-5.4-mini,reference,"n=input()
+count=0
+for i in n:
+    if i == '4' or i == '7':
+        count += 1
+
+if count == 4 or count == 7:
+    print('YES')
+else:
+    print('NO')",True,0.4444,2.5727,2.5727,0.0,0,0,0.0,[],[]
+225744466,gpt-5.4-mini,reference,"n = int(input())
+lucky = 0
+for i in str(n):
+    if i == '4':
+        lucky += 1
+    if i == '7':
+        lucky += 1
+
+# print(lucky)
+if lucky == 4 or lucky == 7:
+    print('YES')
+else:
+        print('NO')",True,0.3725,4.0847,4.0847,0.0,0,0,0.0,[],[]
+225770361,gpt-5.4-mini,reference,"n = input()
+count = 0
+res = 'YES'
+for i in range(len(n)):
+    if n[i] == '4' or n[i] == '7':
+        count += 1
+count = str(count)
+for i in range(len(count)):
+    if count[i] != '4' and count[i] != '7':
+        res = 'NO'
+        break
+print(res)",True,1.1795,2.4174,2.4174,0.0,0,0,0.0,[],[]
+225819137,gpt-5.4-mini,reference,"n = list(input())
+c = list(str(n.count(""4"") + n.count(""7"")))
+if c.count(""4"") + c.count(""7"") == len(c):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7931,0.3404,0.3404,0.0,0,0,0.0,[],[]
+225819490,gpt-5.4-mini,reference,"n = input()
+a=n.count('4')
+b=n.count('7')
+if a+b == 4 or a+b ==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.4444,6.5361,6.5361,0.0,0,0,0.0,[],[]
+225819949,gpt-5.4-mini,reference,"n = input()
+a=n.count('4')
+b=n.count('7')
+if a+b == 4 or a+b ==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.4444,3.9172,3.9172,0.0,0,0,0.0,[],[]
+225903361,gpt-5.4-mini,reference,"n = input()
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+
+else:
+    print(""NO"")",True,0.4222,3.9347,3.9347,0.0,0,0,0.0,[],[]
+225911493,gpt-5.4-mini,reference,"inp = input()
+count = 0
+for i in range(len(inp)):
+    if int(inp[i]) in [4,7]:
+        count +=1
+if count in [4, 7]:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7662,5.3604,5.3604,0.0,0,0,0.0,[],[]
+226072249,gpt-5.4-mini,reference,"n = int(input())
+n = str(n)
+flag = 0
+for x in n:
+    if int(x) == 4 or int(x) == 7:
+        flag += 1
+if flag == 4 or flag == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.459,2.429,2.429,0.0,0,0,0.0,[],[]
+226077380,gpt-5.4-mini,reference,"a=input()
+t=0
+for i in a:
+    if i=='4' or i=='7':
+        t=t+1
+if t==4 or t==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.52,3.1229,3.1229,0.0,0,0,0.0,[],[]
+226180703,gpt-5.4-mini,reference,"s=input()
+count=0
+for i in s:
+    if i=='4' or i=='7':
+        count+=1
+if count==4 or count==7:
+    print('YES')
+else:
+    print('NO')",True,0.1957,2.1831,2.1831,0.0,0,0,0.0,[],[]
+226180997,gpt-5.4-mini,reference,"n = input()
+
+count = 0
+for i in n:
+    if i == '4' or i == '7':
+        count += 1
+
+if count == 4 or count == 7:
+  print(""YES"")
+else:
+  print(""NO"")",True,0.1522,2.6776,2.6776,0.0,0,0,0.0,[],[]
+226229437,gpt-5.4-mini,reference,"def is_almost_lucky_number(n):
+    n_str = str(n)
+    count = 0
+    for digit in n_str:
+        if digit == '4' or digit == '7':
+            count += 1
+    if count == 4 or count == 7:
+        return ""YES""
+    else:
+        return ""NO""
+n = int(input())
+result = is_almost_lucky_number(n)
+print(result)",True,0.5349,0.7804,0.7804,0.0,0,0,0.0,[],[]
+226230401,gpt-5.4-mini,reference,"def is_almost_lucky_number(n):
+    n_str = str(n)
+    count = 0
+    for digit in n_str:
+        if digit == '4' or digit == '7':
+            count += 1
+    if count == 4 or count == 7:
+        return ""YES""
+    else:
+        return ""NO""
+n = int(input())
+result = is_almost_lucky_number(n)
+print(result)",True,0.5556,1.1794,1.1794,0.0,0,0,0.0,[],[]
+226240735,gpt-5.4-mini,reference,"n=int(input())
+a=str(n)
+l=0
+for i in range(len(a)):
+	if a[i] in '47':
+		l+=1
+if l==4 or l==7:
+	print('YES')
+else:
+	print('NO')",True,0.3333,3.831,3.831,0.0,0,0,0.0,[],[]
+226267124,gpt-5.4-mini,reference,"nourinz=input()
+zz=0
+for n in nourinz:
+    if  (int(n) ==4 or int(n) ==7 ):
+         zz=zz+1
+if ((zz==4 or zz==7)):
+    print('YES')
+else:
+    print('NO')",True,0.8526,12.9855,12.9855,0.0,0,0,0.0,[],[]
+226269297,gpt-5.4-mini,reference,"n = input()
+
+# Count the lucky digits (4 and 7) in the number
+lucky_count = n.count('4') + n.count('7')
+
+# Check if the count of lucky digits is itself a lucky number
+lucky_digits = str(lucky_count)
+if all(digit in '47' for digit in lucky_digits):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.0244,0.2342,0.2342,0.0,0,0,0.0,[],[]
+226281938,gpt-5.4-mini,reference,"from collections import *
+n = input()
+val1 = n.count(""4"")
+val2 = n.count(""7"")
+ans = str(val1 + val2)
+
+for i in str(ans):
+    if i not in ""47"":
+        print(""NO"")
+        break
+else:
+    print(""YES"")",True,1.2917,0.1875,0.1875,0.0,0,0,0.0,[],[]
+226282090,gpt-5.4-mini,reference,"x=str(input())
+sum=0
+for i in x:
+    if i=='7' or i=='4':
+        sum+=1
+if sum==7 or sum==4:
+    print('YES')
+else:
+    print(""NO"")",True,1.25,0.2164,0.2164,0.0,0,0,0.0,[],[]
+226282239,gpt-5.4-mini,reference,"print('NYOE S'[sum(i in'47'for i in input())in(4,7)::2])",True,1.0,0.1618,0.1618,0.0,0,0,0.0,[],[]
+226282351,gpt-5.4-mini,reference,"n = input()
+a=sum(1 for i in n if i in '47')
+if a == 4 or a == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7222,0.3551,0.3551,0.0,0,0,0.0,[],[]
+226283174,gpt-5.4-mini,reference,"x = list(input())
+count = 0
+for i in x:
+    if i =='4' or i == '7':
+        count += 1 
+if count == 4 or count == 7:
+    print('YES')
+else:
+    print('NO')",True,1.3333,4.0375,4.0375,0.0,0,0,0.0,[],[]
+226283532,gpt-5.4-mini,reference,"num=input()
+c=0
+for i in num:
+    if(i=='4' or i=='7'):
+        c+=1
+if(c==4 or c==7):
+    print('YES')
+else:
+    print(""NO"")",True,0.8125,6.2821,6.2821,0.0,0,0,0.0,[],[]
+226294388,gpt-5.4-mini,rules,"a = input()
+if a.count('4') == 0 and a.count('7') == 0 :
+    print(""NO"")
+else:
+    n = a.count('4') + a.count('7')
+    if n==4 or n==7 :
+        print(""YES"")
+    else:
+        print(""NO"")",True,0.0702,2.0627,2.0627,0.0,0,0,0.0,"[""normalize_yes_no_literals"", ""normalize_yes_no_literals"", ""normalize_yes_no_literals"", ""generic_flip_bool_op""]",[]
+226294476,gpt-5.4-mini,rules,"a = input()
+if a.count('4') == 0 and a.count('7') == 0 :
+    print(""NO"")
+else:
+    n = a.count('4') + a.count('7')
+    if n==4 or n==7:
+        print('YES')
+    else:
+        print('NO')",True,0.0175,0.0784,0.0784,0.0,0,0,0.0,"[""generic_flip_bool_op""]",[]
+226298297,gpt-5.4-mini,rules,"a = input()
+if (a.count('7') + a.count('4') > len(a)) :
+    print(""NO"")
+else:
+    n = a.count('4') + a.count('7')
+    if n==4 or n==7:
+        print('YES')
+    else:
+        print('NO')",True,0.0179,0.5143,0.5143,0.0,0,0,0.0,"[""generic_flip_compare"", ""generic_flip_compare"", ""generic_flip_compare""]",[]
+226313483,gpt-5.4-mini,rules,"# -*- coding: utf-8 -*-
+""""""
+Created on Mon Oct  2 20:18:36 2023
+
+@author: risha
+""""""
+
+n=input()
+c=n.count('4')+n.count('7')
+if c==4 or c==7 :
+    print(""YES"")
+else:
+    print(""NO"")",True,0.0526,0.1621,0.1621,0.0,0,0,0.0,"[""normalize_yes_no_literals"", ""normalize_yes_no_literals""]",[]
+226353818,gpt-5.4-mini,reference,"n = input()  # Input: The integer n as a string
+
+lucky_count = n.count('4') + n.count('7')
+
+if lucky_count in {4, 7}:
+    print(""YES"")
+else:
+    print('NO')",True,0.5938,0.2571,0.2571,0.0,0,0,0.0,[],[]
+226354295,gpt-5.4-mini,rules,"sat = set()
+lis = []
+x = input()
+counter = 0
+for i in x:
+    if i == '4' or i == '7':
+        counter += 1
+    sat.add(i)
+    lis.append(i)
+if sat != {'4', '7'} and sat == {'7', '4'}:
+    print('YES')
+elif counter == 4 or counter == 7:
+    print('YES')
+else:
+    print('NO')",True,0.0247,0.498,0.498,0.0,0,0,0.0,"[""generic_flip_compare"", ""generic_flip_bool_op""]",[]
+226368410,gpt-5.4-mini,reference,"n = str(input())
+ans = 'NO'
+counts = 0
+for i in n:
+	if i=='4' or i == '7':
+		counts += 1		
+if counts ==4 or counts==7:
+	ans = 'YES'		
+print(ans)",True,0.8571,0.8757,0.8757,0.0,0,0,0.0,[],[]
+226419125,gpt-5.4-mini,reference,"def is_almost_lucky(n):
+    lucky_numbers = [4, 7, 44, 47, 74, 77, 444, 447, 474, 477, 744, 747, 774, 777]
+    for num in lucky_numbers:
+        if n % num == 0:
+            return True
+    return False
+
+n = int(input())
+b = str(n)
+arr2 = ['4','7']
+count =0
+for i in b:
+    if i in arr2:
+        count+=1
+if count ==4 or count ==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.6364,0.3492,0.3492,0.0,0,0,0.0,[],[]
+226430643,gpt-5.4-mini,reference,"n = int(input())
+count = 0
+while n != 0:
+    if (n % 10 in [4, 7]):
+        count += 1
+    n //= 10
+
+if count in [4, 7]:
+    print('YES')
+else:
+    print('NO')",True,0.3125,17.007,17.007,0.0,0,0,0.0,[],[]
+226506708,gpt-5.4-mini,reference,"nourinz=input()
+zz=0
+for n in nourinz:
+    if  (int(n) ==4 or int(n) ==7 ):
+         zz=zz+1
+if ((zz==4 or zz==7)):
+    print('YES')
+else:
+    print('NO')",True,0.5636,5.4463,5.4463,0.0,0,0,0.0,[],[]
+226507308,gpt-5.4-mini,reference,"nourinz=input()
+zz=0
+for n in nourinz:
+    if  (int(n) ==4 or int(n) ==7 ):
+         zz=zz+1
+if ((zz==4 or zz==7)):
+    print('YES')
+else:
+    print('NO')",True,0.3607,3.5964,3.5964,0.0,0,0,0.0,[],[]
+226540223,gpt-5.4-mini,reference,"list1=list(str(input()))
+n=list1.count('4')+list1.count('7')
+if n!=0 and (n==4 or n==7):
+    print('YES')
+else:
+    print(""NO"")",True,0.6154,0.5667,0.5667,0.0,0,0,0.0,[],[]
+226560957,gpt-5.4-mini,reference,"a=input()
+cnt=0
+clk=1
+for i in a:
+    if i=='4' or i=='7':
+        cnt=cnt+1
+cnt=str(cnt)
+for i in cnt:
+    if i=='4' or i=='7':
+        continue
+    else:
+        print(""NO"")
+        clk=0
+        break
+if clk==1:
+    print(""YES"")",True,1.027,0.9039,0.9039,0.0,0,0,0.0,[],[]
+226571664,gpt-5.4-mini,reference,"n=int(input())
+a=str(n)
+l=0
+for i in range(len(a)):
+	if a[i] in '47':
+		l+=1
+if l==4 or l==7:
+	print('YES')
+else:
+	print('NO')",True,1.0588,4.92,4.92,0.0,0,0,0.0,[],[]
+226598648,gpt-5.4-mini,reference,"n=int(input())
+count=0
+while n>0:
+   t=n%10
+   if t==4 or t==7:
+       count+=1
+   n=n//10
+if(count==4 or count==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.3478,55.1881,55.1881,0.0,0,0,0.0,[],[]
+226635167,gpt-5.4-mini,reference,"def generate_lucky_string(n):
+    result = """"
+    current_letter = 'a'
+    lucky = [4, 7]
+
+def checkN(n):
+    strN = str(n)
+    without_47 = strN.replace(""4"", """").replace(""7"", """")
+    if without_47 == 0:
+        return ""YES""
+    delta = len(strN) - len(without_47)
+    if delta == 4 or delta == 7:
+        return ""YES""
+    return ""NO""
+
+n = int(input())
+
+print(checkN(n))",True,1.2581,8.9535,8.9535,0.0,0,0,0.0,[],[]
+226808954,gpt-5.4-mini,reference,"n = input()
+cnt = 0
+for char in n:
+  if char == '4' or char == '7':
+    cnt += 1
+for char in str(cnt):
+  if char != '4' and char != '7':
+    print('NO')
+    break
+else:
+  print('YES')",True,1.0,0.8888,0.8888,0.0,0,0,0.0,[],[]
+226809039,gpt-5.4-mini,reference,"def check(num):
+    if len(num) == 1:
+        return ""NO""
+    lucky = 0
+    for l in num:
+        if l == '7' or l == '4':
+            lucky += 1
+        
+    if(lucky == 4 or lucky == 7):
+        return(""YES"")
+    else:
+        return(""NO"")
+
+num = input()
+print(check(num))",True,0.3333,3.6978,3.6978,0.0,0,0,0.0,[],[]
+226847570,gpt-5.4-mini,reference,"n = input()
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+	print(""NO"")",True,1.0667,0.2999,0.2999,0.0,0,0,0.0,[],[]
+226858461,gpt-5.4-mini,rules,"t = input()
+
+if (t.count('4') + t.count('7')) in {4, 7} or len(t) == 7:
+    print(""YES"")
+else: print(""NO"")",True,0.4286,0.0743,0.0743,0.0,0,0,0.0,"[""len_equals_lucky_digit_should_be_count_of_lucky_digits""]",[]
+226863033,gpt-5.4-mini,reference,"x = input()
+count = 0
+
+for i in range(len(x)):
+    if (x[i] == ""4"" or x[i] == ""7""):
+        count += 1
+
+if (count == 4 or count == 7):
+    print(""YES"")
+else:
+  print('NO')",True,0.2449,2.3984,2.3984,0.0,0,0,0.0,[],[]
+226865786,gpt-5.4-mini,reference,"num = input()
+count = 0
+lucky_nums = ['4','7']
+for i in range(len(num)):
+  if num[i] in lucky_nums:
+    count += 1
+
+for number in str(count):
+  if number not in lucky_nums:
+    ans = 'NO'
+  else:
+    ans = 'YES'
+
+print(ans)",True,0.4722,3.5664,3.5664,0.0,0,0,0.0,[],[]
+226879615,gpt-5.4-mini,reference,"n = int(input())
+b = str(n)
+arr2 = ['4','7']
+count =0
+for i in b:
+    if i in arr2:
+        count+=1
+if count ==4 or count ==7:
+    print('YES')
+else:
+    print('NO')",True,0.6364,58.6768,58.6768,0.0,0,0,0.0,[],[]
+226887406,gpt-5.4-mini,reference,"n=int(input())
+c=0
+a=0
+while(n>0):
+    a=n%10
+    if a==4 or a==7:
+        c+=1
+    n=n//10
+if c==7 or c==4:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5179,29.8922,29.8922,0.0,0,0,0.0,[],[]
+226888103,gpt-5.4-mini,reference,"n=int(input())
+c=0
+a=0
+while(n>0):
+    a=n%10
+    if a==4 or a==7:
+        c+=1
+    n=n//10
+if c==7 or c==4:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5122,27.142,27.142,0.0,0,0,0.0,[],[]
+226890156,gpt-5.4-mini,rules,"import sys
+
+input = sys.stdin.readline
+
+def in2i():
+    '''
+    input to int
+    '''
+    return int(input())
+
+def in2il():
+    '''
+    intput to int list
+    '''
+    return (list(map(int, input().split())))
+
+def s2cs():
+    '''
+    string to chars
+    '''
+    s = input()
+    return (list(s[:len(s)]))
+
+s = input()
+count = 0
+for c in s:
+    if c == '4' or c == '7':
+        count += 1
+if count > 0 and (count in (4, 7) or count % 7 == 0):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.0467,0.0892,0.0892,0.0,0,0,0.0,"[""modulo_used_as_count_check""]",[]
+226893764,gpt-5.4-mini,reference,"s=input()
+count=0
+for i in s:
+    if i=='4' or i=='7':
+        count+=1
+if count==4 or count==7:
+    print('YES')
+else:
+    print('NO')
+
+
+# In[ ]:",True,0.3846,1.2076,1.2076,0.0,0,0,0.0,[],[]
+226917262,gpt-5.4-mini,reference,"s=int(input(""""))
+x=str(s)  
+count=0
+for i in range(len(x)):
+    if int(x[i])==4 or int(x[i])==7:
+        count+=1
+    else:
+        pass
+if count==4 or count==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7143,2.8676,2.8676,0.0,0,0,0.0,[],[]
+226918018,gpt-5.4-mini,reference,"n = list(input())
+l = 0
+for i in n:
+    if i == '4' or i == '7':
+        l += 1
+
+print('YES' if l == 4 or l == 7 else 'NO')",True,1.0625,1.0773,1.0773,0.0,0,0,0.0,[],[]
+226930756,gpt-5.4-mini,rules,"import sys
+from itertools import permutations
+import collections
+import math
+M = 1000000007
+
+n = (int(sys.stdin.readline()))
+#a = list(map(int,sys.stdin.readline().split()))
+
+a = collections.Counter(str(n))
+if '7' not in a.keys() and '4' not in a.keys():
+    print(""NO"")
+elif a[""7""] + a[""4""] != 4 and a[""7""] + a[""4""] != 7:
+    print(""NO"")
+elif a[""7""] + a[""4""] != 7 and a[""7""] + a[""4""] != 4:
+    print(""NO"")
+else: print(""YES"")",True,0.0092,0.1299,0.1299,0.0,0,0,0.0,"[""generic_flip_bool_op""]",[]
+226950486,gpt-5.4-mini,reference,"n = input()
+count = 0
+for i in n:
+    if i == '4' or i == '7':
+        count += 1
+ris = 'YES'
+for i in str(count):
+    if i != '4' and i != '7':
+        ris = 'NO'
+print(ris)",True,1.1,1.1038,1.1038,0.0,0,0,0.0,[],[]
+226984222,gpt-5.4-mini,reference,"n = input()
+cnt = 0
+for char in n:
+  if char == '4' or char == '7':
+    cnt += 1
+for char in str(cnt):
+  if char != '4' and char != '7':
+    print('NO')
+    break
+else:
+  print('YES')",True,0.8889,1.2053,1.2053,0.0,0,0,0.0,[],[]
+226990990,gpt-5.4-mini,reference,"n = input()
+count = 0
+for i in n:
+    if i == '4' or i == '7':
+        count += 1
+ris = 'YES'
+for i in str(count):
+    if i != '4' and i != '7':
+        ris = 'NO'
+print(ris)",True,0.8919,1.267,1.267,0.0,0,0,0.0,[],[]
+226991645,gpt-5.4-mini,reference,"s=input()
+count=0
+flag=1
+for i in s:
+    if i=='4' or i=='7':
+        count+=1
+count=str(count)
+for i in count:
+    if i!='7' and i!='4':
+        flag=0
+        break
+if flag==1:
+    print('YES')
+else:
+    print(""NO"")",True,0.8033,7.2908,7.2908,0.0,0,0,0.0,[],[]
+226994374,gpt-5.4-mini,reference,"n=int(input())
+st=str(n)
+fors=st.count(""4"")
+sevens=st.count(""7"")
+sum=fors+sevens
+if sum==4 or sum==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5542,4.357,4.357,0.0,0,0,0.0,[],[]
+227003651,gpt-5.4-mini,rules,"n = input()
+b = list(map(int,list(n)))
+count = 0
+for i in range(len(b)):
+    if b[i] == 4 or b[i] == 7:
+        count += 1
+if (count in (4, 7) or count % 7 == 0) and count != 0:
+    print('YES')
+else: print('NO')",True,0.0667,0.1043,0.1043,0.0,0,0,0.0,"[""modulo_used_as_count_check""]",[]
+227003854,gpt-5.4-mini,reference,"def lucky(a):
+    list = ['4','7']
+    count = 0
+    for i in range(len(a)):
+        if a[i] in list:
+            count += 1
+    if count == 4 or count == 7:
+        return ""YES""
+    else:
+        return'NO'
+b = input()
+c = lucky(b)
+print(c)",True,0.1455,8.3695,8.3695,0.0,0,0,0.0,[],[]
+227008023,gpt-5.4-mini,reference,"def lucky(a):
+    list = str(a)
+    count = 0
+    for i in range(len(list)):
+        if list[i] == ""4"" or list[i] == ""7"":
+            count = count + 1 
+    # print(a)
+    if count == 4 or count == 7:
+        return True
+    else:
+        return False
+n = int(input())
+check = lucky(n)
+if check == True:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.8427,12.6891,12.6891,0.0,0,0,0.0,[],[]
+227058017,gpt-5.4-mini,reference,"n = int(input())
+def is_lucky(number):
+    while number > 0:
+        digit = number % 10
+        if digit != 4 and digit != 7:
+            return False
+        number //= 10
+    return True
+lucky_count = 0
+while n > 0:
+    digit = n % 10
+    if digit == 4 or digit == 7:
+        lucky_count += 1
+    n //= 10
+if lucky_count == 4 or lucky_count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.1047,54.6895,54.6895,0.0,0,0,0.0,[],[]
+227061717,gpt-5.4-mini,reference,"lucky = [4,7]
+
+n = input()
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6765,5.6163,5.6163,0.0,0,0,0.0,[],[]
+227063008,gpt-5.4-mini,reference,"n =input()
+n = [int(i) for i in n]
+n1 =n.count(4) + n.count(7)
+if n1==7 or n1==4:
+    print(""YES"")
+else:
+    print('NO')",True,0.4483,0.6067,0.6067,0.0,0,0,0.0,[],[]
+227063435,gpt-5.4-mini,reference,"n =input()
+n = [int(i) for i in n]
+n1 =n.count(4) + n.count(7)
+if n1==7 or n1==4:
+    print(""YES"")
+else:
+    print('NO')",True,0.38,0.4083,0.4083,0.0,0,0,0.0,[],[]
+227064077,gpt-5.4-mini,reference,"n = input()
+
+list1 = [int(i) for i in n]
+
+count=0
+for i in list1:
+    if i==4 or i==7:
+        count+=1
+    else:
+        continue
+if count==4 or count==7:
+    print(""YES"")
+else:
+    print('NO')",True,0.2609,2.7045,2.7045,0.0,0,0,0.0,[],[]
+227068459,gpt-5.4-mini,rules,"a= input()
+n = 0
+if (a.count('4') + a.count('7')) in {4, 7} or len(a) == 7:
+  print(""YES"")
+else:
+  for i in a:
+    if i != ""4"" or i != ""7"":
+      n+=1
+  if n == 0:
+    print(""YES"")
+  else:
+    print(""NO"")",True,0.2069,0.0825,0.0825,0.0,0,0,0.0,"[""len_equals_lucky_digit_should_be_count_of_lucky_digits""]",[]
+227069232,gpt-5.4-mini,rules,"a= input()
+n = 0
+m = 0
+for i in a:
+  if i != ""4"" and i != ""7"":
+    n+=1
+  else:
+    m+=1
+if n < 0:
+  print(""YES"")
+else:
+  if m == 4 or m == 7:
+    print(""YES"")
+  else:
+    print(""NO"")",True,0.0164,0.3323,0.3323,0.0,0,0,0.0,"[""generic_flip_compare"", ""generic_flip_compare""]",[]
+227084923,gpt-5.4-mini,rules,"result = ""hello world!""
+n = int(input())
+if 1 <= n and n <= 10**18:
+    luckyNumbers = ""47""
+    lucky = False
+    count = 0
+    for s in str(n):
+        if s in luckyNumbers:
+            count += 1
+    if count == len(str(n)):
+        lucky = True
+    if str(count) in luckyNumbers:
+        result = ""YES""
+    elif lucky >= False:
+        result = ""NO""
+print(f""{result}"")",True,0.012,0.0811,0.0811,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+227096073,gpt-5.4-mini,reference,"n=int(input())
+s1=str(n)
+l=[i for i in s1]
+
+lucky = 0
+
+c1=l.count('4')
+c2=l.count('7')
+c=c1+c2
+c1=str(c)
+l1=[i for i in c1]
+
+if lucky == 4 or lucky == 7:
+    print(""YES"")
+else:
+    if c==4 or c==7 or set(l1)=={'4','7'}:
+        print('YES')
+    else:
+        print(""NO"")",True,0.1573,4.7438,4.7438,0.0,0,0,0.0,[],[]
+227218584,gpt-5.4-mini,reference,"x = list(input())
+count = 0
+for i in x:
+    if i =='4' or i == '7':
+        count += 1 
+if count == 4 or count == 7:
+    print('YES')
+else:
+    print('NO')",True,0.2545,2.9636,2.9636,0.0,0,0,0.0,[],[]
+227311298,gpt-5.4-mini,reference,"n = input()
+count = 0
+for i in n:
+  if i == ""4"" or i == ""7"":
+    count += 1
+
+print(""YES"" if count == 7 or count == 4 else ""NO"")",True,1.2414,0.3484,0.3484,0.0,0,0,0.0,[],[]
+227339417,gpt-5.4-mini,reference,"n=int(input())
+count=0
+while n!=0:
+    a=n%10
+    if a==4 or a==7:
+        count+=1
+    n=n//10
+if count==4 or count==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,1.75,36.1049,36.1049,0.0,0,0,0.0,[],[]
+227434062,gpt-5.4-mini,rules,"a = int(input())
+print(""YES"") if (str(a).count('4') + str(a).count('7')) in {4, 7} or len(str(a)) == 7 else print(""NO"")",True,0.4242,0.1044,0.1044,0.0,0,0,0.0,"[""len_equals_lucky_digit_should_be_count_of_lucky_digits""]",[]
+227434622,gpt-5.4-mini,reference,"a = input()
+count = 0
+for i in a:
+    if i=='4' or i=='7':
+        count+=1
+    
+print(""YES"") if( count==4 or count==7) else print(""NO"")",True,0.0455,4.6673,4.6673,0.0,0,0,0.0,[],[]
+227450462,gpt-5.4-mini,reference,"num = input()
+output = ""YES""
+S = 0
+
+for i in num:
+    if i in [""4"",""7""]:
+        S += 1
+
+if S not in [4,7]:
+    output = ""NO""
+
+print(output)",True,0.72,0.2178,0.2178,0.0,0,0,0.0,[],[]
+227475848,gpt-5.4-mini,reference,"n=int(input())
+c=0
+while n>0:
+    if n%10==4 or n%10==7:
+        c+=1
+    n//=10
+if c==4 or c==7:
+    print(""YES"")
+else:
+    print('NO')",True,1.2424,37.1095,37.1095,0.0,0,0,0.0,[],[]
+227476341,gpt-5.4-mini,reference,"n=int(input())
+count=0
+while n>0:
+    if(n%10==7 or n%10==4):
+        count+=1
+    n=n//10
+if(count==4 or count==7):
+    print(""YES"")
+else:
+    print('NO')",True,1.0602,28.2688,28.2688,0.0,0,0,0.0,[],[]
+227481807,gpt-5.4-mini,reference,"n = list(map(int,input()))
+a = n.count(4)+n.count(7)
+if a == 7 or a == 4:
+	print(""YES"")
+		
+else:
+    print(""NO"")",True,0.7222,0.4021,0.4021,0.0,0,0,0.0,[],[]
+227510769,gpt-5.4-mini,reference,"nourinz=input()
+zz=0
+for n in nourinz:
+    if  (int(n) ==4 or int(n) ==7 ):
+         zz=zz+1
+if ((zz==4 or zz==7)):
+    print('YES')
+else:
+    print(""NO"")
+quit()",True,0.6429,1.0055,1.0055,0.0,0,0,0.0,[],[]
+227574157,gpt-5.4-mini,reference,"n = input()
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+    print('NO')",True,0.9286,0.4815,0.4815,0.0,0,0,0.0,[],[]
+227575292,gpt-5.4-mini,reference,"n = input()
+
+if len(n) < 4:
+    print('NO')
+else:
+    lucky_count = 0
+
+    for c in n:
+        if c == '4' or c == '7':
+            lucky_count += 1
+
+    if lucky_count == 4 or lucky_count == 7:
+        print('YES')
+    else:
+        print('NO')",True,0.5962,3.4227,3.4227,0.0,0,0,0.0,[],[]
+227576275,gpt-5.4-mini,reference,"num = input()
+output = ""YES""
+S = 0
+
+for i in num:
+    if i in [""4"",""7""]:
+        S += 1
+
+if S not in [4,7]:
+    output = ""NO""
+
+
+print(output)",True,0.2093,1.044,1.044,0.0,0,0,0.0,[],[]
+227624739,gpt-5.4-mini,reference,"s=input()
+count=0
+for i in s:
+    if i=='4' or i=='7':
+        count+=1
+if count==4 or count==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.2,3.7164,3.7164,0.0,0,0,0.0,[],[]
+227640310,gpt-5.4-mini,reference,"def is_lucky_digit(digit):
+    return digit=='4' or digit=='7'
+def is_nearly_lucky(n):
+    count_lucky_digits=0
+    for digit in str(n):
+        if is_lucky_digit(digit):
+            count_lucky_digits+=1
+    return is_lucky_digit(str(count_lucky_digits))
+
+n=int(input())
+if is_nearly_lucky(n):
+    print(""YES"")
+else:
+    print(""NO"")",True,1.4348,1.1736,1.1736,0.0,0,0,0.0,[],[]
+227688938,gpt-5.4-mini,reference,"n=input()
+count=0
+for i in range(0, len(n)):
+    if n[i] == ""4"" or n[i]==""7"":
+        count+=1
+count=str(count)
+count2=0
+ans=None
+for i in range(0, len(count)):
+    if count[i] == ""4"" or count[i]==""7"":
+        ans=True
+    else:
+        ans=False
+        break
+if ans==False:
+    print(""NO"")
+else:
+    print(""YES"")",True,0.1591,2.9669,2.9669,0.0,0,0,0.0,[],[]
+227691686,gpt-5.4-mini,reference,"num = input()
+l1 = len(num)
+count = 0
+for x in range(l1):
+    if num[x] == '4':
+        count += 1
+    elif num[x] == '7':
+        count += 1
+if count == 4:
+    print('YES')
+elif count == 7:
+    print('YES')
+else:
+    print('NO')",True,0.6641,3.5403,3.5403,0.0,0,0,0.0,[],[]
+227771840,gpt-5.4-mini,reference,"n = input()
+sum = 0
+for i in range(len(n)):
+    if n[i] == '4' or n[i] == '7':
+        sum += 1
+    else:
+        sum += 0
+if sum == 4 or sum == 7:
+    print('YES')
+else:
+    print('NO')",True,0.3061,2.9026,2.9026,0.0,0,0,0.0,[],[]
+227771987,gpt-5.4-mini,reference,"num = input()
+l1 = len(num)
+count = 0
+for x in range(l1):
+    if num[x] == '4':
+        count += 1
+    elif num[x] == '7':
+        count += 1
+if count == 4:
+    print('YES')
+elif count == 7:
+    print('YES')
+else:
+    print('NO')",True,0.381,2.4016,2.4016,0.0,0,0,0.0,[],[]
+227984195,gpt-5.4-mini,reference,"x=0
+x=input()
+x1=0
+for i in x:
+  if i== '4' or i== '7':
+    x1=x1+1
+    
+if x1==7 or x1==4:
+  print(""YES"")
+else:
+    print(""NO"")",True,0.7105,1.058,1.058,0.0,0,0,0.0,[],[]
+228005962,gpt-5.4-mini,reference,"num=input()
+c=0
+for i in num:
+    if(i=='4' or i=='7'):
+        c+=1
+if(c==4 or c==7):
+    print('YES')
+else:
+    print(""NO"")",True,0.8125,6.2765,6.2765,0.0,0,0,0.0,[],[]
+228006905,gpt-5.4-mini,rules,"text = input()
+if (text.count('4') + text.count('7')) in {4, 7}:
+    print('YES')
+else:
+    print('NO')",True,0.6,0.0902,0.0902,0.0,0,0,0.0,"[""len_equals_lucky_digit_should_be_count_of_lucky_digits""]",[]
+228051302,gpt-5.4-mini,reference,"n = int(input())
+lucky = 0
+for i in str(n):
+    if i == '4':
+        lucky += 1
+    if i == '7':
+        lucky += 1
+
+# print(lucky)
+if lucky == 4 or lucky == 7:
+    print('YES')
+else:
+    print(""NO"")",True,1.7368,0.1811,0.1811,0.0,0,0,0.0,[],[]
+228061926,gpt-5.4-mini,rules,"n=int(input())
+n1=str(n)
+count=0
+for char in n1:
+    if char=='4' or char=='7':
+        count+=1
+if count==7 or count==4:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.0192,0.0794,0.0794,0.0,0,0,0.0,"[""normalize_yes_no_literals""]",[]
+228074726,gpt-5.4-mini,reference,"s=input()
+a=""47""
+c=0
+c1=0
+c2=0
+for i in s:
+        if(i==""4"" or i==""7""):
+                c+=1
+c=str(c)
+k=0
+for j in c:
+        if(j in a):
+                k+=1
+if(len(c)==k):
+        print(""YES"")
+else:
+    print(""NO"")",True,0.4744,2.2545,2.2545,0.0,0,0,0.0,[],[]
+228109968,gpt-5.4-mini,reference,"number = input()
+count = 0
+yes = 1
+for d in number:
+    if d == ""4"" or d == ""7"":
+        count += 1
+ris = 'YES'
+for i in str(count):
+    if i != '4' and i != '7':
+        ris = 'NO'
+print(ris)",True,0.303,3.2224,3.2224,0.0,0,0,0.0,[],[]
+228138781,gpt-5.4-mini,reference,"x=str(input())
+sum=0
+for i in x:
+    if i=='7' or i=='4':
+        sum+=1
+if sum==7 or sum==4:
+    print('YES')
+else:
+    print('NO')",True,1.2917,0.2204,0.2204,0.0,0,0,0.0,[],[]
+228146504,gpt-5.4-mini,reference,"n=input()
+total7=n.count('7')
+total4=n.count('4')
+
+
+if(total7+total4==4 or total7+total4==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.4444,0.2992,0.2992,0.0,0,0,0.0,[],[]
+228152006,gpt-5.4-mini,reference,"n=input()
+total7=n.count('7')
+total4=n.count('4')
+
+s=n.count('7')
+f=n.count('4')
+
+if(total7+total4==4 or total7+total4==7):
+    print(""YES"")
+  
+else:
+  print(""NO"")",True,0.6,0.9102,0.9102,0.0,0,0,0.0,[],[]
+228156866,gpt-5.4-mini,reference,"n=input()
+total7=n.count('7')
+total4=n.count('4')
+
+
+if(total7+total4==4 or total7+total4==7):
+    print(""YES"")
+  
+else:
+  print(""NO"")",True,0.5909,1.1857,1.1857,0.0,0,0,0.0,[],[]
+228178797,gpt-5.4-mini,reference,"n = [int(i) for i in list(input())]
+
+count = 0
+for digit in n:
+    if digit == 4 or digit == 7:
+        count += 1
+
+if count != 4 and count != 7:
+    print(""NO"")
+else:
+    print(""YES"")",True,0.566,2.75,2.75,0.0,0,0,0.0,[],[]
+228180330,gpt-5.4-mini,reference,"N = int(input())
+n = str(N)
+n = list(n)
+l = len(n)
+count = 0
+for num in n:
+    if num == '4' or num == '7':
+        count += 1
+if count ==4 or count ==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.7241,1.3434,1.3434,0.0,0,0,0.0,[],[]
+228189550,gpt-5.4-mini,rules,"s=input()
+l=(s.count('4')+s.count('7'))
+if l > len(s) and (('7' in s )and ('4' in s)) or l==4 or l==7:
+    print('YES')
+else:
+    print('NO')",True,0.0185,0.2873,0.2873,0.0,0,0,0.0,"[""generic_flip_compare"", ""generic_flip_compare""]",[]
+228247055,gpt-5.4-mini,reference,"n = int(input())
+lucky = 0
+for i in str(n):
+    if i == '4':
+        lucky += 1
+    if i == '7':
+        lucky += 1
+
+# print(lucky)
+if lucky == 4 or lucky == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.375,4.4385,4.4385,0.0,0,0,0.0,[],[]
+228297442,gpt-5.4-mini,reference,"a = input()
+
+if a.count('4') + a.count('7') == 4 or a.count('4') + a.count('7') == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.5517,0.276,0.276,0.0,0,0,0.0,[],[]
+228366227,gpt-5.4-mini,reference,"n = input()
+c = 0
+for i in n:
+    if i in '47':
+        c += 1
+if c == 4 or c == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.6383,3.488,3.488,0.0,0,0,0.0,[],[]
+228379963,gpt-5.4-mini,reference,"n=input()
+a=n.count('4')
+b=n.count('7')
+c=a+b
+if c==4 or c==7:
+    print('YES')
+else:
+    print('NO')",True,0.6867,8.8711,8.8711,0.0,0,0,0.0,[],[]
+228387675,gpt-5.4-mini,reference,"lucky=list(map(int,input()))
+
+count=0
+for n in range(len(lucky)):
+    if lucky[n] ==7 or lucky[n] == 4 :
+
+        count+=1
+
+
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.4528,3.0726,3.0726,0.0,0,0,0.0,[],[]
+228414452,gpt-5.4-mini,reference,"a = input()
+
+if a.count('4') + a.count('7') == 4 or a.count('4') + a.count('7') == 7:
+    print('YES')
+else:
+    print('NO')",True,0.3538,4.2074,4.2074,0.0,0,0,0.0,[],[]
+228450676,gpt-5.4-mini,reference,"n=int(input())
+string=str(n)
+count=0
+for i in range(len(string)):
+    if string[i]=='4' or string[i]=='7':
+        count+=1
+if count==4 or count==7:
+    print(""YES"")
+else:
+    print('NO')",True,0.3966,2.7313,2.7313,0.0,0,0,0.0,[],[]
+228500367,gpt-5.4-mini,reference,"n=input()
+s=str(n.count(""7"")+n.count(""4""))
+print(""YES"" if len(s.replace('7','').replace('4',''))==0 else ""NO"")",True,1.4062,0.1145,0.1145,0.0,0,0,0.0,[],[]
+228501359,gpt-5.4-mini,reference,"# s_num = input()
+#
+
+def is_lucky(s_num):
+    return s_num=='4' or s_num=='7'
+def count_lucky(n):
+    ct=0
+    for i in str(n):
+        if is_lucky(i):
+            ct+=1
+    return ct
+n=int(input())
+res=count_lucky(n)
+if is_lucky(str(res)):
+    print(""YES"")
+else:
+    print('NO')",True,1.1591,0.2151,0.2151,0.0,0,0,0.0,[],[]
+228502572,gpt-5.4-mini,reference,"n=input()
+s=str(n.count(""7"")+n.count(""4""))
+print(""YES"" if len(s.replace('7','').replace('4',''))==0 else ""NO"")",True,1.1667,0.2355,0.2355,0.0,0,0,0.0,[],[]
+228516438,gpt-5.4-mini,reference,"#110A:nearly lucky number
+def digit(x):
+    digits=[]
+    while(x!=0):
+        digits.append(x%10)
+        x=x//10
+    return(digits)
+def lucky(x):
+    digits = str(x)
+    a = 0
+    for i in range(len(digits)):
+        if digits[i] == ""4"" or digits[i] == ""7"":
+            a = a + 1 
+    # print(a)
+    if a == 4 or a == 7:
+        return True
+    else:
+        return False
+n = int(input())
+check = lucky(n)
+if check == True:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5769,25.6938,25.6938,0.0,0,0,0.0,[],[]
+228528936,gpt-5.4-mini,reference,"def digit(x):
+    digits = []
+    while(x != 0):
+        digits.append(x % 10)
+        x = x // 10
+
+    return digits
+
+def lucky(x):
+    digits = str(x)
+    a = 0
+    for i in range(len(digits)):
+        if digits[i] == ""4"" or digits[i] == ""7"":
+            a = a + 1 
+    # print(a)
+    if a == 4 or a == 7:
+        return True
+    else:
+        return False
+n = int(input())
+check = lucky(n)
+if check == True:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5841,27.4453,27.4453,0.0,0,0,0.0,[],[]
+228578339,gpt-5.4-mini,reference,"input =input()
+luckyLen = 0
+for i in range(len(input)):
+    if input[i] == '4' or input[i] =='7':
+        luckyLen +=1
+luckyLen = str(luckyLen)
+lucky = True
+for l in luckyLen:
+    if l!= '4' and l!= '7':
+        lucky = False 
+if lucky:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.9508,51.3134,51.3134,0.0,0,0,0.0,[],[]
+228580243,gpt-5.4-mini,reference,"n=input()
+s=str(n.count(""7"")+n.count(""4""))
+print(""YES"" if len(s.replace('7','').replace('4',''))==0 else ""NO"")",True,0.878,0.5221,0.5221,0.0,0,0,0.0,[],[]
+228596713,gpt-5.4-mini,reference,"a=int(input())
+b=str(a)
+counter=0
+for i in b:
+    if(i==""7""or i==""4""):
+        counter=counter+1
+if(counter==4 or counter==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6,4.9539,4.9539,0.0,0,0,0.0,[],[]
+228596902,gpt-5.4-mini,reference,"a=int(input())
+b=str(a)
+counter=0
+for i in b:
+    if(i==""7""or i==""4""):
+        counter=counter+1
+if(counter==4 or counter==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6,4.9847,4.9847,0.0,0,0,0.0,[],[]
+228608357,gpt-5.4-mini,reference,"n=str(input())
+cik=n.count(""4"")
+cik2=n.count(""7"")
+
+cik3=cik+cik2
+if (cik3==7):
+    print(""YES"")
+elif (cik3==4):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.75,0.4114,0.4114,0.0,0,0,0.0,[],[]
+228608957,gpt-5.4-mini,rules,"n = list(input())
+total =n.count(""4"")+n.count(""7"")
+a = list(set(n))
+if ""4"" in a:
+    if ""7"" in a:   
+        a.remove(""4"")
+        a.remove(""7"")
+if total==7or total==4 or len(a) < 0  :
+    print(""YES"")
+else:
+    print(""NO"")",True,0.0141,0.2288,0.2288,0.0,0,0,0.0,"[""generic_flip_compare"", ""generic_flip_compare""]",[]
+228613485,gpt-5.4-mini,reference,"num = input()
+
+
+count = 0
+
+for n in num:
+    if n in ['4', '7']:
+        count += 1
+
+if count in [4, 7]:
+    print('YES')
+else:
+    print('NO')",True,2.0385,0.1145,0.1145,0.0,0,0,0.0,[],[]
+228632959,gpt-5.4-mini,reference,"num = input()
+
+
+count = 0
+
+for n in num:
+    if n in ['4', '7']:
+        count += 1
+
+if count in [4, 7]:
+    print('YES')
+else:
+    print('NO')",True,0.7273,0.4566,0.4566,0.0,0,0,0.0,[],[]
+228677406,gpt-5.4-mini,reference,"a=input()
+count=0
+for i in a:
+    if i=='4' or i=='7':
+        count+=1
+    
+print(""YES"") if( count==4 or count==7) else print(""NO"")",True,0.325,3.8099,3.8099,0.0,0,0,0.0,[],[]
+228760156,gpt-5.4-mini,reference,"n = input()
+sum = 0
+for i in range(len(n)):
+    if n[i] == '4' or n[i] == '7':
+        sum += 1
+    else:
+        sum += 0
+if sum == 4 or sum == 7:
+    print('YES')
+else: print('NO')",True,0.2308,2.2078,2.2078,0.0,0,0,0.0,[],[]
+228765888,gpt-5.4-mini,reference,"n = input()
+luck = 0
+for i in range(len(n)):
+    if n[i] == '4' or n[i] == '7':
+        luck += 1
+luck = str(luck)
+flag = True
+for i in luck:
+    if i == '4' or i == '7':
+        continue
+    else:
+        flag = False
+        break
+if flag:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7143,3.3109,3.3109,0.0,0,0,0.0,[],[]
+228810980,gpt-5.4-mini,reference,"n = input()
+s = 0
+for i in range(0, len(n)):
+    if n[i] == '4' or n[i] == '7':
+        s = s+1
+if s == 4 or s == 7:
+    print('YES')
+else:
+    print(""NO"")
+        
+#in 8 mins",True,0.381,3.1494,3.1494,0.0,0,0,0.0,[],[]
+228815027,gpt-5.4-mini,reference,"a=int(input())
+s=0
+while a>0:
+    e=a%10
+    if e==4 or e==7:
+        s=s+1
+    a=a//10
+if s==4 or s==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5185,17.8599,17.8599,0.0,0,0,0.0,[],[]
+228827651,gpt-5.4-mini,reference,"x = input()
+count = 0
+
+for i in range(len(x)):
+    if (x[i] == ""4"" or x[i] == ""7""):
+        count += 1
+
+if (count == 4 or count == 7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2245,2.5374,2.5374,0.0,0,0,0.0,[],[]
+228828671,gpt-5.4-mini,reference,"num = input()
+l1 = len(num)
+count = 0
+for x in range(l1):
+    if num[x] == '4':
+        count += 1
+    elif num[x] == '7':
+        count += 1
+if count == 4:
+    print('YES')
+elif count == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.48,2.3404,2.3404,0.0,0,0,0.0,[],[]
+228834983,gpt-5.4-mini,reference,"n = input()
+c = int(n.count('4')) + int(n.count('7'))
+if c != 0 and c == 4 or c == 7:
+    print('YES')
+else:
+	print('NO')",True,0.8692,12.3945,12.3945,0.0,0,0,0.0,[],[]
+228840221,gpt-5.4-mini,reference,"n = input()
+count = 0
+res = 'YES'
+for i in range(len(n)):
+    if n[i] == '4' or n[i] == '7':
+        count += 1
+count = str(count)
+for i in range(len(count)):
+    if count[i] != '4' and count[i] != '7':
+        res = 'NO'
+        break
+print(res)",True,0.7121,3.413,3.413,0.0,0,0,0.0,[],[]
+228885393,gpt-5.4-mini,rules,"s = input()
+flag = 0
+for i in range(len(s)):
+    if i == 4 or i == 7:
+        flag = 0
+        
+        
+    else:
+        flag = 1
+        break
+if flag == 0 or ((s.count('4') + s.count('7')) in {4, 7} or len(s) == 7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.1935,0.1005,0.1005,0.0,0,0,0.0,"[""len_equals_lucky_digit_should_be_count_of_lucky_digits""]",[]
+228950586,gpt-5.4-mini,reference,"n = input()
+
+lucky = True
+nearly_luckly = True
+
+count = 0
+for i in n:
+    if (i == '4') or (i == '7'):
+        count+=1
+# print(str(count))
+flag=0
+# print(str(count))
+for j in str(count):
+    
+    if (j=='4') or (j=='7'):
+        flag=0
+    else:
+        flag=1
+# print(flag)
+if flag==0:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.3824,3.3952,3.3952,0.0,0,0,0.0,[],[]
+228951522,gpt-5.4-mini,reference,"s=input()
+count=0
+flag=1
+for i in s:
+    if i=='4' or i=='7':
+        count+=1
+count=str(count)
+for i in count:
+    if i!='7' and i!='4':
+        flag=0
+        break
+if flag==1:
+    print('YES')
+else:
+    print(""NO"")",True,0.4143,3.5123,3.5123,0.0,0,0,0.0,[],[]
+228962182,gpt-5.4-mini,reference,"#!/usr/bin/env python
+# coding: utf-8
+
+# In[12]:
+
+
+n = input()
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+    print(""NO"")
+        
+
+    
+    
+
+
+# In[ ]:",True,0.6538,5.1218,5.1218,0.0,0,0,0.0,[],[]
+228963087,gpt-5.4-mini,reference,"#!/usr/bin/env python
+# coding: utf-8
+
+# In[23]:
+
+
+n = input()
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+    print(""NO"")
+        
+
+    
+    
+
+
+# In[ ]:",True,0.6852,7.0969,7.0969,0.0,0,0,0.0,[],[]
+228992809,gpt-5.4-mini,reference,"n = int(input())
+n = str(n)
+flag = 0
+for x in n:
+    if int(x) == 4 or int(x) == 7:
+        flag += 1
+if flag == 4 or flag == 7:
+    print(""YES"")
+else:
+    print('NO')",True,0.6237,3.152,3.152,0.0,0,0,0.0,[],[]
+229013128,gpt-5.4-mini,reference,"n=input()
+t=0
+for i in n:
+    if int(i)==4 or int(i)==7:
+        t+=1
+    else:
+        continue
+if t==4 or t==7:
+    print(""YES"")
+else:
+    print('NO')",True,0.3111,4.5717,4.5717,0.0,0,0,0.0,[],[]
+229062653,gpt-5.4-mini,reference,"a=int(input())
+b=""47""
+a=str(a)
+c=0
+for i in a:
+    if i in b:
+        c=c+1
+    else:
+        continue
+if c==4 or c==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.1915,0.4487,0.4487,0.0,0,0,0.0,[],[]
+229066534,gpt-5.4-mini,reference,"s=input()
+if (s.count(""4"")+s.count(""7"")==4 or s.count(""4"")+s.count(""7"")==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6552,0.3162,0.3162,0.0,0,0,0.0,[],[]
+229113935,gpt-5.4-mini,reference,"S = input()
+cnt_four = S.count(""4"")
+cnt_seven = S.count(""7"")
+cnt = cnt_four + cnt_seven
+cnt_str = str(cnt)
+for s in cnt_str:
+    if s != ""4"" and s != ""7"":
+        print(""NO"")
+        exit()
+print(""YES"")",True,1.2353,0.5175,0.5175,0.0,0,0,0.0,[],[]
+229114135,gpt-5.4-mini,reference,"n=int(input())
+s=str(n)
+sum=0
+for i in s:
+    if i=='4' or i=='7':
+        sum+=1
+s1=str(sum)
+for i in s1:
+    if i=='4' or i=='7':
+        pass
+    else:
+        print(""NO"")
+        break;
+else:
+    print(""YES"")",True,1.1389,0.5155,0.5155,0.0,0,0,0.0,[],[]
+229137965,gpt-5.4-mini,reference,"n=input()
+x=str(n.count('4')+n.count('7'))
+if x.count('4')+x.count('7')==len(x):
+  print('YES')
+else:
+    print('NO')",True,0.5385,0.3213,0.3213,0.0,0,0,0.0,[],[]
+229138430,gpt-5.4-mini,reference,"n=int(input())
+a=str(n)
+if (a.count(""4"")+a.count(""7""))==4 or (a.count(""4"")+a.count(""7""))==7:
+    print(""YES"")    
+else:
+    print('NO')",True,0.5714,0.4134,0.4134,0.0,0,0,0.0,[],[]
+229175224,gpt-5.4-mini,reference,"n = input()
+count = 0
+for i in n:
+    if i == '4' or i == '7':
+        count += 1
+ris = 'YES'
+for i in str(count):
+    if i != '4' and i != '7':
+        ris = 'NO'
+print(ris)",True,0.4242,3.3487,3.3487,0.0,0,0,0.0,[],[]
+229298423,gpt-5.4-mini,reference,"n = input()
+cnt = 0
+for char in n:
+  if char == '4' or char == '7':
+    cnt += 1
+for char in str(cnt):
+  if char != '4' and char != '7':
+    print('NO')
+    break
+else:
+  print('YES')",True,0.8286,0.9023,0.9023,0.0,0,0,0.0,[],[]
+229352308,gpt-5.4-mini,reference,"S = input()
+cnt_four = S.count(""4"")
+cnt_seven = S.count(""7"")
+cnt = cnt_four + cnt_seven
+cnt_str = str(cnt)
+for s in cnt_str:
+    if s != ""4"" and s != ""7"":
+        print(""NO"")
+        exit()
+print('YES')",True,1.0,0.7724,0.7724,0.0,0,0,0.0,[],[]
+229352395,gpt-5.4-mini,reference,"n = input()
+cnt = 0
+for char in n:
+  if char == '4' or char == '7':
+    cnt += 1
+for char in str(cnt):
+  if char != '4' and char != '7':
+    print('NO')
+    exit()
+else:
+  print('YES')",True,0.6724,3.6884,3.6884,0.0,0,0,0.0,[],[]
+229352585,gpt-5.4-mini,reference,"n = int(input())
+lucky = 0
+for i in str(n):
+    if i == '4':
+        lucky += 1
+    if i == '7':
+        lucky += 1
+
+# print(lucky)
+if lucky == 4 or lucky == 7:
+    print('YES')
+else:
+    print('NO')",True,0.629,5.4572,5.4572,0.0,0,0,0.0,[],[]
+229353423,gpt-5.4-mini,reference,"a,n,k=str(input()),0,0
+for i in a:
+    if i==""4"" or i==""7"":
+        n+=1
+for j in str(n):
+    if j==""4"" or j==""7"":
+        k+=1
+if len(str(n))==k:
+    print(""YES"")
+else:
+    print('NO')",True,0.8058,4.106,4.106,0.0,0,0,0.0,[],[]
+229358168,gpt-5.4-mini,reference,"n = int(input())
+n = str(n)
+flag = 0
+for x in n:
+    if int(x) == 4 or int(x) == 7:
+        flag += 1
+if flag == 4 or flag == 7:
+    print(""YES"")
+else:
+    print('NO')",True,0.6122,3.6547,3.6547,0.0,0,0,0.0,[],[]
+229359438,gpt-5.4-mini,reference,"def count_lucky_digits(number):
+    count = 0
+    while number > 0:
+        digit = number % 10
+        if digit == 4 or digit == 7:
+            count += 1
+        number //= 10
+    return count
+n = int(input())
+lucky_digit_count = count_lucky_digits(n)
+if lucky_digit_count == 4 or lucky_digit_count == 7:
+    print(""YES"")
+else:
+    print('NO')",True,1.3404,61.5136,61.5136,0.0,0,0,0.0,[],[]
+229403139,gpt-5.4-mini,reference,"a=input()
+t=0
+if a==4 or a==7:
+    print(""NO"")
+for i in a:
+    if i=='4' or i=='7':
+        t=t+1
+if t==4 or t==7:
+    print('YES')
+else:
+    print('NO')",True,0.193,2.764,2.764,0.0,0,0,0.0,[],[]
+229431243,gpt-5.4-mini,reference,"inp = input()
+res= 0
+for i in inp:
+    if i =='4' or i == '7':
+        res += 1
+if res == 4 or res== 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.0444,2.6348,2.6348,0.0,0,0,0.0,[],[]
+229469247,gpt-5.4-mini,reference,"nourinz=input()
+zz=0
+for n in nourinz:
+    if  (int(n) ==4 or int(n) ==7 ):
+         zz=zz+1
+if ((zz==4 or zz==7)):
+    print('YES')
+else:
+    print('NO')",True,0.8239,3.039,3.039,0.0,0,0,0.0,[],[]
+229503983,gpt-5.4-mini,reference,"no = input()
+count = 0
+for each in no:
+    if each == ""4"" or each == ""7"":
+        count += 1
+        
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print('NO')",True,0.4318,2.2538,2.2538,0.0,0,0,0.0,[],[]
+229506827,gpt-5.4-mini,reference,"n = input()
+c = 0
+for i in n:
+    if i in '47':
+        c += 1
+if c == 4 or c == 7:
+    print('YES')
+else:
+    print('NO')",True,0.5686,2.6376,2.6376,0.0,0,0,0.0,[],[]
+229507803,gpt-5.4-mini,reference,"a=input()
+t=0
+for i in a:
+    if i=='4' or i=='7':
+        t=t+1
+if t==4 or t==7:
+    print('YES')
+else:
+    print('NO')",True,0.2742,2.2782,2.2782,0.0,0,0,0.0,[],[]
+229514770,gpt-5.4-mini,reference,"n = str(input())
+ans = 'NO'
+counts = 0
+for i in n:
+	if i=='4' or i == '7':
+		counts += 1		
+if counts ==4 or counts==7:
+	ans = 'YES'		
+print(ans)",True,0.6923,3.7536,3.7536,0.0,0,0,0.0,[],[]
+229514851,gpt-5.4-mini,reference,"n = input()
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+	print(""NO"")",True,0.4222,3.9901,3.9901,0.0,0,0,0.0,[],[]
+229515032,gpt-5.4-mini,reference,"n= input()
+a=0
+for i in n:
+    if(i==""4"" or i==""7""):
+        a +=1
+b=0
+for i in str(a):
+    if(i==""4"" or i==""7""):
+        b+=1
+if(b==len(str(a))):
+    print(""YES"")
+else:
+	print(""NO"")",True,0.4167,3.2644,3.2644,0.0,0,0,0.0,[],[]
+229515340,gpt-5.4-mini,reference,"s=input()
+count=0
+for i in s:
+    if i=='4' or i=='7':
+        count+=1
+if count==4 or count==7:
+    print('YES')
+else:
+	print(""NO"")",True,0.48,2.3714,2.3714,0.0,0,0,0.0,[],[]
+229517882,gpt-5.4-mini,reference,"n=str(input())
+cik=n.count(""4"")
+cik2=n.count(""7"")
+
+cik3=cik+cik2
+if (cik3==7):
+    print(""YES"")
+elif (cik3==4):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6875,0.6076,0.6076,0.0,0,0,0.0,[],[]
+229521805,gpt-5.4-mini,reference,"inputNumber = int(input())
+
+curLucky = 0
+for number in str(inputNumber):
+    if number in '47':
+        curLucky += 1
+
+if all(i in '47' for i in str(curLucky)):
+    print('YES')
+else:
+    print('NO')",True,1.2083,0.1724,0.1724,0.0,0,0,0.0,[],[]
+229632892,gpt-5.4-mini,reference,"s = input()
+cnt = 0
+pr = False
+for i in range(len(s)):
+    if s[i] == ""4"" or s[i] == ""7"":
+        cnt += 1
+cnt = str(cnt)
+for i in range(len(cnt)):
+    if cnt[i] != ""4"" and cnt[i] != ""7"":
+        pr = True
+if pr:
+    print(""NO"")
+else:
+    print(""YES"")",True,0.337,2.9191,2.9191,0.0,0,0,0.0,[],[]
+229648705,gpt-5.4-mini,reference,"n = input()
+
+counter = 0
+ans = 'YES'
+
+for i in range(len(n)):
+    if n[i] == '4' or n[i] == '7':
+        counter += 1
+
+counter = str(counter)
+
+for i in range(len(counter)):
+    if counter[i] != '4' and counter[i] != '7':
+        ans = 'NO'
+        break
+print(ans)",True,0.9268,2.4923,2.4923,0.0,0,0,0.0,[],[]
+229745735,gpt-5.4-mini,reference,"n = input()
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.381,4.3565,4.3565,0.0,0,0,0.0,[],[]
+229766919,gpt-5.4-mini,reference,"n = input()
+cnt = 0
+for char in n:
+  if char == '4' or char == '7':
+    cnt += 1
+for char in str(cnt):
+  if char != '4' and char != '7':
+    print('NO')
+    break
+else:
+  print('YES')",True,1.7447,0.8182,0.8182,0.0,0,0,0.0,[],[]
+229768280,gpt-5.4-mini,reference,"n=int(input())
+st=str(n)
+fors=st.count(""4"")
+sevens=st.count(""7"")
+sum=fors+sevens
+if sum==4 or sum==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,1.2073,5.1824,5.1824,0.0,0,0,0.0,[],[]
+229770141,gpt-5.4-mini,reference,"n = input()
+lucky_digits = ['4', '7']
+lucky_counter = 0
+
+for num in n:
+    if num in lucky_digits:
+        lucky_counter += 1
+
+print(""YES"") if lucky_counter == 4 or lucky_counter == 7 else print(""NO"")",True,0.7429,0.2186,0.2186,0.0,0,0,0.0,[],[]
+229776218,gpt-5.4-mini,reference,"n=int(input())
+c=0
+while n>0:
+    if n%10==4 or n%10==7:
+        c+=1
+    n//=10
+if c==4 or c==7:
+    print(""YES"")
+else:
+    print('NO')",True,0.678,4.8706,4.8706,0.0,0,0,0.0,[],[]
+229776680,gpt-5.4-mini,reference,"n = int(input())
+count = 0
+
+c = 0
+for _ in range(len(str(n))):
+    if n % 10 == 4 or n % 10 == 7:
+        count += 1
+    n //= 10
+
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.4842,3.8547,3.8547,0.0,0,0,0.0,[],[]
+229793371,gpt-5.4-mini,reference,"s=input()
+c=0
+for i in range(len(s)):
+    if s[i]==""4"" or s[i]==""7"":
+        c+=1
+if(c==4 or c==7):
+    print(""YES"")
+else:
+  print(""NO"")",True,0.3061,2.6315,2.6315,0.0,0,0,0.0,[],[]
+229833219,gpt-5.4-mini,reference,"n = input()
+cnt = 0
+for char in n:
+  if char == '4' or char == '7':
+    cnt += 1
+for char in str(cnt):
+  if char != '4' and char != '7':
+    print('NO')
+    break
+else:
+  print('YES')",True,0.46,1.5755,1.5755,0.0,0,0,0.0,[],[]
+229840670,gpt-5.4-mini,reference,"n = input()
+c = 0
+for i in n:
+    if i in '47':
+        c += 1
+if c == 4 or c == 7:
+    print('YES')
+else:
+    print('NO')",True,0.6167,4.3666,4.3666,0.0,0,0,0.0,[],[]
+229882497,gpt-5.4-mini,reference,"n= input()
+a=0
+for i in n:
+    if(i==""4"" or i==""7""):
+        a +=1
+b=0
+for i in str(a):
+    if(i==""4"" or i==""7""):
+        b+=1
+if(b==len(str(a))):
+    print(""YES"")
+else:
+    print('NO')",True,0.5172,3.2825,3.2825,0.0,0,0,0.0,[],[]
+229893965,gpt-5.4-mini,reference,"num=input()
+c=0
+for i in num:
+    if(i=='4' or i=='7'):
+        c+=1
+if(c==4 or c==7):
+    print('YES')
+else:
+    print('NO')",True,0.4853,4.6759,4.6759,0.0,0,0,0.0,[],[]
+229894883,gpt-5.4-mini,rules,"number = input()
+
+
+if '4' not in number and '7' not in number:
+    print('NO')
+    exit(0)
+
+count = 0
+
+if number.count('4') + number.count('7') in (4, 7) or number.count('4') + number.count('7') % 7 == 0:
+    print('YES')
+else:
+    print('NO')",True,0.0857,0.2018,0.2018,0.0,0,0,0.0,"[""modulo_used_as_count_check"", ""generic_flip_bool_op""]",[]
+229899633,gpt-5.4-mini,reference,"n = input()
+lucky_digits = ['4', '7']
+lucky_counter = 0
+
+for num in n:
+    if num in lucky_digits:
+        lucky_counter += 1
+
+print(""YES"") if lucky_counter == 4 or lucky_counter == 7 else print(""NO"")",True,0.463,1.4904,1.4904,0.0,0,0,0.0,[],[]
+229912315,gpt-5.4-mini,reference,"n=int(input())
+count=0
+while n>0:
+    if(n%10==7 or n%10==4):
+        count+=1
+    n=n//10
+if(count==4 or count==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6491,22.525,22.525,0.0,0,0,0.0,[],[]
+229912858,gpt-5.4-mini,reference,"n=int(input())
+l=0
+while n>0:
+    if n%10==7 or n%10==4:
+        l=l+1
+    n=n//10
+if l==4 or l==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5625,49.3313,49.3313,0.0,0,0,0.0,[],[]
+229957174,gpt-5.4-mini,rules,"data = input()
+num4 = data.count('4')
+num7 = data.count('7')
+
+total = num4 + num7
+if total > len(data):
+    print('YES')
+elif total == 0:
+    print('NO')
+elif total in (4, 7) or total % 7 == 0:
+    print('YES')
+else:
+    print('NO')",True,0.0882,1.3982,1.3982,0.0,0,0,0.0,"[""modulo_used_as_count_check"", ""generic_flip_compare"", ""generic_flip_compare""]",[]
+229957263,gpt-5.4-mini,rules,"data = input()
+num4 = data.count('4')
+num7 = data.count('7')
+
+total = num4 + num7
+if total > len(data):
+    print('YES')
+elif total == 0:
+    print('NO')
+elif total in (4, 7) or total % 7 == 0:
+    print('YES')
+else:
+    print('NO')",True,0.0882,1.3519,1.3519,0.0,0,0,0.0,"[""modulo_used_as_count_check"", ""generic_flip_compare"", ""generic_flip_compare""]",[]
+229957374,gpt-5.4-mini,rules,"data = input()
+num4 = data.count('4')
+num7 = data.count('7')
+
+total = num4 + num7
+
+if total == 0:
+    print('NO')
+elif total in (4, 7) or total % 7 == 0:
+    print('YES')
+else:
+    print('NO')",True,0.0877,0.0793,0.0793,0.0,0,0,0.0,"[""modulo_used_as_count_check""]",[]
+229965858,gpt-5.4-mini,reference,"n = input()
+count = 0
+res = 0
+for i in n:
+    if i == '4' or i == '7':
+        res += 1
+if res == 4 or res == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.3636,4.3227,4.3227,0.0,0,0,0.0,[],[]
+229966998,gpt-5.4-mini,reference,"a=str(input())
+b=0
+for i in a:
+    if i==""4"" or i==""7"":
+        b=b+1
+if b==4 or b==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.75,4.6242,4.6242,0.0,0,0,0.0,[],[]
+229968203,gpt-5.4-mini,reference,"def is_lucky_digit(digit):
+    return digit == '4' or digit == '7'
+
+def count_lucky_digits(number):
+    return sum(1 for digit in str(number) if is_lucky_digit(digit))
+
+def is_lucky_number(n):
+    return n == 4 or n == 7
+
+def is_nearly_lucky_number(n):
+    lucky_digit_count = count_lucky_digits(n)
+    return is_lucky_number(lucky_digit_count)
+
+def main():
+    n = int(input())
+    if is_nearly_lucky_number(n):
+        print('YES')
+    else:
+        print(""NO"")
+
+if __name__ == ""__main__"":
+    main()",True,0.5263,6.4409,6.4409,0.0,0,0,0.0,[],[]
+229968293,gpt-5.4-mini,reference,"def is_lucky_digit(digit):
+    return digit == '4' or digit == '7'
+
+def count_lucky_digits(number):
+    count = 0
+    for digit in str(number):
+        if is_lucky_digit(digit):
+            count += 1
+    return count
+
+def is_lucky(num):
+    return num == 4 or num == 7
+
+def is_nearly_lucky(number):
+    lucky_digit_count = count_lucky_digits(number)
+    return is_lucky(lucky_digit_count)
+
+def main():
+    n = int(input())
+    
+    if is_nearly_lucky(n):
+        print(""YES"")
+    else:
+        print(""NO"")
+
+if __name__ == ""__main__"":
+    main()",True,0.5929,3.0476,3.0476,0.0,0,0,0.0,[],[]
+230013610,gpt-5.4-mini,reference,"n=int(input())
+count=0
+while n>0:
+    if(n%10==7 or n%10==4):
+        count+=1
+    n=n//10
+if(count==4 or count==7):
+    print(""YES"")
+else:
+	print(""NO"")",True,0.4082,29.7734,29.7734,0.0,0,0,0.0,[],[]
+230014086,gpt-5.4-mini,reference,"n=int(input())
+count=0
+while n>0:
+    if(n%10==7 or n%10==4):
+        count+=1
+    n=n//10
+if(count==4 or count==7):
+    print(""YES"")
+else:
+	print(""NO"")",True,0.4,30.5135,30.5135,0.0,0,0,0.0,[],[]
+230053223,gpt-5.4-mini,reference,"n=str(input())
+cik=n.count(""4"")
+cik2=n.count(""7"")
+
+cik3=cik+cik2
+if (cik3==7):
+    print(""YES"")
+elif (cik3==4):
+    print(""YES"")
+else :
+    print(""NO"")",True,0.708,5.8784,5.8784,0.0,0,0,0.0,[],[]
+230060866,gpt-5.4-mini,reference,"n=input()
+a=n.count('4')
+b=n.count('7')
+if a+b==4 or a+b==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.2979,1.0777,1.0777,0.0,0,0,0.0,[],[]
+230064590,gpt-5.4-mini,rules,"n = int(input())
+k = 0
+s = 0
+s1 = 0
+for i in str(n):
+    if i == '4':
+        k += 1
+    elif i == '7':
+        s += 1
+    else:
+        s1 += 1
+if s1 >= 0:
+    m = 0
+    for i in str(s + k):
+        if i == '4' or i == '7':
+            m += 1
+    if m == len(str(s + k)):
+        print('YES')
+    else:
+        print('NO')
+else:
+    print('NO')",True,0.0102,0.1106,0.1106,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+230071206,gpt-5.4-mini,reference,"a=int(input())
+s=0
+while a>0:
+    e=a%10
+    if e==4 or e==7:
+        s=s+1
+    a=a//10
+if s==4 or s==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7209,1.0026,1.0026,0.0,0,0,0.0,[],[]
+230092486,gpt-5.4-mini,reference,"def is_lucky(digit):
+    return digit=='4' or digit=='7'
+def count_lucky(n):
+    ct=0
+    for i in str(n):
+        if is_lucky(i):
+            ct+=1
+    return ct
+n=int(input())
+res=count_lucky(n)
+if is_lucky(str(res)):
+    print(""YES"")
+else:
+    print(""NO"")",True,1.3731,1.0722,1.0722,0.0,0,0,0.0,[],[]
+230134010,gpt-5.4-mini,reference,"s = input()
+if(s.count('4')+s.count('7') in {4,7}):
+    print(""YES"")
+elif s=={'4'} or s=={'7'}:
+    print(""YES"")
+
+else:
+    print(""NO"")",True,0.4561,3.1373,3.1373,0.0,0,0,0.0,[],[]
+230180626,gpt-5.4-mini,reference,"n = int(input())
+b = str(n)
+arr2 = ['4','7']
+count =0
+for i in b:
+    if i in arr2:
+        count+=1
+if count ==4 or count ==7:
+    print('YES')
+else:
+    print('NO')",True,0.56,1.0269,1.0269,0.0,0,0,0.0,[],[]
+230358743,gpt-5.4-mini,rules,"n=int(input())
+ans=0
+while n>0:
+    r=n%10
+    if r==4 or r==7:
+        ans+=1 
+    n=n//10 
+if ans==4 or ans==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.0328,6.4502,6.4502,0.0,0,0,0.0,"[""normalize_yes_no_literals"", ""normalize_yes_no_literals""]",[]
+230380656,gpt-5.4-mini,reference,"n=input()
+a=n.count('4')
+b=n.count('7')
+if a+b==4 or a+b==7:
+    print('YES')
+else:
+    print('NO')",True,0.3818,5.3612,5.3612,0.0,0,0,0.0,[],[]
+230397207,gpt-5.4-mini,reference,"n = input()  # Input: The integer n as a string
+
+lucky_count = n.count('4') + n.count('7')
+
+if lucky_count in {4, 7}:
+    print(""YES"")
+else:
+    print('NO')",True,0.625,0.8641,0.8641,0.0,0,0,0.0,[],[]
+230403452,gpt-5.4-mini,reference,"n=int(input())
+a=str(n)
+l=0
+for i in range(len(a)):
+	if a[i] in '47':
+		l+=1
+if l==4 or l==7:
+	print('YES')
+else:
+    print(""NO"")",True,0.7692,4.0563,4.0563,0.0,0,0,0.0,[],[]
+230502700,gpt-5.4-mini,reference,"counter = 0
+a_counter = 0
+num = input()
+
+for digit in num:
+  if digit == '4' or digit == '7':
+    counter += 1
+
+for digit in str(counter):
+  if digit == '4' or digit == '7':
+    a_counter = a_counter + 1
+
+if a_counter == len(str(counter)):
+  output = ""YES""
+else:
+    output=""NO""
+print(output)",True,0.2222,2.9716,2.9716,0.0,0,0,0.0,[],[]
+230651052,gpt-5.4-mini,reference,"n = str(input())
+ans = 'NO'
+counts = 0
+for i in n:
+	if i=='4' or i == '7':
+		counts += 1		
+if counts ==4 or counts==7:
+	ans = 'YES'		
+print(ans)",True,1.129,1.2275,1.2275,0.0,0,0,0.0,[],[]
+230652849,gpt-5.4-mini,reference,"m=input()
+k=m.count(""4"")+m.count('7')
+for i in str(k) :
+    if i!=""4"" and i!=""7"":
+        m=""NO""
+        break
+if m!=""NO"":
+    m='YES'
+print(m)",True,0.7805,3.913,3.913,0.0,0,0,0.0,[],[]
+230744311,gpt-5.4-mini,reference,"n=int(input())
+count=0
+while n!=0:
+    a=n%10
+    if a==4 or a==7:
+        count+=1
+    n=n//10
+if count==4 or count==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.0328,28.6139,28.6139,0.0,0,0,0.0,[],[]
+230811908,gpt-5.4-mini,reference,"number = input()
+numbers = [""4"",""7""]
+
+count = 0
+
+for digit in number:
+    if digit in numbers:
+        count +=1
+        
+
+if count == 4 or count ==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,1.1034,0.3159,0.3159,0.0,0,0,0.0,[],[]
+230819036,gpt-5.4-mini,reference,"a=int(input())
+s=0
+while a>0:
+    e=a%10
+    if e==4 or e==7:
+        s=s+1
+    a=a//10
+if s==4 or s==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6696,46.9061,46.9061,0.0,0,0,0.0,[],[]
+230855076,gpt-5.4-mini,reference,"digit = input()
+count = 0
+flag = False
+for ch in digit:
+    if ch == '7' or ch == '4':
+        count += 1
+        
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.193,3.7797,3.7797,0.0,0,0,0.0,[],[]
+230856529,gpt-5.4-mini,rules,"digit = input()
+count = 0
+count_4 = 0
+count_7 = 0
+flag = False
+for ch in digit:
+    if ch == '7' :
+        count_7 += 1
+    elif ch == '4':
+        count_4 += 1
+    else:
+        flag = True
+count = count_4 + count_7
+if flag:
+    if count_7 == 7 and count_7 == 4:
+        print(""YES"")
+    elif count_4 == 7 and count_4 == 4:
+        print(""YES"")
+    elif count == 4 or count == 7:
+        print(""YES"")
+    else:
+        print(""NO"")
+else:
+    if count == 4 or count == 7:
+        print(""YES"")
+    else:
+        print(""NO"")",True,0.0171,1.1171,1.1171,0.0,0,0,0.0,"[""generic_flip_bool_op"", ""generic_flip_bool_op""]",[]
+230884755,gpt-5.4-mini,rules,"s=input()
+count=0
+for i in s:
+    if i=='4' or i=='7':
+        count+=1
+if (count%7==0 or count in (4, 7)) and count!=0:
+    print('YES')
+else:
+    print('NO')",True,0.0877,0.0813,0.0813,0.0,0,0,0.0,"[""modulo_used_as_count_check""]",[]
+230923324,gpt-5.4-mini,reference,"def is_lucky_digit(digit):
+    return digit=='4' or digit=='7'
+def is_nearly_lucky(n):
+    count_lucky_digits=0
+    for digit in str(n):
+        if is_lucky_digit(digit):
+            count_lucky_digits+=1
+    return is_lucky_digit(str(count_lucky_digits))
+
+n=int(input())
+if is_nearly_lucky(n):
+    print(""YES"")
+else:
+    print(""NO"")",True,1.3455,3.5806,3.5806,0.0,0,0,0.0,[],[]
+230934564,gpt-5.4-mini,reference,"n=int(input())
+count=0
+while n!=0:
+    a=n%10
+    if a==4 or a==7:
+        count+=1
+    n=n//10
+if count==4 or count==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.728,21.6399,21.6399,0.0,0,0,0.0,[],[]
+230934629,gpt-5.4-mini,reference,"n = input()
+c = 0
+for i in n:
+    if i in '47':
+        c += 1
+if c == 4 or c == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.875,0.2172,0.2172,0.0,0,0,0.0,[],[]
+231026014,gpt-5.4-mini,reference,"n=int(input())
+c=0
+while(n>0):
+    if (n%10==4 or n%10==7):
+        
+        c=c+1
+    n=n//10
+
+if (c==7 or c==4):
+    
+    print(""YES"")
+    
+else:
+    print(""NO"")",True,0.3457,41.4264,41.4264,0.0,0,0,0.0,[],[]
+231052126,gpt-5.4-mini,reference,"n=int(input())
+c=0
+d=0
+
+while(n):
+    r=n%10
+    if(r==7 or r==4):
+        c+=1
+    n=n//10
+if c==7 or c==4:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.3519,5.3077,5.3077,0.0,0,0,0.0,[],[]
+231117883,gpt-5.4-mini,reference,"n=int(input())
+c=0
+d=0
+ 
+while(n):
+    r=n%10
+    if(r==7 or r==4):
+        c+=1
+    n//=10
+    
+if(c==4 or c==7):
+        print(""YES"") 
+else:
+    print(""NO"")",True,0.0714,3.132,3.132,0.0,0,0,0.0,[],[]
+231188733,gpt-5.4-mini,reference,"number = input()
+numbers = [""4"",""7""]
+
+count = 0
+
+for digit in number:
+    if digit in numbers:
+        count +=1
+        
+
+if count == 4 or count ==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7778,4.2787,4.2787,0.0,0,0,0.0,[],[]
+231207173,gpt-5.4-mini,reference,"n = int(input())
+count = 0
+
+while n != 0:
+    if n % 10 == 4 or n % 10 == 7:
+        count += 1
+    n //= 10
+
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7077,32.4649,32.4649,0.0,0,0,0.0,[],[]
+231213014,gpt-5.4-mini,reference,"n=int(input())
+ans=0
+while n>0:
+    r=n%10
+    if r==4 or r==7:
+        ans+=1 
+    n=n//10 
+if ans==4 or ans==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6457,39.3598,39.3598,0.0,0,0,0.0,[],[]
+231266330,gpt-5.4-mini,rules,"a = input()
+
+c = 0
+
+for i in a:
+    if(i=='4' or i=='7'):
+        c+=1
+if(c==4 or c==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.0444,0.3798,0.3798,0.0,0,0,0.0,"[""normalize_yes_no_literals"", ""normalize_yes_no_literals""]",[]
+231380190,gpt-5.4-mini,reference,"def lucky():
+    n=input()
+    if n.count('4') + n.count('7') in (4,7):
+        return 'YES'
+    else:
+        return 'NO'
+
+print(lucky())",True,0.6061,3.3427,3.3427,0.0,0,0,0.0,[],[]
+231431067,gpt-5.4-mini,reference,"n = input()
+s = 0
+for i in range(0, len(n)):
+    if n[i] == '4' or n[i] == '7':
+        s = s+1
+if s == 4 or s == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.3898,2.5783,2.5783,0.0,0,0,0.0,[],[]
+231433369,gpt-5.4-mini,reference,"num = input()
+
+
+count = 0
+
+for n in num:
+    if n in ['4', '7']:
+        count += 1
+
+if count in [4, 7]:
+    print('YES')
+else:
+    print('NO')",True,1.6897,0.1126,0.1126,0.0,0,0,0.0,[],[]
+231474367,gpt-5.4-mini,reference,"n = input()
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.1778,3.9499,3.9499,0.0,0,0,0.0,[],[]
+231548552,gpt-5.4-mini,reference,"n=int(input())
+count=0
+while n>0:
+    if(n%10==7 or n%10==4):
+        count+=1
+    n=n//10
+if(count==4 or count==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6452,15.676,15.676,0.0,0,0,0.0,[],[]
+231596301,gpt-5.4-mini,reference,"n = input()
+
+counter = 0
+ans = 'YES'
+
+for i in range(len(n)):
+    if n[i] == '4' or n[i] == '7':
+        counter += 1
+
+counter = str(counter)
+
+for i in range(len(counter)):
+    if counter[i] != '4' and counter[i] != '7':
+        ans = 'NO'
+        break
+
+print(ans)",True,0.86,3.2044,3.2044,0.0,0,0,0.0,[],[]
+231617716,gpt-5.4-mini,reference,"s=int(input(""""))
+x=str(s)  
+count=0
+for i in range(len(x)):
+    if int(x[i])==4 or int(x[i])==7:
+        count+=1
+    else:
+        pass
+if count==4 or count==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.3,2.3714,2.3714,0.0,0,0,0.0,[],[]
+231932479,gpt-5.4-mini,reference,"n = input()
+count = 0
+for i in n:
+    if i == '4' or i == '7':
+        count += 1
+ris = 'YES'
+for i in str(count):
+    if i != '4' and i != '7':
+        ris = 'NO'
+print(ris)",True,0.4118,3.0827,3.0827,0.0,0,0,0.0,[],[]
+231985794,gpt-5.4-mini,reference,"list1=list(str(input()))
+n=list1.count('4')+list1.count('7')
+if n!=0 and (n==4 or n==7):
+    print('YES')
+else:
+    print(""NO"")",True,0.6042,6.942,6.942,0.0,0,0,0.0,[],[]
+232042435,gpt-5.4-mini,reference,"def isLucky(s):
+    s = str(s)
+    for i in range(len(s)):
+        if s[i] != ""4"" and s[i] != ""7"":
+            return False
+        else:
+            return True
+def lucky2(l):
+    for i in l:
+        if i!=4 and i!=7:
+            return False
+        else:
+            return True
+def Turnlist(n):
+    n=list(n)
+    for i in range(len(n)):
+        n[i]=int(n[i])
+    return n
+
+
+a = input()
+cnt = a.count(""4"") + a.count(""7"")
+if isLucky(cnt):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7522,3.7843,3.7843,0.0,0,0,0.0,[],[]
+232058435,gpt-5.4-mini,reference,"n = list(input())
+l = 0
+for i in n:
+    if i == '4' or i == '7':
+        l += 1
+
+print('YES' if l == 4 or l == 7 else 'NO')",True,0.6279,4.5955,4.5955,0.0,0,0,0.0,[],[]
+232148335,gpt-5.4-mini,reference,"a=int(input())
+b=str(a)
+counter=0
+for i in b:
+    if(i==""7""or i==""4""):
+        counter=counter+1
+if(counter==4 or counter==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5658,3.142,3.142,0.0,0,0,0.0,[],[]
+232148651,gpt-5.4-mini,reference,"a=int(input())
+b=str(a)
+counter=0
+for i in b:
+    if(i==""7""or i==""4""):
+        counter=counter+1
+if(counter==4 or counter==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.4677,9.3867,9.3867,0.0,0,0,0.0,[],[]
+232202766,gpt-5.4-mini,reference,"value = input()
+total = str(value.count(""4"") + value.count(""7""))
+if len(total) == (total.count(""4"") + total.count(""7"")):
+    print(""YES"")
+else:
+	print(""NO"")",True,0.5625,0.3484,0.3484,0.0,0,0,0.0,[],[]
+232208139,gpt-5.4-mini,reference,"n = int(input())
+num = str(n)
+ln = len(num)
+count = 0
+i = 0
+while i < ln:
+    if num[i] == ""4"" or num[i] == ""7"":
+        count += 1
+    i += 1
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2206,3.2445,3.2445,0.0,0,0,0.0,[],[]
+232224140,gpt-5.4-mini,rules,"def xingyun(n):
+    n = str(n)
+    if n == ""7"" or n == ""4"":
+        return True
+    for l in range(len(n)):
+        if n[l] != ""7"" or n[l] != ""4"":
+            return False
+        else:
+            continue
+    return True
+    
+    
+N = str(input())
+su = 0
+for i in range(len(N)):
+    if N[i] == ""7"" or N[i] == ""4"":
+        su += 1
+if xingyun(su):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.0206,0.9832,0.9832,0.0,0,0,0.0,"[""normalize_yes_no_literals"", ""normalize_yes_no_literals""]",[]
+232272316,gpt-5.4-mini,reference,"import math
+
+n = input()
+
+# size = len(n)
+n = int(n)
+
+count = 0
+while n > 0:
+    m = n % 10  
+    if m == 4 or m == 7:
+        count += 1
+    n //= 10 
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2462,3.801,3.801,0.0,0,0,0.0,[],[]
+232373393,gpt-5.4-mini,reference,"n = int(input())
+n = str(n)
+count = 0
+
+for i in n:
+    if i=='4' or i=='7':
+        count+=1
+        
+
+if count==4 or count==7:
+    print('YES')
+else:
+    print('NO')",True,0.8333,2.4059,2.4059,0.0,0,0,0.0,[],[]
+232373615,gpt-5.4-mini,reference,"a=input()
+l=list(a)
+c=0
+for i in l:
+    if i in '47':
+        c=c+1
+    else:
+        continue
+if c==4 or c==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.825,0.5833,0.5833,0.0,0,0,0.0,[],[]
+232374741,gpt-5.4-mini,reference,"n = input()
+c = 0
+for i in n:
+    if i in '47':
+        c += 1
+if c == 4 or c == 7:
+    print('YES')
+else:
+    print('NO')",True,0.5476,0.5488,0.5488,0.0,0,0,0.0,[],[]
+232374925,gpt-5.4-mini,reference,"n = input()
+c = 0
+for i in n:
+    if i in '47':
+        c += 1
+if c == 4 or c == 7:
+    print('YES')
+else:
+    print('NO')",True,0.5,0.4113,0.4113,0.0,0,0,0.0,[],[]
+232381127,gpt-5.4-mini,reference,"petya_input = input()
+count = 0
+for i in range(len(petya_input)):
+    if petya_input[i] == ""4"" or petya_input[i] == ""7"":
+        count += 1
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6154,2.4708,2.4708,0.0,0,0,0.0,[],[]
+232381414,gpt-5.4-mini,reference,"inp = input()
+res= 0
+for i in inp:
+    if i =='4' or i == '7':
+        res += 1
+# print(res)
+if res == 4 or res== 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7865,2.5641,2.5641,0.0,0,0,0.0,[],[]
+232422674,gpt-5.4-mini,rules,"n = input()
+output = 'YES'
+if (len(n)==7)| ((n.count('4') + n.count('7')) in {4, 7}):
+    output='YES'
+else:
+    output='NO'
+print(output)",True,0.3636,0.1023,0.1023,0.0,0,0,0.0,"[""len_equals_lucky_digit_should_be_count_of_lucky_digits""]",[]
+232430525,gpt-5.4-mini,reference,"inputNumber = int(input())
+
+curLucky = 0
+for number in str(inputNumber):
+    if number in '47':
+        curLucky += 1
+
+if all(i in '47' for i in str(curLucky)):
+    print('YES')
+else:
+    print('NO')",True,0.7347,0.5523,0.5523,0.0,0,0,0.0,[],[]
+232451736,gpt-5.4-mini,reference,"n = int(input())
+n = str(n)
+count = 0
+for i in range(0,len(n)):
+    if ((n[i]=='4') or (n[i]=='7')) :
+        count += 1
+if ((count == 4) or (count == 7)) :
+    print('YES')
+else:
+    print('NO')",True,0.5263,3.4086,3.4086,0.0,0,0,0.0,[],[]
+232476558,gpt-5.4-mini,reference,"n = input()
+c = 0
+for i in n:
+    if i in '47':
+        c += 1
+if c == 4 or c == 7:
+    print('YES')
+else:
+    print('NO')",True,0.2286,0.3288,0.3288,0.0,0,0,0.0,[],[]
+232523958,gpt-5.4-mini,rules,"n=input()
+count=0
+for i in range(len(n)):
+    if int(n[i])==4 or int(n[i])==7:
+        count+=1
+a='YES'
+b=str(count)
+for j in range(len(b)):
+    if int(b[j]) != 4 and int(b[j]) != 7:
+        a='NO'
+        break
+print(a)",True,0.0125,0.0876,0.0876,0.0,0,0,0.0,"[""generic_flip_bool_op""]",[]

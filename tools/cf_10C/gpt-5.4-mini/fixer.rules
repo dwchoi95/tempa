@@ -1,0 +1,108 @@
+rule fix_input_to_int_for_digital_root
+symptoms: wrong
+match: print($X)
+where: some($X, "d($Y)") and some($X, "input()")
+rewrite:
+n = int(input())
+q, r = divmod(n, 9)
+d = [q] + [q + 1] * r + [q] * (8 - r)
+res = 0
+for i in range(9):
+    for j in range(9):
+        res += d[i] * d[j] * d[(i * j) % 9]
+for i in range(1, n + 1):
+    res -= n // i
+print(res)
+
+rule fix_nested_loops_counting_misconception
+symptoms: wrong
+match:
+    $d = 0
+    for $i in range(1, $n + 1):
+        for $j in range($i, $n + 1):
+            $c = $E
+            if $K:
+                $d = $D
+    print($d)
+where: some($E, "digr(digr($A) * digr($B))") or some($E, "root($A * $B)") or some($E, "root(i * j)")
+rewrite:
+n = int(input())
+q, r = divmod(n, 9)
+d = [q] + [q + 1] * r + [q] * (8 - r)
+res = 0
+for i in range(9):
+    for j in range(9):
+        res += d[i] * d[j] * d[(i * j) % 9]
+for i in range(1, n + 1):
+    res -= n // i
+print(res)
+
+rule fix_digit_root_cache_recursion_to_closed_form
+symptoms: wrong
+match:
+    def $f($x):
+        $B:Stmts
+    print($Y)
+where: some($B, "while len(str($x)) != 1:") or some($B, "if($x<=9):") or some($B, "if num<=9:") or some($B, "return root(sm)")
+rewrite:
+n = int(input())
+q, r = divmod(n, 9)
+d = [q] + [q + 1] * r + [q] * (8 - r)
+res = 0
+for i in range(9):
+    for j in range(9):
+        res += d[i] * d[j] * d[(i * j) % 9]
+for i in range(1, n + 1):
+    res -= n // i
+print(res)
+
+rule fix_product_loop_to_full_square_count
+symptoms: wrong
+match:
+    $s = 0
+    $B:Stmts
+    print($s)
+where: some($B, "for $i in range(1, $n + 1):") and some($B, "for $j in range($i, $n + 1):") and some($B, "if $X not in $Y")
+rewrite:
+from math import sqrt, floor
+
+n = int(input())
+
+true_products, a = 0, 1
+
+while a ** 2 <= n:
+    true_products += n // a - a
+    a += 1
+
+true_products *= 2
+true_products += floor(sqrt(n))
+
+digit_roots = [n // 9 for _ in range(9)]
+for i in range(1, n % 9 + 1):
+    digit_roots[i] += 1
+
+digit_root_products = 0
+
+for i in range(9):
+    for j in range(9):
+        digit_root_products += digit_roots[i] * digit_roots[j] * digit_roots[(i * j) % 9]
+
+print(digit_root_products - true_products)
+
+rule fix_off_by_one_range_start
+symptoms: wrong
+match: for $i in range($a, $b):
+where: text($a) == "1" and text($b) == "n+1" or text($b) == "n + 1"
+rewrite: for $i in range(0, $b):
+
+rule fix_less_than_to_less_equal
+symptoms: wrong
+match: $a < $b
+where: not inside("for $_ in range($_, $_): $_")
+rewrite: $a <= $b
+
+rule fix_greater_than_to_greater_equal
+symptoms: wrong
+match: $a > $b
+where: not inside("for $_ in range($_, $_): $_")
+rewrite: $a >= $b

@@ -1,0 +1,66 @@
+rule fix_off_by_one_return_slice
+symptoms: wrong
+match: return $xs[:$k + 1]
+rewrite: return $xs[:$k]
+
+rule fix_off_by_one_return_slice_minus1
+symptoms: wrong
+match: return $xs[:$k - 1]
+rewrite: return $xs[:$k]
+
+rule fix_range_off_by_one
+symptoms: wrong
+match: range($k - 1)
+rewrite: range($k)
+
+rule fix_take_k_from_sorted_loop
+symptoms: wrong
+match:
+    $res = []
+    $xs.sort()
+    for $i in range($k - 1):
+        $res.append($xs[$i])
+where: load($xs) and load($k) and load($res) and load($i)
+rewrite:
+    $res = []
+    $xs.sort()
+    for $i in range($k):
+        $res.append($xs[$i])
+
+rule fix_sorted_list_prefix_to_max_selection
+symptoms: wrong
+match:
+    $res = []
+    $xs.sort()
+    for $i in range($k - 1):
+        $res.append($xs[$i])
+rewrite:
+    $res = []
+    for $i in range($k):
+        $res.append(max($xs))
+        $xs.remove(max($xs))
+
+rule fix_max_selection_remove_append
+symptoms: wrong
+match:
+    $res.append(max($xs))
+    $xs.remove(max($xs))
+rewrite:
+    $res.append(max($xs))
+    $xs.remove(max($xs))
+
+rule fix_pop_max_from_scan
+symptoms: wrong
+match:
+    if $xs[$i] == max($xs):
+        $res.append($xs.pop($i))
+        $counter += 1
+rewrite:
+    if $xs[$i] == max($xs):
+        $res.append($xs.pop($i))
+        $counter += 1
+
+rule fix_counter_loop_bound
+symptoms: wrong
+match: while $counter < $k:
+rewrite: while $counter < $k:

@@ -1,0 +1,627 @@
+Buggy,Model,Source,Patch,Fixed,RPS,ATT_all,ATT_cpu,ATT_api,InT,OuT,$API,Rules_L,Rules_SL
+10166888,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8365,13.5681,13.5681,0.0,0,0,0.0,[],[]
+104878747,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7778,102.1197,102.1197,0.0,0,0,0.0,[],[]
+105281670,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.9306,0.9525,0.9525,0.0,0,0,0.0,[],[]
+109106963,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8033,3.3138,3.3138,0.0,0,0,0.0,[],[]
+11086185,gpt-5.4-mini,llm,"__author__ = 'Darren'
+
+
+def solve():
+    from math import ceil
+    x = abs(int(input()))
+    k = ceil(((8 * x + 1) ** 0.5 - 1) / 2)
+    location = k * (k + 1) // 2
+    if location == x and location % 2 == x % 2:
+        print(k)
+    elif (location - x) % 2 == 0:
+        print(k)
+    elif (location + k + 1 - x) % 2 == 0:
+        print(k + 1)
+    else:
+        print(k + 2)
+
+
+if __name__ == '__main__':
+    solve()",True,0.3505,12.3575,10.5279,1.8296,614,156,0.001162,[],[]
+119556210,gpt-5.4-mini,llm,"def main():
+    x = abs(int(input()))
+    num = ans = 0
+    
+    while num < x or (num - x) % 2 != 0:
+        ans += 1
+        num += ans
+    
+    print(ans)
+
+if __name__ == ""__main__"":
+    main()",True,0.4493,125.9745,124.4781,1.4964,575,69,0.000742,[],[]
+123564768,gpt-5.4-mini,rules,"x = int(input())
+if (x < 0):
+    x = -x
+if (x < 0):
+    print(0)
+s = 0
+j = 1
+y = 0
+
+while (s<x):
+    y=y+1;
+    s = s+j
+    j=j+1
+
+diff = s-x
+
+if(diff % 2 == 0):
+    print(y)
+elif((diff + j) % 2 == 0):
+    print(y+1)
+else:
+    print(y+2)",True,0.0099,2.8261,2.8261,0.0,0,0,0.0,"[""generic_flip_compare"", ""generic_flip_compare""]",[]
+127863850,gpt-5.4-mini,llm,"def findN(sum):
+    sum = abs(sum)
+    i = 0
+    num = 0
+    while num < sum or (num - sum) % 2 != 0:
+        i += 1
+        num += i
+    print(i)
+
+
+x = int(input())
+findN(x)",True,0.6714,2.0333,1.0419,0.9914,584,78,0.000789,[],[]
+128057340,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,1.25,105.1462,104.1325,1.0137,617,134,0.001066,[],[]
+134777504,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,1.3673,15.4112,14.4726,0.9386,519,85,0.000772,[],[]
+136178882,gpt-5.4-mini,reference,"import math
+x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.6667,23.9851,23.9851,0.0,0,0,0.0,[],[]
+143315993,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7027,11.3469,11.3469,0.0,0,0,0.0,[],[]
+144626360,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8795,23.023,23.023,0.0,0,0,0.0,[],[]
+145961586,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.5385,9.2306,9.2306,0.0,0,0,0.0,[],[]
+15562768,gpt-5.4-mini,llm,"def main():
+	x = int(input())
+	print(jumps(abs(x)))
+
+def jumps(n):
+	i = 0
+	while True:
+		product = i * (i + 1) // 2
+		if product >= n and product % 2 == n % 2:
+			return i
+		i += 1
+
+#print(jumps(6))
+main()",True,0.0317,10.1482,9.2919,0.8563,562,82,0.00079,[],[]
+156190173,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.9646,9.6523,9.6523,0.0,0,0,0.0,[],[]
+156190914,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.9692,10.384,10.384,0.0,0,0,0.0,[],[]
+160252586,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7925,34.016,34.016,0.0,0,0,0.0,[],[]
+168631062,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7045,16.5291,16.5291,0.0,0,0,0.0,[],[]
+172428652,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.85,18.5642,18.5642,0.0,0,0,0.0,[],[]
+178458907,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8387,1.2097,1.2097,0.0,0,0,0.0,[],[]
+214031173,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.6522,0.7298,0.7298,0.0,0,0,0.0,[],[]
+216531543,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8919,1.0967,1.0967,0.0,0,0,0.0,[],[]
+216624206,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7021,23.7883,23.7883,0.0,0,0,0.0,[],[]
+218033753,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,5.2857,1.2363,0.2979,0.9384,487,56,0.000617,[],[]
+26991983,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8,162.2778,162.2778,0.0,0,0,0.0,[],[]
+26993448,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8261,138.728,138.728,0.0,0,0,0.0,[],[]
+28663791,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.6833,93.7878,93.7878,0.0,0,0,0.0,[],[]
+34078499,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7961,172.6528,172.6528,0.0,0,0,0.0,[],[]
+34078563,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8667,8.7633,8.7633,0.0,0,0,0.0,[],[]
+34078633,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7619,0.9888,0.9888,0.0,0,0,0.0,[],[]
+41088785,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7111,9.3716,9.3716,0.0,0,0,0.0,[],[]
+46772460,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7581,16.5825,16.5825,0.0,0,0,0.0,[],[]
+47295170,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8163,26.3336,26.3336,0.0,0,0,0.0,[],[]
+47295832,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8528,63.7609,63.7609,0.0,0,0,0.0,[],[]
+47296302,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8736,109.4513,109.4513,0.0,0,0,0.0,[],[]
+47297145,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.9339,91.1404,91.1404,0.0,0,0,0.0,[],[]
+47297296,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8642,4.6011,4.6011,0.0,0,0,0.0,[],[]
+47299216,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7018,0.7868,0.7868,0.0,0,0,0.0,[],[]
+47299374,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8288,52.987,52.987,0.0,0,0,0.0,[],[]
+51183255,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7292,0.8426,0.8426,0.0,0,0,0.0,[],[]
+5293912,gpt-5.4-mini,reference,"from math import sqrt
+x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8493,0.9945,0.9945,0.0,0,0,0.0,[],[]
+55214862,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8814,0.8692,0.8692,0.0,0,0,0.0,[],[]
+55214979,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8824,1.6935,1.6935,0.0,0,0,0.0,[],[]
+55501249,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,1.0,0.5417,0.5417,0.0,0,0,0.0,[],[]
+58234112,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7544,20.6847,20.6847,0.0,0,0,0.0,[],[]
+62944245,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,2.8333,1.1243,0.3661,0.7582,544,56,0.00066,[],[]
+67646714,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7805,3.1811,3.1811,0.0,0,0,0.0,[],[]
+67962175,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.5526,4.699,4.699,0.0,0,0,0.0,[],[]
+7047288,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,1.15,77.2215,75.9891,1.2324,600,114,0.000963,[],[]
+70905642,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7167,27.6025,27.6025,0.0,0,0,0.0,[],[]
+73585233,gpt-5.4-mini,llm,"def numberOfJumps(n):
+    n = abs(n)
+    j = 0
+    while True:
+        s = j * (j + 1) // 2
+        if s >= n and not (s - n) % 2:
+            break
+        j += 1
+    return j
+
+n = int(input())
+print(numberOfJumps(n))",True,0.1311,55.8047,54.9563,0.8484,652,86,0.000876,[],[]
+73585688,gpt-5.4-mini,llm,"def numberOfJumps(n):
+    n = abs(n)
+    j = 0
+    while True:
+        s = j * (j + 1) // 2
+        if s >= n and not (s - n) % 2:
+            break
+        j += 1
+    return j
+
+x = int(input())
+print(numberOfJumps(x))",True,0.4098,1.7679,0.7615,1.0064,546,86,0.000797,[],[]
+73587130,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7742,121.3716,121.3716,0.0,0,0,0.0,[],[]
+73595592,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8043,1.056,1.056,0.0,0,0,0.0,[],[]
+73595605,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7353,144.9135,144.9135,0.0,0,0,0.0,[],[]
+73595780,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8125,12.8938,12.8938,0.0,0,0,0.0,[],[]
+73596888,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8142,120.4178,120.4178,0.0,0,0,0.0,[],[]
+73633505,gpt-5.4-mini,llm,"#!/usr/bin/env python
+
+def findJumps (dest, jumps, l, maxHops) :
+    if (len(l) > maxHops) :
+        return []
+    if (dest == sum(l)) :
+        return l
+
+    l1 = l[:]
+    l2 = l[:]
+    l1.append(jumps + 1)
+    l2.append(-(jumps + 1))
+
+    ret = findJumps (dest, jumps + 1, l1, maxHops)
+    if (len(ret) > 0) :
+        return ret
+    return findJumps (dest, jumps + 1, l2, maxHops)
+
+maxHops = 0
+def findShortest (dest) :
+    dest = abs(dest)
+    if dest == 0:
+        return []
+    hops = 0
+    total = 0
+    while total < dest or (total - dest) % 2 != 0:
+        hops += 1
+        total += hops
+    return [1] * hops
+    
+dest = int(input())
+print(len(findShortest(dest)))",True,0.3692,38.5608,37.1509,1.4099,962,244,0.001819,[],[]
+73824373,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8879,0.9056,0.9056,0.0,0,0,0.0,[],[]
+73899304,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.5833,11.2872,11.2872,0.0,0,0,0.0,[],[]
+74554821,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8852,12.2364,12.2364,0.0,0,0,0.0,[],[]
+74564222,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.9245,10.2323,10.2323,0.0,0,0,0.0,[],[]
+75174137,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7619,107.9803,107.9803,0.0,0,0,0.0,[],[]
+76041873,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8,32.0383,32.0383,0.0,0,0,0.0,[],[]
+76043427,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8707,50.839,50.839,0.0,0,0,0.0,[],[]
+7620572,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8333,0.5844,0.5844,0.0,0,0,0.0,[],[]
+85152796,gpt-5.4-mini,llm,"t = abs(int(input()))
+if t == 0:
+    print(0)
+else:
+    jumps = 0
+    pos = 0
+    while pos < t or (pos - t) % 2 != 0:
+        jumps += 1
+        pos += jumps
+    print(jumps)",True,1.7,1.4453,0.4392,1.0061,527,72,0.000719,[],[]
+88385249,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.4727,81.0728,81.0728,0.0,0,0,0.0,[],[]
+88385333,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.3095,11.1052,11.1052,0.0,0,0,0.0,[],[]
+90819161,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8852,13.0805,13.0805,0.0,0,0,0.0,[],[]
+92399330,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.9074,6.8748,6.8748,0.0,0,0,0.0,[],[]
+93003180,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8265,75.4569,75.4569,0.0,0,0,0.0,[],[]
+93176549,gpt-5.4-mini,reference,"from math import ceil, sqrt, floor, trunc
+
+x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.6947,16.8782,16.8782,0.0,0,0,0.0,[],[]
+94198886,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8361,8.3671,8.3671,0.0,0,0,0.0,[],[]
+97000012,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.6429,21.2326,21.2326,0.0,0,0,0.0,[],[]
+97006078,gpt-5.4-mini,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7429,22.1859,22.1859,0.0,0,0,0.0,[],[]

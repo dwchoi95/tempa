@@ -1,0 +1,52 @@
+rule typo_recursive_call_wrong_list_var
+symptoms: wrong, err:NameError
+match:
+    $v:Name = $lst.copy()
+    $v2:Name.pop($p)
+    return [$m] + top_k($w, $k - 1)
+where: $v == $v2 and $w != $v
+rewrite:
+    $v = $lst.copy()
+    $v.pop($p)
+    return [$m] + top_k($v, $k - 1)
+
+rule min_selection_should_find_max
+symptoms: wrong
+match:
+    $s:Name = $lst[0]
+    for $e:Name in $lst:
+        if $e < $s:
+            $s = $e
+where: inside("def $f($lst2, $k): $B:Stmts") and some($B, "return $acc[:$k]")
+rewrite:
+    $s = $lst[0]
+    for $e in $lst:
+        if $e > $s:
+            $s = $e
+
+rule split_remove_during_iteration
+symptoms: wrong
+match:
+    for $e:Name in $lst:
+        if $e $o:Cmp $s:
+            $s = $e
+            $lst.remove($s)
+            $acc.append($s)
+where: text($o) in {">", ">="}
+rewrite:
+    for $e in $lst:
+        if $e $o $s:
+            $s = $e
+    for e2 in $lst:
+        if e2 == $s:
+            $acc.append(e2)
+            $lst.remove(e2)
+
+rule recursive_call_result_discarded
+symptoms: wrong
+match:
+    $f:Name($lst, $k - 1)
+    return $l:Name
+where: inside("def $f2($*xs): $B:Stmts") and $f == $f2
+rewrite:
+    return $l + $f($lst, $k - 1)

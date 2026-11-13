@@ -1,0 +1,166 @@
+rule empty_search_returns_zero
+symptoms: wrong, err:TypeError, err:IndexError
+match:
+    if $seq == () or $seq == []:
+        return $r
+where: $r != 0
+rewrite:
+    if $seq == () or $seq == []:
+        return 0
+
+rule empty_search_returns_zero_alt
+symptoms: wrong, err:TypeError, err:IndexError
+match:
+    if len($seq) == 0:
+        return $r
+where: $r != 0
+rewrite:
+    if len($seq) == 0:
+        return 0
+
+rule empty_guard_missing
+symptoms: wrong, err:TypeError, err:IndexError
+match:
+    if $seq == ():
+        return $r
+where: $r != 0
+rewrite:
+    if $seq == ():
+        return 0
+
+rule fix_empty_after_len_guard
+symptoms: wrong, err:IndexError
+match:
+    if len($seq) == 0:
+        pass
+where: True
+rewrite:
+    if len($seq) == 0:
+        return 0
+
+rule strict_comparison_to_nonstrict
+symptoms: wrong
+match: $a $o:Cmp $b
+where: text($o) == "<"
+rewrite: $a <= $b
+
+rule strict_comparison_to_nonstrict_rev
+symptoms: wrong
+match: $a $o:Cmp $b
+where: text($o) == ">"
+rewrite: $a >= $b
+
+rule return_none_after_search_loop
+symptoms: wrong
+match:
+    for $i in range(len($seq)):
+        if $c:
+            return $r
+where: text($r) == "" and parent("def $f($*xs): $B:Stmts")
+rewrite:
+    for $i in range(len($seq)):
+        if $c:
+            return $r
+    return len(seq)
+
+rule return_bare_from_search
+symptoms: wrong
+match:
+    for $i, $e in enumerate($seq):
+        if $c:
+            $S:Stmt
+    return
+where: inside("def $f($*args): $B:Stmts")
+rewrite:
+    for $i, $e in enumerate($seq):
+        if $c:
+            $S
+    return len(seq)
+
+rule fix_break_then_return_index
+symptoms: wrong
+match:
+    for $i in range(len($seq)):
+        if $c:
+            break
+    return $i
+rewrite:
+    for $i in range(len($seq)):
+        if $c:
+            return $i
+    return len(seq)
+
+rule fix_off_by_one_return_len_minus_one
+symptoms: wrong
+match:
+    return len($seq)-1
+rewrite:
+    return len($seq)
+
+rule fix_return_i_plus_one_to_len
+symptoms: wrong
+match:
+    return $i + 1
+where: inside("def search($*args): $B:Stmts")
+rewrite:
+    return len(seq)
+
+rule fix_addition_in_while_progress
+symptoms: wrong
+match:
+    $pos += $pos
+rewrite:
+    $pos += 1
+
+rule compare_against_seq_not_seq_index
+symptoms: wrong
+match:
+    if $x <= $seq[$i]:
+        return $seq.index($seq[$i])
+rewrite:
+    if $x <= $seq[$i]:
+        return $i
+
+rule compare_against_seq_not_seq_index_alt
+symptoms: wrong
+match:
+    if $x <= $seq[$i]:
+        return $seq.index($seq[$i]) + 1
+rewrite:
+    if $x <= $seq[$i]:
+        return $i
+
+rule fix_search_return_none_to_zero
+symptoms: wrong
+match:
+    if $seq == tuple():
+        return 'empty'
+rewrite:
+    if $seq == tuple():
+        return 0
+
+rule fix_boolean_empty_check
+symptoms: wrong
+match: if $seq == () or []:
+where: True
+rewrite: if $seq == () or $seq == []:
+
+rule fix_boolean_empty_check_alt
+symptoms: wrong
+match: if $seq == [] or ():
+where: True
+rewrite: if $seq == [] or $seq == ():
+
+rule fix_missing_return_in_loop_else
+symptoms: wrong
+match:
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            return $i
+        else:
+            return len($seq)
+rewrite:
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            return $i
+    return len($seq)

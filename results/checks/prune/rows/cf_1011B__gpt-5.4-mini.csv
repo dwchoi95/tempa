@@ -1,0 +1,586 @@
+pid,model,buggy,off_repaired,off_tried,off_pruned,off_cut,off_seconds,off_rules,off_patch,on_repaired,on_tried,on_pruned,on_cut,on_seconds,on_rules,on_patch
+cf_1011B,gpt-5.4-mini,110060265,False,1000,0,True,4.454,,,False,1000,3,True,5.401,,
+cf_1011B,gpt-5.4-mini,111339447,False,1000,0,True,4.802,,,False,1000,6,True,6.495,,
+cf_1011B,gpt-5.4-mini,138403856,False,1000,0,True,12.594,,,False,1000,15,True,13.671,,
+cf_1011B,gpt-5.4-mini,149592101,False,1000,0,True,63.512,,,False,1000,0,True,65.684,,
+cf_1011B,gpt-5.4-mini,178683471,True,3,0,False,0.085,generic_flip_compare,"from collections import defaultdict, deque, Counter
+from functools import lru_cache
+from heapq import heappush, heappop
+from bisect import bisect_right, bisect_left
+
+def inpNum():
+    return int(input())
+def inpStr():
+    return input()
+def inpSepNum():
+    return map(int, input().split())
+def inpNumList():
+    return list(map(int, input().split()))
+def inpChList():
+    return list(input().split())
+m, n = inpSepNum()
+nums = inpNumList()
+freq = Counter(nums)
+trial = n // m
+while trial:
+    cur = m
+    for k, v in freq.items():
+        cur -= v // trial
+        if cur <= 0:
+            print(trial)
+            exit(0)
+    trial -= 1
+print(0)",True,3,0,False,0.333,generic_flip_compare,"from collections import defaultdict, deque, Counter
+from functools import lru_cache
+from heapq import heappush, heappop
+from bisect import bisect_right, bisect_left
+
+def inpNum():
+    return int(input())
+def inpStr():
+    return input()
+def inpSepNum():
+    return map(int, input().split())
+def inpNumList():
+    return list(map(int, input().split()))
+def inpChList():
+    return list(input().split())
+m, n = inpSepNum()
+nums = inpNumList()
+freq = Counter(nums)
+trial = n // m
+while trial:
+    cur = m
+    for k, v in freq.items():
+        cur -= v // trial
+        if cur <= 0:
+            print(trial)
+            exit(0)
+    trial -= 1
+print(0)"
+cf_1011B,gpt-5.4-mini,223176100,False,48,0,False,8.568,,,False,45,3,False,9.538,,
+cf_1011B,gpt-5.4-mini,40805536,True,9,0,False,2.092,fix_binary_search_upper_bound,"def f(s):
+    k = 0
+    for el in b.values():
+        k += el // s
+    if k >= n:
+        return True
+    else:
+        return False
+
+
+n, m = map(int, input().split())
+a = [int(i) for i in input().split()]
+b = {}
+for i in a:
+    b[i] = b.get(i, 0) + 1
+l = 0
+r = 100000
+while r - l > 1:
+    m = (l + r) // 2
+    if f(m):
+        l = m
+    else:
+        r = m
+if not f(1):
+    print(0)
+else:
+    print(l)",True,8,1,False,2.136,fix_binary_search_upper_bound,"def f(s):
+    k = 0
+    for el in b.values():
+        k += el // s
+    if k >= n:
+        return True
+    else:
+        return False
+
+
+n, m = map(int, input().split())
+a = [int(i) for i in input().split()]
+b = {}
+for i in a:
+    b[i] = b.get(i, 0) + 1
+l = 0
+r = 100000
+while r - l > 1:
+    m = (l + r) // 2
+    if f(m):
+        l = m
+    else:
+        r = m
+if not f(1):
+    print(0)
+else:
+    print(l)"
+cf_1011B,gpt-5.4-mini,40805895,False,383,0,False,5.811,,,False,383,0,False,6.608,,
+cf_1011B,gpt-5.4-mini,40805931,False,1000,0,True,5.637,,,False,1000,0,True,6.084,,
+cf_1011B,gpt-5.4-mini,40806213,True,41,0,False,0.134,off_by_one_range_start,"n,m=[int(x) for x in input().split()]
+a=list(map(int,input().split()))
+if n==m:
+    print(1)
+    exit()
+d=dict()
+v=[]
+for i in range(101):
+    d[i]=0
+for i in range(m):
+    d[a[i]]+=1
+for i in range(101):
+    if d[i]:
+        v.append(d[i])
+v.sort()
+maxa=0
+if len(v)==1:
+    print(v[0]//n)
+    exit()
+for i in range(0,len(v)):
+    num=v[i]
+    for k in range(1, num + 1 + 1):
+        c=0
+        c+=(num//k)
+        for j in range(i+1,len(v)):
+            c+=v[j]//k
+            if c>=n and k>maxa:
+                maxa=k
+        
+        
+print(maxa)",True,39,2,False,0.249,off_by_one_range_start,"n,m=[int(x) for x in input().split()]
+a=list(map(int,input().split()))
+if n==m:
+    print(1)
+    exit()
+d=dict()
+v=[]
+for i in range(101):
+    d[i]=0
+for i in range(m):
+    d[a[i]]+=1
+for i in range(101):
+    if d[i]:
+        v.append(d[i])
+v.sort()
+maxa=0
+if len(v)==1:
+    print(v[0]//n)
+    exit()
+for i in range(0,len(v)):
+    num=v[i]
+    for k in range(1, num + 1 + 1):
+        c=0
+        c+=(num//k)
+        for j in range(i+1,len(v)):
+            c+=v[j]//k
+            if c>=n and k>maxa:
+                maxa=k
+        
+        
+print(maxa)"
+cf_1011B,gpt-5.4-mini,40807678,False,1000,0,True,7.968,,,False,1000,469,True,14.723,,
+cf_1011B,gpt-5.4-mini,40808052,False,1000,0,True,3.25,,,False,1000,21,True,4.725,,
+cf_1011B,gpt-5.4-mini,40808131,False,1000,0,True,2.694,,,False,1000,14,True,3.414,,
+cf_1011B,gpt-5.4-mini,40808887,False,1000,0,True,5.996,,,False,1000,3,True,7.022,,
+cf_1011B,gpt-5.4-mini,40810515,True,8,0,False,0.088,generic_flip_compare,"from itertools import groupby
+
+n, k = [int(x) for x in input().split()]
+values = [int(x) for x in input().split()]
+
+result = 0
+if n > k:
+    pass
+elif n == k:
+    result = 1
+else:
+    values = sorted(values)
+    max_days = k // n
+    while max_days:
+        humans = n
+        count = 0
+        current_item = None
+        for _, items in groupby(values):
+            l = len(list(items))
+
+            humans -= max(l // max_days, 0)
+        if humans <= 0:
+            break
+        else:
+            max_days -= 1
+    result = max_days
+print(result)",True,8,0,False,0.51,generic_flip_compare,"from itertools import groupby
+
+n, k = [int(x) for x in input().split()]
+values = [int(x) for x in input().split()]
+
+result = 0
+if n > k:
+    pass
+elif n == k:
+    result = 1
+else:
+    values = sorted(values)
+    max_days = k // n
+    while max_days:
+        humans = n
+        count = 0
+        current_item = None
+        for _, items in groupby(values):
+            l = len(list(items))
+
+            humans -= max(l // max_days, 0)
+        if humans <= 0:
+            break
+        else:
+            max_days -= 1
+    result = max_days
+print(result)"
+cf_1011B,gpt-5.4-mini,40811562,False,1000,0,True,18.299,,,False,1000,36,True,28.892,,
+cf_1011B,gpt-5.4-mini,40813870,True,1000,0,False,1.891,generic_flip_compare|generic_flip_compare,"n,m=map(int,input().split())
+l=list(map(int,input().split()))
+z={}
+for i in l:
+  if(i in z):
+    z[i]=z[i]+1
+  else:
+    z[i]=1
+l=list(z.values())
+l.sort(reverse=True)
+for i in range(len(l)):
+  if(i>n):
+    l.pop()
+ans=[]
+f=[]
+noans=0
+for i in range(len(l)):
+  ans.append(1)
+  f.append(0)
+while(n>0):
+  maxi=0
+  for i in range(1,len(l)):
+    if(l[i]//ans[i]>l[maxi]//ans[maxi]):
+      maxi=i
+  ans[maxi]=ans[maxi]+1
+  if(l[maxi] // ans[maxi] < 0 and f[maxi]==1):
+    noans=1
+    break
+  f[maxi]=1
+  n=n-1
+mini=0
+for i in range(len(l)):
+  if(f[i]==1):
+    if(l[mini]/(ans[mini]-1)>l[i]//(ans[i]-1)):
+      mini=i
+  else:
+    break
+if(noans):
+  print(0)
+else:
+  print(l[mini]//(ans[mini]-1))",True,1000,46,False,4.074,generic_flip_compare|generic_flip_compare,"n,m=map(int,input().split())
+l=list(map(int,input().split()))
+z={}
+for i in l:
+  if(i in z):
+    z[i]=z[i]+1
+  else:
+    z[i]=1
+l=list(z.values())
+l.sort(reverse=True)
+for i in range(len(l)):
+  if(i>n):
+    l.pop()
+ans=[]
+f=[]
+noans=0
+for i in range(len(l)):
+  ans.append(1)
+  f.append(0)
+while(n>0):
+  maxi=0
+  for i in range(1,len(l)):
+    if(l[i]//ans[i]>l[maxi]//ans[maxi]):
+      maxi=i
+  ans[maxi]=ans[maxi]+1
+  if(l[maxi] // ans[maxi] < 0 and f[maxi]==1):
+    noans=1
+    break
+  f[maxi]=1
+  n=n-1
+mini=0
+for i in range(len(l)):
+  if(f[i]==1):
+    if(l[mini]/(ans[mini]-1)>l[i]//(ans[i]-1)):
+      mini=i
+  else:
+    break
+if(noans):
+  print(0)
+else:
+  print(l[mini]//(ans[mini]-1))"
+cf_1011B,gpt-5.4-mini,40815402,True,8,0,False,0.137,off_by_one_range_start,"import itertools
+import collections
+import sys
+import math
+
+input = sys.stdin.readline
+read = lambda: input().rstrip()
+puts = sys.stdout.write
+
+
+def read_ints():
+	yield from map(int, read().split())
+
+
+def main():
+	n, m = read_ints()
+	a = collections.Counter(read_ints())
+	ans = 0
+	for days in range(1, m + 1):
+		can = 0
+		for k, v in a.items():
+			can += v // days
+		if can >= n:
+			ans = days
+	print(ans)
+
+
+if __name__ == '__main__':
+	main()",True,6,2,False,0.338,off_by_one_range_start,"import itertools
+import collections
+import sys
+import math
+
+input = sys.stdin.readline
+read = lambda: input().rstrip()
+puts = sys.stdout.write
+
+
+def read_ints():
+	yield from map(int, read().split())
+
+
+def main():
+	n, m = read_ints()
+	a = collections.Counter(read_ints())
+	ans = 0
+	for days in range(1, m + 1):
+		can = 0
+		for k, v in a.items():
+			can += v // days
+		if can >= n:
+			ans = days
+	print(ans)
+
+
+if __name__ == '__main__':
+	main()"
+cf_1011B,gpt-5.4-mini,40834472,False,1000,0,True,22.564,,,False,1000,2922,True,94.265,,
+cf_1011B,gpt-5.4-mini,40835937,False,1000,0,True,2.105,,,False,1000,200,True,4.569,,
+cf_1011B,gpt-5.4-mini,40840652,False,1000,0,True,1.592,,,False,1000,6,True,3.427,,
+cf_1011B,gpt-5.4-mini,40851836,False,1000,0,True,6.127,,,False,1000,73,True,6.802,,
+cf_1011B,gpt-5.4-mini,40853644,False,34,0,False,0.436,,,False,31,3,False,0.727,,
+cf_1011B,gpt-5.4-mini,40872068,False,1000,0,True,3.399,,,False,1000,429,True,8.17,,
+cf_1011B,gpt-5.4-mini,40875967,False,1000,0,True,4.453,,,False,1000,0,True,5.21,,
+cf_1011B,gpt-5.4-mini,40880695,False,1000,0,True,16.387,,,False,1000,35,True,22.429,,
+cf_1011B,gpt-5.4-mini,40893975,False,1000,0,True,2.82,,,False,1000,18,True,4.991,,
+cf_1011B,gpt-5.4-mini,40896415,False,1000,0,True,3.632,,,False,1000,4,True,4.593,,
+cf_1011B,gpt-5.4-mini,40896860,True,59,0,False,0.282,generic_flip_compare|generic_flip_compare,"n,m=map(int,input().split())
+l=list(map(int,input().split()))
+d={}
+d=d.fromkeys(l,0)
+for i in l:
+    d[i]=d.get(i)+1
+x=list(d.values())
+x.sort()
+k=1
+u=0
+while(k):
+    newList = [ int(t / k) for t in x ]
+    if sum(newList)<n:
+        u=1
+        break
+    elif sum(newList) < n:
+        u=2
+        break
+    else:
+        k=k+1
+print(k if u==2 else k-1)",True,56,3,False,0.425,generic_flip_compare|generic_flip_compare,"n,m=map(int,input().split())
+l=list(map(int,input().split()))
+d={}
+d=d.fromkeys(l,0)
+for i in l:
+    d[i]=d.get(i)+1
+x=list(d.values())
+x.sort()
+k=1
+u=0
+while(k):
+    newList = [ int(t / k) for t in x ]
+    if sum(newList)<n:
+        u=1
+        break
+    elif sum(newList) < n:
+        u=2
+        break
+    else:
+        k=k+1
+print(k if u==2 else k-1)"
+cf_1011B,gpt-5.4-mini,40902105,False,1000,0,True,2.323,,,False,1000,2212,True,10.85,,
+cf_1011B,gpt-5.4-mini,40918807,False,1000,0,True,29.94,,,False,1000,240,True,38.992,,
+cf_1011B,gpt-5.4-mini,40929925,False,1000,0,True,54.549,,,False,1000,47,True,40.411,,
+cf_1011B,gpt-5.4-mini,40936744,False,1000,0,True,4.765,,,False,1000,3,True,5.213,,
+cf_1011B,gpt-5.4-mini,41157789,False,1000,0,True,2.602,,,False,1000,2,True,4.507,,
+cf_1011B,gpt-5.4-mini,41445696,False,1000,0,True,63.93,,,False,1000,0,True,64.198,,
+cf_1011B,gpt-5.4-mini,41445799,False,1000,0,True,25.888,,,False,1000,169,True,45.105,,
+cf_1011B,gpt-5.4-mini,41974430,False,0,0,False,0.038,,,False,0,0,False,0.307,,
+cf_1011B,gpt-5.4-mini,42125589,False,19,0,False,0.311,,,False,18,1,False,1.334,,
+cf_1011B,gpt-5.4-mini,44767748,False,1000,0,True,3.049,,,False,1000,25,True,4.991,,
+cf_1011B,gpt-5.4-mini,48715812,False,1000,0,True,1.998,,,False,1000,2,True,3.113,,
+cf_1011B,gpt-5.4-mini,48945625,False,1000,0,True,17.137,,,False,1000,49,True,21.261,,
+cf_1011B,gpt-5.4-mini,49129257,False,1000,0,True,2.092,,,False,1000,89,True,6.447,,
+cf_1011B,gpt-5.4-mini,50783370,False,1000,0,True,29.171,,,False,1000,0,True,29.877,,
+cf_1011B,gpt-5.4-mini,54397537,False,1000,0,True,2.926,,,False,1000,0,True,3.804,,
+cf_1011B,gpt-5.4-mini,58045502,False,3,0,False,0.13,,,False,3,0,False,0.334,,
+cf_1011B,gpt-5.4-mini,59254197,False,1000,0,True,32.287,,,False,1000,6,True,32.055,,
+cf_1011B,gpt-5.4-mini,60583583,False,1000,0,True,3.69,,,False,1000,126,True,4.894,,
+cf_1011B,gpt-5.4-mini,60586482,False,1000,0,True,4.746,,,False,1000,161,True,7.221,,
+cf_1011B,gpt-5.4-mini,60739469,False,1000,0,True,3.639,,,False,1000,83,True,5.516,,
+cf_1011B,gpt-5.4-mini,63064727,False,1000,0,True,14.956,,,False,1000,17,True,18.252,,
+cf_1011B,gpt-5.4-mini,64422237,False,224,0,False,2.721,,,False,217,7,False,3.225,,
+cf_1011B,gpt-5.4-mini,64461238,False,1000,0,True,47.542,,,False,1000,33,True,59.203,,
+cf_1011B,gpt-5.4-mini,72056750,True,18,0,False,0.102,generic_flip_compare,"def funca(mean,a,h):
+    if mean == 0: 
+        print(""0"")
+        return 0
+    s = 0
+    for f in a:
+        s+= int(f/mean)
+    if s >= h: 
+        print(mean)
+        return 0
+    else: 
+        mean-=1
+        funca(mean,a,h)
+inp = input().split()
+h = int(inp[0])
+e = int(inp[1])
+mean = int(e/h)+1
+a = [int(f) for f in input().split()]
+b = set(a)
+c = {f:0 for f in range(1,max(a)+1)}
+for f in b:
+    for g in a:
+        if f==g:
+            c[f]+=1
+colvo = []
+for f,g in c.items():
+    colvo.append(int(g))
+
+
+funca(mean, colvo,h)",True,18,0,False,0.534,generic_flip_compare,"def funca(mean,a,h):
+    if mean == 0: 
+        print(""0"")
+        return 0
+    s = 0
+    for f in a:
+        s+= int(f/mean)
+    if s >= h: 
+        print(mean)
+        return 0
+    else: 
+        mean-=1
+        funca(mean,a,h)
+inp = input().split()
+h = int(inp[0])
+e = int(inp[1])
+mean = int(e/h)+1
+a = [int(f) for f in input().split()]
+b = set(a)
+c = {f:0 for f in range(1,max(a)+1)}
+for f in b:
+    for g in a:
+        if f==g:
+            c[f]+=1
+colvo = []
+for f,g in c.items():
+    colvo.append(int(g))
+
+
+funca(mean, colvo,h)"
+cf_1011B,gpt-5.4-mini,73153613,False,1000,0,True,7.03,,,False,1000,6,True,8.347,,
+cf_1011B,gpt-5.4-mini,73157437,False,1000,0,True,4.436,,,False,1000,4,True,5.611,,
+cf_1011B,gpt-5.4-mini,73158004,False,1000,0,True,3.351,,,False,1000,0,True,4.111,,
+cf_1011B,gpt-5.4-mini,73915406,False,1000,0,True,3.167,,,False,1000,7,True,4.658,,
+cf_1011B,gpt-5.4-mini,78026811,True,12,0,False,0.089,off_by_one_range_start,"n, m = map(int, input().split())
+a = list(map(int, input().split()))
+z = [0] * 101
+t = 0
+b = 0
+for i in a:
+    z[i] += 1
+for i in range(1, m + 1):
+    t = 0
+    for j in range(1, 101):
+        t += z[j] // i
+    if t >= n:
+        b += 1
+    else:
+        break
+print(b)",True,5,7,False,0.239,off_by_one_range_start,"n, m = map(int, input().split())
+a = list(map(int, input().split()))
+z = [0] * 101
+t = 0
+b = 0
+for i in a:
+    z[i] += 1
+for i in range(1, m + 1):
+    t = 0
+    for j in range(1, 101):
+        t += z[j] // i
+    if t >= n:
+        b += 1
+    else:
+        break
+print(b)"
+cf_1011B,gpt-5.4-mini,78892892,False,1000,0,True,4.012,,,False,1000,0,True,5.758,,
+cf_1011B,gpt-5.4-mini,80341696,False,0,0,False,0.046,,,False,0,0,False,0.47,,
+cf_1011B,gpt-5.4-mini,80435697,True,19,0,False,0.196,off_by_one_range_start|off_by_one_range_start,"from collections import Counter
+def PlanExp(n, m, l):
+	d = dict(Counter(l))
+	curResult = 0
+	for i in range(1, 100 + 1 + 1):
+		for val in d.values():
+			curResult += val//i
+		if curResult<n:
+			break
+		curResult=0
+	return i-1
+
+n, m  = map(int, input().split())
+#n = int(input())
+#m = int(input())
+l = list(map(int, input().split()))
+result = PlanExp(n, m, l)
+print(result)",True,18,1,False,0.266,off_by_one_range_start|off_by_one_range_start,"from collections import Counter
+def PlanExp(n, m, l):
+	d = dict(Counter(l))
+	curResult = 0
+	for i in range(1, 100 + 1 + 1):
+		for val in d.values():
+			curResult += val//i
+		if curResult<n:
+			break
+		curResult=0
+	return i-1
+
+n, m  = map(int, input().split())
+#n = int(input())
+#m = int(input())
+l = list(map(int, input().split()))
+result = PlanExp(n, m, l)
+print(result)"
+cf_1011B,gpt-5.4-mini,87697986,False,1000,0,True,41.227,,,False,1000,53,True,43.062,,
+cf_1011B,gpt-5.4-mini,88822978,False,4,0,False,0.201,,,False,3,1,False,0.288,,
+cf_1011B,gpt-5.4-mini,88824432,False,4,0,False,0.236,,,False,3,1,False,1.878,,
+cf_1011B,gpt-5.4-mini,91291600,False,1000,0,True,3.83,,,False,1000,1316,True,11.664,,
+cf_1011B,gpt-5.4-mini,91799842,False,1000,0,True,22.758,,,False,1000,271,True,42.677,,
+cf_1011B,gpt-5.4-mini,93146883,False,1000,0,True,3.558,,,False,1000,31,True,6.142,,
+cf_1011B,gpt-5.4-mini,93147182,False,1000,0,True,3.557,,,False,1000,0,True,4.578,,
+cf_1011B,gpt-5.4-mini,95724752,False,1000,0,True,13.411,,,False,1000,0,True,15.189,,

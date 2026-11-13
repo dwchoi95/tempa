@@ -1,0 +1,261 @@
+rule fix_topk_index_scan_to_compare_elements
+symptoms: wrong, err:IndexError
+match:
+    while len($new:Name) < $k:
+        $new += [max($lst:Name)]
+        for $i:Name in range(len($lst)):
+            if $i == max($lst):
+                $p:Stmt
+                break
+        del $lst[$i]
+where: inside("def $f($*ps, $lst, $*qs): $B:Stmts")
+rewrite:
+    while len($new) < $k:
+        $new += [max($lst)]
+        for $i in range(len($lst)):
+            if $lst[$i] == max($lst):
+                break
+        del $lst[$i]
+
+rule fix_recursive_topk_return_and_basecase
+symptoms: wrong
+match:
+    $acc:Name = []
+    if $k > len($lst:Name):
+        return False
+    elif $k == 1:
+        return $lst
+    else:
+        $a:Name = max($lst)
+        $lst.remove($a)
+        $acc.append($a)
+        return top_k($lst, $k-1)
+where: inside("def top_k($*ps): $B:Stmts")
+rewrite:
+    $acc = []
+    if $k > len($lst):
+        return False
+    elif $k == 1:
+        return [max($lst)]
+    else:
+        $a = max($lst)
+        $lst.remove($a)
+        $acc.append($a)
+        return [max($lst)] + top_k($lst, $k-1)
+
+rule fix_max_only_loop_to_append_and_stop_at_k
+symptoms: wrong
+match:
+    $count:Name = 0
+    $op:Name = []
+    $big:Name = $lst:Name[0]
+    while $count < $k:
+        $op += [max($lst)]
+        $count += 1
+    return $op
+where: inside("def top_k($*ps): $B:Stmts")
+rewrite:
+    $count = 0
+    $op = []
+    while $count < $k:
+        $op.append(max($lst))
+        $lst.remove(max($lst))
+        $count += 1
+    return $op
+
+rule fix_breaking_selection_sort_prefix
+symptoms: wrong
+match:
+    $sort:Name = []
+    while $lst:Name:
+        $biggest:Name = $lst[0]
+        for $element:Name in $lst:
+            if $element > $biggest:
+                $biggest = $element
+        $lst.remove($biggest)
+        $sort.append($biggest)
+        if len($sort) == $k:
+            break
+    return $sort
+where: inside("def top_k($*ps): $B:Stmts")
+rewrite:
+    $sort = []
+    while $lst:
+        $biggest = $lst[0]
+        for $element in $lst:
+            if $element > $biggest:
+                $biggest = $element
+        $lst.remove($biggest)
+        $sort.append($biggest)
+    return $sort[:k]
+
+rule fix_append_max_then_remove_to_sort_prefix
+symptoms: wrong
+match:
+    $final:Name = []
+    while $lst:Name:
+        $element:Name = max($lst)
+        $final += [$element,]
+        $lst.remove($element)
+        if len($final) == $k:
+            break
+    return $final
+where: inside("def top_k($*ps): $B:Stmts")
+rewrite:
+    $final = []
+    while $lst:
+        $element = max($lst)
+        $final.append($element)
+        $lst.remove($element)
+    return $final[:k]
+
+rule fix_item_index_misuse_in_scan
+symptoms: wrong
+match:
+    $a:Name = $lst:Name
+    $sort:Name = []
+    while $a:
+        $largest:Name = $a[0]
+        for $item:Name in $a:
+            if $item[1] > $largest[1]:
+                $largest = $item
+        $a.remove($largest)
+        $sort.append($largest)
+    return ($sort)[:k]
+where: inside("def top_k($*ps): $B:Stmts")
+rewrite:
+    $a = $lst
+    $sort = []
+    while $a:
+        $largest = $a[0]
+        for $item in $a:
+            if $item > $largest:
+                $largest = $item
+        $a.remove($largest)
+        $sort.append($largest)
+    return ($sort)[:k]
+
+rule fix_sort_prefix_then_recursive_call_name
+symptoms: wrong
+match:
+    if $k <= 0:
+        return []
+    else:
+        $maxi:Name = max($lst)
+        $length:Name = len($lst)
+        for $i:Name in range($length):
+            if $lst[$i] == $maxi:
+                $pos:Name = $i
+        $new_list:Name = $lst.copy()
+        $new_list.pop($pos)
+        return [$maxi] + top_k($new_lst, $k-1)
+where: inside("def top_k($*ps): $B:Stmts")
+rewrite:
+    if $k <= 0:
+        return []
+    else:
+        $maxi = max($lst)
+        $length = len($lst)
+        for $i in range($length):
+            if $lst[$i] == $maxi:
+                $pos = $i
+        $new_list = $lst.copy()
+        $new_list.pop($pos)
+        return [$maxi] + top_k($new_list, $k-1)
+
+rule fix_off_by_one_return_prefix
+symptoms: wrong
+match:
+    return $xs[:$n]
+where: text($n) in {"k+1", "k-1", "3", "4"} and inside("def top_k($*ps): $B:Stmts")
+rewrite:
+    return $xs[:k]
+
+rule fix_off_by_one_in_range
+symptoms: wrong
+match:
+    for $i:Name in range($k $o:Arith 1):
+        $body:Stmts
+where: text($o) in {"+", "-"} and inside("def top_k($*ps): $B:Stmts")
+rewrite:
+    for $i in range($k):
+        $body
+
+rule fix_reverse_sorted_prefix_to_prefix
+symptoms: wrong
+match:
+    $sorted_lst:Name = $lst:Name
+    while $sorted_lst:
+        $largest:Name = $sorted_lst[0]
+        for $element:Name in $sorted_lst:
+            if $element > $largest:
+                $largest = $element
+        $sorted_lst.remove($largest)
+        $sorted_lst.append($largest)
+    return $sorted_lst[:$n]
+where: text($n) in {"k-1", "3"} and inside("def top_k($*ps): $B:Stmts")
+rewrite:
+    $sorted_lst = $lst
+    while $sorted_lst:
+        $largest = $sorted_lst[0]
+        for $element in $sorted_lst:
+            if $element > $largest:
+                $largest = $element
+        $sorted_lst.remove($largest)
+        $sorted_lst.append($largest)
+    return $sorted_lst[:k]
+
+rule fix_less_than_k_guard_return_list
+symptoms: wrong
+match:
+    elif $k == 0:
+        return $lst
+where: inside("def top_k($*ps): $B:Stmts")
+rewrite:
+    elif $k == 0:
+        return []
+
+rule fix_remove_append_wrong_name
+symptoms: wrong
+match:
+    $lst.remove($biggest)
+    $sort.append($element)
+where: inside("def top_k($*ps): $B:Stmts")
+rewrite:
+    $lst.remove($biggest)
+    $sort.append($biggest)
+
+rule fix_slice_sort_result_not_input
+symptoms: wrong
+match:
+    return $lst[:$k]
+where: inside("def top_k($*ps): $B:Stmts") and some($B, "return $sort:Name[:$k]") or some($B, "return $result:Name[:$k]")
+rewrite:
+    return $sort[:$k]
+
+rule fix_pop_max_call_to_remove_max
+symptoms: wrong
+match:
+    $new:Name.append($lst.pop(max($lst)))
+where: inside("def top_k($*ps): $B:Stmts")
+rewrite:
+    $new.append(max($lst))
+    $lst.remove(max($lst))
+
+rule fix_while_len_values_lt_k_to_le
+symptoms: wrong
+match:
+    while len($values:Name) < $k:
+        $body:Stmts
+where: inside("def top_k($*ps): $B:Stmts")
+rewrite:
+    while len($values) < $k:
+        $body
+
+rule fix_return_wrong_variable_at_end
+symptoms: wrong
+match:
+    return $lst
+where: inside("def top_k($*ps): $B:Stmts") and some($B, "return $result:Name[:$k]") or some($B, "return $sort:Name[:$k]") or some($B, "return $final:Name") or some($B, "return $new_list:Name")
+rewrite:
+    return $result[:$k]

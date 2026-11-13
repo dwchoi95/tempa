@@ -1,0 +1,4718 @@
+pid,model,buggy,off_repaired,off_tried,off_pruned,off_cut,off_seconds,off_rules,off_patch,on_repaired,on_tried,on_pruned,on_cut,on_seconds,on_rules,on_patch
+refactory_q1,claude-sonnet-5,wrong_1_001,True,2,0,False,0.128,strict_cmp_should_be_non_strict_in_enumerate_loop,"def search(x, seq):
+    for i, e in enumerate(seq):
+        if x <= e:
+            return i
+    return len(seq)
+
+",True,2,0,False,0.195,strict_cmp_should_be_non_strict_in_enumerate_loop,"def search(x, seq):
+    for i, e in enumerate(seq):
+        if x <= e:
+            return i
+    return len(seq)
+
+"
+refactory_q1,claude-sonnet-5,wrong_1_002,True,7,0,False,0.111,trailing_i_plus_one_after_loop,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+",True,3,4,False,0.19,trailing_i_plus_one_after_loop,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_003,True,7,0,False,0.142,trailing_i_plus_one_after_loop,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    i = 0
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+",True,3,4,False,0.192,trailing_i_plus_one_after_loop,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    i = 0
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_004,True,421,0,False,1.039,add_empty_guard_before_first_index_access|generic_flip_compare,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        seq_enum = [i for i in enumerate(seq)]
+        for j in range(len(seq_enum) - 1):
+            if x >= seq_enum[j][1] and x <= seq_enum[j + 1][1]:
+                return j + 1
+",True,193,228,False,1.437,add_empty_guard_before_first_index_access|generic_flip_compare,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        seq_enum = [i for i in enumerate(seq)]
+        for j in range(len(seq_enum) - 1):
+            if x >= seq_enum[j][1] and x <= seq_enum[j + 1][1]:
+                return j + 1
+"
+refactory_q1,claude-sonnet-5,wrong_1_005,False,1000,0,True,1.99,,,False,1000,644,True,5.291,,
+refactory_q1,claude-sonnet-5,wrong_1_006,False,1000,0,True,2.297,,,False,1000,321,True,5.057,,
+refactory_q1,claude-sonnet-5,wrong_1_007,True,7,0,False,0.109,loop_return_in_place_of_else_fallback,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq) 
+",True,3,4,False,0.362,loop_return_in_place_of_else_fallback,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq) 
+"
+refactory_q1,claude-sonnet-5,wrong_1_008,False,1000,0,True,2.063,,,False,1000,151,True,3.872,,
+refactory_q1,claude-sonnet-5,wrong_1_009,True,1,0,False,0.11,unit_interval_check_misconception,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+",True,1,0,False,0.504,unit_interval_check_misconception,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_010,True,1,0,False,0.119,unit_interval_check_misconception,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq) 
+",True,1,0,False,0.413,unit_interval_check_misconception,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq) 
+"
+refactory_q1,claude-sonnet-5,wrong_1_011,True,1,0,False,0.11,unit_interval_check_misconception,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+",True,1,0,False,0.493,unit_interval_check_misconception,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_012,True,2,0,False,0.147,enumerate_return_i_minus_one|unit_interval_check_misconception,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+",True,1,1,False,0.483,enumerate_return_i_minus_one|unit_interval_check_misconception,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_013,True,1,0,False,0.107,unit_interval_check_misconception,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq) 
+",True,1,0,False,0.539,unit_interval_check_misconception,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq) 
+"
+refactory_q1,claude-sonnet-5,wrong_1_014,False,1000,0,True,2.554,,,False,1000,67,True,3.318,,
+refactory_q1,claude-sonnet-5,wrong_1_015,True,93,0,False,0.396,add_empty_guard_before_first_index_access|unit_interval_check_misconception,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq) 
+",True,77,16,False,0.667,add_empty_guard_before_first_index_access|unit_interval_check_misconception,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq) 
+"
+refactory_q1,claude-sonnet-5,wrong_1_016,True,105,0,False,0.39,add_empty_guard_before_first_index_access|generic_flip_compare,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    for i, elem in enumerate(seq):
+            if elem >= x:
+                return i 
+",True,81,24,False,0.689,add_empty_guard_before_first_index_access|generic_flip_compare,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    for i, elem in enumerate(seq):
+            if elem >= x:
+                return i 
+"
+refactory_q1,claude-sonnet-5,wrong_1_017,True,107,0,False,0.38,add_empty_guard_before_first_index_access|strict_cmp_should_be_non_strict_in_enumerate_loop,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    for i, elem in enumerate(seq):
+            if x <= elem:
+                return i 
+",True,81,26,False,0.605,add_empty_guard_before_first_index_access|strict_cmp_should_be_non_strict_in_enumerate_loop,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    for i, elem in enumerate(seq):
+            if x <= elem:
+                return i 
+"
+refactory_q1,claude-sonnet-5,wrong_1_018,True,16,0,False,0.118,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    for i, elem in enumerate(seq):
+            if x <= elem:
+                return i 
+",True,8,8,False,0.192,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    for i, elem in enumerate(seq):
+            if x <= elem:
+                return i 
+"
+refactory_q1,claude-sonnet-5,wrong_1_019,True,19,0,False,0.129,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    elif seq == ():
+        return 0
+    for i, elem in enumerate(seq):
+            if x <= elem:
+                return i 
+",True,8,11,False,0.198,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    elif seq == ():
+        return 0
+    for i, elem in enumerate(seq):
+            if x <= elem:
+                return i 
+"
+refactory_q1,claude-sonnet-5,wrong_1_020,True,19,0,False,0.119,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    elif seq == ():
+        return None
+    for i, elem in enumerate(seq):
+            if x <= elem:
+                return i 
+",True,8,11,False,0.194,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    elif seq == ():
+        return None
+    for i, elem in enumerate(seq):
+            if x <= elem:
+                return i 
+"
+refactory_q1,claude-sonnet-5,wrong_1_021,True,23,0,False,0.123,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    elif seq == () or seq == []:
+        return None
+    for i, elem in enumerate(seq):
+            if x <= elem:
+                return i 
+",True,8,15,False,0.214,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    elif seq == () or seq == []:
+        return None
+    for i, elem in enumerate(seq):
+            if x <= elem:
+                return i 
+"
+refactory_q1,claude-sonnet-5,wrong_1_022,False,1000,0,True,2.46,,,False,1000,473,True,4.643,,
+refactory_q1,claude-sonnet-5,wrong_1_023,False,1000,0,True,1.712,,,False,1000,1344,True,6.797,,
+refactory_q1,claude-sonnet-5,wrong_1_024,False,1000,0,True,1.638,,,False,1000,550,True,4.218,,
+refactory_q1,claude-sonnet-5,wrong_1_025,False,1000,0,True,1.846,,,False,1000,993,True,5.877,,
+refactory_q1,claude-sonnet-5,wrong_1_026,False,1000,0,True,4.261,,,False,0,10000,True,44.182,,
+refactory_q1,claude-sonnet-5,wrong_1_027,False,1000,0,True,4.135,,,False,1000,307,True,6.155,,
+refactory_q1,claude-sonnet-5,wrong_1_028,False,1000,0,True,2.443,,,False,1000,846,True,5.697,,
+refactory_q1,claude-sonnet-5,wrong_1_029,False,1000,0,True,2.261,,,False,1000,1282,True,6.9,,
+refactory_q1,claude-sonnet-5,wrong_1_030,False,1000,0,True,2.736,,,False,1000,1110,True,7.158,,
+refactory_q1,claude-sonnet-5,wrong_1_031,True,14,0,False,0.136,generic_shift_range,"def search(x, seq):
+    
+    for i in range(len(seq) + 1):
+        if len(seq)==0:
+            return 0
+        elif x<=seq[i]:
+            return i
+        elif x>seq[len(seq)-1]:
+            return len(seq)
+        
+        else:
+            continue 
+",True,2,12,False,0.23,generic_shift_range,"def search(x, seq):
+    
+    for i in range(len(seq) + 1):
+        if len(seq)==0:
+            return 0
+        elif x<=seq[i]:
+            return i
+        elif x>seq[len(seq)-1]:
+            return len(seq)
+        
+        else:
+            continue 
+"
+refactory_q1,claude-sonnet-5,wrong_1_032,False,1000,0,True,2.322,,,False,1000,267,True,5.951,,
+refactory_q1,claude-sonnet-5,wrong_1_033,False,1000,0,True,2.835,,,False,1000,576,True,5.054,,
+refactory_q1,claude-sonnet-5,wrong_1_034,False,1000,0,True,2.509,,,False,1000,576,True,5.523,,
+refactory_q1,claude-sonnet-5,wrong_1_035,False,1000,0,True,2.945,,,False,1000,576,True,4.855,,
+refactory_q1,claude-sonnet-5,wrong_1_036,False,1000,0,True,2.316,,,False,1000,576,True,4.701,,
+refactory_q1,claude-sonnet-5,wrong_1_037,False,1000,0,True,2.272,,,False,1000,576,True,4.55,,
+refactory_q1,claude-sonnet-5,wrong_1_038,False,1000,0,True,2.255,,,False,1000,576,True,4.539,,
+refactory_q1,claude-sonnet-5,wrong_1_039,False,1000,0,True,2.522,,,False,1000,85,True,3.716,,
+refactory_q1,claude-sonnet-5,wrong_1_040,False,1000,0,True,2.271,,,False,1000,576,True,4.745,,
+refactory_q1,claude-sonnet-5,wrong_1_041,False,1000,0,True,2.418,,,False,1000,274,True,3.994,,
+refactory_q1,claude-sonnet-5,wrong_1_042,False,1000,0,True,3.523,,,False,1000,576,True,6.244,,
+refactory_q1,claude-sonnet-5,wrong_1_043,False,1000,0,True,2.694,,,False,1000,576,True,5.158,,
+refactory_q1,claude-sonnet-5,wrong_1_044,False,1000,0,True,2.44,,,False,1000,576,True,6.672,,
+refactory_q1,claude-sonnet-5,wrong_1_045,False,1000,0,True,1.662,,,False,1000,3280,True,12.498,,
+refactory_q1,claude-sonnet-5,wrong_1_046,False,1000,0,True,2.046,,,False,1000,2212,True,11.291,,
+refactory_q1,claude-sonnet-5,wrong_1_047,False,1000,0,True,1.622,,,False,1000,3280,True,12.301,,
+refactory_q1,claude-sonnet-5,wrong_1_048,False,1000,0,True,2.902,,,False,1000,570,True,7.877,,
+refactory_q1,claude-sonnet-5,wrong_1_049,False,1000,0,True,3.429,,,False,1000,1892,True,16.877,,
+refactory_q1,claude-sonnet-5,wrong_1_050,False,1000,0,True,2.787,,,False,1000,3280,True,11.462,,
+refactory_q1,claude-sonnet-5,wrong_1_051,False,1000,0,True,43.826,,,False,1000,250,True,44.014,,
+refactory_q1,claude-sonnet-5,wrong_1_052,False,1000,0,True,3.401,,,False,1000,71,True,4.943,,
+refactory_q1,claude-sonnet-5,wrong_1_053,False,1000,0,True,2.209,,,False,1000,165,True,3.429,,
+refactory_q1,claude-sonnet-5,wrong_1_054,False,1000,0,True,2.433,,,False,1000,243,True,3.72,,
+refactory_q1,claude-sonnet-5,wrong_1_055,False,1000,0,True,2.38,,,False,1000,505,True,4.442,,
+refactory_q1,claude-sonnet-5,wrong_1_056,True,18,0,False,0.117,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x > seq[-1]:
+        return len(seq)
+    else:
+        for num in range(len(seq)):
+            if x > seq[num]:
+                continue
+            elif x <= seq[num]:
+                return num 
+    return 0
+",True,8,10,False,0.197,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x > seq[-1]:
+        return len(seq)
+    else:
+        for num in range(len(seq)):
+            if x > seq[num]:
+                continue
+            elif x <= seq[num]:
+                return num 
+    return 0
+"
+refactory_q1,claude-sonnet-5,wrong_1_057,False,1000,0,True,2.209,,,False,1000,388,True,5.199,,
+refactory_q1,claude-sonnet-5,wrong_1_058,True,19,0,False,0.168,or_literal_precedence_bug,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for num in range(len(seq)):
+            if x > seq[num]:
+                continue
+            elif x <= seq[num]:
+                return num 
+    return 0
+",True,9,10,False,0.237,or_literal_precedence_bug,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for num in range(len(seq)):
+            if x > seq[num]:
+                continue
+            elif x <= seq[num]:
+                return num 
+    return 0
+"
+refactory_q1,claude-sonnet-5,wrong_1_059,False,1000,0,True,3.017,,,False,1000,455,True,6.456,,
+refactory_q1,claude-sonnet-5,wrong_1_060,False,15,0,False,0.378,,,False,0,15,False,0.241,,
+refactory_q1,claude-sonnet-5,wrong_1_061,False,95,0,False,0.938,,,False,0,95,False,0.81,,
+refactory_q1,claude-sonnet-5,wrong_1_062,False,5,0,False,0.153,,,False,5,0,False,0.665,,
+refactory_q1,claude-sonnet-5,wrong_1_063,False,5,0,False,0.199,,,False,5,0,False,0.507,,
+refactory_q1,claude-sonnet-5,wrong_1_064,False,35,0,False,0.424,,,False,30,5,False,0.667,,
+refactory_q1,claude-sonnet-5,wrong_1_065,False,1000,0,True,2.897,,,False,1000,186,True,5.869,,
+refactory_q1,claude-sonnet-5,wrong_1_066,False,1000,0,True,2.542,,,False,1000,1301,True,8.273,,
+refactory_q1,claude-sonnet-5,wrong_1_067,False,1000,0,True,4.486,,,False,0,10000,True,51.351,,
+refactory_q1,claude-sonnet-5,wrong_1_068,True,20,0,False,0.177,generic_shift_range,"def search(x, seq):
+    for i in range(0, len(seq) + 1):
+        if len(seq)==0:
+            return 0
+        elif x<seq[i]:
+            return i
+        elif x==seq[i]:
+            return i
+        elif x>seq[len(seq)-1]:
+            return len(seq)
+",True,3,17,False,0.275,generic_shift_range,"def search(x, seq):
+    for i in range(0, len(seq) + 1):
+        if len(seq)==0:
+            return 0
+        elif x<seq[i]:
+            return i
+        elif x==seq[i]:
+            return i
+        elif x>seq[len(seq)-1]:
+            return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_069,False,1000,0,True,4.226,,,False,0,10000,True,60.656,,
+refactory_q1,claude-sonnet-5,wrong_1_070,False,1000,0,True,1.7,,,False,1000,1542,True,10.085,,
+refactory_q1,claude-sonnet-5,wrong_1_071,True,13,0,False,0.154,add_missing_empty_alt_check,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for i, elem in enumerate(seq):
+        if x == elem:
+            return i
+        elif x < elem:
+            return i
+        elif x > seq[-1]:
+            return len(seq)
+",True,4,9,False,0.157,add_missing_empty_alt_check,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for i, elem in enumerate(seq):
+        if x == elem:
+            return i
+        elif x < elem:
+            return i
+        elif x > seq[-1]:
+            return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_072,True,9,0,False,0.114,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+",True,7,2,False,0.151,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+"
+refactory_q1,claude-sonnet-5,wrong_1_073,False,1000,0,True,2.585,,,False,1000,946,True,10.303,,
+refactory_q1,claude-sonnet-5,wrong_1_074,False,1000,0,True,5.671,,,False,0,10000,True,65.593,,
+refactory_q1,claude-sonnet-5,wrong_1_075,False,1000,0,True,6.725,,,False,1000,219,True,7.734,,
+refactory_q1,claude-sonnet-5,wrong_1_076,False,1000,0,True,4.833,,,False,0,10000,True,52.575,,
+refactory_q1,claude-sonnet-5,wrong_1_077,False,1000,0,True,4.455,,,False,0,10000,True,50.391,,
+refactory_q1,claude-sonnet-5,wrong_1_078,False,24,0,False,0.413,,,False,0,24,False,0.274,,
+refactory_q1,claude-sonnet-5,wrong_1_079,True,8,0,False,0.148,add_missing_empty_alt_check,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for count, ele in enumerate(seq):
+        if x<=ele:
+            return count
+    for ele in seq:
+        if x>ele:
+            return len(seq)
+",True,4,4,False,0.262,add_missing_empty_alt_check,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for count, ele in enumerate(seq):
+        if x<=ele:
+            return count
+    for ele in seq:
+        if x>ele:
+            return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_080,True,9,0,False,0.144,or_literal_precedence_bug,"def search(x, seq):
+    if seq == [] or seq == ():
+        return 0
+    for count, ele in enumerate(seq):
+        if x<=ele:
+            return count
+    for ele in seq:
+        if x>ele:
+            return len(seq)
+",True,5,4,False,0.18,or_literal_precedence_bug,"def search(x, seq):
+    if seq == [] or seq == ():
+        return 0
+    for count, ele in enumerate(seq):
+        if x<=ele:
+            return count
+    for ele in seq:
+        if x>ele:
+            return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_081,True,4,0,False,0.12,missing_fallback_return,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    for index in range(len(seq)):
+        if x <= seq[index]:
+            return index
+    return len(seq)
+",True,2,2,False,0.388,missing_fallback_return,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    for index in range(len(seq)):
+        if x <= seq[index]:
+            return index
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_082,True,7,0,False,0.145,trailing_i_plus_one_after_loop,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+",True,3,4,False,0.239,trailing_i_plus_one_after_loop,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_083,True,10,0,False,0.159,trailing_i_plus_one_after_loop,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq==():
+        return 0
+    else:
+        for i in range(len(seq)):
+            if x <= seq[i]:
+                return i
+        return len(seq)
+",True,6,4,False,0.212,trailing_i_plus_one_after_loop,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq==():
+        return 0
+    else:
+        for i in range(len(seq)):
+            if x <= seq[i]:
+                return i
+        return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_084,True,15,0,False,0.156,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    for i in range(len(seq)-1):
+        if seq[i] <= x <= seq[i+1]:
+            return i + 1
+    return len(seq)
+",True,8,7,False,0.224,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    for i in range(len(seq)-1):
+        if seq[i] <= x <= seq[i+1]:
+            return i + 1
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_085,True,15,0,False,0.172,add_missing_empty_alt_check,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    if x <= seq[0]:
+        return 0
+    for i in range(len(seq)-1):
+        if seq[i] <= x <= seq[i+1]:
+            return i + 1
+    return len(seq)
+",True,8,7,False,0.196,add_missing_empty_alt_check,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    if x <= seq[0]:
+        return 0
+    for i in range(len(seq)-1):
+        if seq[i] <= x <= seq[i+1]:
+            return i + 1
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_086,False,1000,0,True,2.656,,,False,1000,51,True,3.869,,
+refactory_q1,claude-sonnet-5,wrong_1_087,True,18,0,False,0.182,generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        count = 0
+        for i in range (0, len(seq)):
+            if seq[count] < x:
+                count += 1
+        return count if seq[-1] >= x else len(seq)
+",True,18,0,False,0.297,generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        count = 0
+        for i in range (0, len(seq)):
+            if seq[count] < x:
+                count += 1
+        return count if seq[-1] >= x else len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_088,False,1000,0,True,3.946,,,False,1000,51,True,3.729,,
+refactory_q1,claude-sonnet-5,wrong_1_089,False,1000,0,True,2.039,,,False,1000,345,True,3.976,,
+refactory_q1,claude-sonnet-5,wrong_1_090,False,1000,0,True,2.55,,,False,1000,51,True,3.099,,
+refactory_q1,claude-sonnet-5,wrong_1_091,True,18,0,False,0.117,generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        count = 0
+        for i in range (0, len(seq)):
+            if seq[count] < x:
+                count += 1
+        return count if seq[-1] >= x else len(seq)
+",True,18,0,False,0.161,generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        count = 0
+        for i in range (0, len(seq)):
+            if seq[count] < x:
+                count += 1
+        return count if seq[-1] >= x else len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_092,True,18,0,False,0.129,generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        count = 0
+        for i in range (0, len(seq)):
+            if seq[i] >= x:
+                return i
+            elif seq[-1] < x:
+                return len(seq)
+",True,18,0,False,0.209,generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        count = 0
+        for i in range (0, len(seq)):
+            if seq[i] >= x:
+                return i
+            elif seq[-1] < x:
+                return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_093,False,1000,0,True,2.285,,,False,1000,427,True,3.941,,
+refactory_q1,claude-sonnet-5,wrong_1_094,False,1000,0,True,1.756,,,False,1000,409,True,3.678,,
+refactory_q1,claude-sonnet-5,wrong_1_095,False,1000,0,True,2.423,,,False,1000,409,True,4.02,,
+refactory_q1,claude-sonnet-5,wrong_1_096,False,1000,0,True,1.863,,,False,1000,389,True,4.893,,
+refactory_q1,claude-sonnet-5,wrong_1_097,False,1000,0,True,2.347,,,False,1000,389,True,4.538,,
+refactory_q1,claude-sonnet-5,wrong_1_098,False,1000,0,True,2.456,,,False,1000,389,True,4.242,,
+refactory_q1,claude-sonnet-5,wrong_1_099,False,1000,0,True,2.43,,,False,1000,815,True,5.232,,
+refactory_q1,claude-sonnet-5,wrong_1_100,False,1000,0,True,2.306,,,False,1000,619,True,5.517,,
+refactory_q1,claude-sonnet-5,wrong_1_101,False,1000,0,True,2.685,,,False,1000,619,True,4.819,,
+refactory_q1,claude-sonnet-5,wrong_1_102,False,1000,0,True,3.073,,,False,1000,619,True,6.429,,
+refactory_q1,claude-sonnet-5,wrong_1_103,False,1000,0,True,2.482,,,False,1000,619,True,4.545,,
+refactory_q1,claude-sonnet-5,wrong_1_104,False,1000,0,True,2.812,,,False,1000,331,True,3.871,,
+refactory_q1,claude-sonnet-5,wrong_1_105,False,1000,0,True,2.289,,,False,1000,881,True,5.677,,
+refactory_q1,claude-sonnet-5,wrong_1_106,True,309,0,False,0.804,add_empty_guard_before_first_index_access|generic_flip_compare,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq) - 1):
+            if x > seq[i] and x <= seq[i + 1]:
+                return i + 1
+        return None
+",True,161,148,False,1.134,add_empty_guard_before_first_index_access|generic_flip_compare,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq) - 1):
+            if x > seq[i] and x <= seq[i + 1]:
+                return i + 1
+        return None
+"
+refactory_q1,claude-sonnet-5,wrong_1_107,True,23,0,False,0.127,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq)-1):
+            if x > seq[i] and x <= seq[i+1]:
+                return i+1
+        return None
+",True,11,12,False,0.192,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq)-1):
+            if x > seq[i] and x <= seq[i+1]:
+                return i+1
+        return None
+"
+refactory_q1,claude-sonnet-5,wrong_1_108,True,96,0,False,0.439,generic_flip_compare|generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in seq:
+            if x <= i:
+                return seq.index(i)
+        return None
+",True,93,3,False,0.583,generic_flip_compare|generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in seq:
+            if x <= i:
+                return seq.index(i)
+        return None
+"
+refactory_q1,claude-sonnet-5,wrong_1_109,True,13,0,False,0.175,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in seq:
+            if x <= i:
+                return seq.index(i)
+        return None
+",True,11,2,False,0.183,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in seq:
+            if x <= i:
+                return seq.index(i)
+        return None
+"
+refactory_q1,claude-sonnet-5,wrong_1_110,False,1000,0,True,3.1,,,False,0,10000,True,42.767,,
+refactory_q1,claude-sonnet-5,wrong_1_111,False,1000,0,True,3.956,,,False,0,10000,True,50.853,,
+refactory_q1,claude-sonnet-5,wrong_1_112,False,1000,0,True,2.371,,,False,0,10000,True,58.272,,
+refactory_q1,claude-sonnet-5,wrong_1_113,False,1000,0,True,2.076,,,False,1000,340,True,4.86,,
+refactory_q1,claude-sonnet-5,wrong_1_114,False,1000,0,True,2.547,,,False,1000,207,True,4.121,,
+refactory_q1,claude-sonnet-5,wrong_1_115,False,1000,0,True,2.199,,,False,1000,207,True,3.648,,
+refactory_q1,claude-sonnet-5,wrong_1_116,True,19,0,False,0.153,add_missing_empty_alt_check,"def search(x, seq):
+    n = len(seq)
+    if seq == () or seq == []:
+        return 0
+    for i in range(0,n):
+        currentvalue = seq[i]
+        position = i
+        if position >= 0 and x>currentvalue:
+            position = i+1
+        elif position >= 0 and x<= currentvalue:
+            return position
+    return position
+",True,7,12,False,0.207,add_missing_empty_alt_check,"def search(x, seq):
+    n = len(seq)
+    if seq == () or seq == []:
+        return 0
+    for i in range(0,n):
+        currentvalue = seq[i]
+        position = i
+        if position >= 0 and x>currentvalue:
+            position = i+1
+        elif position >= 0 and x<= currentvalue:
+            return position
+    return position
+"
+refactory_q1,claude-sonnet-5,wrong_1_117,True,52,0,False,0.226,add_empty_guard_before_first_index_access|generic_flip_compare,"def search(x, seq):
+    if not seq:
+        return 0
+    if x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    return
+",True,49,3,False,0.367,add_empty_guard_before_first_index_access|generic_flip_compare,"def search(x, seq):
+    if not seq:
+        return 0
+    if x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    return
+"
+refactory_q1,claude-sonnet-5,wrong_1_118,False,1000,0,True,4.467,,,False,1000,3,True,7.033,,
+refactory_q1,claude-sonnet-5,wrong_1_119,True,71,0,False,0.316,or_literal_precedence_bug|generic_flip_compare,"def search(x, seq):
+    if seq == [] or seq == ():
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    return
+",True,68,3,False,0.436,or_literal_precedence_bug|generic_flip_compare,"def search(x, seq):
+    if seq == [] or seq == ():
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    return
+"
+refactory_q1,claude-sonnet-5,wrong_1_120,True,9,0,False,0.133,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    return
+",True,7,2,False,0.17,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    return
+"
+refactory_q1,claude-sonnet-5,wrong_1_121,True,9,0,False,0.146,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+",True,7,2,False,0.152,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+"
+refactory_q1,claude-sonnet-5,wrong_1_122,True,47,0,False,0.234,generic_flip_compare|generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+",True,44,3,False,0.35,generic_flip_compare|generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+"
+refactory_q1,claude-sonnet-5,wrong_1_123,True,9,0,False,0.128,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+",True,7,2,False,0.159,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+"
+refactory_q1,claude-sonnet-5,wrong_1_124,True,60,0,False,0.25,enumerate_return_i_minus_one|generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if x <= elem:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+",True,51,9,False,0.573,enumerate_return_i_minus_one|generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if x <= elem:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+"
+refactory_q1,claude-sonnet-5,wrong_1_125,True,9,0,False,0.114,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+",True,7,2,False,0.191,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem >= x:
+                return i
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+"
+refactory_q1,claude-sonnet-5,wrong_1_126,True,126,0,False,0.454,add_empty_guard_before_first_index_access|generic_shift_range,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    else:
+        for i in range(len(seq) - 1):
+            if seq[i] < x <= seq[i + 1]:
+                return i + 1
+        return len(seq)
+",True,89,37,False,0.919,add_empty_guard_before_first_index_access|generic_shift_range,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    else:
+        for i in range(len(seq) - 1):
+            if seq[i] < x <= seq[i + 1]:
+                return i + 1
+        return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_127,True,15,0,False,0.191,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    else:
+        for i in range(len(seq) - 1):
+            if seq[i] < x <= seq[i + 1]:
+                return i + 1
+        return len(seq)
+",True,8,7,False,0.262,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    else:
+        for i in range(len(seq) - 1):
+            if seq[i] < x <= seq[i + 1]:
+                return i + 1
+        return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_128,False,1000,0,True,3.059,,,False,1000,343,True,5.33,,
+refactory_q1,claude-sonnet-5,wrong_1_129,False,1000,0,True,2.794,,,False,1000,343,True,4.097,,
+refactory_q1,claude-sonnet-5,wrong_1_130,False,1000,0,True,2.405,,,False,1000,215,True,4.792,,
+refactory_q1,claude-sonnet-5,wrong_1_131,False,1000,0,True,3.18,,,False,1000,273,True,4.717,,
+refactory_q1,claude-sonnet-5,wrong_1_132,False,1000,0,True,1.849,,,False,1000,2872,True,13.677,,
+refactory_q1,claude-sonnet-5,wrong_1_133,True,26,0,False,0.173,generic_shift_range,"def search(x, seq):
+    for i in range(len(seq) + 1):
+        if len(seq) == 0:
+            return 0
+        elif x <= seq[i] and i == 0:
+            return 0
+        elif seq[i-1] < x <= seq[i]:
+            return i
+        elif x > seq[i] and i == len(seq)-1:
+            return len(seq)
+",True,2,24,False,0.308,generic_shift_range,"def search(x, seq):
+    for i in range(len(seq) + 1):
+        if len(seq) == 0:
+            return 0
+        elif x <= seq[i] and i == 0:
+            return 0
+        elif seq[i-1] < x <= seq[i]:
+            return i
+        elif x > seq[i] and i == len(seq)-1:
+            return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_134,False,1000,0,True,5.756,,,False,0,10000,True,57.032,,
+refactory_q1,claude-sonnet-5,wrong_1_135,False,6,0,False,0.139,,,False,0,6,False,0.433,,
+refactory_q1,claude-sonnet-5,wrong_1_136,False,6,0,False,0.123,,,False,0,6,False,0.362,,
+refactory_q1,claude-sonnet-5,wrong_1_137,False,1000,0,True,3.263,,,False,0,6911,False,83.988,,
+refactory_q1,claude-sonnet-5,wrong_1_138,False,0,0,False,0.036,,,False,0,0,False,0.414,,
+refactory_q1,claude-sonnet-5,wrong_1_139,False,3,0,False,0.117,,,False,0,3,False,0.116,,
+refactory_q1,claude-sonnet-5,wrong_1_140,True,87,0,False,0.363,generic_flip_compare|generic_flip_compare|generic_shift_range,"def search(x, seq):
+    for i in range(len(seq) - 1 + 1):
+        if seq[i] >= x:
+            return i
+    return len(seq)
+",True,87,0,False,0.683,generic_flip_compare|generic_flip_compare|generic_shift_range,"def search(x, seq):
+    for i in range(len(seq) - 1 + 1):
+        if seq[i] >= x:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_141,True,6,0,False,0.109,generic_shift_range,"def search(x, seq):
+    for i in range(len(seq) - 1 + 1):
+        if seq[i] >= x:
+            return i
+    return len(seq)
+",True,6,0,False,0.203,generic_shift_range,"def search(x, seq):
+    for i in range(len(seq) - 1 + 1):
+        if seq[i] >= x:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_142,False,1000,0,True,3.8,,,False,0,10000,True,80.513,,
+refactory_q1,claude-sonnet-5,wrong_1_143,True,19,0,False,0.143,add_missing_empty_alt_check,"def search(x, seq):
+    n=[]
+    seq = list(seq)
+    a= seq.copy()
+    d = 0
+    if seq == () or seq == []:
+        return 0 
+    for i in a:
+        if i<x:
+            n.append(i)
+            seq.remove(i)
+        elif i == x:
+            n.append(i)
+            n.append(x)
+            n.extend(seq)
+            break
+        else:
+            n.append(x)
+            n.extend(seq)
+            break
+    count = list(enumerate(n))
+    for b in count:
+        d+=1
+        if b[1] == x:
+            return b[0]
+        elif d==len(count):
+            return d
+",True,4,15,False,0.218,add_missing_empty_alt_check,"def search(x, seq):
+    n=[]
+    seq = list(seq)
+    a= seq.copy()
+    d = 0
+    if seq == () or seq == []:
+        return 0 
+    for i in a:
+        if i<x:
+            n.append(i)
+            seq.remove(i)
+        elif i == x:
+            n.append(i)
+            n.append(x)
+            n.extend(seq)
+            break
+        else:
+            n.append(x)
+            n.extend(seq)
+            break
+    count = list(enumerate(n))
+    for b in count:
+        d+=1
+        if b[1] == x:
+            return b[0]
+        elif d==len(count):
+            return d
+"
+refactory_q1,claude-sonnet-5,wrong_1_144,True,20,0,False,0.129,or_literal_precedence_bug,"def search(x, seq):
+    n=[]
+    seq = list(seq)
+    a= seq.copy()
+    d = 0
+    if seq == () or seq == []:
+        return 0 
+    for i in a:
+        if i<x:
+            n.append(i)
+            seq.remove(i)
+        elif i == x:
+            n.append(i)
+            n.append(x)
+            n.extend(seq)
+            break
+        else:
+            n.append(x)
+            n.extend(seq)
+            break
+    count = list(enumerate(n))
+    for b in count:
+        d+=1
+        if b[1] == x:
+            return b[0]
+        elif d==len(count):
+            return d
+",True,5,15,False,0.22,or_literal_precedence_bug,"def search(x, seq):
+    n=[]
+    seq = list(seq)
+    a= seq.copy()
+    d = 0
+    if seq == () or seq == []:
+        return 0 
+    for i in a:
+        if i<x:
+            n.append(i)
+            seq.remove(i)
+        elif i == x:
+            n.append(i)
+            n.append(x)
+            n.extend(seq)
+            break
+        else:
+            n.append(x)
+            n.extend(seq)
+            break
+    count = list(enumerate(n))
+    for b in count:
+        d+=1
+        if b[1] == x:
+            return b[0]
+        elif d==len(count):
+            return d
+"
+refactory_q1,claude-sonnet-5,wrong_1_145,False,1000,0,True,3.466,,,False,0,10000,True,73.624,,
+refactory_q1,claude-sonnet-5,wrong_1_146,True,19,0,False,0.145,add_missing_empty_alt_check,"def search(x, seq):
+    n=[]
+    seq = list(seq)
+    a= seq.copy()
+    d = 0        
+    if seq == () or seq == []:
+        return 0
+    for i in a:
+        if i<x:
+            n.append(i)
+            seq.remove(i)
+        elif i == x:
+            n.append(i)
+            n.append(x)
+            n.extend(seq)
+            break
+        else:
+            n.append(x)
+            n.extend(seq)
+            break
+    count = list(enumerate(n))
+    for b in count:
+        d+=1
+        if b[1] == x:
+            return b[0]
+        elif d==len(count):
+            return d
+",True,4,15,False,0.228,add_missing_empty_alt_check,"def search(x, seq):
+    n=[]
+    seq = list(seq)
+    a= seq.copy()
+    d = 0        
+    if seq == () or seq == []:
+        return 0
+    for i in a:
+        if i<x:
+            n.append(i)
+            seq.remove(i)
+        elif i == x:
+            n.append(i)
+            n.append(x)
+            n.extend(seq)
+            break
+        else:
+            n.append(x)
+            n.extend(seq)
+            break
+    count = list(enumerate(n))
+    for b in count:
+        d+=1
+        if b[1] == x:
+            return b[0]
+        elif d==len(count):
+            return d
+"
+refactory_q1,claude-sonnet-5,wrong_1_147,False,1000,0,True,3.395,,,False,1000,64,True,4.253,,
+refactory_q1,claude-sonnet-5,wrong_1_148,False,1000,0,True,3.301,,,False,1000,64,True,5.069,,
+refactory_q1,claude-sonnet-5,wrong_1_149,False,1000,0,True,3.575,,,False,1000,64,True,4.187,,
+refactory_q1,claude-sonnet-5,wrong_1_150,True,2,0,False,0.11,generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    enumerated_list=enumerate(seq)
+    for i,elem in enumerated_list:
+        if x <= elem:
+            return i
+    return len(seq)
+",True,2,0,False,0.182,generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    enumerated_list=enumerate(seq)
+    for i,elem in enumerated_list:
+        if x <= elem:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_151,False,1000,0,True,2.263,,,False,1000,1534,True,7.194,,
+refactory_q1,claude-sonnet-5,wrong_1_152,False,1000,0,True,2.337,,,False,1000,1534,True,8.072,,
+refactory_q1,claude-sonnet-5,wrong_1_153,False,1000,0,True,2.568,,,False,1000,1534,True,7.629,,
+refactory_q1,claude-sonnet-5,wrong_1_154,False,24,0,False,0.379,,,False,0,24,False,0.297,,
+refactory_q1,claude-sonnet-5,wrong_1_155,True,8,0,False,0.118,add_missing_empty_alt_check,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for a,b in enumerate(seq):
+        if x<=b:
+            return a
+    for i in seq:
+        if x>i:
+            return a+1
+",True,4,4,False,0.257,add_missing_empty_alt_check,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for a,b in enumerate(seq):
+        if x<=b:
+            return a
+    for i in seq:
+        if x>i:
+            return a+1
+"
+refactory_q1,claude-sonnet-5,wrong_1_156,False,174,0,False,1.539,,,False,0,174,False,1.737,,
+refactory_q1,claude-sonnet-5,wrong_1_157,True,8,0,False,0.163,add_missing_empty_alt_check,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for a,b in enumerate(seq):
+        if x<=b:
+            return a
+    for i in seq:
+        if x>i:
+            return a+1
+",True,4,4,False,0.176,add_missing_empty_alt_check,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for a,b in enumerate(seq):
+        if x<=b:
+            return a
+    for i in seq:
+        if x>i:
+            return a+1
+"
+refactory_q1,claude-sonnet-5,wrong_1_158,False,1000,0,True,3.838,,,False,1000,189,True,4.291,,
+refactory_q1,claude-sonnet-5,wrong_1_159,False,1000,0,True,2.635,,,False,1000,189,True,3.568,,
+refactory_q1,claude-sonnet-5,wrong_1_160,False,1000,0,True,1.685,,,False,1000,179,True,2.881,,
+refactory_q1,claude-sonnet-5,wrong_1_161,True,8,0,False,0.115,add_missing_empty_alt_check,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for a,b in enumerate(seq):
+        if x<=b:
+            return a
+    for i in seq:
+        if x>i:
+            return a+1
+",True,4,4,False,0.153,add_missing_empty_alt_check,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for a,b in enumerate(seq):
+        if x<=b:
+            return a
+    for i in seq:
+        if x>i:
+            return a+1
+"
+refactory_q1,claude-sonnet-5,wrong_1_162,False,1000,0,True,1.732,,,False,1000,2438,True,8.908,,
+refactory_q1,claude-sonnet-5,wrong_1_163,False,1000,0,True,1.869,,,False,1000,767,True,4.102,,
+refactory_q1,claude-sonnet-5,wrong_1_164,False,1000,0,True,1.783,,,False,1000,4,True,2.559,,
+refactory_q1,claude-sonnet-5,wrong_1_165,False,1000,0,True,2.976,,,False,1000,477,True,4.661,,
+refactory_q1,claude-sonnet-5,wrong_1_166,False,1000,0,True,1.829,,,False,1000,88,True,2.86,,
+refactory_q1,claude-sonnet-5,wrong_1_167,True,14,0,False,0.113,or_literal_precedence_bug,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for i in range(len(seq)):
+        if x<=seq[i]:break
+        if i==len(seq)-1: i+=1
+    return i
+",True,7,7,False,0.153,or_literal_precedence_bug,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for i in range(len(seq)):
+        if x<=seq[i]:break
+        if i==len(seq)-1: i+=1
+    return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_168,False,3,0,False,0.113,,,False,0,3,False,0.217,,
+refactory_q1,claude-sonnet-5,wrong_1_169,False,15,0,False,0.302,,,False,0,15,False,0.273,,
+refactory_q1,claude-sonnet-5,wrong_1_170,False,95,0,False,1.019,,,False,0,95,False,0.945,,
+refactory_q1,claude-sonnet-5,wrong_1_171,False,95,0,False,1.035,,,False,80,15,False,1.105,,
+refactory_q1,claude-sonnet-5,wrong_1_172,False,95,0,False,0.906,,,False,80,15,False,1.066,,
+refactory_q1,claude-sonnet-5,wrong_1_173,False,95,0,False,1.058,,,False,80,15,False,1.342,,
+refactory_q1,claude-sonnet-5,wrong_1_174,False,95,0,False,1.624,,,False,80,15,False,1.395,,
+refactory_q1,claude-sonnet-5,wrong_1_175,False,575,0,False,6.298,,,False,560,15,False,6.158,,
+refactory_q1,claude-sonnet-5,wrong_1_176,False,575,0,False,9.474,,,False,575,0,False,6.571,,
+refactory_q1,claude-sonnet-5,wrong_1_177,False,95,0,False,0.993,,,False,95,0,False,1.099,,
+refactory_q1,claude-sonnet-5,wrong_1_178,False,1000,0,True,3.643,,,False,0,10000,True,48.814,,
+refactory_q1,claude-sonnet-5,wrong_1_179,False,1000,0,True,4.967,,,False,0,10000,True,58.612,,
+refactory_q1,claude-sonnet-5,wrong_1_180,False,1000,0,True,4.467,,,False,0,10000,True,50.361,,
+refactory_q1,claude-sonnet-5,wrong_1_181,False,1000,0,True,4.669,,,False,0,10000,True,53.688,,
+refactory_q1,claude-sonnet-5,wrong_1_182,False,95,0,False,1.033,,,False,95,0,False,1.163,,
+refactory_q1,claude-sonnet-5,wrong_1_183,False,4,0,False,0.12,,,False,0,4,False,0.43,,
+refactory_q1,claude-sonnet-5,wrong_1_184,False,4,0,False,0.118,,,False,0,4,False,0.431,,
+refactory_q1,claude-sonnet-5,wrong_1_185,False,4,0,False,0.12,,,False,0,4,False,0.364,,
+refactory_q1,claude-sonnet-5,wrong_1_186,False,1000,0,True,2.84,,,False,1000,549,True,5.794,,
+refactory_q1,claude-sonnet-5,wrong_1_187,False,1000,0,True,2.326,,,False,1000,553,True,4.392,,
+refactory_q1,claude-sonnet-5,wrong_1_188,False,1000,0,True,1.784,,,False,1000,117,True,3.053,,
+refactory_q1,claude-sonnet-5,wrong_1_189,False,1000,0,True,2.123,,,False,1000,567,True,5.971,,
+refactory_q1,claude-sonnet-5,wrong_1_190,False,1000,0,True,3.304,,,False,1000,757,True,5.762,,
+refactory_q1,claude-sonnet-5,wrong_1_191,False,1000,0,True,3.403,,,False,1000,699,True,6.502,,
+refactory_q1,claude-sonnet-5,wrong_1_192,True,7,0,False,0.109,count_minus_one_while_return,"def search(x, seq):
+    count=0
+    while count<len(seq):
+        if x>seq[count]:
+            count+=1
+            continue
+        else:
+            return count
+            break
+    return len(seq)
+        
+",True,7,0,False,0.361,count_minus_one_while_return,"def search(x, seq):
+    count=0
+    while count<len(seq):
+        if x>seq[count]:
+            count+=1
+            continue
+        else:
+            return count
+            break
+    return len(seq)
+        
+"
+refactory_q1,claude-sonnet-5,wrong_1_193,False,1000,0,True,6.219,,,False,0,10000,True,47.179,,
+refactory_q1,claude-sonnet-5,wrong_1_194,True,7,0,False,0.133,count_minus_one_while_return,"def search(x, seq):
+    count=0
+    while count<len(seq):
+        if x>seq[count]:
+            count+=1
+            continue
+        else:
+            return count
+    return len(seq)
+        
+",True,7,0,False,0.359,count_minus_one_while_return,"def search(x, seq):
+    count=0
+    while count<len(seq):
+        if x>seq[count]:
+            count+=1
+            continue
+        else:
+            return count
+    return len(seq)
+        
+"
+refactory_q1,claude-sonnet-5,wrong_1_195,False,1000,0,True,3.295,,,False,0,10000,True,61.236,,
+refactory_q1,claude-sonnet-5,wrong_1_196,False,1000,0,True,3.232,,,False,0,10000,True,70.747,,
+refactory_q1,claude-sonnet-5,wrong_1_197,True,8,0,False,0.154,count_minus_one_while_return,"def search(x, seq):
+    count=0
+    while count<len(seq):
+        if x>seq[count]:
+            count+=1
+            continue
+        else:
+            if count!=0:
+                return count
+            else:
+                return 0
+    return len(seq)
+        
+",True,8,0,False,0.407,count_minus_one_while_return,"def search(x, seq):
+    count=0
+    while count<len(seq):
+        if x>seq[count]:
+            count+=1
+            continue
+        else:
+            if count!=0:
+                return count
+            else:
+                return 0
+    return len(seq)
+        
+"
+refactory_q1,claude-sonnet-5,wrong_1_198,False,1000,0,True,3.141,,,False,1000,250,True,4.309,,
+refactory_q1,claude-sonnet-5,wrong_1_199,True,24,0,False,0.159,generic_flip_compare,"def search(x, seq):
+    l=len(seq)
+    if len(seq)==0:
+        return 0
+    elif x<=seq[0]:
+        return 0
+    elif x > seq[l - 1]:
+        return l
+    else:
+        for i in range (l):
+            if x>=seq[i] and x<=seq[i+1]:
+                return i+1
+            else:   
+                continue
+",True,12,12,False,0.242,generic_flip_compare,"def search(x, seq):
+    l=len(seq)
+    if len(seq)==0:
+        return 0
+    elif x<=seq[0]:
+        return 0
+    elif x > seq[l - 1]:
+        return l
+    else:
+        for i in range (l):
+            if x>=seq[i] and x<=seq[i+1]:
+                return i+1
+            else:   
+                continue
+"
+refactory_q1,claude-sonnet-5,wrong_1_200,False,1000,0,True,34.894,,,False,0,10000,True,63.866,,
+refactory_q1,claude-sonnet-5,wrong_1_201,False,1000,0,True,30.579,,,False,1000,2490,True,16.78,,
+refactory_q1,claude-sonnet-5,wrong_1_202,False,1000,0,True,1.71,,,False,1000,1277,True,6.736,,
+refactory_q1,claude-sonnet-5,wrong_1_203,False,1000,0,True,1.624,,,False,1000,1277,True,6.854,,
+refactory_q1,claude-sonnet-5,wrong_1_204,True,24,0,False,0.138,generic_flip_compare,"def search(x, seq):
+    l=len(seq)
+    if len(seq)==0:
+        return 0
+    elif x<=seq[0]:
+        return 0
+    elif x > seq[l - 1]:
+        return l
+    else:
+        for i in range (l):
+            if x>=seq[i] and x<=seq[i+1]:
+                return i+1
+            else:   
+                continue
+",True,12,12,False,0.183,generic_flip_compare,"def search(x, seq):
+    l=len(seq)
+    if len(seq)==0:
+        return 0
+    elif x<=seq[0]:
+        return 0
+    elif x > seq[l - 1]:
+        return l
+    else:
+        for i in range (l):
+            if x>=seq[i] and x<=seq[i+1]:
+                return i+1
+            else:   
+                continue
+"
+refactory_q1,claude-sonnet-5,wrong_1_205,False,1000,0,True,2.456,,,False,1000,415,True,4.378,,
+refactory_q1,claude-sonnet-5,wrong_1_206,False,1000,0,True,2.345,,,False,1000,381,True,5.035,,
+refactory_q1,claude-sonnet-5,wrong_1_207,True,311,0,False,0.757,add_empty_guard_before_first_index_access|generic_shift_range,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq) - 1 + 1):
+            if seq[i] == x:
+                return i
+            elif seq[i] < x < seq[i + 1]:
+                return i + 1
+",True,161,150,False,1.174,add_empty_guard_before_first_index_access|generic_shift_range,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq) - 1 + 1):
+            if seq[i] == x:
+                return i
+            elif seq[i] < x < seq[i + 1]:
+                return i + 1
+"
+refactory_q1,claude-sonnet-5,wrong_1_208,True,388,0,False,1.01,add_empty_guard_before_first_index_access|generic_shift_range,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    elif seq == []:
+        return 0
+    else:
+        for i in range(len(seq) - 1 + 1):
+            if seq[i] == x:
+                return i
+            elif seq[i] < x < seq[i + 1]:
+                return i + 1
+",True,185,203,False,1.33,add_empty_guard_before_first_index_access|generic_shift_range,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    elif seq == []:
+        return 0
+    else:
+        for i in range(len(seq) - 1 + 1):
+            if seq[i] == x:
+                return i
+            elif seq[i] < x < seq[i + 1]:
+                return i + 1
+"
+refactory_q1,claude-sonnet-5,wrong_1_209,True,505,0,False,1.085,add_empty_guard_before_first_index_access|generic_shift_range,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    elif seq == [] or seq == ():
+        return 0
+    else:
+        for i in range(len(seq) - 1 + 1):
+            if seq[i] == x:
+                return i
+            elif seq[i] < x < seq[i + 1]:
+                return i + 1
+",True,217,288,False,1.659,add_empty_guard_before_first_index_access|generic_shift_range,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    elif seq == [] or seq == ():
+        return 0
+    else:
+        for i in range(len(seq) - 1 + 1):
+            if seq[i] == x:
+                return i
+            elif seq[i] < x < seq[i + 1]:
+                return i + 1
+"
+refactory_q1,claude-sonnet-5,wrong_1_210,True,388,0,False,0.857,add_empty_guard_before_first_index_access|generic_shift_range,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    elif len(seq) == 0:
+        return 0
+    else:
+        for i in range(len(seq) - 1 + 1):
+            if seq[i] == x:
+                return i
+            elif seq[i] < x < seq[i + 1]:
+                return i + 1
+",True,185,203,False,1.463,add_empty_guard_before_first_index_access|generic_shift_range,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    elif len(seq) == 0:
+        return 0
+    else:
+        for i in range(len(seq) - 1 + 1):
+            if seq[i] == x:
+                return i
+            elif seq[i] < x < seq[i + 1]:
+                return i + 1
+"
+refactory_q1,claude-sonnet-5,wrong_1_211,False,1000,0,True,2.586,,,False,1000,317,True,4.68,,
+refactory_q1,claude-sonnet-5,wrong_1_212,True,20,0,False,0.129,generic_shift_range,"def search(x, seq):
+    if not seq:
+        return 0
+    elif x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq) - 1 + 1):
+            if seq[i] == x:
+                return i
+            elif seq[i] < x < seq[i+1]:
+                return i+1
+",True,20,0,False,0.242,generic_shift_range,"def search(x, seq):
+    if not seq:
+        return 0
+    elif x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq) - 1 + 1):
+            if seq[i] == x:
+                return i
+            elif seq[i] < x < seq[i+1]:
+                return i+1
+"
+refactory_q1,claude-sonnet-5,wrong_1_213,False,1000,0,True,4.672,,,False,0,10000,True,54.025,,
+refactory_q1,claude-sonnet-5,wrong_1_214,False,19,0,False,0.361,,,False,0,19,False,0.288,,
+refactory_q1,claude-sonnet-5,wrong_1_215,False,1000,0,True,1.939,,,False,1000,592,True,6.415,,
+refactory_q1,claude-sonnet-5,wrong_1_216,False,27,0,False,0.404,,,False,0,27,False,0.333,,
+refactory_q1,claude-sonnet-5,wrong_1_217,True,9,0,False,0.149,add_missing_empty_alt_check,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq == () or seq == []:
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+        if i == (len(seq)-1):
+            return len(seq)
+",True,4,5,False,0.226,add_missing_empty_alt_check,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq == () or seq == []:
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+        if i == (len(seq)-1):
+            return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_218,True,9,0,False,0.161,add_missing_empty_alt_check,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq == () or seq == []:
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+        if i == (len(seq)-1):
+            return len(seq)
+",True,4,5,False,0.273,add_missing_empty_alt_check,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq == () or seq == []:
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+        if i == (len(seq)-1):
+            return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_219,False,191,0,False,1.844,,,False,0,191,False,1.53,,
+refactory_q1,claude-sonnet-5,wrong_1_220,False,191,0,False,1.572,,,False,0,191,False,1.456,,
+refactory_q1,claude-sonnet-5,wrong_1_221,False,1000,0,True,3.253,,,False,0,10000,True,34.552,,
+refactory_q1,claude-sonnet-5,wrong_1_222,False,1000,0,True,4.019,,,False,0,10000,True,37.995,,
+refactory_q1,claude-sonnet-5,wrong_1_223,True,4,0,False,0.189,loop_return_in_place_of_else_fallback,"def search(x, seq):
+    
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+",True,2,2,False,0.524,loop_return_in_place_of_else_fallback,"def search(x, seq):
+    
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_224,False,1000,0,True,4.117,,,False,0,10000,True,38.045,,
+refactory_q1,claude-sonnet-5,wrong_1_225,False,1000,0,True,2.812,,,False,1000,219,True,3.911,,
+refactory_q1,claude-sonnet-5,wrong_1_226,True,43,0,False,0.203,add_missing_empty_alt_check|empty_check_wrong_return,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return i+1
+",True,30,13,False,0.276,add_missing_empty_alt_check|empty_check_wrong_return,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return i+1
+"
+refactory_q1,claude-sonnet-5,wrong_1_227,False,7,0,False,0.22,,,False,0,7,False,0.144,,
+refactory_q1,claude-sonnet-5,wrong_1_228,True,10,0,False,0.114,empty_check_wrong_return,"def search(x, seq):
+    result = None
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq == () or seq == []:
+        return 0
+
+    
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            result = i
+            break
+            
+        else:
+            result = len(seq)
+    return result
+        
+",True,8,2,False,0.196,empty_check_wrong_return,"def search(x, seq):
+    result = None
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq == () or seq == []:
+        return 0
+
+    
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            result = i
+            break
+            
+        else:
+            result = len(seq)
+    return result
+        
+"
+refactory_q1,claude-sonnet-5,wrong_1_229,True,139,0,False,0.441,add_empty_guard_before_first_index_access|generic_flip_compare,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    elif x > seq[len(seq) - 1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem <= x <= seq[i + 1]:
+                return i + 1
+",True,97,42,False,0.633,add_empty_guard_before_first_index_access|generic_flip_compare,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    elif x > seq[len(seq) - 1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem <= x <= seq[i + 1]:
+                return i + 1
+"
+refactory_q1,claude-sonnet-5,wrong_1_230,True,236,0,False,0.577,add_empty_guard_before_first_index_access|generic_flip_compare,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    elif x > seq[len(seq) - 1]:
+        return len(seq)
+    elif seq == [] or ():
+        return 0
+    else:
+        for i, elem in enumerate(seq):
+            if elem <= x <= seq[i + 1]:
+                return i + 1
+",True,137,99,False,0.856,add_empty_guard_before_first_index_access|generic_flip_compare,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    elif x > seq[len(seq) - 1]:
+        return len(seq)
+    elif seq == [] or ():
+        return 0
+    else:
+        for i, elem in enumerate(seq):
+            if elem <= x <= seq[i + 1]:
+                return i + 1
+"
+refactory_q1,claude-sonnet-5,wrong_1_231,True,192,0,False,0.511,add_empty_guard_before_first_index_access|generic_flip_compare,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    elif x > seq[len(seq) - 1]:
+        return len(seq)
+    elif seq == ():
+        return 0
+    else:
+        for i, elem in enumerate(seq):
+            if elem <= x <= seq[i + 1]:
+                return i + 1
+",True,121,71,False,0.753,add_empty_guard_before_first_index_access|generic_flip_compare,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    elif x > seq[len(seq) - 1]:
+        return len(seq)
+    elif seq == ():
+        return 0
+    else:
+        for i, elem in enumerate(seq):
+            if elem <= x <= seq[i + 1]:
+                return i + 1
+"
+refactory_q1,claude-sonnet-5,wrong_1_232,True,19,0,False,0.121,generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[len(seq) - 1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem <= x <= seq[i+1]:
+                return i+1
+",True,16,3,False,0.173,generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[len(seq) - 1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if elem <= x <= seq[i+1]:
+                return i+1
+"
+refactory_q1,claude-sonnet-5,wrong_1_233,True,14,0,False,0.117,generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        for i, elem in enumerate(seq):
+            if x <= elem:
+                return i
+            elif x > seq[len(seq) - 1]:
+                return len(seq)
+",True,14,0,False,0.168,generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        for i, elem in enumerate(seq):
+            if x <= elem:
+                return i
+            elif x > seq[len(seq) - 1]:
+                return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_234,True,4,0,False,0.11,trailing_i_plus_one_after_loop,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+",True,2,2,False,0.184,trailing_i_plus_one_after_loop,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_235,False,1000,0,True,2.403,,,False,1000,867,True,6.192,,
+refactory_q1,claude-sonnet-5,wrong_1_236,True,14,0,False,0.16,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in seq:
+            if x > i:
+                continue
+            else:
+                return seq.index(i)
+",True,8,6,False,0.326,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in seq:
+            if x > i:
+                continue
+            else:
+                return seq.index(i)
+"
+refactory_q1,claude-sonnet-5,wrong_1_237,True,14,0,False,0.18,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[-1]:
+        for i in range(len(seq)):
+            if seq[i] < x:
+                continue
+            else:
+                return i
+    else:
+        return len(seq)
+",True,8,6,False,0.295,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[-1]:
+        for i in range(len(seq)):
+            if seq[i] < x:
+                continue
+            else:
+                return i
+    else:
+        return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_238,False,575,0,False,9.018,,,False,575,0,False,10.539,,
+refactory_q1,claude-sonnet-5,wrong_1_239,False,575,0,False,11.818,,,False,575,0,False,11.417,,
+refactory_q1,claude-sonnet-5,wrong_1_240,False,1000,0,True,3.611,,,False,1000,1289,True,8.371,,
+refactory_q1,claude-sonnet-5,wrong_1_241,False,1000,0,True,2.813,,,False,1000,867,True,6.731,,
+refactory_q1,claude-sonnet-5,wrong_1_242,False,1000,0,True,3.293,,,False,0,10000,True,36.532,,
+refactory_q1,claude-sonnet-5,wrong_1_243,False,1000,0,True,3.094,,,False,0,10000,True,34.588,,
+refactory_q1,claude-sonnet-5,wrong_1_244,True,7,0,False,0.123,missing_fallback_return,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+    
+    
+",True,3,4,False,0.278,missing_fallback_return,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+    
+    
+"
+refactory_q1,claude-sonnet-5,wrong_1_245,False,1000,0,True,2.808,,,False,1000,139,True,4.168,,
+refactory_q1,claude-sonnet-5,wrong_1_246,True,7,0,False,0.144,loop_return_in_place_of_else_fallback,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+
+",True,3,4,False,0.444,loop_return_in_place_of_else_fallback,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+
+"
+refactory_q1,claude-sonnet-5,wrong_1_247,False,1000,0,True,2.265,,,False,1000,881,True,7.881,,
+refactory_q1,claude-sonnet-5,wrong_1_248,False,1000,0,True,2.035,,,False,1000,341,True,4.23,,
+refactory_q1,claude-sonnet-5,wrong_1_249,False,1000,0,True,2.105,,,False,1000,318,True,3.234,,
+refactory_q1,claude-sonnet-5,wrong_1_250,False,1000,0,True,1.778,,,False,1000,341,True,4.105,,
+refactory_q1,claude-sonnet-5,wrong_1_251,False,1000,0,True,2.277,,,False,1000,318,True,4.341,,
+refactory_q1,claude-sonnet-5,wrong_1_252,True,333,0,False,1.229,add_empty_guard_before_first_index_access|generic_flip_compare,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        position = 0
+    if x > seq[len(seq) - 1]:
+        position = len(seq)
+    for i in range(len(seq)):
+        if x <= seq[i] and x > seq[i-1]:
+            position = i
+    return position
+
+",True,169,164,False,1.518,add_empty_guard_before_first_index_access|generic_flip_compare,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        position = 0
+    if x > seq[len(seq) - 1]:
+        position = len(seq)
+    for i in range(len(seq)):
+        if x <= seq[i] and x > seq[i-1]:
+            position = i
+    return position
+
+"
+refactory_q1,claude-sonnet-5,wrong_1_253,False,1000,0,True,2.263,,,False,1000,458,True,5.269,,
+refactory_q1,claude-sonnet-5,wrong_1_254,False,1000,0,True,3.129,,,False,1000,519,True,9.402,,
+refactory_q1,claude-sonnet-5,wrong_1_255,False,1000,0,True,3.405,,,False,1000,587,True,5.574,,
+refactory_q1,claude-sonnet-5,wrong_1_256,True,809,0,False,1.489,generic_flip_compare|generic_flip_compare,"def search(x, seq):
+    a = list(enumerate(seq))
+    seq = list(seq)
+    i = 0
+    while i <= len(seq):
+        if seq == []:
+            return 0
+        if x <= seq[i] and i == 0:
+            return 0
+        elif x <= a[i][1] and x >= a[i-1][1]:
+            return a[i][0]
+        elif x > a[len(seq)-1][1]:
+            return len(seq)
+        else:
+            i = i + 1
+            
+            
+    return seq
+    
+",True,77,732,False,2.574,generic_flip_compare|generic_flip_compare,"def search(x, seq):
+    a = list(enumerate(seq))
+    seq = list(seq)
+    i = 0
+    while i <= len(seq):
+        if seq == []:
+            return 0
+        if x <= seq[i] and i == 0:
+            return 0
+        elif x <= a[i][1] and x >= a[i-1][1]:
+            return a[i][0]
+        elif x > a[len(seq)-1][1]:
+            return len(seq)
+        else:
+            i = i + 1
+            
+            
+    return seq
+    
+"
+refactory_q1,claude-sonnet-5,wrong_1_257,False,1000,0,True,2.329,,,False,1000,210,True,4.103,,
+refactory_q1,claude-sonnet-5,wrong_1_258,False,1000,0,True,5.485,,,False,0,10000,True,61.214,,
+refactory_q1,claude-sonnet-5,wrong_1_259,False,1000,0,True,3.503,,,False,1000,0,True,5.517,,
+refactory_q1,claude-sonnet-5,wrong_1_260,False,1000,0,True,5.24,,,False,1000,219,True,4.468,,
+refactory_q1,claude-sonnet-5,wrong_1_261,True,7,0,False,0.11,loop_return_in_place_of_else_fallback,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    for i in range(len(seq)):
+        if seq[i] >= x:
+            return i
+    return len(seq)
+",True,3,4,False,0.374,loop_return_in_place_of_else_fallback,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    for i in range(len(seq)):
+        if seq[i] >= x:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_262,False,1000,0,True,4.317,,,False,1000,3,True,5.587,,
+refactory_q1,claude-sonnet-5,wrong_1_263,True,195,0,False,0.704,add_empty_guard_before_first_index_access|generic_shift_range,"def search(x, seq):
+    for i in range(len(seq) + 1):
+        if not seq:
+            return 0
+        if x < seq[0]:
+            pos = 0
+            break
+        elif x <= seq[i]:
+            pos = i
+            break
+        elif x > seq[len(seq) - 1]:
+            pos = len(seq)
+            break
+    return pos
+",True,40,155,False,0.916,add_empty_guard_before_first_index_access|generic_shift_range,"def search(x, seq):
+    for i in range(len(seq) + 1):
+        if not seq:
+            return 0
+        if x < seq[0]:
+            pos = 0
+            break
+        elif x <= seq[i]:
+            pos = i
+            break
+        elif x > seq[len(seq) - 1]:
+            pos = len(seq)
+            break
+    return pos
+"
+refactory_q1,claude-sonnet-5,wrong_1_264,False,1000,0,True,3.443,,,False,1000,953,True,7.014,,
+refactory_q1,claude-sonnet-5,wrong_1_265,False,1000,0,True,1.576,,,False,1000,842,True,4.485,,
+refactory_q1,claude-sonnet-5,wrong_1_266,False,1000,0,True,1.502,,,False,1000,461,True,3.602,,
+refactory_q1,claude-sonnet-5,wrong_1_267,False,1000,0,True,1.505,,,False,1000,461,True,3.543,,
+refactory_q1,claude-sonnet-5,wrong_1_268,False,1000,0,True,4.382,,,False,0,10000,True,55.272,,
+refactory_q1,claude-sonnet-5,wrong_1_269,True,74,0,False,0.283,add_missing_empty_alt_check|empty_check_wrong_return,"def search(x, seq):
+    counter = 0
+    new_seq = list(seq)
+    if seq == () or seq == []:
+        return 0
+    for element in seq:
+        if x <=element:
+            return counter
+        if x > seq[len(seq)-1]:
+            return len(seq) 
+        else:
+            counter += 1
+            continue
+",True,42,32,False,0.376,add_missing_empty_alt_check|empty_check_wrong_return,"def search(x, seq):
+    counter = 0
+    new_seq = list(seq)
+    if seq == () or seq == []:
+        return 0
+    for element in seq:
+        if x <=element:
+            return counter
+        if x > seq[len(seq)-1]:
+            return len(seq) 
+        else:
+            counter += 1
+            continue
+"
+refactory_q1,claude-sonnet-5,wrong_1_270,True,11,0,False,0.14,add_missing_empty_alt_check,"def search(x, seq):
+    counter = 0
+    new_seq = list(seq)
+    if seq == () or seq == []:
+        return 0
+    for element in seq:
+        if x <=element:
+            return counter
+        if x > seq[len(seq)-1]:
+            return len(seq) 
+        else:
+            counter += 1
+            continue
+",True,4,7,False,0.158,add_missing_empty_alt_check,"def search(x, seq):
+    counter = 0
+    new_seq = list(seq)
+    if seq == () or seq == []:
+        return 0
+    for element in seq:
+        if x <=element:
+            return counter
+        if x > seq[len(seq)-1]:
+            return len(seq) 
+        else:
+            counter += 1
+            continue
+"
+refactory_q1,claude-sonnet-5,wrong_1_271,False,1000,0,True,2.233,,,False,1000,195,True,4.047,,
+refactory_q1,claude-sonnet-5,wrong_1_272,False,1000,0,True,2.865,,,False,1000,503,True,4.853,,
+refactory_q1,claude-sonnet-5,wrong_1_273,False,1000,0,True,2.164,,,False,1000,503,True,4.691,,
+refactory_q1,claude-sonnet-5,wrong_1_274,True,19,0,False,0.119,or_literal_precedence_bug,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    enumerated = list(enumerate(seq))
+    if seq == () or seq == []:
+        return 0
+    elif x > max(seq):
+        return len(seq)
+    else:
+        for i in range(len(enumerated)):
+            if enumerated[i][1] >= x:
+                return enumerated[i][0]
+                break
+",True,7,12,False,0.165,or_literal_precedence_bug,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    enumerated = list(enumerate(seq))
+    if seq == () or seq == []:
+        return 0
+    elif x > max(seq):
+        return len(seq)
+    else:
+        for i in range(len(enumerated)):
+            if enumerated[i][1] >= x:
+                return enumerated[i][0]
+                break
+"
+refactory_q1,claude-sonnet-5,wrong_1_275,True,6,0,False,0.11,strict_cmp_should_be_non_strict_in_range_loop,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+        else:
+            continue
+    return len(seq)
+",True,6,0,False,0.18,strict_cmp_should_be_non_strict_in_range_loop,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+        else:
+            continue
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_276,False,3,0,False,0.118,,,False,0,3,False,0.452,,
+refactory_q1,claude-sonnet-5,wrong_1_277,True,2,0,False,0.116,generic_flip_compare,"def search(x, seq):
+    t = 0
+    for i in seq:
+        if x > i:
+            t+=1
+
+    return t
+    
+    
+    
+",True,2,0,False,0.181,generic_flip_compare,"def search(x, seq):
+    t = 0
+    for i in seq:
+        if x > i:
+            t+=1
+
+    return t
+    
+    
+    
+"
+refactory_q1,claude-sonnet-5,wrong_1_278,True,10,0,False,0.127,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if x <= elem:
+                return i
+            else:
+                continue
+",True,8,2,False,0.184,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x > seq[-1]:
+        return len(seq)
+    else:
+        for i, elem in enumerate(seq):
+            if x <= elem:
+                return i
+            else:
+                continue
+"
+refactory_q1,claude-sonnet-5,wrong_1_279,False,1000,0,True,1.929,,,False,1000,64,True,2.838,,
+refactory_q1,claude-sonnet-5,wrong_1_280,False,1000,0,True,1.672,,,False,1000,65,True,4.71,,
+refactory_q1,claude-sonnet-5,wrong_1_281,False,1000,0,True,2.536,,,False,1000,65,True,3.741,,
+refactory_q1,claude-sonnet-5,wrong_1_282,False,1000,0,True,2.246,,,False,1000,99,True,3.048,,
+refactory_q1,claude-sonnet-5,wrong_1_283,False,1000,0,True,2.082,,,False,1000,651,True,5.728,,
+refactory_q1,claude-sonnet-5,wrong_1_284,False,1000,0,True,1.93,,,False,1000,64,True,3.226,,
+refactory_q1,claude-sonnet-5,wrong_1_285,False,1000,0,True,2.393,,,False,1000,651,True,5.785,,
+refactory_q1,claude-sonnet-5,wrong_1_286,True,452,0,False,0.889,add_empty_guard_before_first_index_access|generic_shift_range,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq) - 1 + 1):
+            if x > seq[i] and x < seq[i + 1]:
+                return i + 1
+            elif x == seq[i]:
+                return i
+",True,201,251,False,1.379,add_empty_guard_before_first_index_access|generic_shift_range,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq) - 1 + 1):
+            if x > seq[i] and x < seq[i + 1]:
+                return i + 1
+            elif x == seq[i]:
+                return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_287,True,452,0,False,1.231,add_empty_guard_before_first_index_access|generic_shift_range,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    elif seq is ():
+        return 0
+    else:
+        for i in range(len(seq) - 1 + 1):
+            if x > seq[i] and x < seq[i + 1]:
+                return i + 1
+            elif x == seq[i]:
+                return i
+",True,201,251,False,1.994,add_empty_guard_before_first_index_access|generic_shift_range,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    elif seq is ():
+        return 0
+    else:
+        for i in range(len(seq) - 1 + 1):
+            if x > seq[i] and x < seq[i + 1]:
+                return i + 1
+            elif x == seq[i]:
+                return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_288,True,545,0,False,1.253,add_empty_guard_before_first_index_access|generic_shift_range,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    elif len(seq) == 0:
+        return 0
+    else:
+        for i in range(len(seq) - 1 + 1):
+            if x > seq[i] and x < seq[i + 1]:
+                return i + 1
+            elif x == seq[i]:
+                return i
+",True,225,320,False,1.834,add_empty_guard_before_first_index_access|generic_shift_range,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    elif len(seq) == 0:
+        return 0
+    else:
+        for i in range(len(seq) - 1 + 1):
+            if x > seq[i] and x < seq[i + 1]:
+                return i + 1
+            elif x == seq[i]:
+                return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_289,True,28,0,False,0.132,generic_shift_range,"def search(x, seq):
+    if len(seq)==0:
+        return 0
+    elif x<seq[0]:
+        return 0
+    elif x>seq[-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq) - 1 + 1):
+            if x>seq[i] and x<seq[i+1]:
+                return i+1
+            elif x==seq[i]:
+                return i
+",True,28,0,False,0.196,generic_shift_range,"def search(x, seq):
+    if len(seq)==0:
+        return 0
+    elif x<seq[0]:
+        return 0
+    elif x>seq[-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq) - 1 + 1):
+            if x>seq[i] and x<seq[i+1]:
+                return i+1
+            elif x==seq[i]:
+                return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_290,False,1000,0,True,3.18,,,False,1000,219,True,6.381,,
+refactory_q1,claude-sonnet-5,wrong_1_291,False,1000,0,True,4.126,,,False,1000,219,True,5.803,,
+refactory_q1,claude-sonnet-5,wrong_1_292,False,1000,0,True,3.005,,,False,1000,707,True,5.75,,
+refactory_q1,claude-sonnet-5,wrong_1_293,False,1000,0,True,2.432,,,False,1000,707,True,4.971,,
+refactory_q1,claude-sonnet-5,wrong_1_294,False,1000,0,True,2.651,,,False,1000,219,True,5.001,,
+refactory_q1,claude-sonnet-5,wrong_1_295,False,1000,0,True,2.885,,,False,1000,707,True,5.446,,
+refactory_q1,claude-sonnet-5,wrong_1_296,False,1000,0,True,2.596,,,False,1000,949,True,6.345,,
+refactory_q1,claude-sonnet-5,wrong_1_297,False,1000,0,True,2.434,,,False,1000,987,True,7.009,,
+refactory_q1,claude-sonnet-5,wrong_1_298,False,1000,0,True,2.465,,,False,1000,949,True,6.565,,
+refactory_q1,claude-sonnet-5,wrong_1_299,False,1000,0,True,2.757,,,False,1000,519,True,4.984,,
+refactory_q1,claude-sonnet-5,wrong_1_300,False,1000,0,True,3.353,,,False,1000,949,True,6.495,,
+refactory_q1,claude-sonnet-5,wrong_1_301,True,15,0,False,0.116,generic_shift_range,"def search(x,seq):
+    for i in range(len(seq) + 1):
+        if len(seq) == 0:
+            return 0
+        elif x > max(seq):
+            return len(seq)
+        elif x > seq[i]:
+            continue
+        elif x <= seq[i]:
+            break
+        
+    return i
+",True,2,13,False,0.193,generic_shift_range,"def search(x,seq):
+    for i in range(len(seq) + 1):
+        if len(seq) == 0:
+            return 0
+        elif x > max(seq):
+            return len(seq)
+        elif x > seq[i]:
+            continue
+        elif x <= seq[i]:
+            break
+        
+    return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_302,True,15,0,False,0.115,generic_shift_range,"def search(x,seq):
+    for i in range(len(seq) + 1):
+        if len(seq) == 0:
+            return 0
+        elif x > max(seq):
+            return len(seq)
+        elif x > seq[i]:
+            continue
+        elif x <= seq[i]:
+            break
+        
+    return i
+",True,2,13,False,0.194,generic_shift_range,"def search(x,seq):
+    for i in range(len(seq) + 1):
+        if len(seq) == 0:
+            return 0
+        elif x > max(seq):
+            return len(seq)
+        elif x > seq[i]:
+            continue
+        elif x <= seq[i]:
+            break
+        
+    return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_303,True,15,0,False,0.121,generic_shift_range,"def search(x,seq):
+    for i in range(len(seq) + 1):
+        if len(seq) == 0:
+            return 0
+        elif x > max(seq):
+            return len(seq)
+        elif x > seq[i]:
+            continue
+        elif x <= seq[i]:
+            break
+        
+    return i
+",True,2,13,False,0.382,generic_shift_range,"def search(x,seq):
+    for i in range(len(seq) + 1):
+        if len(seq) == 0:
+            return 0
+        elif x > max(seq):
+            return len(seq)
+        elif x > seq[i]:
+            continue
+        elif x <= seq[i]:
+            break
+        
+    return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_304,False,215,0,False,3.375,,,False,180,35,False,3.516,,
+refactory_q1,claude-sonnet-5,wrong_1_305,False,1000,0,True,4.953,,,False,0,3480,False,38.02,,
+refactory_q1,claude-sonnet-5,wrong_1_306,True,15,0,False,0.126,or_literal_precedence_bug,"def search(x, seq):
+    if seq == [] or seq == ():
+        return 0
+    for i,v in enumerate(seq):
+        if x>v and i!=len(seq)-1:
+            continue
+        elif x>v and i==len(seq)-1:
+            return i+1
+        else:
+            break
+        
+    return i
+",True,5,10,False,0.158,or_literal_precedence_bug,"def search(x, seq):
+    if seq == [] or seq == ():
+        return 0
+    for i,v in enumerate(seq):
+        if x>v and i!=len(seq)-1:
+            continue
+        elif x>v and i==len(seq)-1:
+            return i+1
+        else:
+            break
+        
+    return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_307,False,1000,0,True,3.282,,,False,0,10000,True,41.015,,
+refactory_q1,claude-sonnet-5,wrong_1_308,False,1000,0,True,4.61,,,False,0,10000,True,50.516,,
+refactory_q1,claude-sonnet-5,wrong_1_309,False,1000,0,True,3.066,,,False,0,10000,True,45.201,,
+refactory_q1,claude-sonnet-5,wrong_1_310,False,1000,0,True,2.401,,,False,1000,250,True,6.857,,
+refactory_q1,claude-sonnet-5,wrong_1_311,False,1000,0,True,3.542,,,False,1000,250,True,4.092,,
+refactory_q1,claude-sonnet-5,wrong_1_312,True,7,0,False,0.112,trailing_i_plus_one_after_loop,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+",True,3,4,False,0.208,trailing_i_plus_one_after_loop,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_313,False,1000,0,True,3.6,,,False,1000,420,True,6.018,,
+refactory_q1,claude-sonnet-5,wrong_1_314,False,1000,0,True,4.273,,,False,1000,250,True,5.089,,
+refactory_q1,claude-sonnet-5,wrong_1_315,True,7,0,False,0.151,trailing_i_plus_one_after_loop,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+",True,3,4,False,0.227,trailing_i_plus_one_after_loop,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_316,False,3,0,False,0.153,,,False,0,3,False,0.157,,
+refactory_q1,claude-sonnet-5,wrong_1_317,False,1000,0,True,2.868,,,False,1000,219,True,5.964,,
+refactory_q1,claude-sonnet-5,wrong_1_318,False,1000,0,True,4.378,,,False,1000,0,True,4.402,,
+refactory_q1,claude-sonnet-5,wrong_1_319,False,3,0,False,0.15,,,False,0,3,False,0.209,,
+refactory_q1,claude-sonnet-5,wrong_1_320,False,3,0,False,0.124,,,False,0,3,False,0.22,,
+refactory_q1,claude-sonnet-5,wrong_1_321,False,31,0,False,0.441,,,False,0,31,False,0.381,,
+refactory_q1,claude-sonnet-5,wrong_1_322,False,15,0,False,0.268,,,False,0,15,False,0.202,,
+refactory_q1,claude-sonnet-5,wrong_1_323,False,1000,0,True,6.12,,,False,0,1247,False,10.419,,
+refactory_q1,claude-sonnet-5,wrong_1_324,False,1000,0,True,6.099,,,False,0,1247,False,10.659,,
+refactory_q1,claude-sonnet-5,wrong_1_325,False,1000,0,True,4.326,,,False,0,2399,False,20.965,,
+refactory_q1,claude-sonnet-5,wrong_1_326,False,1000,0,True,5.814,,,False,0,2399,False,20.995,,
+refactory_q1,claude-sonnet-5,wrong_1_327,False,15,0,False,0.299,,,False,0,15,False,0.225,,
+refactory_q1,claude-sonnet-5,wrong_1_328,False,575,0,False,5.341,,,False,480,95,False,6.063,,
+refactory_q1,claude-sonnet-5,wrong_1_329,False,1000,0,True,4.269,,,False,1000,327,True,7.114,,
+refactory_q1,claude-sonnet-5,wrong_1_330,False,3,0,False,0.156,,,False,0,3,False,0.643,,
+refactory_q1,claude-sonnet-5,wrong_1_331,True,28,0,False,0.234,strict_cmp_should_be_non_strict_in_range_loop|missing_fallback_return,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+",True,15,13,False,0.462,strict_cmp_should_be_non_strict_in_range_loop|missing_fallback_return,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_332,True,7,0,False,0.158,missing_fallback_return,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+",True,3,4,False,0.36,missing_fallback_return,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_333,True,7,0,False,0.138,loop_return_in_place_of_else_fallback,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+",True,3,4,False,0.425,loop_return_in_place_of_else_fallback,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_334,True,7,0,False,0.112,loop_return_in_place_of_else_fallback,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+",True,3,4,False,0.439,loop_return_in_place_of_else_fallback,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_335,True,20,0,False,0.155,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    for i in range(len(seq)-1):
+        if seq[i+1]>=x and x>seq[i]:
+            return i+1
+    return len(seq)
+",True,8,12,False,0.256,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    for i in range(len(seq)-1):
+        if seq[i+1]>=x and x>seq[i]:
+            return i+1
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_336,True,20,0,False,0.15,add_missing_empty_alt_check,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0    
+    if x <= seq[0]:
+        return 0
+    for i in range(len(seq)-1):
+        if seq[i+1]>=x and x>seq[i]:
+            return i+1
+    return len(seq)
+",True,8,12,False,0.202,add_missing_empty_alt_check,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0    
+    if x <= seq[0]:
+        return 0
+    for i in range(len(seq)-1):
+        if seq[i+1]>=x and x>seq[i]:
+            return i+1
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_337,True,2,0,False,0.118,strict_cmp_should_be_non_strict_in_enumerate_loop,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+",True,2,0,False,0.212,strict_cmp_should_be_non_strict_in_enumerate_loop,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_338,True,2,0,False,0.129,strict_cmp_should_be_non_strict_in_enumerate_loop,"def search(x, seq):
+    for i,elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+",True,2,0,False,0.181,strict_cmp_should_be_non_strict_in_enumerate_loop,"def search(x, seq):
+    for i,elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_339,True,2,0,False,0.108,strict_cmp_should_be_non_strict_in_enumerate_loop,"def search(x, seq):
+    for i,elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+",True,2,0,False,0.18,strict_cmp_should_be_non_strict_in_enumerate_loop,"def search(x, seq):
+    for i,elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_340,False,1000,0,True,2.054,,,False,1000,2090,True,10.3,,
+refactory_q1,claude-sonnet-5,wrong_1_341,True,195,0,False,0.556,add_empty_guard_before_first_index_access|generic_shift_range,"def search(x, seq):
+    for i in range(len(seq) + 1):
+        if not seq:
+            return 0
+        if x > seq[-1]:
+            return len(seq)
+        elif x == seq[i]:
+            return i
+        elif x < seq[i]:
+            return i
+",True,40,155,False,0.556,add_empty_guard_before_first_index_access|generic_shift_range,"def search(x, seq):
+    for i in range(len(seq) + 1):
+        if not seq:
+            return 0
+        if x > seq[-1]:
+            return len(seq)
+        elif x == seq[i]:
+            return i
+        elif x < seq[i]:
+            return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_342,False,1000,0,True,1.958,,,False,1000,2633,True,10.628,,
+refactory_q1,claude-sonnet-5,wrong_1_343,True,223,0,False,0.572,or_literal_precedence_bug|generic_shift_range,"def search(x, seq):
+    for i in range(len(seq) + 1):
+        if seq == [] or seq == ():
+            return 0
+        elif x > seq[-1]:
+            return len(seq)
+        elif x == seq[i]:
+            return i
+        elif x < seq[i]:
+            return i
+",True,42,181,False,0.705,or_literal_precedence_bug|generic_shift_range,"def search(x, seq):
+    for i in range(len(seq) + 1):
+        if seq == [] or seq == ():
+            return 0
+        elif x > seq[-1]:
+            return len(seq)
+        elif x == seq[i]:
+            return i
+        elif x < seq[i]:
+            return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_344,False,1000,0,True,2.147,,,False,1000,2033,True,9.323,,
+refactory_q1,claude-sonnet-5,wrong_1_345,True,23,0,False,0.14,add_missing_empty_alt_check,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for i in range(len(seq)):
+        if x > seq[-1]:
+            return len(seq)
+        elif x == seq[i]:
+            return i
+        elif x < seq[i]:
+            return i
+",True,6,17,False,0.17,add_missing_empty_alt_check,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for i in range(len(seq)):
+        if x > seq[-1]:
+            return len(seq)
+        elif x == seq[i]:
+            return i
+        elif x < seq[i]:
+            return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_346,True,24,0,False,0.135,or_literal_precedence_bug,"def search(x, seq):
+    if seq == () or seq == []:
+            return 0
+    for i in range(len(seq)):
+        if x > seq[-1]:
+            return len(seq)
+        elif x == seq[i]:
+            return i
+        elif x < seq[i]:
+            return i
+",True,7,17,False,0.17,or_literal_precedence_bug,"def search(x, seq):
+    if seq == () or seq == []:
+            return 0
+    for i in range(len(seq)):
+        if x > seq[-1]:
+            return len(seq)
+        elif x == seq[i]:
+            return i
+        elif x < seq[i]:
+            return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_347,False,1000,0,True,3.638,,,False,1000,0,True,4.192,,
+refactory_q1,claude-sonnet-5,wrong_1_348,False,1000,0,True,3.473,,,False,0,10000,True,36.954,,
+refactory_q1,claude-sonnet-5,wrong_1_349,False,1000,0,True,4.111,,,False,1000,0,True,4.342,,
+refactory_q1,claude-sonnet-5,wrong_1_350,False,1000,0,True,3.548,,,False,0,10000,True,38.646,,
+refactory_q1,claude-sonnet-5,wrong_1_351,True,2,0,False,0.16,strict_cmp_should_be_non_strict_in_enumerate_loop,"def search(x, seq):
+    #Takes in a value x and a sorted sequence seq, and returns the
+    #position that x should go to such that the sequence remains sorted 
+            
+    for i, p in enumerate(seq):
+        if x <= p:
+            return i
+    return len(seq)
+    
+",True,2,0,False,0.213,strict_cmp_should_be_non_strict_in_enumerate_loop,"def search(x, seq):
+    #Takes in a value x and a sorted sequence seq, and returns the
+    #position that x should go to such that the sequence remains sorted 
+            
+    for i, p in enumerate(seq):
+        if x <= p:
+            return i
+    return len(seq)
+    
+"
+refactory_q1,claude-sonnet-5,wrong_1_352,False,1000,0,True,2.282,,,False,1000,937,True,5.183,,
+refactory_q1,claude-sonnet-5,wrong_1_353,False,1000,0,True,1.766,,,False,1000,2566,True,9.09,,
+refactory_q1,claude-sonnet-5,wrong_1_354,False,1000,0,True,137.051,,,False,1000,0,True,136.636,,
+refactory_q1,claude-sonnet-5,wrong_1_355,False,1000,0,True,94.3,,,False,1000,0,True,94.292,,
+refactory_q1,claude-sonnet-5,wrong_1_356,True,7,0,False,0.111,generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    position = 0
+    found = False
+    
+    while position < len(seq) and not found:
+        if x <= seq[position]:
+            found = True
+        else:
+            position += 1
+    
+    return position
+",True,7,0,False,0.194,generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    position = 0
+    found = False
+    
+    while position < len(seq) and not found:
+        if x <= seq[position]:
+            found = True
+        else:
+            position += 1
+    
+    return position
+"
+refactory_q1,claude-sonnet-5,wrong_1_357,False,1000,0,True,2.658,,,False,1000,976,True,8.781,,
+refactory_q1,claude-sonnet-5,wrong_1_358,True,219,0,False,0.611,add_empty_guard_before_first_index_access|generic_flip_compare,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(0, len(seq) - 1):
+            if seq[i] <= x <= seq[i + 1]:
+                return i + 1
+",True,129,90,False,0.849,add_empty_guard_before_first_index_access|generic_flip_compare,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(0, len(seq) - 1):
+            if seq[i] <= x <= seq[i + 1]:
+                return i + 1
+"
+refactory_q1,claude-sonnet-5,wrong_1_359,True,284,0,False,0.711,add_empty_guard_before_first_index_access|generic_flip_compare,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    elif seq == ():
+        return 0
+    else:
+        for i in range(0, len(seq) - 1):
+            if seq[i] <= x <= seq[i + 1]:
+                return i + 1
+",True,153,131,False,1.03,add_empty_guard_before_first_index_access|generic_flip_compare,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    elif seq == ():
+        return 0
+    else:
+        for i in range(0, len(seq) - 1):
+            if seq[i] <= x <= seq[i + 1]:
+                return i + 1
+"
+refactory_q1,claude-sonnet-5,wrong_1_360,True,284,0,False,0.693,add_empty_guard_before_first_index_access|generic_flip_compare,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    elif len(seq) == 0:
+        return 0
+    else:
+        for i in range(0, len(seq) - 1):
+            if seq[i] <= x <= seq[i + 1]:
+                return i + 1
+",True,153,131,False,1.036,add_empty_guard_before_first_index_access|generic_flip_compare,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    elif len(seq) == 0:
+        return 0
+    else:
+        for i in range(0, len(seq) - 1):
+            if seq[i] <= x <= seq[i + 1]:
+                return i + 1
+"
+refactory_q1,claude-sonnet-5,wrong_1_361,True,19,0,False,0.124,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    if x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(0, len(seq)-1):
+            if seq[i] <= x <= seq[i+1]:
+                return i+1
+",True,11,8,False,0.184,generic_flip_compare,"def search(x, seq):
+    if len(seq) == 0:
+        return 0
+    if x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(0, len(seq)-1):
+            if seq[i] <= x <= seq[i+1]:
+                return i+1
+"
+refactory_q1,claude-sonnet-5,wrong_1_362,True,23,0,False,0.132,generic_flip_compare,"def search(x, seq):
+    if len(seq)==0:
+        return 0
+    else:
+        if x <= seq[0]:
+            return 0
+        elif x > seq[-1]:
+            return len(seq)
+        else:
+            for i in range(0, len(seq)-1):
+                if seq[i] <= x <= seq[i+1]:
+                    return i+1
+",True,15,8,False,0.189,generic_flip_compare,"def search(x, seq):
+    if len(seq)==0:
+        return 0
+    else:
+        if x <= seq[0]:
+            return 0
+        elif x > seq[-1]:
+            return len(seq)
+        else:
+            for i in range(0, len(seq)-1):
+                if seq[i] <= x <= seq[i+1]:
+                    return i+1
+"
+refactory_q1,claude-sonnet-5,wrong_1_363,True,19,0,False,0.125,generic_flip_compare,"def search(x, seq):
+    if len(seq)==0:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(0, len(seq)-1):
+            if seq[i] <= x <= seq[i+1]:
+                return i+1
+",True,11,8,False,0.17,generic_flip_compare,"def search(x, seq):
+    if len(seq)==0:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(0, len(seq)-1):
+            if seq[i] <= x <= seq[i+1]:
+                return i+1
+"
+refactory_q1,claude-sonnet-5,wrong_1_364,True,19,0,False,0.125,generic_flip_compare,"def search(x, seq):
+    if len(seq)==0:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(0, len(seq)-1):
+            if seq[i] <= x <= seq[i+1]:
+                return i+1
+",True,11,8,False,0.178,generic_flip_compare,"def search(x, seq):
+    if len(seq)==0:
+        return 0
+    elif x <= seq[0]:
+        return 0
+    elif x > seq[-1]:
+        return len(seq)
+    else:
+        for i in range(0, len(seq)-1):
+            if seq[i] <= x <= seq[i+1]:
+                return i+1
+"
+refactory_q1,claude-sonnet-5,wrong_1_365,False,1000,0,True,2.064,,,False,1000,311,True,3.807,,
+refactory_q1,claude-sonnet-5,wrong_1_366,True,23,0,False,0.127,generic_flip_compare,"def search(x, seq):
+    if len(seq)==0:
+        return 0
+    else:
+        if x <= seq[0]:
+            return 0
+        elif x > seq[-1]:
+            return len(seq)
+        else:
+            for i in range(0, len(seq)-1):
+                if seq[i] <= x <= seq[i+1]:
+                    return i+1
+",True,15,8,False,0.178,generic_flip_compare,"def search(x, seq):
+    if len(seq)==0:
+        return 0
+    else:
+        if x <= seq[0]:
+            return 0
+        elif x > seq[-1]:
+            return len(seq)
+        else:
+            for i in range(0, len(seq)-1):
+                if seq[i] <= x <= seq[i+1]:
+                    return i+1
+"
+refactory_q1,claude-sonnet-5,wrong_1_367,True,23,0,False,0.128,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if seq==():
+        return 0
+    else:
+        if not seq:
+            return 0
+        if x <= seq[0]:
+            return 0
+        elif x > seq[-1]:
+            return len(seq)
+        else:
+            for i in range(0, len(seq) - 1):
+                if seq[i] <= x <= seq[i + 1]:
+                    return i + 1
+",True,11,12,False,0.189,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if seq==():
+        return 0
+    else:
+        if not seq:
+            return 0
+        if x <= seq[0]:
+            return 0
+        elif x > seq[-1]:
+            return len(seq)
+        else:
+            for i in range(0, len(seq) - 1):
+                if seq[i] <= x <= seq[i + 1]:
+                    return i + 1
+"
+refactory_q1,claude-sonnet-5,wrong_1_368,False,1000,0,True,2.252,,,False,1000,1514,True,9.498,,
+refactory_q1,claude-sonnet-5,wrong_1_369,False,1000,0,True,2.168,,,False,1000,321,True,4.844,,
+refactory_q1,claude-sonnet-5,wrong_1_370,True,27,0,False,0.152,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if lst1 == []:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+    for i in range(len(lst2)):
+        if x == lst2[i]:
+            return i
+",True,20,7,False,0.2,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if lst1 == []:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+    for i in range(len(lst2)):
+        if x == lst2[i]:
+            return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_371,True,27,0,False,0.131,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if lst1 == []:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+    for i in range(len(lst2)):
+        if x == lst2[i]:
+            return i
+",True,20,7,False,0.216,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if lst1 == []:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+    for i in range(len(lst2)):
+        if x == lst2[i]:
+            return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_372,True,27,0,False,0.141,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if lst1 == []:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+    for i in range(len(lst2)):
+        if x == lst2[i]:
+            return i
+",True,20,7,False,0.201,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if lst1 == []:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+    for i in range(len(lst2)):
+        if x == lst2[i]:
+            return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_373,False,1000,0,True,3.48,,,False,0,10000,True,36.311,,
+refactory_q1,claude-sonnet-5,wrong_1_374,False,1000,0,True,3.384,,,False,0,10000,True,37.992,,
+refactory_q1,claude-sonnet-5,wrong_1_375,False,1000,0,True,4.463,,,False,0,10000,True,41.17,,
+refactory_q1,claude-sonnet-5,wrong_1_376,False,1000,0,True,3.567,,,False,1000,219,True,4.046,,
+refactory_q1,claude-sonnet-5,wrong_1_377,False,1000,0,True,2.229,,,False,1000,1072,True,8.305,,
+refactory_q1,claude-sonnet-5,wrong_1_378,False,1000,0,True,3.433,,,False,1000,745,True,6.63,,
+refactory_q1,claude-sonnet-5,wrong_1_379,False,1000,0,True,2.626,,,False,1000,745,True,5.822,,
+refactory_q1,claude-sonnet-5,wrong_1_380,False,1000,0,True,2.703,,,False,1000,707,True,5.719,,
+refactory_q1,claude-sonnet-5,wrong_1_381,False,1000,0,True,2.193,,,False,1000,341,True,4.672,,
+refactory_q1,claude-sonnet-5,wrong_1_382,False,1000,0,True,2.676,,,False,1000,707,True,5.908,,
+refactory_q1,claude-sonnet-5,wrong_1_383,True,27,0,False,0.168,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if lst1 == []:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+        for i in range(len(lst2)):
+            if x == lst2[i]:
+                return i
+",True,20,7,False,0.262,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if lst1 == []:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+        for i in range(len(lst2)):
+            if x == lst2[i]:
+                return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_384,False,1000,0,True,2.627,,,False,1000,745,True,5.845,,
+refactory_q1,claude-sonnet-5,wrong_1_385,False,1000,0,True,2.768,,,False,1000,707,True,5.961,,
+refactory_q1,claude-sonnet-5,wrong_1_386,False,1000,0,True,2.781,,,False,1000,707,True,5.304,,
+refactory_q1,claude-sonnet-5,wrong_1_387,False,1000,0,True,4.703,,,False,1000,707,True,5.843,,
+refactory_q1,claude-sonnet-5,wrong_1_388,False,1000,0,True,2.036,,,False,1000,1092,True,7.729,,
+refactory_q1,claude-sonnet-5,wrong_1_389,True,31,0,False,0.14,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if seq == () or seq ==[]:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+        for i in range(len(lst2)):
+            if x == lst2[i]:
+                return i
+",True,24,7,False,0.216,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if seq == () or seq ==[]:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+        for i in range(len(lst2)):
+            if x == lst2[i]:
+                return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_390,True,27,0,False,0.136,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if len(lst1) == 0:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+        for i in range(len(lst2)):
+            if x == lst2[i]:
+                return i
+",True,20,7,False,0.209,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if len(lst1) == 0:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+        for i in range(len(lst2)):
+            if x == lst2[i]:
+                return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_391,True,24,0,False,0.132,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if not seq:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+        for i in range(len(lst2)):
+            if x == lst2[i]:
+                return i
+",True,17,7,False,0.204,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if not seq:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+        for i in range(len(lst2)):
+            if x == lst2[i]:
+                return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_392,True,27,0,False,0.142,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if len(lst1) == 0:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+        for i in range(len(lst2)):
+            if x == lst2[i]:
+                return i
+",True,20,7,False,0.205,generic_flip_compare,"def search(x, seq):
+    lst1 = list(seq)
+    if len(lst1) == 0:
+        return 0
+    else: 
+        length = len(lst1)
+        lst2 = []
+        if x < seq[0]:
+            lst2 = [x] + lst1
+        elif x >= seq[length - 1]:
+            lst2 = lst1 + [x]
+        else:
+            for i in range(0, length):
+                if seq[i] <= x <= seq[i+1]:
+                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]
+        for i in range(len(lst2)):
+            if x == lst2[i]:
+                return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_393,False,35,0,False,0.425,,,False,35,0,False,0.503,,
+refactory_q1,claude-sonnet-5,wrong_1_394,True,1000,0,False,1.754,add_empty_guard_before_first_index_access|generic_flip_compare|generic_shift_range,"def search(x, seq):
+    n = len(seq)
+    for i in range(len(seq) + 1):
+        if not seq:
+            return 0
+        if x <= seq[0]:
+            return 0
+        elif x <= seq[i] and x >= seq[i - 1]:
+            return i
+        elif x > seq[n - 1]:
+            return n
+",True,670,2202,False,7.885,add_empty_guard_before_first_index_access|generic_flip_compare|generic_shift_range,"def search(x, seq):
+    n = len(seq)
+    for i in range(len(seq) + 1):
+        if not seq:
+            return 0
+        if x <= seq[0]:
+            return 0
+        elif x <= seq[i] and x >= seq[i - 1]:
+            return i
+        elif x > seq[n - 1]:
+            return n
+"
+refactory_q1,claude-sonnet-5,wrong_1_395,False,1000,0,True,2.241,,,False,1000,321,True,4.996,,
+refactory_q1,claude-sonnet-5,wrong_1_396,False,1000,0,True,2.831,,,False,1000,383,True,4.666,,
+refactory_q1,claude-sonnet-5,wrong_1_397,False,1000,0,True,2.619,,,False,1000,490,True,5.074,,
+refactory_q1,claude-sonnet-5,wrong_1_398,False,1000,0,True,2.767,,,False,1000,490,True,5.225,,
+refactory_q1,claude-sonnet-5,wrong_1_399,False,1000,0,True,2.777,,,False,1000,170,True,4.009,,
+refactory_q1,claude-sonnet-5,wrong_1_400,True,15,0,False,0.118,generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        for i in range(len(seq)):
+            if x <= seq[i]:
+                return i
+            elif x > max(seq):
+                return len(seq) 
+            else:
+                continue 
+
+",True,15,0,False,0.161,generic_flip_compare,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        for i in range(len(seq)):
+            if x <= seq[i]:
+                return i
+            elif x > max(seq):
+                return len(seq) 
+            else:
+                continue 
+
+"
+refactory_q1,claude-sonnet-5,wrong_1_401,False,3,0,False,0.118,,,False,0,3,False,0.2,,
+refactory_q1,claude-sonnet-5,wrong_1_402,False,143,0,False,1.227,,,False,0,143,False,1.096,,
+refactory_q1,claude-sonnet-5,wrong_1_403,True,19,0,False,0.124,add_missing_empty_alt_check,"def search(x, seq):
+    n = len(seq)
+    if seq == () or seq == []:
+        return 0
+    for i in range(0,n):
+        currentvalue = seq[i]
+        position = i
+        if position >= 0 and x>currentvalue:
+            position = i+1
+        elif position >= 0 and x<= currentvalue:
+            return position
+    return position
+",True,7,12,False,0.165,add_missing_empty_alt_check,"def search(x, seq):
+    n = len(seq)
+    if seq == () or seq == []:
+        return 0
+    for i in range(0,n):
+        currentvalue = seq[i]
+        position = i
+        if position >= 0 and x>currentvalue:
+            position = i+1
+        elif position >= 0 and x<= currentvalue:
+            return position
+    return position
+"
+refactory_q1,claude-sonnet-5,wrong_1_404,True,2,0,False,0.104,generic_flip_compare,"def search(x, seq):
+    counter=0
+    for i in seq:
+        if x > i:
+            counter+=1
+        else:
+            break
+    return counter
+",True,2,0,False,0.416,generic_flip_compare,"def search(x, seq):
+    counter=0
+    for i in seq:
+        if x > i:
+            counter+=1
+        else:
+            break
+    return counter
+"
+refactory_q1,claude-sonnet-5,wrong_1_405,False,1000,0,True,2.332,,,False,1000,31,True,2.874,,
+refactory_q1,claude-sonnet-5,wrong_1_406,False,1000,0,True,2.813,,,False,0,10000,True,32.7,,
+refactory_q1,claude-sonnet-5,wrong_1_407,False,1000,0,True,3.327,,,False,0,10000,True,40.185,,
+refactory_q1,claude-sonnet-5,wrong_1_408,False,1000,0,True,3.007,,,False,0,10000,True,41.296,,
+refactory_q1,claude-sonnet-5,wrong_1_409,True,2,0,False,0.111,strict_cmp_should_be_non_strict_in_enumerate_loop,"def search(x, seq):
+    for i, element in enumerate(seq):
+        if x <= element:
+            return i
+    return len(seq)
+",True,2,0,False,0.179,strict_cmp_should_be_non_strict_in_enumerate_loop,"def search(x, seq):
+    for i, element in enumerate(seq):
+        if x <= element:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_410,False,3,0,False,0.116,,,False,0,3,False,0.188,,
+refactory_q1,claude-sonnet-5,wrong_1_411,True,4,0,False,0.114,trailing_i_plus_one_after_loop,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+",True,2,2,False,0.19,trailing_i_plus_one_after_loop,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_412,False,1000,0,True,2.663,,,False,1000,219,True,3.894,,
+refactory_q1,claude-sonnet-5,wrong_1_413,False,3,0,False,0.113,,,False,3,0,False,0.496,,
+refactory_q1,claude-sonnet-5,wrong_1_414,True,4,0,False,0.128,trailing_i_plus_one_after_loop,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+",True,2,2,False,0.211,trailing_i_plus_one_after_loop,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_415,False,1000,0,True,2.568,,,False,1000,707,True,5.91,,
+refactory_q1,claude-sonnet-5,wrong_1_416,True,4,0,False,0.111,trailing_i_plus_one_after_loop,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+",True,2,2,False,0.181,trailing_i_plus_one_after_loop,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_417,True,8,0,False,0.111,add_missing_empty_alt_check,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0 
+    for i, elem in enumerate(seq) :
+        if x <= elem :
+            return i
+    return i + 1
+",True,6,2,False,0.148,add_missing_empty_alt_check,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0 
+    for i, elem in enumerate(seq) :
+        if x <= elem :
+            return i
+    return i + 1
+"
+refactory_q1,claude-sonnet-5,wrong_1_418,False,1000,0,True,2.213,,,False,1000,881,True,6.204,,
+refactory_q1,claude-sonnet-5,wrong_1_419,False,1000,0,True,2.972,,,False,1000,236,True,4.529,,
+refactory_q1,claude-sonnet-5,wrong_1_420,True,34,0,False,0.29,generic_shift_range|generic_shift_index,"def search(x, seq):
+    for i in range(len(seq) - 1 + 1):
+        if x <= seq[i + 1 - 1]:
+            return i
+    return len(seq)
+",True,33,1,False,0.537,generic_shift_range|generic_shift_index,"def search(x, seq):
+    for i in range(len(seq) - 1 + 1):
+        if x <= seq[i + 1 - 1]:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_421,False,1000,0,True,3.541,,,False,1000,757,True,6.621,,
+refactory_q1,claude-sonnet-5,wrong_1_422,False,1000,0,True,3.061,,,False,1000,1143,True,6.8,,
+refactory_q1,claude-sonnet-5,wrong_1_423,True,132,0,False,0.54,add_missing_empty_alt_check|generic_shift_range,"def search(x, seq):
+    for i in range(len(seq) + 1):
+        if seq == () or seq == []:
+            return 0
+        if x <= seq[i]:
+            return i
+        elif x > seq[len(seq)-1]:
+            return len(seq)
+",True,32,100,False,0.552,add_missing_empty_alt_check|generic_shift_range,"def search(x, seq):
+    for i in range(len(seq) + 1):
+        if seq == () or seq == []:
+            return 0
+        if x <= seq[i]:
+            return i
+        elif x > seq[len(seq)-1]:
+            return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_424,True,16,0,False,0.163,or_literal_precedence_bug,"def search(x, seq):
+    if seq == () or seq == []:
+            return 0
+    for i in range (len(seq)):
+        if x <= seq[i]:
+            return i
+        elif x > seq[len(seq)-1]:
+            return len(seq)
+",True,7,9,False,0.246,or_literal_precedence_bug,"def search(x, seq):
+    if seq == () or seq == []:
+            return 0
+    for i in range (len(seq)):
+        if x <= seq[i]:
+            return i
+        elif x > seq[len(seq)-1]:
+            return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_425,True,16,0,False,0.17,or_literal_precedence_bug,"def search(x, seq):
+    if seq == () or seq == []:
+            return 0
+    for i in range (len(seq)):
+        if x <= seq[i]:
+            return i
+        elif x > seq[len(seq)-1]:
+            return len(seq)
+",True,7,9,False,0.223,or_literal_precedence_bug,"def search(x, seq):
+    if seq == () or seq == []:
+            return 0
+    for i in range (len(seq)):
+        if x <= seq[i]:
+            return i
+        elif x > seq[len(seq)-1]:
+            return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_426,True,4,0,False,0.162,loop_return_in_place_of_else_fallback,"def search(x,seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+        
+",True,2,2,False,0.604,loop_return_in_place_of_else_fallback,"def search(x,seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+        
+"
+refactory_q1,claude-sonnet-5,wrong_1_427,True,4,0,False,0.155,loop_return_in_place_of_else_fallback,"def search(x,seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+        
+",True,2,2,False,0.529,loop_return_in_place_of_else_fallback,"def search(x,seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+        
+"
+refactory_q1,claude-sonnet-5,wrong_1_428,False,1000,0,True,4.529,,,False,0,10000,True,48.966,,
+refactory_q1,claude-sonnet-5,wrong_1_429,False,34,0,False,0.355,,,False,0,34,False,0.296,,
+refactory_q1,claude-sonnet-5,wrong_1_430,False,1000,0,True,3.836,,,False,0,2974,False,24.836,,
+refactory_q1,claude-sonnet-5,wrong_1_431,False,244,0,False,2.725,,,False,0,244,False,2.589,,
+refactory_q1,claude-sonnet-5,wrong_1_432,False,1000,0,True,2.883,,,False,1000,541,True,6.578,,
+refactory_q1,claude-sonnet-5,wrong_1_433,False,1000,0,True,3.088,,,False,1000,219,True,4.162,,
+refactory_q1,claude-sonnet-5,wrong_1_434,False,4,0,False,0.136,,,False,0,4,False,0.441,,
+refactory_q1,claude-sonnet-5,wrong_1_435,False,4,0,False,0.125,,,False,0,4,False,0.297,,
+refactory_q1,claude-sonnet-5,wrong_1_436,False,23,0,False,0.348,,,False,20,3,False,0.528,,
+refactory_q1,claude-sonnet-5,wrong_1_437,False,575,0,False,11.163,,,False,480,95,False,11.546,,
+refactory_q1,claude-sonnet-5,wrong_1_438,False,575,0,False,8.808,,,False,480,95,False,8.65,,
+refactory_q1,claude-sonnet-5,wrong_1_439,True,3,0,False,0.109,reversed_count_comparison,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    a = 0
+    for i in seq:
+        if x > i:
+            a = a + 1
+    return a
+",True,3,0,False,0.443,reversed_count_comparison,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    a = 0
+    for i in seq:
+        if x > i:
+            a = a + 1
+    return a
+"
+refactory_q1,claude-sonnet-5,wrong_1_440,False,1000,0,True,9.541,,,False,960,191,False,14.826,,
+refactory_q1,claude-sonnet-5,wrong_1_441,True,7,0,False,0.11,trailing_i_plus_one_after_loop,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq) 
+    
+                
+        
+  
+",True,3,4,False,0.183,trailing_i_plus_one_after_loop,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq) 
+    
+                
+        
+  
+"
+refactory_q1,claude-sonnet-5,wrong_1_442,True,78,0,False,0.335,add_missing_empty_alt_check|empty_check_wrong_return,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for i in range(len(seq)):
+        if x<=seq[i]:
+            return i
+    return i+1 
+    
+                
+        
+  
+",True,42,36,False,0.319,add_missing_empty_alt_check|empty_check_wrong_return,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for i in range(len(seq)):
+        if x<=seq[i]:
+            return i
+    return i+1 
+    
+                
+        
+  
+"
+refactory_q1,claude-sonnet-5,wrong_1_443,True,10,0,False,0.116,trailing_i_plus_one_after_loop,"def search(x, seq):
+    if len(seq)==0:
+        pass
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq) 
+    
+                
+        
+  
+",True,6,4,False,0.199,trailing_i_plus_one_after_loop,"def search(x, seq):
+    if len(seq)==0:
+        pass
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq) 
+    
+                
+        
+  
+"
+refactory_q1,claude-sonnet-5,wrong_1_444,True,216,0,False,0.554,add_empty_guard_before_first_index_access|generic_flip_compare,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    else:
+        y = len(seq)
+        for i in range(y - 1):
+            if x > seq[i] and x <= seq[i + 1]:
+                return i + 1
+        return y
+",True,129,87,False,0.739,add_empty_guard_before_first_index_access|generic_flip_compare,"def search(x, seq):
+    if not seq:
+        return 0
+    if x <= seq[0]:
+        return 0
+    else:
+        y = len(seq)
+        for i in range(y - 1):
+            if x > seq[i] and x <= seq[i + 1]:
+                return i + 1
+        return y
+"
+refactory_q1,claude-sonnet-5,wrong_1_445,False,1000,0,True,1.802,,,False,1000,903,True,5.235,,
+refactory_q1,claude-sonnet-5,wrong_1_446,False,1000,0,True,2.505,,,False,1000,416,True,4.198,,
+refactory_q1,claude-sonnet-5,wrong_1_447,False,4,0,False,0.119,,,False,3,1,False,0.366,,
+refactory_q1,claude-sonnet-5,wrong_1_448,True,2,0,False,0.107,generic_flip_compare,"def search(x, seq):
+    count=0
+    for i in seq:
+        if x <= i:
+            return count
+        count+=1
+    return len(seq)
+",True,2,0,False,0.177,generic_flip_compare,"def search(x, seq):
+    count=0
+    for i in seq:
+        if x <= i:
+            return count
+        count+=1
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_449,False,1000,0,True,2.042,,,False,0,10000,True,36.743,,
+refactory_q1,claude-sonnet-5,wrong_1_450,True,2,0,False,0.118,strict_cmp_should_be_non_strict_in_enumerate_loop,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+",True,2,0,False,0.179,strict_cmp_should_be_non_strict_in_enumerate_loop,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_451,False,1000,0,True,2.608,,,False,1000,707,True,5.84,,
+refactory_q1,claude-sonnet-5,wrong_1_452,True,7,0,False,0.129,loop_return_in_place_of_else_fallback,"def search(x, seq):
+    for i in range(len(seq)):
+        if seq[i] >= x:
+            return i
+    return len(seq)
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+",True,3,4,False,0.437,loop_return_in_place_of_else_fallback,"def search(x, seq):
+    for i in range(len(seq)):
+        if seq[i] >= x:
+            return i
+    return len(seq)
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+"
+refactory_q1,claude-sonnet-5,wrong_1_453,False,1000,0,True,3.014,,,False,1000,219,True,4.313,,
+refactory_q1,claude-sonnet-5,wrong_1_454,True,7,0,False,0.114,loop_return_in_place_of_else_fallback,"def search(x, seq):
+    for i in range(len(seq)):
+        if seq[i] >= x:
+            return i
+    return len(seq)
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+",True,3,4,False,0.371,loop_return_in_place_of_else_fallback,"def search(x, seq):
+    for i in range(len(seq)):
+        if seq[i] >= x:
+            return i
+    return len(seq)
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+"
+refactory_q1,claude-sonnet-5,wrong_1_455,False,1000,0,True,1.856,,,True,1000,514,False,4.744,add_empty_guard_before_first_index_access|generic_flip_compare|generic_flip_compare,"def search(x, seq):
+    if seq == [] or seq == (): 
+        return 0
+    elif len(seq) == 1:
+        if not seq:
+            return 0
+        if x <= seq[0]:
+            return 0
+        else:
+            return 1
+    elif seq[-1] < x:
+        return len(seq)
+    elif seq[0] >= x:
+        return 0
+    else:
+        for i in range(len(seq)):
+            if x >= seq[i] and x <= seq[i+1]:
+                return i + 1
+"
+refactory_q1,claude-sonnet-5,wrong_1_456,False,1000,0,True,1.726,,,False,1000,608,True,5.126,,
+refactory_q1,claude-sonnet-5,wrong_1_457,True,7,0,False,0.115,loop_return_in_place_of_else_fallback,"def search(x, seq):
+    for i in range(len(seq)):
+        if seq[i] >= x:
+            return i
+    return len(seq)
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+",True,3,4,False,0.351,loop_return_in_place_of_else_fallback,"def search(x, seq):
+    for i in range(len(seq)):
+        if seq[i] >= x:
+            return i
+    return len(seq)
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+"
+refactory_q1,claude-sonnet-5,wrong_1_458,False,1000,0,True,2.822,,,False,1000,219,True,5.99,,
+refactory_q1,claude-sonnet-5,wrong_1_459,False,1000,0,True,3.714,,,False,1000,219,True,4.881,,
+refactory_q1,claude-sonnet-5,wrong_1_460,False,1000,0,True,1.859,,,False,1000,267,True,6.12,,
+refactory_q1,claude-sonnet-5,wrong_1_461,False,1000,0,True,2.379,,,False,1000,796,True,8.527,,
+refactory_q1,claude-sonnet-5,wrong_1_462,False,1000,0,True,2.401,,,True,1000,514,False,6.094,add_empty_guard_before_first_index_access|generic_flip_compare|generic_flip_compare,"def search(x, seq):
+    if seq == [] or seq == (): 
+        return 0
+    elif len(seq) == 1:
+        if not seq:
+            return 0
+        if x <= seq[0]:
+            return 0
+        else:
+            return 1
+    elif seq[-1] < x:
+        return len(seq)
+    elif seq[0] >= x:
+        return 0
+    else:
+        for i in range(len(seq)):
+            if x >= seq[i] and x <= seq[i+1]:
+                return i + 1
+"
+refactory_q1,claude-sonnet-5,wrong_1_463,False,1000,0,True,2.337,,,False,1000,757,True,8.611,,
+refactory_q1,claude-sonnet-5,wrong_1_464,False,1000,0,True,2.567,,,False,1000,796,True,10.911,,
+refactory_q1,claude-sonnet-5,wrong_1_465,False,1000,0,True,2.817,,,False,1000,309,True,7.611,,
+refactory_q1,claude-sonnet-5,wrong_1_466,False,1000,0,True,2.941,,,False,1000,524,True,5.318,,
+refactory_q1,claude-sonnet-5,wrong_1_467,False,1000,0,True,2.493,,,True,1000,514,False,6.477,add_empty_guard_before_first_index_access|generic_flip_compare|generic_flip_compare,"def search(x, seq):
+    if seq == [] or seq == (): 
+        return 0
+    elif len(seq) == 1:
+        if not seq:
+            return 0
+        if x <= seq[0]:
+            return 0
+        else:
+            return 1
+    elif seq[-1] < x:
+        return len(seq)
+    elif seq[0] >= x:
+        return 0
+    else:
+        for i in range(len(seq)):
+            if x >= seq[i] and x <= seq[i+1]:
+                return i + 1
+"
+refactory_q1,claude-sonnet-5,wrong_1_468,True,19,0,False,0.123,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    else:
+        i = 0
+        while i in range(len(seq)):
+            if x <= seq[i]:
+                return i
+            elif x > seq[len(seq) - 1]:
+                return len(seq)
+            else:
+                i += 1
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    return
+",True,8,11,False,0.243,add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x < seq[0]:
+        return 0
+    else:
+        i = 0
+        while i in range(len(seq)):
+            if x <= seq[i]:
+                return i
+            elif x > seq[len(seq) - 1]:
+                return len(seq)
+            else:
+                i += 1
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    return
+"
+refactory_q1,claude-sonnet-5,wrong_1_469,False,3,0,False,0.119,,,False,0,3,False,0.121,,
+refactory_q1,claude-sonnet-5,wrong_1_470,True,7,0,False,0.113,or_literal_precedence_bug,"def search(x, seq):
+    if seq == [] or seq == ():
+        return 0
+    else:
+        for i, element in enumerate(seq):
+            for element in seq:
+                if x > element:
+                    i+=1
+            return i
+",True,5,2,False,0.159,or_literal_precedence_bug,"def search(x, seq):
+    if seq == [] or seq == ():
+        return 0
+    else:
+        for i, element in enumerate(seq):
+            for element in seq:
+                if x > element:
+                    i+=1
+            return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_471,False,23,0,False,0.297,,,False,0,23,False,0.234,,
+refactory_q1,claude-sonnet-5,wrong_1_472,False,23,0,False,0.322,,,False,0,23,False,0.235,,
+refactory_q1,claude-sonnet-5,wrong_1_473,False,23,0,False,0.304,,,False,20,3,False,0.341,,
+refactory_q1,claude-sonnet-5,wrong_1_474,True,7,0,False,0.127,or_literal_precedence_bug,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        for i, element in enumerate(seq):
+            for element in seq:
+                if x > element:
+                    i+=1
+            return i
+",True,5,2,False,0.182,or_literal_precedence_bug,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        for i, element in enumerate(seq):
+            for element in seq:
+                if x > element:
+                    i+=1
+            return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_475,True,7,0,False,0.115,or_literal_precedence_bug,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        for i, element in enumerate(seq):
+            for element in seq:
+                if x > element:
+                    i+=1
+            return i
+",True,5,2,False,0.149,or_literal_precedence_bug,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        for i, element in enumerate(seq):
+            for element in seq:
+                if x > element:
+                    i+=1
+            return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_476,True,21,0,False,0.183,generic_flip_bool_op|or_literal_precedence_bug,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        for i, element in enumerate(seq):
+            for element in seq:
+                if x > element:
+                    i+=1
+            return i
+",True,18,3,False,0.262,generic_flip_bool_op|or_literal_precedence_bug,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        for i, element in enumerate(seq):
+            for element in seq:
+                if x > element:
+                    i+=1
+            return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_477,True,7,0,False,0.113,or_literal_precedence_bug,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        for i, element in enumerate(seq):
+            for element in seq:
+                if x > element:
+                    i+=1
+            return i
+",True,5,2,False,0.151,or_literal_precedence_bug,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        for i, element in enumerate(seq):
+            for element in seq:
+                if x > element:
+                    i+=1
+            return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_478,False,1000,0,True,2.404,,,False,1000,49,True,3.173,,
+refactory_q1,claude-sonnet-5,wrong_1_479,True,14,0,False,0.142,add_missing_empty_alt_check,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq == () or seq == []:
+        return 0
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    if x > seq[-1]:
+        return len(seq)
+",True,10,4,False,0.167,add_missing_empty_alt_check,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq == () or seq == []:
+        return 0
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    if x > seq[-1]:
+        return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_480,False,311,0,False,2.734,,,False,0,311,False,2.285,,
+refactory_q1,claude-sonnet-5,wrong_1_481,False,1000,0,True,4.346,,,False,0,1871,False,16.549,,
+refactory_q1,claude-sonnet-5,wrong_1_482,False,1000,0,True,5.35,,,False,1000,281,True,13.499,,
+refactory_q1,claude-sonnet-5,wrong_1_483,False,1000,0,True,4.027,,,False,1000,219,True,5.356,,
+refactory_q1,claude-sonnet-5,wrong_1_484,False,1000,0,True,4.087,,,False,1000,0,True,4.507,,
+refactory_q1,claude-sonnet-5,wrong_1_485,False,1000,0,True,3.018,,,False,1000,0,True,3.31,,
+refactory_q1,claude-sonnet-5,wrong_1_486,False,1000,0,True,3.511,,,False,1000,0,True,3.506,,
+refactory_q1,claude-sonnet-5,wrong_1_487,True,16,0,False,0.115,add_missing_empty_alt_check,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq == () or seq == []:
+        return 0
+    searchlist = list(enumerate(seq))
+    for i in range(len(searchlist)):
+        if x <= searchlist[i][1]:
+            return searchlist[i][0]
+    return i+ 1
+",True,6,10,False,0.158,add_missing_empty_alt_check,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq == () or seq == []:
+        return 0
+    searchlist = list(enumerate(seq))
+    for i in range(len(searchlist)):
+        if x <= searchlist[i][1]:
+            return searchlist[i][0]
+    return i+ 1
+"
+refactory_q1,claude-sonnet-5,wrong_1_488,False,1000,0,True,2.661,,,False,1000,250,True,4.221,,
+refactory_q1,claude-sonnet-5,wrong_1_489,False,1000,0,True,3.64,,,False,1000,1,True,4.259,,
+refactory_q1,claude-sonnet-5,wrong_1_490,False,1000,0,True,3.281,,,False,1000,109,True,4.651,,
+refactory_q1,claude-sonnet-5,wrong_1_491,False,1000,0,True,2.444,,,False,1000,54,True,2.862,,
+refactory_q1,claude-sonnet-5,wrong_1_492,False,1000,0,True,4.775,,,False,0,10000,True,59.492,,
+refactory_q1,claude-sonnet-5,wrong_1_493,False,1000,0,True,3.781,,,False,0,10000,True,41.797,,
+refactory_q1,claude-sonnet-5,wrong_1_494,False,1000,0,True,4.101,,,False,1000,180,True,5.307,,
+refactory_q1,claude-sonnet-5,wrong_1_495,True,11,0,False,0.169,or_literal_precedence_bug,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        for i, elem in enumerate (seq):
+            if x<=elem:
+                return i
+            elif x>seq[-1]:
+                return len(seq)
+",True,5,6,False,0.212,or_literal_precedence_bug,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    else:
+        for i, elem in enumerate (seq):
+            if x<=elem:
+                return i
+            elif x>seq[-1]:
+                return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_496,False,311,0,False,3.659,,,False,0,311,False,3.547,,
+refactory_q1,claude-sonnet-5,wrong_1_497,False,1000,0,True,42.955,,,False,1000,317,True,52.23,,
+refactory_q1,claude-sonnet-5,wrong_1_498,False,1000,0,True,41.73,,,False,1000,193,True,27.287,,
+refactory_q1,claude-sonnet-5,wrong_1_499,False,1000,0,True,41.781,,,False,1000,193,True,27.352,,
+refactory_q1,claude-sonnet-5,wrong_1_500,True,7,0,False,0.112,loop_return_in_place_of_else_fallback,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+",True,3,4,False,0.512,loop_return_in_place_of_else_fallback,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_501,True,7,0,False,0.181,loop_return_in_place_of_else_fallback,"def search(x, seq):
+    for i in range(len(seq)):
+        if seq[i] >= x:
+            return i
+    return len(seq)
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+",True,3,4,False,0.561,loop_return_in_place_of_else_fallback,"def search(x, seq):
+    for i in range(len(seq)):
+        if seq[i] >= x:
+            return i
+    return len(seq)
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+"
+refactory_q1,claude-sonnet-5,wrong_1_502,False,1000,0,True,4.278,,,False,1000,13,True,6.372,,
+refactory_q1,claude-sonnet-5,wrong_1_503,False,1000,0,True,7.165,,,False,1000,13,True,8.463,,
+refactory_q1,claude-sonnet-5,wrong_1_504,False,1000,0,True,10.198,,,False,1000,7,True,8.698,,
+refactory_q1,claude-sonnet-5,wrong_1_505,True,7,0,False,0.129,generic_flip_compare,"def search(x, seq):
+    i = 0
+    while (i<len(seq) and x > seq[i]):
+        i += 1
+    return i
+",True,7,0,False,0.665,generic_flip_compare,"def search(x, seq):
+    i = 0
+    while (i<len(seq) and x > seq[i]):
+        i += 1
+    return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_506,False,1000,0,True,17.441,,,False,1000,3,True,18.627,,
+refactory_q1,claude-sonnet-5,wrong_1_507,True,28,0,False,0.235,strict_cmp_should_be_non_strict_in_range_loop|missing_fallback_return,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+",True,15,13,False,0.489,strict_cmp_should_be_non_strict_in_range_loop|missing_fallback_return,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_508,True,7,0,False,0.153,missing_fallback_return,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+",True,3,4,False,0.267,missing_fallback_return,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_509,True,391,0,False,1.124,generic_flip_compare|last_boundary_ge_should_be_gt|add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x > seq[-1]:
+        return len(seq)
+    for i in range(len(seq)):
+        if x>seq[i]:
+            continue
+        return i
+",True,285,106,False,1.119,generic_flip_compare|last_boundary_ge_should_be_gt|add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x > seq[-1]:
+        return len(seq)
+    for i in range(len(seq)):
+        if x>seq[i]:
+            continue
+        return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_510,True,391,0,False,1.006,generic_flip_compare|last_boundary_ge_should_be_gt|add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x > seq[-1]:
+        return len(seq)
+    for i in range(len(seq)):
+        if x>seq[i]:
+            continue
+        return i
+",True,285,106,False,1.11,generic_flip_compare|last_boundary_ge_should_be_gt|add_empty_guard_before_first_index_access,"def search(x, seq):
+    if not seq:
+        return 0
+    if x > seq[-1]:
+        return len(seq)
+    for i in range(len(seq)):
+        if x>seq[i]:
+            continue
+        return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_511,False,1000,0,True,5.907,,,False,0,10000,True,53.449,,
+refactory_q1,claude-sonnet-5,wrong_1_512,False,1000,0,True,3.093,,,False,1000,197,True,5.83,,
+refactory_q1,claude-sonnet-5,wrong_1_513,False,1000,0,True,4.162,,,False,1000,197,True,5.551,,
+refactory_q1,claude-sonnet-5,wrong_1_514,False,1000,0,True,4.098,,,False,1000,659,True,9.104,,
+refactory_q1,claude-sonnet-5,wrong_1_515,True,20,0,False,0.121,add_empty_guard_before_first_index_access,"def search(x, seq): 
+    if not seq:
+        return 0
+    if int(x) < seq[0]:
+        return 0
+    elif int(x) > seq[len(seq) - 1]:
+        return len(seq)  
+    Index = 0
+    for i in range(0,len(seq)): 
+        if int(x)>seq[i]:
+            continue
+        Index = i
+        return Index
+",True,8,12,False,0.198,add_empty_guard_before_first_index_access,"def search(x, seq): 
+    if not seq:
+        return 0
+    if int(x) < seq[0]:
+        return 0
+    elif int(x) > seq[len(seq) - 1]:
+        return len(seq)  
+    Index = 0
+    for i in range(0,len(seq)): 
+        if int(x)>seq[i]:
+            continue
+        Index = i
+        return Index
+"
+refactory_q1,claude-sonnet-5,wrong_1_516,False,1000,0,True,2.374,,,False,1000,331,True,4.752,,
+refactory_q1,claude-sonnet-5,wrong_1_517,False,1000,0,True,2.74,,,False,1000,94,True,3.724,,
+refactory_q1,claude-sonnet-5,wrong_1_518,True,7,0,False,0.115,or_literal_precedence_bug,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for c,value in enumerate(seq):
+        if value>=x:
+            return(c)
+    else:
+        return(c+1)
+",True,5,2,False,0.158,or_literal_precedence_bug,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for c,value in enumerate(seq):
+        if value>=x:
+            return(c)
+    else:
+        return(c+1)
+"
+refactory_q1,claude-sonnet-5,wrong_1_519,False,24,0,False,0.306,,,False,0,24,False,0.463,,
+refactory_q1,claude-sonnet-5,wrong_1_520,False,1000,0,True,5.297,,,False,0,10000,True,63.074,,
+refactory_q1,claude-sonnet-5,wrong_1_521,False,1000,0,True,3.41,,,False,1000,2,True,4.095,,
+refactory_q1,claude-sonnet-5,wrong_1_522,False,1000,0,True,4.446,,,False,1000,15,True,5.101,,
+refactory_q1,claude-sonnet-5,wrong_1_523,False,1000,0,True,3.822,,,False,1000,82,True,4.777,,
+refactory_q1,claude-sonnet-5,wrong_1_524,True,4,0,False,0.108,trailing_i_plus_one_after_loop,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+",True,2,2,False,0.185,trailing_i_plus_one_after_loop,"def search(x, seq):
+    for i in range(len(seq)):
+        if x <= seq[i]:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_525,False,1000,0,True,3.813,,,False,1000,82,True,4.701,,
+refactory_q1,claude-sonnet-5,wrong_1_526,True,43,0,False,0.214,add_missing_empty_alt_check|empty_check_wrong_return,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return i+1
+",True,30,13,False,0.277,add_missing_empty_alt_check|empty_check_wrong_return,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return i+1
+"
+refactory_q1,claude-sonnet-5,wrong_1_527,True,43,0,False,0.194,add_missing_empty_alt_check|empty_check_wrong_return,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return i+1
+",True,30,13,False,0.286,add_missing_empty_alt_check|empty_check_wrong_return,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return i+1
+"
+refactory_q1,claude-sonnet-5,wrong_1_528,False,1000,0,True,4.276,,,False,1000,23,True,4.972,,
+refactory_q1,claude-sonnet-5,wrong_1_529,False,1000,0,True,4.319,,,False,1000,23,True,5.02,,
+refactory_q1,claude-sonnet-5,wrong_1_530,False,27,0,False,0.321,,,False,0,27,False,0.263,,
+refactory_q1,claude-sonnet-5,wrong_1_531,True,5,0,False,0.123,generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    counter = 0
+    if len(seq) == 0:
+        return 0
+        
+    for i in seq:
+        if x > i:
+            counter += 1
+        else:
+            return counter
+            
+    return counter
+",True,5,0,False,0.445,generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    counter = 0
+    if len(seq) == 0:
+        return 0
+        
+    for i in seq:
+        if x > i:
+            counter += 1
+        else:
+            return counter
+            
+    return counter
+"
+refactory_q1,claude-sonnet-5,wrong_1_532,True,5,0,False,0.111,generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    counter = 0
+    if len(seq) == 0:
+        return 0
+        
+    for i in seq:
+        if x > i:
+            counter += 1
+        else:
+            return counter
+            
+    return counter
+",True,5,0,False,0.428,generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    counter = 0
+    if len(seq) == 0:
+        return 0
+        
+    for i in seq:
+        if x > i:
+            counter += 1
+        else:
+            return counter
+            
+    return counter
+"
+refactory_q1,claude-sonnet-5,wrong_1_533,True,5,0,False,0.115,generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    counter = 0
+    if len(seq) == 0:
+        return 0
+        
+    for i in seq:
+        if x > i:
+            counter += 1
+        else:
+            return counter
+
+    return counter
+",True,5,0,False,0.449,generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    counter = 0
+    if len(seq) == 0:
+        return 0
+        
+    for i in seq:
+        if x > i:
+            counter += 1
+        else:
+            return counter
+
+    return counter
+"
+refactory_q1,claude-sonnet-5,wrong_1_534,True,4,0,False,0.111,loop_return_in_place_of_else_fallback,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+",True,2,2,False,0.372,loop_return_in_place_of_else_fallback,"def search(x, seq):
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return len(seq)
+"
+refactory_q1,claude-sonnet-5,wrong_1_535,True,5,0,False,0.112,generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    counter = 0
+    if len(seq) == 0:
+        return 0
+
+    for i in seq:
+        if x <= i:
+            return counter
+        else:
+            counter += 1
+
+    return counter
+",True,5,0,False,0.182,generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    counter = 0
+    if len(seq) == 0:
+        return 0
+
+    for i in seq:
+        if x <= i:
+            return counter
+        else:
+            counter += 1
+
+    return counter
+"
+refactory_q1,claude-sonnet-5,wrong_1_536,False,15,0,False,0.232,,,False,12,3,False,0.499,,
+refactory_q1,claude-sonnet-5,wrong_1_537,False,1000,0,True,2.515,,,False,1000,250,True,3.554,,
+refactory_q1,claude-sonnet-5,wrong_1_538,False,1000,0,True,2.522,,,False,1000,250,True,3.518,,
+refactory_q1,claude-sonnet-5,wrong_1_539,False,1000,0,True,2.493,,,False,1000,720,True,5.22,,
+refactory_q1,claude-sonnet-5,wrong_1_540,True,14,0,False,0.12,add_missing_empty_alt_check,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for i in range(len(seq)):
+        if seq[i]>=x:
+            break
+        elif seq[-1]<x:
+            return len(seq)
+    return i
+",True,6,8,False,0.158,add_missing_empty_alt_check,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for i in range(len(seq)):
+        if seq[i]>=x:
+            break
+        elif seq[-1]<x:
+            return len(seq)
+    return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_541,False,1000,0,True,2.896,,,False,1000,150,True,4.199,,
+refactory_q1,claude-sonnet-5,wrong_1_542,False,1000,0,True,2.261,,,False,1000,773,True,6.302,,
+refactory_q1,claude-sonnet-5,wrong_1_543,False,1000,0,True,2.543,,,False,1000,1441,True,9.089,,
+refactory_q1,claude-sonnet-5,wrong_1_544,False,1000,0,True,2.529,,,False,1000,1441,True,9.019,,
+refactory_q1,claude-sonnet-5,wrong_1_545,False,1000,0,True,3.032,,,False,0,10000,True,45.145,,
+refactory_q1,claude-sonnet-5,wrong_1_546,False,15,0,False,0.234,,,False,12,3,False,0.475,,
+refactory_q1,claude-sonnet-5,wrong_1_547,True,43,0,False,0.194,add_missing_empty_alt_check|empty_check_wrong_return,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return i+1
+",True,30,13,False,0.289,add_missing_empty_alt_check|empty_check_wrong_return,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return i+1
+"
+refactory_q1,claude-sonnet-5,wrong_1_548,False,1000,0,True,2.968,,,False,1000,635,True,5.701,,
+refactory_q1,claude-sonnet-5,wrong_1_549,False,1000,0,True,2.926,,,False,1000,635,True,5.948,,
+refactory_q1,claude-sonnet-5,wrong_1_550,False,1000,0,True,3.232,,,False,0,10000,True,46.995,,
+refactory_q1,claude-sonnet-5,wrong_1_551,True,15,0,False,0.19,add_missing_empty_alt_check,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    if x>seq[len(seq)-1]:
+        return len(seq)
+    for i in range(len(seq)):
+        if x>seq[i]:
+            continue
+        return i
+",True,9,6,False,0.242,add_missing_empty_alt_check,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    if x>seq[len(seq)-1]:
+        return len(seq)
+    for i in range(len(seq)):
+        if x>seq[i]:
+            continue
+        return i
+"
+refactory_q1,claude-sonnet-5,wrong_1_552,True,43,0,False,0.272,add_missing_empty_alt_check|empty_check_wrong_return,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return i+1
+",True,30,13,False,0.359,add_missing_empty_alt_check|empty_check_wrong_return,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return i+1
+"
+refactory_q1,claude-sonnet-5,wrong_1_553,True,43,0,False,0.274,add_missing_empty_alt_check|empty_check_wrong_return,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return i+1
+",True,30,13,False,0.392,add_missing_empty_alt_check|empty_check_wrong_return,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return i+1
+"
+refactory_q1,claude-sonnet-5,wrong_1_554,True,43,0,False,0.248,add_missing_empty_alt_check|empty_check_wrong_return,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return i+1
+",True,30,13,False,0.381,add_missing_empty_alt_check|empty_check_wrong_return,"def search(x, seq):
+    if seq == () or seq == []:
+        return 0
+    for i, elem in enumerate(seq):
+        if x <= elem:
+            return i
+    return i+1
+"
+refactory_q1,claude-sonnet-5,wrong_1_555,False,1000,0,True,3.143,,,False,1000,659,True,13.609,,
+refactory_q1,claude-sonnet-5,wrong_1_556,False,1000,0,True,3.127,,,False,1000,591,True,8.074,,
+refactory_q1,claude-sonnet-5,wrong_1_557,False,24,0,False,0.33,,,False,0,24,False,0.449,,
+refactory_q1,claude-sonnet-5,wrong_1_558,False,24,0,False,0.344,,,False,0,24,False,0.401,,
+refactory_q1,claude-sonnet-5,wrong_1_559,False,24,0,False,0.292,,,False,0,24,False,0.416,,
+refactory_q1,claude-sonnet-5,wrong_1_560,False,1000,0,True,2.985,,,False,1000,937,True,7.81,,
+refactory_q1,claude-sonnet-5,wrong_1_561,True,15,0,False,0.141,generic_flip_compare,"def search(x, seq):
+    if seq==[] or seq==():
+        return 0
+    elif x > max(seq):
+        return len(seq)
+    else:
+        for i in range(len(seq)):
+            if x<=seq[i]:
+                return i
+                break
+            else:
+                continue
+",True,9,6,False,0.258,generic_flip_compare,"def search(x, seq):
+    if seq==[] or seq==():
+        return 0
+    elif x > max(seq):
+        return len(seq)
+    else:
+        for i in range(len(seq)):
+            if x<=seq[i]:
+                return i
+                break
+            else:
+                continue
+"
+refactory_q1,claude-sonnet-5,wrong_1_562,False,15,0,False,0.333,,,False,12,3,False,0.695,,
+refactory_q1,claude-sonnet-5,wrong_1_563,False,15,0,False,0.339,,,False,12,3,False,0.759,,
+refactory_q1,claude-sonnet-5,wrong_1_564,False,51,0,False,0.633,,,False,0,51,False,0.434,,
+refactory_q1,claude-sonnet-5,wrong_1_565,False,167,0,False,1.397,,,False,0,167,False,1.431,,
+refactory_q1,claude-sonnet-5,wrong_1_566,False,167,0,False,1.68,,,False,0,167,False,1.486,,
+refactory_q1,claude-sonnet-5,wrong_1_567,False,167,0,False,1.499,,,False,0,167,False,1.448,,
+refactory_q1,claude-sonnet-5,wrong_1_568,False,3,0,False,0.178,,,False,0,3,False,0.565,,
+refactory_q1,claude-sonnet-5,wrong_1_569,False,3,0,False,0.16,,,False,0,3,False,0.535,,
+refactory_q1,claude-sonnet-5,wrong_1_570,False,3,0,False,0.144,,,False,0,3,False,0.545,,
+refactory_q1,claude-sonnet-5,wrong_1_571,False,1000,0,True,1.927,,,False,1000,267,True,4.064,,
+refactory_q1,claude-sonnet-5,wrong_1_572,True,1000,0,False,1.773,add_missing_empty_alt_check|generic_flip_compare|generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq == () or seq == []:
+        return 0
+    if x <= seq[0]:
+        return 0
+    elif x > seq[len(seq)-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq)-1):
+            if seq[i] == x:
+                return i+1
+            elif seq[i] < x and seq[i + 1] >= x:
+                return i+1
+",True,1000,267,False,3.552,add_missing_empty_alt_check|generic_flip_compare|generic_flip_compare,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq == () or seq == []:
+        return 0
+    if x <= seq[0]:
+        return 0
+    elif x > seq[len(seq)-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq)-1):
+            if seq[i] == x:
+                return i+1
+            elif seq[i] < x and seq[i + 1] >= x:
+                return i+1
+"
+refactory_q1,claude-sonnet-5,wrong_1_573,True,485,0,False,0.858,add_missing_empty_alt_check|generic_shift_range,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq == () or seq == []:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[len(seq)-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq) - 1 + 1):
+            if seq[i] == x:
+                return i
+            elif seq[i] < x and seq[i+1] > x:
+                return i+1
+",True,218,267,False,1.463,add_missing_empty_alt_check|generic_shift_range,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq == () or seq == []:
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[len(seq)-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq) - 1 + 1):
+            if seq[i] == x:
+                return i
+            elif seq[i] < x and seq[i+1] > x:
+                return i+1
+"
+refactory_q1,claude-sonnet-5,wrong_1_574,True,33,0,False,0.135,generic_shift_range,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq == [] or seq == ():
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[len(seq)-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq) - 1 + 1):
+            if seq[i] == x:
+                return i
+            elif seq[i] < x and seq[i+1] > x:
+                return i+1
+",True,33,0,False,0.192,generic_shift_range,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq == [] or seq == ():
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[len(seq)-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq) - 1 + 1):
+            if seq[i] == x:
+                return i
+            elif seq[i] < x and seq[i+1] > x:
+                return i+1
+"
+refactory_q1,claude-sonnet-5,wrong_1_575,True,33,0,False,0.128,generic_shift_range,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq == [] or seq == ():
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[len(seq)-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq) - 1 + 1):
+            if seq[i] == x:
+                return i
+            elif seq[i] <= x and seq[i+1] > x:
+                return i+1
+",True,33,0,False,0.198,generic_shift_range,"def search(x, seq):
+    """""" Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted """"""
+    if seq == [] or seq == ():
+        return 0
+    if x < seq[0]:
+        return 0
+    elif x > seq[len(seq)-1]:
+        return len(seq)
+    else:
+        for i in range(len(seq) - 1 + 1):
+            if seq[i] == x:
+                return i
+            elif seq[i] <= x and seq[i+1] > x:
+                return i+1
+"

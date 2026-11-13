@@ -1,0 +1,84 @@
+rule fix_digital_root_wrong_counting_pairwise_products
+symptoms: wrong
+match:
+    for $i in range(1, $n + 1):
+        for $j in range($i, $n + 1):
+            $*body
+where:
+    some($body, "if $c < $n + 1 and $c != $i * $j:")
+rewrite:
+    for $i in range(1, $n + 1):
+        for $j in range(1, $n + 1):
+            $*body
+
+rule fix_digital_root_wrong_condition_on_product
+symptoms: wrong
+match:
+    if $c < $n + 1 and $c != $p:
+        $*body
+where:
+    some($c, "$f($a) * $g($b)") or some($c, "$x * $y")
+rewrite:
+    if $c <= $n and $c != $p:
+        $*body
+
+rule fix_digital_root_count_increment_by_two
+symptoms: wrong
+match:
+    $d = $d + 2
+rewrite:
+    $d = $d + 1
+
+rule fix_digital_root_counting_nonproducts
+symptoms: wrong
+match:
+    for $i in $a.keys():
+        $l = len($b[$i])
+        for $j in $c[$i]:
+            if $j not in $b[$i]:
+                $s = $s + $l
+where:
+    some($a, "dct1") or some($b, "dctn")
+rewrite:
+    $s = $s + $l
+    $s = $s + $l
+
+rule fix_digital_root_root_input_to_int
+symptoms: wrong
+match:
+    print($d(input()))
+rewrite:
+    print($d(int(input())))
+
+rule fix_digital_root_digit_root_recursion_sum
+symptoms: wrong
+match:
+    def $f($x):
+        while len(str($x)) != 1:
+            $x = sum(int($d) for $d in str($x))
+        return $x
+rewrite:
+    def $f($x):
+        while len(str($x)) != 1:
+            $x = sum(int($d) for $d in str($x))
+        return $x
+
+rule fix_digital_root_range_off_by_one
+symptoms: wrong
+match:
+    for $i in range(1, $n + 1):
+        $*body
+where:
+    some($body, "for $j in range($i, $n + 1):") or some($body, "for $j in range(1, $n + 1):")
+rewrite:
+    for $i in range(1, $n + 1):
+        $*body
+
+rule fix_digital_root_compare_lt_to_lte
+symptoms: wrong
+match:
+    $a < $b
+where:
+    text($a) == "c" and text($b) == "n + 1"
+rewrite:
+    $a <= $n

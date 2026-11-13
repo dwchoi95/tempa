@@ -1,0 +1,24 @@
+rule binary_search_upper_bound_too_small
+symptoms: wrong
+match:
+    $l = 0
+    $r = $R:Int
+    while $r - $l > 1: $B:Stmts
+where: $R <= 100
+rewrite:
+    $l = 0
+    $r = 100000
+    while $r - $l > 1: $B:Stmts
+
+rule greedy_swap_to_counting_days
+symptoms: wrong
+match: for $j in range(1, len($food)): $B:Stmts
+where: before("$b:Name[0] = $n") and before("$prev:Name = $food[0] // $b[0]") and some($B, "$g:Name = False") and some($B, "while $i2 < $j:")
+rewrite:
+    $prev = 0
+    for $j in range(1, 101):
+        total = 0
+        for cnt in $food:
+            total += cnt // $j
+        if total >= $n:
+            $prev = $j

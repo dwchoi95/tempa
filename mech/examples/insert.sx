@@ -1,0 +1,9 @@
+; inserting `y = 0` before `return out` (label 10): part (1) is the statement it precedes
+(pair
+ (module
+  (assign 1 out (const 2 5))
+  (def 3 f c
+   ((if 4 (name 5 c) ((expr 6 (bin 7 == (name 8 out) (const 9 "[]")))) ())
+    (return 10 (name 11 out))))
+  (print 12 (call 13 (name 14 f) (name 15 inp))))
+ (sites (before 10 ((assign 30 y (const 31 0))))))

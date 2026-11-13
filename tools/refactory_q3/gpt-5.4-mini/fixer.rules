@@ -1,0 +1,200 @@
+rule fix_list_vs_lst_in_for
+symptoms: wrong
+match: for $v in list:
+rewrite: for $v in lst:
+
+rule fix_list_vs_lst_in_for_i
+symptoms: wrong
+match: for $v in list:
+where: inside("def remove_extras($*xs, $p:Name, $*ys): $B:Stmts") and text($p) == "lst"
+rewrite: for $v in lst:
+
+rule fix_output_returned_instead_of_input
+symptoms: wrong
+match: return lst
+rewrite: return output
+
+rule fix_return_wrong_var
+symptoms: wrong
+match: return $x:Name
+where: text($x) in {"i", "x", "e", "element"}
+rewrite: return output
+
+rule fix_count_on_wrong_container
+symptoms: wrong
+match: if lst.count($v) == 1:
+rewrite: if new_lst.count($v) == 1:
+
+rule fix_count_less_than_one
+symptoms: wrong
+match: if lst.count($v) < 1:
+rewrite: if new_lst.count($v) == 0:
+
+rule fix_membership_against_input_list
+symptoms: wrong
+match: if $v not in lst:
+rewrite: if $v not in $out: 
+where: bound($out)
+
+rule fix_membership_against_input_list_named
+symptoms: wrong
+match: if $v not in lst:
+where: inside("def remove_extras($*xs, $p:Name, $*ys): $B:Stmts") and some($B, "$out:Name = []")
+rewrite: if $v not in $out:
+
+rule fix_membership_against_self_list
+symptoms: wrong
+match: if $v not in $seq:
+rewrite: if $v not in new_lst:
+
+rule fix_membership_against_self_list_alt
+symptoms: wrong
+match: if $v in $seq:
+rewrite: if $v not in $seq:
+
+rule fix_membership_against_output_list
+symptoms: wrong
+match: if $v in $out:
+rewrite: if $v not in $out:
+
+rule fix_append_on_input_list
+symptoms: wrong
+match: $lst.append($v)
+where: load($lst) and text($lst) == "lst"
+rewrite: $out.append($v)
+where: bound($out)
+
+rule fix_append_to_new_list
+symptoms: wrong
+match: $lst.append($v)
+where: text($lst) in {"lst", "list"}
+rewrite: new_list.append($v)
+
+rule fix_extend_singleton_to_append
+symptoms: wrong
+match: $lst.extend($v)
+where: not match($v, "[$*xs]")
+rewrite: $lst.append($v)
+
+rule fix_extend_list_of_one
+symptoms: wrong
+match: $lst.extend(list($v))
+rewrite: $lst.extend([$v])
+
+rule fix_add_single_item_to_list_concat
+symptoms: wrong
+match: $lst += list($v)
+rewrite: $lst += [$v]
+
+rule fix_add_single_item_to_list_concat_alt
+symptoms: wrong
+match: $lst += $v,
+rewrite: $lst += [$v]
+
+rule fix_tuple_singleton_add
+symptoms: wrong
+match: $t += [$v]
+where: inside("def $f($*xs): $B:Stmts") and some($B, "$t = ()")
+rewrite: $t += ($v,)
+
+rule fix_append_method_used_as_expression
+symptoms: wrong
+match: $x = $lst.append($v)
+rewrite: $lst.append($v)
+
+rule fix_insert_at_beginning_to_append
+symptoms: wrong
+match: $lst.insert(0, $v)
+rewrite: $lst.append($v)
+
+rule fix_append_item_not_list
+symptoms: wrong
+match: $lst += $v
+where: not match($v, "[$*xs]") and not match($v, "($*xs)")
+rewrite: $lst += [$v]
+
+rule fix_set_return_to_ordered_dict_list
+symptoms: wrong
+match: return set($x)
+rewrite: return list(OrderedDict.fromkeys($x))
+
+rule fix_ordereddict_not_list_wrapper
+symptoms: wrong
+match: return (OrderedDict.fromkeys($x))
+rewrite: return list(OrderedDict.fromkeys($x))
+
+rule fix_lists_typo_to_list
+symptoms: wrong
+match: return lists($x)
+rewrite: return list($x)
+
+rule fix_reverse_call_not_attribute
+symptoms: wrong
+match: $x = $lst.reverse
+rewrite: $x = $lst.reverse()
+
+rule fix_reverse_return_none
+symptoms: wrong
+match: return $lst.reverse()
+rewrite:
+    $lst.reverse()
+    return $lst
+
+rule fix_reverse_missing_call
+symptoms: wrong
+match: $lst.reverse
+rewrite:
+    $lst.reverse()
+    return $lst
+
+rule fix_pop_missing_call
+symptoms: wrong
+match: $lst.pop
+rewrite: $lst.pop()
+
+rule fix_remove_extras_empty_list_returns_none
+symptoms: wrong
+match:
+    if $lst == []:
+        return None
+rewrite:
+    if $lst == []:
+        return []
+
+rule fix_empty_guard_for_indexed_access
+symptoms: err:IndexError, wrong
+match:
+    $x = [$lst[0],]
+rewrite:
+    if $lst == []:
+        return []
+    $x = [$lst[0],]
+
+rule fix_off_by_one_range_end
+symptoms: wrong
+match: range(len($lst)-1)
+rewrite: range(len($lst))
+
+rule fix_off_by_one_range_start
+symptoms: wrong
+match: range(1,len($lst))
+rewrite: range(len($lst))
+
+rule fix_reverse_list_then_return
+symptoms: wrong
+match:
+    $lst.reverse()
+    return $lst.reverse()
+rewrite:
+    $lst.reverse()
+    return $lst
+
+rule fix_duplicate_check_against_whole_list_to_prefix
+symptoms: wrong
+match: if $x in $lst:
+rewrite: if $x in new_lst:
+
+rule fix_prefix_duplicate_check
+symptoms: wrong
+match: if $x in $lst[:$i]:
+rewrite: if $x in new_lst:

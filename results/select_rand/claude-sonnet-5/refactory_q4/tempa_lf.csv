@@ -1,0 +1,3816 @@
+Buggy,Model,Source,Patch,Fixed,RPS,ATT_all,ATT_cpu,ATT_api,InT,OuT,$API,Rules_L,Rules_SL
+wrong_4_001,claude-sonnet-5,reference,"def sort_age(lst):
+    result = []
+    while lst !=[]:
+        lowest = lst[0][1]
+        index = 0
+        for i in range(1,len(lst)):
+            if lst[i][1]<lowest:
+                index = i
+                lowest = lst[i][1]
+        result = [lst[index]] + result
+        lst.pop(index)
+    return result
+            
+",True,0.0769,4.9986,4.9986,0.0,0,0,0.0,[],[]
+wrong_4_002,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest=lst[0][1]
+        person=lst[0]
+        for i in lst:
+            if i[1]>oldest:
+                oldest=i[1]
+                person=i
+        lst.remove(person)
+        sort.append(person)
+    return sort
+",True,0.6667,12.1912,12.1912,0.0,0,0,0.0,[],[]
+wrong_4_003,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for person in lst:
+            if person[1] > oldest[1]:
+                oldest = person
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+",True,0.186,9.1783,9.1783,0.0,0,0,0.0,[],[]
+wrong_4_004,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for person in lst:
+            if person[1] > oldest[1]:
+                oldest = person
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+",True,0.2093,9.0519,9.0519,0.0,0,0,0.0,[],[]
+wrong_4_005,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for person in lst:
+            if person[1] >= oldest[1]:
+                oldest = person
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+    
+            
+",True,0.1395,6.7409,6.7409,0.0,0,0,0.0,[],[]
+wrong_4_006,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for person in lst:
+            if person[1] >= oldest[1]:
+                oldest = person
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+    
+            
+",True,0.0488,6.9301,6.9301,0.0,0,0,0.0,[],[]
+wrong_4_007,claude-sonnet-5,reference,"def sort_age(lst):
+    for i in range(0,len(lst)):
+        this=lst[i]
+        j=0
+        while j<i:
+            if this[1]>lst[j][1]:
+                break
+            j+=1
+        del lst[i]
+        lst.insert(j,this)
+    return lst
+    
+",True,0.625,6.5143,6.5143,0.0,0,0,0.0,[],[]
+wrong_4_008,claude-sonnet-5,reference,"def sort_age(lst):
+    for i in range(0,len(lst)):
+        this=lst[i]
+        j=0
+        while j<i:
+            if this[1]>lst[j][1]:
+                break
+            j+=1
+        del lst[i]
+        lst.insert(j,this)
+    return lst
+    
+",True,0.6066,6.5606,6.5606,0.0,0,0,0.0,[],[]
+wrong_4_009,claude-sonnet-5,rules,"def sort_age(lst):
+    for i in range(0,len(lst)):
+        this=lst[i]
+        for j in range(0,len(lst)):
+            if lst[j][1] <= this[1]:
+                del lst[i]
+                lst=lst[0:j]+[this]+lst[j:]
+                break
+    return lst
+",True,0.0164,0.2936,0.2936,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_010,claude-sonnet-5,reference,"def sort_age(lst):
+    for i in range(len(lst)):
+        this = i
+        j = this
+        for a in range(this, len(lst)):
+            if lst[a][1] > lst[j][1]:
+                j = a
+        tmp = lst[this]
+        lst[this] = lst[j]
+        lst[j] = tmp
+    return lst
+",True,0.726,10.2795,10.2795,0.0,0,0,0.0,[],[]
+wrong_4_011,claude-sonnet-5,rules,"def sort_age(lst):
+    result = []
+    while lst != []:
+        largest = lst[0][1]
+        for i in lst:
+            if i[1] >= largest:
+                largest_tup = i 
+                largest = i[1]
+        lst.remove(largest_tup)
+        result.append(largest_tup)
+    return result
+    
+",True,0.0204,0.1393,0.1393,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_012,claude-sonnet-5,rules,"def sort_age(lst):
+    old_lst = lst
+    new_lst = []
+    while old_lst:
+        largest = old_lst[0]
+        for i in lst:
+            if i[1] > largest[1]:
+                largest = i
+        old_lst.remove(largest)
+        new_lst.append(largest)
+    return new_lst
+",True,0.1,0.1405,0.1405,0.0,0,0,0.0,"[""compare_tuple_directly_without_age_index""]",[]
+wrong_4_013,claude-sonnet-5,llm,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1], reverse=True)
+    return lst",True,0.1765,8.1175,6.6204,1.4971,1018,46,0.002496,[],[]
+wrong_4_014,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1], reverse=True)
+    return lst
+",True,0.3158,0.2624,0.2624,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_015,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst: 
+        smallest = lst[0][1]
+        element=lst[0]
+        for ele in lst:
+            if ele[1] > smallest:
+                smallest = ele[1]
+                element=ele
+        lst.remove(element)
+        sort.append(element)
+    return sort
+",True,0.5676,9.6769,9.6769,0.0,0,0,0.0,[],[]
+wrong_4_016,claude-sonnet-5,rules,"def sort_age(lst):
+    sort = []
+    while lst: 
+        biggest = lst[0]
+        for element in lst:
+            if element[1] > biggest[1]:
+                biggest = element
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort
+",True,0.1081,0.2038,0.2038,0.0,0,0,0.0,"[""compare_tuple_directly_without_age_index""]",[]
+wrong_4_017,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1],reverse = True)
+    return lst
+",True,0.3158,0.2078,0.2078,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_018,claude-sonnet-5,reference,"def sort_age(lst):
+    sample=[]
+    newlst=0
+    while lst:
+        for i in lst:
+            if i[1]>newlst:
+                newlst = i[1]
+                count=i
+        sample=sample+[count]
+        lst.remove(count)
+        newlst=0
+    return sample
+",True,0.8421,6.5407,6.5407,0.0,0,0,0.0,[],[]
+wrong_4_019,claude-sonnet-5,rules,"def sort_age(lst):
+    product = []
+    while lst:
+        smallest = lst[0]
+        for i in lst:
+            if i[1] > smallest[1]:
+                smallest = i
+        lst.remove(smallest)
+        product.append(smallest)
+    return product
+",True,0.0244,0.1891,0.1891,0.0,0,0,0.0,"[""selection_min_should_be_max""]",[]
+wrong_4_020,claude-sonnet-5,reference,"def sort_age(lst):
+	new_lst=[]
+	for i in lst:
+		if new_lst==[]:
+			new_lst+=[i]
+		else:
+			for j in range(len(new_lst)):
+				if i[1]<new_lst[j][1] and j==len(new_lst)-1:
+					new_lst.append(i)
+				elif i[1]<new_lst[j][1]:
+					continue
+				else:
+					new_lst.insert(j,i)
+					break
+
+	return new_lst
+
+",True,0.5222,8.0455,8.0455,0.0,0,0,0.0,[],[]
+wrong_4_021,claude-sonnet-5,reference,"def sort_age(lst):
+    product = []
+    while lst:
+        largest = lst[0]
+        for i in lst:
+            if largest[1] < i[1]:
+                largest = i
+        lst.remove(largest)
+        product.append(largest)
+    return product
+",True,0.0488,9.8642,9.8642,0.0,0,0,0.0,[],[]
+wrong_4_022,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst: 
+        biggest = lst[0][1]
+        element=lst[0]
+        for ele in lst:
+            if ele[1] > biggest:
+                biggest = ele[1]
+                element=ele
+        lst.remove(element)
+        sort.append(element)
+    return sort
+",True,0.8235,9.0199,9.0199,0.0,0,0,0.0,[],[]
+wrong_4_023,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        element = lst[0][1]
+        for smallest in lst:
+            if smallest[1] > element:
+                element = smallest[1]
+                biggest = smallest
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort
+",True,0.5946,11.6523,11.6523,0.0,0,0,0.0,[],[]
+wrong_4_024,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        element = lst[0][1]
+        for smallest in lst:
+            if smallest[1] > element:
+                element = smallest[1]
+                biggest = smallest
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort
+",True,0.5405,8.6261,8.6261,0.0,0,0,0.0,[],[]
+wrong_4_025,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst: 
+        biggest = lst[0]
+        element = lst[0][1]
+        for smallest in lst:
+            if smallest[1] > element:
+                element = smallest[1]
+                biggest = smallest
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort
+",True,0.4865,6.9378,6.9378,0.0,0,0,0.0,[],[]
+wrong_4_026,claude-sonnet-5,rules,"def sort_age(lst):
+    sort = []
+    while lst: 
+        biggest = lst[0]
+        for element in lst:
+            if element[1] > biggest[1]:
+                biggest = element
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort
+",True,0.1081,0.1279,0.1279,0.0,0,0,0.0,"[""compare_tuple_directly_without_age_index""]",[]
+wrong_4_027,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst: 
+        biggest = lst[0][1]
+        element=lst[0]
+        for ele in lst:
+            if ele[1] > biggest:
+                biggest = ele[1]
+                element=ele
+        lst.remove(element)
+        sort.append(element)
+    return sort
+",True,0.5135,10.4169,10.4169,0.0,0,0,0.0,[],[]
+wrong_4_028,claude-sonnet-5,reference,"def sort_age(lst):
+    def for_age(lst):
+        for i in range(len(lst)):
+            if i == 0: continue
+            else:
+                while i > 0:
+                    if lst[i][1] < lst[i-1][1]:
+                        lst[i], lst[i-1] = lst[i-1], lst[i]
+                        i -= 1
+                    else: i = 0
+    for_age(lst)
+    lst.reverse()
+    return lst
+",True,0.0658,20.4577,20.4577,0.0,0,0,0.0,[],[]
+wrong_4_029,claude-sonnet-5,reference,"def sort_age(lst):
+    if len(lst) == 0:
+        return []
+    elif len(lst) == 1:
+        return lst
+    else:
+        mid = len(lst) // 2
+        lst1 = sort_age(lst[:mid])
+        lst2 = sort_age(lst[mid:])
+        
+        result = []
+        while lst1 and lst2:
+            if lst1[0][1] < lst2[0][1]:
+                result.append(lst2.pop(0))
+            else:
+                result.append(lst1.pop(0))
+        result.extend(lst1)
+        result.extend(lst2)
+        
+        return result
+",True,0.0899,10.2637,10.2637,0.0,0,0,0.0,[],[]
+wrong_4_030,claude-sonnet-5,reference,"def sort_age(lst):
+    if len(lst) == 0:
+        return []
+    elif len(lst) == 1:
+        return lst
+    else:
+        mid = len(lst) // 2
+        lst1 = sort_age(lst[:mid])
+        lst2 = sort_age(lst[mid:])
+        
+        result = []
+        while lst1 and lst2:
+            if lst1[0][1] < lst2[0][1]:
+                result.append(lst2.pop(0))
+            else:
+                result.append(lst1.pop(0))
+        result.extend(lst1)
+        result.extend(lst2)
+        
+        return result
+",True,0.043,12.2145,12.2145,0.0,0,0,0.0,[],[]
+wrong_4_031,claude-sonnet-5,reference,"def sort_age(lst):
+    if len(lst) == 0:
+        return []
+    elif len(lst) == 1:
+        return lst
+    else:
+        mid = len(lst) // 2
+        lst1 = sort_age(lst[:mid])
+        lst2 = sort_age(lst[mid:])
+        
+        result = []
+        while lst1 and lst2:
+            if lst1[0][1] < lst2[0][1]:
+                result.append(lst2.pop(0))
+            else:
+                result.append(lst1.pop(0))
+        result.extend(lst1)
+        result.extend(lst2)
+        
+        return result
+",True,0.0215,16.8101,16.8101,0.0,0,0,0.0,[],[]
+wrong_4_032,claude-sonnet-5,reference,"def sort_age(lst):
+    a=lst
+    sort=[]
+    while a:
+        smallest=a[0]
+        for element in a:
+            if element[1]<smallest[1]:
+                smallest=element
+        a.remove(smallest)
+        sort.append(smallest)
+    sort.reverse()
+    return sort
+",True,0.1364,70.01,70.01,0.0,0,0,0.0,[],[]
+wrong_4_033,claude-sonnet-5,rules,"def sort_age(lst):
+    a=lst
+    sort=[]
+    while a:
+        smallest=a[0]
+        for element in a:
+            if element[1] > smallest[1]:
+                smallest=element
+        a.remove(smallest)
+        sort.append(smallest)
+        sort.reverse
+    return sort
+",True,0.0213,0.1457,0.1457,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_034,claude-sonnet-5,reference,"def sort_age(lst):
+    a=lst
+    sort=[]
+    while a:
+        smallest=a[0]
+        for element in a:
+            if element[1] >smallest[1]:
+                smallest = element
+        a.remove(smallest)
+        sort.append(smallest)
+
+    return(sort)# Fill in your code here
+    
+",True,0.1042,7.244,7.244,0.0,0,0,0.0,[],[]
+wrong_4_035,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1], reverse=True)
+    return lst
+",True,0.3158,0.1775,0.1775,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_036,claude-sonnet-5,reference,"def sort_age(lst):
+    """"""selection sort""""""
+    l = len(lst)
+    for i in range(l):
+        largest = lst[i]
+        for j in range(i+1,l):
+            if lst[j][1] > largest[1]:
+                largest = lst[j] #assign new largest value
+                lst[i],lst[j] = lst[j],lst[i] #swap positions if larger
+        #print(i,lst)
+    return lst
+                
+                
+",True,0.0159,6.0007,6.0007,0.0,0,0,0.0,[],[]
+wrong_4_037,claude-sonnet-5,rules,"def sort_age(lst):
+	lst.sort(key=lambda x: x[1],reverse=True)
+	return lst
+",True,0.1429,0.2657,0.2657,0.0,0,0,0.0,"[""print_instead_of_return""]",[]
+wrong_4_038,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1], reverse=True)
+    return lst
+",True,0.3158,0.3541,0.3541,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_039,claude-sonnet-5,rules,"def sort_age(lst):
+    if lst==[]:
+        return []
+    sort=[]
+    while lst:
+        largest = lst[0]
+        for i in lst:
+            if i[1] > largest[1]:
+                largest = i
+        lst.remove(largest)
+        sort.append(largest)
+    return sort
+    pass
+
+
+",True,0.0889,0.1798,0.1798,0.0,0,0,0.0,"[""compare_tuple_directly_without_age_index""]",[]
+wrong_4_040,claude-sonnet-5,reference,"def sort_age(lst):
+    
+    sort_lst = []
+    
+    while lst:
+        smallest = lst[0]
+        for element in lst:
+            if element[1] > smallest[1]:
+                smallest=element
+        lst.remove(smallest)
+        sort_lst.append(smallest)
+    return sort_lst
+",True,0.0698,10.0731,10.0731,0.0,0,0,0.0,[],[]
+wrong_4_041,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.2067,0.2067,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_042,claude-sonnet-5,llm,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1], reverse = True)
+    return lst",True,0.1765,6.8976,5.2106,1.687,1018,46,0.002496,[],[]
+wrong_4_043,claude-sonnet-5,reference,"def sort_age(lst):
+    if lst == []:
+        return []
+    else:
+        result = [lst[0]]
+        for i in lst[1:]:
+            if i[1] > result[0][1]:
+                result.insert(0, i)
+            elif i[1] < result[-1][1]:
+                result.append(i)
+            else:
+                for j in range(len(result) - 1):
+                    if i[1] < result[j][1] and i[1] > result[j+1][1]:
+                        result.insert(j+1, i)
+        return result
+",True,0.1053,10.2069,10.2069,0.0,0,0,0.0,[],[]
+wrong_4_044,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.2563,0.2563,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_045,claude-sonnet-5,reference,"def sort_age(lst):
+    if lst == []:
+        return []
+    else:
+        result = [lst[0]]
+        for i in lst[1:]:
+            if i[1] > result[0][1]:
+                result.insert(0, i)
+            elif i[1] < result[-1][1]:
+                result.append(i)
+            else:
+                for j in range(len(result) - 1):
+                    if i[1] < result[j][1] and i[1] > result[j+1][1]:
+                        result.insert(j+1, i)
+        return result
+",True,0.0714,10.7137,10.7137,0.0,0,0,0.0,[],[]
+wrong_4_046,claude-sonnet-5,reference,"def sort_age(lst):
+    output = []
+    while lst:
+        smallest = lst[0]
+        for i in lst:
+            if smallest[1] < i[1]:
+                smallest = i
+        lst.remove(smallest)
+        output.append(smallest)
+    return output
+",True,0.0976,7.5041,7.5041,0.0,0,0,0.0,[],[]
+wrong_4_047,claude-sonnet-5,rules,"def sort_age(lst):
+    output = []
+    while lst:
+        smallest = lst[0]
+        for i in lst:
+            if i[1] > smallest[1]:
+                smallest = i
+        lst.remove(smallest)
+        output.append(smallest)
+    return output
+",True,0.0732,0.3801,0.3801,0.0,0,0,0.0,"[""use_loop_var_instead_of_tracked"", ""selection_min_should_be_max""]",[]
+wrong_4_048,claude-sonnet-5,rules,"def sort_age(lst):
+    output = []
+    while lst:
+        smallest = lst[0]
+        for i in lst:
+            if i[1] > smallest[1]:
+                smallest = i
+        lst.remove(smallest)
+        output.append(smallest)
+    return output
+",True,0.0244,0.1303,0.1303,0.0,0,0,0.0,"[""selection_min_should_be_max""]",[]
+wrong_4_049,claude-sonnet-5,llm,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1], reverse=True)
+    return lst",True,0.1765,7.1228,5.3478,1.775,1018,46,0.002496,[],[]
+wrong_4_050,claude-sonnet-5,reference,"def sort_age(lst):
+    final = []
+    while lst:
+        smallest = lst[0]
+        for i in lst:
+            if i[1] < smallest[1]:
+                smallest = i
+        lst.remove(smallest)
+        final.append(smallest)
+    final.reverse()
+    return final
+",True,0.1163,8.6902,8.6902,0.0,0,0,0.0,[],[]
+wrong_4_051,claude-sonnet-5,reference,"def sort_age(lst):
+    final = []
+    while lst:
+        biggest = lst[0]
+        for i in lst:
+            if i[1] > biggest[1]:
+                biggest = i
+        lst.remove(biggest)
+        final.append(biggest)
+    return final
+",True,0.1163,7.26,7.26,0.0,0,0,0.0,[],[]
+wrong_4_052,claude-sonnet-5,reference,"def sort_age(lst):
+    newlst=[]
+    while lst:
+        oldest = lst[0][1] #first age
+        for person in lst:
+            if person[1]>oldest:
+                oldest=person[1]
+        for person in lst:
+            if person[1]==oldest:
+                newlst.append(person)
+                lst.remove(person)            
+    return newlst
+",True,0.4211,8.6299,8.6299,0.0,0,0,0.0,[],[]
+wrong_4_053,claude-sonnet-5,reference,"def sort_age(lst):
+    newlst = []
+    while lst:
+        current = lst[0]
+        for element in lst:
+            if element[1] > current[1]:
+                current = element
+        newlst += (current,)
+        lst.remove(current)
+    return newlst
+        
+",True,0.05,6.904,6.904,0.0,0,0,0.0,[],[]
+wrong_4_054,claude-sonnet-5,rules,"def sort_age(lst):
+    newlst = []
+    while lst:
+        current = lst[0]
+        for element in lst:
+            if element[1] > current[1]:
+                current = element
+        newlst += (current,)
+        lst.remove(current)
+    return newlst
+        
+",True,0.0244,0.1712,0.1712,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_055,claude-sonnet-5,reference,"def sort_age(lst):
+    result = []
+    while lst:
+        oldest = lst[0]
+        for people in lst:
+            if people[1] > oldest[1]:
+                oldest = people
+        lst.remove(oldest)
+        result += (oldest,)
+    return result
+",True,0.0513,8.8971,8.8971,0.0,0,0,0.0,[],[]
+wrong_4_056,claude-sonnet-5,rules,"def sort_age(lst):
+    # Fill in your code here
+    new_lst = []
+    while lst:
+        oldest = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] > oldest[1]:
+                oldest = lst[i]
+        lst.remove(oldest)
+        new_lst.append(oldest)
+        
+    return new_lst
+            
+        
+",True,0.2041,0.2039,0.2039,0.0,0,0,0.0,"[""hoist_init_out_of_inner_loop""]",[]
+wrong_4_057,claude-sonnet-5,rules,"def sort_age(lst):
+    arranged = []
+    while lst:
+        oldest = lst[0]
+        for person in lst:
+            if person[1] > oldest[1]:
+                oldest = person
+        lst.remove(oldest)
+        arranged.append(oldest)
+    return arranged
+    pass
+",True,0.1053,0.1777,0.1777,0.0,0,0,0.0,"[""compare_tuple_directly_without_age_index""]",[]
+wrong_4_058,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key = lambda x:x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.2921,0.2921,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_059,claude-sonnet-5,rules,"def sort_age(lst):
+    a = []
+    b = []
+    n = len(lst)
+    for i in range(n):
+        age = lst[i - 1][1]
+        a += [age]
+        a.sort()
+        a.reverse()
+    for j in range(n):
+        for k in range(n):
+            if a[j] == lst[k][1]:
+                b += [lst[k]]
+            else:
+                continue
+    return b
+",True,0.0423,0.2086,0.2086,0.0,0,0,0.0,"[""generic_shift_index""]",[]
+wrong_4_060,claude-sonnet-5,rules,"def sort_age(lst):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for element in lst:
+            if element[1] > biggest[1]:
+                biggest = element
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort
+",True,0.1081,0.1905,0.1905,0.0,0,0,0.0,"[""compare_tuple_directly_without_age_index""]",[]
+wrong_4_061,claude-sonnet-5,rules,"def sort_age(lst):
+	lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+	return lst
+",True,0.3158,0.2457,0.2457,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_062,claude-sonnet-5,reference,"def sort_age(lst):
+    final=[]
+    while lst:
+        old=lst[0]
+        for i in lst:
+            if old[1]<i[1]:
+                old=i
+        lst.remove(old)
+        final.append(old)
+    return final
+",True,0.0976,8.4158,8.4158,0.0,0,0,0.0,[],[]
+wrong_4_063,claude-sonnet-5,reference,"def sort_age(lst):
+    final=[]
+    while lst:
+        old=lst[0]
+        for i in lst:
+            if old[1]<i[1]:
+                old=i
+        lst.remove(old)
+        final.append(old)
+    return final
+",True,0.0488,9.8652,9.8652,0.0,0,0,0.0,[],[]
+wrong_4_064,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.247,0.247,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_065,claude-sonnet-5,reference,"def sort_age(lst):
+    rslt=[]
+    while lst:
+        smallest = lst[0]
+        for element in lst:
+            if element[1]>smallest[1]:
+                smallest=element
+        lst.remove(smallest)
+        rslt.append(smallest)
+    return rslt
+        
+",True,0.0488,11.8433,11.8433,0.0,0,0,0.0,[],[]
+wrong_4_066,claude-sonnet-5,reference,"def sort_age(lst):
+    rslt=[]
+    while lst:
+        smallest=lst[0]
+        for element in lst:
+            if element[1]>smallest[1]:
+                smallest=element
+        lst.remove(smallest)
+        rslt.append(smallest)
+    return rslt
+        
+",True,0.0244,10.0252,10.0252,0.0,0,0,0.0,[],[]
+wrong_4_067,claude-sonnet-5,llm,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1], reverse=True)
+    return lst",True,0.3333,8.0943,6.6311,1.4632,1012,46,0.002484,[],[]
+wrong_4_068,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.1966,0.1966,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_069,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for i in lst[1:]:
+            if i[1] > oldest[1]:
+                oldest = i
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+",True,0.119,6.7329,6.7329,0.0,0,0,0.0,[],[]
+wrong_4_070,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for i in lst[1:]:
+            if i[1] > oldest[1]:
+                oldest = i
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+",True,0.0714,6.6983,6.6983,0.0,0,0,0.0,[],[]
+wrong_4_071,claude-sonnet-5,rules,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for i in lst[1:]:
+            if i[1] > oldest[1]:
+                oldest = i
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+",True,0.0732,0.1393,0.1393,0.0,0,0,0.0,"[""missing_accumulator_init""]",[]
+wrong_4_072,claude-sonnet-5,rules,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for i in lst[1:]:
+            if i[1] > oldest[1]:
+                oldest = i
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+",True,0.122,0.3807,0.3807,0.0,0,0,0.0,"[""return_inside_while_to_after"", ""missing_accumulator_init""]",[]
+wrong_4_073,claude-sonnet-5,rules,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for i in lst[1:]:
+            if i[1] > oldest[1]:
+                oldest = i
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+",True,0.0455,0.1287,0.1287,0.0,0,0,0.0,"[""return_inside_while_to_after""]",[]
+wrong_4_074,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.1747,0.1747,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_075,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.2215,0.2215,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_076,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.1843,0.1843,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_077,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.1831,0.1831,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_078,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.177,0.177,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_079,claude-sonnet-5,llm,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1], reverse=True)
+    return lst",True,0.1,9.3112,7.5305,1.7807,1029,46,0.002518,[],[]
+wrong_4_080,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.1855,0.1855,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_081,claude-sonnet-5,rules,"def sort_age(lst):
+    new_lst = []
+    while lst:
+        oldest = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] >= oldest[1]:
+                oldest = lst[i]
+        lst.remove(oldest)
+        new_lst.append(oldest)
+    return new_lst
+",True,0.0588,0.1385,0.1385,0.0,0,0,0.0,"[""print_instead_of_return""]",[]
+wrong_4_082,claude-sonnet-5,llm,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1],reverse=True)
+    return lst",True,0.1765,6.8372,5.2194,1.6178,1018,46,0.002496,[],[]
+wrong_4_083,claude-sonnet-5,rules,"def sort_age(lst):
+    new_lst = []
+    while lst:
+        oldest = lst [0]
+        for i in range(len(lst)):
+            if lst[i][1] > oldest[1]:
+                oldest = lst[i]
+        lst.remove(oldest)
+        new_lst.append(oldest)
+    return new_lst
+
+",True,0.0588,0.1547,0.1547,0.0,0,0,0.0,"[""print_instead_of_return""]",[]
+wrong_4_084,claude-sonnet-5,rules,"def sort_age(lst):
+    new_lst = []
+    while lst:
+        oldest = lst [0]
+        for i in range(len(lst)):
+            if lst[i][1] > oldest[1]:
+                oldest = lst[i]
+        lst.remove(oldest)
+        new_lst.append(oldest)
+    return new_lst
+
+",True,0.0588,0.1491,0.1491,0.0,0,0,0.0,"[""print_instead_of_return""]",[]
+wrong_4_085,claude-sonnet-5,rules,"def sort_age(lst):
+    new_lst = []
+    while lst:
+        oldest = lst [0]
+        for i in range(len(lst)):
+            if lst[i][1] > oldest[1]:
+                oldest = lst[i]
+        lst.remove(oldest)
+        new_lst.append(oldest)
+    return new_lst
+
+",True,0.0588,0.148,0.148,0.0,0,0,0.0,"[""print_instead_of_return""]",[]
+wrong_4_086,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key = lambda x:x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.1869,0.1869,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_087,claude-sonnet-5,rules,"def sort_age(lst):
+    new_lst = []
+    while lst:
+        oldest = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] > oldest[1]:
+                oldest = lst[i]
+        lst.remove(oldest)
+        new_lst.append(oldest)
+    return new_lst
+",True,0.0588,0.1398,0.1398,0.0,0,0,0.0,"[""print_instead_of_return""]",[]
+wrong_4_088,claude-sonnet-5,reference,"def sort_age(lst):
+    holder=[]
+    if lst==[]:
+        return []
+    for x in lst:
+        if holder==[]:
+            holder=x
+        elif x[1]>holder[1]:
+            holder=x
+    lst.remove(holder)
+    return [holder]+sort_age(lst)
+
+",True,0.4,7.739,7.739,0.0,0,0,0.0,[],[]
+wrong_4_089,claude-sonnet-5,reference,"def sort_age(lst):
+    holder=[]
+    if lst==[]:
+        return []
+    for x in lst:
+        if holder==[]:
+            holder=x
+        elif x[1]>holder[1]:
+            holder=x
+    lst.remove(holder)
+    return [holder]+sort_age(lst)
+
+",True,0.1915,6.276,6.276,0.0,0,0,0.0,[],[]
+wrong_4_090,claude-sonnet-5,reference,"def sort_age(lst):
+    holder=[]
+    if lst==[]:
+        return []
+    for x in lst:
+        if holder==[]:
+            holder=x
+        elif x[1]>holder[1]:
+            holder=x
+    lst.remove(holder)
+    return [holder]+sort_age(lst)
+
+",True,0.1667,6.3419,6.3419,0.0,0,0,0.0,[],[]
+wrong_4_091,claude-sonnet-5,reference,"def sort_age(lst):
+    holder=[]
+    if lst==[]:
+        return []
+    for x in lst:
+        if holder==[]:
+            holder=x
+        elif x[1]>holder[1]:
+            holder=x
+    lst.remove(holder)
+    return [holder]+sort_age(lst)
+
+",True,0.1667,6.1941,6.1941,0.0,0,0,0.0,[],[]
+wrong_4_092,claude-sonnet-5,reference,"def sort_age(lst):
+    answer = []
+    while lst:
+        i = lst[0]
+        for biggest in range(len(lst)):
+            if lst[biggest][1] > i[1]:
+                i = lst[biggest]
+        lst.remove(i)
+        answer.append(i)
+    return answer
+",True,0.6,4.9608,4.9608,0.0,0,0,0.0,[],[]
+wrong_4_093,claude-sonnet-5,reference,"def sort_age(lst):
+    result=[]
+    while lst:
+        maximum = lst[0][1] #first age
+        for i in lst:
+            if i[1]>maximum:
+                maximum=i[1]
+        for i in lst:
+            if i[1]==maximum:
+                result.append(i)
+                lst.remove(i)            
+    return result
+",True,0.5789,8.3452,8.3452,0.0,0,0,0.0,[],[]
+wrong_4_094,claude-sonnet-5,rules,"def sort_age(lst):
+	lst.sort(key=lambda tup:tup[1 - 1 - 1], reverse = True)
+	return lst
+",True,0.3158,0.2821,0.2821,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_095,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1], reverse=True)
+    return lst
+",True,0.1875,0.1626,0.1626,0.0,0,0,0.0,"[""positional_lambda_sort_to_key""]",[]
+wrong_4_096,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1], reverse=True)
+    return lst
+",True,0.1176,0.1667,0.1667,0.0,0,0,0.0,"[""sort_key_missing_reverse""]",[]
+wrong_4_097,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.2531,0.2531,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_098,claude-sonnet-5,reference,"def sort_age(lst):
+    for i in range(len(lst)-1,0,-1):
+        for a in range(i):
+            if lst[a][1]<lst[a+1][1]:
+                temp = lst[a]
+                lst[a] = lst[a+1]
+                lst[a+1] = temp
+    return lst
+",True,0.5957,50.8286,50.8286,0.0,0,0,0.0,[],[]
+wrong_4_099,claude-sonnet-5,reference,"def sort_age(lst):
+    for i in range(len(lst)-1,0,-1):
+        for a in range(i):
+            if lst[a][1]<lst[a+1][1]:
+                temp = lst[a]
+                lst[a] = lst[a+1]
+                lst[a+1] = temp
+    return lst
+",True,0.5745,44.943,44.943,0.0,0,0,0.0,[],[]
+wrong_4_100,claude-sonnet-5,reference,"def sort_age(lst):
+    for i in range(len(lst)-1,0,-1):
+        for a in range(i):
+            if lst[a][1]<lst[a+1][1]:
+                temp = lst[a]
+                lst[a] = lst[a+1]
+                lst[a+1] = temp
+    return lst
+",True,0.6122,8.3868,8.3868,0.0,0,0,0.0,[],[]
+wrong_4_101,claude-sonnet-5,reference,"def sort_age(lst):
+    for i in range(len(lst)-1,0,-1):
+        for a in range(i):
+            if lst[a][1]<lst[a+1][1]:
+                temp = lst[a]
+                lst[a] = lst[a+1]
+                lst[a+1] = temp
+    return lst
+",True,0.6275,52.299,52.299,0.0,0,0,0.0,[],[]
+wrong_4_102,claude-sonnet-5,reference,"def sort_age(lst):
+    largest=[]
+    while lst:
+        sort1 = lst[0][1] #first age
+        for i in lst:
+            if i[1]>sort1:
+                sort1=i[1]
+        for i in lst:
+            if i[1]==sort1:
+                largest.append(i)
+                lst.remove(i)            
+    return largest
+",True,0.875,8.6358,8.6358,0.0,0,0,0.0,[],[]
+wrong_4_103,claude-sonnet-5,reference,"def sort_age(lst):
+    result=[] 
+    while lst:
+        biggest=lst[0][1]
+        tuple_biggest=lst[0]
+        for i in lst:
+            if i[1]>biggest:
+                biggest=i[1]
+                tuple_biggest=i
+        lst.remove(tuple_biggest)
+        result.append(tuple_biggest)
+    return result
+",True,0.6944,8.0307,8.0307,0.0,0,0,0.0,[],[]
+wrong_4_104,claude-sonnet-5,reference,"def sort_age(lst):
+    sort1 = []
+    while lst:
+        largest=lst[0][1]
+        tuple_biggest=lst[0]
+        for i in lst:
+            if i[1]>largest:
+                largest=i[1]
+                tuple_biggest=i
+        lst.remove(tuple_biggest)
+        sort1.append(tuple_biggest)
+    return sort1
+            
+            
+",True,0.325,7.4477,7.4477,0.0,0,0,0.0,[],[]
+wrong_4_105,claude-sonnet-5,reference,"def sort_age(lst):
+    sort1 = []
+    while lst:
+        largest = lst[0][1]
+        i=lst[0]
+        for ele in lst:
+            if ele[1] > largest:
+                largest = ele[1]
+                i=ele
+        lst.remove(i)
+        sort1.append(i)
+    return sort1
+            
+            
+",True,0.2558,11.002,11.002,0.0,0,0,0.0,[],[]
+wrong_4_106,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst: 
+        biggest = lst[0][1]
+        element=lst[0]
+        for ele in lst:
+            if ele[1] > biggest:
+                biggest = ele[1]
+                element=ele
+        lst.remove(element)
+        sort.append(element)
+    return sort
+",True,0.6341,5.9921,5.9921,0.0,0,0,0.0,[],[]
+wrong_4_107,claude-sonnet-5,reference,"def sort_age(lst):
+    smallest=[] 
+    while lst:
+        sort=lst[0][1]
+        k=lst[0]
+        for smallest_tuple in lst:
+            if smallest_tuple[1]>sort:
+                sort=smallest_tuple[1]
+                k=smallest_tuple
+        lst.remove(k)
+        smallest.append(k)
+    return smallest
+",True,0.5227,6.0835,6.0835,0.0,0,0,0.0,[],[]
+wrong_4_108,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1], reverse=True)
+    return lst
+",True,0.3158,0.1701,0.1701,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_109,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for k in lst:
+            if k[1] > biggest[1]:
+                biggest = k
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort
+",True,0.0513,6.7802,6.7802,0.0,0,0,0.0,[],[]
+wrong_4_110,claude-sonnet-5,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        largest = lst[0][1]
+        for i in lst:
+            if i[1]>largest:
+                largest = i[1]
+        tpl = ()
+        for j in lst:
+            if j[1] == largest:
+                tpl = j
+        lst.remove(tpl)
+        new.append(tpl)
+    return new    
+",True,0.0339,6.2209,6.2209,0.0,0,0,0.0,[],[]
+wrong_4_111,claude-sonnet-5,rules,"def sort_age(lst):
+    new_lst = []
+    while lst:
+        oldest = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] > oldest[1]:
+                oldest = lst[i]
+        lst.remove(oldest)
+        new_lst.append(oldest)
+    return new_lst
+",True,0.0588,0.1407,0.1407,0.0,0,0,0.0,"[""print_instead_of_return""]",[]
+wrong_4_112,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.1653,0.1653,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_113,claude-sonnet-5,reference,"def sort_age(lst):
+    # Fill in your code here
+    if lst == []:
+        return lst
+        
+    out = [lst[0],]
+    for ele in lst[1:]:
+        for indx in range(len(out)):
+            if out[indx][1] < ele[1]:
+                out.insert(indx, ele)
+                break
+            elif indx == len(out) - 1:
+                out.append(ele)
+    return out
+",True,0.2037,7.1528,7.1528,0.0,0,0,0.0,[],[]
+wrong_4_114,claude-sonnet-5,reference,"def sort_age(lst):
+    # Fill in your code here
+    if lst == []:
+        return lst
+        
+    out = [lst[0],]
+    for ele in lst[1:]:
+        for indx in range(len(out)):
+            if out[indx][1] < ele[1]:
+                out.insert(indx, ele)
+                break
+            elif indx == len(out) - 1:
+                out.append(ele)
+    return out
+",True,0.1207,6.1016,6.1016,0.0,0,0,0.0,[],[]
+wrong_4_115,claude-sonnet-5,reference,"def sort_age(lst):
+    # Fill in your code here
+    if lst == []:
+        return lst
+        
+    out = [lst[0],]
+    for ele in lst[1:]:
+        for indx in range(len(out)):
+            if out[indx][1] < ele[1]:
+                out.insert(indx, ele)
+                break
+            elif indx == len(out) - 1:
+                out.append(ele)
+    return out
+",True,0.0154,6.4308,6.4308,0.0,0,0,0.0,[],[]
+wrong_4_116,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.1782,0.1782,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_117,claude-sonnet-5,llm,"def sort_age(lst):
+    # Fill in your code here
+    lst.sort(key=lambda x : x[1], reverse=True)
+    return lst",True,0.1765,6.7261,5.2317,1.4944,929,56,0.002418,[],[]
+wrong_4_118,claude-sonnet-5,reference,"def sort_age(lst):
+    sort=[]
+    while lst:
+        biggest=lst[0]
+        for element in lst:
+            if element[1] < biggest[1]:
+                biggest = element
+        lst.remove(biggest)
+        sort.append(biggest)
+    sort.reverse()
+    return sort
+",True,0.0435,8.3616,8.3616,0.0,0,0,0.0,[],[]
+wrong_4_119,claude-sonnet-5,reference,"def sort_age(lst):
+    first = []
+    while lst:
+        result = lst[0]
+        for x in lst[1:]:
+            if x[1] > result[1]:
+                result = x
+        lst.remove(result)
+        first.append(result)
+    return first
+",True,0.7917,5.7367,5.7367,0.0,0,0,0.0,[],[]
+wrong_4_120,claude-sonnet-5,reference,"def sort_age(lst):
+    first = []
+    while lst:
+        result = lst[0]
+        for x in lst[1:]:
+            if x[1] > result[1]:
+                result = x
+        lst.remove(result)
+        first.append(result)
+    return first
+",True,0.78,6.2643,6.2643,0.0,0,0,0.0,[],[]
+wrong_4_121,claude-sonnet-5,reference,"def sort_age(lst):
+    first = []
+    while lst:
+        firstnum = lst[0]
+        for result in lst[1:]:
+            if result[1] > firstnum[1]:
+                firstnum = result
+        lst.remove(firstnum)
+        first.append(firstnum)
+    return first
+",True,0.7255,6.4176,6.4176,0.0,0,0,0.0,[],[]
+wrong_4_122,claude-sonnet-5,reference,"def sort_age(lst):
+    firstnum = []
+    while lst:
+        result = lst[0]
+        for x in lst[1:]:
+            if x[1] > result[1]:
+                result = x
+        lst.remove(result)
+        firstnum.append(result)
+    return firstnum
+",True,0.6667,5.7427,5.7427,0.0,0,0,0.0,[],[]
+wrong_4_123,claude-sonnet-5,reference,"def sort_age(lst):
+    firstnum = []
+    while lst:
+        result = lst[0]
+        for x in lst:
+            if x[1] > result[1]:
+                result = x
+        firstnum += (result,)
+        lst.remove(result)
+    return firstnum
+        
+",True,0.7111,5.782,5.782,0.0,0,0,0.0,[],[]
+wrong_4_124,claude-sonnet-5,reference,"def sort_age(lst):
+    firstnum = []
+    while lst:
+        result = lst[0]
+        for x in lst:
+            if x[1] > result[1]:
+                result = x
+        lst.remove(result)
+        firstnum += (result,)
+    return firstnum
+",True,0.7333,5.6982,5.6982,0.0,0,0,0.0,[],[]
+wrong_4_125,claude-sonnet-5,rules,"def sort_age(lst):
+    lst1=[]
+    while lst:
+        smallest=lst[0]
+        for ele in lst:
+            if ele[1] > smallest[1]:
+                smallest = ele
+        lst.remove(smallest)
+        lst1.append(smallest)
+    return lst1
+",True,0.0244,0.132,0.132,0.0,0,0,0.0,"[""selection_min_should_be_max""]",[]
+wrong_4_126,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for i in lst:
+            if i[1] > oldest[1]:
+                oldest = i
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+    # Fill in your code here
+",True,0.0976,6.3855,6.3855,0.0,0,0,0.0,[],[]
+wrong_4_127,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for i in lst:
+            if i[1] > oldest[1]:
+                oldest = i
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+    # Fill in your code here
+",True,0.0488,6.7126,6.7126,0.0,0,0,0.0,[],[]
+wrong_4_128,claude-sonnet-5,rules,"def sort_age(lst):
+    
+    people = []
+    
+    final = []
+    while lst:
+        i = lst[0]
+        for a in lst:
+            if i[1] <= a[1]:
+                i = a
+        lst.remove(i)
+        final.append(i)
+        
+    return final
+",True,0.0732,0.1299,0.1299,0.0,0,0,0.0,"[""missing_accumulator_init""]",[]
+wrong_4_129,claude-sonnet-5,rules,"def sort_age(lst):
+    
+    people = []
+    
+    final = []
+    while lst:
+        i = lst[0]
+        for a in lst:
+            if a[1] >= i[1]:
+                i = a
+        lst.remove(i)
+        final.append(i)
+        
+    return final
+",True,0.0732,0.1283,0.1283,0.0,0,0,0.0,"[""missing_accumulator_init""]",[]
+wrong_4_130,claude-sonnet-5,reference,"def sort_age(lst):
+    
+    people = []
+    
+    while lst:
+        
+        i = lst[0]
+        
+        for a in lst:
+            
+            if a[1] >= i[1] :
+                
+                i = a
+                
+        lst.remove(i)
+        
+        people.append(i)
+        
+    return people
+",True,0.0244,6.9179,6.9179,0.0,0,0,0.0,[],[]
+wrong_4_131,claude-sonnet-5,rules,"def sort(lst):
+    for i in range(len(lst)-1):
+        if lst[i][1] < lst[i + 1][1]:
+            temp = lst[i]
+            del lst[i]
+            lst += [temp]
+        else:
+            continue
+    return lst
+
+def sort_age(lst):
+    oldlist = tuple(lst)
+    if tuple(sort(lst)) == oldlist:
+        return lst
+    else:
+        sort(lst)
+        return sort_age(lst)
+",True,0.0132,0.1949,0.1949,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_132,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key= lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.166,0.166,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_133,claude-sonnet-5,reference,"def sort_age(lst):
+    smallest = []
+    while lst:
+        e = lst[0]
+        for i in lst[1:]:
+            if i[1] > e[1]:
+                e = i
+        lst.remove(e)
+        smallest.append(e)
+    return smallest
+",True,0.4634,85.9279,85.9279,0.0,0,0,0.0,[],[]
+wrong_4_134,claude-sonnet-5,reference,"def sort_age(lst):
+    # Fill in your code here
+    new = []
+    while lst:
+        small = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] > small[1]:
+                small = lst[i]
+        new.append(small)
+        lst.remove(small)
+    return new
+",True,0.3559,4.8918,4.8918,0.0,0,0,0.0,[],[]
+wrong_4_135,claude-sonnet-5,reference,"def sort_age(lst):
+    if len(lst) < 2:
+        return lst
+    new = []
+    while lst:
+        small = lst[0][1]
+        i = lst[0]
+        for j in range(1, len(lst)):
+            if lst[j][1] > small:
+                small = lst[j][1]
+                i = lst[j]
+        new.append(i)
+        lst.remove(i)
+    return new
+",True,0.4407,6.39,6.39,0.0,0,0,0.0,[],[]
+wrong_4_136,claude-sonnet-5,reference,"def sort_age(lst):
+    a = lst
+    sort = []
+    while a:
+        smallest = a[0]
+        for element in a:
+            if element[1] >smallest[1]:
+                smallest = element
+        a.remove(smallest)
+        sort.append(smallest)
+
+    return(sort)# Fill in your code here
+    
+",True,0.2326,7.7341,7.7341,0.0,0,0,0.0,[],[]
+wrong_4_137,claude-sonnet-5,reference,"def sort_age(lst):
+    if len(lst) == 1:
+        return lst
+    else:
+        new_list = []
+        while lst:
+            minimum = lst[0]
+            for i in lst:
+                if i[1] < minimum[1]:
+                    minimum = i
+            new_list.append(minimum)
+            lst.remove(minimum)
+        return new_list[::-1]
+",True,0.12,6.7724,6.7724,0.0,0,0,0.0,[],[]
+wrong_4_138,claude-sonnet-5,reference,"def sort_age(lst):
+    new_list = []
+    while lst:
+        smallest = lst[0]
+        for element in lst:
+            if smallest[1]<element[1]:
+                smallest = element
+        lst.remove(smallest)
+        new_list.append(smallest)
+    return new_list
+                
+        
+",True,0.2222,7.8374,7.8374,0.0,0,0,0.0,[],[]
+wrong_4_139,claude-sonnet-5,reference,"def sort_age(lst):
+    sort_list = []
+    while lst: # a is not []
+        smallest = lst[0]
+        for element in lst:
+            if element[1] > smallest[1]:
+                smallest=element
+        lst.remove(smallest)
+        sort_list.append(smallest)
+    return sort_list
+",True,0.0769,6.8451,6.8451,0.0,0,0,0.0,[],[]
+wrong_4_140,claude-sonnet-5,rules,"def sort_age(lst):
+    sort_list = []
+    while lst: # a is not []
+        smallest = lst[0]
+        for element in lst:
+            if element[1] > smallest[1]:
+                smallest = element
+        lst.remove(smallest)
+        sort_list.append(smallest)
+    return sort_list
+",True,0.0244,0.1377,0.1377,0.0,0,0,0.0,"[""selection_min_should_be_max""]",[]
+wrong_4_141,claude-sonnet-5,reference,"def sort_age(lst):
+    sort_list = []
+    while lst: # a is not []
+        biggest = lst[0]
+        for element in lst:
+            if element[1]>biggest[1]:
+                biggest = element
+        lst.remove(biggest)
+        sort_list.append(biggest)
+    return sort_list
+",True,0.0244,6.7394,6.7394,0.0,0,0,0.0,[],[]
+wrong_4_142,claude-sonnet-5,rules,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for i in lst:
+            if i[1] > oldest[1]:
+                oldest = i
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+            
+",True,0.0244,0.1347,0.1347,0.0,0,0,0.0,"[""selection_min_should_be_max""]",[]
+wrong_4_143,claude-sonnet-5,reference,"def sort_age(lst):
+    males = []
+    females = []
+    for i in lst:
+        if lst[0][0] == ""M"":
+            males = males + [lst[0],]
+        elif lst[0][0] == ""F"":
+            females = females + [lst[0],]
+        lst = lst[1:]
+    return merge(merge_sort(males), merge_sort(females))
+    
+def merge(left, right):
+    results = []
+    while left and right:
+        if left[0][1] > right[0][1]:
+            results.append(left.pop(0))
+        else:
+            results.append(right.pop(0))
+    results.extend(left)
+    results.extend(right)
+    return results
+
+def merge_sort(lst):
+    if len(lst) < 2:
+        return lst
+    mid = len(lst) // 2
+    left = merge_sort(lst[:mid])
+    right = merge_sort(lst[mid:])
+    return merge(left, right)
+",True,0.0974,8.1485,8.1485,0.0,0,0,0.0,[],[]
+wrong_4_144,claude-sonnet-5,reference,"def sort_age(lst):
+    males = []
+    females = []
+    while len(lst) > 0:
+        if lst[0][0] == ""M"":
+            males = males + [lst[0],]
+        elif lst[0][0] == ""F"":
+            females = females + [lst[0],]
+        lst = lst[1:]
+    return merge(merge_sort(males), merge_sort(females))
+    
+def merge(left, right):
+    results = []
+    while left and right:
+        if left[0][1] > right[0][1]:
+            results.append(left.pop(0))
+        else:
+            results.append(right.pop(0))
+    results.extend(left)
+    results.extend(right)
+    return results
+
+def merge_sort(lst):
+    if len(lst) < 2:
+        return lst
+    mid = len(lst) // 2
+    left = merge_sort(lst[:mid])
+    right = merge_sort(lst[mid:])
+    return merge(left, right)
+",True,0.0183,7.6361,7.6361,0.0,0,0,0.0,[],[]
+wrong_4_145,claude-sonnet-5,reference,"def sort_age(lst):
+    males, females = [], []
+    for i in lst:
+        if i[0] == ""M"":
+            males = males + [lst[0],]
+        elif i[0] == ""F"":
+            females = females + [lst[0],]
+        lst = lst[1:]
+    return merge(merge_sort(males), merge_sort(females))
+    
+def merge(left, right):
+    results = []
+    while left and right:
+        if left[0][1] > right[0][1]:
+            results.append(left.pop(0))
+        else:
+            results.append(right.pop(0))
+    results.extend(left)
+    results.extend(right)
+    return results
+
+def merge_sort(lst):
+    if len(lst) < 2:
+        return lst
+    mid = len(lst) // 2
+    left = merge_sort(lst[:mid])
+    right = merge_sort(lst[mid:])
+    return merge(left, right)
+",True,0.0261,9.0788,9.0788,0.0,0,0,0.0,[],[]
+wrong_4_146,claude-sonnet-5,reference,"def sort_age(lst):
+    result=[] 
+    while lst:
+        largest=lst[0][1]
+        tuple_largest=lst[0]
+        for i in lst:
+            if i[1]>largest:
+                largest=i[1]
+                tuple_largest=i
+        lst.remove(tuple_largest)
+        result.append(tuple_largest)
+    return result
+",True,0.5814,6.1842,6.1842,0.0,0,0,0.0,[],[]
+wrong_4_147,claude-sonnet-5,rules,"def sort_age(lst):
+    sorted = []
+    while lst:
+        youngest = lst[0]
+        for elem in lst:
+            if elem[1] > youngest[1]:
+                youngest = elem
+        print(youngest)
+        lst.remove(youngest)
+        sorted.append(youngest)
+    return sorted
+",True,0.0222,0.2181,0.2181,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_148,claude-sonnet-5,reference,"def sort_age(lst):
+    i=0
+    while i+1<len(lst):
+        if lst[i][1]<lst[i+1][1]:
+            lst.extend([lst[i]])
+            del lst[i]
+            i=0
+        else:
+            i+=1
+    return lst
+",True,0.3778,7.7248,7.7248,0.0,0,0,0.0,[],[]
+wrong_4_149,claude-sonnet-5,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        small = lst[0][1]
+        name=lst[0]
+        for ele in lst:
+            if ele[1] > small:
+                small = ele[1]
+                name=ele
+        lst.remove(name)
+        new.append(name)
+    return new
+",True,0.1864,5.7816,5.7816,0.0,0,0,0.0,[],[]
+wrong_4_150,claude-sonnet-5,reference,"def sort_age(lst):
+    i=0
+    while i+1<len(lst):
+        if lst[i][1]<lst[i+1][1]:
+            lst.extend([lst[i]])
+            del lst[i]
+            i=0
+        else:
+            i+=1
+    return lst
+",True,0.1636,4.8497,4.8497,0.0,0,0,0.0,[],[]
+wrong_4_151,claude-sonnet-5,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        small = lst[0][1]
+        name=lst[0]
+        for ele in lst:
+            if ele[1] > small:
+                small = ele[1]
+                name=ele
+        lst.remove(name)
+        new.append(name)
+    return new
+",True,0.2,5.7463,5.7463,0.0,0,0,0.0,[],[]
+wrong_4_152,claude-sonnet-5,reference,"def sort_age(lst):
+    i=0
+    while i+1<len(lst):
+        if lst[i][1]<lst[i+1][1]:
+            lst.extend([lst[i]])
+            del lst[i]
+            i=0
+        else:
+            i+=1
+    return lst
+",True,0.1481,4.9272,4.9272,0.0,0,0,0.0,[],[]
+wrong_4_153,claude-sonnet-5,llm,"def sort_age(lst):
+    lst.sort(key = lambda x:x[1], reverse=True)
+    return lst",True,0.3333,6.5418,5.1734,1.3684,1012,46,0.002484,[],[]
+wrong_4_154,claude-sonnet-5,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        small = lst[0][1]
+        name=lst[0]
+        for ele in lst:
+            if ele[1]>small:
+                small = ele[1]
+                name=ele
+        lst.remove(name)
+        new.append(name)
+    return new
+",True,0.1833,5.6617,5.6617,0.0,0,0,0.0,[],[]
+wrong_4_155,claude-sonnet-5,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        curr = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] > curr[1]:
+                curr = lst[i] 
+        lst.remove(curr)
+        new.append(curr)
+        
+    return new
+",True,0.2593,5.259,5.259,0.0,0,0,0.0,[],[]
+wrong_4_156,claude-sonnet-5,rules,"def sort_age(lst):
+    new = []
+    while lst:
+        curr = lst[0]
+        for i in lst:
+            if i[1] > curr[1]:
+                curr = i
+        lst.remove(curr)
+        new.append(curr)
+        
+    return new
+
+",True,0.0732,0.3238,0.3238,0.0,0,0,0.0,"[""use_loop_var_instead_of_tracked"", ""selection_min_should_be_max""]",[]
+wrong_4_157,claude-sonnet-5,rules,"def sort_age(lst):
+    new = []
+    while lst:
+        curr = lst[0]
+        for i in lst:
+            if i[1] > curr[1]:
+                curr = i
+        lst.remove(curr)
+        new.append(curr)
+        
+    return new
+
+",True,0.0732,0.3553,0.3553,0.0,0,0,0.0,"[""use_loop_var_instead_of_tracked"", ""selection_min_should_be_max""]",[]
+wrong_4_158,claude-sonnet-5,rules,"def sort_age(lst):
+	lst.sort(key = lambda x:x[1], reverse=True)
+	return lst
+",True,0.1429,0.1188,0.1188,0.0,0,0,0.0,"[""print_instead_of_return""]",[]
+wrong_4_159,claude-sonnet-5,reference,"def sort_age(lst):
+    i=0
+    while i+1<len(lst):
+        if lst[i][1]<lst[i+1][1]:
+            lst.extend([lst[i]])
+            del lst[i]
+            i=0
+        else:
+            i+=1
+    return lst
+",True,0.0577,40.6851,40.6851,0.0,0,0,0.0,[],[]
+wrong_4_160,claude-sonnet-5,llm,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1], reverse = True)
+    return lst",True,0.1765,6.7722,5.3748,1.3974,1018,46,0.002496,[],[]
+wrong_4_161,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.2163,0.2163,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_162,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.1683,0.1683,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_163,claude-sonnet-5,reference,"def sort_age(lst):
+    new = []
+    for x in lst:
+        index = 0
+        for i in new:
+            if x[1] < i[1]:
+                index += 1
+        new.insert(index,x)
+    return new
+",True,0.8108,4.329,4.329,0.0,0,0,0.0,[],[]
+wrong_4_164,claude-sonnet-5,llm,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1], reverse = True)
+    return lst",True,0.2667,6.2433,4.7373,1.506,1011,46,0.002482,[],[]
+wrong_4_165,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = [] #empty list
+    while lst:
+        largest = lst[0] #let the first element be the smallest first
+        for i in lst:
+            if i[1] > largest[1]:
+                largest = i
+        lst.remove(largest)
+        sort.append(largest)
+    return sort
+",True,0.0244,8.9314,8.9314,0.0,0,0,0.0,[],[]
+wrong_4_166,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = [] #empty list
+    while lst:
+        largest = lst[0] #let the first element be the smallest first
+        for i in lst:
+            if i[1] > largest[1]:
+                largest = i
+        lst.remove(largest)
+        sort.append(largest)
+    return sort
+",True,0.0244,14.3846,14.3846,0.0,0,0,0.0,[],[]
+wrong_4_167,claude-sonnet-5,reference,"def sort_age(lst):
+    sortt = [] #empty list
+    while lst:
+        largest = lst[0] #let the first element be the largest first
+        for i in lst:
+            if i[1] > largest[1]:
+                largest = i
+        lst.remove(largest)
+        sortt.append(largest)
+    return sortt
+",True,0.0244,7.3325,7.3325,0.0,0,0,0.0,[],[]
+wrong_4_168,claude-sonnet-5,reference,"def sort_age(lst):
+    sortt = [] #empty list
+    while lst:
+        largest = lst[0] #let the first element be the largest first
+        for i in lst:
+            if i[1] > largest[1]:
+                largest = i
+        lst.remove(largest)
+        sortt.append(largest)
+    return sortt
+",True,0.0244,9.3512,9.3512,0.0,0,0,0.0,[],[]
+wrong_4_169,claude-sonnet-5,rules,"def sort_age(lst):
+    sorted_lst = []
+    while lst:
+        smallest = lst[0]
+        for i in lst:
+            if i[1] > smallest[1]:
+                smallest = i
+        lst.remove(smallest)
+        sorted_lst.append(smallest)
+    return sorted_lst
+",True,0.0244,0.1879,0.1879,0.0,0,0,0.0,"[""selection_min_should_be_max""]",[]
+wrong_4_170,claude-sonnet-5,rules,"def sort_age(lst):
+    sorted_lst = []
+    while lst:
+        smallest = lst[0]
+        for i in lst:
+            if i[1] < smallest[1]:
+                smallest = i
+        lst.remove(smallest)
+        sorted_lst.append(smallest)
+    return sorted_lst[::-1]
+",True,0.119,0.1735,0.1735,0.0,0,0,0.0,"[""reverse_attr_no_call_in_return""]",[]
+wrong_4_171,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1], reverse=True)
+    return lst
+",True,0.1875,0.1532,0.1532,0.0,0,0,0.0,"[""positional_lambda_sort_to_key""]",[]
+wrong_4_172,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.2726,0.2726,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_173,claude-sonnet-5,reference,"def sort_age(lst):
+    sort=[]
+    while lst:
+        smallest = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] > smallest[1]:
+                smallest = lst[i]
+        lst.remove(smallest)
+        sort.append(smallest)
+    return sort
+",True,0.2679,5.5423,5.5423,0.0,0,0,0.0,[],[]
+wrong_4_174,claude-sonnet-5,reference,"def sort_age(lst):
+    sort=[]
+    while lst:
+        smallest = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] > smallest[1]:
+                smallest = lst[i]
+        lst.remove(smallest)
+        sort.append(smallest)
+    return sort
+",True,0.25,5.6805,5.6805,0.0,0,0,0.0,[],[]
+wrong_4_175,claude-sonnet-5,reference,"def sort_age(lst):
+    sort=[]
+    while lst:
+        smallest = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] > smallest[1]:
+                smallest = lst[i]
+        lst.remove(smallest)
+        sort.append(smallest)
+    return sort
+",True,0.2632,5.1379,5.1379,0.0,0,0,0.0,[],[]
+wrong_4_176,claude-sonnet-5,rules,"def sort_age(lst):
+    newlst = []
+    ages = []
+    for i in lst:
+        ages.append(i[1 - 1 - 1])
+    ages.sort()
+    for x in ages[::-1]:
+        for i in lst:
+            if i[1] == x:
+                newlst.append(i)
+    return newlst
+        
+",True,0.1224,0.2965,0.2965,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_177,claude-sonnet-5,rules,"def sort_age(lst):
+	lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+	return lst
+",True,0.3158,0.1954,0.1954,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_178,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.1632,0.1632,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_179,claude-sonnet-5,reference,"def sort_age(lst):
+    a = lst
+    sort = []
+    while a:
+        largest = a[0][1]
+        item=a[0]
+        for element in  a:
+            if element[1] > largest:
+                largest = element[1]
+                item=element
+        a.remove(item)
+        sort.append(item)
+    return sort
+",True,0.4348,6.998,6.998,0.0,0,0,0.0,[],[]
+wrong_4_180,claude-sonnet-5,reference,"def sort_age(lst):
+    a = lst
+    sort = []
+    while a:
+        largest = a[0]
+        for item in a:
+            if item[1] >largest[1]:
+                largest = item
+        a.remove(largest)
+        sort.append(largest)
+
+    return(sort)# Fill in your code here
+    
+",True,0.18,7.3573,7.3573,0.0,0,0,0.0,[],[]
+wrong_4_181,claude-sonnet-5,reference,"def sort_age(lst):
+    a = lst
+    sort = []
+    while a:
+        largest = a[0]
+        for item in a:
+            if item[1] >largest[1]:
+                largest = item
+        a.remove(largest)
+        sort.append(largest)
+
+    return(sort)# Fill in your code here
+    
+",True,0.1087,7.7155,7.7155,0.0,0,0,0.0,[],[]
+wrong_4_182,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1], reverse = True)
+    return lst
+",True,0.1429,0.1675,0.1675,0.0,0,0,0.0,"[""print_instead_of_return""]",[]
+wrong_4_183,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1], reverse = True)
+    return lst
+",True,0.1429,0.2214,0.2214,0.0,0,0,0.0,"[""print_instead_of_return""]",[]
+wrong_4_184,claude-sonnet-5,rules,"def sort_age(lst):
+    a = lst
+    sort = []
+    while a:
+        largest = a[0]
+        for item in a:
+            if item[1] > largest[1]:
+                largest = item
+        a.remove(largest)
+        sort.append(largest)
+    return sort# Fill in your code here
+    
+",True,0.0455,0.2173,0.2173,0.0,0,0,0.0,"[""return_inside_while_to_after""]",[]
+wrong_4_185,claude-sonnet-5,reference,"def sort_age(lst):
+    a = lst
+    sort = []
+    while a:
+        largest = a[0]
+        for item in a:
+            if item[1] >largest[1]:
+                largest = item
+        a.remove(largest)
+        sort.append(largest)
+
+    return(sort)# Fill in your code here
+    
+",True,0.18,10.784,10.784,0.0,0,0,0.0,[],[]
+wrong_4_186,claude-sonnet-5,rules,"def sort_age(lst):
+    a = lst
+    sort = []
+    while a:
+        largest = a[0]
+        for item in a:
+            if item[1] >largest[1]:
+                largest = item
+        a.remove(largest)
+        sort.append(largest)
+
+    return sort# Fill in your code here
+    
+",True,0.0652,0.1903,0.1903,0.0,0,0,0.0,"[""print_instead_of_return""]",[]
+wrong_4_187,claude-sonnet-5,rules,"def sort_age(lst):
+    new = []
+    while lst:
+        eldest = lst[0]
+        for i in lst:
+            if i[1] > eldest[1]:
+                eldest = i 
+        lst.remove(eldest)
+        new.append(eldest)
+    return new
+",True,0.1081,0.178,0.178,0.0,0,0,0.0,"[""compare_tuple_directly_without_age_index""]",[]
+wrong_4_188,claude-sonnet-5,llm,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1], reverse=True)
+    return lst",True,0.1765,9.3064,7.9237,1.3827,1018,46,0.002496,[],[]
+wrong_4_189,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1], reverse=True)
+    return lst
+",True,0.3158,0.2816,0.2816,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_190,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for element in lst:
+            if element[1] < biggest[1]:
+                biggest = element
+        lst.remove(biggest)
+        sort.append(biggest)
+    sort.reverse()
+    return sort
+",True,0.1707,95.4097,95.4097,0.0,0,0,0.0,[],[]
+wrong_4_191,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for element in lst:
+            if element[1] < biggest[1]:
+                biggest = element
+        lst.remove(biggest)
+        sort.append(biggest)
+    sort.reverse()
+    return sort
+",True,0.1707,99.3836,99.3836,0.0,0,0,0.0,[],[]
+wrong_4_192,claude-sonnet-5,llm,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1])
+    lst.reverse()
+    return lst
+    pass",True,0.4667,1.5274,0.2057,1.3217,1328,53,0.003186,[],[]
+wrong_4_193,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1], reverse=True)
+    return lst
+    pass
+",True,0.3,0.2524,0.2524,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_194,claude-sonnet-5,reference,"def sort_age(lst):
+    result = []
+    while lst:
+        largest = lst[0][1]
+        index = 0
+        for i in range(len(lst)):
+            if lst[i][1] > largest:
+                index = i
+                largest = lst[i][1]
+        result.append(lst[index])
+        lst.remove(lst[index])
+    return result
+",True,0.7049,11.3416,11.3416,0.0,0,0,0.0,[],[]
+wrong_4_195,claude-sonnet-5,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        smallest = lst[0][1]
+        i=lst[0]
+        for ele in lst:
+            if ele[1] > smallest:
+                smallest = ele[1]
+                i=ele
+        lst.remove(i)
+        new.append(i)
+    return new
+",True,0.3256,14.8859,14.8859,0.0,0,0,0.0,[],[]
+wrong_4_196,claude-sonnet-5,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        largest = lst[0][1]
+        i=lst[0]
+        for ele in lst:
+            if ele[1] > largest:
+                largest = ele[1]
+                i=ele
+        lst.remove(i)
+        new.append(i)
+    return new
+",True,0.2558,12.0594,12.0594,0.0,0,0,0.0,[],[]
+wrong_4_197,claude-sonnet-5,reference,"def sort_age(lst):
+	new_lst = 0
+	for i in range(len(lst) - 1):
+		if lst[i][1] < lst[i+1][1]:
+			lst.insert(i, lst[i+1])
+			lst.pop(i + 2)
+			new_lst += 1
+	if new_lst == 0:
+		return lst
+	else:
+		return sort_age(lst)
+",True,0.6818,8.1826,8.1826,0.0,0,0,0.0,[],[]
+wrong_4_198,claude-sonnet-5,reference,"def sort_age(lst):
+	new_lst = 0
+	for i in range(len(lst) - 1):
+		if lst[i][1] < lst[i+1][1]:
+			lst.insert(i, lst[i+1])
+			lst.pop(i + 2)
+			new_lst += 1
+	if new_lst == 0:
+		return lst
+	else:
+		return sort_age(lst)
+",True,0.6889,7.4466,7.4466,0.0,0,0,0.0,[],[]
+wrong_4_199,claude-sonnet-5,reference,"def sort_age(lst):
+	new_lst = 0
+	for i in range(len(lst) - 1):
+		if lst[i][1] < lst[i+1][1]:
+			lst.insert(i, lst[i+1])
+			lst.pop(i + 2)
+			new_lst += 1
+	if new_lst == 0:
+		return lst
+	else:
+		return sort_age(lst)
+",True,0.775,7.6605,7.6605,0.0,0,0,0.0,[],[]
+wrong_4_200,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.239,0.239,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_201,claude-sonnet-5,reference,"def sort_age(lst):
+	agelist = 0
+	while agelist < len(lst)-1:
+	    if lst[agelist][1] > lst[agelist+1][1]:
+	        agelist += 1
+	    elif lst[agelist][1] < lst[agelist+1][1]:
+	        lst.append(lst[agelist])
+	        lst.remove(lst[agelist])
+	        sort_age(lst)
+	return lst
+",True,0.7634,11.111,11.111,0.0,0,0,0.0,[],[]
+wrong_4_202,claude-sonnet-5,reference,"def sort_age(lst):
+    decoy = []
+    decoy2 = []
+    final = []
+    for i in lst:
+        decoy.append(i[1])
+    while decoy != []:
+        decoy2.append(max(decoy))
+        decoy.remove(max(decoy))
+    for i in decoy2:
+        for j in lst:
+            if i == j[1]:
+                final.append(j)
+    return final
+    
+    
+",True,0.0323,16.4232,16.4232,0.0,0,0,0.0,[],[]
+wrong_4_203,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while len(lst) > 0:
+        smallest = lst[0]
+        for i in lst:
+            if i[1] > smallest[1]:
+                smallest = i
+        
+        lst.remove(smallest)
+        sort.append(smallest)
+    return sort
+        
+        
+",True,0.1,11.2511,11.2511,0.0,0,0,0.0,[],[]
+wrong_4_204,claude-sonnet-5,reference,"def sort_age(lst):
+    if lst == []:
+        return []
+    else:
+        agelist = [lst[0],]
+        for i in range(1,len(lst)):
+            if lst[i][1] > agelist[0][1]:
+                agelist.insert(0, lst[i])
+            elif lst[i][1] < agelist[len(agelist)-1][1]:
+                agelist.insert(len(agelist), lst[i])
+            else:
+                for x in range(0,len(agelist)):
+                    if agelist[x][1]> lst[i][1] > agelist[x+1][1]:
+                        agelist.insert(x+1, lst[i])
+                        break
+        return agelist
+    
+",True,0.0811,8.5838,8.5838,0.0,0,0,0.0,[],[]
+wrong_4_205,claude-sonnet-5,rules,"def sort_age(lst):
+    if len(lst) <= 1:
+        return lst
+    else:
+        used_lst=lst.copy()
+        ages=()
+        for i in lst:
+            ages+=(i[1],)
+        for i in lst:
+            if i[1]==max(ages):
+                new_lst=[i]
+                used_lst.remove(i)
+        return new_lst+sort_age(used_lst)
+",True,0.0169,0.1515,0.1515,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_206,claude-sonnet-5,reference,"def sort_age(lst):
+    # Fill in your code here
+    agelist = []
+    for i in lst:
+        if agelist ==[]:
+            agelist.append(i)
+            continue
+        else:
+            for x in range(0,len(lst)):
+                if i[1]>agelist[0][1]:
+                    agelist.insert(0,i)
+                    break
+                elif agelist[-1][1]>i[1]:
+                    agelist.insert(len(lst),i)
+                    break
+                elif i[1] > agelist[x+1][1] and i[1]<agelist[x][1]:
+                    agelist.insert(x+1,i)
+                    break
+    return agelist
+    
+",True,0.6036,8.3703,8.3703,0.0,0,0,0.0,[],[]
+wrong_4_207,claude-sonnet-5,reference,"def merge(one,two):
+    new_tup = []
+    while left and right:
+        if one[0][1] < two[0][1]:
+            new_tup.append(one.pop(0))
+        else:
+            new_tup.append(two.pop(0))
+    return new_tup
+
+def sort_age(lst):
+	if len(lst) < 2:
+		return lst
+	mid = len(lst) // 2
+	left = sort_age(lst[:mid])
+	right = sort_age(lst[mid:])
+	return merge(left, right)
+	
+def merge(left, right):
+	a = []
+	while left and right:
+		if left[0][1] < right[0][1]:
+			a.append(right.pop(0))
+		else:
+			a.append(left.pop(0))
+	a.extend(left)
+	a.extend(right)
+	return a
+",True,0.5663,10.4603,10.4603,0.0,0,0,0.0,[],[]
+wrong_4_208,claude-sonnet-5,reference,"def merge(one,two):
+    new_tup = []
+    while one and two:
+        if one[0][1] < two[0][1]:
+            new_tup.append(one.pop(0))
+        else:
+            new_tup.append(two.pop(0))
+    return new_tup
+
+def sort_age(lst):
+	if len(lst) < 2:
+		return lst
+	mid = len(lst) // 2
+	left = sort_age(lst[:mid])
+	right = sort_age(lst[mid:])
+	return merge(left, right)
+	
+def merge(left, right):
+	a = []
+	while left and right:
+		if left[0][1] < right[0][1]:
+			a.append(right.pop(0))
+		else:
+			a.append(left.pop(0))
+	a.extend(left)
+	a.extend(right)
+	return a
+",True,0.5904,12.9746,12.9746,0.0,0,0,0.0,[],[]
+wrong_4_209,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        smallest = lst[0]
+        for element in lst:
+            if element[1] > smallest[1]:
+                smallest = element
+        lst.remove(smallest)
+        sort.append(smallest)
+    return sort
+        
+    pass
+",True,0.15,14.0044,14.0044,0.0,0,0,0.0,[],[]
+wrong_4_210,claude-sonnet-5,llm,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1], reverse=True)
+    return lst",True,0.1765,8.4493,6.9407,1.5086,1018,46,0.002496,[],[]
+wrong_4_211,claude-sonnet-5,reference,"def sort_age(lst):
+    n = len(lst)
+    result = []
+    while n != 0:
+        test = []
+        for counter in range(n):
+            test.append(lst[counter][1])
+        first = max(test)
+        for counter in range(n):
+            if counter == len(lst):
+                break
+            elif lst[counter][1] == first:
+                result.append(lst.pop(counter))
+        n = len(lst)
+    return result
+        
+",True,0.1471,9.0462,9.0462,0.0,0,0,0.0,[],[]
+wrong_4_212,claude-sonnet-5,reference,"def sort_age(lst):
+    n = len(lst)
+    result = []
+    while n != 0:
+        test = []
+        for counter in range(n):
+            test.append(lst[counter][1])
+        first = max(test)
+        for counter in range(n):
+            if counter == len(lst):
+                break
+            elif lst[counter][1] == first:
+                result.append(lst.pop(counter))
+        n = len(lst)
+    return result
+        
+",True,0.1176,49.5954,49.5954,0.0,0,0,0.0,[],[]
+wrong_4_213,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1], reverse=True)
+    return lst
+",True,0.3158,0.2438,0.2438,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_214,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1], reverse=True)
+    return lst
+",True,0.1176,0.1725,0.1725,0.0,0,0,0.0,"[""sort_key_missing_reverse""]",[]
+wrong_4_215,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1])
+    lst.reverse()
+    return lst
+",True,0.2857,0.2547,0.2547,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_216,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1], reverse=True)
+    return lst
+",True,0.1176,0.1847,0.1847,0.0,0,0,0.0,"[""sort_key_missing_reverse""]",[]
+wrong_4_217,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key= lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.2282,0.2282,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_218,claude-sonnet-5,reference,"def sort_age(lst):
+    new_lst = []
+    for i in range(len(lst)):
+        max_num = max(lst, key=lambda p: p[1])
+        lst.remove(max_num)
+        new_lst.append(max_num)
+    return new_lst
+",True,0.2647,11.0909,11.0909,0.0,0,0,0.0,[],[]
+wrong_4_219,claude-sonnet-5,reference,"def sort_age(lst):
+    new_lst = []
+    for i in range(len(lst)):
+        max_num = max(lst, key=lambda p: p[1])
+        lst.remove(max_num)
+        new_lst.append(max_num)
+    return new_lst
+
+",True,0.2258,9.8431,9.8431,0.0,0,0,0.0,[],[]
+wrong_4_220,claude-sonnet-5,reference,"def sort_age(lst):
+    result = []
+    while lst:
+        largest = lst[0][1]
+        index = 0
+        for i in range(len(lst)):
+            if lst[i][1] > largest:
+                index = i
+                largest = lst[i][1]
+        result.append(lst[index])
+        lst.remove(lst[index])
+    return result
+",True,0.7727,17.1609,17.1609,0.0,0,0,0.0,[],[]
+wrong_4_221,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.2992,0.2992,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_222,claude-sonnet-5,reference,"def sort_age(lst):
+    n = len(lst)
+    result = []
+    while n != 0:
+        test = []
+        for counter in range(n):
+            test.append(lst[counter][1])
+        first = max(test)
+        for counter in range(n):
+            if counter == len(lst):
+                break
+            elif lst[counter][1] == first:
+                result.append(lst.pop(counter))
+        n = len(lst)
+    return result
+        
+",True,0.1176,47.4287,47.4287,0.0,0,0,0.0,[],[]
+wrong_4_223,claude-sonnet-5,llm,"def sort_age(lst):
+    a=[]
+    while lst:
+        for i in lst:
+            if i==max(lst,key=lambda x:x[1]):
+                a.append(i)
+                lst.remove(i)
+                break
+    return a",True,0.5,29.3923,27.963,1.4293,851,83,0.002532,[],[]
+wrong_4_224,claude-sonnet-5,llm,"def sort_age(lst):
+    lst = lst[:]
+    a=[]
+    while lst:
+        m = max(lst, key=lambda x: x[1])
+        a.append(m)
+        lst.remove(m)
+    return a",True,0.96,3.633,0.5177,3.1153,1098,80,0.002996,[],[]
+wrong_4_225,claude-sonnet-5,llm,"def sort_age(lst):
+    a=[]
+    for x in lst:
+        index = 0
+        for i in a:
+            if x[1] < i[1]:
+                index += 1
+        a.insert(index,x)
+    return a",True,0.7241,8.9289,7.4115,1.5174,1087,77,0.002944,[],[]
+wrong_4_226,claude-sonnet-5,llm,"def sort_age(lst):
+    a = []
+    for x in lst:
+        index = 0
+        for i in a:
+            if x[1] < i[1]:
+                index += 1
+        a.insert(index, x)
+    return a",True,0.7143,10.4492,8.4282,2.021,1082,123,0.003394,[],[]
+wrong_4_227,claude-sonnet-5,rules,"def sort_age(lst):
+    a=[]
+    while lst:
+        biggest=lst[0]
+        for i in lst:
+            if i[1] > biggest[1]:
+                biggest = i
+        lst.remove(biggest)
+        a.append(biggest)
+    return a
+",True,0.1081,0.1552,0.1552,0.0,0,0,0.0,"[""compare_tuple_directly_without_age_index""]",[]
+wrong_4_228,claude-sonnet-5,reference,"def sort_age(lst):
+	youngest=[]
+	while lst:
+		item=lst[0]
+		minimum=lst[0][1]
+		for x in lst:
+			if x[1]>minimum:
+				minimum=x[1]
+				item=x
+		youngest.append(item)
+		lst.remove(item)
+	return youngest
+",True,0.8205,9.8651,9.8651,0.0,0,0,0.0,[],[]
+wrong_4_229,claude-sonnet-5,reference,"def sort_age(lst):
+    youngest=[]
+    item=0
+    while lst:
+        for i in lst:
+            if i[1]>item:
+                item = i[1]
+                count=i
+        youngest=youngest+[count]
+        lst.remove(count)
+        item=0
+    return youngest
+",True,0.875,9.5818,9.5818,0.0,0,0,0.0,[],[]
+wrong_4_230,claude-sonnet-5,reference,"def sort_age(lst):
+    newlst=[]
+    while lst:
+        oldest = lst[0][1] #first age
+        for person in lst:
+            if person[1]>oldest:
+                oldest=person[1]
+        for person in lst:
+            if person[1]==oldest:
+                newlst.append(person)
+                lst.remove(person)            
+    return newlst
+",True,0.8,7.8653,7.8653,0.0,0,0,0.0,[],[]
+wrong_4_231,claude-sonnet-5,rules,"def sort_age(lst):
+    a=[]
+    while lst:
+        biggest=lst[0]
+        for i in lst:
+            if i[1] >= biggest[1]:
+                biggest = i
+        lst.remove(biggest)
+        a.append(biggest)
+    return a
+",True,0.1081,0.1769,0.1769,0.0,0,0,0.0,"[""compare_tuple_directly_without_age_index""]",[]
+wrong_4_232,claude-sonnet-5,rules,"def sort_age(lst):
+    compiled = []
+    result = []
+    for i in lst:
+        compiled = compiled + [i[1 - 1 - 1]]
+    compiled.sort()
+    compiled.reverse()
+    for i in compiled:
+        for j in lst:
+            if i == j[1]:
+                result = result + [j]
+    return result
+",True,0.1154,0.3357,0.3357,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_233,claude-sonnet-5,reference,"def sort_age(lst):
+	sort = []
+	while lst:
+		smallest = lst[0][1]
+		for element in lst:
+			if element[1] >= smallest:
+				smallest = element[1]
+				remove_people = element
+		sort.append(remove_people)
+		lst.remove(remove_people)
+	return sort
+",True,0.2683,13.8463,13.8463,0.0,0,0,0.0,[],[]
+wrong_4_234,claude-sonnet-5,reference,"def sort_age(lst):
+    sorted = []
+    while lst:
+        oldest = lst[0]
+        for element in lst:
+            if element[1] > oldest[1]:
+                oldest = element
+        lst.remove(oldest)
+        sorted.append(oldest)
+    return sorted
+            
+",True,0.0488,12.5633,12.5633,0.0,0,0,0.0,[],[]
+wrong_4_235,claude-sonnet-5,llm,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1], reverse=True)
+    return lst",True,0.3333,9.6172,8.3953,1.2219,1012,46,0.002484,[],[]
+wrong_4_236,claude-sonnet-5,reference,"def sort_age(lst):
+    def age(i):
+        return i[1]
+        
+    def position(seq, ele):
+        n = len(seq)
+        for i in range(n):
+            if seq[i] == ele:
+                return i
+                
+    def largest_age(seq):
+        largest = age(seq[0])
+        largest_pos = 0
+        for i in seq:
+            if age(i) > largest:
+                largest = age(i)
+                largest_pos = position(seq,i)
+        return seq[largest_pos]
+    n = len(lst)
+    if n ==0:
+        return []
+    elif n ==1:
+        return lst
+    else:
+        final = [largest_age(lst)]
+        lst.remove(largest_age(lst))
+        final = final + sort_age(lst)
+        return final
+
+",True,0.2075,17.3041,17.3041,0.0,0,0,0.0,[],[]
+wrong_4_237,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1])
+    lst.reverse()
+    return lst
+",True,0.2857,0.2827,0.2827,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_238,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for x in lst:
+            if x[1] > oldest[1]:
+                oldest = x
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+            
+        
+",True,0.0488,16.0528,16.0528,0.0,0,0,0.0,[],[]
+wrong_4_239,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for x in lst:
+            if x[1] > oldest[1]:
+                oldest = x
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+            
+        
+",True,0.0244,21.1578,21.1578,0.0,0,0,0.0,[],[]
+wrong_4_240,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1])
+    lst.reverse()
+    return lst
+",True,0.2857,0.3514,0.3514,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_241,claude-sonnet-5,reference,"def sort_age(lst):
+    list1 =[]
+    while lst:
+        i = 0
+        smallest = lst[0][1]
+        for s in range(1, len(lst)):
+            if lst[s][1] >smallest:
+                smallest = lst[s][1]
+                i = s
+        list1.append(lst[i])
+        del lst[i]
+    return list1
+",True,0.4737,9.1184,9.1184,0.0,0,0,0.0,[],[]
+wrong_4_242,claude-sonnet-5,reference,"def sort_age(lst):
+    list1 = []
+    while lst:
+        i = lst[0][1]
+        smallest = lst[0]
+        for s in range(1, len(lst)):
+            if lst[s][1] > i:
+                i = lst[s][1]
+                smallest = lst[s]
+        list1.append(smallest)
+        lst.remove(smallest)
+    return list1
+",True,0.4211,9.7809,9.7809,0.0,0,0,0.0,[],[]
+wrong_4_243,claude-sonnet-5,reference,"def sort_age(lst):
+    for list1 in range(len(lst)):
+        for i in range(len(lst)):
+            if lst[i][1] < lst[list1][1]:
+                lst[i], lst[list1] = lst[list1], lst[i]
+    return lst
+",True,0.6949,6.3434,6.3434,0.0,0,0,0.0,[],[]
+wrong_4_244,claude-sonnet-5,reference,"def sort_age(lst):
+    for start in range (len(lst) - 1):
+        for i in range(start, len(lst)):
+            if lst[i][1] > lst[start][1]:
+                lst[i], lst[start] = lst[start], lst[i]
+    return lst
+",True,0.7143,8.0664,8.0664,0.0,0,0,0.0,[],[]
+wrong_4_245,claude-sonnet-5,reference,"def sort_age(lst):
+    for start in range (len(lst) - 1):
+        for i in range(start, len(lst)):
+            if lst[i][1] > lst[start][1]:
+                lst[i], lst[start] = lst[start], lst[i]
+    return lst
+",True,0.7143,8.1315,8.1315,0.0,0,0,0.0,[],[]
+wrong_4_246,claude-sonnet-5,reference,"def sort_age(lst):
+    for i in range(0,len(lst)-1):
+        for j in range(i+1,len(lst)):
+            if lst[i][1]<lst[j][1]:
+                lst[i],lst[j]=lst[j],lst[i]
+    return lst
+",True,0.7313,9.2753,9.2753,0.0,0,0,0.0,[],[]
+wrong_4_247,claude-sonnet-5,reference,"def sort_age(lst):
+    list1 = []
+    while lst:
+        biggest = lst[0][1]
+        b = lst[0]
+        for i in range(1, len(lst)):
+            if lst[i][1] > biggest:
+                biggest = lst[i][1]
+                b = lst[i]
+        list1.append(b)
+        lst.remove(b)
+    return list1
+
+",True,0.1364,10.0452,10.0452,0.0,0,0,0.0,[],[]
+wrong_4_248,claude-sonnet-5,reference,"def sort_age(lst):
+    list1 = []
+    while lst:
+        biggest = lst[0][1]
+        b = lst[0]
+        for i in range(1,len(lst)):
+            if lst[i][1] > biggest:
+                biggest = lst[i][1]
+                b = lst[i]
+        list1.append(b)
+        lst.remove(b)
+    return list1
+
+",True,0.0952,13.7985,13.7985,0.0,0,0,0.0,[],[]
+wrong_4_249,claude-sonnet-5,reference,"def sort_age(lst):
+    list1 = []
+    while lst:
+        biggest = lst[0][1]
+        b = lst[0]
+        for i in range(1,len(lst)):
+            if lst[i][1] > biggest:
+                biggest = lst[i][1]
+                b = lst[i]
+        list1.append(b)
+        lst.remove(b)
+    return list1
+
+",True,0.0476,12.147,12.147,0.0,0,0,0.0,[],[]
+wrong_4_250,claude-sonnet-5,reference,"def sort_age(lst):
+    swap = True
+    while swap:
+        swap = False
+        for tag in range(len(lst)-1):
+            if lst[tag][1] < lst[tag+1][1]:
+                lst[tag], lst[tag+1] = lst[tag+1], lst[tag]
+                swap = True
+    return lst
+",True,0.0323,10.7416,10.7416,0.0,0,0,0.0,[],[]
+wrong_4_251,claude-sonnet-5,reference,"def sort_age(lst):
+    list1 = []
+    while lst:
+        biggest = lst[0]
+       
+        for i in range(1,len(lst)):
+            if lst[i][1] > biggest[1]:
+                biggest = lst[i] 
+        lst.remove(biggest)
+        list1.append(biggest)
+    return list1
+
+",True,0.0385,8.394,8.394,0.0,0,0,0.0,[],[]
+wrong_4_252,claude-sonnet-5,reference,"def sort_age(lst):
+    list1 = []
+    while lst:
+        biggest = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] > biggest[1]:
+                biggest = lst[i]
+        lst.remove(biggest)
+        list1.append(biggest)
+    return list1
+
+",True,0.1091,9.6341,9.6341,0.0,0,0,0.0,[],[]
+wrong_4_253,claude-sonnet-5,reference,"def sort_age(lst):
+    list1 = []
+    while lst:
+        biggest = lst[0]
+       
+        for i in lst:
+            if i[1] > biggest[1]:
+                biggest = i
+                
+        lst.remove(biggest)
+        list1.append(biggest)
+    return list1
+
+",True,0.0465,16.7654,16.7654,0.0,0,0,0.0,[],[]
+wrong_4_254,claude-sonnet-5,rules,"def sort_age(lst):
+	lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+	return lst
+",True,0.3158,0.235,0.235,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_255,claude-sonnet-5,reference,"def sort_age(lst):
+    newlst = []
+    while lst:
+        i = lst[0]
+        for element in lst:
+            if element[1] >= i[1]:
+                i = element
+        lst.remove(i)
+        newlst.append(i)
+    return newlst
+",True,0.0488,12.7528,12.7528,0.0,0,0,0.0,[],[]
+wrong_4_256,claude-sonnet-5,reference,"def sort_age(lst):
+    newlst = []
+    while lst:
+        i = lst[0]
+        for element in lst:
+            if element[1] >= i[1]:
+                i = element
+        lst.remove(i)
+        newlst.append(i)
+    return newlst
+",True,0.0244,16.3343,16.3343,0.0,0,0,0.0,[],[]
+wrong_4_257,claude-sonnet-5,llm,"def sort_age(lst):
+    a = sorted(lst, key=lambda x: x[1], reverse=True)
+    lst.clear()
+    lst.extend(a)
+    return lst",True,0.5,1.6559,0.2686,1.3873,937,67,0.002544,[],[]
+wrong_4_258,claude-sonnet-5,reference,"def sort_age(lst):
+    res=[]
+    age_list=0
+    while lst:
+        for i in lst:
+            if i[1]>age_list:
+                age_list = i[1]
+                count=i
+        res=res+[count]
+        lst.remove(count)
+        age_list=0
+    return res
+",True,0.5909,19.9258,19.9258,0.0,0,0,0.0,[],[]
+wrong_4_259,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.2473,0.2473,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_260,claude-sonnet-5,rules,"def sort_age(lst):
+    sort = []
+    while lst:
+        smallest = lst[0]
+        for element in lst:
+            if element[1] > smallest[1]:
+                smallest = element
+        lst.remove(smallest)
+        sort.append(smallest)
+
+    return sort
+",True,0.0244,0.1517,0.1517,0.0,0,0,0.0,"[""selection_min_should_be_max""]",[]
+wrong_4_261,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.2124,0.2124,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_262,claude-sonnet-5,reference,"def sort_age(lst):
+    s = []
+    while lst:
+        smallest = lst[0]
+        for element in lst:
+            if smallest[1] < element[1]:
+                smallest = element
+        lst.remove(smallest)
+        s.append(smallest)
+    return s
+",True,0.1333,11.2274,11.2274,0.0,0,0,0.0,[],[]
+wrong_4_263,claude-sonnet-5,llm,"def sort_age(lst):
+    # Fill in your code here
+    lst.sort(key=lambda x: x[1], reverse=True)
+    return lst",True,0.3333,8.024,6.8467,1.1773,1022,56,0.002604,[],[]
+wrong_4_264,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key= lambda x: x[1 - 1 - 1], reverse=True)
+    return lst
+",True,0.3158,0.2295,0.2295,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_265,claude-sonnet-5,reference,"def sort_age(lst):
+    for i in range(len(lst)-1):
+        for a in range(i, len(lst)):
+            if lst[a][1] > lst[i][1]:
+                x = lst[i]
+                lst[i] = lst[a]
+                lst[a] = x
+    return lst
+
+        
+",True,0.2593,6.7221,6.7221,0.0,0,0,0.0,[],[]
+wrong_4_266,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        largest = lst[0]
+        largestx = lst[0][1]
+        for element in lst:
+            if element[1] > largestx:
+                largestx = element[1]
+                largest = element
+        lst.remove(largest)
+        sort.append(largest)
+    return sort
+",True,0.6579,8.5223,8.5223,0.0,0,0,0.0,[],[]
+wrong_4_267,claude-sonnet-5,reference,"def sort_age(lst):
+    # Fill in your code here
+    sorted_list = []
+    while lst: 
+        oldest = lst[0][1]
+        element=lst[0]
+        for ele in lst:
+            if ele[1] > oldest:
+                oldest = ele[1]
+                element=ele
+        lst.remove(element)
+        sorted_list.append(element)
+    return sorted_list
+",True,0.3902,11.1849,11.1849,0.0,0,0,0.0,[],[]
+wrong_4_268,claude-sonnet-5,rules,"def sort_age(lst):
+    # Fill in your code here
+    lst.sort(key=lambda x: x[1 - 1 - 1], reverse=True)
+    return lst
+",True,0.3158,0.2524,0.2524,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_269,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.2963,0.2963,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_270,claude-sonnet-5,reference,"def sort_age(lst):
+    if len(lst) < 2:
+        return lst
+    else:
+        midpoint = len(lst) // 2
+        left = sort_age(lst[:midpoint])
+        right = sort_age(lst[midpoint:])
+        
+        new_list = []
+        while left and right:
+            if left[0][1] < right[0][1]:
+                new_list.append(right.pop(0))
+            else:
+                new_list.append(left.pop(0))
+        new_list.extend(left)
+        new_list.extend(right)
+        return new_list
+",True,0.0465,14.6251,14.6251,0.0,0,0,0.0,[],[]
+wrong_4_271,claude-sonnet-5,reference,"def sort_age(lst):
+    if len(lst) < 2:
+        return lst
+    else:
+        midpoint = len(lst) // 2
+        left = sort_age(lst[:midpoint])
+        right = sort_age(lst[midpoint:])
+        
+        new_list = []
+        while left and right:
+            if left[0][1] < right[0][1]:
+                new_list.append(right.pop(0))
+            else:
+                new_list.append(left.pop(0))
+        new_list.extend(left)
+        new_list.extend(right)
+        return new_list
+",True,0.0465,14.6684,14.6684,0.0,0,0,0.0,[],[]
+wrong_4_272,claude-sonnet-5,reference,"def sort_age(lst):
+    if len(lst) < 2:
+        return lst
+    else:
+        midpoint = len(lst) // 2
+        left = sort_age(lst[:midpoint])
+        right = sort_age(lst[midpoint:])
+        
+        new_list = []
+        while left and right:
+            if left[0][1] < right[0][1]:
+                new_list.append(right.pop(0))
+            else:
+                new_list.append(left.pop(0))
+        new_list.extend(left)
+        new_list.extend(right)
+        new_list.reverse
+        return new_list
+",True,0.0787,14.622,14.622,0.0,0,0,0.0,[],[]
+wrong_4_273,claude-sonnet-5,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        largest = lst[0]
+        for ele in lst:
+            if ele[1] > largest[1]:
+                largest = ele
+        lst.remove(largest)
+        new.append(largest)
+    return new
+        
+",True,0.0769,16.8935,16.8935,0.0,0,0,0.0,[],[]
+wrong_4_274,claude-sonnet-5,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        largest = lst[0]
+        for ele in lst:
+            if ele[1] > largest[1]:
+                largest = ele
+        lst.remove(largest)
+        new.append(largest)
+    return new
+",True,0.1282,14.1943,14.1943,0.0,0,0,0.0,[],[]
+wrong_4_275,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.245,0.245,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_276,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst: 
+        largest = lst[0][1]
+        i=lst[0]
+        for ele in lst:
+            if ele[1] > largest:
+                largest = ele[1]
+                i=ele
+        lst.remove(i)
+        sort.append(i)
+    return sort 
+",True,0.2558,11.5203,11.5203,0.0,0,0,0.0,[],[]
+wrong_4_277,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1], reverse = True)
+    return lst 
+    pass
+",True,0.3,0.2443,0.2443,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_278,claude-sonnet-5,reference,"def sort_age(lst):
+    for i in range(len(lst)-1):
+        for j in range(i, len(lst)):
+            if lst[j][1] > lst[i][1]:
+                x = lst[i]
+                lst[i] = lst[j]
+                lst[j] = x
+    return lst
+",True,0.3818,5.0483,5.0483,0.0,0,0,0.0,[],[]
+wrong_4_279,claude-sonnet-5,reference,"def sort_age(lst):
+    for i in range(len(lst)-1):
+        for j in range(i, len(lst)):
+            if lst[j][1] > lst[i][1]:
+                x = lst[i]
+                lst[i] = lst[j]
+                lst[j] = x
+    return lst
+",True,0.3636,6.4286,6.4286,0.0,0,0,0.0,[],[]
+wrong_4_280,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.2063,0.2063,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_281,claude-sonnet-5,reference,"def sort_age(lst):
+    for i in range(len(lst)-1):
+        for j in range(len(lst)-1-i):
+            if lst[j][1]< lst[j+1][1]:
+                lst[j],lst[j+1] = lst[j+1],lst[j]
+    return lst
+",True,0.25,6.5515,6.5515,0.0,0,0,0.0,[],[]
+wrong_4_282,claude-sonnet-5,reference,"def sort_age(lst):
+    for i in range(len(lst)-1):
+        for j in range(len(lst)-1-i):
+            if lst[j][1]< lst[j+1][1]:
+                lst[j],lst[j+1] = lst[j+1],lst[j]
+    return lst
+",True,0.1447,7.9838,7.9838,0.0,0,0,0.0,[],[]
+wrong_4_283,claude-sonnet-5,reference,"def sort_age(lst):
+    for i in range(len(lst)-1):
+        for j in range(len(lst)-1-i):
+            if lst[j][1]< lst[j+1][1]:
+                lst[j],lst[j+1] = lst[j+1],lst[j]
+    return lst
+",True,0.1316,8.0979,8.0979,0.0,0,0,0.0,[],[]
+wrong_4_284,claude-sonnet-5,reference,"def sort_age(lst):
+    newlist = []
+    while lst:
+        oldest = lst[0]
+        for i in lst:
+            if i[1] > oldest[1]:
+                oldest = i
+            else:
+                continue
+        lst.remove(oldest)
+        newlist.append(oldest)
+    return newlist
+",True,0.05,17.2271,17.2271,0.0,0,0,0.0,[],[]
+wrong_4_285,claude-sonnet-5,llm,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1], reverse = True)
+    return lst",True,0.1176,12.0834,10.6919,1.3915,1017,46,0.002494,[],[]
+wrong_4_286,claude-sonnet-5,llm,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1], reverse = True)
+    return lst",True,0.1765,9.8209,8.5221,1.2988,1018,46,0.002496,[],[]
+wrong_4_287,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.2437,0.2437,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_288,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        largest = lst[0]
+        for element in lst:
+            if element[1] < largest[1]:
+                largest = element
+        lst.remove(largest)
+        sort.append(largest)
+    sort.reverse()
+    return sort
+",True,0.3333,14.4333,14.4333,0.0,0,0,0.0,[],[]
+wrong_4_289,claude-sonnet-5,reference,"def sort_age(lst):
+    final = []
+    temp = 0
+    while lst:
+        biggest = lst[0][1]
+        for i in lst:
+            if i[1]>=biggest:
+                biggest = i[1]
+                temp = i 
+        lst.remove(temp)
+        final.append(temp)
+    return final
+
+",True,0.55,12.1391,12.1391,0.0,0,0,0.0,[],[]
+wrong_4_290,claude-sonnet-5,reference,"def sort_age(lst):
+    final = []
+    temp = 0
+    while lst:
+        biggest = lst[0][1]
+        for i in lst:
+            if i[1]>=biggest:
+                biggest = i[1]
+                temp = i 
+        lst.remove(temp)
+        final.append(temp)
+    return final
+
+",True,0.5,13.6566,13.6566,0.0,0,0,0.0,[],[]
+wrong_4_291,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst: 
+        biggest = lst[0][1]
+        i=lst[0]
+        for ele in lst:
+            if ele[1] > biggest:
+                biggest = ele[1]
+                i=ele
+        lst.remove(i)
+        sort.append(i)
+    return sort
+",True,0.2791,12.8158,12.8158,0.0,0,0,0.0,[],[]
+wrong_4_292,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst: 
+        biggest = lst[0][1]
+        i=lst[0]
+        for ele in lst:
+            if ele[1] > biggest:
+                biggest = ele[1]
+                i=ele
+        lst.remove(i)
+        sort.append(i)
+    return sort# Fill in your code here
+    
+",True,0.2558,12.3144,12.3144,0.0,0,0,0.0,[],[]
+wrong_4_293,claude-sonnet-5,reference,"def sort_age(lst):
+    sort=[]
+    while lst:
+        biggest = lst[0]
+        for i in lst:
+            if i[1] > biggest[1]:
+                biggest = i
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort
+",True,0.2051,14.5032,14.5032,0.0,0,0,0.0,[],[]
+wrong_4_294,claude-sonnet-5,reference,"def sort_age(lst):
+    result=[] 
+    while lst:
+        biggest=lst[0][1]
+        for i in lst:
+            if i[1]>=biggest:
+                biggest=i[1]
+                tuple_biggest=i
+        lst.remove(tuple_biggest)
+        result.append(tuple_biggest)
+    return result
+",True,0.186,11.3871,11.3871,0.0,0,0,0.0,[],[]
+wrong_4_295,claude-sonnet-5,reference,"def sort_age(lst):
+    sort=[]
+    while lst:
+        biggest = lst[0][1]
+        i = 0
+        for count in range(len(lst)):
+            if lst[count][1] > biggest:
+                i = count
+                biggest = lst[count][1]
+        sort.append(lst[i])
+        lst.remove(lst[i])
+    return sort
+",True,0.4028,7.9143,7.9143,0.0,0,0,0.0,[],[]
+wrong_4_296,claude-sonnet-5,reference,"def sort_age(lst):
+    ages = []
+    output = []
+    for item in lst:
+        ages.append(item[1])
+    while ages:
+        age = max(ages)
+        for item in lst:
+            if age == item[1]:
+                output.append(item)
+                ages.remove(age)
+    return output
+",True,0.2273,14.7988,14.7988,0.0,0,0,0.0,[],[]
+wrong_4_297,claude-sonnet-5,reference,"def sort_age(lst):
+    ages = []
+    output = []
+    for item in lst:
+        ages.append(item[1])
+    for item in lst:
+        age = max(ages)
+        for item in lst:
+            if age == item[1]:
+                output.append(item)
+                ages.remove(age)
+    return output
+",True,0.0638,18.5461,18.5461,0.0,0,0,0.0,[],[]
+wrong_4_298,claude-sonnet-5,reference,"def sort_age(lst):
+    a = []
+    while lst:
+        oldest = lst[0]
+        for i in lst:
+            if i[1] > oldest[1]:
+                oldest = i
+        lst.remove(oldest)
+        a.append(oldest)
+    return a
+    pass
+",True,0.05,14.1088,14.1088,0.0,0,0,0.0,[],[]
+wrong_4_299,claude-sonnet-5,llm,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1], reverse=True)
+    return lst",True,0.3333,13.3432,12.0891,1.2541,1012,46,0.002484,[],[]
+wrong_4_300,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1])
+    lst.reverse()
+    return lst
+",True,0.1304,0.1683,0.1683,0.0,0,0,0.0,"[""print_instead_of_return""]",[]
+wrong_4_301,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1])
+    lst.reverse()
+    return lst
+",True,0.1304,0.1593,0.1593,0.0,0,0,0.0,"[""print_instead_of_return""]",[]
+wrong_4_302,claude-sonnet-5,reference,"def sort_age(lst):
+	for i in range(len(lst) -1):
+		for j in range(len(lst) -1):
+			if lst[j][1] < lst[j+1][1]:
+				lst[j], lst[j+1] = lst[j+1], lst[j]
+	return lst
+",True,0.1507,10.0683,10.0683,0.0,0,0,0.0,[],[]
+wrong_4_303,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1])
+    lst.reverse()
+    return lst
+",True,0.1304,0.1944,0.1944,0.0,0,0,0.0,"[""print_instead_of_return""]",[]
+wrong_4_304,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1])
+    lst.reverse()
+    return lst
+",True,0.1304,0.3699,0.3699,0.0,0,0,0.0,"[""print_instead_of_return""]",[]
+wrong_4_305,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1])
+    lst.reverse()
+    return lst
+",True,0.1304,0.1692,0.1692,0.0,0,0,0.0,"[""print_instead_of_return""]",[]
+wrong_4_306,claude-sonnet-5,reference,"def sort_age(lst):
+    sort =[]
+    while lst:
+        smallest = lst[0]
+        for i in lst:
+            if i[1] > smallest[1]:
+                smallest = i
+        lst.remove(smallest)
+        sort.append(smallest)
+    return sort
+    pass
+",True,0.1944,15.5065,15.5065,0.0,0,0,0.0,[],[]
+wrong_4_307,claude-sonnet-5,rules,"def sort_age(lst):
+    sort =[]
+    while lst:
+        smallest = lst[0]
+        for i in lst:
+            if i[1] > smallest[1]:
+                smallest = i
+        lst.remove(smallest)
+        sort.append(smallest)
+    return sort
+    pass
+",True,0.1316,0.4386,0.4386,0.0,0,0,0.0,"[""compare_tuple_directly_without_age_index"", ""selection_min_should_be_max""]",[]
+wrong_4_308,claude-sonnet-5,rules,"def sort_age(lst):
+    for j in range(len(lst)-1):
+        for i in range(len(lst)-1-j):
+            if lst[i][1] < lst[i + 1][1]:
+                lst[i],lst[i+1] = lst[i+1],lst[i]
+    return lst
+",True,0.0152,0.2803,0.2803,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_309,claude-sonnet-5,reference,"def sort_age(lst):
+    for i in range(len(lst)):
+        for j in range(len(lst)-1-i):
+            if lst[j][1] < lst[j+1][1]:
+                lst[j], lst[j+1] = lst[j+1], lst[j]
+    return lst
+            
+            
+",True,0.1711,12.5881,12.5881,0.0,0,0,0.0,[],[]
+wrong_4_310,claude-sonnet-5,reference,"def sort_age(lst):
+    for i in range(len(lst)):
+        for j in range(len(lst)-1-i):
+            if lst[j][1] < lst[j+1][1]:
+                lst[j], lst[j+1] = lst[j+1], lst[j]
+    return lst
+            
+            
+",True,0.1711,8.0582,8.0582,0.0,0,0,0.0,[],[]
+wrong_4_311,claude-sonnet-5,reference,"def sort_age(lst):
+    for i in range(len(lst)):
+        for j in range(len(lst)-1-i):
+            if lst[j][1] < lst[j+1][1]:
+                lst[j], lst[j+1] = lst[j+1], lst[j]
+    return lst
+            
+            
+",True,0.1711,5.5185,5.5185,0.0,0,0,0.0,[],[]
+wrong_4_312,claude-sonnet-5,reference,"def sort_age(lst):
+    for i in range(len(lst)-1):
+        for j in range(len(lst)-1-i):
+            if lst[j][1]< lst[j+1][1]:
+                lst[j],lst[j+1] = lst[j+1],lst[j]
+    return lst
+",True,0.1316,5.7494,5.7494,0.0,0,0,0.0,[],[]
+wrong_4_313,claude-sonnet-5,rules,"
+
+def sort_age(lst):
+    lst.sort()
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+
+    return lst
+    pass
+
+",True,0.25,0.1775,0.1775,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_314,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1], reverse=True)
+    return lst
+",True,0.1176,0.2531,0.2531,0.0,0,0,0.0,"[""sort_key_missing_reverse""]",[]
+wrong_4_315,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1],reverse = True)
+    return lst
+",True,0.3158,0.2394,0.2394,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_316,claude-sonnet-5,reference,"def sort_age(lst):
+    lst1 = []
+    
+    while lst:
+        largest = lst[0]
+        for i in lst:
+            if i[1]<largest[1]:
+                largest = i
+        lst.remove(largest)
+        lst1.append(largest)
+    lst1.reverse()
+    return lst1
+
+            
+",True,0.2973,118.8296,118.8296,0.0,0,0,0.0,[],[]
+wrong_4_317,claude-sonnet-5,rules,"def sort_age(lst):
+    a = []
+    for i in lst:
+        a.append(i[1])
+    print(a)
+    sort = []
+    while a:
+        smallest = a[0]
+        for element in a:
+            if element > smallest:
+                smallest = element
+        a.remove(smallest)
+        sort.append(smallest)
+    print(sort)
+    lst2 = []
+    counter = 0
+    for i in sort:
+        for j in lst:
+            if j[1] == i:
+                lst2.append(j)
+                counter += 1
+    return lst2
+",True,0.0116,0.1962,0.1962,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_318,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1], reverse=True)
+    return lst
+",True,0.0556,0.2002,0.2002,0.0,0,0,0.0,"[""positional_lambda_sort_with_reverse_to_key""]",[]
+wrong_4_319,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.2287,0.2287,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_320,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.2318,0.2318,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_321,claude-sonnet-5,reference,"def sort_age(lst):
+    newlst=[]
+    for i in lst:
+        big = 0
+        for n in newlst:
+            if i[1] < n[1]:
+                big += 1
+        newlst.insert(big,i)
+    return newlst
+            
+",True,0.3571,12.4432,12.4432,0.0,0,0,0.0,[],[]
+wrong_4_322,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1], reverse=True)
+    return lst
+",True,0.3158,0.2658,0.2658,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_323,claude-sonnet-5,reference,"def sort_age(lst):
+    new_lst = []
+    while lst:
+        newnew = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] > newnew[1]:
+                newnew = lst[i]
+        lst.remove(newnew)
+        new_lst.append(newnew)
+    return new_lst
+",True,0.6562,5.5928,5.5928,0.0,0,0,0.0,[],[]
+wrong_4_324,claude-sonnet-5,reference,"def sort_age(lst):
+    # Fill in your code here
+    if lst == []:
+        return lst
+        
+    newnew = [lst[0],]
+    for i in lst[1:]:
+        for j in range(len(newnew)):
+            if newnew[j][1] < i[1]:
+                newnew.insert(j, i)
+                break
+            elif j == len(newnew) - 1:
+                newnew.append(i)
+    return newnew
+",True,0.5738,9.1599,9.1599,0.0,0,0,0.0,[],[]
+wrong_4_325,claude-sonnet-5,reference,"def sort_age(lst):
+    newnew = []
+    while lst:
+        i = lst[0]
+        for j in range(len(lst)):
+            if lst[j][1] > i[1]:
+                i = lst[j]
+        newnew.append(i)
+        lst.remove(i)
+    return newnew
+",True,0.6032,8.1063,8.1063,0.0,0,0,0.0,[],[]
+wrong_4_326,claude-sonnet-5,reference,"def sort_age(lst):
+    # Fill in your code here
+    if lst == []:
+        return lst
+        
+    newnew = [lst[0],]
+    for i in lst[1:]:
+        for j in range(len(newnew)):
+            if newnew[j][1] < i[1]:
+                newnew.insert(j, i)
+                break
+            elif j == len(newnew) - 1:
+                newnew.append(i)
+    return newnew
+",True,0.5738,6.8705,6.8705,0.0,0,0,0.0,[],[]
+wrong_4_327,claude-sonnet-5,reference,"def sort_age(lst):
+    # Fill in your code here
+    sorted = []
+    while lst:
+        oldest = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] > oldest[1]:
+                oldest = lst[i]
+        sorted.append(oldest)
+        lst.remove(oldest)
+    return sorted
+",True,0.1489,6.8453,6.8453,0.0,0,0,0.0,[],[]
+wrong_4_328,claude-sonnet-5,reference,"def sort_age(lst):
+    # Fill in your code here
+    sorted = []
+    while lst:
+        oldest = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] > oldest[1]:
+                oldest = lst[i]
+        sorted.append(oldest)
+        lst.remove(oldest)
+    return sorted
+",True,0.1489,8.805,8.805,0.0,0,0,0.0,[],[]
+wrong_4_329,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for i in lst:
+            if i[1] > biggest[1]:
+                biggest = i
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort
+    
+",True,0.1163,9.7298,9.7298,0.0,0,0,0.0,[],[]
+wrong_4_330,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for i in lst:
+            if i[1] > biggest[1]:
+                biggest = i
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort
+    
+",True,0.1163,9.7746,9.7746,0.0,0,0,0.0,[],[]
+wrong_4_331,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for i in lst:
+            if i[1] > biggest[1]:
+                biggest = i
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort
+    
+",True,0.093,10.5722,10.5722,0.0,0,0,0.0,[],[]
+wrong_4_332,claude-sonnet-5,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for i in lst:
+            if i[1] > biggest[1]:
+                biggest = i
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort
+    
+",True,0.0698,8.2375,8.2375,0.0,0,0,0.0,[],[]
+wrong_4_333,claude-sonnet-5,reference,"def sort_age(lst):
+	a = 0
+	for i in range(len(lst) - 1):
+		if lst[i][1] < lst[i+1][1]:
+			lst.insert(i, lst[i+1])
+			lst.pop(i + 2)
+			a += 1
+	if a == 0:
+		return lst
+	else:
+		return sort_age(lst)
+",True,0.62,5.6502,5.6502,0.0,0,0,0.0,[],[]
+wrong_4_334,claude-sonnet-5,reference,"def sort_age(lst):
+	a = 0
+	for i in range(len(lst) - 1):
+		if lst[i][1] < lst[i+1][1]:
+			lst.insert(i, lst[i+1])
+			lst.pop(i + 2)
+			a += 1
+	if a == 0:
+		return lst
+	else:
+		return sort_age(lst)
+",True,0.6875,6.6536,6.6536,0.0,0,0,0.0,[],[]
+wrong_4_335,claude-sonnet-5,rules,"def sort_age(lst):
+    if len(lst) <= 1:
+        return lst
+    else:
+        temp=lst[0][1]
+        for i in range(len(lst)):
+            if lst[i][1] >= temp:
+                temp=lst[i][1]
+                count=i
+        result=[lst[count],]
+        pop=lst.pop(count)
+        return result+sort_age(lst)
+    # Fill in your code here
+    pass
+",True,0.0303,4.8575,4.8575,0.0,0,0,0.0,"[""generic_flip_compare"", ""generic_flip_compare"", ""generic_flip_compare""]",[]
+wrong_4_336,claude-sonnet-5,rules,"def sort_age(lst):
+    if len(lst) <= 1:
+        return lst
+    else:
+        temp=lst[0][1]
+        count=0
+        for i in range(len(lst)):
+            if lst[i][1]>temp:
+                temp=lst[i][1]
+                count=i
+        result=[lst[count],]
+        pop=lst.pop(count)
+        return result+sort_age(lst)
+    # Fill in your code here
+    pass
+",True,0.0145,0.157,0.157,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_337,claude-sonnet-5,reference,"def sort_age(lst):
+    if lst==[]:
+        return []
+    new_lst=[lst[0],]
+    for x in lst[1:]:
+        if x[1] > new_lst[-1][1]:
+            new_lst += [x,]
+        else:
+            count=0
+            while count<len(new_lst):
+                if x[1] > new_lst[count][1]:
+                    count+=1
+                    continue
+                else:
+                    new_lst = new_lst[0:count]+[x,]+new_lst[count:]
+                    break
+    return new_lst[::-1]
+",True,0.0824,17.9519,17.9519,0.0,0,0,0.0,[],[]
+wrong_4_338,claude-sonnet-5,reference,"def sort_age(lst):
+    if lst==[]:
+        return []
+    new_lst=[lst[0],]
+    for x in lst[1:]:
+        if x[1] > new_lst[-1][1]:
+            new_lst += [x,]
+        else:
+            count=0
+            while count<len(new_lst):
+                if x[1] > new_lst[count][1]:
+                    count+=1
+                    continue
+                else:
+                    new_lst = new_lst[0:count]+[x,]+new_lst[count:]
+                    break
+    return new_lst[::-1]
+",True,0.1304,21.577,21.577,0.0,0,0,0.0,[],[]
+wrong_4_339,claude-sonnet-5,reference,"def sort_age(lst):
+    if lst == []:
+        return lst
+    else:
+        age_lst, new_lst = [], []
+        for x in lst:
+            age_lst.append(x[1])
+        while age_lst:
+            max_age = max(age_lst)
+            for i in lst:
+                if i[1] == max_age:
+                    new_lst.append(i)
+                    age_lst.remove(i[1])
+        return new_lst
+    pass
+",True,0.1321,65.0101,65.0101,0.0,0,0,0.0,[],[]
+wrong_4_340,claude-sonnet-5,rules,"def sort_age(lst):
+    l = len(lst)
+    for i in range(0, l):
+        for j in range(0, l-i-1):
+            if (lst[j][1] < lst[j + 1][1]):
+                temp = lst[j]
+                lst[j]= lst[j + 1]
+                lst[j + 1]= temp
+    return lst
+",True,0.0147,0.22,0.22,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_341,claude-sonnet-5,reference,"def sort_age(lst):
+    l = len(lst)
+    for i in range(0, l):
+        for j in range(0, l-i-1):
+            if (lst[j][1] > lst[j + 1][1]):
+                temp = lst[j]
+                lst[j]= lst[j + 1]
+                lst[j + 1]= temp
+    return lst[::-1]
+",True,0.0986,6.0336,6.0336,0.0,0,0,0.0,[],[]
+wrong_4_342,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1], reverse=True)
+    return lst
+",True,0.3158,0.2135,0.2135,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_343,claude-sonnet-5,llm,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1], reverse=True)
+    return lst",True,0.1765,7.3613,6.1432,1.2181,1018,46,0.002496,[],[]
+wrong_4_344,claude-sonnet-5,reference,"def sort_age(lst):
+    new = []
+    for x in lst:
+        index = 0
+        for i in new:
+            if x[1] < i[1]:
+                index += 1
+        new.insert(index,x)
+    return new
+",True,0.825,8.2878,8.2878,0.0,0,0,0.0,[],[]
+wrong_4_345,claude-sonnet-5,reference,"def sort_age(lst):
+    new = []
+    for x in lst:
+        index = 0
+        for i in new:
+            if x[1] < i[1]:
+                index += 1
+        new.insert(index,x)
+    return new
+",True,0.825,10.6499,10.6499,0.0,0,0,0.0,[],[]
+wrong_4_346,claude-sonnet-5,reference,"def sort_age(lst):
+    current=[]
+    tup=0
+    while lst:
+        for i in lst:
+            if i[1]>tup:
+                tup = i[1]
+                count=i
+        current=current+[count]
+        lst.remove(count)
+        tup=0
+    return current
+",True,0.7561,11.456,11.456,0.0,0,0,0.0,[],[]
+wrong_4_347,claude-sonnet-5,reference,"def sort_age(lst):
+    current = []
+    for tup in lst:
+        current.append(tup[1])
+    i = []
+    while current:
+        largest = current[0]
+        for element in current:
+            if element > largest:
+                largest = element
+        current.remove(largest)
+        i.append(largest)
+    lst2 = []
+    counter = 0
+    for tup in i:
+        for j in lst:
+            if j[1] == tup:
+                lst2.append(j)
+                counter += 1
+    return lst2
+",True,1.5814,14.3522,9.9343,4.4179,1222,298,0.005424,[],[]
+wrong_4_348,claude-sonnet-5,reference,"def sort_age(lst):
+    current=[]
+    tup=0
+    while lst:
+        for i in lst:
+            if i[1]>tup:
+                tup = i[1]
+                count=i
+        current=current+[count]
+        lst.remove(count)
+        tup=0
+    return current
+",True,0.7619,10.2041,10.2041,0.0,0,0,0.0,[],[]
+wrong_4_349,claude-sonnet-5,reference,"def sort_age(lst):
+    current = []
+    tup = []
+    for i in lst:
+        current.append(i[1])
+    while current:
+        age = max(current)
+        for i in lst:
+            if age == i[1]:
+                tup.append(i)
+                current.remove(age)
+    return tup
+            
+",True,0.75,14.1261,14.1261,0.0,0,0,0.0,[],[]
+wrong_4_350,claude-sonnet-5,reference,"def sort_age(lst):
+    result=[]
+    for i in lst:
+        result+=[i[::-1],]
+    result.sort()
+    result.reverse()
+    ans=[]
+    for i in result:
+        ans+=[i[::-1],]
+    return ans
+",True,0.0217,0.3795,0.3795,0.0,0,0,0.0,[],[]
+wrong_4_351,claude-sonnet-5,llm,"def sort_age(lst):
+    lst.sort(key=lambda p: p[1])
+    new = []
+    for i in range(len(lst)):
+        j = len(lst) - i- 1
+        new.append(lst[j])
+    return new",True,0.1842,12.8889,11.1898,1.6991,1362,125,0.003974,[],[]
+wrong_4_352,claude-sonnet-5,rules,"def sort_age(lst):
+    # lst.sort(key = lambda x: x[1], reverse= True)
+    # return lst
+    while True: 
+        changed = False 
+        for i in range (len(lst)-1):
+            if lst[i][1] <= lst[i + 1][1]:
+                lst[i], lst[i+1] = lst[i+1], lst[i]
+                changed = True 
+        if not changed: 
+            break 
+    return lst 
+",True,0.0152,6.3367,6.3367,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_353,claude-sonnet-5,reference,"def sort_age(lst):
+    # Fill in your code here
+    A = map(lambda x:x[1],lst)
+    a = []
+    for i in lst:
+        a.append(i[1])
+    sort = []
+    while a:
+        largest = a[0]
+        for element in a:
+            if element > largest:
+                largest = element
+        a.remove(largest)
+        sort.append(largest)
+    lst2 = []
+    counter = 0
+    for i in sort:
+        for j in lst:
+            if j[1] == i:
+                lst2.append(j)
+                counter += 1
+    return lst2
+",True,0.7093,10.14,10.14,0.0,0,0,0.0,[],[]
+wrong_4_354,claude-sonnet-5,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.2065,0.2065,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_355,claude-sonnet-5,reference,"def sort_age(lst):
+    # Fill in your code here
+    newlst=[]
+    while lst:
+        maximum = lst[0][1]
+        i=lst[0]
+        for ele in lst:
+            if ele[1] > maximum:
+                maximum = ele[1]
+                i=ele
+        lst.remove(i)
+        newlst.append(i)
+    return newlst
+",True,0.3556,17.3784,17.3784,0.0,0,0,0.0,[],[]
+wrong_4_356,claude-sonnet-5,reference,"def sort_age(lst):
+    # Fill in your code here
+    newlst=[]
+    while lst:
+        maximum = lst[0][1]
+        i=lst[0]
+        for ele in lst:
+            if ele[1] > maximum:
+                maximum = ele[1]
+                i=ele
+        lst.remove(i)
+        newlst.append(i)
+    return newlst
+",True,0.3023,16.9543,16.9543,0.0,0,0,0.0,[],[]
+wrong_4_357,claude-sonnet-5,reference,"def sort_age(lst):
+    # Fill in your code here
+    newlst=[]
+    while lst:
+        maximum = lst[0][1]
+        for i in lst:
+            if i[1]>maximum:
+                maximum=i[1]
+        for i in lst:
+            if i[1]==maximum:
+                newlst.append(i)
+                lst.remove(i)
+
+    return newlst
+",True,0.3256,84.9039,84.9039,0.0,0,0,0.0,[],[]

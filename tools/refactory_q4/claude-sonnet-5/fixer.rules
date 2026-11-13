@@ -1,0 +1,194 @@
+rule flipped_assignment_in_selection
+symptoms: wrong
+match:
+    if $e[1] $o:Cmp $s[1]:
+        $e = $s
+where: $e != $s
+rewrite:
+    if $e[1] $o:Cmp $s[1]:
+        $s = $e
+
+rule flipped_assignment_equality
+symptoms: wrong
+match:
+    if $e[1] == $val:
+        $e = $tup
+where: $e != $tup
+rewrite:
+    if $e[1] == $val:
+        $tup = $e
+
+rule fix_selection_update_target
+symptoms: wrong, err:NameError
+match:
+    if $e[1] $o:Cmp $s[1]:
+        $s = $other
+where: $other != $e and $other != $s
+rewrite:
+    if $e[1] $o:Cmp $s[1]:
+        $s = $e
+
+rule use_tracked_extremum_not_loopvar
+symptoms: wrong
+match:
+    for $e in $lst:
+        if $cond:
+            $extreme = $e
+    $lst.remove($e)
+    $out.append($e)
+where: $e != $extreme
+rewrite:
+    for $e in $lst:
+        if $cond:
+            $extreme = $e
+    $lst.remove($extreme)
+    $out.append($extreme)
+
+rule selection_min_should_find_max
+symptoms: wrong
+match:
+    for $e in $lst:
+        if $e[1] < $s[1]:
+            $s = $e
+where: inside("def $f($*ps): $B:Stmts") and some($B, "$out:Name.append($s)") and not some($B, "$out.reverse()") and not regex($B, r"\[::-1\]")
+rewrite:
+    for $e in $lst:
+        if $s[1] < $e[1]:
+            $s = $e
+
+rule return_inside_loop_should_be_after
+symptoms: wrong, err:NameError
+match:
+    while $lst:
+        $B:Stmts
+        return $acc
+rewrite:
+    while $lst:
+        $B:Stmts
+    return $acc
+
+rule reverse_moved_outside_loop
+symptoms: wrong
+match:
+    while $lst:
+        $B:Stmts
+        $acc.reverse()
+    return $acc
+rewrite:
+    while $lst:
+        $B:Stmts
+    $acc.reverse()
+    return $acc
+
+rule missing_return_pass
+symptoms: wrong, err:NameError
+match: pass
+where: last() and inside("def $f($*ps): $B:Stmts") and some($B, "$acc:Name.append($_)")
+rewrite: return $acc
+
+rule missing_return_print_append
+symptoms: wrong
+match: print($acc)
+where: last() and inside("def $f($*ps): $B:Stmts") and some($B, "$acc:Name.append($_)")
+rewrite: return $acc
+
+rule missing_return_after_loop
+symptoms: wrong, err:NameError
+match: while $lst:
+where: last() and inside("def $f($*ps): $B:Stmts") and (some($B, "$acc:Name.append($_)") or some($B, "$acc:Name += $_")) and not some($B, "return $_")
+rewrite:
+    while $lst:
+    return $acc
+
+rule attr_reverse_missing_call_apply
+symptoms: wrong
+match:
+    return $x:Name.reverse()
+    |
+    return $x:Name.reverse
+where: inside("def $f($*ps): $B:Stmts") and some($B, "$e[1] < $s[1]")
+rewrite:
+    $x.reverse()
+    return $x
+
+rule attr_reverse_missing_call_drop
+symptoms: wrong
+match:
+    return $x:Name.reverse()
+    |
+    return $x:Name.reverse
+where: inside("def $f($*ps): $B:Stmts") and not some($B, "$e[1] < $s[1]")
+rewrite: return $x
+
+rule duplicate_append_after_loop
+symptoms: wrong, err:IndexError
+match:
+    while $lst:
+        $B:Stmts
+        $acc.append($x)
+    $acc.append($x)
+    return $acc
+rewrite:
+    while $lst:
+        $B:Stmts
+        $acc.append($x)
+    return $acc
+
+rule range_plus_one_indexerror
+symptoms: err:IndexError
+match: range($a, len($lst)+1)
+rewrite: range($a, len($lst))
+
+rule pop_bracket_call_fix
+symptoms: err:TypeError
+match: $lst.pop[$i]
+rewrite: $lst.pop($i)
+
+rule base_case_len_one_to_le
+symptoms: wrong, err:IndexError
+match: if len($lst) == 1:
+where: inside("def $f($*ps): $B:Stmts") and first()
+rewrite: if len($lst) <= 1:
+
+rule print_lst_instead_of_return
+symptoms: wrong
+match: print($x)
+where: last() and inside("def $f($*ps): $B:Stmts") and some($B, "$x.sort($*xs)")
+rewrite: return $x
+
+rule inplace_sort_assigned_to_var
+symptoms: wrong, err:AttributeError
+match: $x = $x.sort($*xs)
+rewrite: $x.sort($*xs)
+
+rule missing_accumulator_init
+symptoms: wrong, err:NameError
+match: while $lst:
+where: first() and inside("def $f($*ps): $B:Stmts") and some($B, "$acc:Name.append($_)") and not some($B, "$acc = $_")
+rewrite:
+    $acc = []
+    while $lst:
+
+rule undefined_accumulator_append_rename
+symptoms: wrong, err:NameError
+match: $other.append($x)
+where: inside("def $f($*ps): $B:Stmts") and some($B, "$acc:Name = []") and not some($B, "$other = $_") and $other != $acc
+rewrite: $acc.append($x)
+
+rule undefined_return_rename
+symptoms: wrong, err:NameError
+match: return $other
+where: inside("def $f($*ps): $B:Stmts") and some($B, "$acc:Name = []") and some($B, "$acc.append($_)") and not some($B, "$other = $_") and $other != $acc
+rewrite: return $acc
+
+rule undefined_remove_container_rename
+symptoms: wrong, err:NameError
+match: $other.remove($x)
+where: inside("def $f($p): $B:Stmts") and not some($B, "$other = $_") and $other != $p
+rewrite: $p.remove($x)
+
+rule list_builtin_confused_with_param
+symptoms: wrong, err:TypeError
+match: list[$i]
+where: inside("def $f($p:Name, $*qs): $B:Stmts")
+rewrite: $p[$i]

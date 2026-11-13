@@ -1,0 +1,26 @@
+rule extend_search_upper_bound
+symptoms: wrong
+match: r = 100
+rewrite: r = 100000
+
+rule use_full_range_for_days
+symptoms: wrong
+match: for i in range(100, 0, -1):
+rewrite: for i in range(100000, 0, -1):
+
+rule fix_zero_day_check
+symptoms: wrong
+match: if not f(1):
+rewrite: if not f(1):
+
+rule relax_strict_comparison
+symptoms: wrong
+match: $a > $b
+where: not parent("while $l - $r > 1:")
+rewrite: $a >= $b
+
+rule relax_strict_comparison_lt
+symptoms: wrong
+match: $a < $b
+where: not parent("while $l - $r > 1:")
+rewrite: $a <= $b

@@ -1,0 +1,273 @@
+rule mismatched_source_var
+symptoms: wrong, err:NameError
+match:
+    $acc = $a[0]
+    for $e in $a:
+        if $e[1] $o:Cmp $acc[1]:
+            $acc = $e
+where: text($a) != "lst" and inside("while lst:")
+rewrite:
+    $acc = lst[0]
+    for $e in lst:
+        if $e[1] $o $acc[1]:
+            $acc = $e
+
+rule list_builtin_typo
+symptoms: wrong, err:TypeError
+match: $acc = list[0]
+where: inside("while lst:")
+rewrite: $acc = lst[0]
+
+rule remove_wrong_list_object
+symptoms: wrong, err:NameError
+match:
+    $a.remove($v)
+    $out.append($v)
+where: text($a) != "lst"
+rewrite:
+    lst.remove($v)
+    $out.append($v)
+
+rule accumulator_name_mismatch
+symptoms: wrong, err:NameError
+match: $acc = []
+where: inside("def $f($p): $B:Stmts") and some($B, "$acc2:Name.append($_)") and some($B, "return $acc2") and $acc2 != $acc
+rewrite: $acc2 = []
+
+rule append_name_mismatch
+symptoms: wrong, err:NameError
+match: $other:Name.append($x)
+where: inside("def $f($p): $B:Stmts") and some($B, "$acc:Name = []") and some($B, "return $acc") and $other != $acc
+rewrite: $acc.append($x)
+
+rule wrong_assign_in_selection_if
+symptoms: wrong, err:NameError
+match:
+    for $e in lst:
+        if $e[1] $o:Cmp $acc[1]:
+            $acc = $x:Name
+where: $x != $e and $x != $acc and inside("def $f($p): $B:Stmts") and not some($B, "$x = $_")
+rewrite:
+    for $e in lst:
+        if $e[1] $o $acc[1]:
+            $acc = $e
+
+rule undefined_compare_target_in_selection
+symptoms: wrong, err:NameError
+match:
+    $acc = lst[0]
+    for $e in lst:
+        if $e[1] $o:Cmp $x[1]:
+            $acc = $e
+where: $x != $acc and inside("def $f($p): $B:Stmts") and not some($B, "$x = $_")
+rewrite:
+    $acc = lst[0]
+    for $e in lst:
+        if $e[1] ${dir[$acc]} $acc[1]:
+            $acc = $e
+table dir: {"largest": ">", "biggest": ">", "oldest": ">", "max_age": ">", "smallest": "<", "youngest": "<", "lowest": "<", "min_age": "<"}
+
+rule remove_append_wrong_var_after_forloop
+symptoms: wrong, err:NameError
+match:
+    for $e in lst:
+        if $e[1] $o:Cmp $acc[1]:
+            $acc = $e
+    lst.remove($x)
+    $out.append($x)
+where: $x != $acc
+rewrite:
+    for $e in lst:
+        if $e[1] $o $acc[1]:
+            $acc = $e
+    lst.remove($acc)
+    $out.append($acc)
+
+rule swapped_assignment_in_if
+symptoms: wrong
+match:
+    if $e[1] $o:Cmp $acc[1]:
+        $e = $acc
+rewrite:
+    if $e[1] $o $acc[1]:
+        $acc = $e
+
+rule compare_whole_tuple_instead_of_age
+symptoms: wrong
+match:
+    if $e $o:Cmp $acc:
+        $acc = $e
+where: kind($e) == "Name" and kind($acc) == "Name"
+rewrite:
+    if $e[1] $o $acc[1]:
+        $acc = $e
+
+rule selection_sort_wrong_direction
+symptoms: wrong
+match:
+    for $e in $src:
+        if $e[1] $o:Cmp $acc[1]:
+            $acc = $e
+where: text($o) == "<" and inside("def $f($p): $B:Stmts") and not some($B, "$r:Name.reverse()") and not some($B, "$r2:Name[::-1]")
+rewrite:
+    for $e in $src:
+        if $e[1] > $acc[1]:
+            $acc = $e
+
+rule duplicate_append_before_return
+symptoms: wrong
+match:
+    $out.append($x)
+    return $out
+where: prev("while lst:")
+rewrite:
+    return $out
+
+rule early_return_in_loop
+symptoms: wrong
+match:
+    $out.append($x)
+    return $out
+where: inside("while lst:")
+rewrite:
+    $out.append($x)
+
+rule missing_return_after_while_loop
+symptoms: wrong
+match: while lst: $B:Stmts
+where: last() and some($B, "$out:Name.append($_)") and not some($B, "return $out")
+rewrite:
+    while lst:
+    return $out
+
+rule missing_list_initialization
+symptoms: wrong, err:NameError
+match: while lst: $B:Stmts
+where: first() and some($B, "$out:Name.append($_)") and not some($B, "$out = []")
+rewrite:
+    $out = []
+    while lst:
+
+rule for_over_lst_with_remove_to_while
+symptoms: wrong, err:IndexError
+match: for $i in lst: $B:Stmts
+where: not load($i) and some($B, "lst.remove($_)")
+rewrite: while lst:
+
+rule append_remove_min_should_be_max
+symptoms: wrong
+match:
+    $out.append(min($xs))
+    $xs2.remove(min($xs3))
+where: $xs == $xs2 and $xs2 == $xs3
+rewrite:
+    $out.append(max($xs))
+    $xs2.remove(max($xs3))
+
+rule empty_tuple_check_fix
+symptoms: wrong, err:IndexError
+match: $x == ()
+where: inside("def sort_age($p): $B:Stmts")
+rewrite: $x == []
+
+rule plus_equals_should_wrap_tuple
+symptoms: wrong, err:ValueError
+match: $out += $x
+where: kind($x) == "Name"
+rewrite: $out += ($x,)
+
+rule wrong_pop_arg_list_wrap
+symptoms: wrong, err:TypeError
+match: $l.pop([$l2[$i]])
+where: $l == $l2
+rewrite: del $l[$i]
+
+rule bubble_move_missing_reset
+symptoms: wrong, timeout
+match:
+    lst.extend([lst[$i:Name]])
+    del lst[$i]
+where: not next("$i2:Name = 0")
+rewrite:
+    lst.extend([lst[$i]])
+    del lst[$i]
+    $i = 0
+
+rule range_len_plus_one_off_by_one
+symptoms: wrong, err:IndexError
+match: range($a, len($lst)+1)
+rewrite: range($a, len($lst))
+
+rule range_len_plus_one_off_by_one_2
+symptoms: wrong, err:IndexError
+match: range(len($lst)+1)
+rewrite: range(len($lst))
+
+rule reassign_from_append_call
+symptoms: wrong, err:AttributeError
+match: $out = $out.append($x)
+rewrite: $out.append($x)
+
+rule mergesort_missing_recursion
+symptoms: wrong, timeout
+match:
+    $l1 = $lst[:$mid]
+    $l2 = $lst[$mid:]
+where: inside("def sort_age($p): $B:Stmts") and not match($l1, "sort_age($_)")
+rewrite:
+    $l1 = sort_age($lst[:$mid])
+    $l2 = sort_age($lst[$mid:])
+
+rule mergesort_pop_wrong_end_and_order
+symptoms: wrong
+match:
+    if $l1[0][1] < $l2[0][1]:
+        $res.append($l1.pop())
+    else:
+        $res.append($l2.pop())
+rewrite:
+    if $l1[0][1] < $l2[0][1]:
+        $res.append($l2.pop(0))
+    else:
+        $res.append($l1.pop(0))
+
+rule holder_recursion_missing_remove
+symptoms: wrong
+match: return [$h] + sort_age($lst[1:])
+rewrite:
+    $lst.remove($h)
+    return [$h] + sort_age($lst)
+
+rule recursive_missing_base_case
+symptoms: wrong, err:IndexError
+match: $h = []
+where: inside("def sort_age($p): $B:Stmts") and some($B, "return $_ + sort_age($_)") and not some($B, "if $p == []")
+rewrite:
+    $h = []
+    if $p == []:
+        return []
+
+rule max_in_place_without_removal
+symptoms: timeout
+match:
+    for $e in lst:
+        if $e == max(lst):
+            $out.append($e)
+rewrite:
+    for $e in lst:
+        if $e == max(lst):
+            $out.append($e)
+            lst.remove($e)
+            break
+
+rule print_instead_of_return
+symptoms: wrong
+match: print($x)
+where: last() and inside("def sort_age($p): $B:Stmts") and some($B, "$acc:Name.append($_)")
+rewrite: return $acc
+
+rule pass_instead_of_return
+symptoms: wrong
+match: pass
+where: last() and inside("def sort_age($p): $B:Stmts") and some($B, "$acc:Name.append($_)") and not some($B, "return $acc")
+rewrite: return $acc

@@ -1,0 +1,400 @@
+rule count_eq_len_should_be_lucky_count
+symptoms: wrong
+match: $c == len($s)
+rewrite: $c == 4 or $c == 7
+
+rule len_eq_count_should_be_lucky_count
+symptoms: wrong
+match: len($s) == $c
+rewrite: $c == 4 or $c == 7
+
+rule length_as_lucky_count_or
+symptoms: wrong
+match: len($n) == 4 or len($n) == 7
+rewrite: ($n.count('4') + $n.count('7')) in (4, 7)
+
+rule length_as_lucky_count_or_rev
+symptoms: wrong
+match: len($n) == 7 or len($n) == 4
+rewrite: ($n.count('4') + $n.count('7')) in (4, 7)
+
+rule length_as_lucky_count_bitor
+symptoms: wrong
+match: len($n) == 7 | len($n) == 4
+rewrite: ($n.count('4') + $n.count('7')) in (4, 7)
+
+rule modulo_should_be_equality
+symptoms: wrong
+match: $c % 4 == 0 or $c % 7 == 0
+rewrite: $c == 4 or $c == 7
+
+rule modulo_should_be_equality_rev
+symptoms: wrong
+match: $c % 7 == 0 or $c % 4 == 0
+rewrite: $c == 4 or $c == 7
+
+rule modulo_nonzero_guard
+symptoms: wrong
+match: ($c % 4 == 0 or $c % 7 == 0) and $c != 0
+rewrite: $c == 4 or $c == 7
+
+rule modulo_nonzero_guard_rev
+symptoms: wrong
+match: ($c % 7 == 0 or $c % 4 == 0) and $c != 0
+rewrite: $c == 4 or $c == 7
+
+rule set_equals_47
+symptoms: wrong
+match: set($s) == {$a, $b}
+where: text($a) in {"'4'", "'7'"} and text($b) in {"'4'", "'7'"} and text($a) != text($b)
+rewrite: ($s.count('4') + $s.count('7')) in (4, 7)
+
+rule set_equals_47_rev
+symptoms: wrong
+match: {$a, $b} == set($s)
+where: text($a) in {"'4'", "'7'"} and text($b) in {"'4'", "'7'"} and text($a) != text($b)
+rewrite: ($s.count('4') + $s.count('7')) in (4, 7)
+
+rule precomputed_set_var_equals_47
+symptoms: wrong
+match:
+    if $v == {$a, $b}:
+        print("YES")
+    else:
+        print("NO")
+where: prev("$v = set($s)") and text($a) in {"'4'", "'7'"} and text($b) in {"'4'", "'7'"} and text($a) != text($b)
+rewrite:
+    if ($s.count('4') + $s.count('7')) in (4, 7):
+        print("YES")
+    else:
+        print("NO")
+
+rule remove_presence_guard
+symptoms: wrong
+match:
+    if $s.count($a) == 0 or $s.count($b) == 0:
+        print("NO")
+    else:
+        $REST:Stmts
+where: text($a) in {"'4'", "'7'"} and text($b) in {"'4'", "'7'"} and text($a) != text($b)
+rewrite: $REST
+
+rule remove_all_lucky_guard
+symptoms: wrong
+match: $flag == 0 and ($c == 4 or $c == 7)
+rewrite: $c == 4 or $c == 7
+
+rule length_assigned_as_count_before_flag_init
+symptoms: wrong
+match: $c = len($b)
+where: next("$flag = 0")
+rewrite: $c = $b.count('4') + $b.count('7')
+
+rule assign_length_should_be_lucky_count
+symptoms: wrong
+match: $a = len($n)
+where: next("if $a == 4:")
+rewrite: $a = $n.count('4') + $n.count('7')
+
+rule fix_lowercase_yes
+symptoms: wrong
+match: print("yes")
+rewrite: print("YES")
+
+rule fix_lowercase_no
+symptoms: wrong
+match: print("no")
+rewrite: print("NO")
+
+rule fix_titlecase_yes
+symptoms: wrong
+match: print("Yes")
+rewrite: print("YES")
+
+rule fix_titlecase_no
+symptoms: wrong
+match: print("No")
+rewrite: print("NO")
+
+rule remove_break_in_counting_loop_augassign
+symptoms: wrong
+match:
+    if $cond:
+        $c += 1
+    else:
+        break
+where: regex($cond, "4") and regex($cond, "7")
+rewrite:
+    if $cond:
+        $c += 1
+
+rule remove_break_in_counting_loop_assign
+symptoms: wrong
+match:
+    if $cond:
+        $c = $c + 1
+    else:
+        break
+where: regex($cond, "4") and regex($cond, "7")
+rewrite:
+    if $cond:
+        $c = $c + 1
+
+rule while_digit_allflag_to_count
+symptoms: wrong
+match:
+    while $n > 0:
+        if $n % 10 == 4 or $n % 10 == 7:
+            $flag = True
+            $n //= 10
+        else:
+            $flag = False
+            break
+    if $flag:
+        print("YES")
+    else:
+        print("NO")
+rewrite:
+    _cnt = 0
+    while $n > 0:
+        if $n % 10 == 4 or $n % 10 == 7:
+            _cnt += 1
+        $n //= 10
+    if _cnt == 4 or _cnt == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule while_digit_allflag_to_count_eqtrue
+symptoms: wrong
+match:
+    while $n > 0:
+        if $n % 10 == 4 or $n % 10 == 7:
+            $flag = True
+            $n //= 10
+        else:
+            $flag = False
+            break
+    if $flag == True :
+        print("YES")
+    else:
+        print("NO")
+rewrite:
+    _cnt = 0
+    while $n > 0:
+        if $n % 10 == 4 or $n % 10 == 7:
+            _cnt += 1
+        $n //= 10
+    if _cnt == 4 or _cnt == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule for_loop_poscond_flag_break_to_count
+symptoms: wrong
+match:
+    for $i in $s:
+        if $cond:
+            $flag = True
+        else:
+            $flag = False
+            break
+    if $flag == True:
+        print("YES")
+    else:
+        print("NO")
+where: regex($cond, "4") and regex($cond, "7")
+rewrite:
+    _cnt = 0
+    for $i in $s:
+        if $cond:
+            _cnt += 1
+    if _cnt == 4 or _cnt == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule for_loop_strflag_break_to_count
+symptoms: wrong
+match:
+    for $i in $s:
+        if $cond:
+            $flag = "NO"
+            break
+    print($flag)
+where: regex($cond, "4") and regex($cond, "7")
+rewrite:
+    _cnt = 0
+    for $i in $s:
+        if $i == '4' or $i == '7':
+            _cnt += 1
+    print("YES" if (_cnt == 4 or _cnt == 7) else "NO")
+
+rule for_loop_boolflag_break_to_count
+symptoms: wrong
+match:
+    for $i in $s:
+        if $cond:
+            $flag = False
+            break
+    if $flag:
+        print("YES")
+    else:
+        print("NO")
+where: regex($cond, "4") and regex($cond, "7")
+rewrite:
+    _cnt = 0
+    for $i in $s:
+        if $i == '4' or $i == '7':
+            _cnt += 1
+    if _cnt == 4 or _cnt == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule for_loop_boolflag_break_ternary_to_count
+symptoms: wrong
+match:
+    for $i in $s:
+        if $cond:
+            $flag = False
+            break
+    print("YES" if $flag == True else "NO")
+where: regex($cond, "4") and regex($cond, "7")
+rewrite:
+    _cnt = 0
+    for $i in $s:
+        if $i == '4' or $i == '7':
+            _cnt += 1
+    print("YES" if (_cnt == 4 or _cnt == 7) else "NO")
+
+rule for_loop_boolflag_nobreak_to_count
+symptoms: wrong
+match:
+    for $i in $s:
+        if $cond:
+            $flag = False
+    if $flag:
+        print("YES")
+    else:
+        print("NO")
+where: regex($cond, "4") and regex($cond, "7")
+rewrite:
+    _cnt = 0
+    for $i in $s:
+        if $i == '4' or $i == '7':
+            _cnt += 1
+    if _cnt == 4 or _cnt == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule for_loop_boolflag_nobreak_ternary_stmt_to_count
+symptoms: wrong
+match:
+    for $i in $s:
+        if $cond:
+            $flag = False
+    print("YES") if $flag else print("NO")
+where: regex($cond, "4") and regex($cond, "7")
+rewrite:
+    _cnt = 0
+    for $i in $s:
+        if $i == '4' or $i == '7':
+            _cnt += 1
+    print("YES") if (_cnt == 4 or _cnt == 7) else print("NO")
+
+rule for_loop_return_noloop_notin
+symptoms: wrong
+match:
+    for $i in $s:
+        if $i not in "47":
+            return "NO"
+    return "YES"
+rewrite:
+    _cnt = 0
+    for $i in $s:
+        if $i in "47":
+            _cnt += 1
+    return "YES" if (_cnt == 4 or _cnt == 7) else "NO"
+
+rule for_loop_return_noloop_cond
+symptoms: wrong
+match:
+    for $i in $s:
+        if $cond:
+            return "NO"
+    return "YES"
+where: regex($cond, "4") and regex($cond, "7")
+rewrite:
+    _cnt = 0
+    for $i in $s:
+        if $i == '4' or $i == '7':
+            _cnt += 1
+    return "YES" if (_cnt == 4 or _cnt == 7) else "NO"
+
+rule demorgan_or_to_and_int
+symptoms: wrong
+match: $c != 4 or $c != 7
+rewrite: $c != 4 and $c != 7
+
+rule demorgan_or_to_and_str
+symptoms: wrong
+match: $c != '4' or $c != '7'
+rewrite: $c != '4' and $c != '7'
+
+rule missing_comparison_repeat
+symptoms: wrong
+match: $x == $a or $lit:Const
+rewrite: $x == $a or $x == $lit
+
+rule duplicate_branch_same_print_yes
+symptoms: wrong
+match:
+    if $cond:
+        print("YES")
+    else:
+        print("YES")
+rewrite:
+    if $cond:
+        print("YES")
+    else:
+        print("NO")
+
+rule digit_extract_var_mixup
+symptoms: wrong
+match:
+    $a = $n % 10
+    if $n == 4 or $n == 7:
+        $c += 1
+rewrite:
+    $a = $n % 10
+    if $a == 4 or $a == 7:
+        $c += 1
+
+rule isdigit_should_check_lucky
+symptoms: wrong
+match:
+    if $ch.isdigit():
+        $acc += 1
+rewrite:
+    if $ch == '4' or $ch == '7':
+        $acc += 1
+
+rule unique_char_list_equals_47_list
+symptoms: wrong
+match:
+    if $l1 == $l2 or $l2 == $l3:
+        print('YES')
+    else:
+        print('NO')
+where: match($l1, "['4', '7']") and match($l3, "['7', '4']") and before("for $ch2 in $s:\n    if $ch2 not in $l2:\n        $l2.append($ch2)")
+rewrite:
+    _cnt = 0
+    for _ch in $s:
+        if _ch == '4' or _ch == '7':
+            _cnt += 1
+    if _cnt == 4 or _cnt == 7:
+        print('YES')
+    else:
+        print('NO')

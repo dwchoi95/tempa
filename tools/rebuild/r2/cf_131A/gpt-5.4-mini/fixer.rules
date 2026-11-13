@@ -1,0 +1,132 @@
+rule fix_swapcase_over_capitalize_or_title
+symptoms: wrong
+match: $X.capitalize()
+where: inside("if $c: $B:Stmts else: $E:Stmts") or inside("if $c: $B:Stmts") or inside("elif $c: $B:Stmts")
+rewrite: $X.swapcase()
+
+rule fix_swapcase_over_title
+symptoms: wrong
+match: $X.title()
+where: inside("if $c: $B:Stmts else: $E:Stmts") or inside("if $c: $B:Stmts") or inside("elif $c: $B:Stmts")
+rewrite: $X.swapcase()
+
+rule fix_swapcase_over_lower_plus_capitalize
+symptoms: wrong
+match: $X.lower().capitalize()
+rewrite: $X.swapcase()
+
+rule fix_swapcase_over_manual_first_upper_rest_lower
+symptoms: wrong
+match: $X[0].upper() + $X[1:].lower()
+rewrite: $X.swapcase()
+
+rule fix_swapcase_over_manual_first_upper_rest_lower_slice
+symptoms: wrong
+match: $X[0:1].upper() + $X[1:].lower()
+rewrite: $X.swapcase()
+
+rule fix_swapcase_over_list_choice_capitalize
+symptoms: wrong
+match:
+    [$A, $B][$C]
+where: match($B, "$X.capitalize()") or match($B, "$X.title()")
+rewrite:
+    [$A, $X.swapcase()][$C]
+
+rule fix_swapcase_over_list_choice_manual
+symptoms: wrong
+match:
+    [$A, $B][$C]
+where: match($B, "$X[0].upper() + $X[1:].lower()") or match($B, "$X[0:1].upper() + $X[1:].lower()")
+rewrite:
+    [$A, $X.swapcase()][$C]
+
+rule fix_isupper_or_slice_condition_to_capslock_rule
+symptoms: wrong
+match: $X.isupper() or $X[$S].isupper()
+where: text($S) in {"1:", "1::", "1:len($X)", "1:len($X)-1"} or match($X[$S], "$Y:Name[1:]")
+rewrite: len($X) == 1 or $X[$S].upper() == $X[$S]
+
+rule fix_isupper_only_prefix_check
+symptoms: wrong
+match: $X.isupper()
+where: inside("if $c: $B:Stmts else: $E:Stmts") and (before("if $c: $B:Stmts") or after("if $c: $B:Stmts"))
+rewrite: $X.isupper() or $X[1:].isupper() or len($X) == 1
+
+rule fix_slice_isupper_to_equality
+symptoms: wrong
+match: $X[$S].isupper()
+where: text($S) in {"1:", "1::", "1:len($X)", "1:len($X)-1"}
+rewrite: $X[$S].upper() == $X[$S]
+
+rule add_missing_len_one_guard
+symptoms: wrong
+match: if $C:
+    $B
+where: inside("def $f($*xs): $D:Stmts") and some($C, "$X[1:].isupper()") and not some($C, "len($X) == 1")
+rewrite:
+    if len($X) == 1 or $C:
+        $B
+
+rule add_missing_len_one_guard_to_or_chain
+symptoms: wrong
+match: if $C:
+    $B
+where: inside("def $f($*xs): $D:Stmts") and some($C, "$X.isupper()") and some($C, "$X[1:].isupper()") and not some($C, "len($X) == 1")
+rewrite:
+    if len($X) == 1 or $C:
+        $B
+
+rule fix_print_of_unconditional_swapcase
+symptoms: wrong
+match: print($X.swapcase())
+where: inside("def $f($*xs): $D:Stmts") and not some($D, "if _:\n    print($X.swapcase())")
+rewrite:
+    if $X[1:].upper() == $X[1:]:
+        print($X.swapcase())
+    else:
+        print($X)
+
+rule fix_assignment_with_unconditional_swapcase
+symptoms: wrong
+match: $V = $X.swapcase()
+where: inside("def $f($*xs): $D:Stmts") and not some($D, "if _:\n    $V = $X.swapcase()")
+rewrite:
+    if $X[1:].upper() == $X[1:]:
+        $V = $X.swapcase()
+
+rule fix_capitalize_to_swapcase_in_return
+symptoms: wrong
+match: return $X.capitalize()
+rewrite: return $X.swapcase()
+
+rule fix_lower_capitalize_to_swapcase_in_return
+symptoms: wrong
+match: return $X.lower().capitalize()
+rewrite: return $X.swapcase()
+
+rule fix_if_returns_capitalize_to_swapcase
+symptoms: wrong
+match:
+    if $C:
+        return $E
+    return $R
+where: match($E, "$X.capitalize()") or match($E, "$X.title()")
+rewrite:
+    if $C:
+        return $X.swapcase()
+    return $R
+
+rule fix_if_assigns_capitalize_to_swapcase
+symptoms: wrong
+match:
+    if $C:
+        $V = $E
+    else:
+        $V = $R
+where: match($E, "$X.capitalize()") or match($E, "$X.title()")
+rewrite:
+    if $C:
+        $V = $X.swapcase()
+    else:
+        $V = $R

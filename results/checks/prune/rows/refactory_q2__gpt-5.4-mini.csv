@@ -1,0 +1,2572 @@
+pid,model,buggy,off_repaired,off_tried,off_pruned,off_cut,off_seconds,off_rules,off_patch,on_repaired,on_tried,on_pruned,on_cut,on_seconds,on_rules,on_patch
+refactory_q2,gpt-5.4-mini,wrong_2_001,False,1000,0,True,1.859,,,False,1000,2327,True,9.155,,
+refactory_q2,gpt-5.4-mini,wrong_2_002,True,30,0,False,0.193,generic_flip_compare,"def unique_day(day, possible_birthdays):
+    num=0
+    for i in possible_birthdays:
+        if day==i[1]:
+            num+=1
+    return num==1
+
+def unique_month(month, possible_birthdays):
+    num=0
+    for i in possible_birthdays:
+        if month==i[0]:
+            num+=1
+    return num==1
+
+def contains_unique_day(month, possible_birthdays):
+    days=()
+    for i in possible_birthdays:
+        if month==i[0]:
+            if unique_day(i[1],possible_birthdays):
+                days = days + (i[1],)
+    return len(days) >= 1
+",True,21,9,False,0.261,generic_flip_compare,"def unique_day(day, possible_birthdays):
+    num=0
+    for i in possible_birthdays:
+        if day==i[1]:
+            num+=1
+    return num==1
+
+def unique_month(month, possible_birthdays):
+    num=0
+    for i in possible_birthdays:
+        if month==i[0]:
+            num+=1
+    return num==1
+
+def contains_unique_day(month, possible_birthdays):
+    days=()
+    for i in possible_birthdays:
+        if month==i[0]:
+            if unique_day(i[1],possible_birthdays):
+                days = days + (i[1],)
+    return len(days) >= 1
+"
+refactory_q2,gpt-5.4-mini,wrong_2_003,True,30,0,False,0.197,generic_flip_compare,"def unique_day(day, possible_birthdays):
+    num=0
+    for i in possible_birthdays:
+        if day==i[1]:
+            num+=1
+    return num==1
+
+def unique_month(month, possible_birthdays):
+    num=0
+    for i in possible_birthdays:
+        if month==i[0]:
+            num+=1
+    return num==1
+
+def contains_unique_day(month, possible_birthdays):
+    days=()
+    for i in possible_birthdays:
+        if month==i[0]:
+            if unique_day(i[1],possible_birthdays):
+                days = days + (i[1],)
+    return len(days) >= 1
+",True,21,9,False,0.25,generic_flip_compare,"def unique_day(day, possible_birthdays):
+    num=0
+    for i in possible_birthdays:
+        if day==i[1]:
+            num+=1
+    return num==1
+
+def unique_month(month, possible_birthdays):
+    num=0
+    for i in possible_birthdays:
+        if month==i[0]:
+            num+=1
+    return num==1
+
+def contains_unique_day(month, possible_birthdays):
+    days=()
+    for i in possible_birthdays:
+        if month==i[0]:
+            if unique_day(i[1],possible_birthdays):
+                days = days + (i[1],)
+    return len(days) >= 1
+"
+refactory_q2,gpt-5.4-mini,wrong_2_004,False,1000,0,True,4.423,,,False,0,10000,True,42.131,,
+refactory_q2,gpt-5.4-mini,wrong_2_005,False,1000,0,True,1.779,,,False,1000,922,True,5.16,,
+refactory_q2,gpt-5.4-mini,wrong_2_006,False,1000,0,True,1.921,,,False,1000,2060,True,9.27,,
+refactory_q2,gpt-5.4-mini,wrong_2_007,False,1000,0,True,1.967,,,False,1000,1509,True,8.289,,
+refactory_q2,gpt-5.4-mini,wrong_2_008,False,1000,0,True,2.036,,,False,1000,462,True,4.64,,
+refactory_q2,gpt-5.4-mini,wrong_2_009,False,1000,0,True,3.351,,,False,1000,462,True,5.245,,
+refactory_q2,gpt-5.4-mini,wrong_2_010,False,1000,0,True,2.192,,,False,1000,462,True,6.296,,
+refactory_q2,gpt-5.4-mini,wrong_2_011,False,1000,0,True,2.065,,,False,1000,1558,True,10.084,,
+refactory_q2,gpt-5.4-mini,wrong_2_012,False,1000,0,True,1.689,,,False,1000,2315,True,19.773,,
+refactory_q2,gpt-5.4-mini,wrong_2_013,False,1000,0,True,4.639,,,False,1000,1558,True,12.387,,
+refactory_q2,gpt-5.4-mini,wrong_2_014,False,1000,0,True,2.022,,,False,1000,587,True,5.096,,
+refactory_q2,gpt-5.4-mini,wrong_2_015,False,1000,0,True,1.973,,,False,1000,1558,True,8.165,,
+refactory_q2,gpt-5.4-mini,wrong_2_016,True,366,0,False,1.256,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def map(fn, seq):
+    res = ()
+
+    for ele in seq:
+        res = res + (fn(ele), )
+    return res
+
+def unique_day(day, possible_birthdays):
+    days = map(lambda x: x[1], possible_birthdays)
+    times = 0
+    for i in days:
+        if i==day:
+            times = times+1
+        else:
+            continue
+    if times == 1:
+        return True
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    months = map(lambda x: x[0], possible_birthdays)
+    times = 0
+    for i in months:
+        if i==month:
+            times = times+1
+        else:
+            continue
+    if times == 1:
+        return True
+    else:
+        return False
+
+
+def filter(pred, seq):
+    res = ()
+
+    for ele in seq:
+        if pred(ele):
+            res = res + (ele, )
+    return res
+
+def contains_unique_day(month, possible_birthdays):
+    relevant_dates= filter(lambda x: x[0] == month, possible_birthdays)
+    days = map(lambda x: x[1], relevant_dates)
+    times = 0
+    for i in days:
+        if unique_day(i, possible_birthdays):
+            times = times+1
+        else:
+            continue
+    if times==0:
+        return False
+    else:
+        return True 
+",True,64,302,False,1.767,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def map(fn, seq):
+    res = ()
+
+    for ele in seq:
+        res = res + (fn(ele), )
+    return res
+
+def unique_day(day, possible_birthdays):
+    days = map(lambda x: x[1], possible_birthdays)
+    times = 0
+    for i in days:
+        if i==day:
+            times = times+1
+        else:
+            continue
+    if times == 1:
+        return True
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    months = map(lambda x: x[0], possible_birthdays)
+    times = 0
+    for i in months:
+        if i==month:
+            times = times+1
+        else:
+            continue
+    if times == 1:
+        return True
+    else:
+        return False
+
+
+def filter(pred, seq):
+    res = ()
+
+    for ele in seq:
+        if pred(ele):
+            res = res + (ele, )
+    return res
+
+def contains_unique_day(month, possible_birthdays):
+    relevant_dates= filter(lambda x: x[0] == month, possible_birthdays)
+    days = map(lambda x: x[1], relevant_dates)
+    times = 0
+    for i in days:
+        if unique_day(i, possible_birthdays):
+            times = times+1
+        else:
+            continue
+    if times==0:
+        return False
+    else:
+        return True 
+"
+refactory_q2,gpt-5.4-mini,wrong_2_017,False,1000,0,True,2.03,,,False,1000,1938,True,9.651,,
+refactory_q2,gpt-5.4-mini,wrong_2_018,False,1000,0,True,2.07,,,False,1000,1938,True,12.1,,
+refactory_q2,gpt-5.4-mini,wrong_2_019,True,27,0,False,0.14,generic_flip_compare,"def unique_day(date, possible_birthdays):
+
+    count =0
+
+    for i in possible_birthdays:
+
+        if date==i[1]:
+
+            count+=1
+
+    return count==1
+
+def unique_month(month, possible_birthdays):
+
+    count =0
+
+    for i in possible_birthdays:
+
+        if month==i[0]:
+
+            count+=1
+
+    return count==1
+
+def contains_unique_day(month, possible_birthdays):
+
+    daysinmonth=()
+
+    count=0
+
+    for i in possible_birthdays:
+
+        if month==i[0]:
+
+            daysinmonth+=(i[1],)
+
+    for i in daysinmonth:
+
+        if unique_day(i,possible_birthdays):
+            count+=1
+
+    return count >= 1
+",True,18,9,False,0.188,generic_flip_compare,"def unique_day(date, possible_birthdays):
+
+    count =0
+
+    for i in possible_birthdays:
+
+        if date==i[1]:
+
+            count+=1
+
+    return count==1
+
+def unique_month(month, possible_birthdays):
+
+    count =0
+
+    for i in possible_birthdays:
+
+        if month==i[0]:
+
+            count+=1
+
+    return count==1
+
+def contains_unique_day(month, possible_birthdays):
+
+    daysinmonth=()
+
+    count=0
+
+    for i in possible_birthdays:
+
+        if month==i[0]:
+
+            daysinmonth+=(i[1],)
+
+    for i in daysinmonth:
+
+        if unique_day(i,possible_birthdays):
+            count+=1
+
+    return count >= 1
+"
+refactory_q2,gpt-5.4-mini,wrong_2_020,True,27,0,False,0.135,generic_flip_compare,"def unique_day(date, possible_birthdays):
+
+    count =0
+
+    for i in possible_birthdays:
+
+        if date==i[1]:
+
+            count+=1
+
+    return count==1
+
+def unique_month(month, possible_birthdays):
+
+    count =0
+
+    for i in possible_birthdays:
+
+        if month==i[0]:
+
+            count+=1
+
+    return count==1
+
+def contains_unique_day(month, possible_birthdays):
+
+    daysinmonth=()
+
+    count=0
+
+    for i in possible_birthdays:
+
+        if month==i[0]:
+
+            daysinmonth+=(i[1],)
+
+    for i in daysinmonth:
+
+        if unique_day(i,possible_birthdays):
+            count+=1
+
+    return count >= 1
+",True,18,9,False,0.189,generic_flip_compare,"def unique_day(date, possible_birthdays):
+
+    count =0
+
+    for i in possible_birthdays:
+
+        if date==i[1]:
+
+            count+=1
+
+    return count==1
+
+def unique_month(month, possible_birthdays):
+
+    count =0
+
+    for i in possible_birthdays:
+
+        if month==i[0]:
+
+            count+=1
+
+    return count==1
+
+def contains_unique_day(month, possible_birthdays):
+
+    daysinmonth=()
+
+    count=0
+
+    for i in possible_birthdays:
+
+        if month==i[0]:
+
+            daysinmonth+=(i[1],)
+
+    for i in daysinmonth:
+
+        if unique_day(i,possible_birthdays):
+            count+=1
+
+    return count >= 1
+"
+refactory_q2,gpt-5.4-mini,wrong_2_021,False,1000,0,True,2.472,,,False,1000,990,True,7.367,,
+refactory_q2,gpt-5.4-mini,wrong_2_022,False,1000,0,True,2.802,,,False,1000,1938,True,21.956,,
+refactory_q2,gpt-5.4-mini,wrong_2_023,False,1000,0,True,3.733,,,False,1000,1938,True,13.993,,
+refactory_q2,gpt-5.4-mini,wrong_2_024,False,1000,0,True,2.5,,,False,1000,1938,True,12.7,,
+refactory_q2,gpt-5.4-mini,wrong_2_025,False,1000,0,True,2.425,,,False,1000,1746,True,11.779,,
+refactory_q2,gpt-5.4-mini,wrong_2_026,False,1000,0,True,2.243,,,False,1000,1746,True,8.625,,
+refactory_q2,gpt-5.4-mini,wrong_2_027,False,1000,0,True,2.525,,,False,1000,1563,True,11.807,,
+refactory_q2,gpt-5.4-mini,wrong_2_028,False,1000,0,True,2.376,,,False,1000,679,True,5.723,,
+refactory_q2,gpt-5.4-mini,wrong_2_029,False,1000,0,True,2.903,,,False,1000,1466,True,9.868,,
+refactory_q2,gpt-5.4-mini,wrong_2_030,False,1000,0,True,4.179,,,False,0,10000,True,51.184,,
+refactory_q2,gpt-5.4-mini,wrong_2_031,False,1000,0,True,5.656,,,False,0,10000,True,56.955,,
+refactory_q2,gpt-5.4-mini,wrong_2_032,False,1000,0,True,5.16,,,False,0,10000,True,61.314,,
+refactory_q2,gpt-5.4-mini,wrong_2_033,False,1000,0,True,4.421,,,False,0,10000,True,54.014,,
+refactory_q2,gpt-5.4-mini,wrong_2_034,False,1000,0,True,2.862,,,False,1000,1466,True,9.784,,
+refactory_q2,gpt-5.4-mini,wrong_2_035,False,1000,0,True,1.761,,,False,1000,957,True,5.086,,
+refactory_q2,gpt-5.4-mini,wrong_2_036,False,1000,0,True,1.729,,,False,1000,957,True,5.366,,
+refactory_q2,gpt-5.4-mini,wrong_2_037,False,1000,0,True,2.177,,,False,1000,1282,True,9.077,,
+refactory_q2,gpt-5.4-mini,wrong_2_038,False,1000,0,True,2.551,,,False,1000,2005,True,10.005,,
+refactory_q2,gpt-5.4-mini,wrong_2_039,False,1000,0,True,2.201,,,False,1000,202,True,5.01,,
+refactory_q2,gpt-5.4-mini,wrong_2_040,False,1000,0,True,2.031,,,False,1000,922,True,6.027,,
+refactory_q2,gpt-5.4-mini,wrong_2_041,False,1000,0,True,4.87,,,False,0,10000,True,56.64,,
+refactory_q2,gpt-5.4-mini,wrong_2_042,False,1000,0,True,3.265,,,False,0,10000,True,49.852,,
+refactory_q2,gpt-5.4-mini,wrong_2_043,False,1000,0,True,2.501,,,False,1000,48,True,5.628,,
+refactory_q2,gpt-5.4-mini,wrong_2_044,False,1000,0,True,4.591,,,False,0,10000,True,43.87,,
+refactory_q2,gpt-5.4-mini,wrong_2_045,False,1000,0,True,2.523,,,False,1000,48,True,3.494,,
+refactory_q2,gpt-5.4-mini,wrong_2_046,True,29,0,False,0.135,generic_flip_compare,"def unique_day(day, possible_birthdays):
+	num=0
+	for i in possible_birthdays:
+		if day==i[1]:
+			num=num+1
+	if num==1:
+		return True
+
+	else:
+		return False
+		
+def unique_month(month, possible_birthdays):
+	num=0
+	for i in possible_birthdays:
+		if month==i[0]:
+			num=num+1
+	if num==1:
+		return True
+
+	else:
+		return False
+
+def contains_unique_day(month, possible_birthdays):
+	result=()
+	for i in possible_birthdays:
+		if unique_day(i[1],possible_birthdays)==True:
+			result=result+(i[0],)
+	num=0
+	for j in result:
+		if month==j:
+			num=num+1
+	if num >= 1:
+		return True
+	else:
+		return False
+
+",True,21,8,False,0.194,generic_flip_compare,"def unique_day(day, possible_birthdays):
+	num=0
+	for i in possible_birthdays:
+		if day==i[1]:
+			num=num+1
+	if num==1:
+		return True
+
+	else:
+		return False
+		
+def unique_month(month, possible_birthdays):
+	num=0
+	for i in possible_birthdays:
+		if month==i[0]:
+			num=num+1
+	if num==1:
+		return True
+
+	else:
+		return False
+
+def contains_unique_day(month, possible_birthdays):
+	result=()
+	for i in possible_birthdays:
+		if unique_day(i[1],possible_birthdays)==True:
+			result=result+(i[0],)
+	num=0
+	for j in result:
+		if month==j:
+			num=num+1
+	if num >= 1:
+		return True
+	else:
+		return False
+
+"
+refactory_q2,gpt-5.4-mini,wrong_2_047,False,1000,0,True,7.373,,,False,1000,1912,True,23.771,,
+refactory_q2,gpt-5.4-mini,wrong_2_048,False,1000,0,True,2.324,,,False,1000,1417,True,8.383,,
+refactory_q2,gpt-5.4-mini,wrong_2_049,False,1000,0,True,1.947,,,False,0,10000,True,31.284,,
+refactory_q2,gpt-5.4-mini,wrong_2_050,False,1000,0,True,1.82,,,False,0,10000,True,30.972,,
+refactory_q2,gpt-5.4-mini,wrong_2_051,False,1000,0,True,1.737,,,False,0,10000,True,28.774,,
+refactory_q2,gpt-5.4-mini,wrong_2_052,False,1000,0,True,2.072,,,False,1000,1417,True,8.227,,
+refactory_q2,gpt-5.4-mini,wrong_2_053,False,1000,0,True,1.775,,,False,0,10000,True,35.837,,
+refactory_q2,gpt-5.4-mini,wrong_2_054,False,1000,0,True,2.742,,,False,0,10000,True,42.661,,
+refactory_q2,gpt-5.4-mini,wrong_2_055,False,1000,0,True,1.811,,,False,1000,5795,True,26.052,,
+refactory_q2,gpt-5.4-mini,wrong_2_056,False,1000,0,True,1.486,,,False,1000,5795,True,27.239,,
+refactory_q2,gpt-5.4-mini,wrong_2_057,False,1000,0,True,3.244,,,False,1000,2224,True,12.368,,
+refactory_q2,gpt-5.4-mini,wrong_2_058,False,1000,0,True,2.441,,,False,0,10000,True,47.035,,
+refactory_q2,gpt-5.4-mini,wrong_2_059,False,1000,0,True,1.666,,,False,1000,2701,True,12.937,,
+refactory_q2,gpt-5.4-mini,wrong_2_060,False,1000,0,True,2.592,,,False,1000,1790,True,11.505,,
+refactory_q2,gpt-5.4-mini,wrong_2_061,False,1000,0,True,2.44,,,False,1000,1790,True,10.314,,
+refactory_q2,gpt-5.4-mini,wrong_2_062,False,1000,0,True,2.535,,,False,1000,2453,True,14.724,,
+refactory_q2,gpt-5.4-mini,wrong_2_063,False,1000,0,True,2.106,,,False,1000,2164,True,11.147,,
+refactory_q2,gpt-5.4-mini,wrong_2_064,False,1000,0,True,2.751,,,False,1000,969,True,7.274,,
+refactory_q2,gpt-5.4-mini,wrong_2_065,False,1000,0,True,1.807,,,False,1000,416,True,3.814,,
+refactory_q2,gpt-5.4-mini,wrong_2_066,False,1000,0,True,2.51,,,False,1000,1542,True,9.844,,
+refactory_q2,gpt-5.4-mini,wrong_2_067,False,1000,0,True,2.845,,,False,1000,1394,True,10.35,,
+refactory_q2,gpt-5.4-mini,wrong_2_068,False,1000,0,True,2.235,,,False,1000,580,True,5.9,,
+refactory_q2,gpt-5.4-mini,wrong_2_069,False,1000,0,True,2.488,,,False,1000,5440,True,40.935,,
+refactory_q2,gpt-5.4-mini,wrong_2_070,False,1000,0,True,5.196,,,False,1000,969,True,13.3,,
+refactory_q2,gpt-5.4-mini,wrong_2_071,False,1000,0,True,3.777,,,False,1000,1480,True,10.311,,
+refactory_q2,gpt-5.4-mini,wrong_2_072,False,1000,0,True,2.346,,,False,1000,416,True,3.943,,
+refactory_q2,gpt-5.4-mini,wrong_2_073,True,26,0,False,0.143,generic_flip_compare,"def unique_day(date, possible_birthdays):
+    no_of_days = 0
+    for i in possible_birthdays:
+        if i[1] == date:
+            no_of_days += 1
+    if no_of_days != 1:
+        return False
+    return True
+    
+def unique_month(month, possible_birthdays):
+    no_of_months = 0
+    for i in possible_birthdays:
+        if i[0] == month:
+            no_of_months += 1
+    if no_of_months != 1:
+        return False
+    return True
+
+def contains_unique_day(month, possible_birthdays):
+    birthdays_with_month = ()
+    for i in possible_birthdays:
+        if i[0] == month:
+            birthdays_with_month += (i[1],)
+    counter = 0
+    for i in birthdays_with_month:
+        if unique_day(i, possible_birthdays) == True:
+            counter += 1
+    if counter >= 1:
+        return True
+    else:
+        return False 
+",True,19,7,False,0.196,generic_flip_compare,"def unique_day(date, possible_birthdays):
+    no_of_days = 0
+    for i in possible_birthdays:
+        if i[1] == date:
+            no_of_days += 1
+    if no_of_days != 1:
+        return False
+    return True
+    
+def unique_month(month, possible_birthdays):
+    no_of_months = 0
+    for i in possible_birthdays:
+        if i[0] == month:
+            no_of_months += 1
+    if no_of_months != 1:
+        return False
+    return True
+
+def contains_unique_day(month, possible_birthdays):
+    birthdays_with_month = ()
+    for i in possible_birthdays:
+        if i[0] == month:
+            birthdays_with_month += (i[1],)
+    counter = 0
+    for i in birthdays_with_month:
+        if unique_day(i, possible_birthdays) == True:
+            counter += 1
+    if counter >= 1:
+        return True
+    else:
+        return False 
+"
+refactory_q2,gpt-5.4-mini,wrong_2_074,False,1000,0,True,2.201,,,False,1000,1066,True,7.347,,
+refactory_q2,gpt-5.4-mini,wrong_2_075,True,26,0,False,0.137,generic_flip_compare,"def unique_day(date, possible_birthdays):
+    no_of_days = 0
+    for i in possible_birthdays:
+        if i[1] == date:
+            no_of_days += 1
+    if no_of_days != 1:
+        return False
+    return True
+    
+def unique_month(month, possible_birthdays):
+    no_of_months = 0
+    for i in possible_birthdays:
+        if i[0] == month:
+            no_of_months += 1
+    if no_of_months != 1:
+        return False
+    return True
+
+def contains_unique_day(month, possible_birthdays):
+    birthdays_with_month = ()
+    for i in possible_birthdays:
+        if i[0] == month:
+            birthdays_with_month += (i[1],)
+    counter = 0
+    for i in birthdays_with_month:
+        if unique_day(i, possible_birthdays) == True:
+            counter += 1
+    if counter >= 1:
+        return True
+    else:
+        return False 
+",True,19,7,False,0.21,generic_flip_compare,"def unique_day(date, possible_birthdays):
+    no_of_days = 0
+    for i in possible_birthdays:
+        if i[1] == date:
+            no_of_days += 1
+    if no_of_days != 1:
+        return False
+    return True
+    
+def unique_month(month, possible_birthdays):
+    no_of_months = 0
+    for i in possible_birthdays:
+        if i[0] == month:
+            no_of_months += 1
+    if no_of_months != 1:
+        return False
+    return True
+
+def contains_unique_day(month, possible_birthdays):
+    birthdays_with_month = ()
+    for i in possible_birthdays:
+        if i[0] == month:
+            birthdays_with_month += (i[1],)
+    counter = 0
+    for i in birthdays_with_month:
+        if unique_day(i, possible_birthdays) == True:
+            counter += 1
+    if counter >= 1:
+        return True
+    else:
+        return False 
+"
+refactory_q2,gpt-5.4-mini,wrong_2_076,False,1000,0,True,1.874,,,False,1000,974,True,5.321,,
+refactory_q2,gpt-5.4-mini,wrong_2_077,False,1000,0,True,2.193,,,False,1000,1480,True,9.053,,
+refactory_q2,gpt-5.4-mini,wrong_2_078,False,1000,0,True,2.413,,,False,1000,1285,True,7.931,,
+refactory_q2,gpt-5.4-mini,wrong_2_079,False,1000,0,True,3.662,,,False,1000,1285,True,12.864,,
+refactory_q2,gpt-5.4-mini,wrong_2_080,False,1000,0,True,2.791,,,False,1000,5440,True,33.845,,
+refactory_q2,gpt-5.4-mini,wrong_2_081,False,1000,0,True,3.496,,,False,1000,5440,True,34.274,,
+refactory_q2,gpt-5.4-mini,wrong_2_082,False,1000,0,True,4.172,,,False,0,10000,True,61.364,,
+refactory_q2,gpt-5.4-mini,wrong_2_083,False,1000,0,True,2.428,,,False,1000,5440,True,29.742,,
+refactory_q2,gpt-5.4-mini,wrong_2_084,False,1000,0,True,2.414,,,False,1000,3480,True,22.069,,
+refactory_q2,gpt-5.4-mini,wrong_2_085,False,1000,0,True,3.034,,,False,1000,3480,True,17.893,,
+refactory_q2,gpt-5.4-mini,wrong_2_086,False,1000,0,True,4.328,,,False,0,10000,True,40.418,,
+refactory_q2,gpt-5.4-mini,wrong_2_087,False,1000,0,True,5.347,,,False,0,10000,True,55.611,,
+refactory_q2,gpt-5.4-mini,wrong_2_088,False,1000,0,True,2.48,,,False,1000,1542,True,9.947,,
+refactory_q2,gpt-5.4-mini,wrong_2_089,False,1000,0,True,4.588,,,False,0,10000,True,59.683,,
+refactory_q2,gpt-5.4-mini,wrong_2_090,False,1000,0,True,3.237,,,False,0,10000,True,68.166,,
+refactory_q2,gpt-5.4-mini,wrong_2_091,False,1000,0,True,2.298,,,False,1000,1187,True,14.967,,
+refactory_q2,gpt-5.4-mini,wrong_2_092,False,1000,0,True,3.494,,,False,0,10000,True,61.648,,
+refactory_q2,gpt-5.4-mini,wrong_2_093,False,1000,0,True,4.753,,,False,0,10000,True,57.387,,
+refactory_q2,gpt-5.4-mini,wrong_2_094,False,1000,0,True,4.201,,,False,0,10000,True,49.272,,
+refactory_q2,gpt-5.4-mini,wrong_2_095,False,1000,0,True,4.375,,,False,0,10000,True,48.388,,
+refactory_q2,gpt-5.4-mini,wrong_2_096,False,1000,0,True,4.195,,,False,0,10000,True,46.161,,
+refactory_q2,gpt-5.4-mini,wrong_2_097,False,1000,0,True,4.184,,,False,0,10000,True,45.856,,
+refactory_q2,gpt-5.4-mini,wrong_2_098,False,1000,0,True,4.39,,,False,0,10000,True,48.278,,
+refactory_q2,gpt-5.4-mini,wrong_2_099,False,1000,0,True,5.626,,,False,0,10000,True,60.131,,
+refactory_q2,gpt-5.4-mini,wrong_2_100,False,1000,0,True,4.358,,,False,0,10000,True,53.058,,
+refactory_q2,gpt-5.4-mini,wrong_2_101,False,1000,0,True,6.579,,,False,0,10000,True,63.478,,
+refactory_q2,gpt-5.4-mini,wrong_2_102,False,1000,0,True,6.102,,,False,0,10000,True,52.898,,
+refactory_q2,gpt-5.4-mini,wrong_2_103,False,1000,0,True,5.134,,,False,0,10000,True,55.38,,
+refactory_q2,gpt-5.4-mini,wrong_2_104,False,1000,0,True,4.201,,,False,0,10000,True,56.477,,
+refactory_q2,gpt-5.4-mini,wrong_2_105,False,1000,0,True,3.092,,,False,0,10000,True,56.894,,
+refactory_q2,gpt-5.4-mini,wrong_2_106,False,1000,0,True,5.57,,,False,0,10000,True,50.917,,
+refactory_q2,gpt-5.4-mini,wrong_2_107,False,1000,0,True,5.295,,,False,0,10000,True,65.536,,
+refactory_q2,gpt-5.4-mini,wrong_2_108,False,1000,0,True,5.388,,,False,0,10000,True,58.509,,
+refactory_q2,gpt-5.4-mini,wrong_2_109,False,1000,0,True,4.979,,,False,0,10000,True,54.064,,
+refactory_q2,gpt-5.4-mini,wrong_2_110,False,1000,0,True,6.864,,,False,0,10000,True,69.363,,
+refactory_q2,gpt-5.4-mini,wrong_2_111,False,1000,0,True,5.379,,,False,0,10000,True,61.751,,
+refactory_q2,gpt-5.4-mini,wrong_2_112,False,1000,0,True,3.307,,,False,0,10000,True,54.823,,
+refactory_q2,gpt-5.4-mini,wrong_2_113,False,1000,0,True,3.325,,,False,0,10000,True,60.794,,
+refactory_q2,gpt-5.4-mini,wrong_2_114,True,311,0,False,1.099,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def unique_day(day, possible_birthdays):
+	check = 0
+	for birthday in possible_birthdays:
+		if birthday[1] == day:
+			check = check + 1
+	if check == 1:
+	    return True
+	else:
+	    return False
+
+
+def unique_month(month, possible_birthdays):
+	check = 0
+	for birthday in possible_birthdays:
+		if birthday[0] == month:
+			check = check + 1
+	if check == 1:
+	    return True
+	else:
+	    return False
+		
+def contains_unique_day(month, possible_birthdays):
+	for birthday in possible_birthdays:
+		if month == birthday[0] and unique_day(birthday[1], possible_birthdays):
+				return True
+	else:
+		return False
+",True,64,247,False,1.131,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def unique_day(day, possible_birthdays):
+	check = 0
+	for birthday in possible_birthdays:
+		if birthday[1] == day:
+			check = check + 1
+	if check == 1:
+	    return True
+	else:
+	    return False
+
+
+def unique_month(month, possible_birthdays):
+	check = 0
+	for birthday in possible_birthdays:
+		if birthday[0] == month:
+			check = check + 1
+	if check == 1:
+	    return True
+	else:
+	    return False
+		
+def contains_unique_day(month, possible_birthdays):
+	for birthday in possible_birthdays:
+		if month == birthday[0] and unique_day(birthday[1], possible_birthdays):
+				return True
+	else:
+		return False
+"
+refactory_q2,gpt-5.4-mini,wrong_2_115,False,1000,0,True,3.48,,,False,0,10000,True,59.036,,
+refactory_q2,gpt-5.4-mini,wrong_2_116,False,1000,0,True,2.622,,,False,1000,49,True,3.872,,
+refactory_q2,gpt-5.4-mini,wrong_2_117,False,1000,0,True,2.58,,,False,1000,816,True,7.621,,
+refactory_q2,gpt-5.4-mini,wrong_2_118,False,1000,0,True,2.848,,,False,1000,816,True,7.403,,
+refactory_q2,gpt-5.4-mini,wrong_2_119,False,1000,0,True,2.542,,,False,1000,816,True,7.233,,
+refactory_q2,gpt-5.4-mini,wrong_2_120,False,1000,0,True,2.56,,,False,1000,1016,True,7.636,,
+refactory_q2,gpt-5.4-mini,wrong_2_121,False,1000,0,True,2.29,,,False,1000,49,True,3.349,,
+refactory_q2,gpt-5.4-mini,wrong_2_122,False,1000,0,True,1.973,,,False,1000,1572,True,7.568,,
+refactory_q2,gpt-5.4-mini,wrong_2_123,False,1000,0,True,4.843,,,False,0,10000,True,52.849,,
+refactory_q2,gpt-5.4-mini,wrong_2_124,False,1000,0,True,3.932,,,False,0,10000,True,62.069,,
+refactory_q2,gpt-5.4-mini,wrong_2_125,False,1000,0,True,6.245,,,False,0,10000,True,52.875,,
+refactory_q2,gpt-5.4-mini,wrong_2_126,False,1000,0,True,1.88,,,False,0,10000,True,31.441,,
+refactory_q2,gpt-5.4-mini,wrong_2_127,False,1000,0,True,2.429,,,False,0,10000,True,38.125,,
+refactory_q2,gpt-5.4-mini,wrong_2_128,False,1000,0,True,5.254,,,False,0,10000,True,39.408,,
+refactory_q2,gpt-5.4-mini,wrong_2_129,True,313,0,False,0.859,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def unique_day(day, possible_birthdays):
+    counter = 0
+    for i in possible_birthdays:
+        if i[1] == day:
+            counter = counter + 1
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for i in possible_birthdays:
+        if i[0] == month:
+            counter = counter + 1
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    x = ()
+    for i in possible_birthdays:
+        if i[0] == month:
+            x = x + (i,)
+    total = 0
+    for i in x:
+        total = total + unique_day(i[1], possible_birthdays)
+    if total != 0:
+        return True
+    else:
+        return False
+",True,64,249,False,1.062,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def unique_day(day, possible_birthdays):
+    counter = 0
+    for i in possible_birthdays:
+        if i[1] == day:
+            counter = counter + 1
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for i in possible_birthdays:
+        if i[0] == month:
+            counter = counter + 1
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    x = ()
+    for i in possible_birthdays:
+        if i[0] == month:
+            x = x + (i,)
+    total = 0
+    for i in x:
+        total = total + unique_day(i[1], possible_birthdays)
+    if total != 0:
+        return True
+    else:
+        return False
+"
+refactory_q2,gpt-5.4-mini,wrong_2_130,True,313,0,False,0.874,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def unique_day(day, possible_birthdays):
+    counter = 0
+    for i in possible_birthdays:
+        if i[1] == day:
+            counter = counter + 1
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for i in possible_birthdays:
+        if i[0] == month:
+            counter = counter + 1
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    x = ()
+    for i in possible_birthdays:
+        if i[0] == month:
+            x = x + (i,)
+    total = 0
+    for i in x:
+        total = total + unique_day(i[1], possible_birthdays)
+    if total != 0:
+        return True
+    else:
+        return False
+",True,64,249,False,1.065,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def unique_day(day, possible_birthdays):
+    counter = 0
+    for i in possible_birthdays:
+        if i[1] == day:
+            counter = counter + 1
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for i in possible_birthdays:
+        if i[0] == month:
+            counter = counter + 1
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    x = ()
+    for i in possible_birthdays:
+        if i[0] == month:
+            x = x + (i,)
+    total = 0
+    for i in x:
+        total = total + unique_day(i[1], possible_birthdays)
+    if total != 0:
+        return True
+    else:
+        return False
+"
+refactory_q2,gpt-5.4-mini,wrong_2_131,False,1000,0,True,2.799,,,False,1000,1187,True,22.087,,
+refactory_q2,gpt-5.4-mini,wrong_2_132,False,1000,0,True,6.025,,,False,0,10000,True,54.728,,
+refactory_q2,gpt-5.4-mini,wrong_2_133,False,1000,0,True,3.375,,,False,0,10000,True,47.295,,
+refactory_q2,gpt-5.4-mini,wrong_2_134,False,1000,0,True,2.442,,,False,1000,1016,True,9.809,,
+refactory_q2,gpt-5.4-mini,wrong_2_135,False,1000,0,True,2.327,,,False,1000,1016,True,8.094,,
+refactory_q2,gpt-5.4-mini,wrong_2_136,False,1000,0,True,2.968,,,False,1000,1016,True,10.003,,
+refactory_q2,gpt-5.4-mini,wrong_2_137,False,1000,0,True,4.9,,,False,1000,49,True,4.635,,
+refactory_q2,gpt-5.4-mini,wrong_2_138,False,1000,0,True,2.841,,,False,0,10000,True,57.293,,
+refactory_q2,gpt-5.4-mini,wrong_2_139,False,1000,0,True,3.533,,,False,0,10000,True,48.124,,
+refactory_q2,gpt-5.4-mini,wrong_2_140,False,1000,0,True,2.681,,,False,1000,49,True,3.852,,
+refactory_q2,gpt-5.4-mini,wrong_2_141,False,1000,0,True,2.89,,,False,1000,37,True,4.477,,
+refactory_q2,gpt-5.4-mini,wrong_2_142,False,1000,0,True,2.69,,,False,1000,49,True,4.185,,
+refactory_q2,gpt-5.4-mini,wrong_2_143,False,1000,0,True,2.006,,,False,1000,987,True,7.375,,
+refactory_q2,gpt-5.4-mini,wrong_2_144,False,1000,0,True,2.944,,,False,1000,987,True,7.135,,
+refactory_q2,gpt-5.4-mini,wrong_2_145,False,5,0,False,0.186,,,False,0,5,False,0.427,,
+refactory_q2,gpt-5.4-mini,wrong_2_146,False,1000,0,True,2.452,,,False,1000,1156,True,7.918,,
+refactory_q2,gpt-5.4-mini,wrong_2_147,True,20,0,False,0.137,generic_flip_compare,"def unique_day(day, possible_birthdays):
+    a = 0
+    for item in possible_birthdays:
+        for i in item:
+            if i == day:
+                a += 1
+    if a == 1:
+        return True
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    a = 0
+    for item in possible_birthdays:
+        for i in item:
+            if i == month:
+                a += 1
+    if a == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    a = 0
+    b = 0
+    for item in possible_birthdays:
+        if month in item:
+            a = item
+            if unique_day(item[1],possible_birthdays) == True:
+                b += 1
+    if b >= 1:
+        return True
+    else:
+        return False
+",True,14,6,False,0.185,generic_flip_compare,"def unique_day(day, possible_birthdays):
+    a = 0
+    for item in possible_birthdays:
+        for i in item:
+            if i == day:
+                a += 1
+    if a == 1:
+        return True
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    a = 0
+    for item in possible_birthdays:
+        for i in item:
+            if i == month:
+                a += 1
+    if a == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    a = 0
+    b = 0
+    for item in possible_birthdays:
+        if month in item:
+            a = item
+            if unique_day(item[1],possible_birthdays) == True:
+                b += 1
+    if b >= 1:
+        return True
+    else:
+        return False
+"
+refactory_q2,gpt-5.4-mini,wrong_2_148,False,1000,0,True,3.068,,,False,0,10000,True,54.813,,
+refactory_q2,gpt-5.4-mini,wrong_2_149,False,1000,0,True,3.374,,,False,0,10000,True,57.629,,
+refactory_q2,gpt-5.4-mini,wrong_2_150,False,1000,0,True,2.406,,,False,1000,1156,True,8.572,,
+refactory_q2,gpt-5.4-mini,wrong_2_151,False,1000,0,True,2.654,,,False,1000,1156,True,9.275,,
+refactory_q2,gpt-5.4-mini,wrong_2_152,False,1000,0,True,9.269,,,False,0,1295,False,20.787,,
+refactory_q2,gpt-5.4-mini,wrong_2_153,False,1000,0,True,4.529,,,False,1000,1453,True,11.961,,
+refactory_q2,gpt-5.4-mini,wrong_2_154,False,1000,0,True,6.317,,,False,0,10000,True,65.004,,
+refactory_q2,gpt-5.4-mini,wrong_2_155,False,1000,0,True,3.047,,,False,0,10000,True,44.741,,
+refactory_q2,gpt-5.4-mini,wrong_2_156,False,1000,0,True,3.452,,,False,0,10000,True,48.152,,
+refactory_q2,gpt-5.4-mini,wrong_2_157,False,1000,0,True,2.349,,,False,1000,1812,True,10.526,,
+refactory_q2,gpt-5.4-mini,wrong_2_158,False,1000,0,True,2.359,,,False,1000,1812,True,10.667,,
+refactory_q2,gpt-5.4-mini,wrong_2_159,False,1000,0,True,2.486,,,False,1000,37,True,3.641,,
+refactory_q2,gpt-5.4-mini,wrong_2_160,False,1000,0,True,2.589,,,False,1000,540,True,5.66,,
+refactory_q2,gpt-5.4-mini,wrong_2_161,False,1000,0,True,2.643,,,False,1000,37,True,4.549,,
+refactory_q2,gpt-5.4-mini,wrong_2_162,True,20,0,False,0.145,generic_flip_compare,"def unique_day(day, possible_birthdays):
+    a = 0
+    for item in possible_birthdays:
+        for i in item:
+            if i == day:
+                a += 1
+    if a == 1:
+        return True
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    a = 0
+    for item in possible_birthdays:
+        for i in item:
+            if i == month:
+                a += 1
+    if a == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    a = 0
+    b = 0
+    for item in possible_birthdays:
+        if month in item:
+            a = item
+            if unique_day(item[1],possible_birthdays) == True:
+                b += 1
+    if b >= 1:
+        return True
+    else:
+        return False
+",True,14,6,False,0.182,generic_flip_compare,"def unique_day(day, possible_birthdays):
+    a = 0
+    for item in possible_birthdays:
+        for i in item:
+            if i == day:
+                a += 1
+    if a == 1:
+        return True
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    a = 0
+    for item in possible_birthdays:
+        for i in item:
+            if i == month:
+                a += 1
+    if a == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    a = 0
+    b = 0
+    for item in possible_birthdays:
+        if month in item:
+            a = item
+            if unique_day(item[1],possible_birthdays) == True:
+                b += 1
+    if b >= 1:
+        return True
+    else:
+        return False
+"
+refactory_q2,gpt-5.4-mini,wrong_2_163,False,1000,0,True,2.78,,,False,1000,1453,True,9.778,,
+refactory_q2,gpt-5.4-mini,wrong_2_164,False,1000,0,True,3.51,,,False,1000,37,True,4.62,,
+refactory_q2,gpt-5.4-mini,wrong_2_165,False,1000,0,True,2.907,,,False,1000,37,True,4.241,,
+refactory_q2,gpt-5.4-mini,wrong_2_166,False,1000,0,True,2.638,,,False,1000,444,True,5.279,,
+refactory_q2,gpt-5.4-mini,wrong_2_167,False,1000,0,True,2.584,,,False,1000,540,True,6.686,,
+refactory_q2,gpt-5.4-mini,wrong_2_168,False,1000,0,True,2.946,,,False,1000,829,True,7.671,,
+refactory_q2,gpt-5.4-mini,wrong_2_169,False,1000,0,True,2.573,,,False,1000,829,True,7.786,,
+refactory_q2,gpt-5.4-mini,wrong_2_170,False,1000,0,True,2.603,,,False,1000,540,True,6.277,,
+refactory_q2,gpt-5.4-mini,wrong_2_171,True,26,0,False,0.159,generic_flip_compare,"def unique_day(day, possible_birthdays):
+    result = tuple(filter(lambda x: x[1] == day, possible_birthdays))
+    if len(result) == 1:
+        return True  
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    result = tuple(filter(lambda x: x[0] == month, possible_birthdays))
+    if len(result) == 1:
+        return True  
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    months = tuple(filter(lambda x: x[0] == month, possible_birthdays))
+    result = tuple(filter(lambda y: unique_day(y[1], possible_birthdays), months))
+    if len(result) >= 1:
+        return True
+    else:
+        return False
+",True,18,8,False,0.28,generic_flip_compare,"def unique_day(day, possible_birthdays):
+    result = tuple(filter(lambda x: x[1] == day, possible_birthdays))
+    if len(result) == 1:
+        return True  
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    result = tuple(filter(lambda x: x[0] == month, possible_birthdays))
+    if len(result) == 1:
+        return True  
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    months = tuple(filter(lambda x: x[0] == month, possible_birthdays))
+    result = tuple(filter(lambda y: unique_day(y[1], possible_birthdays), months))
+    if len(result) >= 1:
+        return True
+    else:
+        return False
+"
+refactory_q2,gpt-5.4-mini,wrong_2_172,False,1000,0,True,3.31,,,False,1000,37,True,4.149,,
+refactory_q2,gpt-5.4-mini,wrong_2_173,False,1000,0,True,2.512,,,False,1000,37,True,4.054,,
+refactory_q2,gpt-5.4-mini,wrong_2_174,False,1000,0,True,2.642,,,False,1000,654,True,7.103,,
+refactory_q2,gpt-5.4-mini,wrong_2_175,False,1000,0,True,2.878,,,False,1000,654,True,6.773,,
+refactory_q2,gpt-5.4-mini,wrong_2_176,False,1000,0,True,2.424,,,False,1000,540,True,8.86,,
+refactory_q2,gpt-5.4-mini,wrong_2_177,False,1000,0,True,3.005,,,False,1000,673,True,7.421,,
+refactory_q2,gpt-5.4-mini,wrong_2_178,False,1000,0,True,3.09,,,False,1000,2883,True,22.157,,
+refactory_q2,gpt-5.4-mini,wrong_2_179,False,1000,0,True,2.437,,,False,1000,37,True,3.546,,
+refactory_q2,gpt-5.4-mini,wrong_2_180,False,1000,0,True,2.441,,,False,1000,37,True,3.542,,
+refactory_q2,gpt-5.4-mini,wrong_2_181,False,1000,0,True,2.395,,,False,1000,37,True,3.532,,
+refactory_q2,gpt-5.4-mini,wrong_2_182,False,1000,0,True,2.547,,,False,1000,37,True,3.612,,
+refactory_q2,gpt-5.4-mini,wrong_2_183,False,1000,0,True,2.216,,,False,1000,37,True,3.386,,
+refactory_q2,gpt-5.4-mini,wrong_2_184,False,1000,0,True,2.195,,,False,1000,37,True,3.518,,
+refactory_q2,gpt-5.4-mini,wrong_2_185,False,1000,0,True,2.302,,,False,1000,37,True,4.001,,
+refactory_q2,gpt-5.4-mini,wrong_2_186,False,1000,0,True,2.364,,,False,1000,37,True,5.517,,
+refactory_q2,gpt-5.4-mini,wrong_2_187,False,1000,0,True,2.695,,,False,1000,37,True,3.687,,
+refactory_q2,gpt-5.4-mini,wrong_2_188,False,1000,0,True,4.789,,,False,1000,49,True,6.029,,
+refactory_q2,gpt-5.4-mini,wrong_2_189,False,1000,0,True,3.225,,,False,1000,37,True,4.176,,
+refactory_q2,gpt-5.4-mini,wrong_2_190,False,1000,0,True,2.731,,,False,0,10000,True,39.941,,
+refactory_q2,gpt-5.4-mini,wrong_2_191,False,1000,0,True,2.164,,,False,0,10000,True,35.866,,
+refactory_q2,gpt-5.4-mini,wrong_2_192,False,1000,0,True,2.196,,,False,1000,1938,True,14.669,,
+refactory_q2,gpt-5.4-mini,wrong_2_193,False,1000,0,True,5.62,,,False,0,10000,True,62.121,,
+refactory_q2,gpt-5.4-mini,wrong_2_194,False,1000,0,True,4.064,,,False,1000,1132,True,15.46,,
+refactory_q2,gpt-5.4-mini,wrong_2_195,False,1000,0,True,2.651,,,False,1000,594,True,6.054,,
+refactory_q2,gpt-5.4-mini,wrong_2_196,False,1000,0,True,4.974,,,False,1000,2465,True,26.326,,
+refactory_q2,gpt-5.4-mini,wrong_2_197,False,1000,0,True,8.354,,,False,1000,2465,True,30.902,,
+refactory_q2,gpt-5.4-mini,wrong_2_198,False,1000,0,True,5.454,,,False,0,10000,True,46.935,,
+refactory_q2,gpt-5.4-mini,wrong_2_199,False,1000,0,True,2.523,,,False,0,10000,True,38.121,,
+refactory_q2,gpt-5.4-mini,wrong_2_200,False,1000,0,True,4.901,,,False,1000,2654,True,16.638,,
+refactory_q2,gpt-5.4-mini,wrong_2_201,False,1000,0,True,2.474,,,False,1000,1394,True,9.757,,
+refactory_q2,gpt-5.4-mini,wrong_2_202,False,1000,0,True,3.362,,,False,1000,1394,True,9.138,,
+refactory_q2,gpt-5.4-mini,wrong_2_203,False,1000,0,True,2.406,,,False,1000,1394,True,9.268,,
+refactory_q2,gpt-5.4-mini,wrong_2_204,False,1000,0,True,2.491,,,False,1000,1394,True,8.939,,
+refactory_q2,gpt-5.4-mini,wrong_2_205,False,1000,0,True,2.553,,,False,1000,1394,True,9.85,,
+refactory_q2,gpt-5.4-mini,wrong_2_206,False,1000,0,True,3.004,,,False,1000,1394,True,9.836,,
+refactory_q2,gpt-5.4-mini,wrong_2_207,False,1000,0,True,3.922,,,False,1000,1394,True,11.821,,
+refactory_q2,gpt-5.4-mini,wrong_2_208,False,1000,0,True,3.215,,,False,1000,1394,True,9.663,,
+refactory_q2,gpt-5.4-mini,wrong_2_209,True,26,0,False,0.153,generic_shift_index,"def unique_day(date, possible_birthdays):
+    counter = 0
+    for i in possible_birthdays:
+        if i[1] == date:
+            counter += 1
+        else:
+            continue
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for i in possible_birthdays:
+        if i[1 - 1] == month:
+            counter += 1
+        else:
+            continue
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    tup = ()
+    for i in possible_birthdays:
+        if i[0] == month:
+            tup += ((i),)
+        else:
+            continue
+    for i in tup:
+        if unique_day(i[1], possible_birthdays) == True:
+            return True
+    return False
+",True,8,18,False,0.193,generic_shift_index,"def unique_day(date, possible_birthdays):
+    counter = 0
+    for i in possible_birthdays:
+        if i[1] == date:
+            counter += 1
+        else:
+            continue
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for i in possible_birthdays:
+        if i[1 - 1] == month:
+            counter += 1
+        else:
+            continue
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    tup = ()
+    for i in possible_birthdays:
+        if i[0] == month:
+            tup += ((i),)
+        else:
+            continue
+    for i in tup:
+        if unique_day(i[1], possible_birthdays) == True:
+            return True
+    return False
+"
+refactory_q2,gpt-5.4-mini,wrong_2_210,False,1000,0,True,4.95,,,False,0,10000,True,58.834,,
+refactory_q2,gpt-5.4-mini,wrong_2_211,False,1000,0,True,3.118,,,False,0,10000,True,59.097,,
+refactory_q2,gpt-5.4-mini,wrong_2_212,False,1000,0,True,1.866,,,False,1000,1423,True,6.793,,
+refactory_q2,gpt-5.4-mini,wrong_2_213,False,1000,0,True,2.878,,,False,0,10000,True,47.126,,
+refactory_q2,gpt-5.4-mini,wrong_2_214,False,1000,0,True,2.685,,,False,1000,1423,True,8.044,,
+refactory_q2,gpt-5.4-mini,wrong_2_215,False,1000,0,True,2.449,,,False,888,9112,True,56.344,,
+refactory_q2,gpt-5.4-mini,wrong_2_216,False,1000,0,True,4.468,,,False,0,10000,True,51.541,,
+refactory_q2,gpt-5.4-mini,wrong_2_217,False,1000,0,True,4.911,,,False,0,10000,True,49.365,,
+refactory_q2,gpt-5.4-mini,wrong_2_218,False,1000,0,True,4.45,,,False,0,10000,True,48.856,,
+refactory_q2,gpt-5.4-mini,wrong_2_219,False,1000,0,True,4.441,,,False,0,10000,True,49.513,,
+refactory_q2,gpt-5.4-mini,wrong_2_220,False,1000,0,True,3.08,,,False,0,10000,True,52.814,,
+refactory_q2,gpt-5.4-mini,wrong_2_221,False,24,0,False,0.585,,,False,9,15,False,0.629,,
+refactory_q2,gpt-5.4-mini,wrong_2_222,False,1000,0,True,3.253,,,False,0,10000,True,36.669,,
+refactory_q2,gpt-5.4-mini,wrong_2_223,False,1000,0,True,2.191,,,False,0,10000,True,34.239,,
+refactory_q2,gpt-5.4-mini,wrong_2_224,False,1000,0,True,2.252,,,False,0,10000,True,36.245,,
+refactory_q2,gpt-5.4-mini,wrong_2_225,False,1000,0,True,4.686,,,False,1000,1088,True,10.055,,
+refactory_q2,gpt-5.4-mini,wrong_2_226,False,1000,0,True,1.862,,,False,1000,922,True,5.294,,
+refactory_q2,gpt-5.4-mini,wrong_2_227,False,1000,0,True,3.454,,,False,0,10000,True,49.927,,
+refactory_q2,gpt-5.4-mini,wrong_2_228,False,1000,0,True,4.959,,,False,0,10000,True,56.328,,
+refactory_q2,gpt-5.4-mini,wrong_2_229,False,1000,0,True,2.692,,,False,1000,6,True,4.102,,
+refactory_q2,gpt-5.4-mini,wrong_2_230,False,0,0,False,0.039,,,False,0,0,False,0.657,,
+refactory_q2,gpt-5.4-mini,wrong_2_231,False,1000,0,True,3.596,,,False,0,10000,True,64.234,,
+refactory_q2,gpt-5.4-mini,wrong_2_232,False,1000,0,True,2.528,,,False,1000,1790,True,12.638,,
+refactory_q2,gpt-5.4-mini,wrong_2_233,False,1000,0,True,2.16,,,False,1000,2469,True,12.099,,
+refactory_q2,gpt-5.4-mini,wrong_2_234,False,1000,0,True,2.449,,,False,1000,1790,True,11.454,,
+refactory_q2,gpt-5.4-mini,wrong_2_235,True,363,0,False,0.826,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def unique_day(date, possible_birthdays):
+    count = 0
+    for birthday in possible_birthdays:
+        if date == birthday[1]:
+            count = count + 1
+    if count == 1:
+        return True
+    else:
+        return False    
+
+def unique_month(month, possible_birthdays):
+    count = 0
+    for birthday in possible_birthdays:
+        if month == birthday[0]:
+            count = count + 1
+    if count == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    for birthday in possible_birthdays:
+        if month == birthday[0]:
+            if unique_day(birthday[1], possible_birthdays) == True:
+               return True
+    return False
+          
+",True,64,299,False,1.026,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def unique_day(date, possible_birthdays):
+    count = 0
+    for birthday in possible_birthdays:
+        if date == birthday[1]:
+            count = count + 1
+    if count == 1:
+        return True
+    else:
+        return False    
+
+def unique_month(month, possible_birthdays):
+    count = 0
+    for birthday in possible_birthdays:
+        if month == birthday[0]:
+            count = count + 1
+    if count == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    for birthday in possible_birthdays:
+        if month == birthday[0]:
+            if unique_day(birthday[1], possible_birthdays) == True:
+               return True
+    return False
+          
+"
+refactory_q2,gpt-5.4-mini,wrong_2_236,False,1000,0,True,2.185,,,False,1000,2469,True,11.743,,
+refactory_q2,gpt-5.4-mini,wrong_2_237,False,11,0,False,0.253,,,False,0,11,False,0.973,,
+refactory_q2,gpt-5.4-mini,wrong_2_238,False,11,0,False,0.304,,,False,0,11,False,0.866,,
+refactory_q2,gpt-5.4-mini,wrong_2_239,False,1000,0,True,2.583,,,False,1000,1453,True,9.078,,
+refactory_q2,gpt-5.4-mini,wrong_2_240,False,1000,0,True,2.46,,,False,1000,1285,True,8.108,,
+refactory_q2,gpt-5.4-mini,wrong_2_241,False,1000,0,True,3.937,,,False,0,10000,True,43.442,,
+refactory_q2,gpt-5.4-mini,wrong_2_242,False,1000,0,True,2.864,,,False,0,10000,True,45.168,,
+refactory_q2,gpt-5.4-mini,wrong_2_243,False,1000,0,True,2.151,,,False,1000,49,True,4.085,,
+refactory_q2,gpt-5.4-mini,wrong_2_244,False,1000,0,True,3.802,,,False,0,10000,True,56.229,,
+refactory_q2,gpt-5.4-mini,wrong_2_245,False,1000,0,True,2.547,,,False,1000,1132,True,8.582,,
+refactory_q2,gpt-5.4-mini,wrong_2_246,False,1000,0,True,3.465,,,False,1000,1132,True,10.885,,
+refactory_q2,gpt-5.4-mini,wrong_2_247,False,1000,0,True,3.504,,,False,1000,1132,True,9.194,,
+refactory_q2,gpt-5.4-mini,wrong_2_248,False,1000,0,True,2.34,,,False,1000,1723,True,8.778,,
+refactory_q2,gpt-5.4-mini,wrong_2_249,False,1000,0,True,1.402,,,False,1000,327,True,4.284,,
+refactory_q2,gpt-5.4-mini,wrong_2_250,False,1000,0,True,2.226,,,False,0,10000,True,39.366,,
+refactory_q2,gpt-5.4-mini,wrong_2_251,False,1000,0,True,4.395,,,False,1000,1152,True,10.669,,
+refactory_q2,gpt-5.4-mini,wrong_2_252,False,1000,0,True,2.651,,,False,1000,587,True,6.626,,
+refactory_q2,gpt-5.4-mini,wrong_2_253,False,1000,0,True,2.922,,,False,1000,2031,True,12.512,,
+refactory_q2,gpt-5.4-mini,wrong_2_254,False,1000,0,True,2.384,,,False,1000,2031,True,15.455,,
+refactory_q2,gpt-5.4-mini,wrong_2_255,True,362,0,False,1.205,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def unique_day(day, possible_birthdays):
+    """"""Your solution here""""""
+    count = 0
+    for element in possible_birthdays:
+        if day == element[1]:
+            count += 1
+    if count == 1:
+        return True
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    """"""Your solution here""""""
+    count = 0
+    for element in possible_birthdays:
+        if month == element[0]:
+            count += 1
+    if count == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    """"""Your solution here""""""
+    for date in possible_birthdays:
+        if unique_day(date[1], possible_birthdays) and date[0] == month:
+            return True
+    else:
+        return False
+",True,81,281,False,1.275,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def unique_day(day, possible_birthdays):
+    """"""Your solution here""""""
+    count = 0
+    for element in possible_birthdays:
+        if day == element[1]:
+            count += 1
+    if count == 1:
+        return True
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    """"""Your solution here""""""
+    count = 0
+    for element in possible_birthdays:
+        if month == element[0]:
+            count += 1
+    if count == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    """"""Your solution here""""""
+    for date in possible_birthdays:
+        if unique_day(date[1], possible_birthdays) and date[0] == month:
+            return True
+    else:
+        return False
+"
+refactory_q2,gpt-5.4-mini,wrong_2_256,False,1000,0,True,4.306,,,False,0,10000,True,65.848,,
+refactory_q2,gpt-5.4-mini,wrong_2_257,False,1000,0,True,3.798,,,False,1000,3493,True,18.626,,
+refactory_q2,gpt-5.4-mini,wrong_2_258,False,1000,0,True,3.727,,,False,1000,4055,True,21.22,,
+refactory_q2,gpt-5.4-mini,wrong_2_259,False,2,0,False,0.126,,,False,0,2,False,0.548,,
+refactory_q2,gpt-5.4-mini,wrong_2_260,False,1000,0,True,4.474,,,False,1000,4055,True,24.03,,
+refactory_q2,gpt-5.4-mini,wrong_2_261,False,1000,0,True,3.768,,,False,1000,4055,True,23.257,,
+refactory_q2,gpt-5.4-mini,wrong_2_262,False,1000,0,True,4.753,,,False,0,10000,True,51.254,,
+refactory_q2,gpt-5.4-mini,wrong_2_263,False,1000,0,True,4.525,,,False,1000,4055,True,22.675,,
+refactory_q2,gpt-5.4-mini,wrong_2_264,False,1000,0,True,2.084,,,False,1000,2798,True,14.307,,
+refactory_q2,gpt-5.4-mini,wrong_2_265,False,1000,0,True,2.45,,,False,1000,1285,True,8.71,,
+refactory_q2,gpt-5.4-mini,wrong_2_266,False,1000,0,True,2.083,,,False,1000,2798,True,13.414,,
+refactory_q2,gpt-5.4-mini,wrong_2_267,False,1000,0,True,2.029,,,False,1000,1592,True,7.962,,
+refactory_q2,gpt-5.4-mini,wrong_2_268,False,1000,0,True,2.218,,,False,1000,1592,True,7.769,,
+refactory_q2,gpt-5.4-mini,wrong_2_269,False,1000,0,True,2.812,,,False,1000,2654,True,15.749,,
+refactory_q2,gpt-5.4-mini,wrong_2_270,False,1000,0,True,2.422,,,False,1000,1152,True,8.021,,
+refactory_q2,gpt-5.4-mini,wrong_2_271,False,1000,0,True,2.399,,,False,1000,1152,True,8.079,,
+refactory_q2,gpt-5.4-mini,wrong_2_272,False,1000,0,True,2.391,,,False,1000,1152,True,8.061,,
+refactory_q2,gpt-5.4-mini,wrong_2_273,True,26,0,False,0.146,generic_shift_index,"def unique_day(day, possible_birthdays):
+    num=0
+    for i in possible_birthdays:
+        if i[1]==day: num+=1
+    return num==1
+
+
+def unique_month(month, possible_birthdays):
+    num=0
+    for i in possible_birthdays:
+        if i[1 - 1]==month: num+=1
+    return num==1
+
+def contains_unique_day(month, possible_birthdays):
+    for i in possible_birthdays:
+        if i[0]==month and unique_day(i[1],possible_birthdays):
+            return True
+    return False
+",True,9,17,False,0.182,generic_shift_index,"def unique_day(day, possible_birthdays):
+    num=0
+    for i in possible_birthdays:
+        if i[1]==day: num+=1
+    return num==1
+
+
+def unique_month(month, possible_birthdays):
+    num=0
+    for i in possible_birthdays:
+        if i[1 - 1]==month: num+=1
+    return num==1
+
+def contains_unique_day(month, possible_birthdays):
+    for i in possible_birthdays:
+        if i[0]==month and unique_day(i[1],possible_birthdays):
+            return True
+    return False
+"
+refactory_q2,gpt-5.4-mini,wrong_2_274,False,1000,0,True,2.399,,,False,1000,1152,True,8.07,,
+refactory_q2,gpt-5.4-mini,wrong_2_275,False,1000,0,True,2.426,,,False,1000,1152,True,9.461,,
+refactory_q2,gpt-5.4-mini,wrong_2_276,False,35,0,False,0.742,,,False,0,35,False,1.033,,
+refactory_q2,gpt-5.4-mini,wrong_2_277,False,0,0,False,0.054,,,False,0,0,False,1.009,,
+refactory_q2,gpt-5.4-mini,wrong_2_278,False,1000,0,True,2.471,,,False,1000,1150,True,7.006,,
+refactory_q2,gpt-5.4-mini,wrong_2_279,True,725,0,False,1.559,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def unique_day(day, possible_birthdays):
+    count = 0
+    for i in range(len(possible_birthdays)):
+        if day == possible_birthdays[i][1]:
+            count += 1
+    if count == 1:
+        return True
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    count = 0
+    for i in range(len(possible_birthdays)):
+        if month == possible_birthdays[i][0]:
+            count += 1
+    if count == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    for day in possible_birthdays:
+        if unique_day(day[1], possible_birthdays) == True and month == day[0]:
+            return True
+    else:
+        return False
+",True,169,556,False,2.234,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def unique_day(day, possible_birthdays):
+    count = 0
+    for i in range(len(possible_birthdays)):
+        if day == possible_birthdays[i][1]:
+            count += 1
+    if count == 1:
+        return True
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    count = 0
+    for i in range(len(possible_birthdays)):
+        if month == possible_birthdays[i][0]:
+            count += 1
+    if count == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    for day in possible_birthdays:
+        if unique_day(day[1], possible_birthdays) == True and month == day[0]:
+            return True
+    else:
+        return False
+"
+refactory_q2,gpt-5.4-mini,wrong_2_280,True,33,0,False,0.149,generic_shift_index,"def unique_day(day, possible_birthdays):
+    counter = 0
+    for i in possible_birthdays:
+        if day == i[1]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for i in possible_birthdays:
+        if month == i[0]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    focus = ()
+    unique_days = ()
+    for i in possible_birthdays:
+        if month == i[0]:
+            focus += (i,)
+    for j in focus:
+        testday = j[1]
+        if unique_day(testday, possible_birthdays) == True:
+            unique_days += (testday,)
+    for k in unique_days:
+        for l in focus:
+            if k == l[1 - 1]:
+                break
+            return True
+    return False
+",True,24,9,False,0.211,generic_shift_index,"def unique_day(day, possible_birthdays):
+    counter = 0
+    for i in possible_birthdays:
+        if day == i[1]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for i in possible_birthdays:
+        if month == i[0]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    focus = ()
+    unique_days = ()
+    for i in possible_birthdays:
+        if month == i[0]:
+            focus += (i,)
+    for j in focus:
+        testday = j[1]
+        if unique_day(testday, possible_birthdays) == True:
+            unique_days += (testday,)
+    for k in unique_days:
+        for l in focus:
+            if k == l[1 - 1]:
+                break
+            return True
+    return False
+"
+refactory_q2,gpt-5.4-mini,wrong_2_281,True,33,0,False,0.146,generic_shift_index,"def unique_day(day, possible_birthdays):
+    counter = 0
+    for i in possible_birthdays:
+        if day == i[1]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for i in possible_birthdays:
+        if month == i[0]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    focus = ()
+    unique_days = ()
+    for i in possible_birthdays:
+        if month == i[0]:
+            focus += (i,)
+    for j in focus:
+        testday = j[1]
+        if unique_day(testday, possible_birthdays) == True:
+            unique_days += (testday,)
+    for k in unique_days:
+        for l in focus:
+            if k == l[1 - 1]:
+                break
+            return True
+    return False
+",True,24,9,False,0.211,generic_shift_index,"def unique_day(day, possible_birthdays):
+    counter = 0
+    for i in possible_birthdays:
+        if day == i[1]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for i in possible_birthdays:
+        if month == i[0]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    focus = ()
+    unique_days = ()
+    for i in possible_birthdays:
+        if month == i[0]:
+            focus += (i,)
+    for j in focus:
+        testday = j[1]
+        if unique_day(testday, possible_birthdays) == True:
+            unique_days += (testday,)
+    for k in unique_days:
+        for l in focus:
+            if k == l[1 - 1]:
+                break
+            return True
+    return False
+"
+refactory_q2,gpt-5.4-mini,wrong_2_282,True,18,0,False,0.131,generic_shift_index,"def unique_day(date, possible_birthdays):
+    a = ()
+    for i in possible_birthdays:
+        a += (i[1],)
+    return a.count(date) == 1
+
+def unique_month(month, possible_birthdays):
+    a = ()
+    for i in possible_birthdays:
+        a += (i[1 - 1],)
+    return a.count(month) == 1
+    
+def contains_unique_day(month, possible_birthdays):
+    a = ()
+    b = False
+    for i in possible_birthdays:
+        if month == i[0]:
+            a += (i,)
+    for i in a:
+        b = b or unique_day(i[1], possible_birthdays)
+    return b
+",True,5,13,False,0.178,generic_shift_index,"def unique_day(date, possible_birthdays):
+    a = ()
+    for i in possible_birthdays:
+        a += (i[1],)
+    return a.count(date) == 1
+
+def unique_month(month, possible_birthdays):
+    a = ()
+    for i in possible_birthdays:
+        a += (i[1 - 1],)
+    return a.count(month) == 1
+    
+def contains_unique_day(month, possible_birthdays):
+    a = ()
+    b = False
+    for i in possible_birthdays:
+        if month == i[0]:
+            a += (i,)
+    for i in a:
+        b = b or unique_day(i[1], possible_birthdays)
+    return b
+"
+refactory_q2,gpt-5.4-mini,wrong_2_283,True,23,0,False,0.133,generic_shift_index,"def unique_day(date, possible_birthdays):
+    count = 0
+    for i in possible_birthdays:
+        if i[1] == date:
+            count = count + 1
+    if count == 1:
+        return True 
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    count = 0
+    for i in possible_birthdays:
+        if i[0] == month:
+            count = count + 1
+    if count == 1:
+        return True
+    else:
+        return False
+        
+def contains_unique_day(month, possible_birthdays):
+    same_month_tuple = ()
+    count = 0
+    for i in possible_birthdays:
+        if i[0] == month:
+            same_month_tuple = same_month_tuple + (i,)
+    for i in same_month_tuple:
+        if unique_day(i[0 - 1], possible_birthdays):
+            return True
+    return False
+",True,15,8,False,0.272,generic_shift_index,"def unique_day(date, possible_birthdays):
+    count = 0
+    for i in possible_birthdays:
+        if i[1] == date:
+            count = count + 1
+    if count == 1:
+        return True 
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    count = 0
+    for i in possible_birthdays:
+        if i[0] == month:
+            count = count + 1
+    if count == 1:
+        return True
+    else:
+        return False
+        
+def contains_unique_day(month, possible_birthdays):
+    same_month_tuple = ()
+    count = 0
+    for i in possible_birthdays:
+        if i[0] == month:
+            same_month_tuple = same_month_tuple + (i,)
+    for i in same_month_tuple:
+        if unique_day(i[0 - 1], possible_birthdays):
+            return True
+    return False
+"
+refactory_q2,gpt-5.4-mini,wrong_2_284,False,1000,0,True,2.1,,,False,1000,1108,True,10.28,,
+refactory_q2,gpt-5.4-mini,wrong_2_285,False,1000,0,True,2.093,,,False,1000,4176,True,19.05,,
+refactory_q2,gpt-5.4-mini,wrong_2_286,False,1000,0,True,2.899,,,False,1000,1351,True,8.862,,
+refactory_q2,gpt-5.4-mini,wrong_2_287,True,26,0,False,0.134,generic_shift_index,"def unique_day(date, possible_birthdays):
+    counter = 0
+    for i in possible_birthdays:
+        if i[1] == date:
+            counter += 1
+        else:
+            continue
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for i in possible_birthdays:
+        if i[1 - 1] == month:
+            counter += 1
+        else:
+            continue
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    tup = ()
+    for i in possible_birthdays:
+        if i[0] == month:
+            tup += ((i),)
+        else:
+            continue
+    for i in tup:
+        if unique_day(i[1], possible_birthdays) == True:
+            return True
+    return False
+",True,8,18,False,0.19,generic_shift_index,"def unique_day(date, possible_birthdays):
+    counter = 0
+    for i in possible_birthdays:
+        if i[1] == date:
+            counter += 1
+        else:
+            continue
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for i in possible_birthdays:
+        if i[1 - 1] == month:
+            counter += 1
+        else:
+            continue
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    tup = ()
+    for i in possible_birthdays:
+        if i[0] == month:
+            tup += ((i),)
+        else:
+            continue
+    for i in tup:
+        if unique_day(i[1], possible_birthdays) == True:
+            return True
+    return False
+"
+refactory_q2,gpt-5.4-mini,wrong_2_288,False,1000,0,True,2.796,,,False,0,10000,True,46.991,,
+refactory_q2,gpt-5.4-mini,wrong_2_289,False,1000,0,True,2.756,,,False,1000,1088,True,8.916,,
+refactory_q2,gpt-5.4-mini,wrong_2_290,True,18,0,False,0.249,generic_shift_index,"def unique_day(date, possible_birthdays):
+    a = ()
+    for i in possible_birthdays:
+        a += (i[1],)
+    return a.count(date) == 1
+
+def unique_month(month, possible_birthdays):
+    a = ()
+    for i in possible_birthdays:
+        a += (i[1 - 1],)
+    return a.count(month) == 1
+    
+def contains_unique_day(month, possible_birthdays):
+    a = ()
+    b = False
+    for i in possible_birthdays:
+        if month == i[0]:
+            a += (i,)
+    for i in a:
+        b = b or unique_day(i[1], possible_birthdays)
+    return b
+",True,5,13,False,0.266,generic_shift_index,"def unique_day(date, possible_birthdays):
+    a = ()
+    for i in possible_birthdays:
+        a += (i[1],)
+    return a.count(date) == 1
+
+def unique_month(month, possible_birthdays):
+    a = ()
+    for i in possible_birthdays:
+        a += (i[1 - 1],)
+    return a.count(month) == 1
+    
+def contains_unique_day(month, possible_birthdays):
+    a = ()
+    b = False
+    for i in possible_birthdays:
+        if month == i[0]:
+            a += (i,)
+    for i in a:
+        b = b or unique_day(i[1], possible_birthdays)
+    return b
+"
+refactory_q2,gpt-5.4-mini,wrong_2_291,False,1000,0,True,4.813,,,False,0,10000,True,49.97,,
+refactory_q2,gpt-5.4-mini,wrong_2_292,False,1000,0,True,3.915,,,False,0,10000,True,49.947,,
+refactory_q2,gpt-5.4-mini,wrong_2_293,False,1000,0,True,2.308,,,False,1000,1640,True,11.197,,
+refactory_q2,gpt-5.4-mini,wrong_2_294,False,1000,0,True,3.952,,,False,0,10000,True,43.356,,
+refactory_q2,gpt-5.4-mini,wrong_2_295,False,1000,0,True,4.045,,,False,0,10000,True,43.601,,
+refactory_q2,gpt-5.4-mini,wrong_2_296,False,1000,0,True,4.058,,,False,0,10000,True,42.663,,
+refactory_q2,gpt-5.4-mini,wrong_2_297,False,1000,0,True,2.396,,,False,1000,107,True,3.663,,
+refactory_q2,gpt-5.4-mini,wrong_2_298,False,1000,0,True,2.008,,,False,0,10000,True,32.938,,
+refactory_q2,gpt-5.4-mini,wrong_2_299,False,1000,0,True,4.037,,,False,0,10000,True,53.501,,
+refactory_q2,gpt-5.4-mini,wrong_2_300,False,1000,0,True,3.002,,,False,1000,1331,True,7.993,,
+refactory_q2,gpt-5.4-mini,wrong_2_301,False,1000,0,True,1.892,,,False,1000,1716,True,6.776,,
+refactory_q2,gpt-5.4-mini,wrong_2_302,True,26,0,False,0.136,generic_shift_index,"def unique_day(day, possible_birthdays):
+    num=0
+    for i in possible_birthdays:
+        if i[1]==day: num+=1
+    return num==1
+
+
+def unique_month(month, possible_birthdays):
+    num=0
+    for i in possible_birthdays:
+        if i[1 - 1]==month: num+=1
+    return num==1
+
+def contains_unique_day(month, possible_birthdays):
+    for i in possible_birthdays:
+        if i[0]==month and unique_day(i[1],possible_birthdays):
+            return True
+    return False
+",True,9,17,False,0.195,generic_shift_index,"def unique_day(day, possible_birthdays):
+    num=0
+    for i in possible_birthdays:
+        if i[1]==day: num+=1
+    return num==1
+
+
+def unique_month(month, possible_birthdays):
+    num=0
+    for i in possible_birthdays:
+        if i[1 - 1]==month: num+=1
+    return num==1
+
+def contains_unique_day(month, possible_birthdays):
+    for i in possible_birthdays:
+        if i[0]==month and unique_day(i[1],possible_birthdays):
+            return True
+    return False
+"
+refactory_q2,gpt-5.4-mini,wrong_2_303,False,1000,0,True,2.594,,,False,566,9434,True,35.651,,
+refactory_q2,gpt-5.4-mini,wrong_2_304,False,1000,0,True,3.466,,,False,1000,4820,True,25.932,,
+refactory_q2,gpt-5.4-mini,wrong_2_305,False,1000,0,True,3.189,,,False,1000,5230,True,27.604,,
+refactory_q2,gpt-5.4-mini,wrong_2_306,False,1000,0,True,5.511,,,False,0,10000,True,61.024,,
+refactory_q2,gpt-5.4-mini,wrong_2_307,False,1000,0,True,4.141,,,False,0,10000,True,50.303,,
+refactory_q2,gpt-5.4-mini,wrong_2_308,False,1000,0,True,3.155,,,False,0,10000,True,42.269,,
+refactory_q2,gpt-5.4-mini,wrong_2_309,False,1000,0,True,2.746,,,False,0,10000,True,38.437,,
+refactory_q2,gpt-5.4-mini,wrong_2_310,False,1000,0,True,2.068,,,False,1000,727,True,5.247,,
+refactory_q2,gpt-5.4-mini,wrong_2_311,False,1000,0,True,4.491,,,False,0,10000,True,47.169,,
+refactory_q2,gpt-5.4-mini,wrong_2_312,False,1000,0,True,2.848,,,False,0,10000,True,42.964,,
+refactory_q2,gpt-5.4-mini,wrong_2_313,False,1000,0,True,2.054,,,False,1000,727,True,5.038,,
+refactory_q2,gpt-5.4-mini,wrong_2_314,False,1000,0,True,2.042,,,False,1000,727,True,5.031,,
+refactory_q2,gpt-5.4-mini,wrong_2_315,False,1000,0,True,2.841,,,False,0,10000,True,44.931,,
+refactory_q2,gpt-5.4-mini,wrong_2_316,False,1000,0,True,2.093,,,False,1000,1108,True,8.377,,
+refactory_q2,gpt-5.4-mini,wrong_2_317,False,1000,0,True,2.293,,,False,1000,37,True,3.051,,
+refactory_q2,gpt-5.4-mini,wrong_2_318,False,1000,0,True,1.394,,,False,1000,327,True,3.896,,
+refactory_q2,gpt-5.4-mini,wrong_2_319,False,1000,0,True,7.591,,,False,1000,1912,True,27.201,,
+refactory_q2,gpt-5.4-mini,wrong_2_320,False,1000,0,True,2.258,,,False,1000,49,True,3.232,,
+refactory_q2,gpt-5.4-mini,wrong_2_321,False,1000,0,True,2.512,,,False,1000,3059,True,17.098,,
+refactory_q2,gpt-5.4-mini,wrong_2_322,False,1000,0,True,2.326,,,False,1000,4317,True,22.318,,
+refactory_q2,gpt-5.4-mini,wrong_2_323,False,1000,0,True,1.931,,,False,0,10000,True,31.472,,
+refactory_q2,gpt-5.4-mini,wrong_2_324,False,1000,0,True,1.817,,,False,0,10000,True,30.387,,
+refactory_q2,gpt-5.4-mini,wrong_2_325,False,1000,0,True,1.789,,,False,0,10000,True,32.215,,
+refactory_q2,gpt-5.4-mini,wrong_2_326,False,1000,0,True,1.873,,,False,0,10000,True,29.36,,
+refactory_q2,gpt-5.4-mini,wrong_2_327,False,1000,0,True,1.847,,,False,1000,1572,True,6.444,,
+refactory_q2,gpt-5.4-mini,wrong_2_328,False,174,0,False,2.197,,,False,63,111,False,2.413,,
+refactory_q2,gpt-5.4-mini,wrong_2_329,False,174,0,False,2.227,,,False,63,111,False,2.568,,
+refactory_q2,gpt-5.4-mini,wrong_2_330,False,174,0,False,2.206,,,False,63,111,False,2.418,,
+refactory_q2,gpt-5.4-mini,wrong_2_331,False,174,0,False,2.139,,,False,63,111,False,2.353,,
+refactory_q2,gpt-5.4-mini,wrong_2_332,False,24,0,False,0.458,,,False,9,15,False,0.514,,
+refactory_q2,gpt-5.4-mini,wrong_2_333,False,1000,0,True,1.965,,,False,1000,937,True,6.012,,
+refactory_q2,gpt-5.4-mini,wrong_2_334,False,1000,0,True,2.313,,,False,1000,1691,True,10.221,,
+refactory_q2,gpt-5.4-mini,wrong_2_335,False,1000,0,True,2.305,,,False,1000,1691,True,10.27,,
+refactory_q2,gpt-5.4-mini,wrong_2_336,False,1000,0,True,2.212,,,False,1000,3140,True,14.915,,
+refactory_q2,gpt-5.4-mini,wrong_2_337,False,1000,0,True,3.739,,,False,1000,1691,True,13.395,,
+refactory_q2,gpt-5.4-mini,wrong_2_338,False,1000,0,True,2.477,,,False,1000,1640,True,9.544,,
+refactory_q2,gpt-5.4-mini,wrong_2_339,False,1000,0,True,10.723,,,False,1000,2484,True,31.793,,
+refactory_q2,gpt-5.4-mini,wrong_2_340,False,1000,0,True,2.31,,,False,1000,3140,True,13.358,,
+refactory_q2,gpt-5.4-mini,wrong_2_341,False,1000,0,True,4.159,,,False,0,10000,True,48.465,,
+refactory_q2,gpt-5.4-mini,wrong_2_342,True,363,0,False,0.939,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def unique_day(date, possible_birthdays):
+    count = 0
+    for birthday in possible_birthdays:
+        if date == birthday[1]:
+            count = count + 1
+    if count == 1:
+        return True
+    else:
+        return False    
+
+def unique_month(month, possible_birthdays):
+    count = 0
+    for birthday in possible_birthdays:
+        if month == birthday[0]:
+            count = count + 1
+    if count == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    for birthday in possible_birthdays:
+        if month == birthday[0]:
+            if unique_day(birthday[1], possible_birthdays) == True:
+               return True
+    return False
+          
+",True,64,299,False,1.019,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def unique_day(date, possible_birthdays):
+    count = 0
+    for birthday in possible_birthdays:
+        if date == birthday[1]:
+            count = count + 1
+    if count == 1:
+        return True
+    else:
+        return False    
+
+def unique_month(month, possible_birthdays):
+    count = 0
+    for birthday in possible_birthdays:
+        if month == birthday[0]:
+            count = count + 1
+    if count == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    for birthday in possible_birthdays:
+        if month == birthday[0]:
+            if unique_day(birthday[1], possible_birthdays) == True:
+               return True
+    return False
+          
+"
+refactory_q2,gpt-5.4-mini,wrong_2_343,False,1000,0,True,2.885,,,False,0,10000,True,46.052,,
+refactory_q2,gpt-5.4-mini,wrong_2_344,False,5,0,False,0.143,,,False,0,5,False,0.573,,
+refactory_q2,gpt-5.4-mini,wrong_2_345,False,35,0,False,0.513,,,False,0,35,False,0.708,,
+refactory_q2,gpt-5.4-mini,wrong_2_346,False,35,0,False,0.521,,,False,0,35,False,0.699,,
+refactory_q2,gpt-5.4-mini,wrong_2_347,False,1000,0,True,2.112,,,False,0,10000,True,34.63,,
+refactory_q2,gpt-5.4-mini,wrong_2_348,False,1000,0,True,2.451,,,False,536,9464,True,44.883,,
+refactory_q2,gpt-5.4-mini,wrong_2_349,False,1000,0,True,2.471,,,False,1000,812,True,6.847,,
+refactory_q2,gpt-5.4-mini,wrong_2_350,False,1000,0,True,3.837,,,False,1000,1357,True,12.909,,
+refactory_q2,gpt-5.4-mini,wrong_2_351,False,1000,0,True,1.932,,,False,1000,2756,True,11.894,,
+refactory_q2,gpt-5.4-mini,wrong_2_352,False,1000,0,True,1.915,,,False,1000,2756,True,12.232,,
+refactory_q2,gpt-5.4-mini,wrong_2_353,False,1000,0,True,1.94,,,False,1000,116,True,3.607,,
+refactory_q2,gpt-5.4-mini,wrong_2_354,False,1000,0,True,1.935,,,False,1000,116,True,3.607,,
+refactory_q2,gpt-5.4-mini,wrong_2_355,False,1000,0,True,2.005,,,False,1000,116,True,3.753,,
+refactory_q2,gpt-5.4-mini,wrong_2_356,False,1000,0,True,1.863,,,False,1000,3415,True,13.339,,
+refactory_q2,gpt-5.4-mini,wrong_2_357,False,1000,0,True,1.745,,,False,1000,2667,True,10.29,,
+refactory_q2,gpt-5.4-mini,wrong_2_358,False,1000,0,True,1.985,,,False,1000,2164,True,10.535,,
+refactory_q2,gpt-5.4-mini,wrong_2_359,False,1000,0,True,2.07,,,False,1000,2164,True,10.906,,
+refactory_q2,gpt-5.4-mini,wrong_2_360,False,1000,0,True,2.156,,,False,1000,1865,True,9.876,,
+refactory_q2,gpt-5.4-mini,wrong_2_361,False,1000,0,True,1.919,,,False,1000,765,True,5.005,,
+refactory_q2,gpt-5.4-mini,wrong_2_362,False,1000,0,True,2.295,,,False,1000,765,True,4.779,,
+refactory_q2,gpt-5.4-mini,wrong_2_363,False,1000,0,True,4.533,,,False,0,10000,True,51.878,,
+refactory_q2,gpt-5.4-mini,wrong_2_364,False,1000,0,True,4.901,,,False,0,10000,True,48.585,,
+refactory_q2,gpt-5.4-mini,wrong_2_365,False,1000,0,True,4.35,,,False,0,10000,True,48.453,,
+refactory_q2,gpt-5.4-mini,wrong_2_366,False,1000,0,True,4.363,,,False,0,10000,True,48.337,,
+refactory_q2,gpt-5.4-mini,wrong_2_367,False,1000,0,True,2.785,,,False,0,10000,True,42.69,,
+refactory_q2,gpt-5.4-mini,wrong_2_368,False,1000,0,True,2.778,,,False,0,10000,True,42.616,,
+refactory_q2,gpt-5.4-mini,wrong_2_369,False,1000,0,True,2.75,,,False,0,10000,True,42.193,,
+refactory_q2,gpt-5.4-mini,wrong_2_370,False,1000,0,True,4.22,,,False,0,10000,True,46.705,,
+refactory_q2,gpt-5.4-mini,wrong_2_371,False,1000,0,True,5.672,,,False,1000,397,True,9.892,,
+refactory_q2,gpt-5.4-mini,wrong_2_372,False,1000,0,True,3.678,,,False,1000,189,True,6.053,,
+refactory_q2,gpt-5.4-mini,wrong_2_373,False,1000,0,True,1.983,,,False,1000,117,True,3.759,,
+refactory_q2,gpt-5.4-mini,wrong_2_374,False,1000,0,True,3.361,,,False,0,10000,True,42.092,,
+refactory_q2,gpt-5.4-mini,wrong_2_375,False,1000,0,True,1.924,,,False,1000,2316,True,10.57,,
+refactory_q2,gpt-5.4-mini,wrong_2_376,False,1000,0,True,1.897,,,False,1000,2316,True,10.489,,
+refactory_q2,gpt-5.4-mini,wrong_2_377,True,445,0,False,0.984,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def unique_day(date, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if str(date) == birthdate[1]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+            
+
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            r = unique_day(birthdate[1], possible_birthdays)
+            if r == True:
+                counter += 1
+    if counter >= 1:
+        return True
+    else:
+        return False
+    
+",True,72,373,False,1.407,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def unique_day(date, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if str(date) == birthdate[1]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+            
+
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            r = unique_day(birthdate[1], possible_birthdays)
+            if r == True:
+                counter += 1
+    if counter >= 1:
+        return True
+    else:
+        return False
+    
+"
+refactory_q2,gpt-5.4-mini,wrong_2_378,False,1000,0,True,2.027,,,False,0,10000,True,35.41,,
+refactory_q2,gpt-5.4-mini,wrong_2_379,False,1000,0,True,1.956,,,False,0,10000,True,35.293,,
+refactory_q2,gpt-5.4-mini,wrong_2_380,False,1000,0,True,1.953,,,False,0,10000,True,35.198,,
+refactory_q2,gpt-5.4-mini,wrong_2_381,False,1000,0,True,4.101,,,False,0,10000,True,45.021,,
+refactory_q2,gpt-5.4-mini,wrong_2_382,False,1000,0,True,1.99,,,False,0,10000,True,35.335,,
+refactory_q2,gpt-5.4-mini,wrong_2_383,False,1000,0,True,1.958,,,False,0,10000,True,35.347,,
+refactory_q2,gpt-5.4-mini,wrong_2_384,False,1000,0,True,3.297,,,False,0,10000,True,44.614,,
+refactory_q2,gpt-5.4-mini,wrong_2_385,False,1000,0,True,1.924,,,False,1000,996,True,5.495,,
+refactory_q2,gpt-5.4-mini,wrong_2_386,False,1000,0,True,1.943,,,False,0,10000,True,32.845,,
+refactory_q2,gpt-5.4-mini,wrong_2_387,True,445,0,False,0.996,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def unique_day(date, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if str(date) == birthdate[1]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+            
+
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            tp = unique_day(birthdate[1], possible_birthdays)
+            if tp == True:
+                counter += 1
+    if counter >= 1:
+        return True
+    else:
+        return False
+    
+",True,72,373,False,1.409,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def unique_day(date, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if str(date) == birthdate[1]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+            
+
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            tp = unique_day(birthdate[1], possible_birthdays)
+            if tp == True:
+                counter += 1
+    if counter >= 1:
+        return True
+    else:
+        return False
+    
+"
+refactory_q2,gpt-5.4-mini,wrong_2_388,False,1000,0,True,1.97,,,False,1000,49,True,2.923,,
+refactory_q2,gpt-5.4-mini,wrong_2_389,False,1000,0,True,2.942,,,False,0,10000,True,44.517,,
+refactory_q2,gpt-5.4-mini,wrong_2_390,False,1000,0,True,2.055,,,False,1000,1723,True,8.826,,
+refactory_q2,gpt-5.4-mini,wrong_2_391,False,1000,0,True,3.025,,,False,0,10000,True,44.054,,
+refactory_q2,gpt-5.4-mini,wrong_2_392,False,1000,0,True,7.706,,,False,1000,2484,True,29.582,,
+refactory_q2,gpt-5.4-mini,wrong_2_393,False,1000,0,True,2.001,,,False,1000,905,True,6.341,,
+refactory_q2,gpt-5.4-mini,wrong_2_394,False,1000,0,True,1.99,,,False,1000,917,True,7.113,,
+refactory_q2,gpt-5.4-mini,wrong_2_395,False,1000,0,True,2.307,,,False,1000,917,True,6.542,,
+refactory_q2,gpt-5.4-mini,wrong_2_396,False,1000,0,True,2.013,,,False,1000,2031,True,11.312,,
+refactory_q2,gpt-5.4-mini,wrong_2_397,False,1000,0,True,2.213,,,False,1000,1716,True,7.392,,
+refactory_q2,gpt-5.4-mini,wrong_2_398,True,445,0,False,1.193,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def unique_day(date, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if str(date) == birthdate[1]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+            
+
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            r = unique_day(birthdate[1], possible_birthdays)
+            if r == True:
+                counter += 1
+    if counter >= 1:
+        return True
+    else:
+        return False
+    
+",True,72,373,False,1.62,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def unique_day(date, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if str(date) == birthdate[1]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+            
+
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+
+def contains_unique_day(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            r = unique_day(birthdate[1], possible_birthdays)
+            if r == True:
+                counter += 1
+    if counter >= 1:
+        return True
+    else:
+        return False
+    
+"
+refactory_q2,gpt-5.4-mini,wrong_2_399,False,1000,0,True,1.891,,,False,1000,693,True,6.203,,
+refactory_q2,gpt-5.4-mini,wrong_2_400,False,1000,0,True,2.378,,,False,1000,2385,True,13.426,,
+refactory_q2,gpt-5.4-mini,wrong_2_401,False,1000,0,True,36.897,,,False,1000,0,True,36.944,,
+refactory_q2,gpt-5.4-mini,wrong_2_402,False,0,0,False,0.07,,,False,0,0,False,0.735,,
+refactory_q2,gpt-5.4-mini,wrong_2_403,False,1000,0,True,5.204,,,False,0,10000,True,47.596,,
+refactory_q2,gpt-5.4-mini,wrong_2_404,False,1000,0,True,1.832,,,False,1000,1716,True,6.548,,
+refactory_q2,gpt-5.4-mini,wrong_2_405,False,1000,0,True,3.015,,,False,0,10000,True,50.055,,
+refactory_q2,gpt-5.4-mini,wrong_2_406,False,1000,0,True,2.157,,,False,1000,205,True,3.813,,
+refactory_q2,gpt-5.4-mini,wrong_2_407,False,1000,0,True,2.016,,,False,1000,1453,True,8.582,,
+refactory_q2,gpt-5.4-mini,wrong_2_408,False,1000,0,True,54.742,,,False,1000,0,True,54.744,,
+refactory_q2,gpt-5.4-mini,wrong_2_409,False,1000,0,True,1.958,,,False,1000,1453,True,7.871,,
+refactory_q2,gpt-5.4-mini,wrong_2_410,False,1000,0,True,60.833,,,False,1000,0,True,60.765,,
+refactory_q2,gpt-5.4-mini,wrong_2_411,False,1000,0,True,1.931,,,False,1000,1453,True,7.799,,
+refactory_q2,gpt-5.4-mini,wrong_2_412,False,1000,0,True,1.805,,,False,1000,1716,True,6.713,,
+refactory_q2,gpt-5.4-mini,wrong_2_413,False,0,0,False,0.041,,,False,0,0,False,0.424,,
+refactory_q2,gpt-5.4-mini,wrong_2_414,False,1000,0,True,2.168,,,False,1000,1865,True,10.747,,
+refactory_q2,gpt-5.4-mini,wrong_2_415,True,343,0,False,0.95,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def unique_day(day, possible_birthdays):
+    count=0
+    for i in possible_birthdays:
+        if day==i[1]:
+            count+=1
+    if count == 1:
+        return True
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    count=0
+    for i in possible_birthdays:
+        if month==i[0]:
+            count+=1
+    if count == 1:
+        return True
+    else:
+        return False
+        
+def contains_unique_day(month, possible_birthdays):
+    bday=()
+    for i in possible_birthdays:
+        if month==i[0]:
+            bday+=(i,)
+    for i in bday:
+        if unique_day(i[1],possible_birthdays):
+            return True
+    else:
+        return False
+
+",True,81,262,False,1.151,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def unique_day(day, possible_birthdays):
+    count=0
+    for i in possible_birthdays:
+        if day==i[1]:
+            count+=1
+    if count == 1:
+        return True
+    else:
+        return False
+
+def unique_month(month, possible_birthdays):
+    count=0
+    for i in possible_birthdays:
+        if month==i[0]:
+            count+=1
+    if count == 1:
+        return True
+    else:
+        return False
+        
+def contains_unique_day(month, possible_birthdays):
+    bday=()
+    for i in possible_birthdays:
+        if month==i[0]:
+            bday+=(i,)
+    for i in bday:
+        if unique_day(i[1],possible_birthdays):
+            return True
+    else:
+        return False
+
+"
+refactory_q2,gpt-5.4-mini,wrong_2_416,False,1000,0,True,2.101,,,False,1000,205,True,3.692,,
+refactory_q2,gpt-5.4-mini,wrong_2_417,False,1000,0,True,1.753,,,False,0,10000,True,29.616,,
+refactory_q2,gpt-5.4-mini,wrong_2_418,False,1000,0,True,3.046,,,False,0,10000,True,33.656,,
+refactory_q2,gpt-5.4-mini,wrong_2_419,False,1000,0,True,1.759,,,False,0,10000,True,29.616,,
+refactory_q2,gpt-5.4-mini,wrong_2_420,False,1000,0,True,1.987,,,False,1000,555,True,4.48,,
+refactory_q2,gpt-5.4-mini,wrong_2_421,False,1000,0,True,2.011,,,False,1000,402,True,4.003,,
+refactory_q2,gpt-5.4-mini,wrong_2_422,True,32,0,False,0.144,fix_unique_month_return_non_strict,"def unique_day(date, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if str(date) == birthdate[1]:
+            counter += 1
+    if counter > 1 or counter == 0:
+        return False
+    else:
+        return True
+            
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+def contains_unique_day(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            r = unique_day(birthdate[1], possible_birthdays)
+            if r == True:
+                counter += 1
+    if counter >= 1:
+        return True
+    else:
+        return False
+",True,9,23,False,0.2,fix_unique_month_return_non_strict,"def unique_day(date, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if str(date) == birthdate[1]:
+            counter += 1
+    if counter > 1 or counter == 0:
+        return False
+    else:
+        return True
+            
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+def contains_unique_day(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            r = unique_day(birthdate[1], possible_birthdays)
+            if r == True:
+                counter += 1
+    if counter >= 1:
+        return True
+    else:
+        return False
+"
+refactory_q2,gpt-5.4-mini,wrong_2_423,True,32,0,False,0.143,fix_unique_month_return_non_strict,"def unique_day(date, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if date == birthdate[1]:
+            counter += 1
+    if counter > 1 or counter == 0:
+        return False
+    else:
+        return True
+            
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+def contains_unique_day(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            r = unique_day(birthdate[1], possible_birthdays)
+            if r == True:
+                counter += 1
+    if counter >= 1:
+        return True
+    else:
+        return False
+",True,9,23,False,0.199,fix_unique_month_return_non_strict,"def unique_day(date, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if date == birthdate[1]:
+            counter += 1
+    if counter > 1 or counter == 0:
+        return False
+    else:
+        return True
+            
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+def contains_unique_day(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            r = unique_day(birthdate[1], possible_birthdays)
+            if r == True:
+                counter += 1
+    if counter >= 1:
+        return True
+    else:
+        return False
+"
+refactory_q2,gpt-5.4-mini,wrong_2_424,True,32,0,False,0.138,fix_unique_month_return_non_strict,"def unique_day(date, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if date == birthdate[1]:
+            counter += 1
+    if counter > 1 or counter == 0:
+        return False
+    else:
+        return True
+            
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+def contains_unique_day(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            r = unique_day(birthdate[1], possible_birthdays)
+            if r == True:
+                counter += 1
+    if counter >= 1:
+        return True
+    else:
+        return False
+",True,9,23,False,0.202,fix_unique_month_return_non_strict,"def unique_day(date, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if date == birthdate[1]:
+            counter += 1
+    if counter > 1 or counter == 0:
+        return False
+    else:
+        return True
+            
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+def contains_unique_day(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            r = unique_day(birthdate[1], possible_birthdays)
+            if r == True:
+                counter += 1
+    if counter >= 1:
+        return True
+    else:
+        return False
+"
+refactory_q2,gpt-5.4-mini,wrong_2_425,True,445,0,False,0.975,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def unique_day(date, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if date == birthdate[1]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+            
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+def contains_unique_day(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            r = unique_day(birthdate[1], possible_birthdays)
+            if r == True:
+                counter += 1
+    if counter >= 1:
+        return True
+    else:
+        return False
+",True,72,373,False,1.386,fix_unique_day_return_non_strict|fix_unique_month_return_non_strict,"def unique_day(date, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if date == birthdate[1]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+            
+def unique_month(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            counter += 1
+    if counter == 1:
+        return True
+    else:
+        return False
+def contains_unique_day(month, possible_birthdays):
+    counter = 0
+    for birthdate in possible_birthdays:
+        if month == birthdate[0]:
+            r = unique_day(birthdate[1], possible_birthdays)
+            if r == True:
+                counter += 1
+    if counter >= 1:
+        return True
+    else:
+        return False
+"
+refactory_q2,gpt-5.4-mini,wrong_2_426,False,1000,0,True,2.092,,,False,1000,1651,True,8.299,,
+refactory_q2,gpt-5.4-mini,wrong_2_427,False,35,0,False,0.517,,,False,0,35,False,0.56,,
+refactory_q2,gpt-5.4-mini,wrong_2_428,False,1000,0,True,3.356,,,False,0,10000,True,39.767,,
+refactory_q2,gpt-5.4-mini,wrong_2_429,False,1000,0,True,2.569,,,False,1000,3833,True,20.298,,
+refactory_q2,gpt-5.4-mini,wrong_2_430,False,1000,0,True,2.508,,,False,1000,1877,True,11.221,,
+refactory_q2,gpt-5.4-mini,wrong_2_431,False,1000,0,True,2.129,,,False,1000,2854,True,13.321,,
+refactory_q2,gpt-5.4-mini,wrong_2_432,False,1000,0,True,2.101,,,False,1000,2854,True,13.326,,
+refactory_q2,gpt-5.4-mini,wrong_2_433,False,1000,0,True,2.099,,,False,1000,1651,True,8.27,,
+refactory_q2,gpt-5.4-mini,wrong_2_434,False,0,0,False,0.039,,,False,0,0,False,0.638,,
+refactory_q2,gpt-5.4-mini,wrong_2_435,False,1000,0,True,2.095,,,False,1000,75,True,2.97,,

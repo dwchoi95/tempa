@@ -1,0 +1,1109 @@
+Buggy,Model,Source,Patch,Fixed,RPS,ATT_all,ATT_cpu,ATT_api,InT,OuT,$API,Rules_L,Rules_SL
+wrong_5_001,none,reference,"def top_k ( lst , k ) :
+    result = [ ]
+    while ( k > 0 ) :
+        big = max ( lst )
+        result . append ( big )
+        lst . remove ( big )
+        k -= 1
+    return result
+",True,0.0294,0.798,0.798,0.0,0,0,0.0,[],[]
+wrong_5_002,none,reference,"def top_k ( lst , k ) :
+    sort = lst
+    lst_res = [ ]
+    while sort :
+        largest = sort [ 0 ]
+        for elements in sort :
+            if ( elements > largest ) :
+                largest = elements
+        sort . remove ( largest )
+        lst_res . append ( largest )
+    return lst_res [ : k ]
+",True,0.2273,17.431,17.431,0.0,0,0,0.0,[],[]
+wrong_5_003,none,reference,"def top_k ( lst , k ) :
+    tmp = [ ]
+    while ( len ( lst ) > 0 ) :
+        tmp . append ( max ( lst ) )
+        lst . remove ( max ( lst ) )
+    return tmp [ : k ]
+",True,0.0294,0.7,0.7,0.0,0,0,0.0,[],[]
+wrong_5_004,none,reference,"def top_k ( lst , k ) :
+    sort = [ ]
+    while lst :
+        biggest = lst [ 0 ]
+        for ref_ele in lst :
+            if ( ref_ele > biggest ) :
+                biggest = ref_ele
+        if ( len ( sort ) == k ) :
+            break
+        sort . append ( biggest )
+        lst . remove ( biggest )
+    return sort
+",True,0.4348,1.736,1.736,0.0,0,0,0.0,[],[]
+wrong_5_005,none,reference,"def top_k ( lst , k ) :
+    sort = [ ]
+    while lst :
+        biggest = lst [ 0 ]
+        for ref_ele in lst :
+            if ( ref_ele > biggest ) :
+                biggest = ref_ele
+        if ( len ( sort ) == k ) :
+            break
+        sort . append ( biggest )
+        lst . remove ( biggest )
+    return sort
+",True,0.4348,2.105,2.105,0.0,0,0,0.0,[],[]
+wrong_5_006,none,reference,"def top_k ( lst , k ) :
+    sort = [ ]
+    while lst :
+        biggest = lst [ 0 ]
+        for element in lst :
+            if ( element > biggest ) :
+                biggest = element
+        if ( len ( sort ) == k ) :
+            break
+        sort . append ( biggest )
+        lst . remove ( biggest )
+    return sort
+",True,0.3478,1.72,1.72,0.0,0,0,0.0,[],[]
+wrong_5_007,none,reference,"def top_k ( sort , k ) :
+    if ( sort == [ ] ) :
+        pass
+        if ( element >= k ) :
+            return [ ]
+        else :
+            pass
+        pass
+    ref_sort = [ ]
+    while sort :
+        biggest = sort [ 0 ]
+        for element in sort :
+            pass
+            if ( element > biggest ) :
+                biggest = element
+            pass
+        sort . remove ( biggest )
+        ref_sort . append ( biggest )
+    return ref_sort [ : k ]
+    pass
+",True,0.5185,27.883,27.883,0.0,0,0,0.0,[],[]
+wrong_5_008,none,reference,"def top_k ( lst , k ) :
+    sort = [ ]
+    while lst :
+        biggest = lst [ 0 ]
+        for element in lst :
+            if ( element > biggest ) :
+                biggest = element
+        lst . remove ( biggest )
+        sort . append ( biggest )
+    return sort [ : k ]
+",True,0.0682,1.635,1.635,0.0,0,0,0.0,[],[]
+wrong_5_009,none,reference,"def top_k ( lst , k ) :
+    n = [ ]
+    if True :
+        pass
+    counter = 0
+    while ( counter != k ) :
+        n . append ( max ( lst ) )
+        lst . remove ( max ( lst ) )
+        counter += 1
+    return n
+",True,0.6207,37.704,37.704,0.0,0,0,0.0,[],[]
+wrong_5_010,none,reference,"def top_k ( lst , k ) :
+    n = [ ]
+    if True :
+        pass
+    counter = 0
+    while ( counter != k ) :
+        n . append ( max ( lst ) )
+        lst . remove ( max ( lst ) )
+        counter += 1
+    return n
+",True,0.6207,37.92,37.92,0.0,0,0,0.0,[],[]
+wrong_5_011,none,none,,False,,0.402,0.402,0.0,0,0,0.0,[],[]
+wrong_5_012,none,reference,"def top_k ( lst , k ) :
+    pass
+    if ( lst == [ ] ) :
+        pass
+    for x in range ( ( k + 1 ) ) :
+        max = x
+        if False :
+            pass
+        pass
+        for ref_i in range ( x , len ( lst ) ) :
+            pass
+            if ( lst [ ref_i ] > lst [ max ] ) :
+                max = ref_i
+        pass
+        if ( x <= ( len ( lst ) - 1 ) ) :
+            ( lst [ max ] , lst [ x ] ) = ( lst [ x ] , lst [ max ] )
+        pass
+    sort_list = lst [ : k ]
+    return sort_list
+",True,1.0685,17.739,17.739,0.0,0,0,0.0,[],[]
+wrong_5_013,none,reference,"def top_k ( lst , k ) :
+    pass
+    if ( lst == [ ] ) :
+        pass
+    for x in range ( ( k + 1 ) ) :
+        ref_max = x
+        if False :
+            pass
+        pass
+        for ref_i in range ( x , len ( lst ) ) :
+            pass
+            if ( lst [ ref_i ] > lst [ ref_max ] ) :
+                ref_max = ref_i
+        pass
+        if ( x <= ( len ( lst ) - 1 ) ) :
+            ( lst [ ref_max ] , lst [ x ] ) = ( lst [ x ] , lst [ ref_max ] )
+        pass
+    sort_list = lst [ : k ]
+    return sort_list
+",True,1.0685,17.043,17.043,0.0,0,0,0.0,[],[]
+wrong_5_014,none,reference,"def top_k ( lst , k ) :
+    pass
+    if ( lst == [ ] ) :
+        pass
+    for ref_x in range ( ( k + 1 ) ) :
+        ref_max = ref_x
+        if False :
+            pass
+        pass
+        for i in range ( ref_x , len ( lst ) ) :
+            if ( lst [ i ] > lst [ ref_max ] ) :
+                ref_max = i
+        pass
+        if ( ref_x <= ( len ( lst ) - 1 ) ) :
+            ( lst [ ref_max ] , lst [ ref_x ] ) = ( lst [ ref_x ] , lst [ ref_max ] )
+        pass
+    sort_list = lst [ : k ]
+    return sort_list
+",True,1.0685,17.203,17.203,0.0,0,0,0.0,[],[]
+wrong_5_015,none,reference,"def top_k ( lst , k ) :
+    pass
+    if ( lst == [ ] ) :
+        pass
+    for ref_x in range ( ( k + 1 ) ) :
+        ref_max = ref_x
+        if False :
+            pass
+        pass
+        for i in range ( ref_x , len ( lst ) ) :
+            pass
+            if ( lst [ i ] > lst [ ref_max ] ) :
+                ref_max = i
+        pass
+        if ( ref_x <= ( len ( lst ) - 1 ) ) :
+            ( lst [ ref_max ] , lst [ ref_x ] ) = ( lst [ ref_x ] , lst [ ref_max ] )
+        pass
+    sort_list = lst [ : k ]
+    return sort_list
+",True,1.0,16.708,16.708,0.0,0,0,0.0,[],[]
+wrong_5_016,none,reference,"def top_k ( lst , k ) :
+    pass
+    if ( k == 0 ) :
+        return [ ]
+    if ( lst == [ ] ) :
+        lower . append ( e )
+    ref_sort = [ ]
+    while lst :
+        ref_biggest = lst [ 0 ]
+        for element in lst :
+            pass
+            if ( element > ref_biggest ) :
+                ref_biggest = element
+            pass
+        lst . remove ( ref_biggest )
+        ref_sort . append ( ref_biggest )
+        if ( len ( ref_sort ) == k ) :
+            return ref_sort
+        else :
+            continue
+    pass
+",True,0.819,21.263,21.263,0.0,0,0,0.0,[],[]
+wrong_5_017,none,reference,"def top_k ( result , k ) :
+    ref_result = [ ]
+    while result :
+        biggest = result [ 0 ]
+        for number in result :
+            if ( number > biggest ) :
+                biggest = number
+        result . remove ( biggest )
+        ref_result . append ( biggest )
+    return ref_result [ : k ]
+",True,0.2195,7.438,7.438,0.0,0,0,0.0,[],[]
+wrong_5_018,none,reference,"def top_k ( lst , k ) :
+    sort = [ ]
+    while lst :
+        largest = lst [ 0 ]
+        for element in lst :
+            if ( element > largest ) :
+                largest = element
+        lst . remove ( largest )
+        sort . append ( largest )
+    return sort [ : k ]
+",True,0.0682,1.746,1.746,0.0,0,0,0.0,[],[]
+wrong_5_019,none,none,,False,,60.586,60.586,0.0,0,0,0.0,[],[]
+wrong_5_020,none,none,,False,,60.532,60.532,0.0,0,0,0.0,[],[]
+wrong_5_021,none,reference,"def top_k ( lst , k ) :
+    r = [ ]
+    for qwerty in range ( 0 , k ) :
+        biggest = lst [ 0 ]
+        for k in lst :
+            if ( biggest < k ) :
+                biggest = k
+        r . append ( biggest )
+        lst . remove ( biggest )
+    return r
+",True,0.0476,0.794,0.794,0.0,0,0,0.0,[],[]
+wrong_5_022,none,reference,"def top_k ( lst , k ) :
+    rs = [ ]
+    for qwerty in range ( 0 , k ) :
+        biggest = lst [ 0 ]
+        for k in lst :
+            if ( biggest < k ) :
+                biggest = k
+        rs . append ( biggest )
+        lst . remove ( biggest )
+    return rs
+",True,0.0714,1.42,1.42,0.0,0,0,0.0,[],[]
+wrong_5_023,none,reference,"def top_k ( sort_k , k ) :
+    sort = [ ]
+    while sort_k :
+        biggest = sort_k [ 0 ]
+        for i in sort_k [ 1 : ] :
+            if ( i > biggest ) :
+                biggest = i
+        sort_k . remove ( biggest )
+        sort . append ( biggest )
+    ref_n = 1
+    n = [ ]
+    while ( ref_n <= k ) :
+        n . append ( sort . pop ( 0 ) )
+        ref_n += 1
+    return n
+",True,0.2667,11.579,11.579,0.0,0,0,0.0,[],[]
+wrong_5_024,none,reference,"def top_k ( sort_k , k ) :
+    sort = [ ]
+    while sort_k :
+        biggest = sort_k [ 0 ]
+        for i in sort_k [ 1 : ] :
+            if ( i > biggest ) :
+                biggest = i
+        sort_k . remove ( biggest )
+        sort . append ( biggest )
+    n = 1
+    ref_sort_k = [ ]
+    while ( n <= k ) :
+        ref_sort_k . append ( sort . pop ( 0 ) )
+        n += 1
+    return ref_sort_k
+",True,0.1562,27.415,27.415,0.0,0,0,0.0,[],[]
+wrong_5_025,none,reference,"def top_k ( lst , k ) :
+    sort = [ ]
+    while lst :
+        biggest = lst [ 0 ]
+        for i in lst [ 1 : ] :
+            if ( i > biggest ) :
+                biggest = i
+        lst . remove ( biggest )
+        sort . append ( biggest )
+    n = 1
+    sort_k = [ ]
+    while ( n <= k ) :
+        sort_k . append ( sort . pop ( 0 ) )
+        n += 1
+    return sort_k
+",True,0.0156,1.588,1.588,0.0,0,0,0.0,[],[]
+wrong_5_026,none,reference,"def top_k ( sort , k ) :
+    if ( sort == [ ] ) :
+        return [ ]
+    ref_sort = [ ]
+    while sort :
+        largest = sort [ 0 ]
+        for i in sort :
+            if ( i > largest ) :
+                largest = i
+        sort . remove ( largest )
+        ref_sort . append ( largest )
+    return ref_sort [ : k ]
+    pass
+",True,0.2453,21.867,21.867,0.0,0,0,0.0,[],[]
+wrong_5_027,none,reference,"def top_k ( lst , k ) :
+    sorted_lst = [ ]
+    while lst :
+        largest = lst [ 0 ]
+        for element in lst :
+            if ( element > largest ) :
+                largest = element
+        lst . remove ( largest )
+        sorted_lst . append ( largest )
+    return sorted_lst [ : k ]
+    pass
+",True,0.1778,32.035,32.035,0.0,0,0,0.0,[],[]
+wrong_5_028,none,reference,"def top_k ( lst , k ) :
+    sort = [ ]
+    while lst :
+        largest = lst [ 0 ]
+        for i in lst :
+            if ( i > largest ) :
+                largest = i
+        lst . remove ( largest )
+        sort . append ( largest )
+    return sort [ : k ]
+",True,0.2308,24.673,24.673,0.0,0,0,0.0,[],[]
+wrong_5_029,none,reference,"def top_k ( lst , k ) :
+    sorted_list = [ ]
+    while lst :
+        smallest = lst [ 0 ]
+        for element in lst :
+            if ( element < smallest ) :
+                smallest = element
+        lst . remove ( smallest )
+        sorted_list . append ( smallest )
+    ref_final = sorted_list [ : : ( - 1 ) ]
+    return ref_final [ : k ]
+",True,0.3617,2.08,2.08,0.0,0,0,0.0,[],[]
+wrong_5_030,none,reference,"def top_k ( lst , k ) :
+    ( sort , output ) = ( [ ] , [ ] )
+    while lst :
+        largest = lst [ 0 ]
+        for i in lst :
+            if ( i > largest ) :
+                largest = i
+        lst . remove ( largest )
+        sort . append ( largest )
+    ref_new_list_2 = [ ]
+    ref_counter = 0
+    for i in sort :
+        if ( ref_counter < k ) :
+            ref_new_list_2 . append ( sort [ ref_counter ] )
+            ref_counter = ( ref_counter + 1 )
+    return ref_new_list_2
+",True,0.4483,3.62,3.62,0.0,0,0,0.0,[],[]
+wrong_5_031,none,reference,"def top_k ( new_lst , k ) :
+    ref_new_lst = [ ]
+    while new_lst :
+        largest = new_lst [ 0 ]
+        for numbers in new_lst :
+            if ( numbers > largest ) :
+                largest = numbers
+        ref_new_lst . append ( largest )
+        new_lst . remove ( largest )
+    return ref_new_lst [ : k ]
+",True,0.359,7.893,7.893,0.0,0,0,0.0,[],[]
+wrong_5_032,none,reference,"def top_k ( lst , k ) :
+    new_lst = [ ]
+    while lst :
+        largest = lst [ 0 ]
+        for numbers in lst :
+            if ( numbers > largest ) :
+                largest = numbers
+        new_lst . append ( largest )
+        lst . remove ( largest )
+    return new_lst [ : k ]
+",True,0.0488,11.918,11.918,0.0,0,0,0.0,[],[]
+wrong_5_033,none,reference,"def top_k ( lst , k ) :
+    final = [ ]
+    while lst :
+        largest = lst [ 0 ]
+        for element in lst :
+            if ( element > largest ) :
+                largest = element
+        if ( len ( final ) == k ) :
+            break
+        final . append ( largest )
+        lst . remove ( largest )
+    return final
+",True,0.3913,1.22,1.22,0.0,0,0,0.0,[],[]
+wrong_5_034,none,reference,"def top_k ( lst , k ) :
+    ref_unsorted = lst
+    ref_result = [ ]
+    while lst :
+        if ( len ( ref_result ) == k ) :
+            break
+        ref_result += [ max ( ref_unsorted ) ]
+        ref_unsorted . remove ( max ( ref_unsorted ) )
+    return ref_result
+",True,0.8286,8.514,8.514,0.0,0,0,0.0,[],[]
+wrong_5_035,none,reference,"def top_k ( lst , k ) :
+    if ( ( lst == [ ] ) or ( k == 0 ) ) :
+        return [ ]
+    else :
+        final = [ ]
+        while lst :
+            element = max ( lst )
+            final += [ element ]
+            lst . remove ( element )
+            if ( len ( final ) == k ) :
+                break
+        return final
+",True,0.1429,0.668,0.668,0.0,0,0,0.0,[],[]
+wrong_5_036,none,reference,"def top_k ( lst , k ) :
+    ref_l = [ ]
+    if ( lst == [ ] ) :
+        return [ ]
+    elif ( k == 1 ) :
+        return lst
+    else :
+        while ( len ( ref_l ) < k ) :
+            element = max ( lst )
+            lst . remove ( element )
+            ref_l . append ( element )
+        return ref_l
+    if ( len ( final ) == k ) :
+        if True :
+            pass
+    pass
+",True,0.6122,57.796,57.796,0.0,0,0,0.0,[],[]
+wrong_5_037,none,reference,"def top_k ( lst , counter ) :
+    sort = [ ]
+    while lst :
+        smallest = lst [ 0 ]
+        for i in lst [ 1 : ] :
+            if ( i > smallest ) :
+                smallest = i
+        lst . remove ( smallest )
+        sort . append ( smallest )
+    ref_n = 1
+    ref_sort_k = [ ]
+    while ( ref_n <= counter ) :
+        ref_sort_k . append ( sort . pop ( 0 ) )
+        ref_n += 1
+    return ref_sort_k
+",True,0.3929,29.46,29.46,0.0,0,0,0.0,[],[]
+wrong_5_038,none,reference,"def top_k ( lst , k ) :
+    i = 0
+    while ( ( i + 1 ) < len ( lst ) ) :
+        if ( lst [ i ] < lst [ ( i + 1 ) ] ) :
+            lst . extend ( [ lst [ i ] ] )
+            lst . pop ( i )
+            i = 0
+        else :
+            i += 1
+    return lst [ : k ]
+",True,0.0566,59.994,59.994,0.0,0,0,0.0,[],[]
+wrong_5_039,none,reference,"def top_k ( lst , k ) :
+    i = 0
+    while ( ( i + 1 ) < len ( lst ) ) :
+        if ( lst [ i ] < lst [ ( i + 1 ) ] ) :
+            lst . extend ( [ lst [ i ] ] )
+            lst . pop ( i )
+            i = 0
+        else :
+            i += 1
+    return lst [ : k ]
+",True,0.0566,59.936,59.936,0.0,0,0,0.0,[],[]
+wrong_5_040,none,none,,False,,60.099,60.099,0.0,0,0,0.0,[],[]
+wrong_5_041,none,reference,"def top_k ( lst , k ) :
+    i = 0
+    while ( ( i + 1 ) < len ( lst ) ) :
+        if ( lst [ i ] < lst [ ( i + 1 ) ] ) :
+            lst . extend ( [ lst [ i ] ] )
+            lst . pop ( i )
+            i = 0
+        else :
+            i += 1
+    return lst [ : k ]
+",True,0.0377,59.846,59.846,0.0,0,0,0.0,[],[]
+wrong_5_042,none,reference,"def top_k ( lst , k ) :
+    sort = [ ]
+    x = len ( lst )
+    while ( len ( lst ) > ( x - k ) ) :
+        largest = lst [ 0 ]
+        for element in lst :
+            if ( element > largest ) :
+                largest = element
+        lst . remove ( largest )
+        sort . append ( largest )
+    return sort
+",True,0.0816,2.301,2.301,0.0,0,0,0.0,[],[]
+wrong_5_043,none,reference,"def top_k ( lst , k ) :
+    a = [ ]
+    while lst :
+        largest = lst [ 0 ]
+        for i in lst :
+            if ( i > largest ) :
+                largest = i
+        lst . remove ( largest )
+        a . append ( largest )
+    return a [ : k ]
+",True,0.0976,6.64,6.64,0.0,0,0,0.0,[],[]
+wrong_5_044,none,reference,"def top_k ( af_sort , k ) :
+    ref_af_sort = [ ]
+    while af_sort :
+        biggest = af_sort [ 0 ]
+        for element in af_sort :
+            if ( element > biggest ) :
+                biggest = element
+        af_sort . remove ( biggest )
+        ref_af_sort . append ( biggest )
+    return ref_af_sort [ 0 : k ]
+",True,0.2381,1.64,1.64,0.0,0,0,0.0,[],[]
+wrong_5_045,none,reference,"def top_k ( lst , k ) :
+    newlst = [ ]
+    while ( len ( newlst ) < k ) :
+        maximum = lst [ 0 ]
+        for i in lst :
+            if ( i > maximum ) :
+                maximum = i
+        newlst . append ( maximum )
+        lst . remove ( maximum )
+    return newlst
+",True,0.0233,1.842,1.842,0.0,0,0,0.0,[],[]
+wrong_5_046,none,none,,False,,60.555,60.555,0.0,0,0,0.0,[],[]
+wrong_5_047,none,reference,"def top_k ( lst , k ) :
+    sorted_lst = [ ]
+    while lst :
+        biggest = lst [ 0 ]
+        for n in range ( len ( lst ) ) :
+            if ( lst [ n ] > biggest ) :
+                biggest = lst [ n ]
+        lst . remove ( biggest )
+        sorted_lst . append ( biggest )
+    return sorted_lst [ 0 : k ]
+",True,0.3137,4.977,4.977,0.0,0,0,0.0,[],[]
+wrong_5_048,none,reference,"def top_k ( lst , k ) :
+    sorted_lst = [ ]
+    while lst :
+        biggest = lst [ 0 ]
+        for n in range ( len ( lst ) ) :
+            if ( lst [ n ] >= biggest ) :
+                biggest = lst [ n ]
+        lst . remove ( biggest )
+        sorted_lst . append ( biggest )
+    return sorted_lst [ 0 : k ]
+",True,0.2941,2.836,2.836,0.0,0,0,0.0,[],[]
+wrong_5_049,none,reference,"def top_k ( sorted_lst , k ) :
+    ref_sorted_lst = [ ]
+    while sorted_lst :
+        biggest = sorted_lst [ 0 ]
+        for n in range ( len ( sorted_lst ) ) :
+            if ( sorted_lst [ n ] >= biggest ) :
+                biggest = sorted_lst [ n ]
+        sorted_lst . remove ( biggest )
+        ref_sorted_lst . append ( biggest )
+    return ref_sorted_lst [ 0 : k ]
+",True,0.3043,24.689,24.689,0.0,0,0,0.0,[],[]
+wrong_5_050,none,reference,"def top_k ( lst , k ) :
+    newlist = [ ]
+    while ( len ( newlist ) < k ) :
+        newlist += [ max ( lst ) ]
+        for i in range ( len ( lst ) ) :
+            if ( lst [ i ] == max ( lst ) ) :
+                break
+        del lst [ i ]
+    return newlist
+",True,0.125,1.998,1.998,0.0,0,0,0.0,[],[]
+wrong_5_051,none,reference,"def top_k ( lst , k ) :
+    a = [ ]
+    while lst :
+        biggest = lst [ 0 ]
+        for i in lst :
+            if ( i > biggest ) :
+                biggest = i
+        lst . remove ( biggest )
+        a . append ( biggest )
+    return a [ 0 : k ]
+",True,0.0952,6.53,6.53,0.0,0,0,0.0,[],[]
+wrong_5_052,none,none,,False,,0.426,0.426,0.0,0,0,0.0,[],[]
+wrong_5_053,none,reference,"def top_k ( lst , k ) :
+    op = 0
+    count = [ ]
+    while ( op < k ) :
+        count += [ max ( lst ) ]
+        lst . remove ( max ( lst ) )
+        op += 1
+    return count
+",True,0.5758,49.359,49.359,0.0,0,0,0.0,[],[]
+wrong_5_054,none,reference,"def top_k ( lst , k ) :
+    count = 0
+    op = [ ]
+    big = lst [ 0 ]
+    while ( count < k ) :
+        op += [ max ( lst ) ]
+        lst . remove ( max ( lst ) )
+        count += 1
+    return op
+",True,0.2059,53.567,53.567,0.0,0,0,0.0,[],[]
+wrong_5_055,none,reference,"def top_k ( lst , k ) :
+    values = [ ]
+    greatest = lst [ 0 ]
+    while ( len ( values ) < k ) :
+        greatest = lst [ 0 ]
+        for item in lst :
+            if ( item > greatest ) :
+                greatest = item
+        lst . remove ( greatest )
+        values . append ( greatest )
+    return values
+",True,0.2083,1.683,1.683,0.0,0,0,0.0,[],[]
+wrong_5_056,none,reference,"def top_k ( lst , k ) :
+    values = [ ]
+    while ( len ( values ) < k ) :
+        greatest = lst [ 0 ]
+        for item in lst :
+            if ( item > greatest ) :
+                greatest = item
+        lst . remove ( greatest )
+        values . append ( greatest )
+    return values
+",True,0.1395,1.759,1.759,0.0,0,0,0.0,[],[]
+wrong_5_057,none,reference,"def top_k ( lst , k ) :
+    sort = [ ]
+    while lst :
+        biggest = lst [ 0 ]
+        for element in lst :
+            if ( element > biggest ) :
+                biggest = element
+        if ( len ( sort ) == k ) :
+            return sort
+        else :
+            sort . append ( biggest )
+            lst . remove ( biggest )
+    return sort
+    pass
+",True,0.413,12.739,12.739,0.0,0,0,0.0,[],[]
+wrong_5_058,none,reference,"def top_k ( lst , k ) :
+    new_lst = [ ]
+    for i in range ( k ) :
+        new_lst . append ( max ( lst ) )
+        lst . remove ( max ( lst ) )
+    return new_lst
+    pass
+",True,0.3043,0.989,0.989,0.0,0,0,0.0,[],[]
+wrong_5_059,none,reference,"def top_k ( lst , k ) :
+    new_lst = [ ]
+    for i in range ( k ) :
+        new_lst . append ( max ( lst ) )
+        lst . remove ( max ( lst ) )
+    return new_lst
+    pass
+",True,0.3077,0.69,0.69,0.0,0,0,0.0,[],[]
+wrong_5_060,none,reference,"def top_k ( lst , k ) :
+    new_lst = [ ]
+    while lst :
+        biggest = lst [ 0 ]
+        for x in lst :
+            if ( biggest < x ) :
+                biggest = x
+        lst . remove ( biggest )
+        new_lst . append ( biggest )
+    return new_lst [ 0 : k ]
+",True,0.0909,2.655,2.655,0.0,0,0,0.0,[],[]
+wrong_5_061,none,reference,"def top_k ( lst , k ) :
+    new_lst = [ ]
+    while lst :
+        biggest = lst [ 0 ]
+        for x in lst :
+            if ( x > biggest ) :
+                biggest = x
+        lst . remove ( biggest )
+        new_lst . append ( biggest )
+    return new_lst [ 0 : k ]
+",True,0.0682,1.982,1.982,0.0,0,0,0.0,[],[]
+wrong_5_062,none,reference,"def top_k ( lst , k ) :
+    a = [ ]
+    while lst :
+        biggest = lst [ 0 ]
+        for element in lst :
+            if ( element > biggest ) :
+                biggest = element
+        lst . remove ( biggest )
+        a . append ( biggest )
+    return a [ : k ]
+",True,0.0244,1.428,1.428,0.0,0,0,0.0,[],[]
+wrong_5_063,none,reference,"def top_k ( lst , k ) :
+    if ( k <= 0 ) :
+        return [ ]
+    else :
+        maxi = max ( lst )
+        length = len ( lst )
+        for i in range ( length ) :
+            if ( lst [ i ] == maxi ) :
+                pos = i
+        new_list = lst . copy ( )
+        new_list . pop ( pos )
+        return ( [ maxi ] + top_k ( new_list , ( k - 1 ) ) )
+",True,0.0169,0.792,0.792,0.0,0,0,0.0,[],[]
+wrong_5_064,none,reference,"def top_k ( lst , k ) :
+    results = [ ]
+    counter = 0
+    while ( counter < k ) :
+        for i in range ( ( - len ( lst ) ) , 0 ) :
+            if ( lst [ i ] == max ( lst ) ) :
+                results . append ( lst . pop ( i ) )
+                break
+        counter += 1
+    return results
+    pass
+",True,0.1538,4.883,4.883,0.0,0,0,0.0,[],[]
+wrong_5_065,none,reference,"def top_k ( lst , k ) :
+    x = [ ]
+    for i in range ( k ) :
+        y = 0
+        for j in lst :
+            if ( y < j ) :
+                y = j
+        lst . remove ( y )
+        x . append ( y )
+    return x
+    pass
+",True,0.3514,1.266,1.266,0.0,0,0,0.0,[],[]
+wrong_5_066,none,none,,False,,17.553,17.553,0.0,0,0,0.0,[],[]
+wrong_5_067,none,reference,"def top_k ( lst , k ) :
+    new = [ ]
+    while ( len ( new ) < k ) :
+        new . append ( lst . pop ( lst . index ( max ( lst ) ) ) )
+    return new
+",True,0.3667,22.437,22.437,0.0,0,0,0.0,[],[]
+wrong_5_068,none,reference,"def top_k ( lst , k ) :
+    new = [ ]
+    for i in range ( k ) :
+        new . append ( max ( lst ) )
+        lst . remove ( max ( lst ) )
+    return new
+",True,0.3929,0.924,0.924,0.0,0,0,0.0,[],[]
+wrong_5_069,none,reference,"def top_k ( lst , k ) :
+    new = [ ]
+    while ( len ( new ) < k ) :
+        new . append ( lst . pop ( lst . index ( max ( lst ) ) ) )
+    return new
+",True,0.3125,22.46,22.46,0.0,0,0,0.0,[],[]
+wrong_5_070,none,reference,"def top_k ( lst , k ) :
+    new = [ ]
+    while ( len ( new ) < k ) :
+        new . append ( lst . pop ( lst . index ( max ( lst ) ) ) )
+    return new
+",True,0.3125,22.617,22.617,0.0,0,0,0.0,[],[]
+wrong_5_071,none,reference,"def top_k ( lst , k ) :
+    new = [ ]
+    while ( len ( new ) < k ) :
+        top = max ( lst )
+        new . append ( top )
+        lst . remove ( top )
+    return new
+",True,0.3714,51.362,51.362,0.0,0,0,0.0,[],[]
+wrong_5_072,none,reference,"def top_k ( lst , k ) :
+    results = [ ]
+    counter = 0
+    while ( counter < k ) :
+        for i in range ( ( - len ( lst ) ) , 0 ) :
+            if ( lst [ i ] == max ( lst ) ) :
+                results . append ( lst . pop ( i ) )
+                break
+        counter += 1
+    return results
+",True,0.1569,5.404,5.404,0.0,0,0,0.0,[],[]
+wrong_5_073,none,reference,"def top_k ( lst , k ) :
+    results = [ ]
+    counter = 0
+    while ( counter < k ) :
+        for i in range ( ( - len ( lst ) ) , 0 ) :
+            if ( lst [ i ] == max ( lst ) ) :
+                results . append ( lst . pop ( i ) )
+                break
+        counter += 1
+    return results
+",True,0.12,18.804,18.804,0.0,0,0,0.0,[],[]
+wrong_5_074,none,reference,"def top_k ( lst , k ) :
+    results = [ ]
+    counter = 0
+    while ( counter < k ) :
+        for i in range ( ( - len ( lst ) ) , 0 ) :
+            if ( lst [ i ] == max ( lst ) ) :
+                results . append ( lst . pop ( i ) )
+                break
+        counter += 1
+    return results
+",True,0.102,1.347,1.347,0.0,0,0,0.0,[],[]
+wrong_5_075,none,reference,"def top_k ( lst , k ) :
+    new = [ ]
+    while ( len ( new ) < k ) :
+        top = max ( lst )
+        new . append ( top )
+        lst . remove ( top )
+    return new
+",True,0.1892,0.73,0.73,0.0,0,0,0.0,[],[]
+wrong_5_076,none,reference,"def top_k ( lst , k ) :
+    new = [ ]
+    while ( len ( new ) < k ) :
+        top = max ( lst )
+        new . append ( top )
+        lst . remove ( top )
+    return new
+",True,0.1892,0.727,0.727,0.0,0,0,0.0,[],[]
+wrong_5_077,none,reference,"def top_k ( lst , k ) :
+    result = [ ]
+    while lst :
+        minimum = lst [ 0 ]
+        for x in lst :
+            if ( x > minimum ) :
+                minimum = x
+        result . append ( minimum )
+        lst . remove ( minimum )
+    return result [ : k ]
+",True,0.0244,1.453,1.453,0.0,0,0,0.0,[],[]
+wrong_5_078,none,reference,"def top_k ( lst , k ) :
+    sort = [ ]
+    while lst :
+        largest = lst [ 0 ]
+        for element in lst :
+            if ( element > largest ) :
+                largest = element
+        lst . remove ( largest )
+        sort . append ( largest )
+    return sort [ : k ]
+",True,0.0976,6.813,6.813,0.0,0,0,0.0,[],[]
+wrong_5_079,none,reference,"def top_k ( lst , k ) :
+    sort_lst = [ ]
+    while lst :
+        smallest = lst [ 0 ]
+        for element in lst :
+            if ( element > smallest ) :
+                smallest = element
+        lst . remove ( smallest )
+        sort_lst . append ( smallest )
+    return sort_lst [ : k ]
+",True,0.0244,2.497,2.497,0.0,0,0,0.0,[],[]
+wrong_5_080,none,reference,"def top_k ( lst , k ) :
+    sotsot = [ ]
+    while ( len ( sotsot ) != k ) :
+        sotsot . append ( max ( lst ) )
+        lst . remove ( max ( lst ) )
+    return sotsot
+",True,0.0323,0.896,0.896,0.0,0,0,0.0,[],[]
+wrong_5_081,none,reference,"def top_k ( lst , k ) :
+    sotsot = [ ]
+    ref_counter = 0
+    while ( ref_counter != k ) :
+        pass
+        if True :
+            pass
+        sotsot . append ( max ( lst ) )
+        lst . remove ( max ( lst ) )
+        ref_counter += 1
+    return sotsot
+",True,0.4848,13.114,13.114,0.0,0,0,0.0,[],[]
+wrong_5_082,none,reference,"def top_k ( lst , k ) :
+    sotsot = [ ]
+    ref_counter = 0
+    while ( ref_counter != k ) :
+        pass
+        if True :
+            pass
+        sotsot . append ( max ( lst ) )
+        lst . remove ( max ( lst ) )
+        ref_counter += 1
+    return sotsot
+",True,0.4848,11.862,11.862,0.0,0,0,0.0,[],[]
+wrong_5_083,none,reference,"def top_k ( lst , k ) :
+    result = [ ]
+    for i in range ( len ( lst ) ) :
+        largest = lst [ 0 ]
+        for element in lst :
+            if ( element > largest ) :
+                largest = element
+        lst . remove ( largest )
+        result . append ( largest )
+    return result [ : k ]
+",True,0.0217,1.626,1.626,0.0,0,0,0.0,[],[]
+wrong_5_084,none,none,,False,,1.144,1.144,0.0,0,0,0.0,[],[]
+wrong_5_085,none,reference,"def top_k ( lst , k ) :
+    ref_result = [ ]
+    result = len ( lst )
+    while ( len ( lst ) > ( result - k ) ) :
+        biggest = lst [ 0 ]
+        for element in lst :
+            if ( element > biggest ) :
+                biggest = element
+        ref_result . append ( biggest )
+        lst . remove ( biggest )
+    return ref_result
+    pass
+",True,0.2245,8.05,8.05,0.0,0,0,0.0,[],[]
+wrong_5_086,none,none,,False,,60.835,60.835,0.0,0,0,0.0,[],[]
+wrong_5_087,none,none,,False,,60.818,60.818,0.0,0,0,0.0,[],[]
+wrong_5_088,none,none,,False,,1.029,1.029,0.0,0,0,0.0,[],[]
+wrong_5_089,none,reference,"def top_k ( lst , k ) :
+    newlist = [ ]
+    while lst :
+        biggest = lst [ 0 ]
+        for i in lst :
+            if ( i > biggest ) :
+                biggest = i
+            else :
+                continue
+        lst . remove ( biggest )
+        if ( len ( newlist ) == k ) :
+            break
+        else :
+            newlist . append ( biggest )
+    return newlist
+",True,0.0426,0.83,0.83,0.0,0,0,0.0,[],[]
+wrong_5_090,none,reference,"def top_k ( output , k ) :
+    sort = [ ]
+    while output :
+        big = max ( output )
+        sort . append ( big )
+        output . remove ( big )
+    return sort [ 0 : k ]
+",True,0.4634,1.728,1.728,0.0,0,0,0.0,[],[]
+wrong_5_091,none,reference,"def top_k ( lst2 , k ) :
+    ref_sort = [ ]
+    while lst2 :
+        biggest = lst2 [ 0 ]
+        for elem in lst2 :
+            if ( elem > biggest ) :
+                biggest = elem
+        lst2 . remove ( biggest )
+        ref_sort . append ( biggest )
+    return ref_sort [ : k ]
+",True,0.7105,5.816,5.816,0.0,0,0,0.0,[],[]
+wrong_5_092,none,reference,"def top_k ( lst2 , k ) :
+    ref_sort = [ ]
+    while lst2 :
+        biggest = lst2 [ 0 ]
+        for elem in lst2 :
+            if ( elem > biggest ) :
+                biggest = elem
+        lst2 . remove ( biggest )
+        ref_sort . append ( biggest )
+    return ref_sort [ : k ]
+",True,0.6744,6.137,6.137,0.0,0,0,0.0,[],[]
+wrong_5_093,none,reference,"def top_k ( lst , k ) :
+    result = [ ]
+    while lst :
+        biggest = lst [ 0 ]
+        for elem in lst :
+            if ( elem > biggest ) :
+                biggest = elem
+        lst . remove ( biggest )
+        result . append ( biggest )
+    return result [ : k ]
+    pass
+",True,0.0238,2.277,2.277,0.0,0,0,0.0,[],[]
+wrong_5_094,none,reference,"def top_k ( lst , k ) :
+    for i in range ( len ( lst ) ) :
+        for j in range ( ( len ( lst ) - 1 ) ) :
+            if ( lst [ j ] > lst [ ( j + 1 ) ] ) :
+                ( lst [ j ] , lst [ ( j + 1 ) ] ) = ( lst [ ( j + 1 ) ] , lst [ j ] )
+    lst . reverse ( )
+    return lst [ : k ]
+    pass
+",True,0.0469,1.389,1.389,0.0,0,0,0.0,[],[]
+wrong_5_095,none,reference,"def top_k ( lst , k ) :
+    for i in range ( len ( lst ) ) :
+        for j in range ( ( len ( lst ) - 1 ) ) :
+            if ( lst [ j ] > lst [ ( j + 1 ) ] ) :
+                ( lst [ j ] , lst [ ( j + 1 ) ] ) = ( lst [ ( j + 1 ) ] , lst [ j ] )
+    lst . reverse ( )
+    return lst [ : k ]
+    pass
+",True,0.0469,1.21,1.21,0.0,0,0,0.0,[],[]
+wrong_5_096,none,none,,False,,0.834,0.834,0.0,0,0,0.0,[],[]
+wrong_5_097,none,reference,"def top_k ( lst , k ) :
+    sort = [ ]
+    while lst :
+        largest = lst [ 0 ]
+        for i in range ( len ( lst ) ) :
+            if ( lst [ i ] > largest ) :
+                largest = lst [ i ]
+        sort . append ( largest )
+        lst . remove ( largest )
+    return sort [ : k ]
+",True,0.0577,2.067,2.067,0.0,0,0,0.0,[],[]
+wrong_5_098,none,reference,"def top_k ( lst , k ) :
+    l = 0
+    newlst = [ ]
+    while True :
+        pass
+        if ( not lst ) :
+            break
+        newlst += [ max ( lst ) ]
+        lst . remove ( max ( lst ) )
+    for i in range ( k ) :
+        lst . append ( newlst [ i ] )
+    return lst
+",True,0.875,16.852,16.852,0.0,0,0,0.0,[],[]
+wrong_5_099,none,reference,"def top_k ( lst , k ) :
+    l = 0
+    newlst = [ ]
+    while True :
+        pass
+        if ( not lst ) :
+            break
+        newlst += [ max ( lst ) ]
+        lst . remove ( max ( lst ) )
+    for i in range ( k ) :
+        lst . append ( newlst [ i ] )
+    return lst
+",True,0.82,23.319,23.319,0.0,0,0,0.0,[],[]
+wrong_5_100,none,reference,"def top_k ( lst , k ) :
+    l = [ ]
+    if ( k > len ( lst ) ) :
+        return False
+    elif ( k == 1 ) :
+        return lst
+    else :
+        while ( len ( l ) < k ) :
+            a = max ( lst )
+            lst . remove ( a )
+            l . append ( a )
+        return l
+    pass
+",True,0.0204,0.615,0.615,0.0,0,0,0.0,[],[]
+wrong_5_101,none,none,,False,,0.588,0.588,0.0,0,0,0.0,[],[]
+wrong_5_102,none,reference,"def top_k ( lst , k ) :
+    ref_count = 0
+    ref_op = [ ]
+    while ( ref_count < k ) :
+        ref_op += [ max ( lst ) ]
+        lst . remove ( max ( lst ) )
+        ref_count += 1
+    return ref_op
+",True,0.7308,22.667,22.667,0.0,0,0,0.0,[],[]
+wrong_5_103,none,none,,False,,60.68,60.68,0.0,0,0,0.0,[],[]
+wrong_5_104,none,reference,"def top_k ( lst , k ) :
+    counter = 0
+    new_lst = [ ]
+    while ( counter < k ) :
+        maxi = max ( lst )
+        new_lst . append ( maxi )
+        lst . remove ( maxi )
+        counter += 1
+    return new_lst
+",True,0.0571,0.762,0.762,0.0,0,0,0.0,[],[]
+wrong_5_105,none,reference,"def top_k ( lst , k ) :
+    sort = [ ]
+    while lst :
+        largest = lst [ 0 ]
+        for element in lst :
+            if ( element > largest ) :
+                largest = element
+        lst . remove ( largest )
+        sort . append ( largest )
+    return sort [ 0 : k ]
+",True,0.0238,1.476,1.476,0.0,0,0,0.0,[],[]
+wrong_5_106,none,none,,False,,0.791,0.791,0.0,0,0,0.0,[],[]
+wrong_5_107,none,reference,"def top_k ( lst , k ) :
+    newlst = [ ]
+    for i in range ( k ) :
+        newlst . append ( max ( lst ) )
+        lst . remove ( max ( lst ) )
+    return newlst
+",True,0.0938,0.804,0.804,0.0,0,0,0.0,[],[]
+wrong_5_108,none,reference,"def top_k ( lst , k ) :
+    new_lst = [ ]
+    counter = 1
+    while ( counter <= k ) :
+        highest = lst [ 0 ]
+        for x in lst :
+            if ( x > highest ) :
+                highest = x
+        new_lst . append ( highest )
+        lst . remove ( highest )
+        counter += 1
+    return new_lst
+",True,0.0208,1.48,1.48,0.0,0,0,0.0,[],[]

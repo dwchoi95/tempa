@@ -1,0 +1,42 @@
+rule digit_char_compared_to_int_literal
+symptoms: wrong
+match:
+    $x[$i] == $k:Int
+    |
+    $k:Int == $x[$i]
+where: text($k) == "4" or text($k) == "7"
+rewrite:
+    $x[$i] == ${quote[$k]}
+    |
+    ${quote[$k]} == $x[$i]
+table quote: {"4": "\"4\"", "7": "\"7\""}
+
+rule offbyone_range_skips_last_char
+symptoms: wrong
+match:
+    for $i in range($a, $b - 1):
+    |
+    for $i in range($b - 1):
+where: True
+rewrite:
+    for $i in range($a, $b):
+    |
+    for $i in range($b):
+
+rule redundant_individual_count_clause_with_sum
+symptoms: wrong
+match:
+    $c1 == $k1:Int or $c2 == $k2:Int or $s == $k1 or $s == $k2
+    |
+    $s == $k1 or $s == $k2 or $c1 == $k1 or $c2 == $k2
+where: text($k1) == "4" and text($k2) == "7" and kind($c1) == "Name" and kind($c2) == "Name" and kind($s) == "Name"
+rewrite:
+    $s == $k1 or $s == $k2
+    |
+    $s == $k1 or $s == $k2
+
+rule separate_digit_counts_should_be_summed
+symptoms: wrong
+match: $c1 == $k1:Int or $c2 == $k2:Int
+where: text($k1) == "4" and text($k2) == "7" and kind($c1) == "Name" and kind($c2) == "Name" and $c1 != $c2
+rewrite: ($c1 + $c2) == $k1 or ($c1 + $c2) == $k2

@@ -1,0 +1,43 @@
+rule triangular_eq_should_be_parity
+symptoms: wrong
+match:
+    if $loc == $x:
+    elif (($loc - $x) + ($k + 1)) % 2 == 0:
+    else:
+rewrite:
+    if ($loc - $x) % 2 == 0:
+    elif (($loc - $x) + ($k + 1)) % 2 == 0:
+    else:
+
+rule overshoot_loop_misconception
+symptoms: wrong, timeout
+match:
+    while $pos != $x:
+        $S1:Stmts
+        if $pos < $x and $x - $pos >= $s:
+            $pos = $pos + $s
+        if $pos < $x and $x - $pos < $s:
+            $pos = $pos - $s
+rewrite:
+    while $pos < $x or ($pos - $x) % 2 != 0:
+        $S1
+        $pos = $pos + $s
+
+rule triangular_floor_loop_misfix
+symptoms: wrong
+match:
+    while $cur + $i <= $n:
+        $cur += $i
+        $i += 1
+    $i -= 1
+    $i += 2 * ($n - $cur)
+rewrite:
+    while $cur < $n or ($cur - $n) % 2 != 0:
+        $cur += $i
+        $i += 1
+    $i -= 1
+
+rule missing_abs_on_input
+symptoms: wrong
+match: $x = int(input())
+rewrite: $x = abs(int(input()))

@@ -1,0 +1,284 @@
+rule fix_unique_day_parameter_name
+symptoms: wrong
+match: def $f($day:Name, $possible_birthdays):
+    $B:Stmts
+where: some($B, "if $day2 == $_[1]:") and some($B, "if $day == $_[1]:") and text($day) != "day"
+rewrite: def $f(day, $possible_birthdays):
+    $B
+
+rule fix_unique_count_to_equality
+symptoms: wrong
+match: if $count > 1:
+    return False
+else:
+    return True
+rewrite: if $count == 1:
+    return True
+else:
+    return False
+
+rule fix_unique_count_to_not_equal
+symptoms: wrong
+match: if $count <= 1:
+    return True
+else:
+    return False
+rewrite: if $count == 1:
+    return True
+else:
+    return False
+
+rule fix_unique_return_bool_expression
+symptoms: wrong
+match: if $count == 1:
+    return True
+return False
+rewrite: return $count == 1
+
+rule fix_unique_day_str_compare
+symptoms: wrong
+match: if str($day) == $b[1]:
+    $S:Stmts
+rewrite: if $day == $b[1]:
+    $S
+
+rule fix_unique_day_in_membership
+symptoms: wrong
+match: if $day in $b:
+    $S:Stmts
+rewrite: if $day == $b[1]:
+    $S
+
+rule fix_unique_day_counter_logic
+symptoms: wrong
+match:
+    $count = 0
+    for $b in $possible_birthdays:
+        if $day == $b[1]:
+            $count += 1
+    if $count > 1:
+        return False
+    else:
+        return True
+rewrite:
+    $count = 0
+    for $b in $possible_birthdays:
+        if $day == $b[1]:
+            $count += 1
+    return $count == 1
+
+rule fix_unique_month_counter_logic
+symptoms: wrong
+match:
+    $count = 0
+    for $b in $possible_birthdays:
+        if $month == $b[0]:
+            $count += 1
+    if $count > 1:
+        return False
+    else:
+        return True
+rewrite:
+    $count = 0
+    for $b in $possible_birthdays:
+        if $month == $b[0]:
+            $count += 1
+    return $count == 1
+
+rule fix_unique_day_while_off_by_one
+symptoms: wrong, err:IndexError
+match:
+    i = 0
+    $count = 0
+    while i <= len($possible_birthdays):
+        if $possible_birthdays[i][1] == $day:
+            $count += 1
+            i += 1
+    if $count == 1:
+        return True
+    else:
+        return False
+rewrite:
+    i = 0
+    $count = 0
+    while i < len($possible_birthdays):
+        if $possible_birthdays[i][1] == $day:
+            $count += 1
+        i += 1
+    if $count == 1:
+        return True
+    else:
+        return False
+
+rule fix_unique_month_while_off_by_one
+symptoms: wrong, err:IndexError
+match:
+    i = 0
+    $count = 0
+    while i <= len($possible_birthdays):
+        if $possible_birthdays[i][0] == $month:
+            $count += 1
+    if $count == 1:
+        return True
+    else:
+        return False
+rewrite:
+    i = 0
+    $count = 0
+    while i < len($possible_birthdays):
+        if $possible_birthdays[i][0] == $month:
+            $count += 1
+        i += 1
+    if $count == 1:
+        return True
+    else:
+        return False
+
+rule fix_contains_unique_day_wrong_argument_name
+symptoms: wrong
+match:
+    for $i in $possible_birthdays:
+        if $i[0] == $month:
+            if unique_day($x, $possible_birthdays):
+                return True
+    return False
+where: text($x) != "i[1]"
+rewrite:
+    for $i in $possible_birthdays:
+        if $i[0] == $month:
+            if unique_day($i[1], $possible_birthdays):
+                return True
+    return False
+
+rule fix_contains_unique_day_month_filter
+symptoms: wrong
+match:
+    for $i in $possible_birthdays:
+        if $month == $i[0]:
+            if unique_day($d, $possible_birthdays):
+                return True
+    return False
+rewrite:
+    for $i in $possible_birthdays:
+        if $month == $i[0]:
+            if unique_day($i[1], $possible_birthdays):
+                return True
+    return False
+
+rule fix_contains_unique_day_counter_to_direct_return
+symptoms: wrong
+match:
+    $counter = 0
+    for $i in $possible_birthdays:
+        if $month == $i[0]:
+            if unique_day($d, $possible_birthdays):
+                $counter += 1
+    if $counter != 0:
+        return True
+    else:
+        return False
+rewrite:
+    for $i in $possible_birthdays:
+        if $month == $i[0]:
+            if unique_day($d, $possible_birthdays):
+                return True
+    return False
+
+rule fix_contains_unique_day_return_inside_loop
+symptoms: wrong
+match:
+    for $i in $possible_birthdays:
+        if $i[0] == $month:
+            if unique_day($d, $possible_birthdays):
+                return True
+            else:
+                return False
+        else:
+            return False
+rewrite:
+    for $i in $possible_birthdays:
+        if $i[0] == $month:
+            if unique_day($d, $possible_birthdays):
+                return True
+    return False
+
+rule fix_contains_unique_day_bad_constant
+symptoms: wrong
+match:
+    if $month == 'June':
+        return True
+    elif $month == 'May':
+        return True
+    else:
+        return False
+rewrite:
+    for $i in $possible_birthdays:
+        if $i[0] == $month:
+            if unique_day($i[1], $possible_birthdays):
+                return True
+    return False
+
+rule fix_contains_unique_day_not_member_tuple
+symptoms: wrong
+match:
+    for $date in $possible_birthdays:
+        $months, $day = $date
+        if unique_day($day, $possible_birthdays):
+            return $month == $months
+rewrite:
+    for $date in $possible_birthdays:
+        if $date[0] == $month:
+            if unique_day($date[1], $possible_birthdays):
+                return True
+    return False
+
+rule fix_contains_unique_day_exists_any_unique
+symptoms: wrong
+match:
+    for $date in $possible_birthdays:
+        if unique_day($date[1], $possible_birthdays) and $date[0] == $month:
+            return True
+    else:
+        return False
+rewrite:
+    for $date in $possible_birthdays:
+        if $date[0] == $month:
+            if unique_day($date[1], $possible_birthdays):
+                return True
+    return False
+
+rule fix_contains_unique_day_build_tuple
+symptoms: wrong
+match:
+    $a = ()
+    for $birthday in $possible_birthdays:
+        if $birthday[0] == $month:
+            $a = $a + ($birthday,)
+    for $birthday in $a:
+        if unique_day($birthday[1], $possible_birthdays):
+            return True
+    return False
+rewrite:
+    for $birthday in $possible_birthdays:
+        if $birthday[0] == $month:
+            if unique_day($birthday[1], $possible_birthdays):
+                return True
+    return False
+
+rule fix_contains_unique_day_scan_month_tupleofdays
+symptoms: wrong
+match:
+    $tupleofdays = ()
+    for $elements in $possible_birthdays:
+        if $elements[0] == $month:
+            $tupleofdays += ($elements[1],)
+    for $elements in $tupleofdays:
+        if unique_day($elements, $possible_birthdays):
+            return True
+    return False
+rewrite:
+    for $elements in $possible_birthdays:
+        if $elements[0] == $month:
+            if unique_day($elements[1], $possible_birthdays):
+                return True
+    return False

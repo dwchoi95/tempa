@@ -1,0 +1,30 @@
+rule fix_cm_to_inches_and_feet_rounding
+symptoms: wrong
+match:
+    n = (int(input()) + 2) // 3
+    print(n // 12, n % 12)
+|
+    $n:Name = (int(input()) + 2) // 3
+    print($n // 12, $n % 12)
+rewrite:
+    n = int(input()) + 1
+    print(n // 36, n % 36 // 3)
+
+rule fix_cm_to_inches_and_feet_rounding_variant
+symptoms: wrong
+match:
+    $n:Name = (int(input()) + 2) // 3
+    print($n // 12, $n % 12)
+rewrite:
+    $n = int(input()) + 1
+    print($n // 36, $n % 36 // 3)
+
+rule off_by_one_index_or_range
+symptoms: wrong
+match: $a[$i + 1]
+rewrite: $a[$i]
+
+rule strict_comparison_relaxation
+symptoms: wrong
+match: $a < $b
+rewrite: $a <= $b

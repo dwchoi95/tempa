@@ -1,0 +1,236 @@
+{
+ "pid": "cf_131A",
+ "source": "codeforces",
+ "cf_id": "131/A",
+ "mode": "stdio",
+ "rating": 1000,
+ "time_limit": 0.5,
+ "official_tests_complete": true,
+ "description": "# cAPS lOCK\n\nwHAT DO WE NEED cAPS LOCK FOR?\n\nCaps lock is a computer keyboard key. Pressing it sets an input mode in which typed letters are capital by default. If it is pressed by accident, it leads to accidents like the one we had in the first passage.\n\nLet's consider that a word has been typed with the Caps lock key accidentally switched on, if:\n\n- either it only contains uppercase letters;\n- or all letters except for the first one are uppercase.\n\nIn this case we should automatically change the case of all letters. For example, the case of the letters that form words \"hELLO\", \"HTTP\", \"z\" should be changed.\n\nWrite a program that applies the rule mentioned above. If the rule cannot be applied, the program should leave the word unchanged.\n\n## Input\nThe first line of the input data contains a word consisting of uppercase and lowercase Latin letters. The word's length is from 1 to 100 characters, inclusive.\n\n## Output\nPrint the result of the given word's processing.",
+ "tests": [
+  {
+   "stdin": "cAPS\n",
+   "expected": "Caps"
+  },
+  {
+   "stdin": "Lock\n",
+   "expected": "Lock\n"
+  },
+  {
+   "stdin": "cAPSlOCK\n",
+   "expected": "cAPSlOCK\n"
+  },
+  {
+   "stdin": "CAPs\n",
+   "expected": "CAPs\n"
+  },
+  {
+   "stdin": "LoCK\n",
+   "expected": "LoCK\n"
+  },
+  {
+   "stdin": "OOPS\n",
+   "expected": "oops"
+  },
+  {
+   "stdin": "oops\n",
+   "expected": "oops\n"
+  },
+  {
+   "stdin": "a\n",
+   "expected": "A"
+  },
+  {
+   "stdin": "A\n",
+   "expected": "a"
+  },
+  {
+   "stdin": "aA\n",
+   "expected": "Aa"
+  },
+  {
+   "stdin": "Zz\n",
+   "expected": "Zz\n"
+  },
+  {
+   "stdin": "Az\n",
+   "expected": "Az\n"
+  },
+  {
+   "stdin": "zA\n",
+   "expected": "Za"
+  },
+  {
+   "stdin": "AAA\n",
+   "expected": "aaa"
+  },
+  {
+   "stdin": "AAa\n",
+   "expected": "AAa\n"
+  },
+  {
+   "stdin": "AaR\n",
+   "expected": "AaR\n"
+  },
+  {
+   "stdin": "Tdr\n",
+   "expected": "Tdr\n"
+  },
+  {
+   "stdin": "aTF\n",
+   "expected": "Atf"
+  },
+  {
+   "stdin": "fYd\n",
+   "expected": "fYd\n"
+  },
+  {
+   "stdin": "dsA\n",
+   "expected": "dsA\n"
+  },
+  {
+   "stdin": "fru\n",
+   "expected": "fru\n"
+  },
+  {
+   "stdin": "hYBKF\n",
+   "expected": "Hybkf"
+  },
+  {
+   "stdin": "XweAR\n",
+   "expected": "XweAR\n"
+  },
+  {
+   "stdin": "mogqx\n",
+   "expected": "mogqx\n"
+  },
+  {
+   "stdin": "eOhEi\n",
+   "expected": "eOhEi\n"
+  },
+  {
+   "stdin": "nkdku\n",
+   "expected": "nkdku\n"
+  },
+  {
+   "stdin": "zcnko\n",
+   "expected": "zcnko\n"
+  },
+  {
+   "stdin": "lcccd\n",
+   "expected": "lcccd\n"
+  },
+  {
+   "stdin": "vwmvg\n",
+   "expected": "vwmvg\n"
+  },
+  {
+   "stdin": "lvchf\n",
+   "expected": "lvchf\n"
+  },
+  {
+   "stdin": "IUNVZCCHEWENCHQQXQYPUJCRDZLUXCLJHXPHBXEUUGNXOOOPBMOBRIBHHMIRILYJGYYGFMTMFSVURGYHUWDRLQVIBRLPEVAMJQYO\n",
+   "expected": "iunvzcchewenchqqxqypujcrdzluxcljhxphbxeuugnxooopbmobribhhmirilyjgyygfmtmfsvurgyhuwdrlqvibrlpevamjqyo"
+  },
+  {
+   "stdin": "OBHSZCAMDXEJWOZLKXQKIVXUUQJKJLMMFNBPXAEFXGVNSKQLJGXHUXHGCOTESIVKSFMVVXFVMTEKACRIWALAGGMCGFEXQKNYMRTG\n",
+   "expected": "obhszcamdxejwozlkxqkivxuuqjkjlmmfnbpxaefxgvnskqljgxhuxhgcotesivksfmvvxfvmtekacriwalaggmcgfexqknymrtg"
+  },
+  {
+   "stdin": "IKJYZIKROIYUUCTHSVSKZTETNNOCMAUBLFJCEVANCADASMZRCNLBZPQRXESHEEMOMEPCHROSRTNBIDXYMEPJSIXSZQEBTEKKUHFS\n",
+   "expected": "ikjyzikroiyuucthsvskztetnnocmaublfjcevancadasmzrcnlbzpqrxesheemomepchrosrtnbidxymepjsixszqebtekkuhfs"
+  },
+  {
+   "stdin": "cTKDZNWVYRTFPQLDAUUNSPKTDJTUPPFPRXRSINTVFVNNQNKXWUZUDHZBUSOKTABUEDQKUIVRTTVUREEOBJTSDKJKVEGFXVHXEYPE\n",
+   "expected": "Ctkdznwvyrtfpqldauunspktdjtuppfprxrsintvfvnnqnkxwuzudhzbusoktabuedqkuivrttvureeobjtsdkjkvegfxvhxeype"
+  },
+  {
+   "stdin": "uCKJZRGZJCPPLEEYJTUNKOQSWGBMTBQEVPYFPIPEKRVYQNTDPANOIXKMPINNFUSZWCURGBDPYTEKBEKCPMVZPMWAOSHJYMGKOMBQ\n",
+   "expected": "Uckjzrgzjcppleeyjtunkoqswgbmtbqevpyfpipekrvyqntdpanoixkmpinnfuszwcurgbdpytekbekcpmvzpmwaoshjymgkombq"
+  },
+  {
+   "stdin": "KETAXTSWAAOBKUOKUQREHIOMVMMRSAEWKGXZKRASwTVNSSFSNIWYNPSTMRADOADEEBURRHPOOBIEUIBGYDJCEKPNLEUCANZYJKMR\n",
+   "expected": "KETAXTSWAAOBKUOKUQREHIOMVMMRSAEWKGXZKRASwTVNSSFSNIWYNPSTMRADOADEEBURRHPOOBIEUIBGYDJCEKPNLEUCANZYJKMR\n"
+  },
+  {
+   "stdin": "ZEKGDMWJPVUWFlNXRLUmWKLMMYSLRQQIBRWDPKWITUIMZYYKOEYGREKHHZRZZUFPVTNIHKGTCCTLOKSZITXXZDMPITHNZUIGDZLE\n",
+   "expected": "ZEKGDMWJPVUWFlNXRLUmWKLMMYSLRQQIBRWDPKWITUIMZYYKOEYGREKHHZRZZUFPVTNIHKGTCCTLOKSZITXXZDMPITHNZUIGDZLE\n"
+  },
+  {
+   "stdin": "TcMbVPCFvnNkCEUUCIFLgBJeCOKuJhIGwXFrhAZjuAhBraMSchBfWwIuHAEbgJOFzGtxDLDXzDSaPCFujGGxgxdlHUIQYRrMFCgJ\n",
+   "expected": "TcMbVPCFvnNkCEUUCIFLgBJeCOKuJhIGwXFrhAZjuAhBraMSchBfWwIuHAEbgJOFzGtxDLDXzDSaPCFujGGxgxdlHUIQYRrMFCgJ\n"
+  },
+  {
+   "stdin": "xFGqoLILNvxARKuIntPfeukFtMbvzDezKpPRAKkIoIvwqNXnehRVwkkXYvuRCeoieBaBfTjwsYhDeCLvBwktntyluoxCYVioXGdm\n",
+   "expected": "xFGqoLILNvxARKuIntPfeukFtMbvzDezKpPRAKkIoIvwqNXnehRVwkkXYvuRCeoieBaBfTjwsYhDeCLvBwktntyluoxCYVioXGdm\n"
+  },
+  {
+   "stdin": "udvqolbxdwbkijwvhlyaelhynmnfgszbhgshlcwdkaibceqomzujndixuzivlsjyjqxzxodzbukxxhwwultvekdfntwpzlhhrIjm\n",
+   "expected": "udvqolbxdwbkijwvhlyaelhynmnfgszbhgshlcwdkaibceqomzujndixuzivlsjyjqxzxodzbukxxhwwultvekdfntwpzlhhrIjm\n"
+  },
+  {
+   "stdin": "jgpwhetqqoncighgzbbaLwwwxkxivuwtokehrgprfgewzcwxkavwoflcgsgbhoeamzbefzoonwsyzisetoydrpufktzgbaycgaeg\n",
+   "expected": "jgpwhetqqoncighgzbbaLwwwxkxivuwtokehrgprfgewzcwxkavwoflcgsgbhoeamzbefzoonwsyzisetoydrpufktzgbaycgaeg\n"
+  },
+  {
+   "stdin": "vyujsazdstbnkxeunedfbolicojzjpufgfemhtmdrswvmuhoivjvonacefqenbqudelmdegxqtbwezsbydmanzutvdgkgrjxzlnc\n",
+   "expected": "vyujsazdstbnkxeunedfbolicojzjpufgfemhtmdrswvmuhoivjvonacefqenbqudelmdegxqtbwezsbydmanzutvdgkgrjxzlnc\n"
+  },
+  {
+   "stdin": "pivqnuqkaofcduvbttztjbuavrqwiqrwkfncmvatoxruelyoecnkpqraiahumiaiqeyjapbqyrsxcdgjbihivtqezvasfmzntdfv\n",
+   "expected": "pivqnuqkaofcduvbttztjbuavrqwiqrwkfncmvatoxruelyoecnkpqraiahumiaiqeyjapbqyrsxcdgjbihivtqezvasfmzntdfv\n"
+  },
+  {
+   "stdin": "upvtbsxswbohxshdrbjxcungzquhuomgxwlryvshshsfvqbrxvcikbglietlpqkiwbhiqpmdwuqosbtdvyxekkaqiwrbsibpoect\n",
+   "expected": "upvtbsxswbohxshdrbjxcungzquhuomgxwlryvshshsfvqbrxvcikbglietlpqkiwbhiqpmdwuqosbtdvyxekkaqiwrbsibpoect\n"
+  },
+  {
+   "stdin": "cTKDZNWVYRTFPQLDAUUNSPKTDJTUPPFPRXRSINTVFVNNQNKXWUZUDHZBUSOKTABUEDQKUIVRTTVUREEOBJTSDKJKVEGFXVHXEYPE\n",
+   "expected": "Ctkdznwvyrtfpqldauunspktdjtuppfprxrsintvfvnnqnkxwuzudhzbusoktabuedqkuivrttvureeobjtsdkjkvegfxvhxeype"
+  },
+  {
+   "stdin": "JEGDOFJOFGJHFROGHOFGMHOFGHORGFHMOu\n",
+   "expected": "JEGDOFJOFGJHFROGHOFGMHOFGHORGFHMOu\n"
+  },
+  {
+   "stdin": "aBACABa\n",
+   "expected": "aBACABa\n"
+  },
+  {
+   "stdin": "AAAAAAAAAAAAAAAAAAAAAAAAaa\n",
+   "expected": "AAAAAAAAAAAAAAAAAAAAAAAAaa\n"
+  },
+  {
+   "stdin": "aaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n",
+   "expected": "aaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n"
+  },
+  {
+   "stdin": "dDDDDDDDDDDDDD\n",
+   "expected": "Dddddddddddddd"
+  },
+  {
+   "stdin": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n",
+   "expected": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n"
+  },
+  {
+   "stdin": "z\n",
+   "expected": "Z"
+  },
+  {
+   "stdin": "AZ\n",
+   "expected": "az"
+  },
+  {
+   "stdin": "Z\n",
+   "expected": "z"
+  },
+  {
+   "stdin": "aAAAA\n",
+   "expected": "Aaaaa"
+  },
+  {
+   "stdin": "F\n",
+   "expected": "f"
+  }
+ ]
+}

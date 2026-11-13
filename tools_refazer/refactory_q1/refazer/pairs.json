@@ -1,0 +1,1766 @@
+[
+ {
+  "id": "0",
+  "before": "def search(x, seq):\n    if seq == () or seq == []:\n        return None\n    elif x < seq[0]:\n        return 0\n    elif x > seq[-1]:\n        return len(seq)\n    for i, elem in enumerate(seq):\n            if x <= elem:\n                return i \n",
+  "after": "def search(x, seq):\n    if seq == () or seq == []:\n        return 0\n    elif x < seq[0]:\n        return 0\n    elif x > seq[-1]:\n        return len(seq)\n    for i, elem in enumerate(seq):\n            if x <= elem:\n                return i \n",
+  "n": 6
+ },
+ {
+  "id": "1",
+  "before": "def search(x, seq):\n    if seq == () or seq == []:\n        return 0\n    elif newseq[-1] < x:\n        return len(newseq)\n    \n    newseq = list(seq)\n    sortlist = []\n    while x not in sortlist and newseq:\n        start = newseq[0]\n        if x <= start:\n            sortlist.append(x)\n        else:\n            sortlist.append(start)\n            newseq.pop(0)\n    sortlist.extend(newseq)\n    for pos, elem in enumerate(sortlist):\n        if elem == x:\n            return pos\n",
+  "after": "def search(x, seq):\n    if seq == () or seq == []:\n        return 0\n    elif seq[-1] < x:\n        return len(seq)\n    newseq = list(seq)\n    sortlist = []\n    while x not in sortlist and newseq:\n        start = newseq[0]\n        if x <= start:\n            sortlist.append(x)\n        else:\n            sortlist.append(start)\n            newseq.pop(0)\n    sortlist.extend(newseq)\n    for pos, elem in enumerate(sortlist):\n        if elem == x:\n            return pos\n",
+  "n": 1
+ },
+ {
+  "id": "2",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    a = 0\n    for i in seq:\n        if i>x:\n            a = a+1\n    return a\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    count = 0\n    for i in seq:\n        if x > i:\n            count = count + 1\n    return count\n",
+  "n": 1
+ },
+ {
+  "id": "3",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if x<= seq[i]:\n            return i\n        return len(seq)\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    else:\n        return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "4",
+  "before": "def search(x, seq):\n    for i, e in enumerate(seq):\n        if x < e:\n            return i\n    return len(seq)\n\n",
+  "after": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            return i\n\n    return len(seq)\n",
+  "n": 12
+ },
+ {
+  "id": "5",
+  "before": "def search(x, seq):\n    if seq == () or seq == []:\n        return 0\n    elif x <= seq[0]:\n        return 0\n    elif x >= seq[len(seq)-1]:\n        return len(seq)\n    else:\n        for i, elem in enumerate(seq):\n            if elem <= x <= seq[i+1]:\n                return i+1\n",
+  "after": "def search(x, seq):\n    if seq == () or seq == []:\n        return 0\n    elif x <= seq[0]:\n        return 0\n    elif x > seq[len(seq)-1]:\n        return len(seq)\n    else:\n        for i, elem in enumerate(seq):\n            if elem <= x <= seq[i+1]:\n                return i+1\n",
+  "n": 7
+ },
+ {
+  "id": "6",
+  "before": "def search(x, seq):\n    n=[]\n    seq = list(seq)\n    a= seq.copy()\n    d = 0\n    if seq == ():\n        return 0 \n    for i in a:\n        if i<x:\n            n.append(i)\n            seq.remove(i)\n        elif i == x:\n            n.append(i)\n            n.append(x)\n            n.extend(seq)\n            break\n        else:\n            n.append(x)\n            n.extend(seq)\n            break\n    count = list(enumerate(n))\n    for b in count:\n        d+=1\n        if b[1] == x:\n            return b[0]\n        elif d==len(count):\n            return d\n",
+  "after": "def search(x, seq):\n    n=[]\n    seq = list(seq)\n    a= seq.copy()\n    d = 0        \n    if seq == []:\n        return 0\n    for i in a:\n        if i<x:\n            n.append(i)\n            seq.remove(i)\n        elif i == x:\n            n.append(i)\n            n.append(x)\n            n.extend(seq)\n            break\n        else:\n            n.append(x)\n            n.extend(seq)\n            break\n    count = list(enumerate(n))\n    for b in count:\n        d+=1\n        if b[1] == x:\n            return b[0]\n        elif d==len(count):\n            return d\n",
+  "n": 3
+ },
+ {
+  "id": "7",
+  "before": "def search(x, seq):\n    if seq == () or seq == []:\n        return 0\n    else:\n        count = 0\n        for i in range (0, len(seq)):\n            if seq[i] > x:\n                return i\n            elif seq[-1] < x:\n                return len(seq)\n",
+  "after": "def search(x, seq):\n    if seq == () or seq == []:\n        return 0\n    else:\n        count = 0\n        for i in range (0, len(seq)):\n            if seq[i] >= x:\n                return i\n            elif seq[-1] < x:\n                return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "8",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    for i in range(len(seq)):\n        if seq[i] < x:\n            return x\n    return len(seq)\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    for i in range(len(seq)):\n        if seq[i]>=x:\n            return i\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "9",
+  "before": "def search(x, seq):\n    counter=0\n    for i in seq:\n        if x<i:\n            counter+=1\n        else:\n            break\n    return counter\n",
+  "after": "def search(x, seq):\n    counter = 0\n    for elem in seq:\n        if x > elem:\n            counter += 1\n        else:\n            break\n    return counter\n",
+  "n": 1
+ },
+ {
+  "id": "10",
+  "before": "def search(x, seq):\n    if len(seq) == 0 or x < seq[0] :\n        return 0\n    elif x > seq[len(seq)-1]:\n        return len(seq)\n    else:\n        result = 0\n        for i, element in enumerate(seq):\n            if x < (element + 1):\n                result = i\n                return\n        return result\n",
+  "after": "def search(x, seq):\n    if len(seq) == 0 or x < seq[0] :\n        return 0\n    elif x > seq[len(seq)-1]:\n        return len(seq)\n    else:\n        result = 0\n        for i, element in enumerate(seq):\n            if x < (element + 1):\n                result = i\n                break\n        return result\n",
+  "n": 1
+ },
+ {
+  "id": "11",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return seq.index(seq[i])\n        elif seq[-1] <  x:\n            return seq.index(seq[-1])+1\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return seq.index(seq[i])\n        elif seq[-1] <  x:\n            return seq.index(seq[-1])+1\n    return 0\n\n",
+  "n": 3
+ },
+ {
+  "id": "12",
+  "before": "def search(x, seq):\n    if len(seq)==0:\n        pass\n    for i in range(len(seq)):\n        if x<=seq[i]:\n            return i\n    return i+1 \n    \n                \n        \n  \n",
+  "after": "def search(x, seq):\n    if len(seq)==0:\n        return 0\n    for i in range(len(seq)):\n        if x<=seq[i]:\n            return i\n    return i+1 \n    \n                \n        \n  \n",
+  "n": 1
+ },
+ {
+  "id": "13",
+  "before": "def search(x, seq):\n    if len(seq) == 0:\n        return 0\n    elif x <= seq[0]:\n        return 0\n    elif x >= seq[-1]:\n        return len(seq)\n    else:\n        for i in seq:\n            if x < i:\n                return seq.index(i)\n        return None\n",
+  "after": "def search(x, seq):\n    if len(seq) == 0:\n        return 0\n    elif x < seq[0]:\n        return 0\n    elif x > seq[-1]:\n        return len(seq)\n    else:\n        for i in seq:\n            if x <= i:\n                return seq.index(i)\n        return None\n",
+  "n": 2
+ },
+ {
+  "id": "14",
+  "before": "def search(x, seq):\n    if seq == [] or seq == ():\n        position = 0\n    if x <= seq[0]:\n        position = 0\n    if x >= seq[len(seq) - 1]:\n        position = len(seq)\n    for i in range(len(seq)):\n        if x <= seq[i] and x > seq[i-1]:\n            position = i\n    return position\n\n",
+  "after": "def search(x, seq):\n    if seq == [] or seq == ():\n        return  0\n    if x <= seq[0]:\n        position = 0\n    if x >= seq[len(seq) - 1]:\n        position = len(seq)\n    for i in range(len(seq)):\n        if x <= seq[i] and x > seq[i-1]:\n            position = i\n    return position\n\n",
+  "n": 2
+ },
+ {
+  "id": "15",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    i = 0\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    return i + 1\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    i = -1\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    return i + 1\n",
+  "n": 1
+ },
+ {
+  "id": "16",
+  "before": "def search(x, seq):\n    l=len(seq)\n    for i in range(l):\n        if x<=seq[i]:\n            break\n    return i\n",
+  "after": "def search(x, seq):\n    seq_len = len(seq)\n    for i in range(seq_len):\n        if x <= seq[i]: return i\n    return seq_len\n",
+  "n": 1
+ },
+ {
+  "id": "17",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    position = 0\n    found = False\n    \n    while position < len(seq) and not found:\n        if x < seq[position]:\n            found = True\n        else:\n            position += position\n    \n    return position\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    position = 0\n    found = False\n    \n    while position < len(seq) and not found:\n        if x <= seq[position]:\n            found = True\n        else:\n            position += 1\n    \n    return position\n",
+  "n": 1
+ },
+ {
+  "id": "18",
+  "before": "def search(x, seq):\n    n = len(seq)\n    for i in range(n):\n        next_element = seq[i]\n        if x > next_element:\n            return 0\n        else:\n            return i\n    return n        \n            \n",
+  "after": "def search(x, seq):\n    n = len(seq)\n    for i in range(n):\n        next_element = seq[i]\n        if x <= next_element:\n            return i\n    return n\n",
+  "n": 1
+ },
+ {
+  "id": "19",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    position = 0\n    found = False\n    \n    while position < len(seq) and not found:\n        if x > seq[position]:\n            found = True\n        else:\n            position += position\n    \n    return position\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    position = 0\n    found = False\n    \n    while position < len(seq) and not found:\n        if x <= seq[position]:\n            found = True\n        else:\n            position += 1\n    \n    return position\n",
+  "n": 1
+ },
+ {
+  "id": "20",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    return i + 1\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    return len(seq)\n",
+  "n": 10
+ },
+ {
+  "id": "21",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    enumerated_list =()\n    for i, elem in enumerate(seq):\n        enumerated_list = enumerated_list + ((i,elem),)\n\n    for number in enumerated_list:\n        if x <= number[1]:\n            res = number[0]\n            break\n        else:\n            res = len(seq)\n    return res\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    enumerated_list =()\n    res= 0\n    for i, elem in enumerate(seq):\n        enumerated_list = enumerated_list + ((i,elem),)\n\n    for number in enumerated_list:\n        if x <= number[1]:\n            res = number[0]\n            break\n        else:\n            res = len(seq)\n    return res\n",
+  "n": 5
+ },
+ {
+  "id": "22",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return seq.index(seq[i])\n        elif seq[-1] <  x:\n            return seq.index(seq[-1])+1\n        else:\n            return 0\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return seq.index(seq[i])\n        elif seq[-1] <  x:\n            return seq.index(seq[-1])+1\n    return 0\n\n",
+  "n": 1
+ },
+ {
+  "id": "23",
+  "before": "def search(x, seq):\n    count=0\n    while count<len(seq):\n        if x>seq[count]:\n            count+=1\n            continue\n        else:\n            return count-1\n    return len(seq)\n        \n",
+  "after": "def search(x, seq):\n    count=0\n    while count<len(seq):\n        if x>seq[count]:\n            count+=1\n            continue\n        else:\n            return count\n    return len(seq)\n        \n",
+  "n": 1
+ },
+ {
+  "id": "24",
+  "before": "def search(x, seq):\n    if seq == () :\n        return 0 \n    for i, elem in enumerate(seq) :\n        if x <= elem :\n            return i\n    return i + 1\n",
+  "after": "def search(x, seq):\n    if seq==[]:\n        return 0\n    for i,element in enumerate(seq): \n        if x<=element:\n            return i \n    return len(seq)\n",
+  "n": 7
+ },
+ {
+  "id": "25",
+  "before": "def search(x, seq):\n    if len(seq) == 0:\n        return 0\n    elif x >= seq[-1]:\n        return len(seq)\n    else:\n        for i, elem in enumerate(seq):\n            if elem >= x:\n                return i\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n",
+  "after": "def search(x, seq):\n    if len(seq) == 0:\n        return 0\n    elif x > seq[-1]:\n        return len(seq)\n    else:\n        for i, elem in enumerate(seq):\n            if x <= elem:\n                return i\n            else:\n                continue\n",
+  "n": 5
+ },
+ {
+  "id": "26",
+  "before": "def search(x, seq):\n    if seq == ():\n        return 0\n    if x <= seq[0]:\n        return 0\n    for i in range(len(seq)-1):\n        if seq[i] <= x <= seq[i+1]:\n            return i + 1\n    return len(seq)\n",
+  "after": "def search(x, seq):\n    if not seq:\n        return 0\n    if x <= seq[0]:\n        return 0\n    for i in range(len(seq)-1):\n        if seq[i] <= x <= seq[i+1]:\n            return i + 1\n    return len(seq)\n",
+  "n": 3
+ },
+ {
+  "id": "27",
+  "before": "def search(x, seq):\n    result = 0\n    for i in range(len(seq)):\n        if seq[i] > x:\n            result = i\n    return result\n",
+  "after": "def search(x, seq):\n    result=0\n    for i in range(len(seq)):\n        if seq[i]<x:\n            result+=1\n    return result\n",
+  "n": 2
+ },
+ {
+  "id": "28",
+  "before": "def search(x, seq):\n    if seq == tuple():\n        return 'empty'\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            return i\n    return i+1\n",
+  "after": "def search(x, seq):\n    if seq==[]:\n        return 0\n    for i,element in enumerate(seq): \n        if x<=element:\n            return i \n    return len(seq)\n",
+  "n": 2
+ },
+ {
+  "id": "29",
+  "before": "def search(x, seq):\n    if len(seq) == 0:\n        return 0\n    elif x >= seq[-1]:\n        return len(seq)\n    else:\n        for i, elem in enumerate(seq):\n            if elem > x:\n                return i\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n",
+  "after": "def search(x, seq):\n    if len(seq) == 0:\n        return 0\n    elif x > seq[-1]:\n        return len(seq)\n    else:\n        for i, elem in enumerate(seq):\n            if x <= elem:\n                return i\n            else:\n                continue\n",
+  "n": 1
+ },
+ {
+  "id": "30",
+  "before": "def search(x, seq):\n    for i in len(range(seq)):\n        if x <= i:\n            return i\n    return len(seq)\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    return len(seq) \n           \n",
+  "n": 1
+ },
+ {
+  "id": "31",
+  "before": "def search(x, seq):\n    count=0\n    while count<len(seq):\n        if x>seq[count]:\n            count+=1\n            continue\n        else:\n            return count-1\n            break\n    return len(seq)\n        \n",
+  "after": "def search(x, seq):\n    count=0\n    while count<len(seq):\n        if x>seq[count]:\n            count+=1\n            continue\n        else:\n            return count\n    return len(seq)\n        \n",
+  "n": 1
+ },
+ {
+  "id": "32",
+  "before": "def search(x, seq):\n    counter = 0\n    new_seq = list(seq)\n    if seq == ():\n        return (x,)\n    for element in seq:\n        if x <=element:\n            return counter\n        if x > seq[len(seq)-1]:\n            return len(seq) \n        else:\n            counter += 1\n            continue\n",
+  "after": "def search(x, seq):\n    counter = 0\n    new_seq = list(seq)\n    if new_seq == []:\n        return 0\n    for element in seq:\n        if x <=element:\n            return counter\n        if x > seq[len(seq)-1]:\n            return len(seq) \n        else:\n            counter += 1\n            continue\n",
+  "n": 1
+ },
+ {
+  "id": "33",
+  "before": "def search(x, seq):\n    #Takes in a value x and a sorted sequence seq, and returns the\n    #position that x should go to such that the sequence remains sorted \n    i = 0          \n    for x in seq:\n        if x < seq[i]:\n            return i\n        i+=1\n    return len(seq)\n    \n",
+  "after": "def search(x, seq):\n    num = 0\n    for i in seq:\n        if x <= seq[num]:\n            return num\n        num += 1\n    else:\n            return num\n",
+  "n": 1
+ },
+ {
+  "id": "34",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    for index, value in enumerate(seq):\n        if x <= value:\n            return index\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    for i,e in enumerate(seq):\n        if x <= e:\n            return i\n    return len(seq)\n",
+  "n": 9
+ },
+ {
+  "id": "35",
+  "before": "def search(x, seq):\n    if seq == ():\n        return 0\n    elif x < int(seq[0]):\n        return 0\n    elif x > int(seq[len(seq)-1]):\n        return len(seq)\n    else:\n        for i in range(len(seq)):\n            if x > seq[i] and x <= seq[i+1]:\n                return i+1\n",
+  "after": "def search(x, seq):\n    if len(seq) == 0:\n        return 0\n    elif x < int(seq[0]):\n        return 0\n    elif x > int(seq[len(seq)-1]):\n        return len(seq)\n    else:\n        for i in range(len(seq)):\n            if x > seq[i] and x <= seq[i+1]:\n                return i+1\n",
+  "n": 8
+ },
+ {
+  "id": "36",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n        else:\n            return len(seq) \n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    else:\n        return len(seq)\n",
+  "n": 7
+ },
+ {
+  "id": "37",
+  "before": "def search(x, seq):\n    if seq == () or []:\n        return 0\n    elif x > seq[-1]:\n        return len(seq)\n    else:\n        for num in range(len(seq)):\n            if x > seq[num]:\n                continue\n            elif x <= seq[num]:\n                return num \n    return 0\n",
+  "after": "def search(x, seq):\n    if seq == () or seq == []:\n        return 0\n    elif x > seq[-1]:\n        return len(seq)\n    else:\n        for num in range(len(seq)):\n            if x > seq[num]:\n                continue\n            elif x <= seq[num]:\n                return num \n    return 0\n",
+  "n": 4
+ },
+ {
+  "id": "38",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    if seq == []:\n        return 0\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            return i\n        if i == (len(seq)-1):\n            return len(seq)\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    if len(seq) == 0:\n        return 0\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            return i\n        if i == (len(seq)-1):\n            return len(seq)\n",
+  "n": 3
+ },
+ {
+  "id": "39",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    counter = 0\n    if len(seq) == 0:\n        return 0\n        \n    for i in seq:\n        if x < i:\n            counter += 1\n        else:\n            return counter\n            \n    return counter\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    counter = 0\n    if len(seq) == 0:\n        return 0\n\n    for i in seq:\n        if x <= i:\n            return counter\n        else:\n            counter += 1\n\n    return counter\n",
+  "n": 3
+ },
+ {
+  "id": "40",
+  "before": "def search(x, seq):\n    if type(seq) == tuple:\n        seq = list(seq)\n        seq.append(x)\n        sorted(seq)\n        return seq.index(x)\n        \n    elif type(seq) == list:\n        seq.append(x)\n        sorted(seq)\n        return seq.index(x)\n        \n",
+  "after": "def search(x, seq):\n    if type(seq) == tuple:\n        seq = list(seq)\n        seq.append(x)\n        a = sorted(seq)\n        return a.index(x)\n        \n    elif type(seq) == list:\n        seq.append(x)\n        a = sorted(seq)\n        return a.index(x)\n        \n",
+  "n": 2
+ },
+ {
+  "id": "41",
+  "before": "def search(x, seq):\n    result = 0\n    for i in range(len(seq)):\n        if seq[i] >= x:\n            result = i\n            break\n    return result\n",
+  "after": "def search(x, seq):\n    result=0\n    for i in range(len(seq)):\n        if seq[i]<x:\n            result+=1\n    return result\n",
+  "n": 1
+ },
+ {
+  "id": "42",
+  "before": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            return i\n        \n       \n            \n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n\n",
+  "after": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            return i\n\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "43",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    if seq==[] or x<=seq[0]:\n        return 0\n    elif x>seq[-1]:\n        return len(seq)\n    else:\n        for i,elem in enumerate(seq):\n            if x>elem and x<=seq[i+1]:\n                return i+1\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    if seq==() or seq==[] or x<=seq[0]:\n        return 0\n    elif x>seq[-1]:\n        return len(seq)\n    else:\n        for i,elem in enumerate(seq):\n            if x>elem and x<=seq[i+1]:\n                return i+1\n",
+  "n": 1
+ },
+ {
+  "id": "44",
+  "before": "def search(x, seq):\n    if seq==[]or():\n        return 0\n    for count, ele in enumerate(seq):\n        if x<=ele:\n            return count\n    for ele in seq:\n        if x>ele:\n            return len(seq)\n",
+  "after": "def search(x, seq):\n    if seq==[]or seq==():\n        return 0\n    for count, ele in enumerate(seq):\n        if x<=ele:\n            return count\n    for ele in seq:\n        if x>ele:\n            return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "45",
+  "before": "def search(x, seq):\n    #Takes in a value x and a sorted sequence seq, and returns the\n    #position that x should go to such that the sequence remains sorted \n            \n    for i, x in enumerate(seq):\n        if x < seq[i]:\n            return i\n    return len(seq)\n    \n",
+  "after": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            return i\n\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "46",
+  "before": "def search(x, seq):\n    seq = []\n    n = len(seq)\n    if seq: #if seq is not an empty list/tuple\n        for i in range(n):\n            next_element = seq[i]\n            if x <= next_element:\n                return i\n        return n  \n",
+  "after": "def search(x, seq):\n    n = len(seq)\n    if seq: #if seq is not an empty list/tuple\n        for i in range(n):\n            next_element = seq[i]\n            if x <= next_element:\n                return i\n        return n\n    else:\n        return 0\n",
+  "n": 1
+ },
+ {
+  "id": "47",
+  "before": "def search(x, seq):\n    if seq is ():\n        return 'not found'\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            return i\n    return i+1\n",
+  "after": "def search(x, seq):\n    if seq==[]:\n        return 0\n    for i,element in enumerate(seq): \n        if x<=element:\n            return i \n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "48",
+  "before": "def search(x, seq):\n    if seq==() or []:\n        return 0\n    for i in range(len(seq)):\n        if x<=seq[i]:break\n        if i==len(seq)-1: i+=1\n    return i\n",
+  "after": "def search(x, seq):\n    if len(seq)==0:\n        return 0\n    for i in range(len(seq)):\n        if x<=seq[i]:break\n        if i==len(seq)-1: i+=1\n    return i\n",
+  "n": 5
+ },
+ {
+  "id": "49",
+  "before": "def search(x,seq):\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            return i\n        else:\n            return len(seq)\n        \n",
+  "after": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            return i\n\n    return len(seq)\n",
+  "n": 4
+ },
+ {
+  "id": "50",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if seq[i] >= x:\n            return i\n        return len(seq)\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    else:\n        return len(seq)\n",
+  "n": 3
+ },
+ {
+  "id": "51",
+  "before": "def search(x, seq):\n    if x <= seq[0]:\n        return 0\n    for i in range(len(seq)-1):\n        if seq[i] <= x <= seq[i+1]:\n            return i + 1\n    return len(seq)\n",
+  "after": "def search(x, seq):\n    if not seq:\n        return 0\n    if x <= seq[0]:\n        return 0\n    for i in range(len(seq)-1):\n        if seq[i] <= x <= seq[i+1]:\n            return i + 1\n    return len(seq)\n",
+  "n": 3
+ },
+ {
+  "id": "52",
+  "before": "def search(x, seq):\n\n\n    for i,elem in enumerate(sort):\n\n        if elem==x:\n\n            return i\n",
+  "after": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            return i\n\n    return len(seq)\n",
+  "n": 2
+ },
+ {
+  "id": "53",
+  "before": "def search(x, seq):\n    if seq == () and []:\n        return 0\n    else:\n        for i, element in enumerate(seq):\n            for element in seq:\n                if x > element:\n                    i+=1\n            return i\n",
+  "after": "def search(x, seq):\n    if len(seq) == 0:\n        return 0\n    else:\n        for i, element in enumerate(seq):\n            for element in seq:\n                if x > element:\n                    i+=1\n            return i\n",
+  "n": 1
+ },
+ {
+  "id": "54",
+  "before": "def search(x, seq):\n    if seq == [] or ():\n        return 0\n    else:\n        for i, element in enumerate(seq):\n            for element in seq:\n                if x > element:\n                    i+=1\n            return i\n",
+  "after": "def search(x, seq):\n    if len(seq) == 0:\n        return 0\n    else:\n        for i, element in enumerate(seq):\n            for element in seq:\n                if x > element:\n                    i+=1\n            return i\n",
+  "n": 1
+ },
+ {
+  "id": "55",
+  "before": "def search(x, seq):\n    l=len(seq)\n    for i in range(l+1):\n        if x<=seq[i]:\n            break\n    return i\n",
+  "after": "def search(x, seq):\n    seq_len = len(seq)\n    for i in range(seq_len):\n        if x <= seq[i]: return i\n    return seq_len\n",
+  "n": 1
+ },
+ {
+  "id": "56",
+  "before": "def search(x, seq):\n    for i in len(range(seq)):\n        if x>seq[i]:\n            return i\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    return len(seq) \n           \n",
+  "n": 1
+ },
+ {
+  "id": "57",
+  "before": "def search(x, seq):\n    for i,elem in enumerate(seq):\n        if x > elem:\n            continue\n        return i\n    return i+1\n",
+  "after": "def search(x, seq):\n    for i, elem in enumerate((seq)):\n        if x > elem:\n            continue\n        else:\n            return i\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "58",
+  "before": "def search(x, seq):\n    #Takes in a value x and a sorted sequence seq, and returns the\n    #position that x should go to such that the sequence remains sorted \n            \n    for i, x in enumerate(seq):\n        if x < seq[i]:\n            return i\n    return i\n",
+  "after": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            return i\n\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "59",
+  "before": "def search(x, seq):\n    t = 0\n    for i in seq:\n        if x >= i:\n            return t\n        t += 1\n    return len(seq)-1\n    \n    \n",
+  "after": "def search(x, seq):\n    #Takes in a value x and a sorted sequence seq, and returns the\n    #position that x should go to such that the sequence remains sorted \n    i =0       \n    for p in seq:\n        if x <= p:\n            return i\n        i += 1\n    return len(seq)\n    \n",
+  "n": 1
+ },
+ {
+  "id": "60",
+  "before": "def search(x, seq):\n    for i in range(len(seq)-1):\n        if seq[i] >= x:\n            return i\n    return len(seq)\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if seq[i] >= x:\n            return i\n    return len(seq)\n",
+  "n": 7
+ },
+ {
+  "id": "61",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if x<=seq[i]:\n            break\n    return i\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    return len(seq) \n           \n",
+  "n": 3
+ },
+ {
+  "id": "62",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if x < len[i]:\n            continue\n        else:\n            return i\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    return len(seq) \n           \n",
+  "n": 2
+ },
+ {
+  "id": "63",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    if seq == () or x <= seq[0] or seq == []:\n        return 0\n    elif x > seq[-1]:\n        return len(seq)\n    else:\n        for i,j in enumerate(seq[:len(seq)-1]):\n            if x > j and x <= seq[i+1]:\n                return i+1\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    if seq == () or seq == [] or x <= seq[0]:\n        return 0\n    elif x > seq[-1]:\n        return len(seq)\n    else:\n        for i,j in enumerate(seq[:len(seq)-1]):\n            if x > j and x <= seq[i+1]:\n                return i+1\n",
+  "n": 2
+ },
+ {
+  "id": "64",
+  "before": "def search(x, seq):\n    if seq == ():\n        return -1\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            return i\n    return i+1\n",
+  "after": "def search(x, seq):\n    if seq==[]:\n        return 0\n    for i,element in enumerate(seq): \n        if x<=element:\n            return i \n    return len(seq)\n",
+  "n": 2
+ },
+ {
+  "id": "65",
+  "before": "def search(x, seq):\n    if len(seq) == 0:\n        return 0\n    elif x >= seq[-1]:\n        return len(seq)\n    else:\n        for i, elem in enumerate(seq):\n            if x <= elem:\n                return i-1\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n",
+  "after": "def search(x, seq):\n    if len(seq) == 0:\n        return 0\n    elif x > seq[-1]:\n        return len(seq)\n    else:\n        for i, elem in enumerate(seq):\n            if x <= elem:\n                return i\n            else:\n                continue\n",
+  "n": 1
+ },
+ {
+  "id": "66",
+  "before": "def search(x, seq):\n    n=[]\n    seq = list(seq)\n    a= seq.copy()\n    d = 0\n    if seq == () or []:\n        return 0 \n    for i in a:\n        if i<x:\n            n.append(i)\n            seq.remove(i)\n        elif i == x:\n            n.append(i)\n            n.append(x)\n            n.extend(seq)\n            break\n        else:\n            n.append(x)\n            n.extend(seq)\n            break\n    count = list(enumerate(n))\n    for b in count:\n        d+=1\n        if b[1] == x:\n            return b[0]\n        elif d==len(count):\n            return d\n",
+  "after": "def search(x, seq):\n    n=[]\n    seq = list(seq)\n    a= seq.copy()\n    d = 0        \n    if seq == []:\n        return 0\n    for i in a:\n        if i<x:\n            n.append(i)\n            seq.remove(i)\n        elif i == x:\n            n.append(i)\n            n.append(x)\n            n.extend(seq)\n            break\n        else:\n            n.append(x)\n            n.extend(seq)\n            break\n    count = list(enumerate(n))\n    for b in count:\n        d+=1\n        if b[1] == x:\n            return b[0]\n        elif d==len(count):\n            return d\n",
+  "n": 1
+ },
+ {
+  "id": "67",
+  "before": "def search(x, seq):\n    result = None\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            result = i\n            break\n            \n        else:\n            result = len(seq)\n    return result\n        \n",
+  "after": "def search(x, seq):\n    position = 0\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            position = i\n            return position\n        else:\n            position = i + 1\n    return position\n",
+  "n": 1
+ },
+ {
+  "id": "68",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if seq[i] < x:\n            continue\n        else:\n            return i\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if seq[i] >= x:\n            return i\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "69",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if x < seq[i]:\n            continue\n            \n        return i\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    return len(seq) \n           \n",
+  "n": 1
+ },
+ {
+  "id": "70",
+  "before": "def search(x, seq):\n    if seq == ():\n        return (x,)\n    elif seq == []:\n        return [x,]\n    else:\n        for i,elem in enumerate(seq):\n            if x < seq[-1]:\n                if x > elem:\n                    continue\n                elif x < elem and type(seq) == tuple:\n                    seq = seq[:i] + (x,) + seq[i:]\n                elif x < elem and type(seq) == list:\n                    seq = seq[:i] + [x,] + seq[i:]\n            elif x > seq[-1]:\n                if type(seq) == tuple:\n                    seq += (x,)\n                elif type(seq) == list:\n                    seq += [x,]\n        return seq.index(x)\n",
+  "after": "def search(x, seq):\n    if seq == ():\n        return 0\n    elif seq == []:\n        return 0\n    else:\n        for i,elem in enumerate(seq):\n            if x < seq[-1]:\n                if x > elem:\n                    continue\n                elif x < elem and type(seq) == tuple:\n                    seq = seq[:i] + (x,) + seq[i:]\n                elif x < elem and type(seq) == list:\n                    seq = seq[:i] + [x,] + seq[i:]\n            elif x > seq[-1]:\n                if type(seq) == tuple:\n                    seq += (x,)\n                elif type(seq) == list:\n                    seq += [x,]\n        return seq.index(x)\n",
+  "n": 1
+ },
+ {
+  "id": "71",
+  "before": "def search(x, seq):\n    if seq == ():\n        return 0\n    for i, elem in enumerate(seq):\n        if x == elem:\n            return i\n        elif x < elem:\n            return i\n        elif x > seq[-1]:\n            return len(seq)\n",
+  "after": "def search(x, seq):\n    if seq == ():\n        return 0\n    elif seq == []:\n        return 0\n    for i, elem in enumerate(seq):\n        if x == elem:\n            return i\n        elif x < elem:\n            return i\n        elif x > seq[-1]:\n            return len(seq)\n",
+  "n": 6
+ },
+ {
+  "id": "72",
+  "before": "def search(x, seq):\n    for i in len(seq):\n        if x <= seq[i]:\n            return i\n    return len(seq)+1\n    #\"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    #position that x should go to such that the sequence remains sorted \"\"\"\n   \n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    else:\n        return len(seq)\n",
+  "n": 3
+ },
+ {
+  "id": "73",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if seq[i] >= x:\n            return i\n        else:\n            return len(seq)\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if seq[i] >= x:\n            return i\n    return len(seq)\n",
+  "n": 3
+ },
+ {
+  "id": "74",
+  "before": "def search(x, seq):\n    if list(seq) == ():\n        return 0\n    else:\n        for element in seq:\n            if x <= element:\n                return list(seq).index(element)\n            elif x >= max(seq):\n                return (list(seq).index(max(seq)))+1\n        \n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    return\ndef search(x, seq):\n    if list(seq) == []:\n        return 0\n    else:\n        for element in seq:\n            if x <= element:\n                return list(seq).index(element)\n            elif x > max(seq):\n                return (list(seq).index(max(seq)))+1\n",
+  "n": 2
+ },
+ {
+  "id": "75",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if x >= seq[i]:\n            break\n        else:\n            continue\n    return i\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    return len(seq) \n           \n",
+  "n": 1
+ },
+ {
+  "id": "76",
+  "before": "def search(x, seq):\n        if x < seq[0]:\n            indx = 0\n        elif x > seq[-1]:\n            indx = seq.index(seq[-1]) + 1\n        else:\n            for i in seq:\n                if x <= i:\n                    indx = (seq.index(i))\n                    break                    \n        return indx\n",
+  "after": "def search(x, seq):\n    if not seq:\n        return 0\n    else:\n        if x < seq[0]:\n            indx = 0\n        elif x > seq[-1]:\n            indx = seq.index(seq[-1]) + 1\n        else:\n            for i in seq:\n                if x <= i:\n                    indx = (seq.index(i))\n                    break                    \n        return indx\n",
+  "n": 1
+ },
+ {
+  "id": "77",
+  "before": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if elem <= x <= elem + 1:\n            return i \n",
+  "after": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            return i\n\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "78",
+  "before": "def search(x, seq):\n    for i in range(len(seq)-1):\n        if x <= seq[i]:\n            return i\n        else:\n            return len(seq)\n    \n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    else:\n        return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "79",
+  "before": "def search(x, seq):\n    for i in range (len(seq)):\n        if x < seq[i]:\n            return i\n        elif x ==seq[i]:\n            return i\n        else:\n            continue\n    return i + 1\n",
+  "after": "def search(x, seq):\n    for k in range(len(seq)): \n        if x <= seq[k]:\n            return k\n        elif x > seq[k]:\n            continue\n    return len(seq)  # if bigger than the last element \n",
+  "n": 1
+ },
+ {
+  "id": "80",
+  "before": "def search(x, seq):\n    if x < seq[0]:\n        return 0\n    elif x > seq[-1]:\n        return len(seq)\n    for i, elem in enumerate(seq):\n            if elem <= x:\n                return i \n",
+  "after": "def search(x, seq):\n    if not seq:\n        return 0\n    elif x> seq[-1]:\n        return len(seq)\n    for i, elem in enumerate(seq):\n        if x<=elem:\n            break\n    return i\n",
+  "n": 7
+ },
+ {
+  "id": "81",
+  "before": "def search(x, seq):\n    if list(seq) == []:\n        return 0\n    else:\n        for element in seq:\n            if x <= element:\n                return list(seq).index(element)\n            elif x == element:\n                return list(seq).index(element)\n            elif x >= max(seq):\n                return (list(seq).index(max(seq)))+1\n        \n",
+  "after": "def search(x, seq):\n    if list(seq) == []:\n        return 0\n    else:\n        for element in seq:\n            if x <= element:\n                return list(seq).index(element)\n            elif x == max(seq):\n                return list(seq).index(max(seq))\n            elif x >= max(seq):\n                return (list(seq).index(max(seq)))+1\n        \n",
+  "n": 2
+ },
+ {
+  "id": "82",
+  "before": "def search(x, seq):\n    if len(seq) == 0:\n        indx = 0\n    else:\n        if x < seq[0]:\n            indx = 0\n        elif x > seq[-1]:\n            indx = seq.index(seq[-1]) + 1\n        else:\n            for i in seq:\n                if x <= i:\n                    indx = (seq.index(i))\n                    break                    \n        return indx\n",
+  "after": "def search(x, seq):\n    if not seq:\n        return 0\n    else:\n        if x < seq[0]:\n            indx = 0\n        elif x > seq[-1]:\n            indx = seq.index(seq[-1]) + 1\n        else:\n            for i in seq:\n                if x <= i:\n                    indx = (seq.index(i))\n                    break                    \n        return indx\n",
+  "n": 2
+ },
+ {
+  "id": "83",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    return\ndef search(x, seq):\n    if list(seq) == []:\n        return 0\n    else:\n        for element in seq:\n            if x <= element:\n                return list(seq).index(element)\n            elif x >= max(seq):\n                return (list(seq).index(max(seq)))\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    return\ndef search(x, seq):\n    if list(seq) == []:\n        return 0\n    else:\n        for element in seq:\n            if x <= element:\n                return list(seq).index(element)\n            elif x > max(seq):\n                return (list(seq).index(max(seq)))+1\n",
+  "n": 1
+ },
+ {
+  "id": "84",
+  "before": "def search(x,seq):\n    for i in range(len(seq)):\n        if x > seq[i]:\n            continue\n        elif x <= seq[i]:\n            break\n    return i\n",
+  "after": "def search(x, seq):\n    value = 0\n    for i in range(0, len(seq)):\n        if (x > seq[i]):\n            value += 1\n        elif (x <= seq[i]):\n            break\n    return value\n",
+  "n": 1
+ },
+ {
+  "id": "85",
+  "before": "def search(x, seq):\n    for i in seq:\n        if x<i:\n            return i\n    return len(seq)\n",
+  "after": "def search(x, seq):\n    #Takes in a value x and a sorted sequence seq, and returns the\n    #position that x should go to such that the sequence remains sorted \n    i =0       \n    for p in seq:\n        if x <= p:\n            return i\n        i += 1\n    return len(seq)\n    \n",
+  "n": 1
+ },
+ {
+  "id": "86",
+  "before": "def search(x, seq):\n\n    for i in seq:\n\n        if seq == () or seq == []:\n\n            return 0\n\n        elif x <= i:\n\n            return seq.index(i)\n\n        elif x > seq[-1]:\n\n            return (seq.index(seq[-1])) + 1\n",
+  "after": "def search(x, seq):\n    if seq == () or seq == []:\n            return 0\n    for i in seq:\n        if x <= i:\n            return seq.index(i)\n        elif x > seq[-1]:\n            return (seq.index(seq[-1])) + 1\n",
+  "n": 1
+ },
+ {
+  "id": "87",
+  "before": "def search(x, seq):\n    #Takes in a value x and a sorted sequence seq, and returns the\n    #position that x should go to such that the sequence remains sorted \n            \n    for i, x in seq:\n        if x < seq[i]:\n            return i\n    return len(seq)\n    \n",
+  "after": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            return i\n\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "88",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        pos = len(seq)\n        if x <= seq[i]:\n            pos = i\n            break\n    return pos\n\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x<=seq[i]:\n            return i\n            break\n        else:\n            continue\n        \n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "89",
+  "before": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if elem < x < elem + 1:\n            return i \n",
+  "after": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            return i\n\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "90",
+  "before": "def search(x, seq):\n    for i in range(len(seq)-1):\n        if x > seq[i]:\n            continue\n        else:\n            return i\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    else:\n        return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "91",
+  "before": "def search(x, seq):\n    if x < int(seq[0]):\n        return 0\n    elif x > int(seq[len(seq)-1]):\n        return len(seq)\n    else:\n        for i in range(len(seq)):\n            if x > seq[i] and x <= seq[i+1]:\n                return i+1\n",
+  "after": "def search(x, seq):\n    if len(seq) == 0:\n        return 0\n    elif x < int(seq[0]):\n        return 0\n    elif x > int(seq[len(seq)-1]):\n        return len(seq)\n    else:\n        for i in range(len(seq)):\n            if x > seq[i] and x <= seq[i+1]:\n                return i+1\n",
+  "n": 16
+ },
+ {
+  "id": "92",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    for i in seq:\n        if x < seq[i]:\n            return i\n    \n    \n",
+  "after": "def search(x, seq):\n    counter=0\n    for i in seq:\n        if x<= i:\n            return counter\n        counter+=1\n    return counter\n",
+  "n": 2
+ },
+ {
+  "id": "93",
+  "before": "def search(x, seq):\n    for i in range(seq):\n        if x <= seq[i]:\n            return i\n        else:\n            continue\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    return len(seq) \n           \n",
+  "n": 2
+ },
+ {
+  "id": "94",
+  "before": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            return i\n        elif x > max(seq):\n            return len(seq)\n        \n        \n       \n            \n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n\n",
+  "after": "def search(x, seq):\n    for i,elem in enumerate(seq):\n        if elem == x:\n            return i \n        elif elem > x:\n            return i\n    return len(seq)\n",
+  "n": 2
+ },
+ {
+  "id": "95",
+  "before": "def search(x, seq):\n    count==0\n    while count<len(seq):\n        if seq[count]<x:\n            count+=1\n    return count\n            \n            \n\n",
+  "after": "def search(x, seq):\n    result=0\n    for i in range(len(seq)):\n        if seq[i]<x:\n            result+=1\n    return result\n",
+  "n": 1
+ },
+ {
+  "id": "96",
+  "before": "def search(x, seq):\n    for i in range(seq):\n        if x<=seq[i]:\n            break\n    return i\n",
+  "after": "def search(x, seq):\n    seq_len = len(seq)\n    for i in range(seq_len):\n        if x <= seq[i]: return i\n    return seq_len\n",
+  "n": 1
+ },
+ {
+  "id": "97",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if x < seq[i]:\n            continue\n        elif x >= seq[i]:\n            break\n    return i\n",
+  "after": "def search(x, seq):\n    for k in range(len(seq)): \n        if x <= seq[k]:\n            return k\n        elif x > seq[k]:\n            continue\n    return len(seq)  # if bigger than the last element \n",
+  "n": 1
+ },
+ {
+  "id": "98",
+  "before": "def search(x, seq):\n    if seq == () or []:\n        indx = 0\n    else:\n        if x < seq[0]:\n            indx = 0\n        elif x > seq[-1]:\n            indx = seq.index(seq[-1]) + 1\n        else:\n            for i in seq:\n                if x <= i:\n                    indx = (seq.index(i))\n                    break                    \n        return indx\n",
+  "after": "def search(x, seq):\n    if not seq:\n        return 0\n    else:\n        if x < seq[0]:\n            indx = 0\n        elif x > seq[-1]:\n            indx = seq.index(seq[-1]) + 1\n        else:\n            for i in seq:\n                if x <= i:\n                    indx = (seq.index(i))\n                    break                    \n        return indx\n",
+  "n": 1
+ },
+ {
+  "id": "99",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if seq[i] >= x:\n            return i-1\n        else:\n            return len(seq)\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if seq[i] >= x:\n            return i\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "100",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if x < seq[i]:\n            return i\n        elif seq[i] == seq[-1] and seq[i]<x:\n            return i+1\n        elif seq[i]<x<=seq[i+1]:\n            return i+1    \n        \n",
+  "after": "def search(x, seq):\n    if len(seq) == 0:\n        return False\n    else:     \n        for i in range(len(seq)):\n            if x < seq[i]:\n                return i\n            elif seq[i] == seq[-1] and seq[i]<x:\n                return i+1\n            elif seq[i]<x<=seq[i+1]:\n                return i+1    \n        \n",
+  "n": 8
+ },
+ {
+  "id": "101",
+  "before": "def search(x, seq):\n    if seq == []:\n        return 0\n    elif x >= seq[-1]:\n        return len(seq)\n    else:\n        for i, elem in enumerate(seq):\n            if elem >= x:\n                return i\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    return\n",
+  "after": "def search(x, seq):\n    if len(seq) == 0:\n        return 0\n    elif x > seq[-1]:\n        return len(seq)\n    else:\n        for i, elem in enumerate(seq):\n            if x <= elem:\n                return i\n            else:\n                continue\n",
+  "n": 1
+ },
+ {
+  "id": "102",
+  "before": "def search(x, seq):\n    for i, element in enumerate(seq):\n        for element in seq:\n            if x > element:\n                i+=1\n        return i\n",
+  "after": "def search(x, seq):\n    y = 0\n    for z in seq:\n        if x > z:\n            y += 1\n    return y\n\n  \n            \n\n",
+  "n": 1
+ },
+ {
+  "id": "103",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if seq[i] > x:\n            seq.insert(x, i)\n    return seq\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    return\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if seq[i] >= x:\n            return i\n    return len(seq)\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n",
+  "n": 1
+ },
+ {
+  "id": "104",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if not seq:\n            return 0\n        elif x<=seq[i]:\n            return i\n    return i+1\n",
+  "after": "def search(x, seq):\n    seq_len = len(seq)\n    for i in range(seq_len):\n        if x <= seq[i]: return i\n    return seq_len\n",
+  "n": 1
+ },
+ {
+  "id": "105",
+  "before": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            return i\n        elif x > max(seq):\n            return i+1\n        \n        \n       \n            \n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n\n",
+  "after": "def search(x, seq):\n    for i,elem in enumerate(seq):\n        if elem == x:\n            return i \n        elif elem > x:\n            return i\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "106",
+  "before": "def search(x, seq):\n    count==0\n    while count<len(seq):\n        if x>seq[count]:\n            count+=1\n            continue\n        else:\n            return count-1\n            break\n    return len(seq)\n        \n",
+  "after": "def search(x, seq):\n    count=0\n    while count<len(seq):\n        if x>seq[count]:\n            count+=1\n            continue\n        else:\n            return count\n    return len(seq)\n        \n",
+  "n": 1
+ },
+ {
+  "id": "107",
+  "before": "def search(x, seq):\n    if seq == () or seq == []:\n        return 0\n    else:\n        for i in range(len(seq)):\n            if x <= seq[i]:\n                return i\n            elif x >= max(seq):\n                return len(seq) \n            else:\n                continue \n\n",
+  "after": "def search(x, seq):\n    if seq == () or seq == []:\n        return 0\n    else:\n        for i in range (len(seq)):\n            if x < seq[i]:\n                return i\n            elif x ==seq[i]:\n                return i\n            else:\n                continue\n    return i + 1\n",
+  "n": 1
+ },
+ {
+  "id": "108",
+  "before": "def search(x, seq):\n    for i in range(0, len(seq)):\n        no = len(seq)\n        if x > seq[i]:\n            continue\n        elif x <= seq[i]:\n            no = i\n            break\n    return no\n",
+  "after": "def search(x, seq):\n    if len(seq) == 0:\n        return 0\n    else:\n        for i in range(0, len(seq)):\n            no = len(seq)\n            if x > seq[i]:\n                continue\n            elif x <= seq[i]:\n                no = i\n                break\n        return no\n",
+  "n": 3
+ },
+ {
+  "id": "109",
+  "before": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            return i\n        elif x > seq[-1]:\n            return len(seq)\n",
+  "after": "def search(x, seq):\n    for i,elem in enumerate(seq):\n        if elem == x:\n            return i \n        elif elem > x:\n            return i\n    return len(seq)\n",
+  "n": 3
+ },
+ {
+  "id": "110",
+  "before": "def search(x, seq):\n    if seq:\n        for i in range(len(seq)):\n            pos = len(seq)\n            if x <= seq[i]:\n                pos = i\n                break\n        return pos\n    else:\n        return seq\n",
+  "after": "def search(x, seq):\n    if seq:\n        for i in range(len(seq)):\n            if x <= seq[i]:\n                return i\n        return len(seq)\n    else:\n        return 0\n   \n\n\n",
+  "n": 2
+ },
+ {
+  "id": "111",
+  "before": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if elem <= x <= elem + 1:\n            return i + 1\n",
+  "after": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            return i\n\n    return len(seq)\n",
+  "n": 2
+ },
+ {
+  "id": "112",
+  "before": "def search(x, seq):\n    if seq == [] or ():\n        return 0\n    elif x >= seq[-1]:\n        return len(seq)\n    else:\n        for i, elem in enumerate(seq):\n            if elem >= x:\n                return i\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    return\n",
+  "after": "def search(x, seq):\n    if len(seq) == 0:\n        return 0\n    elif x > seq[-1]:\n        return len(seq)\n    else:\n        for i, elem in enumerate(seq):\n            if x <= elem:\n                return i\n            else:\n                continue\n",
+  "n": 1
+ },
+ {
+  "id": "113",
+  "before": "def search(x, seq):\n    for item in seq:\n        if x < item:\n            return index(item)\n",
+  "after": "def search(x,seq):\n    counter = 0\n    for i in seq:\n        if i < x:\n            counter = counter + 1\n    return counter\n",
+  "n": 1
+ },
+ {
+  "id": "114",
+  "before": "def search(x, seq):\n    for i in seq:\n        if x>i:\n            continue\n    return seq.index(i)-1\n            \n\n",
+  "after": "def search(x, seq):\n##    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n##    position that x should go to such that the sequence remains sorted \"\"\"\n    n = 0\n    for num in seq:\n        if x>num:\n            n +=1\n        else:\n            return n\n    return n\n",
+  "n": 1
+ },
+ {
+  "id": "115",
+  "before": "def search(x, seq):\n    for a,b in enumerate(seq):\n        if x<=b:\n            return a\n    for i in seq:\n        if x>i:\n            return a+1\n",
+  "after": "def search(x, seq):\n    position = 0\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            position = i\n            return position\n        else:\n            position = i + 1\n    return position\n",
+  "n": 1
+ },
+ {
+  "id": "116",
+  "before": "def search(x, seq):\n    if len(seq) == 0:\n        return 0\n    if x <= seq[0]:\n        return 0\n    elif x >= seq[-1]:\n        return len(seq)\n    else:\n        for i in range(0, len(seq)-1):\n            if seq[i] <= x <= seq[i+1]:\n                return i+1\n",
+  "after": "def search(x, seq):\n    if len(seq)==0:\n        return 0\n    else:\n        if x <= seq[0]:\n            return 0\n        elif x > seq[-1]:\n            return len(seq)\n        else:\n            for i in range(0, len(seq)-1):\n                if seq[i] <= x <= seq[i+1]:\n                    return i+1\n",
+  "n": 1
+ },
+ {
+  "id": "117",
+  "before": "def search(x, seq):\n    if seq == () or []:\n        return 0\n    for c,value in enumerate(seq):\n        if value>=x:\n            return(c)\n    else:\n        return(c+1)\n",
+  "after": "def search(x, seq):\n    if seq == () or seq == [] :\n        return 0 \n    for i, elem in enumerate(seq) :\n        if x <= elem :\n            return i\n    return i + 1\n",
+  "n": 1
+ },
+ {
+  "id": "118",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if len(seq)==0:\n            return 0\n        elif x<=seq[i]:\n            return i\n    return i+1\n",
+  "after": "def search(x, seq):\n    if not seq:\n        return 0\n    else:\n        for i in range(len(seq)):\n            if x<=seq[i]:\n                return i\n    return i+1\n",
+  "n": 1
+ },
+ {
+  "id": "119",
+  "before": "\ndef search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n        elif x >= max(seq):\n            return len(seq) \n        else:\n            continue \n",
+  "after": "def search(x, seq):\n    for k in range(len(seq)): \n        if x <= seq[k]:\n            return k\n        elif x > seq[k]:\n            continue\n    return len(seq)  # if bigger than the last element \n",
+  "n": 1
+ },
+ {
+  "id": "120",
+  "before": "def search(x, seq):\n    count=0\n    while count<len(seq):\n        if x>seq[count]:\n            count+=1\n            continue\n        else:\n            if count!=0:\n                return count-1\n            else:\n                return 0\n    return len(seq)\n        \n",
+  "after": "def search(x, seq):\n    count=0\n    while count<len(seq):\n        if x>seq[count]:\n            count+=1\n            continue\n        else:\n            return count\n    return len(seq)\n        \n",
+  "n": 1
+ },
+ {
+  "id": "121",
+  "before": "def search(x, seq):\n    if seq == ():\n        return 0\n    else:\n        for i in range (len(seq)):\n            if x < seq[i]:\n                return i\n            elif x ==seq[i]:\n                return i\n            else:\n                continue\n    return i + 1\n",
+  "after": "def search(x, seq):\n    if seq == () or seq == []:\n        return 0\n    else:\n        for i in range (len(seq)):\n            if x < seq[i]:\n                return i\n            elif x ==seq[i]:\n                return i\n            else:\n                continue\n    return i + 1\n",
+  "n": 10
+ },
+ {
+  "id": "122",
+  "before": "def search(x, seq):\n    if seq == ():\n        return 0\n    elif x < seq[0]:\n        return 0\n    elif x > seq[-1]:\n        return len(seq)\n    else:\n        seq_enum = [i for i in enumerate(seq)]\n        for j in range(len(seq_enum) - 1):\n            if x >= seq_enum[j][1] and x <= seq_enum[j+1][1]:\n                return j+1\n",
+  "after": "def search(x, seq):\n    if seq == () or seq == []:\n        return 0\n    elif x < seq[0]:\n        return 0\n    elif x > seq[-1]:\n        return len(seq)\n    else:\n        seq_enum = [i for i in enumerate(seq)]\n        for j in range(len(seq_enum) - 1):\n            if x >= seq_enum[j][1] and x <= seq_enum[j+1][1]:\n                return j+1\n",
+  "n": 6
+ },
+ {
+  "id": "123",
+  "before": "def search(x,seq):\n\n    if max(seq) < x:\n\n        return len(seq)\n\n    if x <= min(seq):\n\n        return 0\n\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    else:\n        return len(seq)\n",
+  "n": 4
+ },
+ {
+  "id": "124",
+  "before": "def search(x, seq):\n    for i,elem in enumerate(seq):\n        if elem<x:\n            pos=i+1\n        elif elem>x:\n            pos=i\n    return pos\n",
+  "after": "def search(x, seq):\n    for i,elem in enumerate(seq):\n        if elem == x:\n            return i \n        elif elem > x:\n            return i\n    return len(seq)\n",
+  "n": 4
+ },
+ {
+  "id": "125",
+  "before": "def search(x, seq):\n    if seq == ():\n        return None\n    else:\n        for element in seq:\n            if x <= element:\n                return list(seq).index(element)\n            elif x >= max(seq):\n                return (list(seq).index(max(seq)))+1\n        \n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    return\ndef search(x, seq):\n    if list(seq) == []:\n        return 0\n    else:\n        for element in seq:\n            if x <= element:\n                return list(seq).index(element)\n            elif x > max(seq):\n                return (list(seq).index(max(seq)))+1\n",
+  "n": 3
+ },
+ {
+  "id": "126",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    seq = tuple(seq)\n    if x == () or x == []:\n        return None\n    elif x > seq[len(seq)-1]:\n        return len(seq)\n    else:\n        i = 0\n        while i <= len(seq)-1:\n            if x <= seq[i]:\n                return i\n            elif x > seq[i]:\n                i += 1\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    seq = tuple(seq)\n    if seq == ():\n        return 0\n    elif x > seq[len(seq)-1]:\n        return len(seq)\n    else:\n        i = 0\n        while i <= len(seq)-1:\n            if x <= seq[i]:\n                return i\n            elif x > seq[i]:\n                i += 1\n",
+  "n": 2
+ },
+ {
+  "id": "127",
+  "before": "def search2(x,seq):\n    for i,elem in enumerate(seq):\n        counter = 0\n        if x<= elem:\n            counter = i\n        else:\n            counter = len(seq)\n    return counter\n        \n",
+  "after": "def search(x, seq):\n    position = 0\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            position = i\n            return position\n        else:\n            position = i + 1\n    return position\n",
+  "n": 2
+ },
+ {
+  "id": "128",
+  "before": "def search(x, seq):\n    if x <= elem:\n        return i\n    return i + 1\n",
+  "after": "def search(x, seq):\n    count=0\n    for i in seq:\n        if x<=i:\n            return count\n        else:\n            count+=1\n    return count\n",
+  "n": 1
+ },
+ {
+  "id": "129",
+  "before": "def search(x, seq):\n    for i in range(len(seq)-1):\n        if x <= seq[i+1]:\n            break\n    return i\n",
+  "after": "def search(x, seq):\n    counter=0\n    for i in seq:\n        if x<=i:\n            return counter\n        else:\n            counter=counter+1\n    return counter\n",
+  "n": 1
+ },
+ {
+  "id": "130",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if x < seq[i]:\n            continue\n        elif x >= seq[i]:\n            return i\n",
+  "after": "def search(x, seq):\n    for k in range(len(seq)): \n        if x <= seq[k]:\n            return k\n        elif x > seq[k]:\n            continue\n    return len(seq)  # if bigger than the last element \n",
+  "n": 1
+ },
+ {
+  "id": "131",
+  "before": "def search(x, seq):\n    for i in range(0,len(seq)):\n        if x<seq[i]:\n            return i\n            break\n        elif x==seq[i]:\n            return i\n            break\n        elif x>seq[len(seq)-1]:\n            return len(seq)\n            break\n",
+  "after": "def search(x, seq):\n    if len(seq)==0:\n        return 0\n    for i in range(0,len(seq)):\n        if x<seq[i]:\n            return i\n        elif x==seq[i]:\n            return i\n        elif x>seq[len(seq)-1]:\n            return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "132",
+  "before": "def search(x, seq):\n    i = 0\n    while (i<len(seq) and x<seq[i]):\n        i += 1\n    return i\n",
+  "after": "def search(x, seq):\n    counter = 0\n    while counter < len(seq):\n        if x <= seq[counter]:\n            return counter\n        counter += 1\n    return counter\n",
+  "n": 1
+ },
+ {
+  "id": "133",
+  "before": "def search(x, seq):\n    if x >= seq[-1]:\n        return len(seq)\n    else:\n        for i, elem in enumerate(seq):\n            if elem >= x:\n                return i\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    return\n",
+  "after": "def search(x, seq):\n    a = len(seq)\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            return i\n    return a\n",
+  "n": 1
+ },
+ {
+  "id": "134",
+  "before": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if elem < x < elem + 1:\n            return i + 1\n",
+  "after": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            return i\n\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "135",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i] and x >= seq[i-1]:\n            position = i\n    return position\n\n",
+  "after": "def search(x, seq):\n    for position in range(len(seq)):\n        if x < seq[position] or x == seq[position]:\n            return position\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "136",
+  "before": "def search(x, seq):\n    for i in len(seq):\n        if seq[i] < x:\n            continue\n        else:\n            return i-1\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    return\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    return len(seq) \n           \n",
+  "n": 2
+ },
+ {
+  "id": "137",
+  "before": "def search(x, seq):\n    for i, element in enumerate(seq):\n        if seq == ():\n                return 0\n        else:\n            for element in seq:\n                if x > element:\n                    i+=1\n            return i\n",
+  "after": "def search(x, seq):\n    for i,elem in enumerate(seq):\n        if elem == x:\n            return i \n        elif elem > x:\n            return i\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "138",
+  "before": "def search(x, seq):\n    if len(seq) == 0:\n        return False\n    else:     \n        for i in range(len(seq)):\n            if x < seq[i]:\n                return i\n            elif seq[i]<x:\n                return i+1\n         \n        \n",
+  "after": "def search(x, seq):\n    if len(seq) == 0:    #if there is nothing in the sequence, put it as the first part of the column\n        return 0\n    else:\n        for i in range(len(seq)):\n            if x > seq[-1]:  #if the digit x is greater than the greatest number in the sequence, return the number of elements in the sequence\n                return len(seq)\n            elif x <= seq[i]: #to return the number when x is smaller of equals to the i in the loop\n                return i\n            else:\n                continue #goes into a loop until it finds the number that matches the previous answer.\n",
+  "n": 1
+ },
+ {
+  "id": "139",
+  "before": "def search(x, seq):\n    if x <= seq[0]:\n        return 0\n    else:\n        for i in range(len(seq)):\n            if seq[i] < x <= seq[i+1]:\n                return i+1\n        return len(seq)\n",
+  "after": "def search(x, seq):\n    if not seq:\n        return 0\n    elif x <= seq[0]:\n        return 0\n    else:\n        for i in range(len(seq)-1):\n            if seq[i] < x <= seq[i+1]:\n                return i+1\n        return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "140",
+  "before": "def search(x, seq):\n    if x < seq[0]:\n        return 0\n    elif x > seq[-1]:\n        return len(seq)\n    else:\n        for i in range(len(seq) - 1):\n            if seq[i] < x < seq[i+1]:\n                return i+1\n",
+  "after": "def search(x, seq):\n    if len(seq)==0:\n        return 0\n    else:\n        if x <= seq[0]:\n            return 0\n        elif x > seq[-1]:\n            return len(seq)\n        else:\n            for i in range(0, len(seq)-1):\n                if seq[i] <= x <= seq[i+1]:\n                    return i+1\n",
+  "n": 1
+ },
+ {
+  "id": "141",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if len(seq) == 0:\n            return 0\n        elif x <= seq[i] and i == 0:\n            return 0\n        elif seq[i-1] < x <= seq[i]:\n            return i\n        elif x > seq[i] and i == len(seq)-1:\n            return len(seq)\n",
+  "after": "def search(x, seq):\n    if len(seq) == 0:\n        return 0\n    else:\n        for i in range(len(seq)):\n            if x <= seq[i] and i == 0:\n                return 0\n            elif seq[i-1] < x <= seq[i]:\n                return i\n            elif x > seq[i] and i == len(seq)-1:\n                return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "142",
+  "before": "def search(x, seq):\n    length = len(seq)\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            return i\n        elif i == length-1:\n            return length\n",
+  "after": "def search(x, seq):\n    a = len(seq)\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            return i\n    return a\n",
+  "n": 1
+ },
+ {
+  "id": "143",
+  "before": "def search(x, seq):\n    for count, ele in enumerate(seq):\n        if x<=ele:\n            return count\n        \n    for ele in seq:\n        if x>ele:\n            return len(seq)\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    for i, elem in enumerate(seq):\n        if x <= elem:\n            return i\n    else:\n        return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "144",
+  "before": "def search(x, seq):\n    for i in len(seq):\n        if seq[i] < x:\n            continue\n        else:\n            return int(i-1)\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    else:\n        return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "145",
+  "before": "def search(x, seq):\n    for element in seq:\n        if x <= element:\n            return list(seq).index(element)\n        else:\n            continue\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    else:\n        return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "146",
+  "before": "def search(x, seq):\n    if x>=max(seq):\n        return len(seq)\n    else:\n        for i in range(len(seq)):\n            if x<=seq[i]:\n                return i\n                break\n            else:\n                continue\n",
+  "after": "def search(x, seq):\n    if not seq:\n        return 0\n    else:\n        for i in range(len(seq)):\n            if x<=seq[i]:\n                return i\n    return i+1\n",
+  "n": 1
+ },
+ {
+  "id": "147",
+  "before": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if seq == ():\n            return 0\n        if x <= elem:\n            return i\n        elif x > max(seq):\n            return len(seq)\n        \n        \n       \n            \n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n\n",
+  "after": "def search(x, seq):\n    for i,elem in enumerate(seq):\n        if elem == x:\n            return i \n        elif elem > x:\n            return i\n    return len(seq)\n",
+  "n": 6
+ },
+ {
+  "id": "148",
+  "before": "def search(x, seq):\n    for i in seq:\n        if x>i:\n            continue\n        else:\n            return (seq.index(i))-1\n            \n\n",
+  "after": "def search(x, seq):\n    counter = 0\n    for i in seq:\n        if x > i:\n            counter = counter + 1\n    return counter\n",
+  "n": 2
+ },
+ {
+  "id": "149",
+  "before": "def search(x, seq):\n    if seq == ():\n        return\n    else:\n        for i in range(len(seq)):\n            if x <= seq[i]:\n                return i\n            elif x >= max(seq):\n                return len(seq) \n            else:\n                continue \n\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    if len(seq)< 1:\n        return 0\n    else:\n        for i in range(len(seq)):\n            if x <= seq[i]:\n                return i \n            else:\n                if x > seq[-1]:\n                    return len(seq) \n                else:\n                    continue\n",
+  "n": 1
+ },
+ {
+  "id": "150",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    seq = tuple(seq)\n    if x > seq[len(seq)-1]:\n        return len(seq)\n    else:\n        i = 0\n        while i <= len(seq)-1:\n            if x <= seq[i]:\n                return i\n            elif x > seq[i]:\n                i += 1\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    seq = tuple(seq)\n    if seq == ():\n        return 0\n    elif x > seq[len(seq)-1]:\n        return len(seq)\n    else:\n        i = 0\n        while i <= len(seq)-1:\n            if x <= seq[i]:\n                return i\n            elif x > seq[i]:\n                i += 1\n",
+  "n": 1
+ },
+ {
+  "id": "151",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    length = len(seq)\n    for i, elem in enumerate(seq):\n        if x < elem:\n            return i\n        else:\n            if x == elem:\n                return i\n            if (i == length-1):\n                return i+1\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    length = len(seq)\n    if length == 0:\n        return 0\n    else:\n        for i, elem in enumerate(seq):\n            if x < elem:\n                return i\n            else:\n                if x == elem:\n                    return i\n                if (i == length-1):\n                    return i+1\n",
+  "n": 1
+ },
+ {
+  "id": "152",
+  "before": "def search(x, seq):\n    l=len(seq)\n    for i in range(l):\n        if x<=seq[i]:\n            break\n    if i==l-1:\n        i=i+1\n    return i\n",
+  "after": "def search(x, seq):\n    l=len(seq)\n    if l==0:\n        return 0\n    for i in range(l):\n        if x<=seq[i]:\n            break\n    if x>seq[l-1]:\n        i=i+1\n    return i\n",
+  "n": 1
+ },
+ {
+  "id": "153",
+  "before": "def search(x, seq):\n    n=[]\n    seq = list(seq)\n    a= seq.copy()\n    d = 0\n    for i in a:\n        if a == ():\n            return 0\n        if i<x:\n            n.append(i)\n            seq.remove(i)\n        elif i == x:\n            n.append(i)\n            n.append(x)\n            n.extend(seq)\n            break\n        else:\n            n.append(x)\n            n.extend(seq)\n            break\n    count = list(enumerate(n))\n    for b in count:\n        d+=1\n        if b[1] == x:\n            return b[0]\n        elif d==len(count):\n            return d\n",
+  "after": "def search(x, seq):\n    n=[]\n    seq = list(seq)\n    a= seq.copy()\n    d = 0        \n    if seq == []:\n        return 0\n    for i in a:\n        if i<x:\n            n.append(i)\n            seq.remove(i)\n        elif i == x:\n            n.append(i)\n            n.append(x)\n            n.extend(seq)\n            break\n        else:\n            n.append(x)\n            n.extend(seq)\n            break\n    count = list(enumerate(n))\n    for b in count:\n        d+=1\n        if b[1] == x:\n            return b[0]\n        elif d==len(count):\n            return d\n",
+  "n": 1
+ },
+ {
+  "id": "154",
+  "before": "def search(x, seq):\n    i = 0\n    while (i<len(seq) and x<seq[i]):\n        i += 1\n    i -= 1\n    return i\n",
+  "after": "def search(x, seq):\n    counter = 0\n    while counter < len(seq):\n        if x <= seq[counter]:\n            return counter\n        counter += 1\n    return counter\n",
+  "n": 1
+ },
+ {
+  "id": "155",
+  "before": "def search(x, seq):\n    if x <= seq[0] or seq == 0:\n        return 0\n    else:\n        for i in range(len(seq)-1):\n            if seq[i] < x <= seq[i+1]:\n                return i+1\n        return len(seq)\n",
+  "after": "def search(x, seq):\n    if not seq:\n        return 0\n    if x <= seq[0]:\n        return 0\n    for i in range(len(seq)-1):\n        if seq[i] <= x <= seq[i+1]:\n            return i + 1\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "156",
+  "before": "def search(x, seq):\n    if type(seq) == list:\n        a = seq.copy()\n        a.append(x)\n        a.sort()\n        for i, elem in enumerate(a):\n            if elem == x:\n                return i\n    else:\n        temp_tuple = seq.copy()\n        temp_tuple+=(x,)\n        for i, elem in enumerate(sorted(temp_tuple)):\n            if elem == x:\n                return i\n",
+  "after": "def search(x, seq):\n    if type(seq) == list:\n        seq.append(x)\n        seq.sort()\n        for i, elem in enumerate(seq):\n            if elem == x:\n                return i\n    else:\n        seq+=(x,)\n        for i, elem in enumerate(sorted(seq)):\n            if elem == x:\n                return i\n",
+  "n": 1
+ },
+ {
+  "id": "157",
+  "before": "def search(x, seq):\n    if x < seq[0]:\n        return 0\n    elif x > seq[-1]:\n        return len(seq)\n    else:\n        seq_enum = [i for i in enumerate(seq)]\n        for j in range(len(seq_enum) - 1):\n            if x >= seq_enum[j][1] and x <= seq_enum[j+1][1]:\n                return j+1\n",
+  "after": "def search(x, seq):\n    if seq == () or seq == []:\n        return 0\n    elif x < seq[0]:\n        return 0\n    elif x > seq[-1]:\n        return len(seq)\n    else:\n        seq_enum = [i for i in enumerate(seq)]\n        for j in range(len(seq_enum) - 1):\n            if x >= seq_enum[j][1] and x <= seq_enum[j+1][1]:\n                return j+1\n",
+  "n": 14
+ },
+ {
+  "id": "158",
+  "before": "def search(x, seq):\n    if seq == () or []:\n            return 0\n    for i in range (len(seq)):\n        if x <= seq[i]:\n            return i\n        elif x > seq[len(seq)-1]:\n            return len(seq)\n",
+  "after": "def search(x, seq):\n    if len(seq)==0:\n        return 0\n    for i in range(len(seq)):\n        if x<= seq[i]:\n            a=i\n            break\n        elif x> seq[len(seq)-1]:\n            a=len(seq)\n    return a\n        \n",
+  "n": 2
+ },
+ {
+  "id": "159",
+  "before": "def search(x, seq):\n    if seq == ():\n        return ()\n    else:\n        for i in range(len(seq)):\n            if x <= seq[i]:\n                return i\n            elif x >= max(seq):\n                return len(seq) \n            else:\n                continue \n\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    if len(seq)< 1:\n        return 0\n    else:\n        for i in range(len(seq)):\n            if x <= seq[i]:\n                return i \n            else:\n                if x > seq[-1]:\n                    return len(seq) \n                else:\n                    continue\n",
+  "n": 2
+ },
+ {
+  "id": "160",
+  "before": "def search(x, seq):\n    if x <= seq[0] or not seq:\n        return 0\n    else:\n        for i in range(len(seq)-1):\n            if seq[i] < x <= seq[i+1]:\n                return i+1\n        return len(seq)\n",
+  "after": "def search(x, seq):\n    if not seq:\n        return 0\n    if x <= seq[0]:\n        return 0\n    for i in range(len(seq)-1):\n        if seq[i] <= x <= seq[i+1]:\n            return i + 1\n    return len(seq)\n",
+  "n": 2
+ },
+ {
+  "id": "161",
+  "before": "def search(x, seq):\n    for i in range(0, len(seq) + 1):\n        if x < seq[0]:\n            return 0\n        elif seq[i] < x <= seq[i+1]:\n            return i + 1\n        elif seq[len(seq)-1] < x:\n            return len(seq)\n",
+  "after": "def search(x, seq):\n    for i in range(0, len(seq) + 1):\n        if len(seq) == 0:\n            return 0\n        elif x < seq[0]:\n            return 0\n        elif seq[i] < x <= seq[i+1]:\n            return i + 1\n        elif seq[len(seq)-1] < x:\n            return len(seq)\n",
+  "n": 2
+ },
+ {
+  "id": "162",
+  "before": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if x < elem: \n            return i\n        elif x == elem:\n            return i\n        elif i == len(seq)-1:\n            return i+1\n",
+  "after": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if elem < x:\n            continue\n        elif elem == x:\n            return i \n        elif elem > x:\n            return i\n    return len(seq)\n",
+  "n": 2
+ },
+ {
+  "id": "163",
+  "before": "def search(x, seq):\n    if x > seq[-1]:\n        return len(seq)\n    else:\n        for num in range(len(seq)):\n            if x > seq[num]:\n                continue\n            elif x <= seq[num]:\n                return num \n    return 0\n",
+  "after": "def search(x, seq):\n    seq = list(seq)\n    for i in range(len(seq)):\n        if x > seq[i]:\n            continue\n        elif x <= seq[i]:\n            return i\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "164",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if seq[i] < x:\n            continue\n        elif x <= seq[i]:\n            return i\n        else:\n            return len(seq)\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    return len(seq) \n           \n",
+  "n": 1
+ },
+ {
+  "id": "165",
+  "before": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if x == elem:\n            return i\n        elif x < elem:\n            return i\n        elif x > seq[-1]:\n            return len(seq)\n",
+  "after": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if elem < x:\n            continue\n        elif elem == x:\n            return i \n        elif elem > x:\n            return i\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "166",
+  "before": "def search(x, seq):\n    if list(seq) == []:\n        return 0\n    else:\n        for element in seq:\n            if x <= element:\n                return list(seq).index(element)\n            elif x == element:\n                return (list(seq).index(element))-1\n            elif x >= max(seq):\n                return (list(seq).index(max(seq)))+1\n        \n",
+  "after": "def search(x, seq):\n    if list(seq) == []:\n        return 0\n    else:\n        for element in seq:\n            if x <= element:\n                return list(seq).index(element)\n            elif x == max(seq):\n                return list(seq).index(max(seq))\n            elif x >= max(seq):\n                return (list(seq).index(max(seq)))+1\n        \n",
+  "n": 1
+ },
+ {
+  "id": "167",
+  "before": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if x > seq[-1]:\n            return len(seq)\n        elif  x > elem:\n            continue\n        else:\n            return i\n",
+  "after": "def search(x, seq):\n    for i,elem in enumerate(seq):\n        if elem == x:\n            return i \n        elif elem > x:\n            return i\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "168",
+  "before": "def search(x, seq):\n    for i in range(0,len(seq)):\n        if len(seq)==0:\n            return 0\n        elif x<seq[i]:\n            return i\n        elif x==seq[i]:\n            return i\n        elif x>seq[len(seq)-1]:\n            return len(seq)\n",
+  "after": "def search(x, seq):\n    if len(seq)==0:\n        return 0\n    for i in range(0,len(seq)):\n        if x<seq[i]:\n            return i\n        elif x==seq[i]:\n            return i\n        elif x>seq[len(seq)-1]:\n            return len(seq)\n",
+  "n": 2
+ },
+ {
+  "id": "169",
+  "before": "def search(x, seq):\n    n = len(seq)\n    for counter in range(n):\n        if x > seq[n-1]:\n            result = n\n            break\n        elif seq[counter] >= x:\n            result = counter\n            break\n        else:\n            continue\n    return result\n",
+  "after": "def search(x, seq):\n    n = len(seq)\n    if n == 0:\n        return 0\n    else:\n        for counter in range(n):\n            if x > seq[n-1]:\n                result = n\n                break\n            elif seq[counter] >= x:\n                result = counter\n                break\n            else:\n                continue\n        return result\n",
+  "n": 2
+ },
+ {
+  "id": "170",
+  "before": "def search(x, seq):\n    if seq[0] >= x or seq == () or seq == []:\n                return 0\n    elif seq[len(seq)-1] < x:\n        return len(seq)\n    else:\n        for i in range(len(seq)-1):\n            if seq[i] < x and seq[i+1] >= x:\n                return i+1\n                break\n",
+  "after": "def search(x, seq):\n    if seq == () or seq == []:\n        return 0\n    if seq[0] >= x:\n        return 0\n    elif seq[len(seq)-1] < x:\n        return len(seq)\n    else:\n        for i in range(len(seq)-1):\n            if seq[i] < x and seq[i+1] >= x:\n                return i+1\n                break\n",
+  "n": 2
+ },
+ {
+  "id": "171",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    largest=seq[0]\n    for i in range(len(seq)):\n        if x<=seq[i]:\n            return i\n        elif x>seq[len(seq)-1]:\n            return len(seq)\n",
+  "after": "def search(x, seq):\n    if seq==() or seq==[]:\n            return 0\n    else:\n        largest=seq[0]\n        for i in range(len(seq)):\n            if x<=seq[i]:\n                return i\n            elif x>seq[len(seq)-1]:\n                return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "172",
+  "before": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if seq == ():\n            return 0\n        elif x == elem:\n            return i\n        elif x < elem:\n            return i\n        elif x > seq[-1]:\n            return len(seq)\n",
+  "after": "def search(x, seq):\n    if seq == ():\n        return 0\n    elif seq == []:\n        return 0\n    for i, elem in enumerate(seq):\n        if x == elem:\n            return i\n        elif x < elem:\n            return i\n        elif x > seq[-1]:\n            return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "173",
+  "before": "def search(x, seq):\n    for i in seq:\n        if len(seq) == 0:\n\t        return 0\n        elif x <= i:\n            return seq.index(i)\n        elif x > max(seq):\n            return len(seq)\n",
+  "after": "def search(x, seq):\n    if len(seq) == 0:\n        return 0\n    else:\n        for i in seq:\n            if x <= i:\n                return seq.index(i)\n            elif x > max(seq):\n                return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "174",
+  "before": "def search(x, seq):\n    if x < seq[0]:\n        return 0\n    elif x > seq[-1]:\n        return len(seq)\n    \n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    return len(seq) \n           \n",
+  "n": 1
+ },
+ {
+  "id": "175",
+  "before": "def search(x,seq):\n    for i in range(len(seq)):\n        if len(seq) == 0:\n            return 0\n        elif x > max(seq):\n            return len(seq)\n        elif x > seq[i]:\n            continue\n        elif x <= seq[i]:\n            break\n        \n    return i\n",
+  "after": "def search(x,seq):\n    if len(seq) == 0:\n        return 0\n    else:\n        for i in range(len(seq)):\n            if x > max(seq):\n                return len(seq)\n            elif x > seq[i]:\n                continue\n            elif x <= seq[i]:\n                break\n        return i\n",
+  "n": 3
+ },
+ {
+  "id": "176",
+  "before": "def search(x, seq):\n    count = 0\n    for i in range (0, len(seq)):\n        if seq[count] < x:\n            count += 1\n    return count if seq[-1] > x else len(seq)\n",
+  "after": "def search(x, seq):\n    value = 0\n    for i in range(0, len(seq)):\n        if (x > seq[i]):\n            value += 1\n        elif (x <= seq[i]):\n            break\n    return value\n",
+  "n": 3
+ },
+ {
+  "id": "177",
+  "before": "def search(x, seq):\n    for i in range(len(seq) - 1):\n        if seq[i] < x < seq[i+1]:\n            return i+1\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)-1):\n        if seq[i] < x <= seq[i+1]:\n            return i+1\n        elif x <= seq[0]:\n            return 0\n    return len(seq)\n",
+  "n": 2
+ },
+ {
+  "id": "178",
+  "before": "def search(x, seq):\n    \n    for i in range(len(seq)):\n        if x<=seq[i]:\n            return i\n        elif x>=seq[len(seq)-1]:\n            return len(seq)\n        else:\n            continue \n",
+  "after": "def search(x, seq):\n    for k in range(len(seq)): \n        if x <= seq[k]:\n            return k\n        elif x > seq[k]:\n            continue\n    return len(seq)  # if bigger than the last element \n",
+  "n": 2
+ },
+ {
+  "id": "179",
+  "before": "def search(x, seq):\n    for a,b in enumerate(seq):\n        if eq==[]:\n            return a\n        if x<=b:\n            return a\n    for i in seq:\n        if x>i:\n            return a+1\n",
+  "after": "def search(x, seq):\n    if seq==() or seq==[]:\n        return 0\n    for a,b in enumerate(seq):\n        if x<=b:\n            return a\n    for i in seq:\n        if x>i:\n            return a+1\n",
+  "n": 1
+ },
+ {
+  "id": "180",
+  "before": "def search(x, seq):\n    for i, element in enumerate(seq):\n        for element in seq:\n            if seq == ():\n                return 0\n            elif x > element:\n                i+=1\n        return i\n",
+  "after": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if elem < x:\n            continue\n        elif elem == x:\n            return i \n        elif elem > x:\n            return i\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "181",
+  "before": "def search(x, seq):\n    if x<seq[0]:\n        return 0\n    elif x>seq[-1]:\n        return len(seq)\n    else:\n        for i in range(len(seq)-1):\n            if x>seq[i] and x<seq[i+1]:\n                return i+1\n            elif x==seq[i]:\n                return i\n",
+  "after": "def search(x, seq):\n    if len(seq)==0:\n        return 0\n    elif x<seq[0]:\n        return 0\n    elif x>seq[-1]:\n        return len(seq)\n    else:\n        for i in range(len(seq)):\n            if x>seq[i] and x<seq[i+1]:\n                return i+1\n            elif x==seq[i]:\n                return i\n",
+  "n": 1
+ },
+ {
+  "id": "182",
+  "before": "def search(x, seq):\n    for i in seq:\n        if x <= i:\n            return seq.index[i]\n        else:\n            return (seq.index[-1] + 1)\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    return len(seq) \n           \n",
+  "n": 1
+ },
+ {
+  "id": "183",
+  "before": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if seq == ():\n            return 0\n        elif seq == []:\n            return 0\n        elif x > seq[-1]:\n            return len(seq)\n        elif  x > elem:\n            continue\n        else:\n            return i\n",
+  "after": "def search(x, seq):\n    if seq == ():\n        return 0\n    elif seq == []:\n        return 0\n    else:\n        for i, elem in enumerate(seq):\n            if x > seq[-1]:\n                return len(seq)\n            elif  x > elem:\n                continue\n            else:\n                return i\n",
+  "n": 1
+ },
+ {
+  "id": "184",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq(i):\n            return i\n        elif x > seq[-1]:\n            return len(seq) + 1\n",
+  "after": "def search(x, seq):\n    for k in range(len(seq)): \n        if x <= seq[k]:\n            return k\n        elif x > seq[k]:\n            continue\n    return len(seq)  # if bigger than the last element \n",
+  "n": 1
+ },
+ {
+  "id": "185",
+  "before": "def search(x, seq):\n    if x not in seq:\n        result = 0 \n    elif x > seq[len(seq) - 1]:\n        return len(seq)\n    else:\n        result = 0\n        for i, elem in enumerate(seq):\n            if x < (elem + 1):\n                result = i\n                return\n        return result \n",
+  "after": "def search(x, seq):\n    if not seq:\n        i = 0\n    else:\n        if x > seq[len(seq)-1]:\n            i = len(seq)\n        else:\n            for i, elem in enumerate(seq):\n                if x <= elem:\n                    i\n                    break       \n    return i\n",
+  "n": 1
+ },
+ {
+  "id": "186",
+  "before": "def search(x, seq):\n    for i in range(len(seq)-1):\n        if x > seq[i]:\n            continue\n        elif x <= seq[i]:\n            return i\n        else:\n            return len(seq)\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    return len(seq) \n           \n",
+  "n": 1
+ },
+ {
+  "id": "187",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if seq[i] < x:\n            continue\n        elif x <= seq[i]:\n            return i\n        else:\n            return len(seq)+1\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n",
+  "after": "def search(x, seq):\n    index = 0\n    for i in range (len(seq)):\n        if x <= seq[i]:\n            break\n        elif x > seq[i]:\n            index = i + 1\n    return index\n",
+  "n": 2
+ },
+ {
+  "id": "188",
+  "before": "def search(x, seq):\n    for i in seq:\n        if x<i:\n            return seq.index(i)\n        elif x == i:\n            return seq.index(i)\n        elif x>seq[-1]:\n            return (seq.index(seq[-1]))+1\n",
+  "after": "def search(x, seq):\n    if seq == () or seq == []:\n            return 0\n    for i in seq:\n        if x <= i:\n            return seq.index(i)\n        elif x > seq[-1]:\n            return (seq.index(seq[-1])) + 1\n",
+  "n": 2
+ },
+ {
+  "id": "189",
+  "before": "def search(x, seq):\n    if type(seq) == tuple:\n        seq = list(seq)\n        seq.append(x)\n        sorted(seq)\n        seq.index(x)\n        \n",
+  "after": "def search(x, seq):\n    if len(seq) == 0:\n        return 0\n    else:\n        for i, elem in enumerate(seq):\n            if x <= elem:\n                return i\n        return len(seq)\n",
+  "n": 2
+ },
+ {
+  "id": "190",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if seq[i] < x:\n            continue\n        elif seq[len(seq)] < x:\n            return len(seq)\n        else:\n            return i\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n",
+  "after": "def search(x, seq):\n    for k in range(len(seq)): \n        if x <= seq[k]:\n            return k\n        elif x > seq[k]:\n            continue\n    return len(seq)  # if bigger than the last element \n",
+  "n": 2
+ },
+ {
+  "id": "191",
+  "before": "def search(x, seq):\n    if x < seq[0]:\n        return 0\n    else:\n        y = len(seq)\n        for i in range(y-1):\n            if x > seq[i] and x <= seq[i+1]:\n                return i + 1\n        return y\n",
+  "after": "def search(x, seq):\n    y = len(seq)\n    if y == 0 or x < seq[0]:\n        return 0\n    else:\n        for i in range(y-1):\n            if x > seq[i] and x <= seq[i+1]:\n                return i + 1\n        return y\n",
+  "n": 1
+ },
+ {
+  "id": "192",
+  "before": "def search(x, seq):\n    for i,elem in enumerate(seq):\n        if x < seq[-1]:\n            if x > elem:\n                continue\n            elif x < elem and type(seq) == tuple:\n                seq = seq[:i] + (x,) + seq[i:]\n            elif x < elem and type(seq) == list:\n                seq = seq[:i] + [x,] + seq[i:]\n        elif x > seq[-1]:\n            if type(seq) == tuple:\n                seq += (x,)\n            elif type(seq) == list:\n                seq += [x,]\n    return seq.index(x)\n",
+  "after": "def search(x, seq):\n    if seq == ():\n        return 0\n    elif seq == []:\n        return 0\n    else:\n        for i,elem in enumerate(seq):\n            if x < seq[-1]:\n                if x > elem:\n                    continue\n                elif x < elem and type(seq) == tuple:\n                    seq = seq[:i] + (x,) + seq[i:]\n                elif x < elem and type(seq) == list:\n                    seq = seq[:i] + [x,] + seq[i:]\n            elif x > seq[-1]:\n                if type(seq) == tuple:\n                    seq += (x,)\n                elif type(seq) == list:\n                    seq += [x,]\n        return seq.index(x)\n",
+  "n": 1
+ },
+ {
+  "id": "193",
+  "before": "def search(x, seq):\n    for i,v in enumerate(seq):\n        if x>v and i!=len(seq)-1:\n            continue\n        elif x>v and i==len(seq)-1:\n            return i+1\n        else:\n            break\n        \n    return i\n",
+  "after": "def search(x, seq):\n    if seq==[]:\n        return 0\n    elif seq==():\n        return 0\n    else:\n        for i,v in enumerate(seq):\n            if x>v and i!=len(seq)-1:\n                continue\n            elif x>v and i==len(seq)-1:\n                return i+1\n            else:\n                break\n        \n        return i\n",
+  "n": 1
+ },
+ {
+  "id": "194",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if seq[i] >= x:\n            return i\n    if seq[len(seq) - 1] < x:\n        return len(seq)\n",
+  "after": "def search(x, seq):\n    for k in range(len(seq)): \n        if x <= seq[k]:\n            return k\n        elif x > seq[k]:\n            continue\n    return len(seq)  # if bigger than the last element \n",
+  "n": 1
+ },
+ {
+  "id": "195",
+  "before": "def search(x, seq):\n    for i in range(len(seq)-1):\n        if x >= seq[i] and x <= seq[i+1]:\n            break\n    return i\n",
+  "after": "def search(x, seq):\n    for position in range(len(seq)):\n        if x < seq[position] or x == seq[position]:\n            return position\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "196",
+  "before": "def search(x, seq):\n    for i in range(1, len(seq)+1):\n        if x < seq[i-1]:\n            return i-1\n        elif seq[i-1]<x<seq[i]:\n            return i\n    return i\n        \n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)-1):\n        if x < seq[0]:\n            return 0\n        elif seq[i] <= x <= seq[i+1]:\n            return i+1\n    return len(seq)\n",
+  "n": 3
+ },
+ {
+  "id": "197",
+  "before": "def search(x, seq):\n    for i in range(1, len(seq)+1):\n        if x < seq[i-1]:\n            return i-1\n        elif seq[i-1]<x<seq[i]:\n            return i\n        return i\n        \n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)-1):\n        if x < seq[0]:\n            return 0\n        elif seq[i] <= x <= seq[i+1]:\n            return i+1\n    return len(seq)\n",
+  "n": 3
+ },
+ {
+  "id": "198",
+  "before": "def search(x, seq):\n    if seq == ():\n        return ()\n    else:\n        for i in range (len(seq)):\n            if x < seq[i]:\n                return i\n            elif x ==seq[i]:\n                return i\n            else:\n                continue\n        return i + 1\n",
+  "after": "def search(x, seq):\n    if len(seq) == 0:    #if there is nothing in the sequence, put it as the first part of the column\n        return 0\n    else:\n        for i in range(len(seq)):\n            if x > seq[-1]:  #if the digit x is greater than the greatest number in the sequence, return the number of elements in the sequence\n                return len(seq)\n            elif x <= seq[i]: #to return the number when x is smaller of equals to the i in the loop\n                return i\n            else:\n                continue #goes into a loop until it finds the number that matches the previous answer.\n",
+  "n": 2
+ },
+ {
+  "id": "199",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if seq[i] < x:\n            continue\n        elif seq[len(seq)] < x:\n            return len(seq)+1\n        else:\n            return i\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    for i in range(len(seq)):\n\t    if seq[i] < x <= seq[i + 1]:\n                return i + 1\n\t    elif x > seq[-1]:\n    \t\treturn len(seq)\n    return 0\n",
+  "n": 1
+ },
+ {
+  "id": "200",
+  "before": "def search(x, seq):\n    if seq==[] or seq==():\n        return 0\n    elif x>=max(seq):\n        return len(seq)\n    else:\n        for i in range(len(seq)):\n            if x<=seq[i]:\n                return i\n                break\n            else:\n                continue\n",
+  "after": "def search(x, seq):\n    if len(seq) == 0 or x <= seq[0]:\n        return 0\n    elif x > seq[len(seq) - 1]:\n        return len(seq)\n    else:\n        for i in range(len(seq)):\n            if x <= seq[i]:\n                return i\n",
+  "n": 1
+ },
+ {
+  "id": "201",
+  "before": "def search(x, seq):\n    for element in seq:\n        if x <= element:\n            return list(seq).index(element)\n        elif x >= max(seq):\n            return (list(seq).index(max(seq)))+1\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    return\ndef search(x, seq):\n    if list(seq) == []:\n        return 0\n    else:\n        for element in seq:\n            if x <= element:\n                return list(seq).index(element)\n            elif x > max(seq):\n                return (list(seq).index(max(seq)))+1\n",
+  "n": 1
+ },
+ {
+  "id": "202",
+  "before": "def search(x, seq):\n    \n    for i in range(len(seq)):\n        if len(seq)==0:\n            return 0\n        elif x<=seq[i]:\n            return i\n        elif x>seq[len(seq)-1]:\n            return len(seq)\n        \n        else:\n            continue \n",
+  "after": "def search(x, seq):\n    if len(seq)==0:\n        return 0\n    for i in range(0,len(seq)):\n        if x<seq[i]:\n            return i\n        elif x==seq[i]:\n            return i\n        elif x>seq[len(seq)-1]:\n            return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "203",
+  "before": "def search(x, seq):\n    if x >= seq[len(seq)-1]:\n        return len(seq)\n    else:\n        for i in range(len(seq)):\n            if x > seq[i]:\n                continue\n            else:\n                return i\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    else:\n        return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "204",
+  "before": "def search(x,seq):\n    for i in range(len(seq)):\n        if x > seq[i]:\n            continue\n        elif x <= seq[i]:\n            break\n        elif x > max(seq):\n            return len(seq)\n    return i\n",
+  "after": "def search(x, seq):\n    index = 0\n    for i in range (len(seq)):\n        if x <= seq[i]:\n            break\n        elif x > seq[i]:\n            index = i + 1\n    return index\n",
+  "n": 3
+ },
+ {
+  "id": "205",
+  "before": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if elem == None:\n            return 0\n        elif x <= elem:\n            return i\n        elif i == (len(seq)-1):\n            return i+1\n        else:\n            continue\n",
+  "after": "def search(x, seq):\n    for i,elem in enumerate(seq):\n        if elem == x:\n            return i \n        elif elem > x:\n            return i\n    return len(seq)\n",
+  "n": 3
+ },
+ {
+  "id": "206",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    return\n",
+  "after": "def search(x, seq):\n    y = 0\n    for z in seq:\n        if x > z:\n            y += 1\n    return y\n\n  \n            \n\n",
+  "n": 1
+ },
+ {
+  "id": "207",
+  "before": "def search(x, seq):\n    if x <= seq[0]:\n        return 0\n    elif x >= seq[-1]:\n        return len(seq)\n    else:\n        for i in range(len(seq)-1):\n            if x > seq[i] and x <= seq[i+1]:\n                return i+1\n        return None\n",
+  "after": "def search(x, seq):\n    if len(seq)==0:\n        return 0\n    if x < seq[0]:\n        return 0\n    elif x > seq[len(seq)-1]:\n        return len(seq)\n    else:\n        for i in range(len(seq)):\n            if x > seq[i] and x <= seq[i+1]:\n                return i+1\n",
+  "n": 1
+ },
+ {
+  "id": "208",
+  "before": "def search(x, seq):\n    if seq == []:\n        return 0\n    elif x >= seq[len(seq)-1]:\n        return len(seq)\n    else:\n        for i in range(len(seq)):\n            if x > seq[i]:\n                continue\n            else:\n                return i\n",
+  "after": "def search(x, seq):\n    if len(seq) == 0 or x <= seq[0]:\n        return 0\n    elif x > seq[len(seq) - 1]:\n        return len(seq)\n    else:\n        for i in range(len(seq)):\n            if x <= seq[i]:\n                return i\n",
+  "n": 1
+ },
+ {
+  "id": "209",
+  "before": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if seq == ():\n            return 0\n        elif x <= elem:\n            return i\n        elif i == (len(seq)-1):\n            return i+1\n        else:\n            continue\n",
+  "after": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if elem < x:\n            continue\n        elif elem == x:\n            return i \n        elif elem > x:\n            return i\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "210",
+  "before": "def search(x, seq):\n    for i in range(len(seq)-1):\n        if x > seq[i] and x <= seq[i+1]:\n            return i+1\n    return None\n",
+  "after": "def search(x, seq):\n    for k in range(len(seq)): \n        if x <= seq[k]:\n            return k\n        elif x > seq[k]:\n            continue\n    return len(seq)  # if bigger than the last element \n",
+  "n": 1
+ },
+ {
+  "id": "211",
+  "before": "def search(x, seq):\n    if seq == () or seq == []:\n        return 0\n    else:\n        count = 0\n        for i in range (0, len(seq)):\n            if seq[count] < x:\n                count += 1\n        return count if seq[-1] > x else len(seq)\n",
+  "after": "def search(x, seq):\n    if seq == () or seq == []:\n        return 0\n    else:\n        count = 0\n        for i in range (0, len(seq)):\n            if seq[i] >= x:\n                return i\n            elif seq[-1] < x:\n                return len(seq)\n",
+  "n": 3
+ },
+ {
+  "id": "212",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if seq == [] or ():\n            return None\n        elif x > seq[-1]:\n            return len(seq)\n        elif x == seq[i]:\n            return i\n        elif x < seq[i]:\n            return i\n",
+  "after": "def search(x, seq):\n    if seq == () or seq == []:\n        return 0\n    for i in range(len(seq)):\n        if x > seq[-1]:\n            return len(seq)\n        elif x == seq[i]:\n            return i\n        elif x < seq[i]:\n            return i\n",
+  "n": 2
+ },
+ {
+  "id": "213",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    count = 0\n    if x <= seq[0] or seq == () or seq == []:\n        return 0\n    elif x > seq[len(seq)-1]:\n        return len(seq)\n    else:\n        while x > seq[count]:\n            count += 1\n        return count\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    count = 0\n    if seq == () or seq == []:\n        return 0\n    else:\n        if x <= seq[0]:\n            return 0\n        elif x > seq[len(seq)-1]:\n            return len(seq)\n        else:\n            while x > seq[count]:\n                count += 1\n            return count\n",
+  "n": 1
+ },
+ {
+  "id": "214",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if x < seq[i]:\n            return i\n        elif seq[i] == seq[-1] and seq[i]<x:\n            return i+1\n        elif seq[i]<x<=seq[i+1]:\n            return i\n    return len(seq)+1     \n        \n",
+  "after": "def search(x, seq):\n    if len(seq) == 0:\n        return False\n    else:     \n        for i in range(len(seq)):\n            if x < seq[i]:\n                return i\n            elif seq[i] == seq[-1] and seq[i]<x:\n                return i+1\n            elif seq[i]<x<=seq[i+1]:\n                return i+1    \n        \n",
+  "n": 1
+ },
+ {
+  "id": "215",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    enumerated = list(enumerate(seq))\n    if seq == () or []:\n        return 0\n    elif x > max(seq):\n        return len(seq)\n    else:\n        for i in range(len(enumerated)):\n            if enumerated[i][1] >= x:\n                return enumerated[i][0]\n                break\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    if seq == () or seq == []:\n        return 0\n    elif x > max(seq):\n        return len(seq)\n    else:\n        enumerated = list(enumerate(seq))\n        for i in range(len(enumerated)):\n            if enumerated[i][1] >= x:\n                return enumerated[i][0]\n                break\n",
+  "n": 1
+ },
+ {
+  "id": "216",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if seq == ():\n            return 0\n        elif x > seq[-1]:\n            return len(seq)\n        elif x == seq[i]:\n            return i\n        elif x < seq[i]:\n            return i\n",
+  "after": "def search(x, seq):\n    if seq == () or seq == []:\n        return 0\n    for i in range(len(seq)):\n        if x > seq[-1]:\n            return len(seq)\n        elif x == seq[i]:\n            return i\n        elif x < seq[i]:\n            return i\n",
+  "n": 1
+ },
+ {
+  "id": "217",
+  "before": "def search(x, seq):\n    if len(seq) == 0:\n        return 0\n    elif x <= seq[0]:\n        return 0\n    elif x >= seq[-1]:\n        return len(seq)\n    else:\n        for i in range(len(seq)-1):\n            if x > seq[i] and x <= seq[i+1]:\n                return i+1\n        return None\n",
+  "after": "def search(x, seq):\n    if len(seq)==0:\n        return 0\n    else:\n        if x <= seq[0]:\n            return 0\n        elif x > seq[-1]:\n            return len(seq)\n        else:\n            for i in range(0, len(seq)-1):\n                if seq[i] <= x <= seq[i+1]:\n                    return i+1\n",
+  "n": 1
+ },
+ {
+  "id": "218",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if x < seq[i]:\n            return i\n        elif seq[i]<x:\n            return i+1\n        elif seq[i]<x<=seq[i+1]:\n            return i+1    \n        \n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)-1):\n        if x < seq[0]:\n            return 0\n        elif seq[i] <= x <= seq[i+1]:\n            return i+1\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "219",
+  "before": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if seq == ():\n            return 0\n        elif x > seq[-1]:\n            return len(seq)\n        elif  x > elem:\n            continue\n        else:\n            return i\n",
+  "after": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if elem == x:\n            return i\n        elif x > elem:\n            continue\n        elif x < elem:\n            return i\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "220",
+  "before": "def search(x, seq):\n    if x <= seq[0]:\n        position = 0\n    for i in range(len(seq)):\n        if x <= seq[i] and x > seq[i-1]:\n            position = i\n    return position\n\n",
+  "after": "def search(x, seq):\n    for position in range(len(seq)):\n        if x < seq[position] or x == seq[position]:\n            return position\n    return len(seq)\n",
+  "n": 4
+ },
+ {
+  "id": "221",
+  "before": "def search(x, seq):\n    if list(seq) == ():\n        return 0\n    elif seq == ():\n        return 0\n    else:\n        for element in seq:\n            if x <= element:\n                return list(seq).index(element)\n            elif x >= max(seq):\n                return (list(seq).index(max(seq)))+1\n        \n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    return\ndef search(x, seq):\n    if list(seq) == []:\n        return 0\n    else:\n        for element in seq:\n            if x <= element:\n                return list(seq).index(element)\n            elif x > max(seq):\n                return (list(seq).index(max(seq)))+1\n",
+  "n": 2
+ },
+ {
+  "id": "222",
+  "before": "def search(x, seq):\n    for i in range(0, len(seq) + 1):\n        if (x < seq[0]) or (seq == ()):\n            return 0\n        elif seq[i] < x <= seq[i+1]:\n            return i + 1\n        elif seq[len(seq)-1] < x:\n            return len(seq)\n",
+  "after": "def search(x, seq):\n    for i in range(0, len(seq) + 1):\n        if len(seq) == 0:\n            return 0\n        elif x < seq[0]:\n            return 0\n        elif seq[i] < x <= seq[i+1]:\n            return i + 1\n        elif seq[len(seq)-1] < x:\n            return len(seq)\n",
+  "n": 2
+ },
+ {
+  "id": "223",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if seq[i] < x:\n            continue\n        elif seq[len(seq)-1] < x:\n            return len(seq)-1\n        else:\n            return i\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return seq.index(seq[i])\n        elif seq[-1] <  x:\n            return seq.index(seq[-1])+1\n    return 0\n\n",
+  "n": 2
+ },
+ {
+  "id": "224",
+  "before": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if len(seq) == 0:\n            return 0\n        elif i == 0 and x < elem:\n            return 0\n        elif x <= elem:\n            return i\n        elif i == len(seq) - 1:\n            return len(seq)\n",
+  "after": "def search(x, seq):\n    if len(seq) == 0:\n            return 0\n    else:\n        for i, elem in enumerate(seq):\n            if i == 0 and x < elem:\n                return 0\n            elif x <= elem:\n                return i\n            elif i == len(seq) - 1:\n                return len(seq)\n",
+  "n": 2
+ },
+ {
+  "id": "225",
+  "before": "def search(x, seq):\n    for i in range(1, len(seq)+1):\n        if x < seq[i-1]:\n            return i-1\n        elif seq[i-1]<x<=seq[i]:\n            return i\n    return len(seq)+1     \n        \n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)-1):\n        if x < seq[0]:\n            return 0\n        elif seq[i] <= x <= seq[i+1]:\n            return i+1\n    return len(seq)\n",
+  "n": 2
+ },
+ {
+  "id": "226",
+  "before": "def search(x, seq):\n    for i in range(0, len(seq)):\n        if seq[i] < x:\n            continue\n        elif seq[len(seq) - 1] < x:\n            return len(seq)\n        else:\n            return i\n",
+  "after": "def search(x, seq):\n    for k in range(len(seq)): \n        if x <= seq[k]:\n            return k\n        elif x > seq[k]:\n            continue\n    return len(seq)  # if bigger than the last element \n",
+  "n": 2
+ },
+ {
+  "id": "227",
+  "before": "def search(x, seq):\n    \n    for i in range(len(seq)):\n        if x<=seq[i]:\n            return i\n        elif x>seq[len(seq)]:\n            return len(seq)\n        elif len(seq)==0:\n            return 0\n        else:\n            continue \n",
+  "after": "def search(x, seq):\n    if len(seq) == 0:    #if there is nothing in the sequence, put it as the first part of the column\n        return 0\n    else:\n        for i in range(len(seq)):\n            if x > seq[-1]:  #if the digit x is greater than the greatest number in the sequence, return the number of elements in the sequence\n                return len(seq)\n            elif x <= seq[i]: #to return the number when x is smaller of equals to the i in the loop\n                return i\n            else:\n                continue #goes into a loop until it finds the number that matches the previous answer.\n",
+  "n": 1
+ },
+ {
+  "id": "228",
+  "before": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if i == 0 and x < elem:\n            return 0\n        elif x == elem:\n            return i\n        elif x < elem:\n            return i\n        elif x > seq[-1]:\n            return len(seq)\n",
+  "after": "def search(x, seq):\n    if seq == () or seq == []:\n        return 0\n    else:\n        for i, elem in enumerate(seq):\n            if x <= elem:\n                return i\n            elif x > seq[-1]:\n                return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "229",
+  "before": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if len(seq) == 0:\n            return 0\n        elif x > seq[-1]:\n            return len(seq)\n        elif  x > elem:\n            continue\n        else:\n            return i\n",
+  "after": "def search(x, seq):\n    for i,elem in enumerate(seq):\n        if elem == x:\n            return i \n        elif elem > x:\n            return i\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "230",
+  "before": "def search(x, seq):\n    for i in range(1, len(seq)+1):\n        if x < seq[i-1]:\n            return i-1\n        elif seq[i-1]<x<seq[i]:\n            return i-1\n        else:\n            return i\n        \n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)-1):\n        if x < seq[0]:\n            return 0\n        elif seq[i] <= x <= seq[i+1]:\n            return i+1\n    return len(seq)\n",
+  "n": 3
+ },
+ {
+  "id": "231",
+  "before": "def search(x, seq):\n    if x <= seq[0]:\n        return 0\n    elif x >= seq[-1]:\n        return len(seq)\n    elif seq == ():\n        return 0\n    else:\n        for i in range(0, len(seq)-1):\n            if seq[i] <= x <= seq[i+1]:\n                return i+1\n",
+  "after": "def search(x, seq):\n    if len(seq)==0:\n        return 0\n    else:\n        if x <= seq[0]:\n            return 0\n        elif x > seq[-1]:\n            return len(seq)\n        else:\n            for i in range(0, len(seq)-1):\n                if seq[i] <= x <= seq[i+1]:\n                    return i+1\n",
+  "n": 2
+ },
+ {
+  "id": "232",
+  "before": "def search(x, seq):\n    if x <= seq[0] or len(seq)==0:\n        return 0\n    elif x >= seq[-1]:\n        return len(seq)\n    else:\n        for i in range(0, len(seq)-1):\n            if seq[i] <= x <= seq[i+1]:\n                return i+1\n",
+  "after": "def search(x, seq):\n    if len(seq)==0:\n        return 0\n    else:\n        if x <= seq[0]:\n            return 0\n        elif x > seq[-1]:\n            return len(seq)\n        else:\n            for i in range(0, len(seq)-1):\n                if seq[i] <= x <= seq[i+1]:\n                    return i+1\n",
+  "n": 1
+ },
+ {
+  "id": "233",
+  "before": "def search(x, seq):\n    if seq ==[]:\n        return 0\n    if x<0:\n        return 0\n    elif x<max(seq):\n        for i in range(len(seq)):\n            if (x>=seq[i]) and (x<=seq[i+1]):\n                return i+1\n    else:\n        return len(seq)\n",
+  "after": "def search(x, seq):\n    if len(seq)==0:\n        return 0\n    if x < seq[0]:\n        return 0\n    elif x > seq[len(seq)-1]:\n        return len(seq)\n    else:\n        for i in range(len(seq)):\n            if x > seq[i] and x <= seq[i+1]:\n                return i+1\n",
+  "n": 1
+ },
+ {
+  "id": "234",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    count = 0\n    if x <= seq[0] or not seq:\n        return 0\n    elif x > seq[len(seq)-1]:\n        return len(seq)\n    else:\n        while x > seq[count]:\n            count += 1\n        return count\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    count = 0\n    if seq == () or seq == []:\n        return 0\n    else:\n        if x <= seq[0]:\n            return 0\n        elif x > seq[len(seq)-1]:\n            return len(seq)\n        else:\n            while x > seq[count]:\n                count += 1\n            return count\n",
+  "n": 1
+ },
+ {
+  "id": "235",
+  "before": "def search(x, seq):\n    for i,elem in enumerate(seq):\n        if seq==() or []:\n            return 0\n        elif elem>=x:\n            return i\n        elif i+1==len(seq):\n            return len(seq)\n        else:\n            continue\n",
+  "after": "def search(x, seq):\n    if len(seq)==0:\n        return 0\n    else:\n        for i,elem in enumerate(seq):\n            if elem>=x:\n                return i\n            elif i+1==len(seq):\n                return len(seq)\n            else:\n                continue\n",
+  "n": 1
+ },
+ {
+  "id": "236",
+  "before": "def search(x, seq):\n    position = 0\n    while position < len(seq)-1:\n        if seq[position] == x:\n             break\n        elif seq[position] > x:\n            break\n        position = position + 1\n    if seq[position] < x:\n        position = position + 1\n    return position\n",
+  "after": "def search(x, seq):\n    position = 0\n    while position < len(seq):\n        if seq[position] == x:\n             break\n        elif seq[position] > x:\n            break\n        position = position + 1\n    return position\n",
+  "n": 1
+ },
+ {
+  "id": "237",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    enumerated = list(enumerate(seq))\n    if x > max(seq):\n        return len(seq)\n    else:\n        for i in range(len(enumerated)):\n            if enumerated[i][1] >= x:\n                return enumerated[i][0]\n                break\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    if seq == () or seq == []:\n        return 0\n    elif x > max(seq):\n        return len(seq)\n    else:\n        enumerated = list(enumerate(seq))\n        for i in range(len(enumerated)):\n            if enumerated[i][1] >= x:\n                return enumerated[i][0]\n                break\n",
+  "n": 1
+ },
+ {
+  "id": "238",
+  "before": "def search(x, seq):\n    \n    for i in range(len(seq)):\n        if x<=seq[i]:\n            return i\n        elif x>=seq[len(seq)-1]:\n            return len(seq)\n        elif len(seq)==0:\n            return 0\n        else:\n            continue \n",
+  "after": "def search(x, seq):\n    if len(seq) == 0:    #if there is nothing in the sequence, put it as the first part of the column\n        return 0\n    else:\n        for i in range(len(seq)):\n            if x > seq[-1]:  #if the digit x is greater than the greatest number in the sequence, return the number of elements in the sequence\n                return len(seq)\n            elif x <= seq[i]: #to return the number when x is smaller of equals to the i in the loop\n                return i\n            else:\n                continue #goes into a loop until it finds the number that matches the previous answer.\n",
+  "n": 1
+ },
+ {
+  "id": "239",
+  "before": "#def search(x, seq):\n#    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n#    position that x should go to such that the sequence remains sorted \"\"\"\n#    return\n\n\n\ndef search(val,seq):\n    if val <= seq[0]:\n        position = 0\n    elif val >= seq[-1]:\n        position = len(seq)\n    else:\n        for item in seq:\n            if val <= item:\n                position = seq.index(item)-1\n    return position\n",
+  "after": "def search(x, seq):\n    if len(seq) == 0:\n        return 0\n    elif x < seq[0]:\n        return 0\n    elif x > seq[-1]:\n        return len(seq)\n    else:\n        for i in seq:\n            if x > i:\n                continue\n            else:\n                return seq.index(i)\n",
+  "n": 3
+ },
+ {
+  "id": "240",
+  "before": "def search(x, seq):\n    l=len(seq)\n    if x<=seq[0]:\n        return 0\n    elif x>=seq[l-1]:\n        return l+1\n    else:\n        for i in range (l):\n            if x>=seq[i] and x<=seq[i+1]:\n                return i+1\n            else:   \n                continue\n",
+  "after": "def search(x, seq):\n    if len(seq)==0:\n        return 0\n    if x < seq[0]:\n        return 0\n    elif x > seq[len(seq)-1]:\n        return len(seq)\n    else:\n        for i in range(len(seq)):\n            if x > seq[i] and x <= seq[i+1]:\n                return i+1\n",
+  "n": 1
+ },
+ {
+  "id": "241",
+  "before": "def search(x, seq):\n    if seq==[]or():\n        return 0\n    for i,v in enumerate(seq):\n        if x>v and i!=len(seq)-1:\n            continue\n        elif x>v and i==len(seq)-1:\n            return i+1\n        else:\n            break\n        \n    return i\n",
+  "after": "def search(x, seq):\n    if seq==[]:\n        return 0\n    elif seq==():\n        return 0\n    else:\n        for i,v in enumerate(seq):\n            if x>v and i!=len(seq)-1:\n                continue\n            elif x>v and i==len(seq)-1:\n                return i+1\n            else:\n                break\n        \n        return i\n",
+  "n": 1
+ },
+ {
+  "id": "242",
+  "before": "def search(x, seq):\n    a = len(seq)\n    if x < seq[0]:\n        return 0\n    elif x > seq[-1]:\n        return a\n    else:\n        for i in range(a):\n            if x == seq[i]:\n                return i\n            elif x < seq[i]:\n                return i\n",
+  "after": "def search(x, seq):\n    length = len(seq)\n    if length == 0: return 0\n    elif length == 1: return 0 if x < seq[0] else 1\n    else:\n        for i in range(length):\n            if x <= seq[i]: return i\n        return length # x is larger than everything in seq, so x goes to the end\n",
+  "n": 1
+ },
+ {
+  "id": "243",
+  "before": "def search(x, seq):\n    for i in range(len(seq)-1):\n        if x<=seq[0]:\n            return 0\n        if seq[i]<=x<=seq[i+1]:\n            return i+1\n        if x>=seq[-1]:\n            return len(seq)\n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)-1):\n        if seq[i] < x <= seq[i+1]:\n            return i+1\n        elif x <= seq[0]:\n            return 0\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "244",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    enumerated = list(enumerate(seq))\n    if seq == ():\n        return 0\n    elif x > max(seq):\n        return len(seq)\n    else:\n        for i in range(len(enumerated)):\n            if enumerated[i][1] >= x:\n                return enumerated[i][0]\n                break\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    if seq == () or seq == []:\n        return 0\n    elif x > max(seq):\n        return len(seq)\n    else:\n        enumerated = list(enumerate(seq))\n        for i in range(len(enumerated)):\n            if enumerated[i][1] >= x:\n                return enumerated[i][0]\n                break\n",
+  "n": 1
+ },
+ {
+  "id": "245",
+  "before": "def search(x, seq):\n    l=len(seq)\n    if x<=seq[0]:\n        return 0\n    elif x>=seq[l-1]:\n        return l\n    else:\n        for i in range (l):\n            if x>=seq[i] and x<=seq[i+1]:\n                return i+1\n            else:   \n                continue\n",
+  "after": "def search(x, seq):\n    y = len(seq)\n    if y == 0 or x < seq[0]:\n        return 0\n    else:\n        for i in range(y-1):\n            if x > seq[i] and x <= seq[i+1]:\n                return i + 1\n        return y\n",
+  "n": 1
+ },
+ {
+  "id": "246",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    if seq==[] or x<=seq[0]:\n        return 0\n    if x>seq[-1]:\n        return len(seq)\n    else:\n        for i,elem in enumerate(seq):\n            if x>elem and x<=seq[i+1]:\n                return i+1\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    if seq==() or seq==[] or x<=seq[0]:\n        return 0\n    elif x>seq[-1]:\n        return len(seq)\n    else:\n        for i,elem in enumerate(seq):\n            if x>elem and x<=seq[i+1]:\n                return i+1\n",
+  "n": 2
+ },
+ {
+  "id": "247",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    if x < seq[0]:\n        return 0\n    elif x > seq[len(seq)-1]:\n        return len(seq)\n    counter = 0\n    for i in seq:\n        counter = counter + 1\n        if x > seq[counter]:\n            continue\n        elif x <= seq[counter]:\n            return counter\n\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    if len(seq) == 0:\n        return 0\n    elif x < seq[0]:\n        return 0\n    elif x > seq[len(seq)-1]:\n        return len(seq)\n    counter = 0\n    for i in seq:\n        counter = counter + 1\n        if x > seq[counter]:\n            continue\n        elif x <= seq[counter]:\n            return counter\n\n",
+  "n": 1
+ },
+ {
+  "id": "248",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    if seq == []:\n        return 0\n    if x < seq[0]:\n        return 0\n    elif x > seq[len(seq)-1]:\n        return len(seq)\n    else:\n        for i in range(len(seq)-1):\n            if seq[i] == x:\n                return i+1\n            elif seq[i] < x and seq[i+1] > x:\n                return i+1\n            else:\n                return None\n\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    if seq == [] or seq == ():\n        return 0\n    if x < seq[0]:\n        return 0\n    elif x > seq[len(seq)-1]:\n        return len(seq)\n    else:\n        for i in range(len(seq)):\n            if seq[i] == x:\n                return i\n            elif seq[i] <= x and seq[i+1] > x:\n                return i+1\n",
+  "n": 4
+ },
+ {
+  "id": "249",
+  "before": "def search(x, seq):\n    if not seq:\n        return 0\n    elif x < seq[0]:\n        return 0\n    elif x > seq[-1]:\n        return len(seq)\n    else:\n        for i in range(len(seq) - 1):\n            if seq[i] == x:\n                return i\n            elif seq[i] < x < seq[i+1]:\n                return i+1\n",
+  "after": "def search(x, seq):\n    if len(seq)==0:\n        return 0\n    else:\n        if x <= seq[0]:\n            return 0\n        elif x > seq[-1]:\n            return len(seq)\n        else:\n            for i in range(0, len(seq)-1):\n                if seq[i] <= x <= seq[i+1]:\n                    return i+1\n",
+  "n": 3
+ },
+ {
+  "id": "250",
+  "before": "def search(x, seq):\n    for i, elem in enumerate(seq):\n        if seq == ():\n            return (i,)\n        elif seq == []:\n            return [i,]\n        elif x <= elem:\n            return i\n        elif x > seq[len(seq)-1]:\n            return len(seq)\n",
+  "after": "def search(x, seq):\n    if seq == () or seq == []:\n        return 0\n    else:\n        for i, elem in enumerate(seq):\n            if x <= elem:\n                return i\n            elif x > seq[len(seq)-1]:\n                return len(seq)\n",
+  "n": 2
+ },
+ {
+  "id": "251",
+  "before": "def search(x, seq):\n    if x<0:\n        return 0\n    elif x<max(seq):\n        for i in range(len(seq)):\n            if (x>=seq[i]) and (x<=seq[i+1]):\n                return i+1\n    else:\n        return len(seq)\n",
+  "after": "def search(x, seq):\n    y = len(seq)\n    if y == 0 or x < seq[0]:\n        return 0\n    else:\n        for i in range(y-1):\n            if x > seq[i] and x <= seq[i+1]:\n                return i + 1\n        return y\n",
+  "n": 1
+ },
+ {
+  "id": "252",
+  "before": "def search(x, seq):\n    if seq ==[]:\n        return 0\n    elif x<0:\n        return 0\n    elif x<max(seq):\n        for i in range(len(seq)):\n            if (x>=seq[i]) and (x<=seq[i+1]):\n                return i+1\n    else:\n        return len(seq)\n",
+  "after": "def search(x, seq):\n    if len(seq) == 0:\n        return 0\n    elif x < int(seq[0]):\n        return 0\n    elif x > int(seq[len(seq)-1]):\n        return len(seq)\n    else:\n        for i in range(len(seq)):\n            if x > seq[i] and x <= seq[i+1]:\n                return i+1\n",
+  "n": 1
+ },
+ {
+  "id": "253",
+  "before": "def search(x,seq):\n    tup = ()\n    if type(seq) == tuple:\n        for i in seq:\n            if i < x:\n                tup = tup + (i,)\n            else:\n                tup = tup + (x,)\n                break\n        return len(tup) - 1\n        \n",
+  "after": "def search(x, seq):\n\tposition = 0\n\tfor i in seq:\n\t\tif x > i:\n\t\t\tposition = seq.index(i) + 1\n\t\telse:\n\t\t\tposition = seq.index(i)\n\t\t\tbreak\n\treturn position\n",
+  "n": 1
+ },
+ {
+  "id": "254",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    counter = -1\n    for i in seq:\n        if len(seq) == 0:\n            return 0\n        elif x <= i:\n            counter += 1\n            return counter\n        else:\n            counter += 1\n    if x > seq[counter]:\n        return counter + 1\n",
+  "after": "def search(x, seq):     #seq is sorted\n    pos = 0\n    for i in range(len(seq)):\n        elem = seq[i]\n        if x <= elem:\n            pos = i\n            break\n        else:\n            pos += 1\n    return pos\n",
+  "n": 1
+ },
+ {
+  "id": "255",
+  "before": "def search(x, seq):\n    for element in seq:\n        if x <= element:\n            return list(seq).index(element)\n        elif x >= max(seq):\n            return (list(seq).index(max(seq)))+1\n        elif seq == ():\n            return ()\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    return\ndef search(x, seq):\n    if list(seq) == []:\n        return 0\n    else:\n        for element in seq:\n            if x <= element:\n                return list(seq).index(element)\n            elif x > max(seq):\n                return (list(seq).index(max(seq)))+1\n",
+  "n": 1
+ },
+ {
+  "id": "256",
+  "before": "def search(x, seq):\n    while (x<seq[i] and i < len(seq)):\n        i += 1\n    if i==len(seq):\n        seq.append(x)\n    else:\n        seq.insert(i, x)\n    return seq\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    if len(seq) == 0:\n        return 0\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return i\n    if x > seq[-1]:\n        return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "257",
+  "before": "def search(x, seq):\n    counter = 0\n    for i in range(1, len(seq)+1):\n        if x < seq[i-1]:\n            counter = i-1\n        elif seq[i-1]<x<seq[i]:\n            counter = i\n        counter = i\n    return counter    \n        \n",
+  "after": "def search(x, seq):\n    position = 0\n    for i in range(len(seq)):\n        if x > seq[i]:\n            position = i + 1\n        elif x == seq[i]:\n            position = i\n    return position\n",
+  "n": 1
+ },
+ {
+  "id": "258",
+  "before": "def search(x, seq):\n    if x<seq[0]:\n        return 0\n    elif x>seq[-1]:\n        return len(seq)\n    elif seq is ():\n        return 0\n    else:\n        for i in range(len(seq)-1):\n            if x>seq[i] and x<seq[i+1]:\n                return i+1\n            elif x==seq[i]:\n                return i\n",
+  "after": "def search(x, seq):\n    if len(seq)==0:\n        return 0\n    elif x<seq[0]:\n        return 0\n    elif x>seq[-1]:\n        return len(seq)\n    else:\n        for i in range(len(seq)):\n            if x>seq[i] and x<seq[i+1]:\n                return i+1\n            elif x==seq[i]:\n                return i\n",
+  "n": 2
+ },
+ {
+  "id": "259",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    largest=seq[0]\n    for i in range(len(seq)):\n        if seq==() or seq==[]:\n            return 0 \n        if x<=seq[i]:\n            return i\n        elif x>seq[len(seq)-1]:\n            return len(seq)\n",
+  "after": "def search(x, seq):\n    if seq==() or seq==[]:\n            return 0\n    else:\n        largest=seq[0]\n        for i in range(len(seq)):\n            if x<=seq[i]:\n                return i\n            elif x>seq[len(seq)-1]:\n                return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "260",
+  "before": "def search(x, seq):\n    for i in range(len(seq)):\n        if x < seq[i]:\n            return i\n        elif seq[i] == seq[-1]:\n            return i+1\n        elif seq[i]<x<=seq[i+1]:\n            return i\n    return len(seq)+1     \n        \n",
+  "after": "def search(x, seq):\n    for i in range(len(seq)):\n        if x <= seq[i]:\n            return seq.index(seq[i])\n        elif seq[-1] <  x:\n            return seq.index(seq[-1])+1\n    return 0\n\n",
+  "n": 1
+ },
+ {
+  "id": "261",
+  "before": "def search(x, seq):\n    if len(seq)==0:\n        return 0\n    for i in range(len(seq)-1):\n        if x<=seq[0]:\n            return 0\n        if seq[i]<=x<=seq[i+1]:\n            return i+1\n        if x>=seq[-1]:\n            return len(seq)\n",
+  "after": "def search(x, seq):\n    if len(seq)==0 or x < seq[0]:\n        return 0\n    for i in range(len(seq)-1):\n        if seq[i] <= x <= seq[i+1]:\n            return i+1\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "262",
+  "before": "def search(x, seq):\n    for i in seq:\n        if x == seq[i]:\n            return i\n        elif x < seq[0]:\n            return 0\n        elif x > seq[i] and x < seq[i+1]:\n            return i+1\n        else:\n            return len(seq)\n\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n",
+  "after": "def search(x, seq):\n    y = len(seq)\n    if y == 0 or x < seq[0]:\n        return 0\n    else:\n        for i in range(y-1):\n            if x > seq[i] and x <= seq[i+1]:\n                return i + 1\n        return y\n",
+  "n": 1
+ },
+ {
+  "id": "263",
+  "before": "def search(x, seq):\n    for i in seq:\n        if x <= i:\n            return seq.index(i)\n        elif x > seq[-1]:\n            return (seq.index(seq[-1])) + 1\n        elif seq == () or seq == []:\n            return 0\n",
+  "after": "def search(x, seq):\n    if seq == () or seq == []:\n            return 0\n    for i in seq:\n        if x <= i:\n            return seq.index(i)\n        elif x > seq[-1]:\n            return (seq.index(seq[-1])) + 1\n",
+  "n": 1
+ },
+ {
+  "id": "264",
+  "before": "def search(x, seq):\n    i = 0\n    while (x<seq[i] and i < len(seq)):\n        i += 1\n    if i==len(seq):\n        seq.append(x)\n    else:\n        seq.insert(i, x)\n    return seq\n",
+  "after": "def search(x, seq):\n    lst = []\n    for i, elem in enumerate(seq):\n        lst.append((i, elem))\n    for i in lst:\n        if x <= i[1]:\n            return i[0]\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "265",
+  "before": "def search(x, seq):\n    i = 0\n    while (i<len(seq) and x<seq[i]):\n        i += 1\n    if i==len(seq):\n        seq += (x,)\n    else:\n        seq.insert(i, x)\n    return seq\n",
+  "after": "def search(x, seq):\n    counter=0\n    while counter<len(seq):\n        if seq[counter]>=x:\n            return counter\n        counter+=1\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "266",
+  "before": "def search(x, seq):\n    if x <= seq[0]:\n        return 0\n    elif x >= seq[len(seq)-1]:\n        return len(seq)\n    elif seq == ():\n        return 0\n    else:\n        for i, elem in enumerate(seq):\n            if elem <= x <= seq[i+1]:\n                return i+1\n",
+  "after": "def search(x, seq):\n    if len(seq) == 0:\n        return 0\n    elif x > seq[len(seq)-1]:\n        return len(seq)\n    elif x < seq[0]:\n        return 0\n    else:\n        for i in seq:\n            if x > i:\n                continue\n            else:\n                return seq.index(i) \n",
+  "n": 1
+ },
+ {
+  "id": "267",
+  "before": "def search(x, seq):\n    l=len(seq)\n    if len(seq)==0:\n        return 0\n    elif x<=seq[0]:\n        return 0\n    elif x>=seq[l-1]:\n        return l\n    else:\n        for i in range (l):\n            if x>=seq[i] and x<=seq[i+1]:\n                return i+1\n            else:   \n                continue\n",
+  "after": "def search(x, seq):\n    if len(seq)==0:\n        return 0\n    if x < seq[0]:\n        return 0\n    elif x > seq[len(seq)-1]:\n        return len(seq)\n    else:\n        for i in range(len(seq)):\n            if x > seq[i] and x <= seq[i+1]:\n                return i+1\n",
+  "n": 2
+ },
+ {
+  "id": "268",
+  "before": "def search(x, seq):\n    if seq[len(seq)-1] < x:\n        return len(seq)\n    elif seq[0] >= x:\n                return 0\n    else:\n        for i in range(len(seq)-1):\n            if seq[i] < x and seq[i+1] >= x:\n                return i+1\n                break\n",
+  "after": "def search(x, seq):\n    y = len(seq)\n    if y == 0 or x < seq[0]:\n        return 0\n    else:\n        for i in range(y-1):\n            if x > seq[i] and x <= seq[i+1]:\n                return i + 1\n        return y\n",
+  "n": 1
+ },
+ {
+  "id": "269",
+  "before": "def search(x, seq):\n    if seq==():\n        return 0\n    for i in range(len(seq)-1):\n        if x<=seq[0]:\n            return 0\n        if seq[i]<=x<=seq[i+1]:\n            return i+1\n        if x>=seq[-1]:\n            return len(seq)\n",
+  "after": "def search(x, seq):\n    if len(seq)==0 or x < seq[0]:\n        return 0\n    for i in range(len(seq)-1):\n        if seq[i] <= x <= seq[i+1]:\n            return i+1\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "270",
+  "before": "def search(x, seq):\n    n = len(seq)\n    for i in range(0,n):\n        currentvalue = seq[i]\n        position = i\n        if position >= 0 and x>currentvalue:\n            position = i+1\n        elif position >= 0 and x<= currentvalue:\n            return position\n    return position\n",
+  "after": "def search(key, seq):\n    lst = list(seq)\n    n = len(lst)\n    for i in range(n+1): #0,1,2,3 \n        if i <= n-1 and key <= lst[i]:\n            return i\n    return n \n",
+  "n": 2
+ },
+ {
+  "id": "271",
+  "before": "def search(x, seq):\n    if x <= seq[0]:\n        return 0\n    elif x >= seq[len(seq)-1]:\n        return len(seq)\n    elif seq == [] or ():\n        return 0\n    else:\n        for i, elem in enumerate(seq):\n            if elem <= x <= seq[i+1]:\n                return i+1\n",
+  "after": "def search(x, seq):\n    if seq == () or seq == []:\n        return 0\n    elif x <= seq[0]:\n        return 0\n    elif x > seq[len(seq)-1]:\n        return len(seq)\n    else:\n        for i, elem in enumerate(seq):\n            if elem <= x <= seq[i+1]:\n                return i+1\n",
+  "n": 1
+ },
+ {
+  "id": "272",
+  "before": "def search(x, seq):\n    lst = list(seq)\n    for i in range(len(lst)):\n        if x < lst[i]:\n            lst.insert(i,x)\n        else:\n            lst.insert(len(lst),x)\n    for i in range(len(lst)):\n         if lst[i] == x:\n             return i\n",
+  "after": "def search(x, seq):\n    seq = list(seq)\n    for i in range(len(seq)):\n        if x > seq[i]:\n            continue\n        elif x <= seq[i]:\n            return i\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "273",
+  "before": "def search(x, seq):\n    if seq == [] or seq == (): \n        return 0\n    elif len(seq) == 1:\n        if seq[0] < x:\n            return 0\n        else: \n            return 1\n    elif seq[-1] <= x:\n        return len(seq)\n    elif seq[0] >= x:\n        return 0\n    else:\n        for i in range(len(seq)):\n            if x >= seq[i] and x <= seq[i+1]:\n                return i + 1\n",
+  "after": "def search(x, seq):\n    if seq == [] or seq ==():\n        return 0\n    elif x > seq[ len(seq)- 1]:\n        return len(seq)    \n    elif x < seq[0]:\n        return 0\n    else:\n        for i in range(len(seq)):\n            if x >= seq[i] and x <= seq[i+1]:\n                return i+1\n",
+  "n": 4
+ },
+ {
+  "id": "274",
+  "before": "def search(x, seq):\n    if seq == []: \n        return 0\n    elif len(seq) == 1:\n        if seq[0] < x:\n            return 0\n        else: \n            return 1\n    elif seq[-1] <= x:\n        return len(seq)\n    elif seq[0] >= x:\n        return 0\n    else:\n        for i in range(len(seq)):\n            if x >= seq[i] and x <= seq[i+1]:\n                return i + 1\n",
+  "after": "def search(x, seq):\n    if seq == [] or seq ==():\n        return 0\n    elif x > seq[ len(seq)- 1]:\n        return len(seq)    \n    elif x < seq[0]:\n        return 0\n    else:\n        for i in range(len(seq)):\n            if x >= seq[i] and x <= seq[i+1]:\n                return i+1\n",
+  "n": 2
+ },
+ {
+  "id": "275",
+  "before": "def search(x, seq):\n    if seq[len(seq)-1] < x:\n        return len(seq)\n    elif seq[0] >= x or seq == () or seq == []:\n                return 0\n    else:\n        for i in range(len(seq)-1):\n            if seq[i] < x and seq[i+1] >= x:\n                return i+1\n                break\n",
+  "after": "def search(x, seq):\n    y = len(seq)\n    if y == 0 or x < seq[0]:\n        return 0\n    else:\n        for i in range(y-1):\n            if x > seq[i] and x <= seq[i+1]:\n                return i + 1\n        return y\n",
+  "n": 1
+ },
+ {
+  "id": "276",
+  "before": "def search(x, seq):\n    if seq == []:\n        return 0\n    elif len(seq) == 1:\n        if seq[0] < x:\n            return 0\n        else:\n            return 1\n    elif seq[-1] <= x:\n        return len(seq) + 1\n    else:\n        for i in range(len(seq)):\n            if x >= seq[i] and x <= seq[i + 1]:\n                return i + 1\n    \n",
+  "after": "def search(x, seq):\n    if len(seq)==0:\n        return 0\n    if x < seq[0]:\n        return 0\n    elif x > seq[len(seq)-1]:\n        return len(seq)\n    else:\n        for i in range(len(seq)):\n            if x > seq[i] and x <= seq[i+1]:\n                return i+1\n",
+  "n": 1
+ },
+ {
+  "id": "277",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    counter = -1\n    for i in seq:\n        if len(seq) == 0:\n            return 0\n        if x <= i:\n            counter += 1\n            return counter\n        elif x > i:\n            counter += 1\n        else:\n            counter += 1\n    if x > seq[counter]:\n        return counter + 1\n",
+  "after": "def search(x, seq):\n    position = 0\n    for i in seq:\n        if x > i:\n            position +=1\n        else:\n            return position\n    if position ==len(seq)-1:\n        return position+1\n    else: \n        return position\n",
+  "n": 4
+ },
+ {
+  "id": "278",
+  "before": "def search(x, seq):\n    n = len(seq)\n    if seq ==():\n        return 0\n    for i in range(0,n):\n        currentvalue = seq[i]\n        position = i\n        if position >= 0 and x>currentvalue:\n            position = i+1\n        elif position >= 0 and x<= currentvalue:\n            return position\n    return position\n",
+  "after": "def search(x, seq):\n    l=len(seq)\n    if l==0:\n        return 0\n    for i in range(l):\n        if x<=seq[i]:\n            break\n    if x>seq[l-1]:\n        i=i+1\n    return i\n",
+  "n": 2
+ },
+ {
+  "id": "279",
+  "before": "def search(x, seq):\n    newseq = list(seq)\n    sortlist = []\n    if newseq[-1] < x:\n        return len(newseq)\n    while x not in sortlist and newseq:\n        start = newseq[0]\n        if x <= start:\n            sortlist.append(x)\n        else:\n            sortlist.append(start)\n            newseq.pop(0)\n    sortlist.extend(newseq)\n    for pos, elem in enumerate(sortlist):\n        if elem == x:\n            return pos\n",
+  "after": "def search(x, seq):\n    if seq == () or seq == []:\n        return 0\n    elif seq[-1] < x:\n        return len(seq)\n    newseq = list(seq)\n    sortlist = []\n    while x not in sortlist and newseq:\n        start = newseq[0]\n        if x <= start:\n            sortlist.append(x)\n        else:\n            sortlist.append(start)\n            newseq.pop(0)\n    sortlist.extend(newseq)\n    for pos, elem in enumerate(sortlist):\n        if elem == x:\n            return pos\n",
+  "n": 1
+ },
+ {
+  "id": "280",
+  "before": "def search(x, seq):\n    if x < seq[0]:\n        return 0\n    elif x > seq[-1]:\n        return len(seq)\n    elif len(seq) == 0:\n        return 0\n    else:\n        for i in range(len(seq) - 1):\n            if seq[i] == x:\n                return i\n            elif seq[i] < x < seq[i+1]:\n                return i+1\n",
+  "after": "def search(x, seq):\n    if len(seq)==0:\n        return 0\n    else:\n        if x <= seq[0]:\n            return 0\n        elif x > seq[-1]:\n            return len(seq)\n        else:\n            for i in range(0, len(seq)-1):\n                if seq[i] <= x <= seq[i+1]:\n                    return i+1\n",
+  "n": 3
+ },
+ {
+  "id": "281",
+  "before": "def search(x, seq): \n    Index = 0\n    for i in range(0,len(seq)+1): \n        Index = i\n        if int(x) < seq[0]:\n            return 0    \n        elif int(x)> list1[len(seq)-1]:\n            return len(seq)        \n        elif int(x) > seq[i]:\n            continue        \n    return Index\n",
+  "after": "def search(x, seq):\n    a = 0\n    for i,j in enumerate(seq):\n        if x > j and i < len(seq)-1:\n            continue\n        elif x <= j:\n            a = i\n            break\n        else:\n            a = len(seq)\n    return a\n",
+  "n": 2
+ },
+ {
+  "id": "282",
+  "before": "def search(x, seq):\n    n = len(seq)\n    for i in range(0,n):\n        currentvalue = seq[i]\n        position = i\n        if position >= 0 and x>currentvalue:\n            position = i+1\n        elif position >= 0 and x<= currentvalue:\n            return position\n        elif seq==():\n            return 0\n    return position\n",
+  "after": "def search(x, seq):\n    seq = list(seq)\n    for i, elem in enumerate(seq):\n        if elem < x:\n            continue\n        elif elem == x:\n            return i \n        elif elem > x:\n            return i\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "283",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    if type(seq) == tuple:\n        new_seq = list(seq)\n        sort = []\n        for i in range(len(new_seq)):\n            if max(new_seq) < x:\n                sort.extend(new_seq)\n                sort.append(x)\n            elif new_seq[i] >=x: \n                sort.append(x)\n                sort.extend(new_seq[i:])\n                break\n            elif new_seq[i]<x:\n                sort.append(new_seq[i])\n            \n        \n    else:\n        sort = []\n        for i in range(len(seq)):\n            if max(seq) < x:\n                sort.extend(seq)\n                sort.append(x)\n            elif seq[i] >=x: \n                sort.append(x)\n                sort.extend(seq[i:])\n                break\n            elif seq[i]<x:\n                sort.append(seq[i])\n    positions = list(enumerate(sort))\n    for i in positions:\n        if i[1] == x:\n            return i[0]\n        else:\n            continue\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    if seq == [] or seq == ():\n        return 0\n    elif type(seq) == tuple:\n        new_seq = list(seq)\n        sort = []\n        for i in range(len(new_seq)):\n            if max(new_seq) < x:\n                sort.extend(new_seq)\n                sort.append(x)\n            elif new_seq[i] >=x: \n                sort.append(x)\n                sort.extend(new_seq[i:])\n                break\n            elif new_seq[i]<x:\n                sort.append(new_seq[i])\n    else:\n        sort = []\n        for i in range(len(seq)):\n            if max(seq) < x:\n                sort.extend(seq)\n                sort.append(x)\n            elif seq[i] >=x: \n                sort.append(x)\n                sort.extend(seq[i:])\n                break\n            elif seq[i]<x:\n                sort.append(seq[i])\n    positions = list(enumerate(sort))\n    for i in positions:\n        if i[1] == x:\n            return i[0]\n        else:\n            continue\n",
+  "n": 2
+ },
+ {
+  "id": "284",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    for i,j in enumerate(seq[:len(seq)-1]):\n        if x < seq[0]:\n            return 0\n        elif x > j and x <= seq[i+1]:\n            return i+1\n        elif x > seq[len(seq)-1]:\n            return len(seq)\n        else:\n            continue\n",
+  "after": "def search(x, seq):\n    if len(seq) == 0:\n        return False\n    else:     \n        for i in range(len(seq)):\n            if x < seq[i]:\n                return i\n            elif seq[i] == seq[-1] and seq[i]<x:\n                return i+1\n            elif seq[i]<x<=seq[i+1]:\n                return i+1    \n        \n",
+  "n": 1
+ },
+ {
+  "id": "285",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    for i,j in enumerate(seq[:len(seq)-1]):\n        if seq == []:\n            return 0\n        elif x < seq[0]:\n            return 0\n        elif x > j and x <= seq[i+1]:\n            return i+1\n        elif x > seq[len(seq)-1]:\n            return len(seq)\n        else:\n            continue\n",
+  "after": "def search(x, seq):\n    for i in range(0, len(seq) + 1):\n        if len(seq) == 0:\n            return 0\n        elif x < seq[0]:\n            return 0\n        elif seq[i] < x <= seq[i+1]:\n            return i + 1\n        elif seq[len(seq)-1] < x:\n            return len(seq)\n",
+  "n": 2
+ },
+ {
+  "id": "286",
+  "before": "def search(x, seq):\n    if len(seq)==0:\n        return 0\n    if len(seq)==1:\n        if x>=seq[0]:\n            return 1\n        elif x<seq[0]:\n            return 0\n    for i in range(len(seq)-1):\n        if x<=seq[0]:\n            return 0\n        if seq[i]<=x<=seq[i+1]:\n            return i+1\n        if x>=seq[-1]:\n            return len(seq)\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    if len(seq) ==1:\n        if x < seq[0]:\n            return 0\n        else:\n            return 1\n    for i in range(len(seq)):\n        if i == 0:\n            if x < seq[0]:\n                return 0\n        if x == seq[i]:\n            return i\n        if seq[i-1] < x < seq[i]:\n            return i\n    return len(seq)\n",
+  "n": 1
+ },
+ {
+  "id": "287",
+  "before": "def search(x, seq):\n    if type(seq) == tuple:\n        for i in range(len(seq)):\n            if x <= seq[i]:\n                seq = seq[:i] + (x,) + seq[i:]\n            elif seq[len(seq)-1] < x:\n                seq = seq + (x,)\n\n    elif type(seq) == list:\n        for i in range(len(seq)):\n            if x <= seq[i]:\n                seq = seq[:i] + [x,] + seq[i:]\n            elif seq[len(seq)-1] < x:\n                seq = seq + [x,]\n\n    for i in enumerate(seq):\n        if x == i[1]:\n            return i[0]\n",
+  "after": "def search(x, seq):\n    if type(seq) == tuple:\n        if seq == ():\n            return 0\n        else:\n            for i in range(len(seq)):\n                if x <= seq[i]:\n                    seq = seq[:i] + (x,) + seq[i:]\n                elif seq[len(seq)-1] < x:\n                    seq = seq + (x,)\n\n    elif type(seq) == list:\n        if seq == []:\n            return 0\n        else:\n            for i in range(len(seq)):\n                if x <= seq[i]:\n                    seq = seq[:i] + [x,] + seq[i:]\n                elif seq[len(seq)-1] < x:\n                    seq = seq + [x,]\n\n    for i in enumerate(seq):\n        if x == i[1]:\n            return i[0]\n",
+  "n": 1
+ },
+ {
+  "id": "288",
+  "before": "def search(x,seq):\n    if type(seq) == tuple:\n        tup = ()\n        for i in seq:\n            if i < x:\n                tup = tup + (i,)\n            else:\n                tup = tup + (x,)\n                break\n        return len(tup) - 1\n        \n    elif type(seq) == list:\n        counter = 0\n        for i in seq:\n            if i < x:\n                counter = counter + 1\n        return counter\n        \n",
+  "after": "def search(x, seq):\n    if type(seq) == tuple:\n        seq = list(seq)\n        seq.append(x)\n        a = sorted(seq)\n        return a.index(x)\n        \n    elif type(seq) == list:\n        seq.append(x)\n        a = sorted(seq)\n        return a.index(x)\n        \n",
+  "n": 1
+ },
+ {
+  "id": "289",
+  "before": "def search(x,seq):\n    if type(seq) == tuple:\n        tup = ()\n        for i in seq:\n            if i < x:\n                tup = tup + (i,)\n            else:\n                tup = tup + (x,)\n                break\n        return len(tup) - 1\n        \n    elif type(seq) == list:\n        lst = []\n        for i in seq:\n            if i < x:\n                lst.append(i)\n            else:\n                lst.append(x)\n                break\n        return len(lst) - 1\n        \n",
+  "after": "def search(x, seq):\n    if type(seq) == tuple:\n        seq = list(seq)\n        seq.append(x)\n        a = sorted(seq)\n        return a.index(x)\n        \n    elif type(seq) == list:\n        seq.append(x)\n        a = sorted(seq)\n        return a.index(x)\n        \n",
+  "n": 2
+ },
+ {
+  "id": "290",
+  "before": "def search(x, seq):\n    a = list(enumerate(seq))\n    seq = list(seq)\n    i = 0\n    while i < len(seq):\n        if x < seq[i] and i == 0:\n            seq.insert(a[i][0], x)\n            i = i + 2\n        elif x < seq[i] and x > seq[i-1]:\n            seq.insert(a[i][0],x)\n            i = i + 2\n        elif x > seq[len(seq)-1]:\n            seq.append(x)\n            i = i + 2\n        else:\n            i = i + 1\n            \n            \n    return seq\n",
+  "after": "def search(x, seq):\n    a = list(enumerate(seq))\n    if seq == () or seq == []:\n        return 0\n    seq = list(seq)\n    i = 0\n    while i < len(seq):\n        if x < seq[i] and i == 0:\n            return 0\n        elif x <= a[i][1] and x >= a[i-1][1]:\n            return a[i][0]\n        elif x > a[len(seq)-1][1]:\n            return len(seq)\n        else:\n            i = i + 1\n            \n            \n    return seq\n    \n",
+  "n": 1
+ },
+ {
+  "id": "291",
+  "before": "def search(x, seq):\n    lst1 = list(seq)\n    if lst1 == []:\n        return 0\n    else: \n        length = len(lst1)\n        lst2 = []\n        if x < seq[0]:\n            lst2 = [x] + lst1\n        elif x > seq[length -1]:\n            lst2 = lst1 + [x]\n        else:\n            for i in range(0, length):\n                if seq[i] <= x <= seq[i+1]:\n                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]\n    for i in range(len(lst2)):\n        if x == lst2[i]:\n            return i\n",
+  "after": "def search(x, seq):\n    lst = list(seq)\n    if lst == []:\n        lst.append(x)\n    else:\n        for i in range(len(lst)):\n            if x < lst[i]:\n                lst.insert(i,x)\n            else:\n                lst.insert(len(lst),x)\n    for i in range(len(lst)):\n         if lst[i] == x:\n             return i\n",
+  "n": 11
+ },
+ {
+  "id": "292",
+  "before": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    if type(seq) == tuple:\n        new_seq = list(seq)\n        sort = []\n        for i in range(len(new_seq)):\n            if new_seq[i]<=x:\n                sort.append(new_seq[i])\n            else: \n                sort.append(x)\n                sort.extend(new_seq[i:])\n                break\n        return sort\n    else:\n        sort = []\n        for i in range(len(seq)):\n            if seq[i]<=x:\n                sort.append(seq[i])\n            else: \n                sort.append(x)\n                sort.extend(seq[i:])\n                break\n        return sort\n\n",
+  "after": "def search(x, seq):\n    \"\"\" Takes in a value x and a sorted sequence seq, and returns the\n    position that x should go to such that the sequence remains sorted \"\"\"\n    if seq == [] or seq == ():\n        return 0\n    else:\n        for a in range(1,len(seq)):\n            if seq[a] == x:\n                return a\n            elif seq[a-1] < x < seq[a]:\n                return a\n        else:\n            if x > seq[-1]:\n                return len(seq)\n            elif x < seq[0]:\n                return 0\n",
+  "n": 1
+ },
+ {
+  "id": "293",
+  "before": "def search(x, seq):\n    lst1 = list(seq)\n    if len(lst1) == 0:\n        return 0\n    else: \n        length = len(lst1)\n        lst2 = []\n        if x < seq[0]:\n            lst2 = [x] + lst1\n        elif x > seq[length -1]:\n            lst2 = lst1 + [x]\n        else:\n            for i in range(0, length):\n                if seq[i] <= x <= seq[i+1]:\n                    lst2 = lst1[:i+1] + [x] + lst1[i+1:]\n        for i in range(len(lst2)):\n            if x == lst2[i]:\n                return i\n",
+  "after": "def search(x, seq):\n    if len(seq)==0:\n        return 0\n    else:\n        if x <= seq[0]:\n            return 0\n        elif x > seq[-1]:\n            return len(seq)\n        else:\n            for i in range(0, len(seq)-1):\n                if seq[i] <= x <= seq[i+1]:\n                    return i+1\n",
+  "n": 4
+ }
+]

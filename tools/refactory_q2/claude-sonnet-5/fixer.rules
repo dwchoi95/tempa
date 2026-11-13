@@ -1,0 +1,191 @@
+rule le_one_should_be_eq_one
+symptoms: wrong
+match: $c <= 1
+rewrite: $c == 1
+
+rule if_count_threshold_return_false_true
+symptoms: wrong
+match:
+    if $c $op:Cmp $n:Int:
+        return False
+    return True
+where: (text($op) == ">" and $n == 1) or (text($op) == ">=" and $n == 2)
+rewrite: return $c == 1
+
+rule if_count_threshold_return_false_true_else
+symptoms: wrong
+match:
+    if $c $op:Cmp $n:Int:
+        return False
+    else:
+        return True
+where: (text($op) == ">" and $n == 1) or (text($op) == ">=" and $n == 2)
+rewrite: return $c == 1
+
+rule bare_return_ge2_should_eq1
+symptoms: wrong
+match: return $c >= 2
+rewrite: return $c == 1
+
+rule bare_return_gt1_should_eq1
+symptoms: wrong
+match: return $c > 1
+rewrite: return $c == 1
+
+rule missing_return_false_after_if_true
+symptoms: wrong
+match:
+    if $cond:
+        return True
+where: last() and not inside("for $_ in $_: $B2:Stmts") and not inside("while $_: $B2:Stmts")
+rewrite:
+    if $cond:
+        return True
+    return False
+
+rule missing_return_false_after_for_if_true
+symptoms: wrong
+match:
+    for $x in $xs:
+        if $cond:
+            return True
+where: last()
+rewrite:
+    for $x in $xs:
+        if $cond:
+            return True
+    return False
+
+rule tuple_with_append
+symptoms: wrong, err:AttributeError
+match: $b:Name = ()
+where: inside("def $f($*xs): $B:Stmts") and some($B, "$b2:Name.append($_)") and $b2 == $b
+rewrite: $b = []
+
+rule tuple_concat_missing_wrap
+symptoms: wrong
+match: $t:Name = $t + $i:Name
+where: inside("def $f($*xs): $B:Stmts") and some($B, "$t2:Name = ()") and $t2 == $t
+rewrite: $t = $t + ($i,)
+
+rule typo_unique_date_call
+symptoms: wrong, err:NameError
+match: unique_date($*args)
+rewrite: unique_day($*args)
+
+rule lowercase_true_literal
+symptoms: wrong, err:NameError
+match: true
+rewrite: True
+
+rule lowercase_false_literal
+symptoms: wrong, err:NameError
+match: false
+rewrite: False
+
+rule premature_false_return_in_loop
+symptoms: wrong
+match:
+    for $x in $xs:
+        if $cond:
+            return True
+        else:
+            return False
+rewrite:
+    for $x in $xs:
+        if $cond:
+            return True
+    return False
+
+rule broken_count_range_function
+symptoms: wrong, err:NameError
+match:
+    $acc:Name = 0
+    for $i in range($*rng):
+        if $pb[$i][$idx:Int] == $any1:
+            $any2:Stmt
+    if $any3:Name == 1:
+        return True
+    else:
+        return False
+where: inside("def $f($p, $*ys): $B:Stmts") and ($any1 != $p or $any3 != $acc)
+rewrite:
+    count = 0
+    for $i in range($*rng):
+        if $pb[$i][$idx] == $p:
+            count = count + 1
+    if count == 1:
+        return True
+    else:
+        return False
+
+rule loop_var_shadows_param
+symptoms: wrong, err:NameError
+match:
+    $acc:Name = 0
+    for $p in $pb:
+        if $p[$idx:Int] == $wrong:
+            $acc += 1
+        else:
+            $acc = $acc
+    if $acc == 1:
+        return True
+    else:
+        return False
+where: inside("def $f($p, $*ys): $B:Stmts") and $wrong != $p
+rewrite:
+    $acc = 0
+    for i in $pb:
+        if i[$idx] == $p:
+            $acc += 1
+        else:
+            $acc = $acc
+    if $acc == 1:
+        return True
+    else:
+        return False
+
+rule trailing_return_true_ignores_empty_case
+symptoms: wrong
+match: return True
+where: inside("def $f($*xs): $B:Stmts") and last() and not inside("if $_:") and some($B, "$flag:Name = False") and some($B, "$flag2:Name = True") and $flag2 == $flag
+rewrite: return $flag
+
+rule missing_count_init_before_loop
+symptoms: wrong, err:NameError
+match:
+    for $i in $xs:
+        if $cond:
+            $c:Name += 1
+where: not before("$cinit:Name = 0")
+rewrite:
+    $c = 0
+    for $i in $xs:
+        if $cond:
+            $c += 1
+
+rule missing_count_init_before_loop_plain
+symptoms: wrong, err:NameError
+match:
+    for $i in $xs:
+        if $cond:
+            $c:Name = $c + 1
+where: not before("$cinit:Name = 0")
+rewrite:
+    $c = 0
+    for $i in $xs:
+        if $cond:
+            $c = $c + 1
+
+rule missing_tf_init_before_loop
+symptoms: wrong, err:NameError
+match:
+    for $i in $xs:
+        if $cond:
+            $t:Name = $t or $call
+where: not before("$tinit:Name = False")
+rewrite:
+    $t = False
+    for $i in $xs:
+        if $cond:
+            $t = $t or $call

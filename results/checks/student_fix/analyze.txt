@@ -1,0 +1,83 @@
+1885 submissions linked; 298 buggy programs with the student's own later fix; student RPS median 0.742; changed lines median 5.0
+per problem: {'cf_110A': 142, 'cf_131A': 130, 'cf_1011B': 11, 'cf_125A': 15, 'cf_11B': 0, 'cf_10C': 0}
+
+== all with a later fix: 298 programs
+  TEMPA_L    claude-sonnet-5: n 298 hit 96.3% precision 79.6% recall 73.6% hint lines 6.2 rps 0.625
+    rules only claude-sonnet-5: n 89 hit 88.8% precision 86.4% recall 45.4% hint lines 1.3 rps 0.286
+  TEMPA_L    gpt-5.4-mini: n 298 hit 96.6% precision 78.2% recall 77.2% hint lines 6.4 rps 0.631
+    rules only gpt-5.4-mini: n 62 hit 85.5% precision 83.9% recall 45.3% hint lines 1.2 rps 0.165
+  TEMPA_LF   claude-sonnet-5: n 298 hit 96.3% precision 80.8% recall 69.8% hint lines 5.9 rps 0.535
+  TEMPA_LF   gpt-5.4-mini: n 298 hit 96.6% precision 79.7% recall 73.5% hint lines 6.1 rps 0.539
+  PyDex      claude-sonnet-5: n 296 hit 99.7% precision 69.8% recall 83.6% hint lines 7.7 rps 0.893
+  PyDex      gpt-5.4-mini: n 292 hit 100.0% precision 70.9% recall 83.2% hint lines 7.9 rps 0.916
+  LLM_Direct claude-sonnet-5: n 267 hit 98.1% precision 82.3% recall 66.6% hint lines 5.4 rps 0.474
+  LLM_Direct gpt-5.4-mini: n 220 hit 98.2% precision 86.2% recall 62.9% hint lines 3.8 rps 0.413
+  Refactory  claude-sonnet-5: n 251 hit 100.0% precision 60.2% recall 95.9% hint lines 8.1 rps 0.637
+  Refactory  gpt-5.4-mini: n 251 hit 100.0% precision 60.2% recall 95.9% hint lines 8.1 rps 0.637
+  rule hint vs PyDex by precision claude-sonnet-5: 47:10 of 89, p=7.5e-07
+    PyDex on the same rule-repaired programs claude-sonnet-5: n 89 hit 98.9% precision 62.4% recall 80.3% hint lines 5.2 rps 0.718
+    Refactory on the same rule-repaired programs claude-sonnet-5: n 78 hit 100.0% precision 51.0% recall 95.1% hint lines 7.1 rps 0.419
+    LLM_Direct on the same rule-repaired programs claude-sonnet-5: n 80 hit 95.0% precision 82.2% recall 59.3% hint lines 2.5 rps 0.284
+    rules on the programs PyDex also repaired claude-sonnet-5: n 89 hit 88.8% precision 86.4% recall 45.4% hint lines 1.3 rps 0.286
+  chance on the rule-repaired programs claude-sonnet-5: a random line is one the student changed 49.2% of the time
+  rule hint vs PyDex by precision gpt-5.4-mini: 26:10 of 62, p=0.011
+    PyDex on the same rule-repaired programs gpt-5.4-mini: n 62 hit 100.0% precision 65.4% recall 76.6% hint lines 5.6 rps 0.689
+    Refactory on the same rule-repaired programs gpt-5.4-mini: n 54 hit 100.0% precision 47.7% recall 95.6% hint lines 7.5 rps 0.379
+    LLM_Direct on the same rule-repaired programs gpt-5.4-mini: n 48 hit 95.8% precision 83.3% recall 52.2% hint lines 2.0 rps 0.226
+    rules on the programs PyDex also repaired gpt-5.4-mini: n 62 hit 85.5% precision 83.9% recall 45.3% hint lines 1.2 rps 0.165
+  chance on the rule-repaired programs gpt-5.4-mini: a random line is one the student changed 46.2% of the time
+  chance on all 298: 59.0%
+
+== student kept their program (student RPS <= 0.5): 86 programs
+  TEMPA_L    claude-sonnet-5: n 86 hit 87.2% precision 74.6% recall 69.5% hint lines 4.1 rps 0.293
+    rules only claude-sonnet-5: n 39 hit 74.4% precision 74.4% recall 50.2% hint lines 1.2 rps 0.180
+  TEMPA_L    gpt-5.4-mini: n 86 hit 88.4% precision 72.5% recall 72.9% hint lines 4.4 rps 0.292
+    rules only gpt-5.4-mini: n 30 hit 70.0% precision 70.0% recall 49.8% hint lines 1.2 rps 0.111
+  TEMPA_LF   claude-sonnet-5: n 86 hit 87.2% precision 74.7% recall 68.8% hint lines 3.9 rps 0.280
+  TEMPA_LF   gpt-5.4-mini: n 86 hit 88.4% precision 73.0% recall 71.9% hint lines 4.2 rps 0.277
+  PyDex      claude-sonnet-5: n 86 hit 98.8% precision 52.4% recall 87.4% hint lines 7.1 rps 0.545
+  PyDex      gpt-5.4-mini: n 84 hit 100.0% precision 50.3% recall 90.0% hint lines 8.1 rps 0.567
+  LLM_Direct claude-sonnet-5: n 84 hit 95.2% precision 74.1% recall 74.4% hint lines 4.1 rps 0.268
+  LLM_Direct gpt-5.4-mini: n 70 hit 95.7% precision 79.0% recall 72.5% hint lines 3.3 rps 0.232
+  Refactory  claude-sonnet-5: n 74 hit 100.0% precision 36.1% recall 97.7% hint lines 9.6 rps 0.412
+  Refactory  gpt-5.4-mini: n 74 hit 100.0% precision 36.1% recall 97.7% hint lines 9.6 rps 0.412
+  rule hint vs PyDex by precision claude-sonnet-5: 23:9 of 39, p=0.02
+    PyDex on the same rule-repaired programs claude-sonnet-5: n 39 hit 97.4% precision 44.5% recall 86.1% hint lines 5.6 rps 0.561
+    Refactory on the same rule-repaired programs claude-sonnet-5: n 35 hit 100.0% precision 29.9% recall 96.7% hint lines 8.3 rps 0.307
+    LLM_Direct on the same rule-repaired programs claude-sonnet-5: n 39 hit 89.7% precision 72.7% recall 69.2% hint lines 2.5 rps 0.225
+    rules on the programs PyDex also repaired claude-sonnet-5: n 39 hit 74.4% precision 74.4% recall 50.2% hint lines 1.2 rps 0.180
+  chance on the rule-repaired programs claude-sonnet-5: a random line is one the student changed 28.8% of the time
+  rule hint vs PyDex by precision gpt-5.4-mini: 16:9 of 30, p=0.23
+    PyDex on the same rule-repaired programs gpt-5.4-mini: n 30 hit 100.0% precision 45.4% recall 83.4% hint lines 6.1 rps 0.547
+    Refactory on the same rule-repaired programs gpt-5.4-mini: n 27 hit 100.0% precision 30.0% recall 96.9% hint lines 8.3 rps 0.284
+    LLM_Direct on the same rule-repaired programs gpt-5.4-mini: n 24 hit 91.7% precision 70.5% recall 63.8% hint lines 2.2 rps 0.187
+    rules on the programs PyDex also repaired gpt-5.4-mini: n 30 hit 70.0% precision 70.0% recall 49.8% hint lines 1.2 rps 0.111
+  chance on the rule-repaired programs gpt-5.4-mini: a random line is one the student changed 29.1% of the time
+  chance on all 86: 35.9%
+
+== student's fix within a day: 246 programs
+  TEMPA_L    claude-sonnet-5: n 246 hit 95.5% precision 78.1% recall 74.6% hint lines 6.4 rps 0.583
+    rules only claude-sonnet-5: n 74 hit 86.5% precision 83.6% recall 47.7% hint lines 1.3 rps 0.283
+  TEMPA_L    gpt-5.4-mini: n 246 hit 95.9% precision 76.5% recall 77.7% hint lines 6.6 rps 0.586
+    rules only gpt-5.4-mini: n 52 hit 82.7% precision 80.8% recall 46.7% hint lines 1.2 rps 0.155
+  TEMPA_LF   claude-sonnet-5: n 246 hit 95.5% precision 78.9% recall 71.9% hint lines 6.2 rps 0.512
+  TEMPA_LF   gpt-5.4-mini: n 246 hit 95.9% precision 78.0% recall 74.7% hint lines 6.3 rps 0.508
+  PyDex      claude-sonnet-5: n 244 hit 99.6% precision 66.8% recall 84.1% hint lines 8.0 rps 0.821
+  PyDex      gpt-5.4-mini: n 242 hit 100.0% precision 67.3% recall 85.0% hint lines 8.4 rps 0.871
+  LLM_Direct claude-sonnet-5: n 222 hit 97.7% precision 80.9% recall 68.2% hint lines 5.6 rps 0.448
+  LLM_Direct gpt-5.4-mini: n 186 hit 97.8% precision 85.5% recall 64.3% hint lines 3.7 rps 0.388
+  Refactory  claude-sonnet-5: n 208 hit 100.0% precision 56.4% recall 96.7% hint lines 8.4 rps 0.602
+  Refactory  gpt-5.4-mini: n 208 hit 100.0% precision 56.4% recall 96.7% hint lines 8.4 rps 0.602
+  rule hint vs PyDex by precision claude-sonnet-5: 40:10 of 74, p=2.4e-05
+    PyDex on the same rule-repaired programs claude-sonnet-5: n 74 hit 98.6% precision 57.4% recall 80.4% hint lines 4.9 rps 0.684
+    Refactory on the same rule-repaired programs claude-sonnet-5: n 65 hit 100.0% precision 45.8% recall 96.4% hint lines 7.1 rps 0.367
+    LLM_Direct on the same rule-repaired programs claude-sonnet-5: n 67 hit 94.0% precision 79.4% recall 60.4% hint lines 2.2 rps 0.278
+    rules on the programs PyDex also repaired claude-sonnet-5: n 74 hit 86.5% precision 83.6% recall 47.7% hint lines 1.3 rps 0.283
+  chance on the rule-repaired programs claude-sonnet-5: a random line is one the student changed 42.7% of the time
+  rule hint vs PyDex by precision gpt-5.4-mini: 24:10 of 52, p=0.024
+    PyDex on the same rule-repaired programs gpt-5.4-mini: n 52 hit 100.0% precision 59.3% recall 76.9% hint lines 5.4 rps 0.640
+    Refactory on the same rule-repaired programs gpt-5.4-mini: n 46 hit 100.0% precision 44.1% recall 96.8% hint lines 7.7 rps 0.336
+    LLM_Direct on the same rule-repaired programs gpt-5.4-mini: n 42 hit 95.2% precision 81.2% recall 55.2% hint lines 1.9 rps 0.217
+    rules on the programs PyDex also repaired gpt-5.4-mini: n 52 hit 82.7% precision 80.8% recall 46.7% hint lines 1.2 rps 0.155
+  chance on the rule-repaired programs gpt-5.4-mini: a random line is one the student changed 40.5% of the time
+  chance on all 246: 54.9%

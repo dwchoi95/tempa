@@ -1,0 +1,108 @@
+rule jump_solution_math
+symptoms: wrong
+match:
+    $x = abs(int(input()))
+    $k = ceil(((8 * $x + 1) ** 0.5 - 1) / 2)
+    $location = $k * ($k + 1) // 2
+    if $location == $x:
+        print($k)
+    elif (($location - $x) + ($k + 1)) % 2 == 0:
+        print($k + 1)
+    else:
+        print($k + 2)
+rewrite:
+    x = abs(int(input()))
+    k = 0
+    s = 0
+    while s < x or (s - x) % 2 != 0:
+        k += 1
+        s += k
+    print(k)
+
+rule jump_solution_iterative
+symptoms: wrong
+match:
+    $x = int(input())
+    $saltos = 0
+    $s = 0
+    $posicion = 0
+    if $x < 0:
+        $x = $x * -1
+    while $posicion != $x:
+        $saltos = $saltos + 1
+        $s = $s + 1
+        if $posicion < $x and $x - $posicion >= $s:
+            $posicion = $posicion + $s
+        if $posicion < $x and $x - $posicion < $s:
+            $posicion = $posicion - $s
+    print($saltos)
+rewrite:
+    x = abs(int(input()))
+    saltos = 0
+    s = 0
+    posicion = 0
+    while posicion < x or (posicion - x) % 2 != 0:
+        saltos = saltos + 1
+        s = s + 1
+        posicion = posicion + s
+    print(saltos)
+
+rule jump_solution_overshoot_adjust
+symptoms: wrong
+match:
+    n = abs(int(input()))
+    i = 1
+    current = 0
+    while current + i <= n:
+        current += i
+        i += 1
+
+    i -= 1
+    i += 2 * (n - current)
+    print(i)
+rewrite:
+    n = abs(int(input()))
+    i = 1
+    current = 0
+    while current + i <= n:
+        current += i
+        i += 1
+
+    if (current - n) % 2 != 0:
+        i += 1
+    print(i - 1)
+
+rule jump_solution_parity_loop
+symptoms: wrong
+match:
+    $i = 0
+    while True:
+        $product = $i * ($i + 1) // 2
+        if $product >= $n and $product % 2 == $n % 2:
+            return $i
+        $i += 1
+rewrite:
+    i = 0
+    while True:
+        product = i * (i + 1) // 2
+        if product >= abs($n) and product % 2 == abs($n) % 2:
+            return i
+        i += 1
+
+rule abs_input_for_negative_targets
+symptoms: wrong
+match: int(input())
+where: parent("$x = int(input())") or parent("$n = int(input())")
+rewrite: abs(int(input()))
+
+rule compare_ge_to_gt
+symptoms: wrong
+match: $a >= $b
+where: not inside("while $c: $B:Stmts")
+rewrite: $a > $b
+
+rule compare_gt_to_ge
+symptoms: wrong
+match: $a > $b
+where: not inside("while $c: $B:Stmts")
+rewrite: $a >= $b

@@ -1,0 +1,200 @@
+rule swapcase_for_capslock_boolean_index
+symptoms: wrong
+match: print([$S, $T][$C])
+where: (match($T, "$S.capitalize()") or match($T, "$S.title()")) and some($C, "$X[1:]==$X[1:].upper()")
+rewrite: print([$S, $S.swapcase()][$C])
+
+rule swapcase_for_capslock_if_else
+symptoms: wrong
+match:
+    if $C:
+        print($A)
+    else:
+        print($B)
+where: (match($A, "$X.capitalize()") or match($A, "$X.title()") or match($A, "$X.lower()")) and (match($B, "$X") or match($B, "$X.swapcase()")) and some($C, "$X[1:]==$X[1:].upper()")
+rewrite:
+    if $C:
+        print($X.swapcase())
+    else:
+        print($X)
+
+rule swapcase_for_capslock_elif_chain
+symptoms: wrong
+match:
+    if $C1:
+        $B1
+    elif $C2:
+        $B2
+    else:
+        $B3
+where: some($B1, "print($X.lower())") or some($B2, "print($X.capitalize())") or some($B3, "print($X)")
+rewrite:
+    if $C1:
+        $B1
+    elif $C2:
+        $B2
+    else:
+        $B3
+rule swapcase_for_capslock_if_chain
+symptoms: wrong
+match:
+    if $C1:
+        $B1
+    if $C2:
+        $B2
+    if $C3:
+        $B3
+where: some($B1, "print($X.lower())") or some($B2, "print($X.capitalize())") or some($B3, "print($X)")
+rewrite:
+    if $C1:
+        $B1
+    if $C2:
+        $B2
+    if $C3:
+        $B3
+
+rule len1_guard_for_capslock
+symptoms: wrong, err:IndexError
+match: if $C:
+    $B1
+else:
+    $B2
+where: some($C, "len($S) == 1") and not some($C, "or len($S) == 1") and some($B1, "$S.swapcase()") and some($B2, "print($S)")
+rewrite:
+    if len($S) == 1 or $C:
+        $B1
+    else:
+        $B2
+
+rule add_len1_to_upper_check
+symptoms: wrong, err:IndexError
+match: if $X[1:].isupper():
+    $B1
+else:
+    $B2
+where: not some($X, "len($X) == 1") and not some($X, "len($X) > 1") and (some($B1, "$X.capitalize()") or some($B1, "$X.swapcase()") or some($B1, "$X[0].upper() + $X[1:].lower()"))
+rewrite:
+    if len($X) == 1 or $X[1:].isupper():
+        $B1
+    else:
+        $B2
+
+rule fix_capslock_word_isupper_only
+symptoms: wrong
+match:
+    if $X.isupper():
+        $B1
+    else:
+        $B2
+where: some($B1, "$X.swapcase()") or some($B1, "$X.capitalize()") or some($B1, "$X.lower()") or some($B1, "$X.title()")
+rewrite:
+    if $X.isupper() or $X[1:].isupper() or len($X) == 1:
+        $B1
+    else:
+        $B2
+
+rule fix_capslock_word_or_slice_isupper
+symptoms: wrong
+match:
+    if $X.isupper() or $X[1:].isupper():
+        $B1
+    else:
+        $B2
+where: some($B1, "$X.swapcase()") or some($B1, "$X.capitalize()") or some($B1, "$X.lower()")
+rewrite:
+    if $X.isupper() or $X[1:].isupper() or len($X) == 1:
+        $B1
+    else:
+        $B2
+
+rule fix_capslock_len1_and_isupper
+symptoms: wrong
+match:
+    if len($X) == 1 and $X.isupper():
+        $B1
+    elif $C2:
+        $B2
+    elif $C3:
+        $B3
+    else:
+        $B4
+where: some($B1, "$X.lower()") or some($B2, "$X.lower()") or some($B3, "$X.swapcase()")
+rewrite:
+    if len($X) == 1 and $X.islower():
+        $B1
+    elif $C2:
+        $B2
+    elif $C3:
+        $B3
+    else:
+        $B4
+
+rule fix_capslock_or_slice_caps
+symptoms: wrong
+match:
+    if $X.isupper() or ($X[0].islower() and $X[1:].isupper()):
+        $B1
+    else:
+        $B2
+where: some($B1, "$X.swapcase()")
+rewrite:
+    if len($X) == 1 or $X.isupper() or ($X[0].islower() and $X[1:].isupper()):
+        $B1
+    else:
+        $B2
+
+rule fix_capslock_swapcase_result
+symptoms: wrong
+match:
+    $V = $X.swapcase()
+    print($V)
+where: some($X, "$X.isupper()") or some($X, "$X[1:].isupper()") or some($X, "len($X) == 1")
+rewrite:
+    $V = $X.swapcase()
+    print($V if len($X) == 1 or $X[1:].upper() == $X[1:] else $X)
+
+rule replace_capitalize_with_swapcase
+symptoms: wrong
+match: $X.capitalize()
+where: not some($X, "$X[0].upper() + $X[1:].lower()") and not some($X, "$X[0].upper() + $X[1:]")
+rewrite: $X.swapcase()
+
+rule replace_title_with_swapcase
+symptoms: wrong
+match: $X.title()
+rewrite: $X.swapcase()
+
+rule replace_lower_then_capitalize
+symptoms: wrong
+match:
+    $X = $Y.lower()
+    print($X.capitalize())
+rewrite:
+    if len($Y) == 1 or $Y[1:].isupper() or $Y.isupper():
+        print($Y.swapcase())
+    else:
+        print($Y)
+
+rule fix_isupper_bound_method
+symptoms: wrong
+match: $X.isupper
+rewrite: $X.isupper()
+
+rule fix_islower_bound_method
+symptoms: wrong
+match: $X.islower
+rewrite: $X.islower()
+
+rule fix_len1_swapcase_print
+symptoms: wrong
+match:
+    if len($X) == 1:
+        print($X.capitalize())
+    else:
+        $B
+where: some($B, "print($X)")
+rewrite:
+    if len($X) == 1:
+        print($X.swapcase())
+    else:
+        $B

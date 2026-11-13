@@ -1,0 +1,221 @@
+rule loop_over_builtin_list
+symptoms: wrong, err:TypeError
+match: for $i in list:
+where: inside("def remove_extras($p): $B:Stmts")
+rewrite: for $i in $p:
+
+rule loop_reuses_accumulator_name
+symptoms: wrong, err:NameError
+match: for $acc in $src:
+where: inside("def remove_extras($p): $B:Stmts") and some($B, "$acc = []") and some($B, "if $i not in $acc: $B2:Stmts") and not ($i == $acc)
+rewrite: for $i in $src:
+
+rule swapped_for_header
+symptoms: wrong, err:NameError
+match: for $p in $acc:
+where: inside("def remove_extras($p2): $B:Stmts") and $p2 == $p and some($B, "if $i not in $p: $B2:Stmts")
+rewrite: for $i in $p:
+
+rule check_whole_list_instead_of_item
+symptoms: wrong
+match: $x not in $acc
+where: inside("for $i in $x: $B:Stmts")
+rewrite: $i not in $acc
+
+rule dedup_check_against_source
+symptoms: wrong
+match: $i not in $src
+where: inside("for $i2 in $src: $B:Stmts") and $i2 == $i and not ($acc == $src) and (
+    some($B, "$acc:Name.append($i)") or
+    some($B, "$acc:Name += [$i]") or
+    some($B, "$acc:Name += [$i,]") or
+    some($B, "$acc:Name += $i,") or
+    some($B, "$acc:Name = $acc + [$i]") or
+    some($B, "$acc:Name = $acc + [$i,]") or
+    some($B, "$acc:Name.extend([$i])")
+)
+rewrite: $i not in $acc
+
+rule condition_uses_undefined_accumulator
+symptoms: wrong, err:NameError
+match: $v not in $acc
+where: field("If", "test") and inside("def remove_extras($p): $B:Stmts") and not some($B, "$acc = $_") and some($B, "$real:Name.append($v)")
+rewrite: $v not in $real
+
+rule missing_accumulator_init
+symptoms: wrong, err:NameError
+match: for $i in $src:
+where: inside("def remove_extras($p): $B:Stmts") and some($B, "if $i not in $acc: $B2:Stmts") and not some($B, "$acc = $_")
+rewrite:
+    $acc = []
+    for $i in $src:
+
+rule typo_augassign_accumulator
+symptoms: wrong, err:NameError
+match: $x += $v
+where: inside("if $i not in $acc: $B:Stmts") and not ($x == $acc)
+rewrite: $acc += $v
+
+rule typo_append_undefined
+symptoms: wrong, err:NameError
+match: $x.append($v)
+where: inside("def remove_extras($p): $B:Stmts") and not some($B, "$x = $_") and some($B, "$real:Name = []") and some($B, "return $real")
+rewrite: $real.append($v)
+
+rule call_arg_wrong_item_var
+symptoms: wrong, err:NameError
+match: $f($v, $*rest)
+where: inside("for $i in $src: $Bfor:Stmts") and inside("def remove_extras($p): $Bdef:Stmts") and kind($v) == "Name" and not builtin($v) and not ($v == $i) and not ($v == $p) and not some($Bdef, "$v = $_")
+rewrite: $f($i, $*rest)
+
+rule typo_remove_multiple_call
+symptoms: wrong, err:NameError
+match: remove_mutiple($*args)
+rewrite: remove_multiple($*args)
+
+rule slice_uses_param_instead_of_loopvar_list
+symptoms: wrong
+match:
+    $lst[:$b]
+    |
+    $lst[$a:]
+where: inside("for $i in $acc: $B:Stmts") and inside("def remove_extras($p): $B2:Stmts") and $lst == $p and not ($acc == $p)
+rewrite:
+    $acc[:$b]
+    |
+    $acc[$a:]
+
+rule return_wrong_variable
+symptoms: wrong
+match: return $x
+where: inside("def remove_extras($p): $B:Stmts") and some($B, "$acc:Name = []") and some($B, "if $i not in $acc: $B2:Stmts") and not ($x == $acc) and (($x == $p) or some($B, "for $x in $_: $B3:Stmts"))
+rewrite: return $acc
+
+rule return_inside_loop_misplaced
+symptoms: wrong
+match:
+    for $i in $src:
+        $ifstmt:Stmt
+        return $x
+rewrite:
+    for $i in $src:
+        $ifstmt
+    return $x
+
+rule dedup_test_polarity_flip
+symptoms: wrong
+match: $i in $acc
+where: field("If", "test") and inside("if $i2 in $acc2: $B:Stmts") and $i2 == $i and $acc2 == $acc and some($B, "$acc.append($i)")
+rewrite: $i not in $acc
+
+rule bare_value_added_to_list_augassign
+symptoms: wrong, err:TypeError
+match: $acc += $v
+where: inside("if $i not in $acc: $B:Stmts") and $v == $i and kind($v) != "List"
+rewrite: $acc += [$v]
+
+rule bare_value_added_to_list_assign
+symptoms: wrong, err:TypeError
+match: $acc = $acc + $v
+where: inside("if $i not in $acc: $B:Stmts") and $v == $i and kind($v) != "List"
+rewrite: $acc = $acc + [$v]
+
+rule extend_list_call_wrap
+symptoms: wrong, err:TypeError
+match: $acc.extend(list($v))
+rewrite: $acc.extend([$v])
+
+rule extend_bare_wrap
+symptoms: wrong, err:TypeError
+match: $acc.extend($v)
+where: inside("for $i in $_: $B:Stmts") and $v == $i and kind($v) == "Name"
+rewrite: $acc.extend([$v])
+
+rule insert_zero_should_append
+symptoms: wrong
+match: $acc.insert(0, $v)
+rewrite: $acc.append($v)
+
+rule insert_len_bracket_typo
+symptoms: wrong, err:TypeError
+match: $acc.insert(len[$acc2]-1, $v)
+where: $acc2 == $acc
+rewrite: $acc.insert(len($acc), $v)
+
+rule append_bracket_typo
+symptoms: wrong, err:TypeError
+match: $x.append[$v]
+rewrite: $x.append($v)
+
+rule count_bracket_typo
+symptoms: wrong, err:TypeError
+match: $x.count[$v]
+rewrite: $x.count($v)
+
+rule eq_should_be_assign
+symptoms: wrong, err:NameError
+match: $x == []
+where: not field("If", "test") and not field("While", "test")
+rewrite: $x = []
+
+rule return_none_for_empty
+symptoms: wrong
+match: return None
+where: inside("if $lst == []: $B:Stmts")
+rewrite: return []
+
+rule lists_typo
+symptoms: wrong, err:NameError
+match: lists($x)
+rewrite: list($x)
+
+rule ordereddict_missing_list_wrap
+symptoms: wrong
+match: return OrderedDict.fromkeys($lst)
+rewrite: return list(OrderedDict.fromkeys($lst))
+
+rule missing_ordereddict_import
+symptoms: wrong, err:NameError
+match: return list(OrderedDict.fromkeys($lst))
+where: inside("def remove_extras($p): $B:Stmts") and not some($B, "from collections import OrderedDict")
+rewrite:
+    from collections import OrderedDict
+    return list(OrderedDict.fromkeys($lst))
+
+rule set_loses_order
+symptoms: wrong
+match: return list(set($lst))
+|
+match: return set($lst)
+rewrite:
+    from collections import OrderedDict
+    return list(OrderedDict.fromkeys($lst))
+|
+rewrite:
+    from collections import OrderedDict
+    return list(OrderedDict.fromkeys($lst))
+
+rule missing_else_skip_increment
+symptoms: wrong, timeout
+match:
+    if $lst[$i] == $lst[$j]:
+        $lst = $lst[:$j] + $lst[$j+1:]
+    $j += 1
+where: inside("while $w: $B:Stmts")
+rewrite:
+    if $lst[$i] == $lst[$j]:
+        $lst = $lst[:$j] + $lst[$j+1:]
+    else:
+        $j += 1
+
+rule off_by_one_range_len
+symptoms: wrong
+match: range(len($lst)-1)
+rewrite: range(len($lst))
+
+rule strict_lt_should_be_lte
+symptoms: wrong
+match: $a $o:Cmp $b
+where: text($o) in {"<", ">"}
+rewrite: $a ${relax[$o]} $b
+table relax: {"<": "<=", ">": ">="}

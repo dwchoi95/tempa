@@ -1,0 +1,5 @@
+n = str(input())
+if len(n) == 1 and n.islower() :print(n.capitalize())
+elif n.isupper() :print(n.lower()) 
+elif n[1:].isupper() :print(n[0].capitalize()+n[1:].lower())        
+else :print(n)

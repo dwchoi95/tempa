@@ -1,0 +1,26 @@
+[
+ {
+  "id": "0",
+  "before": "x = int(input())\ns = 0\nn = 0\nwhile s != x:\n    n += 1\n    if s + n <= x:\n        s += n\n    else:\n        s -= n\nprint(n)",
+  "after": "x = abs(int(input()))\njumps = 0\npos = 0\nwhile pos < x or (pos-x) % 2 != 0:\n    jumps += 1\n    pos += jumps\nprint(jumps)",
+  "n": 6
+ },
+ {
+  "id": "1",
+  "before": "x=map(int,input())\n\nprint(x)",
+  "after": "x = abs(int(input()))\njumps = 0\npos = 0\nwhile pos < x or (pos-x) % 2 != 0:\n    jumps += 1\n    pos += jumps\nprint(jumps)",
+  "n": 4
+ },
+ {
+  "id": "2",
+  "before": "x = int(input())\ncount = 0\npos = 0\npos1 =0\nwhile pos!=x:\n    count+=1\n    pos1 = pos + count\n    if pos1<x:\n        pos = pos +count\n    elif pos1>x:\n        pos = pos - count\n    elif pos1 == x:\n        pos = pos + count\nprint(count)",
+  "after": "x = abs(int(input()))\njumps = 0\npos = 0\nwhile pos < x or (pos-x) % 2 != 0:\n    jumps += 1\n    pos += jumps\nprint(jumps)",
+  "n": 23
+ },
+ {
+  "id": "3",
+  "before": "a = int(input())\nn = 1\nwhile True:\n    if a == 0:\n        print(0)\n        break\n    elif a > 0:\n        if (n*n+n)/2 < a:\n            n += 1\n        elif (n*n+n)/2 == a:\n            print(int(n))\n            break\n        elif (n*n+n)/2 > a:\n            c = int(n+(((n*n+n)/2)-a)*2)\n            d = int(n-1+(a-(n*(n-1))/2)*2)\n            print(min(c, d))\n            break\n    elif a<0:\n        a = abs(a)\n        if (n*n+n)/2 < a:\n            n += 1\n        elif (n*n+n)/2 == a:\n            print(int(n))\n            break\n        elif (n*n+n)/2 > a:\n            c = int(n+(((n*n+n)/2)-a)*2)\n            d = int(n-1+(a-(n*(n-1))/2)*2)\n            print(min(c, d))\n            break",
+  "after": "x = abs(int(input()))\njumps = 0\npos = 0\nwhile pos < x or (pos-x) % 2 != 0:\n    jumps += 1\n    pos += jumps\nprint(jumps)",
+  "n": 44
+ }
+]

@@ -1,0 +1,39 @@
+rule inches_then_feet_without_foot_rounding
+symptoms: wrong
+match:
+    $n:Name = (int(input()) + 2) // 3
+    print($n // 12, $n % 12)
+|
+    $n:Name = (2 + int(input())) // 3
+    print($n // 12, $n % 12)
+rewrite:
+    $n = int(input()) + 1
+    print($n // 36, $n % 36 // 3)
+
+rule inches_then_feet_separate_decl
+symptoms: wrong
+match:
+    $n:Name = int(input())
+    $m:Name = ($n + 2) // 3
+    print($m // 12, $m % 12)
+|
+    $n:Name = int(input())
+    $m:Name = (2 + $n) // 3
+    print($m // 12, $m % 12)
+rewrite:
+    $n = int(input())
+    $m = $n + 1
+    print($m // 36, $m % 36 // 3)
+
+rule strict_cmp_to_relaxed
+symptoms: wrong
+match: $a $o:Cmp $b
+where: text($o) in {"<", ">"}
+rewrite: $a ${relax[$o]} $b
+table relax: {"<": "<=", ">": ">="}
+
+rule off_by_one_range_upper
+symptoms: wrong
+match: range($lo, $hi)
+where: regex($hi, r"^\w+$") and not regex($hi, r"\+\s*1")
+rewrite: range($lo, $hi + 1)

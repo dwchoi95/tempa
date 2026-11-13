@@ -1,0 +1,507 @@
+Buggy,Model,Source,Patch,Fixed,RPS,ATT_all,ATT_cpu,ATT_api,InT,OuT,$API,Rules_L,Rules_SL
+101614833,claude-sonnet-5,reference,"n = int(input()) + 1
+print(n // 36, n % 36 // 3)",True,0.7317,0.2505,0.2505,0.0,0,0,0.0,[],[]
+107953809,claude-sonnet-5,reference,"a,b=divmod(round(int(input())/3),12)
+print(a,b)",True,0.9845,9.0186,9.0186,0.0,0,0,0.0,[],[]
+118929329,claude-sonnet-5,reference,"n=int(input())
+a=n//3
+b=n%3
+if b==2:
+    a=a+1
+p=a//12
+q=a%12
+print(p,q)",True,0.6393,0.9747,0.9747,0.0,0,0,0.0,[],[]
+129307429,claude-sonnet-5,reference,"n = float(input())
+inch = int(n / 3 + 0.5)
+feet = int(inch / 12)
+r = inch - 12 * feet
+print(feet,""  "",r)",True,0.4545,0.2266,0.2266,0.0,0,0,0.0,[],[]
+130490363,claude-sonnet-5,reference,"n = int(input())
+inches = round(n / 3)
+feet = inches // 12
+inches = inches % 12
+print(feet, inches)",True,0.66,0.329,0.329,0.0,0,0,0.0,[],[]
+144606347,claude-sonnet-5,reference,"n = int(input()) + 1
+print(n // 36, n % 36 // 3)",True,0.6842,0.2206,0.2206,0.0,0,0,0.0,[],[]
+146953666,claude-sonnet-5,reference,"import math
+n=int(input())
+b=round(n/3)
+a=math.floor(b/12)
+b=b-a*12
+print(a,b)",True,0.561,0.1958,0.1958,0.0,0,0,0.0,[],[]
+146953909,claude-sonnet-5,reference,"import math
+n=int(input())
+b=round(n/3)
+a=math.floor(b/12)
+b=b-a*12
+print(a,b)",True,0.561,0.194,0.194,0.0,0,0,0.0,[],[]
+146958658,claude-sonnet-5,reference,"import math
+n=int(input())
+b=round(n/3)
+a=math.floor(b/12)
+b=b-a*12
+print(a,b)",True,0.561,0.1919,0.1919,0.0,0,0,0.0,[],[]
+146992153,claude-sonnet-5,reference,"N = int(input())
+
+def roundI(inch):
+    if inch<=1:
+        return 0
+    return 1
+
+feet = int(N/36)
+fullinch = (N - (feet*36))//3
+
+finalinch = fullinch + roundI(N-feet*36-fullinch*3)
+if finalinch == 12:
+    feet += 1
+    finalinch = 0
+    
+print(feet,finalinch)",True,0.2154,0.541,0.541,0.0,0,0,0.0,[],[]
+147007270,claude-sonnet-5,reference,"def fi(n):
+    # n in cm
+    
+    ft = n//36
+    rem = n % 36
+    ic = round(rem/3)
+    if ic == 12:
+        ft +=1 
+        ic = 0
+        
+    return ft,ic
+    
+    return 
+        
+#main program
+
+n = int(input())
+a,b = fi(n)
+print(a,b)",True,0.25,0.1691,0.1691,0.0,0,0,0.0,[],[]
+147008686,claude-sonnet-5,reference,"n = int(input())
+inches = round(n / 3)
+feet = inches // 12
+inches = inches % 12
+print(feet, inches)",True,0.6538,0.3478,0.3478,0.0,0,0,0.0,[],[]
+149945129,claude-sonnet-5,reference,"n = int(input())
+a = n // 3
+b = 0
+if n % 3 == 2:
+    a += 1
+if a >= 12:
+    b = a // 12
+    a = a % 12
+print(b, a)",True,0.7391,5.6341,5.6341,0.0,0,0,0.0,[],[]
+149945330,claude-sonnet-5,reference,"n = int(input())
+a = n // 3
+b = 0
+if n % 3 == 2:
+    a += 1
+if a >= 12:
+    b = a // 12
+    a = a % 12
+print(b, a)",True,0.716,6.3405,6.3405,0.0,0,0,0.0,[],[]
+190704099,claude-sonnet-5,rules,"n = int(input())
+
+if n % 3 == 0:
+    b = n // 3
+elif n % 3 == 2:
+    b = n // 3 + 1
+else:
+    b = n // 3
+    
+a = b // 12
+b %= 12
+
+print(a, b)",True,0.0645,0.0818,0.0818,0.0,0,0,0.0,"[""round_add_remainder_instead_of_one""]",[]
+204859315,claude-sonnet-5,reference,"""""""
+https://codeforces.com/problemset/problem/125/A
+
+""""""
+INCHINCM = 3
+FOOTININCH=12
+FOOTINCM = FOOTININCH * INCHINCM
+length = int(input())
+
+feet, rest1 = divmod(length, FOOTINCM)
+inches, rest = divmod(rest1, INCHINCM)
+inches = inches + 1 if rest > 1 else inches
+fff, inches = divmod(inches, FOOTININCH)
+
+print(feet + fff, inches)",True,0.5625,0.3651,0.3651,0.0,0,0,0.0,[],[]
+210509999,claude-sonnet-5,reference,"n = int(input())
+inches = round(n / 3)
+feet = inches // 12
+inches = inches % 12
+print(feet, inches)",True,0.5227,0.2378,0.2378,0.0,0,0,0.0,[],[]
+214030441,claude-sonnet-5,reference,"n = int(input())
+feet = n//36
+n %= 36
+inch = n//3
+if(n%3 == 2):
+    inch += 1
+if(inch==12):
+    feet += 1
+    inch =0
+print(feet,inch)",True,0.3,0.3114,0.3114,0.0,0,0,0.0,[],[]
+218167179,claude-sonnet-5,reference,"n=int(input())
+a=(n+1)//36
+n-=36*a
+b=(n+1)//3
+print(a,b)",True,0.5,0.2021,0.2021,0.0,0,0,0.0,[],[]
+219225771,claude-sonnet-5,reference,"# LUOGU_RID: 121449233
+n = int(input())
+inches = round(n / 3)
+feet = inches // 12
+inches = inches % 12
+print(feet, inches)",True,0.6053,0.2417,0.2417,0.0,0,0,0.0,[],[]
+22026877,claude-sonnet-5,rules,"n=(int(input()) + 1) // 3
+print(n//12,n%12)",True,0.0417,0.0762,0.0762,0.0,0,0,0.0,"[""inch_round_threshold_two_to_one""]",[]
+42101202,claude-sonnet-5,reference,"n = int(input())
+n = (n + 1) // 3
+print(n // 12, n % 12)",True,0.5227,0.3249,0.3249,0.0,0,0,0.0,[],[]
+42101236,claude-sonnet-5,reference,"n = int(input())
+a = n // 3
+b = 0
+if n % 3 == 2:
+    a += 1
+if a >= 12:
+    b = a // 12
+    a = a % 12
+print(b, a)",True,0.5333,0.6395,0.6395,0.0,0,0,0.0,[],[]
+49637309,claude-sonnet-5,rules,"n = int(input())
+n += 1
+print(n // 36, n % 36 // 3)",True,0.3043,0.076,0.076,0.0,0,0,0.0,"[""single_combined_float_output_should_split""]",[]
+49637385,claude-sonnet-5,reference,"n = int(input()) + 1
+print(n // 36, n % 36 // 3)",True,0.5,0.2001,0.2001,0.0,0,0,0.0,[],[]
+49637539,claude-sonnet-5,reference,"n = int(input())
+inches = round(n / 3)
+feet = inches // 12
+inches = inches % 12
+print(feet, inches)",True,0.7143,0.3588,0.3588,0.0,0,0,0.0,[],[]
+49637703,claude-sonnet-5,rules,"from math import ceil
+a = int(input())
+a/=3
+if a%1<0.5:
+	a//=1
+else:
+	a=a//1+1
+print(str(int(a // 12)) + ' ' + str(int(a % 12)))",True,0.0741,0.0794,0.0794,0.0,0,0,0.0,"[""missing_int_cast_on_print_floats""]",[]
+49646595,claude-sonnet-5,reference,"n=int(input())
+n+=1
+f = n//36
+i = (n%36)//3
+print(f,i)",True,0.6667,0.1469,0.1469,0.0,0,0,0.0,[],[]
+49646620,claude-sonnet-5,reference,"n=int(input())
+n+=1
+f = n//36
+i = (n%36)//3
+print(f,i)",True,0.6129,0.1629,0.1629,0.0,0,0,0.0,[],[]
+49646660,claude-sonnet-5,reference,"n = int(input())
+inc = n//3
+rem = n%3
+inc += 1 if rem == 2 else 0
+ft = inc//12
+inc = inc%12
+print(ft, inc)",True,0.6207,0.9667,0.9667,0.0,0,0,0.0,[],[]
+52474077,claude-sonnet-5,reference,"import math
+import queue
+
+from itertools import permutations 
+
+
+n=int(input())
+n+=1
+f = n//36
+i = (n%36)//3
+print(f,i)",True,0.4783,0.3224,0.3224,0.0,0,0,0.0,[],[]
+64165010,claude-sonnet-5,reference,"n=int(input())
+a=n//3
+b=n%3
+if b==2:
+    a=a+1
+p=a//12
+q=a%12
+print(p,q)",True,0.5319,0.3452,0.3452,0.0,0,0,0.0,[],[]
+67012425,claude-sonnet-5,reference,"n=int(input())
+a=n//3
+b=n%3
+if b==2:
+    a=a+1
+p=a//12
+q=a%12
+print(p,q)",True,0.6232,3.1266,3.1266,0.0,0,0,0.0,[],[]
+67135490,claude-sonnet-5,reference,"import math
+n=int(input())
+b=round(n/3)
+a=math.floor(b/12)
+b=b-a*12
+print(a,b)",True,0.6452,0.977,0.977,0.0,0,0,0.0,[],[]
+71553415,claude-sonnet-5,rules,"from math import *
+n=int(input())
+y = round(n / 3)
+x = y // 12
+y %= 12
+print(x,y)",True,0.5357,0.0827,0.0827,0.0,0,0,0.0,"[""feet_floor36_inches_round_independent""]",[]
+79735114,claude-sonnet-5,reference,"n = int(input())
+inches = round(n / 3)
+feet = inches // 12
+inches = inches % 12
+print(feet, inches)",True,0.6875,0.3663,0.3663,0.0,0,0,0.0,[],[]
+89644423,claude-sonnet-5,reference,"n = int(input())
+n = (n + 1) // 3
+print(n // 12, n % 12)",True,0.5517,0.1545,0.1545,0.0,0,0,0.0,[],[]
+90801693,claude-sonnet-5,reference,"n=int(input())
+a=(n+1)//36
+n-=36*a
+b=(n+1)//3
+print(a,b)",True,0.2258,0.1699,0.1699,0.0,0,0,0.0,[],[]
+101614833,gpt-5.4-mini,reference,"n = int(input()) + 1
+print(n // 36, n % 36 // 3)",True,0.7317,0.2397,0.2397,0.0,0,0,0.0,[],[]
+107953809,gpt-5.4-mini,reference,"a,b=divmod(round(int(input())/3),12)
+print(a,b)",True,0.9845,8.4175,8.4175,0.0,0,0,0.0,[],[]
+118929329,gpt-5.4-mini,reference,"n=int(input())
+a=n//3
+b=n%3
+if b==2:
+    a=a+1
+p=a//12
+q=a%12
+print(p,q)",True,0.6393,1.312,1.312,0.0,0,0,0.0,[],[]
+129307429,gpt-5.4-mini,reference,"n = float(input())
+inch = int(n / 3 + 0.5)
+feet = int(inch / 12)
+r = inch - 12 * feet
+print(feet,""  "",r)",True,0.4545,0.3279,0.3279,0.0,0,0,0.0,[],[]
+130490363,gpt-5.4-mini,reference,"n = int(input())
+inches = round(n / 3)
+feet = inches // 12
+inches = inches % 12
+print(feet, inches)",True,0.66,0.4602,0.4602,0.0,0,0,0.0,[],[]
+144606347,gpt-5.4-mini,reference,"n = int(input()) + 1
+print(n // 36, n % 36 // 3)",True,0.6842,0.2212,0.2212,0.0,0,0,0.0,[],[]
+146953666,gpt-5.4-mini,reference,"import math
+n=int(input())
+b=round(n/3)
+a=math.floor(b/12)
+b=b-a*12
+print(a,b)",True,0.561,0.2275,0.2275,0.0,0,0,0.0,[],[]
+146953909,gpt-5.4-mini,reference,"import math
+n=int(input())
+b=round(n/3)
+a=math.floor(b/12)
+b=b-a*12
+print(a,b)",True,0.561,0.2186,0.2186,0.0,0,0,0.0,[],[]
+146958658,gpt-5.4-mini,reference,"import math
+n=int(input())
+b=round(n/3)
+a=math.floor(b/12)
+b=b-a*12
+print(a,b)",True,0.561,0.2316,0.2316,0.0,0,0,0.0,[],[]
+146992153,gpt-5.4-mini,reference,"N = int(input())
+
+def roundI(inch):
+    if inch<=1:
+        return 0
+    return 1
+
+feet = int(N/36)
+fullinch = (N - (feet*36))//3
+
+finalinch = fullinch + roundI(N-feet*36-fullinch*3)
+if finalinch == 12:
+    feet += 1
+    finalinch = 0
+    
+print(feet,finalinch)",True,0.2154,4.5079,4.5079,0.0,0,0,0.0,[],[]
+147007270,gpt-5.4-mini,reference,"def fi(n):
+    # n in cm
+    
+    ft = n//36
+    rem = n % 36
+    ic = round(rem/3)
+    if ic == 12:
+        ft +=1 
+        ic = 0
+        
+    return ft,ic
+    
+    return 
+        
+#main program
+
+n = int(input())
+a,b = fi(n)
+print(a,b)",True,0.25,0.1684,0.1684,0.0,0,0,0.0,[],[]
+147008686,gpt-5.4-mini,reference,"n = int(input())
+inches = round(n / 3)
+feet = inches // 12
+inches = inches % 12
+print(feet, inches)",True,0.6538,0.3544,0.3544,0.0,0,0,0.0,[],[]
+149945129,gpt-5.4-mini,reference,"n = int(input())
+a = n // 3
+b = 0
+if n % 3 == 2:
+    a += 1
+if a >= 12:
+    b = a // 12
+    a = a % 12
+print(b, a)",True,0.7391,6.4691,6.4691,0.0,0,0,0.0,[],[]
+149945330,gpt-5.4-mini,reference,"n = int(input())
+a = n // 3
+b = 0
+if n % 3 == 2:
+    a += 1
+if a >= 12:
+    b = a // 12
+    a = a % 12
+print(b, a)",True,0.716,7.0925,7.0925,0.0,0,0,0.0,[],[]
+190704099,gpt-5.4-mini,reference,"n = int(input())
+inch = n//3
+if n%3 == 2: inch += 1
+feet = inch//12
+inch = inch%12
+print(feet,inch)",True,0.5484,0.7732,0.7732,0.0,0,0,0.0,[],[]
+204859315,gpt-5.4-mini,rules,"""""""
+https://codeforces.com/problemset/problem/125/A
+
+""""""
+INCHINCM = 3
+FOOTINCM = 12 * 3
+
+length = int(input())
+
+inc = length // 3
+rem = length % 3
+inc += 1 if rem == 2 else 0
+feet = inc // 12
+inc = inc % 12
+print(feet, inc)",True,0.875,0.0877,0.0877,0.0,0,0,0.0,"[""fix_divmod_rounding_to_total_inches""]",[]
+210509999,gpt-5.4-mini,rules,"centimeters = int(input())
+
+inches = centimeters // 3
+feet = inches // 12
+rem_inches = round(centimeters / 3)
+feet = rem_inches // 12
+rem_inches = rem_inches % 12
+
+print(feet, rem_inches)",True,0.4545,0.0811,0.0811,0.0,0,0,0.0,"[""fix_rem_inches_after_feet""]",[]
+214030441,gpt-5.4-mini,reference,"n = int(input())
+feet = n//36
+n %= 36
+inch = n//3
+if(n%3 == 2):
+    inch += 1
+if(inch==12):
+    feet += 1
+    inch =0
+print(feet,inch)",True,0.3,0.3119,0.3119,0.0,0,0,0.0,[],[]
+218167179,gpt-5.4-mini,reference,"n=int(input())
+a=(n+1)//36
+n-=36*a
+b=(n+1)//3
+print(a,b)",True,0.5,0.2299,0.2299,0.0,0,0,0.0,[],[]
+219225771,gpt-5.4-mini,reference,"# LUOGU_RID: 121449233
+n = int(input())
+inches = round(n / 3)
+feet = inches // 12
+inches = inches % 12
+print(feet, inches)",True,0.6053,0.2084,0.2084,0.0,0,0,0.0,[],[]
+22026877,gpt-5.4-mini,rules,"n=(int(input()) + 1) // 3
+print(n//12,n%12)",True,0.0417,0.0729,0.0729,0.0,0,0,0.0,"[""ceil_cm_to_inches_plus1""]",[]
+42101202,gpt-5.4-mini,reference,"n = int(input())
+n = (n + 1) // 3
+print(n // 12, n % 12)",True,0.5227,0.31,0.31,0.0,0,0,0.0,[],[]
+42101236,gpt-5.4-mini,reference,"n = int(input())
+a = n // 3
+b = 0
+if n % 3 == 2:
+    a += 1
+if a >= 12:
+    b = a // 12
+    a = a % 12
+print(b, a)",True,0.5333,0.6652,0.6652,0.0,0,0,0.0,[],[]
+49637309,gpt-5.4-mini,reference,"n = int(input()) + 1
+print(n // 36, n % 36 // 3)",True,0.2609,0.1979,0.1979,0.0,0,0,0.0,[],[]
+49637385,gpt-5.4-mini,reference,"n = int(input()) + 1
+print(n // 36, n % 36 // 3)",True,0.5,0.1743,0.1743,0.0,0,0,0.0,[],[]
+49637539,gpt-5.4-mini,reference,"n = int(input())
+inches = round(n / 3)
+feet = inches // 12
+inches = inches % 12
+print(feet, inches)",True,0.7143,0.3518,0.3518,0.0,0,0,0.0,[],[]
+49637703,gpt-5.4-mini,rules,"from math import ceil
+a = int(input())
+a/=3
+if a%1<0.5:
+	a//=1
+else:
+	a=a//1+1
+print(str(int(a // 12)) + ' ' + str(int(a % 12)))",True,0.0741,0.0766,0.0766,0.0,0,0,0.0,"[""cast_split_outputs_to_int""]",[]
+49646595,gpt-5.4-mini,reference,"n=int(input())
+n+=1
+f = n//36
+i = (n%36)//3
+print(f,i)",True,0.6667,0.1453,0.1453,0.0,0,0,0.0,[],[]
+49646620,gpt-5.4-mini,reference,"n=int(input())
+n+=1
+f = n//36
+i = (n%36)//3
+print(f,i)",True,0.6129,0.184,0.184,0.0,0,0,0.0,[],[]
+49646660,gpt-5.4-mini,reference,"n = int(input())
+inc = n//3
+rem = n%3
+inc += 1 if rem == 2 else 0
+ft = inc//12
+inc = inc%12
+print(ft, inc)",True,0.6207,1.0299,1.0299,0.0,0,0,0.0,[],[]
+52474077,gpt-5.4-mini,reference,"import math
+import queue
+
+from itertools import permutations 
+
+
+n=int(input())
+n+=1
+f = n//36
+i = (n%36)//3
+print(f,i)",True,0.4783,0.3246,0.3246,0.0,0,0,0.0,[],[]
+64165010,gpt-5.4-mini,reference,"n=int(input())
+a=n//3
+b=n%3
+if b==2:
+    a=a+1
+p=a//12
+q=a%12
+print(p,q)",True,0.5319,0.3885,0.3885,0.0,0,0,0.0,[],[]
+67012425,gpt-5.4-mini,reference,"n=int(input())
+a=n//3
+b=n%3
+if b==2:
+    a=a+1
+p=a//12
+q=a%12
+print(p,q)",True,0.6232,3.384,3.384,0.0,0,0,0.0,[],[]
+67135490,gpt-5.4-mini,reference,"import math
+n=int(input())
+b=round(n/3)
+a=math.floor(b/12)
+b=b-a*12
+print(a,b)",True,0.6452,1.0784,1.0784,0.0,0,0,0.0,[],[]
+71553415,gpt-5.4-mini,reference,"from math import *
+n=int(input())
+n+=1
+f = n//36
+i = (n%36)//3
+print(f,i)",True,0.5,0.1972,0.1972,0.0,0,0,0.0,[],[]
+79735114,gpt-5.4-mini,reference,"n = int(input())
+inches = round(n / 3)
+feet = inches // 12
+inches = inches % 12
+print(feet, inches)",True,0.6875,0.3738,0.3738,0.0,0,0,0.0,[],[]
+89644423,gpt-5.4-mini,reference,"n = int(input())
+n = (n + 1) // 3
+print(n // 12, n % 12)",True,0.5517,0.1551,0.1551,0.0,0,0,0.0,[],[]
+90801693,gpt-5.4-mini,reference,"n=int(input())
+a=(n+1)//36
+n-=36*a
+b=(n+1)//3
+print(a,b)",True,0.2258,0.1654,0.1654,0.0,0,0,0.0,[],[]

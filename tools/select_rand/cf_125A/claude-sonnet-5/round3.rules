@@ -1,0 +1,150 @@
+rule carry_into_feet_before_print
+symptoms: wrong
+match:
+    print($A, $B, $*rest)
+    |
+    print($A, $sep:Str, $B)
+where: not before("if $B == 12:")
+rewrite:
+    _feet = $A
+    _inch = $B
+    if _inch == 12:
+        _feet += 1
+        _inch = 0
+    print(_feet, _inch, $*rest)
+    |
+    _feet = $A
+    _inch = $B
+    if _inch == 12:
+        _feet += 1
+        _inch = 0
+    print(_feet, $sep, _inch)
+
+rule carry_format_print
+symptoms: wrong
+match: print("{} {}".format($A, $B))
+where: not before("if $B == 12:")
+rewrite:
+    _feet = $A
+    _inch = $B
+    if _inch == 12:
+        _feet += 1
+        _inch = 0
+    print("{} {}".format(_feet, _inch))
+
+rule concat_str_print_carry
+symptoms: wrong
+match: print(str($A)+' '+str($B))
+where: not before("if $B == 12:")
+rewrite:
+    _feet = $A
+    _inch = $B
+    if _inch == 12:
+        _feet += 1
+        _inch = 0
+    print(str(_feet)+' '+str(_inch))
+
+rule string_feet_carry_fix
+symptoms: wrong
+match:
+    if $d == 12:
+        $f += 1
+    print($f+' '+str($d))
+rewrite:
+    if $d == 12:
+        $f = str(int($f)+1)
+        $d = 0
+    print($f+' '+str($d))
+
+rule ceil_div3_wrong_threshold_expr
+symptoms: wrong
+match: ceil($X / 3)
+rewrite: (($X) // 3 + (1 if ($X) % 3 == 2 else 0))
+
+rule combined_divmod_single_print
+symptoms: wrong
+match:
+    $x = ($x + 6) // 12
+    print($x)
+rewrite:
+    print($x // 12, $x % 12)
+
+rule self_referential_round_helper
+symptoms: wrong
+match:
+    if $f == $k:
+        return $r0
+    return $r1
+where: inside("def $f($p): $B:Stmts")
+rewrite:
+    if $p >= 2:
+        return 1
+    return 0
+
+rule late_round_up_carry
+symptoms: wrong
+match:
+    if $cond:
+        $b = $b + 1
+    |
+    if $cond:
+        $b += 1
+where: before("$a:Name = $b // 12")
+rewrite:
+    if $cond:
+        $b = $b + 1
+        if $b == 12:
+            $a += 1
+            $b = 0
+    |
+    if $cond:
+        $b += 1
+        if $b == 12:
+            $a += 1
+            $b = 0
+
+rule mod26_typo_and_missing_round
+symptoms: wrong
+match:
+    $inchvar = $cms // 36
+    $cms = $cms % 26
+    print($inchvar, $cms // 3)
+rewrite:
+    $inchvar = $cms // 36
+    $cms = $cms % 36
+    _r = $cms % 3
+    $cms = $cms // 3
+    if _r == 2:
+        $cms += 1
+    if $cms == 12:
+        $inchvar += 1
+        $cms = 0
+    print($inchvar, $cms)
+
+rule wrong_round_constant
+symptoms: wrong
+match: $n = (int($inp) + $k) // 3
+where: $k == 2
+rewrite: $n = (int($inp) + 1) // 3
+
+rule missing_remainder_before_round
+symptoms: wrong
+match: $y = round($n / 3)
+where: before("$x:Name = $n // 36")
+rewrite: $y = round(($n % 36) / 3)
+
+rule add_remainder_instead_of_one
+symptoms: wrong
+match: $b = $n // 3 + $n % 3
+rewrite: $b = $n // 3 + 1
+
+rule manual_float_round_bug
+symptoms: wrong
+match:
+    $a /= 3
+    if $a % 1 < 0.5:
+        $a //= 1
+    else:
+        $a = $a // 1 + 1
+rewrite:
+    $a = ($a + 1) // 3

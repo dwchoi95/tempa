@@ -1,0 +1,46 @@
+rule triangular_search_missing_two_step_fallback
+symptoms: wrong
+match:
+    $x = ($b*($b+1))//2
+    if ($x-$n)%2==0:
+        return $b
+    return $b+1
+rewrite:
+    $x = ($b*($b+1))//2
+    if ($x-$n)%2==0:
+        return $b
+    x2 = (($b+1)*($b+2))//2
+    if (x2-$n)%2==0:
+        return $b+1
+    return $b+2
+
+rule missing_abs_after_reading_input
+symptoms: wrong
+match: $x = int(input())
+where: not next("$x = abs($x)")
+rewrite:
+    $x = int(input())
+    $x = abs($x)
+
+rule triangular_diff_parity_bad_fallback_formula
+symptoms: wrong
+match:
+    if $sum == $x:
+        print($i)
+    elif $sum > $x:
+        $a = ($sum-$x)*2+$i
+        $sum -= $i
+        $b = $i+($x-$sum)*2-1
+        if $a >= $b:
+            print($b)
+        elif $a < $b:
+            print($a)
+rewrite:
+    if $x == 0:
+        print(0)
+    elif ($sum - $x) % 2 == 0:
+        print($i)
+    elif $i % 2 == 0:
+        print($i + 1)
+    else:
+        print($i + 2)

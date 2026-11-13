@@ -1,0 +1,190 @@
+rule append_missing_brackets_list
+symptoms: wrong, err:TypeError
+match:
+    $new += $x
+    |
+    $new = $new + $x
+where: inside("def $f($p): $B:Stmts") and some($B, "$new = []") and not match($x, "[$*ys]") and not match($x, "($*ys,)")
+rewrite:
+    $new += [$x]
+    |
+    $new = $new + [$x]
+
+rule append_missing_brackets_tuple
+symptoms: wrong, err:TypeError
+match: $new += $x
+where: inside("def $f($p): $B:Stmts") and some($B, "$new = ()") and not match($x, "($*ys,)") and not match($x, "[$*ys]")
+rewrite: $new += ($x,)
+
+rule seed_with_first_element_scalar
+symptoms: wrong, err:TypeError
+match: $result = $lst[0]
+where: first() and inside("def $f($p): $B:Stmts") and some($B, "if $e not in $result:")
+rewrite: $result = []
+
+rule guard_empty_list_before_seed
+symptoms: wrong, err:IndexError
+match:
+    $new = [$lst[0]]
+    |
+    $new = ($lst[0],)
+where: first()
+rewrite:
+    if not $lst:
+        return []
+    $new = [$lst[0]]
+    |
+    if not $lst:
+        return []
+    $new = ($lst[0],)
+
+rule return_tuple_accumulator_as_list
+symptoms: wrong
+match: return $new
+where: inside("def $f($p): $B:Stmts") and (some($B, "$new = ($lst[0],)") or some($B, "$new = ()"))
+rewrite: return list($new)
+
+rule membership_check_against_source_instead_of_accumulator
+symptoms: wrong
+match: if $i not in $lst:
+where: inside("for $i2 in $lst2:") and $i2 == $i and $lst2 == $lst and inside("def $f($p): $B:Stmts") and some($B, "$new = []") and $new != $lst
+rewrite: if $i not in $new:
+
+rule membership_against_builtin_list
+symptoms: wrong, err:TypeError
+match: $i not in list
+where: inside("def $f($p): $B:Stmts") and some($B, "$new = []")
+rewrite: $i not in $new
+
+rule iterate_over_builtin_list_instead_of_param
+symptoms: wrong, err:TypeError
+match: for $i in list:
+where: inside("def $f($p): $B:Stmts")
+rewrite: for $i in $p:
+
+rule builtin_list_subscript_instead_of_param
+symptoms: wrong, err:TypeError
+match: list[0]
+where: inside("def $f($p): $B:Stmts")
+rewrite: $p[0]
+
+rule call_instead_of_index_seed
+symptoms: wrong, err:TypeError
+match: $new = $lst(0)
+where: inside("def $f($p): $B:Stmts") and $lst == $p
+rewrite: $new = []
+
+rule chained_membership_equals_true
+symptoms: wrong
+match: $x in $y == True
+rewrite: $x in $y
+
+rule inverted_membership_condition
+symptoms: wrong
+match:
+    if $i in $new:
+        $new.append($i)
+rewrite:
+    if $i not in $new:
+        $new.append($i)
+
+rule append_return_value_assigned
+symptoms: wrong, err:AttributeError
+match:
+    $new = $new.append($x)
+    |
+    $new += $new.append($x)
+rewrite:
+    $new.append($x)
+    |
+    $new.append($x)
+
+rule dotted_attribute_instead_of_call
+symptoms: wrong, err:AttributeError
+match: $new.append.$x:Attr
+rewrite: $new.append($x)
+
+rule len_called_with_brackets
+symptoms: wrong, err:TypeError
+match: len[$x]
+rewrite: len($x)
+
+rule insert_off_by_one_at_end
+symptoms: wrong
+match: $lst.insert(len($x) - 1, $y)
+rewrite: $lst.insert(len($x), $y)
+
+rule missing_return_statement
+symptoms: wrong
+match: for $i in $lst:
+where: inside("def $f($p): $B:Stmts") and last() and not some($B, "return $r") and some($B, "$new = []")
+rewrite:
+    for $i in $lst:
+    return $new
+
+rule return_wrong_loop_variable
+symptoms: wrong
+match: return $x
+where: inside("def $f($p): $B:Stmts") and some($B, "$new = []") and some($B, "for $x in $lst:") and $new != $x
+rewrite: return $new
+
+rule misplaced_return_inside_loop
+symptoms: wrong
+match:
+    for $i in $lst:
+        if $i not in $new:
+            $new.append($i)
+        return $new
+rewrite:
+    for $i in $lst:
+        if $i not in $new:
+            $new.append($i)
+    return $new
+
+rule iterate_index_range_instead_of_elements
+symptoms: wrong, err:IndexError
+match: for $i in range(len($lst) + 1):
+rewrite: for $i in $lst:
+
+rule off_by_one_range_len
+symptoms: wrong, err:IndexError
+match: range(len($lst) + 1)
+rewrite: range(len($lst))
+
+rule off_by_one_len_comparison
+symptoms: wrong, err:IndexError
+match: $x <= len($lst)
+rewrite: $x < len($lst)
+
+rule set_based_dedup_loses_order
+symptoms: wrong
+match:
+    return list(set($lst))
+    |
+    return set($lst)
+    |
+    return list(OrderedDict.fromkeys($lst))
+rewrite:
+    result = []
+    for x in $lst:
+        if x not in result:
+            result.append(x)
+    return result
+    |
+    result = []
+    for x in $lst:
+        if x not in result:
+            result.append(x)
+    return result
+    |
+    result = []
+    for x in $lst:
+        if x not in result:
+            result.append(x)
+    return result
+
+rule recursive_scalar_concat
+symptoms: wrong, err:TypeError
+match: $lst[0] + $f($rest)
+where: text($f) == "remove_extras"
+rewrite: [$lst[0]] + $f($rest)

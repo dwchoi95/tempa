@@ -1,0 +1,166 @@
+rule fix_day_variable_name_in_unique_day
+symptoms: wrong
+match:
+    def $f($day, $possible_birthdays):
+        $*before
+        if $X[1] == $bad:Name:
+            $Y
+        $*after
+where: text($f) == "unique_day" and ($bad == $possible_birthdays or text($bad) == "day")
+rewrite:
+    def $f($day, $possible_birthdays):
+        $*before
+        if $X[1] == $day:
+            $Y
+        $*after
+
+rule fix_month_variable_name_in_unique_month
+symptoms: wrong
+match:
+    def $f($month, $possible_birthdays):
+        $*before
+        if $X[0] == $bad:Name:
+            $Y
+        $*after
+where: text($f) == "unique_month" and ($bad == $possible_birthdays or text($bad) == "month" or text($bad) == "days")
+rewrite:
+    def $f($month, $possible_birthdays):
+        $*before
+        if $X[0] == $month:
+            $Y
+        $*after
+
+rule fix_unique_day_comparison_to_equal_one
+symptoms: wrong
+match: return $c <= 1
+where: some($c, "$n:Name == 1") or some($c, "$n:Name < 2") or some($c, "$n:Name > 1")
+rewrite: return $c == 1
+
+rule fix_unique_month_comparison_to_equal_one
+symptoms: wrong
+match: return $c <= 1
+where: some($c, "$n:Name == 1") or some($c, "$n:Name < 2") or some($c, "$n:Name > 1")
+rewrite: return $c == 1
+
+rule fix_unique_day_counter_return
+symptoms: wrong
+match:
+    if $c > 1:
+        return False
+    else:
+        return True
+where: some($c, "$n:Name") and not some($c, "$n:Name == 1")
+rewrite:
+    if $c == 1:
+        return True
+    else:
+        return False
+
+rule fix_unique_month_counter_return
+symptoms: wrong
+match:
+    if $c > 1:
+        return False
+    else:
+        return True
+where: some($c, "$n:Name") and not some($c, "$n:Name == 1")
+rewrite:
+    if $c == 1:
+        return True
+    else:
+        return False
+
+rule fix_contains_unique_day_month_index
+symptoms: wrong, err:IndexError
+match:
+    if $m == $x[0]:
+        if unique_day($d, $pb):
+            return True
+where: some($d, "$bad[1]") or some($m, "$bad[0]") or some($x, "$bad")
+rewrite:
+    if $x[0] == $m:
+        if unique_day($d, $pb):
+            return True
+
+rule fix_contains_unique_day_check_day_argument
+symptoms: wrong
+match:
+    if unique_day($bad, $pb):
+        return True
+where: some($bad, "$x[0]") or some($bad, "$x[1]") or some($bad, "month") or some($bad, "day")
+rewrite:
+    if unique_day($x[1], $pb):
+        return True
+
+rule fix_contains_unique_day_return_false_after_loop
+symptoms: wrong
+match:
+    for $i in $seq:
+        if $cond:
+            return True
+        else:
+            return False
+where: some($seq, "possible_birthdays") or some($seq, "days") or some($seq, "months")
+rewrite:
+    for $i in $seq:
+        if $cond:
+            return True
+    return False
+
+rule fix_contains_unique_day_early_false_in_loop
+symptoms: wrong
+match:
+    for $i in $seq:
+        if $cond:
+            return True
+        else:
+            return False
+where: some($seq, "possible_birthdays") or some($seq, "days") or some($seq, "months")
+rewrite:
+    for $i in $seq:
+        if $cond:
+            return True
+    return False
+
+rule fix_contains_unique_day_return_true_only_when_match
+symptoms: wrong
+match:
+    for $i in $seq:
+        if $m == $i[0]:
+            if unique_day($d, $pb):
+                return True
+    return False
+where: some($m, "month") or some($m, "months")
+rewrite:
+    for $i in $seq:
+        if $m == $i[0]:
+            if unique_day($d, $pb):
+                return True
+    return False
+
+rule fix_contains_unique_day_wrong_month_field
+symptoms: wrong
+match:
+    for $i in $seq:
+        if $m == $i[1]:
+            if unique_day($d, $pb):
+                return True
+    return False
+where: some($m, "month")
+rewrite:
+    for $i in $seq:
+        if $m == $i[0]:
+            if unique_day($d, $pb):
+                return True
+    return False
+
+rule fix_contains_unique_day_pass_through
+symptoms: wrong
+match: return
+rewrite:
+    for $i in possible_birthdays:
+        if $i[0] == month:
+            if unique_day($i[1], possible_birthdays):
+                return True
+    return False
+where: inside("def contains_unique_day($month, $possible_birthdays): $B:Stmts") and not some($B, "return True")

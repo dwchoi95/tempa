@@ -1,0 +1,9 @@
+; Proposition 6 witness for part (2): out == [] becomes out = [] in a dead branch
+(pair
+ (module
+  (assign 1 out (const 2 5))
+  (def 3 f c
+   ((if 4 (name 5 c) ((expr 6 (bin 7 == (name 8 out) (const 9 "[]")))) ())
+    (return 10 (name 11 out))))
+  (print 12 (call 13 (name 14 f) (name 15 inp))))
+ (sites (stmts 6 ((assign 6 out (const 9 "[]"))))))

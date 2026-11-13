@@ -1,0 +1,223 @@
+rule repair9_capitalize_to_condition
+symptoms: wrong
+match:
+    $s = input()
+    $res = $s.capitalize()
+    print($res)
+rewrite:
+    $s = input()
+    t = $s[1:]
+    u = t.upper()
+    if t != u:
+        print($s)
+    else:
+        print($s.swapcase())
+
+rule repair1_lower_equality_misconception
+symptoms: wrong
+match:
+    $s = input()
+    $a = $s.lower()
+    if $a == $s:
+        print($s)
+    else:
+        print($s.swapcase())
+rewrite:
+    $s = input()
+    if $s[1:] == $s[1:].upper():
+        print($s.swapcase())
+    else:
+        print($s)
+
+rule repair2_truthy_method_calls
+symptoms: wrong
+match:
+    $s = input()
+    if($s[0].lower() or $s[1:].upper()):
+       print($s.capitalize())
+    else:
+       print($s)
+rewrite:
+    $s = input()
+    if $s[1:] == $s[1:].upper():
+        print($s.swapcase())
+    else:
+        print($s)
+
+rule repair3_truthy_method_call_and_typo
+symptoms: wrong
+match:
+    $s = input()
+    if($s[0].lower()):
+       print($s.capitalize())
+    else:
+       print($s.uppercase())
+rewrite:
+    $s = input()
+    if $s[1:] == $s[1:].upper():
+        print($s.swapcase())
+    else:
+        print($s)
+
+rule repair4_isupper_or_rest_noelse
+symptoms: wrong
+match:
+    $n = input()
+    if $n.isupper() or $n[1:].isupper():
+        $n = $n.swapcase()
+        print($n)
+rewrite:
+    $n = input()
+    if $n[1:] == $n[1:].upper():
+        print($n.swapcase())
+    else:
+        print($n)
+
+rule repair5_elif_chain_lower_capitalize
+symptoms: wrong
+match:
+    $w = input()
+    if $w.isupper():
+        $pw = $w.lower()
+    elif $w[1:].isupper():
+        $pw = $w.capitalize()
+    else:
+        $pw = $w
+    print($pw)
+rewrite:
+    $w = input()
+    if $w[1:] == $w[1:].upper():
+        print($w.swapcase())
+    else:
+        print($w)
+
+rule repair6_isupper_or_rest_assign_swapcase
+symptoms: wrong
+match:
+    $ws = input()
+    if $ws.isupper() or $ws[1:].isupper():
+        $pw = $ws.swapcase()
+    else:
+        $pw = $ws
+    print($pw)
+rewrite:
+    $ws = input()
+    if $ws[1:] == $ws[1:].upper():
+        print($ws.swapcase())
+    else:
+        print($ws)
+
+rule repair7_unconditional_swapcase
+symptoms: wrong
+match:
+    $s = input()
+    print($s.swapcase())
+rewrite:
+    $s = input()
+    if $s[1:] == $s[1:].upper():
+        print($s.swapcase())
+    else:
+        print($s)
+
+rule repair10_reassign_then_print
+symptoms: wrong
+match:
+    $w = input()
+    if $cond:
+        $w = $w[0].upper() + $w[1:].lower()
+    print($w)
+where: regex($cond, r"isupper")
+rewrite:
+    $w = input()
+    if (len($w) == 1 or $w.isupper() or ($w[0].islower() and $w[1:].isupper())):
+        print($w.swapcase())
+    else:
+        print($w)
+
+rule repair11_loop_based_check
+symptoms: wrong
+match:
+    for $i in range(len($x)-1):
+        if($x.isupper()):
+            print($x.capitalize())
+            break
+        elif($x[0].islower() and $x[$i+1].isupper()):
+            print($x.capitalize())
+            break
+        else:
+            print($x)
+            break
+rewrite:
+    if $x.isupper():
+        print($x.lower())
+    elif $x[0].islower() and (not $x[1:] or $x[1:].isupper()):
+        print($x.capitalize())
+    else:
+        print($x)
+
+rule repair12_helper_function_missing_cases
+symptoms: wrong
+match:
+    if len($x) == 1:
+        $cw = $x.upper()
+    else:
+        $cw = $x[0].upper() + $x[1:].lower()
+rewrite:
+    if len($x) == 1:
+        $cw = $x.swapcase()
+    elif $x.isupper():
+        $cw = $x.lower()
+    elif $x[0].islower() and $x[1:].isupper():
+        $cw = $x.swapcase()
+    else:
+        $cw = $x
+
+rule repair8a_first_char_kept_instead_of_lowered
+symptoms: wrong
+match: $S[0] + $S[1:].lower()
+rewrite: $S.lower()
+
+rule repair8b_missing_single_char_guard
+symptoms: wrong
+match: $S[0].islower() and $S[1:].isupper()
+rewrite: len($S) == 1 or ($S[0].islower() and $S[1:].isupper())
+
+rule repair13_empty_rest_isupper_false
+symptoms: wrong
+match: if $s[1:].isupper():
+rewrite: if not $s[1:] or $s[1:].isupper():
+
+rule repair14_counting_lowercase_heuristic
+symptoms: wrong
+match:
+    if $x.isupper()==True:
+        print($x.swapcase())
+    elif 1==1:
+        $n = 0
+        for $i in range(len($x)):
+            if $x[$i]>='a':
+                $n+=1
+        if $n==1:
+            print($x.swapcase())
+    else:
+        print($x)
+rewrite:
+    if $x==$x.upper():
+        print($x.lower())
+    elif $x[1:]==$x[1:].upper():
+        print($x[0].upper()+$x[1:].lower())
+    else:
+        print($x)
+
+rule repair15_counting_loop_before_check
+symptoms: wrong
+match:
+    $n = 0
+    for $i in range(len($x)):
+        if $x[$i]>='a':
+            $n+=1
+    if $n==1:
+rewrite:
+    $n = $x[1:]
+    hi = $n.upper()
+    if $n == hi:

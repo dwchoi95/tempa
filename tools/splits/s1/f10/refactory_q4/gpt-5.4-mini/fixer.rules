@@ -1,0 +1,189 @@
+rule assign_selected_element_instead_of_name
+symptoms: wrong
+match:
+    if $cond:
+        $v = $x
+where:
+    match($cond, "$a[$i:Int] $o:Cmp $b[$j:Int]") or
+    match($cond, "$a[$i:Int] $o:Cmp $b")
+rewrite:
+    if $cond:
+        $v = $x
+
+rule append_selected_element_to_output
+symptoms: wrong
+match:
+    $out.append($lst.pop($i))
+where:
+    match($i, "$oldest") and bound($oldest)
+rewrite:
+    $out.append($oldest)
+    $lst.remove($oldest)
+
+rule pop_after_find_with_index
+symptoms: wrong
+match:
+    $out.append($lst.pop($i))
+where:
+    inside("def $f($*ps): $B:Stmts") and some($B, "$oldest = $lst[0]") and some($B, "for $k in range(len($lst)):\n    if $lst[$k][1] > $oldest[1]:\n        $oldest = $lst[$k]")
+rewrite:
+    $lst.remove($oldest)
+    $out.append($oldest)
+
+rule remove_index_variable_used_as_element
+symptoms: wrong
+match:
+    $lst.remove($x)
+where:
+    some($x, "$p[1]") and not some($x, "[$_]")
+rewrite:
+    $lst.remove($x)
+
+rule append_missing_variable_instead_of_self_assignment
+symptoms: wrong
+match:
+    $a = $b
+where:
+    regex($a, r"^(biggest|oldest|largest|smallest|i|person)$") and regex($b, r"^(biggest|oldest|largest|smallest|i|person)$") and text($a) != text($b)
+rewrite:
+    $a = $b
+
+rule fix_self_assignment_in_selection_loop
+symptoms: wrong
+match:
+    for $p in $lst:
+        if $cond:
+            $p = $q
+where:
+    match($cond, "$p[1] >= $old[1]") or match($cond, "$p[1] > $old[1]") or match($cond, "$p[1] <= $old[1]") or match($cond, "$p[1] < $old[1]") or match($cond, "$old[1] <= $p[1]") or match($cond, "$old[1] < $p[1]")
+rewrite:
+    for $p in $lst:
+        if $cond:
+            $old = $p
+
+rule drop_extra_append_after_loop
+symptoms: wrong
+match:
+    while $c:
+        $B:Stmts
+    $out.append($x)
+where:
+    some($B, "lst.remove($x)") or some($B, "$lst.remove($x)")
+rewrite:
+    while $c:
+        $B
+
+rule remove_debug_print_statement
+symptoms: wrong
+match: print($x)
+where: inside("def $f($*ps): $B:Stmts")
+rewrite:
+
+rule remove_return_inside_loop
+symptoms: wrong
+match:
+    while $c:
+        $B1:Stmts
+        return $x
+rewrite:
+    while $c:
+        $B1
+    return $x
+
+rule return_sorted_list_instead_of_input
+symptoms: wrong
+match: return $x
+where:
+    inside("def $f($*ps): $B:Stmts") and some($B, "$x.append($_)") and some($B, "$x = []")
+rewrite: return $x
+
+rule fix_reverse_used_as_statement
+symptoms: wrong
+match:
+    return $x.reverse()
+rewrite:
+    $x.reverse()
+    return $x
+
+rule fix_sort_reverse_print
+symptoms: wrong
+match:
+    $lst.sort(key=lambda $p:$k, reverse=True)
+    print($lst)
+rewrite:
+    $lst.sort(key=lambda $p:$k, reverse=True)
+    return $lst
+
+rule fix_builtin_sort_then_reverse_to_return
+symptoms: wrong
+match:
+    $lst.sort(key=lambda $p:$k)
+    $lst.reverse()
+    $print
+rewrite:
+    $lst.sort(key=lambda $p:$k, reverse=True)
+    return $lst
+
+rule fix_merge_compare_age_not_gender
+symptoms: wrong
+match:
+    if $left[0][0] < $right[0][0]:
+        $A
+    else:
+        $B
+rewrite:
+    if $left[0][1] < $right[0][1]:
+        $A
+    else:
+        $B
+
+rule fix_merge_append_pop_syntax
+symptoms: wrong
+match:
+    $results.append($side,pop(0))
+rewrite:
+    $results.append($side.pop(0))
+
+rule merge_sort_should_recurse_not_split_once
+symptoms: wrong
+match:
+    return merge($left, $right)
+where:
+    inside("def sort_age($*ps): $B:Stmts") and some($B, "left = $lst[:$mid]") and some($B, "right = $lst[$mid:]")
+rewrite:
+    return merge(sort_age($left), sort_age($right))
+
+rule fix_floor_division_for_middle
+symptoms: wrong
+match:
+    $left = $lst[:$n/2]
+    $right = $lst[$n/2:]
+rewrite:
+    $left = $lst[:$n//2]
+    $right = $lst[$n//2:]
+
+rule fix_ages_list_remove_wrong_name
+symptoms: wrong
+match:
+    ages.remove($age)
+where:
+    text($age) == "age"
+rewrite:
+    ages.remove(item[1])
+
+rule fix_single_element_return_list
+symptoms: wrong
+match:
+    $out += $s
+rewrite:
+    $out.append($s)
+
+rule fix_missing_return_at_end
+symptoms: wrong
+match:
+    $B:Stmts
+where:
+    inside("def sort_age($*ps): $B:Stmts") and not some($B, "return $_")
+rewrite:
+    $B
+    return sort

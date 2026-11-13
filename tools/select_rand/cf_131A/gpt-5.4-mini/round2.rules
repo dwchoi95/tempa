@@ -1,0 +1,411 @@
+rule capslock_lower_all_on_all_upper
+symptoms: wrong
+match:
+    s= input()
+    k = s.lower()
+    print(k)
+rewrite:
+    s= input()
+    if s.isupper():
+        print(s.lower())
+    else:
+        print(s)
+
+rule capslock_if_lower_or_capitalize_builtin_misuse
+symptoms: wrong
+match:
+    s=input()
+    if s==s.lower() or s==s.capitalize:
+        print(s)
+    else:
+        print(s.capitalize())
+rewrite:
+    s=input()
+    if s.isupper():
+        print(s.lower())
+    elif s[0].islower() and s[1:].isupper():
+        print(s[0].upper() + s[1:].lower())
+    elif len(s) == 1 and s.islower():
+        print(s.upper())
+    else:
+        print(s)
+
+rule capslock_title_on_input
+symptoms: wrong
+match: print($X.title())
+where: kind($X) == "Name" or kind($X) == "Call"
+rewrite:
+    if $X.isupper():
+        print($X.lower())
+    elif $X[0].islower() and $X[1:].isupper():
+        print($X[0].upper() + $X[1:].lower())
+    elif len($X) == 1 and $X.islower():
+        print($X.upper())
+    else:
+        print($X)
+
+rule capslock_capitalize_on_input
+symptoms: wrong
+match: print($X.capitalize())
+where: kind($X) == "Name" or kind($X) == "Call"
+rewrite:
+    if $X.isupper():
+        print($X.lower())
+    elif $X[0].islower() and $X[1:].isupper():
+        print($X[0].upper() + $X[1:].lower())
+    elif len($X) == 1 and $X.islower():
+        print($X.upper())
+    else:
+        print($X)
+
+rule capslock_capitalize_string_variable
+symptoms: wrong
+match:
+    $v = input()
+    $u = $v.capitalize()
+    print($u)
+rewrite:
+    $v = input()
+    if $v.isupper():
+        print($v.lower())
+    elif $v[0].islower() and $v[1:].isupper():
+        print($v[0].upper() + $v[1:].lower())
+    elif len($v) == 1 and $v.islower():
+        print($v.upper())
+    else:
+        print($v)
+
+rule capslock_capitalize_after_lowering
+symptoms: wrong
+match:
+    $v = input()
+    $v = $v.lower()
+    $u = $v.capitalize()
+    print($u)
+rewrite:
+    $v = input()
+    if $v.isupper():
+        print($v.lower())
+    elif $v[0].islower() and $v[1:].isupper():
+        print($v[0].upper() + $v[1:].lower())
+    elif len($v) == 1 and $v.islower():
+        print($v.upper())
+    else:
+        print($v)
+
+rule capslock_first_char_upper_rest_lower
+symptoms: wrong
+match:
+    $s = input()
+    print($s[0].upper() + $s[1:].lower())
+rewrite:
+    $s = input()
+    if $s.isupper():
+        print($s.lower())
+    elif $s[0].islower() and $s[1:].isupper():
+        print($s[0].upper() + $s[1:].lower())
+    elif len($s) == 1 and $s.islower():
+        print($s.upper())
+    else:
+        print($s)
+
+rule capslock_first_upper_rest_lower_assignment
+symptoms: wrong
+match:
+    $v = input()
+    $b = $v[0].upper()
+    $b += $v[1:].lower()
+    print($b)
+rewrite:
+    $v = input()
+    if $v.isupper():
+        print($v.lower())
+    elif $v[0].islower() and $v[1:].isupper():
+        print($v[0].upper() + $v[1:].lower())
+    elif len($v) == 1 and $v.islower():
+        print($v.upper())
+    else:
+        print($v)
+
+rule capslock_first_char_plus_rest_lower
+symptoms: wrong
+match:
+    $x = input()
+    print($x[:1].upper() + $x[1:])
+rewrite:
+    $x = input()
+    if $x.isupper():
+        print($x.lower())
+    elif $x[0].islower() and $x[1:].isupper():
+        print($x[0].upper() + $x[1:].lower())
+    elif len($x) == 1 and $x.islower():
+        print($x.upper())
+    else:
+        print($x)
+
+rule capslock_lower_then_capitalize
+symptoms: wrong
+match:
+    $s = input()
+    $s = $s.lower()
+    print($s.capitalize())
+rewrite:
+    $s = input()
+    if $s.isupper():
+        print($s.lower())
+    elif $s[0].islower() and $s[1:].isupper():
+        print($s[0].upper() + $s[1:].lower())
+    elif len($s) == 1 and $s.islower():
+        print($s.upper())
+    else:
+        print($s)
+
+rule capslock_input_swapcase_unconditional
+symptoms: wrong
+match: print(input().swapcase())
+rewrite:
+    s = input()
+    if s.isupper() or (s[0].islower() and s[1:].isupper()) or (len(s) == 1 and s.islower()):
+        print(s.swapcase())
+    else:
+        print(s)
+
+rule capslock_var_swapcase_unconditional
+symptoms: wrong
+match:
+    $s = input()
+    print($s.swapcase())
+rewrite:
+    $s = input()
+    if $s.isupper() or ($s[0].islower() and $s[1:].isupper()) or (len($s) == 1 and $s.islower()):
+        print($s.swapcase())
+    else:
+        print($s)
+
+rule capslock_if_isupper_else_capitalize
+symptoms: wrong
+match:
+    $s = input()
+    if $s.isupper():
+        print($s)
+    else:
+        print($s.capitalize())
+rewrite:
+    $s = input()
+    if $s.isupper():
+        print($s.lower())
+    elif $s[0].islower() and $s[1:].isupper():
+        print($s[0].upper() + $s[1:].lower())
+    elif len($s) == 1 and $s.islower():
+        print($s.upper())
+    else:
+        print($s)
+
+rule capslock_if_upper_or_rest_upper_swapcase
+symptoms: wrong
+match:
+    $s = input()
+    if $s.isupper() or $s[1:].isupper():
+        print($s.swapcase())
+    else:
+        print($s)
+rewrite:
+    $s = input()
+    if $s.isupper() or ($s[0].islower() and $s[1:].isupper()) or (len($s) == 1 and $s.islower()):
+        print($s.swapcase())
+    else:
+        print($s)
+
+rule capslock_if_first_lower_or_rest_upper_swapcase
+symptoms: wrong
+match:
+    $s = input()
+    if $s[0].islower() or $s[1:].isupper():
+        print($s.swapcase())
+    else:
+        print($s)
+rewrite:
+    $s = input()
+    if $s.isupper() or ($s[0].islower() and $s[1:].isupper()) or (len($s) == 1 and $s.islower()):
+        print($s.swapcase())
+    else:
+        print($s)
+
+rule capslock_title_misuse_general
+symptoms: wrong
+match:
+    $X = input()
+    print($X.title())
+rewrite:
+    $X = input()
+    if $X.isupper():
+        print($X.lower())
+    elif $X[0].islower() and $X[1:].isupper():
+        print($X[0].upper() + $X[1:].lower())
+    elif len($X) == 1 and $X.islower():
+        print($X.upper())
+    else:
+        print($X)
+
+rule capslock_capitalize_misuse_general
+symptoms: wrong
+match:
+    $X = input()
+    print($X.capitalize())
+rewrite:
+    $X = input()
+    if $X.isupper():
+        print($X.lower())
+    elif $X[0].islower() and $X[1:].isupper():
+        print($X[0].upper() + $X[1:].lower())
+    elif len($X) == 1 and $X.islower():
+        print($X.upper())
+    else:
+        print($X)
+
+rule capslock_lower_then_title_misuse
+symptoms: wrong
+match:
+    $X = input().lower()
+    print($X.title())
+rewrite:
+    $X = input()
+    if $X.isupper():
+        print($X.lower())
+    elif $X[0].islower() and $X[1:].isupper():
+        print($X[0].upper() + $X[1:].lower())
+    elif len($X) == 1 and $X.islower():
+        print($X.upper())
+    else:
+        print($X)
+
+rule capslock_first_char_case_only
+symptoms: wrong
+match:
+    $x = input()
+    print($x[0].upper() + $x[1:])
+rewrite:
+    $x = input()
+    if $x.isupper():
+        print($x.lower())
+    elif $x[0].islower() and $x[1:].isupper():
+        print($x[0].upper() + $x[1:].lower())
+    elif len($x) == 1 and $x.islower():
+        print($x.upper())
+    else:
+        print($x)
+
+rule capslock_first_char_upper_rest_lower_loop
+symptoms: wrong
+match:
+    $a = list(str(input()))
+    for $i in range(len($a)):
+        if $i!=0:
+            $a[$i] = $a[$i].lower()
+        else:
+            $a[$i] = $a[$i].upper()
+    for $elt in $a:
+        print($elt, end="")
+rewrite:
+    s = input()
+    if s.isupper():
+        print(s.lower())
+    elif s[0].islower() and s[1:].isupper():
+        print(s[0].upper() + s[1:].lower())
+    elif len(s) == 1 and s.islower():
+        print(s.upper())
+    else:
+        print(s)
+
+rule capslock_swapcase_on_guarded_rest_upper
+symptoms: wrong
+match:
+    $s = input()
+    if $s[1:] == $s[1:].upper():
+        print($s.swapcase())
+    else:
+        print($s)
+rewrite:
+    $s = input()
+    if $s[1:] == $s[1:].upper():
+        print($s.swapcase())
+    else:
+        print($s)
+
+rule capslock_nested_if_isupper_lower
+symptoms: wrong
+match:
+    $s = input()
+    if $s.isupper() == True:
+        print($s.lower())
+    else:
+        $B
+rewrite:
+    $s = input()
+    if $s.isupper():
+        print($s.lower())
+    elif $s[0].islower() and $s[1:].isupper():
+        print($s[0].upper() + $s[1:].lower())
+    elif len($s) == 1 and $s.islower():
+        print($s.upper())
+    else:
+        print($s)
+
+rule capslock_add_one_char_rule
+symptoms: wrong
+match:
+    $s = input()
+    if len($s) == 1:
+        print($s[0].upper())
+rewrite:
+    $s = input()
+    if len($s) == 1:
+        print($s.swapcase())
+
+rule capslock_generic_swapcase_condition
+symptoms: wrong
+match:
+    $s = input()
+    if $cond:
+        print($s.swapcase())
+    else:
+        print($s)
+where: (match($cond, "$t.isupper()") or match($cond, "$t[1:].isupper()") or match($cond, "$t[1:] == $t[1:].upper()")) and bound($t)
+rewrite:
+    $s = input()
+    if $s.isupper() or ($s[0].islower() and $s[1:].isupper()) or (len($s) == 1 and $s.islower()):
+        print($s.swapcase())
+    else:
+        print($s)
+
+rule capslock_single_char_upper_lower
+symptoms: wrong
+match:
+    if len($s) == 1 and $s.islower():
+        $R
+rewrite:
+    if len($s) == 1:
+        $R
+
+rule capslock_single_char_else_fix
+symptoms: wrong
+match:
+    if len($s) == 1 and $s.isupper():
+        $R
+rewrite:
+    if len($s) == 1:
+        $R
+
+rule capslock_wrong_capitalize_return
+symptoms: wrong
+match:
+    return $x.capitalize()
+rewrite:
+    return $x.swapcase()
+
+rule capslock_wrong_title_return
+symptoms: wrong
+match:
+    return $x.title()
+rewrite:
+    return $x.swapcase()

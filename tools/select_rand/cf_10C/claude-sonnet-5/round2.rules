@@ -1,0 +1,66 @@
+rule bruteforce_double_loop_to_formula
+symptoms: wrong
+match:
+    $v:Name = 0
+    for $k in $it:
+        $Body:Stmts
+    print($v2)
+where: $v == $v2 and before("$n:Name = int(input())")
+rewrite:
+    true_products, a = 0, 1
+    while a ** 2 <= $n:
+        true_products += $n // a - a
+        a += 1
+    true_products *= 2
+    true_products += int($n ** 0.5)
+    digit_roots = [$n // 9 for _ in range(9)]
+    for idx in range(1, $n % 9 + 1):
+        digit_roots[idx] += 1
+    digit_root_products = 0
+    for p in range(9):
+        for q in range(9):
+            digit_root_products += digit_roots[p] * digit_roots[q] * digit_roots[(p * q) % 9]
+    $v = digit_root_products - true_products
+    print($v)
+
+rule digital_root_passthrough_inline
+symptoms: wrong
+match: print($f(input()))
+where: before("def $f($p): $B:Stmts")
+rewrite:
+    n = int(input())
+    true_products, a = 0, 1
+    while a ** 2 <= n:
+        true_products += n // a - a
+        a += 1
+    true_products *= 2
+    true_products += int(n ** 0.5)
+    digit_roots = [n // 9 for _ in range(9)]
+    for idx in range(1, n % 9 + 1):
+        digit_roots[idx] += 1
+    digit_root_products = 0
+    for p in range(9):
+        for q in range(9):
+            digit_root_products += digit_roots[p] * digit_roots[q] * digit_roots[(p * q) % 9]
+    print(digit_root_products - true_products)
+
+rule digital_root_passthrough_named
+symptoms: wrong
+match: print($f($arg))
+where: before("def $f($p): $B:Stmts") and before("$arg:Name = input()")
+rewrite:
+    n = int($arg)
+    true_products, a = 0, 1
+    while a ** 2 <= n:
+        true_products += n // a - a
+        a += 1
+    true_products *= 2
+    true_products += int(n ** 0.5)
+    digit_roots = [n // 9 for _ in range(9)]
+    for idx in range(1, n % 9 + 1):
+        digit_roots[idx] += 1
+    digit_root_products = 0
+    for p in range(9):
+        for q in range(9):
+            digit_root_products += digit_roots[p] * digit_roots[q] * digit_roots[(p * q) % 9]
+    print(digit_root_products - true_products)

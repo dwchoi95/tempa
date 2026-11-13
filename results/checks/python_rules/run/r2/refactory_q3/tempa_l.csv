@@ -1,0 +1,4979 @@
+Buggy,Model,Source,Patch,Fixed,RPS,ATT_all,ATT_cpu,ATT_api,InT,OuT,$API,Rules_L,Rules_SL
+wrong_3_001,claude-sonnet-5,rules,"def remove_extras(lst):
+    output = []
+    for i in lst:
+        if i not in output:
+            output.append(i)
+    return output
+",True,0.0455,0.1122,0.1122,0.0,0,0,0.0,"[""in_should_be_notin""]",[]
+wrong_3_002,claude-sonnet-5,reference,"def remove_extras(lst):
+    # your code here
+    occurrences = ()
+    new_lst = []
+    for item in lst:
+        if item not in occurrences:
+            occurrences += (item,)
+            new_lst.append(item)
+    return new_lst
+",True,0.0667,0.289,0.289,0.0,0,0,0.0,[],[]
+wrong_3_003,claude-sonnet-5,reference,"def remove_extras(lst):
+    # your code here
+    occurrences = ()
+    new_lst = []
+    for item in lst:
+        if item not in occurrences:
+            occurrences += (item,)
+            new_lst.append(item)
+    return new_lst
+",True,0.0333,0.2463,0.2463,0.0,0,0,0.0,[],[]
+wrong_3_004,claude-sonnet-5,reference,"def remove_extras(lst):
+    # your code here
+    occurrences = ()
+    new_lst = []
+    for item in lst:
+        if item not in occurrences:
+            occurrences += (item,)
+            new_lst.append(item)
+    return new_lst
+",True,0.0333,0.2966,0.2966,0.0,0,0,0.0,[],[]
+wrong_3_005,claude-sonnet-5,reference,"def remove_extras(lst):
+    length = len(lst)
+    if length == 0:
+        return []
+    result = [lst[0]]
+    for i in range(1,length):
+        if lst[i] not in result:
+            result = result + [lst[i]]
+    return result
+",True,0.1795,2.8216,2.8216,0.0,0,0,0.0,[],[]
+wrong_3_006,claude-sonnet-5,rules,"def remove_extras(lst):
+    new_list = []
+    for number in lst:
+       if number not in new_list:
+           new_list.append(number)
+    return new_list
+",True,0.0455,0.1238,0.1238,0.0,0,0,0.0,"[""iter_over_builtin_list""]",[]
+wrong_3_007,claude-sonnet-5,reference,"def remove_extras(lst):
+    lst1 = []
+    for i in lst:
+        if lst1.count(i) == 0:
+            lst1.append(i)
+    return lst1
+",True,0.3636,0.3544,0.3544,0.0,0,0,0.0,[],[]
+wrong_3_008,claude-sonnet-5,reference,"def remove_extras(lst):
+    lst1 = []
+    for i in lst:
+        if lst1.count(i) == 0:
+            lst1.append(i)
+    return lst1
+",True,0.4615,0.6263,0.6263,0.0,0,0,0.0,[],[]
+wrong_3_009,claude-sonnet-5,reference,"def remove_extras(lst):
+    i = []
+    for k in range(len(lst)):
+        if lst[k] in lst[:k]:
+            i = i
+        else:
+            i = i + [lst[k]]
+    return i 
+",True,0.7429,3.8425,3.8425,0.0,0,0,0.0,[],[]
+wrong_3_010,claude-sonnet-5,reference,"def remove_extras(lst):
+    new = []
+    for i in range(len(lst)):
+        if lst[i] not in new:
+            new.append(lst[i])
+    return new
+",True,0.5676,3.9593,3.9593,0.0,0,0,0.0,[],[]
+wrong_3_011,claude-sonnet-5,reference,"def remove_extras(lst):
+    i = 0
+    while i < len(lst):
+        if lst[i] in lst[i+1:]:
+            ext = lst[i+1:]
+            ext.remove(lst[i])
+            lst = lst[:i+1] + ext
+        else:
+            i = i + 1
+    return lst
+        
+",True,0.975,4.2323,4.2323,0.0,0,0,0.0,[],[]
+wrong_3_012,claude-sonnet-5,reference,"def remove_extras(lst):
+    result = []
+    for i in lst:
+        if i not in result:
+            result = result + [i]
+    return result
+",True,0.375,0.2664,0.2664,0.0,0,0,0.0,[],[]
+wrong_3_013,claude-sonnet-5,reference,"def remove_extras(lst):
+    result = []
+    for i in lst:
+        if i not in result:
+            result += [i]
+    return result
+",True,0.125,0.1726,0.1726,0.0,0,0,0.0,[],[]
+wrong_3_014,claude-sonnet-5,reference,"def remove_extras(lst):
+    result = []
+    for i in lst:
+        if i not in result:
+            result += [i]
+    return result
+",True,0.1923,0.1776,0.1776,0.0,0,0,0.0,[],[]
+wrong_3_015,claude-sonnet-5,reference,"def remove_extras(lst):
+    result = []
+    for i in lst:
+        if i not in result:
+            result += [i]
+    return result
+",True,0.12,0.2077,0.2077,0.0,0,0,0.0,[],[]
+wrong_3_016,claude-sonnet-5,none,,False,,0.3899,0.3899,0.0,0,0,0.0,[],[]
+wrong_3_017,claude-sonnet-5,reference,"def remove_extras(lst):
+    i = 0
+    while i < len(lst):
+        j = i + 1
+        while j < len(lst):
+            if lst[i] == lst[j]:
+                lst = lst[:j] + lst[j+1:]
+            else:
+                j += 1
+        i += 1
+    return lst
+    
+",True,0.5417,5.0857,5.0857,0.0,0,0,0.0,[],[]
+wrong_3_018,claude-sonnet-5,reference,"def remove_extras(lst):
+    i = 0
+    while i < len(lst):
+        j = i + 1
+        while j < len(lst):
+            if lst[i] == lst[j]:
+                lst = lst[:j] + lst[j+1:]
+            else:
+                j += 1
+        i += 1
+    return lst
+    
+",True,0.5208,5.031,5.031,0.0,0,0,0.0,[],[]
+wrong_3_019,claude-sonnet-5,reference,"def remove_extras(lst):
+    i = 0
+    while i < len(lst):
+        j = i + 1
+        while j < len(lst):
+            if lst[i] == lst[j]:
+                lst = lst[:j] + lst[j+1:]
+            else:
+                j += 1
+        i += 1
+    return lst
+    
+",True,0.2182,5.9479,5.9479,0.0,0,0,0.0,[],[]
+wrong_3_020,claude-sonnet-5,reference,"def remove_extras(lst):
+    i = 0
+    while i < len(lst):
+        j = i + 1
+        while j < len(lst):
+            if lst[i] == lst[j]:
+                lst = lst[:j] + lst[j+1:]
+            else:
+                j += 1
+        i += 1
+    return lst
+    
+",True,0.1053,97.7578,97.7578,0.0,0,0,0.0,[],[]
+wrong_3_021,claude-sonnet-5,reference,"def remove_extras(lst):
+    i = 0
+    while i < len(lst):
+        j = i + 1
+        while j < len(lst):
+            if lst[i] == lst[j]:
+                lst = lst[:j] + lst[j+1:]
+            else:
+                j += 1
+        i += 1
+    return lst
+    
+",True,0.0328,41.2535,41.2535,0.0,0,0,0.0,[],[]
+wrong_3_022,claude-sonnet-5,rules,"def remove_extras(lst):
+    new_lst = []
+    for element in lst:
+        if element not in new_lst:
+            new_lst.append(element)
+    return new_lst
+    
+",True,0.0455,0.1399,0.1399,0.0,0,0,0.0,"[""return_wrong_accumulator""]",[]
+wrong_3_023,claude-sonnet-5,rules,"def remove_extras(lst):
+    list1 = []
+    for i in lst:
+        if i not in list1:
+            list1 += [i]
+    return list1
+",True,0.0476,0.1119,0.1119,0.0,0,0,0.0,"[""augassign_needs_wrap""]",[]
+wrong_3_024,claude-sonnet-5,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.5,0.0792,0.0792,0.0,0,0,0.0,[],[]
+wrong_3_025,claude-sonnet-5,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.0838,0.0838,0.0,0,0,0.0,[],[]
+wrong_3_026,claude-sonnet-5,reference,"def remove_extras(lst):
+    result = []
+    counter = 0
+    while counter < len(lst):
+        for i in lst[counter + 1:]:
+            if lst[counter] == i:
+                lst.reverse()
+                lst.remove(i)
+                lst.reverse()
+        counter = counter + 1
+    return lst
+",True,0.4737,25.9651,25.9651,0.0,0,0,0.0,[],[]
+wrong_3_027,claude-sonnet-5,reference,"def remove_extras(lst):
+    result = []
+    counter = 0
+    while counter < len(lst):
+        for i in lst[counter + 1:]:
+            if lst[counter] == i:
+                lst.reverse()
+                lst.remove(i)
+                lst.reverse()
+        counter = counter + 1
+    return lst
+                
+",True,0.3125,5.0638,5.0638,0.0,0,0,0.0,[],[]
+wrong_3_028,claude-sonnet-5,rules,"def remove_extras(lst):
+    store = []
+    for ele in lst:
+        if ele not in store:
+            store += [ele]
+    return store
+",True,0.0476,0.1053,0.1053,0.0,0,0,0.0,"[""augassign_needs_wrap""]",[]
+wrong_3_029,claude-sonnet-5,reference,"def remove_extras(lst):
+    for i in lst:
+        remove_multiple(i, lst)
+    return lst
+    
+    
+
+    
+    
+    
+    
+    
+def remove_multiple(n, lst):
+    if lst.count(n) == 1:
+        return lst
+    else:
+        lst.reverse()
+        lst.remove(n)
+        lst.reverse()
+        return remove_multiple(n, lst)
+",True,0.0213,0.2333,0.2333,0.0,0,0,0.0,[],[]
+wrong_3_030,claude-sonnet-5,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.5,0.0801,0.0801,0.0,0,0,0.0,[],[]
+wrong_3_031,claude-sonnet-5,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.0809,0.0809,0.0,0,0,0.0,[],[]
+wrong_3_032,claude-sonnet-5,reference,"def remove_extras(lst):
+    l=[]
+    for i in lst:
+        if i not in l:
+            l.append(i)
+    return l 
+",True,0.3158,0.1392,0.1392,0.0,0,0,0.0,[],[]
+wrong_3_033,claude-sonnet-5,rules,"def remove_extras(lst):
+    new_lst = []
+    for ele in lst:
+        if not (ele in new_lst):
+            new_lst += [ele]
+    return new_lst
+    
+",True,0.0435,0.1115,0.1115,0.0,0,0,0.0,"[""augassign_needs_wrap""]",[]
+wrong_3_034,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_lst = []
+    for ele in lst:
+        if not ele in new_lst:
+            new_lst.append(ele)
+    return new_lst
+    
+",True,0.2,5.5689,5.5689,0.0,0,0,0.0,[],[]
+wrong_3_035,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_lst = []
+    for ele in lst:
+        if not ele in new_lst:
+            new_lst.append(ele)
+    return new_lst
+    
+",True,0.04,0.2119,0.2119,0.0,0,0,0.0,[],[]
+wrong_3_036,claude-sonnet-5,rules,"def remove_extras(lst):
+    output = []
+    for entry in lst:
+        if output.count(entry) == 0:
+            output == output.append(entry)
+    return output
+",True,0.1667,2.2389,2.2389,0.0,0,0,0.0,"[""eq_should_be_assign"", ""subscript_should_be_call"", ""subscript_should_be_call""]",[]
+wrong_3_037,claude-sonnet-5,rules,"def remove_extras(lst):
+    output = []
+    for entry in lst:
+        if output.count(entry) == 0:
+            output == output.append(entry)
+    return output
+",True,0.0714,0.5082,0.5082,0.0,0,0,0.0,"[""subscript_should_be_call"", ""subscript_should_be_call""]",[]
+wrong_3_038,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_lst = []
+    for element in lst:
+        if element not in new_lst:
+            new_lst += (element,)
+    return new_lst
+",True,0.0455,0.1393,0.1393,0.0,0,0,0.0,[],[]
+wrong_3_039,claude-sonnet-5,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.0847,0.0847,0.0,0,0,0.0,[],[]
+wrong_3_040,claude-sonnet-5,rules,"def remove_extras(lst):
+    s = []
+    for i in lst:
+       if i not in s:
+          s.append(i)
+    return s
+    # your code here
+    pass
+",True,0.0435,0.1069,0.1069,0.0,0,0,0.0,"[""membership_wrong_container""]",[]
+wrong_3_041,claude-sonnet-5,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2727,0.1008,0.1008,0.0,0,0,0.0,[],[]
+wrong_3_042,claude-sonnet-5,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.095,0.095,0.0,0,0,0.0,[],[]
+wrong_3_043,claude-sonnet-5,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.0834,0.0834,0.0,0,0,0.0,[],[]
+wrong_3_044,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        if i not in new_lst:
+            new_lst += [i, ]
+        else:
+            continue
+    return new_lst
+            
+        
+",True,0.4074,4.9003,4.9003,0.0,0,0,0.0,[],[]
+wrong_3_045,claude-sonnet-5,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.0926,0.0926,0.0,0,0,0.0,[],[]
+wrong_3_046,claude-sonnet-5,rules,"def remove_extras(lst):
+    a = []
+    for i in lst:
+        if i not in a:
+            a += [i]
+    return a
+",True,0.0476,0.1749,0.1749,0.0,0,0,0.0,"[""augassign_needs_wrap""]",[]
+wrong_3_047,claude-sonnet-5,reference,"def remove_extras(lst):
+    new=[]
+    for x in lst:
+        if new.count(x)==0:
+            new+=[x]
+    return new
+    pass
+",True,0.2667,0.2823,0.2823,0.0,0,0,0.0,[],[]
+wrong_3_048,claude-sonnet-5,reference,"def remove_extras(lst):
+    new = []
+    for x in lst:
+        if new.count(x)==0:
+            new.append(x)
+    return new
+    pass
+",True,0.2903,0.3051,0.3051,0.0,0,0,0.0,[],[]
+wrong_3_049,claude-sonnet-5,reference,"def remove_extras(lst):
+    new = []
+    for x in lst:
+        if new.count(x)==0:
+            new+=[x]
+    return new
+    pass
+",True,0.2333,0.2259,0.2259,0.0,0,0,0.0,[],[]
+wrong_3_050,claude-sonnet-5,reference,"def remove_extras(lst):
+    store = []
+    for ele in lst:
+        if ele not in store:
+            store += [ele]
+    return store
+",True,0.1538,0.1229,0.1229,0.0,0,0,0.0,[],[]
+wrong_3_051,claude-sonnet-5,reference,"def remove_extras(lst):
+    i=1
+    if lst==[]: return lst
+    
+    while i!=len(lst):
+        if lst[i] in lst[:i]:
+            del lst[i]
+            continue
+        i+=1
+    return lst
+",True,0.439,91.8744,91.8744,0.0,0,0,0.0,[],[]
+wrong_3_052,claude-sonnet-5,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.1342,0.1342,0.0,0,0,0.0,[],[]
+wrong_3_053,claude-sonnet-5,reference,"def remove_extras(lst):
+    newlst=[]
+    for i in lst:
+        while i not in newlst:
+            newlst.append(i)
+    return newlst
+",True,0.5909,0.285,0.285,0.0,0,0,0.0,[],[]
+wrong_3_054,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        if i not in new_lst:
+            new_lst += [i]
+    return new_lst
+    pass
+",True,0.1304,0.2201,0.2201,0.0,0,0,0.0,[],[]
+wrong_3_055,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        if i not in new_lst:
+            new_lst += [i]
+    return new_lst
+    pass
+",True,0.087,0.2126,0.2126,0.0,0,0,0.0,[],[]
+wrong_3_056,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        if i not in new_lst:
+            new_lst += [i,]
+    return new_lst    
+    pass
+",True,0.0435,0.2016,0.2016,0.0,0,0,0.0,[],[]
+wrong_3_057,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        if i not in new_lst:
+            new_lst += [i,]
+    return new_lst    
+    pass
+",True,0.0435,0.1808,0.1808,0.0,0,0,0.0,[],[]
+wrong_3_058,claude-sonnet-5,rules,"from collections import OrderedDict
+def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+    
+",True,0.1667,0.1662,0.1662,0.0,0,0,0.0,"[""ordereddict_missing_list_wrap""]",[]
+wrong_3_059,claude-sonnet-5,reference,"def remove_extras(lst):
+    lst_final = []
+    for i in lst:
+        if i not in lst_final:
+            lst_final = lst_final + [i]
+    return lst_final
+",True,0.0435,0.1886,0.1886,0.0,0,0,0.0,[],[]
+wrong_3_060,claude-sonnet-5,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.1266,0.1266,0.0,0,0,0.0,[],[]
+wrong_3_061,claude-sonnet-5,reference,"def remove_extras(lst):
+    o = []
+    for i in lst:
+        if i not in o:
+            o.append(i)
+    return o
+",True,0.12,0.2473,0.2473,0.0,0,0,0.0,[],[]
+wrong_3_062,claude-sonnet-5,reference,"def remove_extras(lst):
+    o = []
+    for i in lst:
+        if i not in o:
+            o.append(i)
+    return o
+",True,0.12,0.1939,0.1939,0.0,0,0,0.0,[],[]
+wrong_3_063,claude-sonnet-5,reference,"def remove_extras(lst):
+    o = []
+    for i in lst:
+        if i not in o:
+            o.append(i)
+    return o
+",True,0.1852,0.2083,0.2083,0.0,0,0,0.0,[],[]
+wrong_3_064,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_lst = []
+    for e in lst:
+        if e in new_lst:
+            continue
+        else:
+            new_lst.append(e)
+            
+    return new_lst
+    
+    
+    
+",True,0.12,4.8384,4.8384,0.0,0,0,0.0,[],[]
+wrong_3_065,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_lst = []
+    for e in lst:
+        if e in new_lst:
+            continue
+        else:
+            new_lst.append(e)
+            
+    return new_lst
+    
+    
+    
+",True,0.1154,4.2495,4.2495,0.0,0,0,0.0,[],[]
+wrong_3_066,claude-sonnet-5,rules,"def remove_extras(lst):
+    result =[]
+    for element in lst:
+        if element not in result:
+            result.append(element)
+    return result 
+        
+",True,0.0455,0.1356,0.1356,0.0,0,0,0.0,"[""subscript_should_be_call""]",[]
+wrong_3_067,claude-sonnet-5,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.0851,0.0851,0.0,0,0,0.0,[],[]
+wrong_3_068,claude-sonnet-5,reference,"def remove_extras(lst):
+    extra = []
+    for i in lst:
+        if i not in extra:
+            extra += [i]
+        else:
+            continue
+    return extra
+",True,0.3333,0.2106,0.2106,0.0,0,0,0.0,[],[]
+wrong_3_069,claude-sonnet-5,rules,"def remove_extras(lst):
+    remove_lst = []
+    for i in lst:
+        if i not in remove_lst:
+            remove_lst.append(i)
+    return remove_lst
+",True,0.0455,0.1147,0.1147,0.0,0,0,0.0,"[""membership_wrong_container""]",[]
+wrong_3_070,claude-sonnet-5,reference,"def remove_extras(lst):
+    n = []
+    i = len(lst)
+    for j in range(i):
+        if lst[j] not in n:
+            n.append(lst[j])
+    return n
+                
+",True,0.6346,7.081,7.081,0.0,0,0,0.0,[],[]
+wrong_3_071,claude-sonnet-5,reference,"def remove_extras(lst):
+    n = []
+    i = len(lst)
+    for j in range(i):
+        if lst[j] not in n:
+            n.append(lst[j])
+    return n
+                
+",True,0.6346,6.9128,6.9128,0.0,0,0,0.0,[],[]
+wrong_3_072,claude-sonnet-5,reference,"def remove_extras(lst):
+    newlst = []
+    for i in lst:
+        if i not in newlst:
+            newlst.append(i)
+    return newlst
+",True,0.087,0.1303,0.1303,0.0,0,0,0.0,[],[]
+wrong_3_073,claude-sonnet-5,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.0916,0.0916,0.0,0,0,0.0,[],[]
+wrong_3_074,claude-sonnet-5,rules,"def remove_extras(lst):
+    result = []
+    for i in lst:
+        if i not in result:
+            result += [i]
+    return result
+",True,0.0476,0.1199,0.1199,0.0,0,0,0.0,"[""augassign_needs_wrap""]",[]
+wrong_3_075,claude-sonnet-5,none,,False,,0.3546,0.3546,0.0,0,0,0.0,[],[]
+wrong_3_076,claude-sonnet-5,none,,False,,0.3245,0.3245,0.0,0,0,0.0,[],[]
+wrong_3_077,claude-sonnet-5,reference,"def remove_extras(lst):
+    newlst=[]
+    for i in lst:
+        if i not in newlst:
+            newlst.append(i)
+    return newlst
+    # your code here
+    pass
+",True,0.0833,0.1316,0.1316,0.0,0,0,0.0,[],[]
+wrong_3_078,claude-sonnet-5,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2727,0.085,0.085,0.0,0,0,0.0,[],[]
+wrong_3_079,claude-sonnet-5,reference,"def remove_extras(lst):
+    i=[]
+    for result in lst:
+        while result not in i:
+            i.append(result)
+    return i
+",True,0.6129,0.2471,0.2471,0.0,0,0,0.0,[],[]
+wrong_3_080,claude-sonnet-5,rules,"def remove_extras(lst):
+    new_lst = []
+    for x in lst:
+        if x not in new_lst:
+            new_lst += [x]
+    return new_lst
+",True,0.0455,0.1213,0.1213,0.0,0,0,0.0,"[""return_wrong_accumulator""]",[]
+wrong_3_081,claude-sonnet-5,reference,"def remove_extras(lst):
+    newlst=[]
+    for i in lst:
+        if i not in newlst:
+            newlst.append(i)
+    return newlst
+
+    # your code here
+    pass
+",True,0.0833,0.132,0.132,0.0,0,0,0.0,[],[]
+wrong_3_082,claude-sonnet-5,reference,"def remove_extras(lst):
+    if lst==[]:
+        return []
+    new_lst=[lst[0]]
+    for i in range(len(lst)):
+        a=lst[i]
+        for h in range(i,len(lst)):
+            if a!=lst[h]:
+                ele=lst[h]
+                if ele in new_lst:
+                    continue
+                new_lst.append(ele)
+    return new_lst
+",True,0.3077,2.7384,2.7384,0.0,0,0,0.0,[],[]
+wrong_3_083,claude-sonnet-5,reference,"def remove_extras(lst):
+    list = []
+    for i in lst:
+        if i not in list:
+            list += [i]
+    return list 
+",True,0.1739,3.4013,3.4013,0.0,0,0,0.0,[],[]
+wrong_3_084,claude-sonnet-5,reference,"def remove_extras(lst):
+	if lst == []:
+		return []
+	elif lst[-1] in lst[:-1]:
+		return remove_extras(lst[:-1])
+	else:
+		return remove_extras(lst[:-1]) + [lst[-1]]
+",True,0.575,3.7585,3.7585,0.0,0,0,0.0,[],[]
+wrong_3_085,claude-sonnet-5,reference,"def remove_extras(lst):
+	if lst == []:
+		return []
+	elif lst[-1] in lst[:-1]:
+		return remove_extras(lst[:-1])
+	else:
+		return remove_extras(lst[:-1]) + [lst[-1]]
+",True,0.5854,3.8698,3.8698,0.0,0,0,0.0,[],[]
+wrong_3_086,claude-sonnet-5,reference,"def remove_extras(lst):
+    result = []
+    for i in lst:
+        if i not in result:
+            result = result + [i,]
+        else:
+            continue
+    return result
+",True,0.08,0.1645,0.1645,0.0,0,0,0.0,[],[]
+wrong_3_087,claude-sonnet-5,reference,"def remove_extras(lst):
+    a = ()
+    c = ()
+    n = len(lst)
+    for i in range(n):
+        for j in range(i,n):
+            if lst[i] == lst[j] and i != j:
+                a += (j,) #j is the jth index of the list
+            else:
+                continue
+    d = tuple(set(a)) #[repeated_index1, repeated_index2]
+    for i in d:
+        c += (lst[i],)
+    b = lst[::-1]
+    for i in range(len(c)):
+        b.remove(c[i])
+    d = b[::-1]
+    return d
+",True,0.2558,2.8482,2.8482,0.0,0,0,0.0,[],[]
+wrong_3_088,claude-sonnet-5,reference,"def remove_extras(lst):
+    for sub_list in lst:
+        if lst.count(sub_list) > 1:
+            elem = lst[:lst.index(sub_list)+1]
+            right = lst[lst.index(sub_list)+1:]
+            right.remove(sub_list)
+            lst = elem + right
+    return lst
+",True,0.5072,0.8768,0.8768,0.0,0,0,0.0,[],[]
+wrong_3_089,claude-sonnet-5,reference,"def remove_extras(lst):
+    for sub_list in lst:
+        if lst.count(sub_list) > 1:
+            elem = lst[:lst.index(sub_list)+1]
+            right = lst[lst.index(sub_list)+1:]
+            right.remove(sub_list)
+            lst = elem + right
+    return lst
+",True,0.5072,0.842,0.842,0.0,0,0,0.0,[],[]
+wrong_3_090,claude-sonnet-5,reference,"def remove_extras(lst):
+    result=[]
+    for i in lst:
+        if i in result:
+            continue
+        result+= [i]
+    return result
+",True,0.1538,0.1301,0.1301,0.0,0,0,0.0,[],[]
+wrong_3_091,claude-sonnet-5,reference,"def remove_extras(lst):
+    result = []
+    for item in lst:
+        if item not in result:
+            result+= [item,]
+    return result
+",True,0.1429,0.1136,0.1136,0.0,0,0,0.0,[],[]
+wrong_3_092,claude-sonnet-5,rules,"def remove_extras(lst):
+    result = []
+    for item in lst:
+        if item not in result:
+            result += [item]
+    return result
+",True,0.0476,0.1073,0.1073,0.0,0,0,0.0,"[""augassign_needs_wrap""]",[]
+wrong_3_093,claude-sonnet-5,reference,"def remove_extras(lst):
+    for sub_list in lst:
+        if lst.count(sub_list) > 1:
+            elem = lst[:lst.index(sub_list)+1]
+            right = lst[lst.index(sub_list)+1:]
+            right.remove(sub_list)
+            lst = elem + right
+    return lst
+",True,0.5325,0.965,0.965,0.0,0,0,0.0,[],[]
+wrong_3_094,claude-sonnet-5,rules,"def remove_extras(lst):
+    new = []
+    for i in lst:
+        if i not in new:
+            new += [i]
+        else:
+            continue
+    return new
+        
+
+",True,0.0455,0.114,0.114,0.0,0,0,0.0,"[""augassign_needs_wrap""]",[]
+wrong_3_095,claude-sonnet-5,reference,"def remove_extras(values):
+    output = []
+    for value in values:
+        if value not in output:
+            output.append(value)
+    return output
+",True,0.0455,0.1231,0.1231,0.0,0,0,0.0,[],[]
+wrong_3_096,claude-sonnet-5,reference,"def remove_extras(lst):
+    result = []
+    for i in lst:
+        if i not in result:
+            result = result + [i]
+    return result
+            
+            
+    # your code here
+    pass
+",True,0.0417,0.142,0.142,0.0,0,0,0.0,[],[]
+wrong_3_097,claude-sonnet-5,reference,"def remove_extras(lst):
+    copy = lst.copy()
+    for i in copy:
+        if copy.count(i) > 1:
+            left = copy[:copy.index(i)+1]
+            right = copy[copy.index(i)+1:]
+            right.remove(i)
+            copy = left + right
+    return copy
+",True,0.0351,0.7004,0.7004,0.0,0,0,0.0,[],[]
+wrong_3_098,claude-sonnet-5,reference,"def remove_extras(lst):
+    newlist = []
+    for element in lst:
+        if newlist.count(element)==0:
+            newlist.append(element)
+    return newlist
+    pass
+",True,0.6154,0.1403,0.1403,0.0,0,0,0.0,[],[]
+wrong_3_099,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    for item in lst:
+        if new_list.count(item) == 0:
+            new_list.append(item)
+    return new_list
+",True,0.4545,0.225,0.225,0.0,0,0,0.0,[],[]
+wrong_3_100,claude-sonnet-5,reference,"def remove_extras(lst):
+    newlst=[]
+    for i in lst:
+        while i not in newlst:
+            newlst.append(i)
+    return newlst
+",True,0.6333,0.3879,0.3879,0.0,0,0,0.0,[],[]
+wrong_3_101,claude-sonnet-5,none,,False,,0.4674,0.4674,0.0,0,0,0.0,[],[]
+wrong_3_102,claude-sonnet-5,none,,False,,0.4739,0.4739,0.0,0,0,0.0,[],[]
+wrong_3_103,claude-sonnet-5,rules,"def remove_extras(lst):
+    a = []
+    for i in lst:
+        if i not in a:
+            a.append(i)
+    return a
+    
+
+",True,0.0455,0.1151,0.1151,0.0,0,0,0.0,"[""return_wrong_accumulator""]",[]
+wrong_3_104,claude-sonnet-5,reference,"def remove_extras(lst):
+    a = []
+    for i in lst:
+        if i not in a:
+            a.append(i)
+    return a
+",True,0.1364,0.1555,0.1555,0.0,0,0,0.0,[],[]
+wrong_3_105,claude-sonnet-5,reference,"def remove_extras(lst):
+    k = []
+    for i in range(len(lst)):
+	    if lst[i] not in k:
+		    k.append(lst[i])
+    return k
+",True,0.5333,2.9044,2.9044,0.0,0,0,0.0,[],[]
+wrong_3_106,claude-sonnet-5,reference,"def remove_extras(lst):
+    result = []
+    count = ()
+    for item in lst:
+        if item not in count:
+            result.append(item)
+            count += (item,)
+    return result
+        
+        
+",True,0.5366,3.7804,3.7804,0.0,0,0,0.0,[],[]
+wrong_3_107,claude-sonnet-5,reference,"def remove_extras(lst):
+    result = []
+    for item in lst:
+        if item not in result:
+            result += item,
+    return result
+        
+        
+",True,0.3103,3.8657,3.8657,0.0,0,0,0.0,[],[]
+wrong_3_108,claude-sonnet-5,reference,"def remove_extras(lst):
+    result = []
+    for item in lst:
+        if item not in result:
+            result += item,
+    return result
+",True,0.3548,4.8265,4.8265,0.0,0,0,0.0,[],[]
+wrong_3_109,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    for k in range(len(lst)):
+        if lst[k] in lst[:k]:
+            new_list = new_list
+        else:
+            new_list = new_list + [lst[k]]
+    return new_list 
+",True,0.5676,4.3486,4.3486,0.0,0,0,0.0,[],[]
+wrong_3_110,claude-sonnet-5,reference,"def remove_extras(lst):
+    new = []
+    for i in lst:
+        if i not in new:
+            new.append(i)
+        else:
+            new = new
+    return new
+",True,0.625,0.3675,0.3675,0.0,0,0,0.0,[],[]
+wrong_3_111,claude-sonnet-5,reference,"def remove_extras(lst):
+    final=[]
+    for x in lst:
+        if x not in final:
+            final.append(x)
+    return final
+    pass
+",True,0.0435,0.2482,0.2482,0.0,0,0,0.0,[],[]
+wrong_3_112,claude-sonnet-5,reference,"def remove_extras(lst):
+    answer = []
+    for i in lst:
+        if i in answer:
+            continue
+        answer+= [i]
+    return answer
+",True,0.28,0.2959,0.2959,0.0,0,0,0.0,[],[]
+wrong_3_113,claude-sonnet-5,reference,"def remove_extras(lst):
+    compare = []
+    for element in lst:
+      if element not in compare:
+        compare.append(element)
+    lst[:]= compare
+    return lst
+",True,0.5172,5.2106,5.2106,0.0,0,0,0.0,[],[]
+wrong_3_114,claude-sonnet-5,rules,"def remove_extras(lst):
+    # your code here
+    new_lst = []
+    for i in lst:
+        if i not in new_lst:
+            new_lst += [i,]
+    return new_lst
+        
+",True,0.0455,0.1561,0.1561,0.0,0,0,0.0,"[""membership_wrong_container""]",[]
+wrong_3_115,claude-sonnet-5,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.1177,0.1177,0.0,0,0,0.0,[],[]
+wrong_3_116,claude-sonnet-5,reference,"def remove_extras(lst):
+    result = []
+    for i in lst:
+        if i not in result:
+            result = result + [i]
+    return result
+",True,0.0435,0.1724,0.1724,0.0,0,0,0.0,[],[]
+wrong_3_117,claude-sonnet-5,rules,"def remove_extras(lst):
+    newlist = []
+    for i in lst:
+        if i in newlist:
+            continue
+        else:
+            newlist += [i]
+    return newlist
+",True,0.0455,0.1723,0.1723,0.0,0,0,0.0,"[""augassign_needs_wrap""]",[]
+wrong_3_118,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_lst = []
+    for ele in lst:
+        if ele not in new_lst:
+            new_lst+= [ele,]
+    return new_lst
+",True,0.0952,0.2249,0.2249,0.0,0,0,0.0,[],[]
+wrong_3_119,claude-sonnet-5,rules,"def remove_extras(lst):
+    new_lst = []
+    for ele in lst:
+        if ele not in new_lst:
+            new_lst += [ele]
+    return new_lst
+",True,0.0476,0.1593,0.1593,0.0,0,0,0.0,"[""augassign_needs_wrap""]",[]
+wrong_3_120,claude-sonnet-5,reference,"def remove_extras(lst):
+    seq = []
+    for i in lst:
+        if i not in seq:
+            seq = seq + [i,]
+    return seq
+    pass
+",True,0.2333,6.3582,6.3582,0.0,0,0,0.0,[],[]
+wrong_3_121,claude-sonnet-5,reference,"def remove_extras(lst):
+    seq = []
+    for i in lst:
+        if i not in seq:
+            seq = seq + [i]
+    return seq
+",True,0.1852,5.8852,5.8852,0.0,0,0,0.0,[],[]
+wrong_3_122,claude-sonnet-5,reference,"def remove_extras(lst):
+    seq = []
+    for i in lst:
+        if i not in seq:
+            seq = seq + [i]
+    return seq
+",True,0.1852,4.895,4.895,0.0,0,0,0.0,[],[]
+wrong_3_123,claude-sonnet-5,reference,"def remove_extras(lst):
+    seq = []
+    for i in lst:
+        if i not in seq:
+            seq = seq + [i]
+    return seq
+",True,0.1852,6.1093,6.1093,0.0,0,0,0.0,[],[]
+wrong_3_124,claude-sonnet-5,reference,"def remove_extras(lst):
+    seq = []
+    for i in lst:
+        if i not in seq:
+            seq = seq + [i]
+    return seq
+",True,0.1852,7.0191,7.0191,0.0,0,0,0.0,[],[]
+wrong_3_125,claude-sonnet-5,reference,"def remove_extras(lst):
+    seq = []
+    for i in lst:
+        if i not in seq:
+            seq = seq + [i]
+    return seq
+",True,0.1852,5.922,5.922,0.0,0,0,0.0,[],[]
+wrong_3_126,claude-sonnet-5,reference,"def remove_extras(lst):
+    seq = []
+    for i in lst:
+        if i not in seq:
+            seq = seq + [i]
+    return seq
+",True,0.1852,4.6004,4.6004,0.0,0,0,0.0,[],[]
+wrong_3_127,claude-sonnet-5,reference,"def remove_extras(lst):
+    seq = []
+    for i in lst:
+        if i not in seq:
+            seq = seq + [i,]
+    return seq
+",True,0.1111,4.2108,4.2108,0.0,0,0,0.0,[],[]
+wrong_3_128,claude-sonnet-5,reference,"def remove_extras(lst):
+    i=1
+    if lst==[]: return lst
+    
+    while i!=len(lst):
+        if lst[i] in lst[:i]:
+            del lst[i]
+            continue
+        i+=1
+    return lst
+",True,0.5122,74.8519,74.8519,0.0,0,0,0.0,[],[]
+wrong_3_129,claude-sonnet-5,reference,"def remove_extras(lst):
+    i=1
+    if lst==[]: return lst
+    
+    while i!=len(lst):
+        if lst[i] in lst[:i]:
+            del lst[i]
+            continue
+        i+=1
+    return lst
+",True,0.5366,61.8738,61.8738,0.0,0,0,0.0,[],[]
+wrong_3_130,claude-sonnet-5,reference,"def remove_extras(lst):
+    i=1
+    if lst==[]: return lst
+    
+    while i!=len(lst):
+        if lst[i] in lst[:i]:
+            del lst[i]
+            continue
+        i+=1
+    return lst
+",True,0.5366,62.0541,62.0541,0.0,0,0,0.0,[],[]
+wrong_3_131,claude-sonnet-5,reference,"def remove_extras(lst):
+    i=1
+    if lst==[]: return lst
+    
+    while i!=len(lst):
+        if lst[i] in lst[:i]:
+            del lst[i]
+            continue
+        i+=1
+    return lst
+",True,0.561,47.4988,47.4988,0.0,0,0,0.0,[],[]
+wrong_3_132,claude-sonnet-5,reference,"def remove_extras(lst):
+    i=1
+    if lst==[]: return lst
+    
+    while i!=len(lst):
+        if lst[i] in lst[:i]:
+            del lst[i]
+            continue
+        i+=1
+    return lst
+",True,0.561,78.1551,78.1551,0.0,0,0,0.0,[],[]
+wrong_3_133,claude-sonnet-5,reference,"def remove_extras(lst):
+    i=1
+    if lst==[]: return lst
+    
+    while i!=len(lst):
+        if lst[i] in lst[:i]:
+            del lst[i]
+            continue
+        i+=1
+    return lst
+",True,0.561,78.2733,78.2733,0.0,0,0,0.0,[],[]
+wrong_3_134,claude-sonnet-5,reference,"def remove_extras(lst):
+    i=1
+    if lst==[]: return lst
+    
+    while i!=len(lst):
+        if lst[i] in lst[:i]:
+            del lst[i]
+            continue
+        i+=1
+    return lst
+",True,0.561,66.0634,66.0634,0.0,0,0,0.0,[],[]
+wrong_3_135,claude-sonnet-5,reference,"def remove_extras(lst):
+    i=1
+    if lst==[]: return lst
+    
+    while i!=len(lst):
+        if lst[i] in lst[:i]:
+            del lst[i]
+            continue
+        i+=1
+    return lst
+",True,0.6047,64.6192,64.6192,0.0,0,0,0.0,[],[]
+wrong_3_136,claude-sonnet-5,rules,"def remove_extras(lst):
+    new_list = []
+    for item in lst:
+        if new_list.count(item) == 0:
+            new_list.append(item)
+    return new_list
+",True,0.04,0.1538,0.1538,0.0,0,0,0.0,"[""iter_over_builtin_list""]",[]
+wrong_3_137,claude-sonnet-5,none,,False,,5.4284,5.4284,0.0,0,0,0.0,[],[]
+wrong_3_138,claude-sonnet-5,reference,"def remove_extras(lst):
+    lst1 = []
+    for i in range(len(lst)):
+        if lst[i] in lst1:
+            continue
+        else:
+            lst1.append(lst[i])
+    return lst1
+",True,0.2188,3.215,3.215,0.0,0,0,0.0,[],[]
+wrong_3_139,claude-sonnet-5,reference,"def remove_extras(lst):
+    lst1 = []
+    for i in range(len(lst)):
+        if lst[i] in lst1:
+            continue
+        else:
+            lst1.append(lst[i])
+    return lst1
+",True,0.2188,2.897,2.897,0.0,0,0,0.0,[],[]
+wrong_3_140,claude-sonnet-5,reference,"def remove_extras(lst):
+    my_lst = []
+    for i in lst:
+        if i not in my_lst:
+            my_lst.append(i)
+    return my_lst
+",True,0.0909,0.1245,0.1245,0.0,0,0,0.0,[],[]
+wrong_3_141,claude-sonnet-5,rules,"def remove_extras(lst):
+    result = []
+    for i in range(len(lst)):
+        if lst[i] not in result:
+            result += [lst[i]]
+            continue
+    return result
+",True,0.0333,0.1211,0.1211,0.0,0,0,0.0,"[""augassign_needs_wrap""]",[]
+wrong_3_142,claude-sonnet-5,reference,"def remove_extras(lst):
+    i = []
+    for j in range(len(lst)):
+        if lst[j] not in i:
+            i.append(lst[j])
+    return i
+",True,0.6087,2.8055,2.8055,0.0,0,0,0.0,[],[]
+wrong_3_143,claude-sonnet-5,reference,"def remove_extras(lst):
+    i = []
+    for j in range(len(lst)):
+        if lst[j] not in i:
+            i.append(lst[j])
+    return i
+",True,0.5854,3.0824,3.0824,0.0,0,0,0.0,[],[]
+wrong_3_144,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        new_lst.append(i)
+        if new_lst.count(i) > 1:
+            new_lst.pop()
+            continue
+    return new_lst
+",True,0.1667,0.5378,0.5378,0.0,0,0,0.0,[],[]
+wrong_3_145,claude-sonnet-5,rules,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        new_lst.append(i)
+        if new_lst.count(i) > 1:
+            new_lst.pop()
+    return new_lst
+",True,0.0357,0.1536,0.1536,0.0,0,0,0.0,"[""missing_call_parens""]",[]
+wrong_3_146,claude-sonnet-5,rules,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        new_lst.append(i)
+        if new_lst.count(i) > 1:
+            new_lst.pop()
+            continue
+    return new_lst
+",True,0.0345,0.1513,0.1513,0.0,0,0,0.0,"[""missing_call_parens""]",[]
+wrong_3_147,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    for item in lst:
+        if new_list.count(item) == 0:
+            new_list.append(item)
+    return new_list
+",True,0.5,0.3191,0.3191,0.0,0,0,0.0,[],[]
+wrong_3_148,claude-sonnet-5,rules,"def remove_extras(lst):
+    lst2=[]
+    for i in lst:
+        if i not in lst2:
+            lst2 += [i]
+    return lst2
+",True,0.0476,0.1537,0.1537,0.0,0,0,0.0,"[""augassign_needs_wrap""]",[]
+wrong_3_149,claude-sonnet-5,rules,"def remove_extras(lst):
+    result = []
+    for i in lst:
+        if i not in result:
+            result.append(i)
+    return result
+    pass
+",True,0.0435,0.1882,0.1882,0.0,0,0,0.0,"[""subscript_should_be_call""]",[]
+wrong_3_150,claude-sonnet-5,reference,"def remove_extras(lst):
+    new = []
+    for i in range(len(lst)):
+        if lst[i] not in new:
+            new.append(lst[i])
+    return new
+",True,0.5357,5.3523,5.3523,0.0,0,0,0.0,[],[]
+wrong_3_151,claude-sonnet-5,reference,"def remove_extras(lst):
+    result = []
+    for ele in lst:
+        if ele not in result:
+            result+= [ele,]
+    return result
+",True,0.1429,0.2418,0.2418,0.0,0,0,0.0,[],[]
+wrong_3_152,claude-sonnet-5,reference,"def remove_extras(lst):
+    result = []
+    for ele in lst:
+        if ele not in result:
+            result += [ele]
+    return result
+",True,0.2381,0.1833,0.1833,0.0,0,0,0.0,[],[]
+wrong_3_153,claude-sonnet-5,reference,"def remove_extras(lst):
+    result = []
+    for ele in lst:
+        if ele not in result:
+            result+= [ele,]
+    return result
+",True,0.1429,0.188,0.188,0.0,0,0,0.0,[],[]
+wrong_3_154,claude-sonnet-5,rules,"def remove_extras(lst):
+    result = []
+    for ele in lst:
+        if ele not in result:
+            result += [ele]
+    return result
+",True,0.0476,0.1842,0.1842,0.0,0,0,0.0,"[""augassign_needs_wrap""]",[]
+wrong_3_155,claude-sonnet-5,reference,"def remove_extras(lst):
+    result = []
+    for ele in lst:
+        if ele not in result:
+            result += [ele]
+    return result
+",True,0.1429,0.1958,0.1958,0.0,0,0,0.0,[],[]
+wrong_3_156,claude-sonnet-5,rules,"def remove_extras(lst):
+    new = []
+    for i in lst:
+        if i not in new:
+            new += [i]
+        else:
+            continue
+    return new
+",True,0.0455,0.1787,0.1787,0.0,0,0,0.0,"[""augassign_needs_wrap""]",[]
+wrong_3_157,claude-sonnet-5,reference,"def remove_extras(lst):
+    lst_new = list()
+    for i in lst:
+        if (i in lst_new):
+            continue
+        else:
+            lst_new.append(i)
+    return lst_new
+",True,0.5926,0.1919,0.1919,0.0,0,0,0.0,[],[]
+wrong_3_158,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_lst = []
+    i = set()
+    for n in lst:
+        if n not in i:
+            new_lst.append(n)
+            i.add(n)
+    return new_lst
+",True,0.6,2.3192,2.3192,0.0,0,0,0.0,[],[]
+wrong_3_159,claude-sonnet-5,rules,"def remove_extras(lst):
+    newlist = []
+    for i in lst:
+            if i not in newlist:
+                newlist.append(i)
+    return newlist
+            
+",True,0.1,0.1444,0.1444,0.0,0,0,0.0,"[""missing_return_statement""]",[]
+wrong_3_160,claude-sonnet-5,reference,"def remove_extras(lst):
+    pst=[]
+    for i in lst:
+        if i not in pst:
+            pst.append(i)
+    return pst
+",True,0.0455,0.1785,0.1785,0.0,0,0,0.0,[],[]
+wrong_3_161,claude-sonnet-5,reference,"def remove_extras(lst):
+    pst=[]
+    for i in lst:
+        if i not in pst:
+            pst.append(i)
+    return pst
+",True,0.0833,0.1771,0.1771,0.0,0,0,0.0,[],[]
+wrong_3_162,claude-sonnet-5,rules,"def remove_extras(lst):
+    newlst = []
+    for i in lst:
+        if i not in newlst:
+            newlst.append(i)
+    return newlst
+",True,0.0455,0.1423,0.1423,0.0,0,0,0.0,"[""membership_wrong_container""]",[]
+wrong_3_163,claude-sonnet-5,rules,"def remove_extras(lst):
+    new_lst = [] 
+    for i in lst:
+        if i not in new_lst:
+            new_lst += [i] 
+    return new_lst
+        
+",True,0.0476,0.2126,0.2126,0.0,0,0,0.0,"[""augassign_needs_wrap""]",[]
+wrong_3_164,claude-sonnet-5,rules,"def remove_extras(lst):
+    new = []
+    for i in lst:
+        if i not in new:
+            new += [i]
+    return new
+",True,0.0476,0.1087,0.1087,0.0,0,0,0.0,"[""augassign_needs_wrap""]",[]
+wrong_3_165,claude-sonnet-5,reference,"def remove_extras(lst):
+    i = 0
+    while i < len(lst):
+        if lst[i] in lst[i+1:]:
+            ext = lst[i+1:]
+            ext.remove(lst[i])
+            lst = lst[:i+1] + ext
+        else:
+            i = i + 1
+    return lst
+
+",True,0.7436,4.2734,4.2734,0.0,0,0,0.0,[],[]
+wrong_3_166,claude-sonnet-5,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.5,0.1264,0.1264,0.0,0,0,0.0,[],[]
+wrong_3_167,claude-sonnet-5,reference,"def remove_extras(lst):
+    newlst = []
+    for i in lst:
+        if i not in newlst:
+            newlst += [i]
+    return newlst    
+",True,0.125,0.1397,0.1397,0.0,0,0,0.0,[],[]
+wrong_3_168,claude-sonnet-5,reference,"def remove_extras(lst):
+    a = []
+    for repeat in lst:
+        if repeat not in a:
+            a += [repeat]
+    return a
+        
+        
+",True,0.3214,3.7788,3.7788,0.0,0,0,0.0,[],[]
+wrong_3_169,claude-sonnet-5,reference,"def remove_extras(lst):
+    a = []
+    for repeat in lst:
+        if repeat not in a:
+            a += [repeat]
+    return a
+        
+        
+",True,0.2857,3.7227,3.7227,0.0,0,0,0.0,[],[]
+wrong_3_170,claude-sonnet-5,reference,"def remove_extras(lst):
+    a = []
+    for repeat in lst:
+        if repeat not in a:
+            a += [repeat,]
+    return a
+        
+        
+",True,0.2414,3.6518,3.6518,0.0,0,0,0.0,[],[]
+wrong_3_171,claude-sonnet-5,reference,"def remove_extras(lst):
+    one = []
+    for repeat in lst:
+        if repeat not in one:
+            one += [repeat,]
+    return one
+",True,0.12,3.6269,3.6269,0.0,0,0,0.0,[],[]
+wrong_3_172,claude-sonnet-5,reference,"def remove_extras(lst):
+    i = []
+    for j in range(len(lst)):
+	    if lst[j] not in i:
+		    i.append(lst[j])
+    return i
+",True,0.5676,2.3097,2.3097,0.0,0,0,0.0,[],[]
+wrong_3_173,claude-sonnet-5,reference,"def remove_extras(lst):
+    i = []
+    for j in range(len(lst)):
+        if lst[j] not in i:
+            i.append(lst[j])
+    return i
+",True,0.6364,2.5236,2.5236,0.0,0,0,0.0,[],[]
+wrong_3_174,claude-sonnet-5,reference,"def remove_extras(lst):
+    new = []
+    for i in range(len(lst)):
+        if lst[i] not in new:
+            new.append(lst[i])
+    return new
+",True,0.7333,3.6306,3.6306,0.0,0,0,0.0,[],[]
+wrong_3_175,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in range(len(lst)):
+	    if lst[i] not in new_lst:
+		    new_lst.append(lst[i])
+    return new_lst
+",True,0.4839,3.4971,3.4971,0.0,0,0,0.0,[],[]
+wrong_3_176,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    for k in range(len(lst)):
+        if lst[k] in lst[:k]:
+            new_list = new_list
+        else:
+            new_list = new_list + [lst[k]]
+    return new_list 
+",True,0.7353,7.8608,7.8608,0.0,0,0,0.0,[],[]
+wrong_3_177,claude-sonnet-5,reference,"def remove_extras(lst):
+    # your code here
+    n = 0
+    while n < len(lst):
+        for i in lst[n + 1:]:
+            if lst[n] == i:
+                lst.reverse()
+                lst.remove(i)
+                lst.reverse()
+        n = n + 1
+    return lst
+",True,0.7,4.0072,4.0072,0.0,0,0,0.0,[],[]
+wrong_3_178,claude-sonnet-5,reference,"def remove_extras(lst):
+    # your code here
+    n = 0
+    while n < len(lst):
+        for i in lst[n + 1:]:
+            if lst[n] == i:
+                lst.reverse()
+                lst.remove(i)
+                lst.reverse()
+        n = n + 1
+    return lst
+    pass
+",True,0.619,4.0678,4.0678,0.0,0,0,0.0,[],[]
+wrong_3_179,claude-sonnet-5,reference,"def remove_extras(lst):
+    # your code here
+    n = 0
+    while n < len(lst):
+        if lst[n] in lst[n+1:]:
+            ext = lst[n+1:]
+            ext.remove(lst[n])
+            lst = lst[:n+1] + ext
+        else:
+            n = n + 1
+    return lst
+",True,0.3448,5.1227,5.1227,0.0,0,0,0.0,[],[]
+wrong_3_180,claude-sonnet-5,reference,"def remove_extras(lst):
+    new = []
+    for i in range(len(lst)):
+        if lst[i] not in new:
+            new.append(lst[i])
+    return new
+",True,0.6111,2.6074,2.6074,0.0,0,0,0.0,[],[]
+wrong_3_181,claude-sonnet-5,reference,"def remove_extras(lst):
+    new = []
+    for i in range(len(lst)):
+        if lst[i] not in new:
+            new.append(lst[i])
+    return new
+",True,0.6111,2.5938,2.5938,0.0,0,0,0.0,[],[]
+wrong_3_182,claude-sonnet-5,reference,"def remove_extras(lst):
+    a=[]
+    for i in range (len(lst)):
+        if lst[i] not in a:
+            a += [lst[i]]
+    return a
+",True,0.425,2.2558,2.2558,0.0,0,0,0.0,[],[]
+wrong_3_183,claude-sonnet-5,rules,"def remove_extras(lst):
+    removed = []
+    for e in lst:
+       if e not in removed:
+          removed.append(e)
+    return removed
+",True,0.0455,0.1202,0.1202,0.0,0,0,0.0,"[""membership_wrong_container""]",[]
+wrong_3_184,claude-sonnet-5,reference,"def remove_extras(lst):
+    removed = []
+    for e in lst:
+        if e not in removed:
+            removed.append(e)
+    return removed
+",True,0.1304,0.1682,0.1682,0.0,0,0,0.0,[],[]
+wrong_3_185,claude-sonnet-5,reference,"def remove_extras(lst):
+    removed = []
+    for e in lst:
+       if (e in lst) and (e not in removed):
+          removed.append(e)
+    return removed
+",True,0.069,0.3144,0.3144,0.0,0,0,0.0,[],[]
+wrong_3_186,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    for elem in lst:
+        if elem not in new_list:
+            new_list.append(elem)
+    return new_list
+    pass
+",True,0.16,0.1669,0.1669,0.0,0,0,0.0,[],[]
+wrong_3_187,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    for elem in lst:
+        if elem not in new_list:
+            new_list += [elem]
+    return new_list
+",True,0.2308,0.2237,0.2237,0.0,0,0,0.0,[],[]
+wrong_3_188,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    for elem in lst:
+        if elem not in new_list:
+            new_list += [elem,]
+    return new_list
+",True,0.1667,0.2118,0.2118,0.0,0,0,0.0,[],[]
+wrong_3_189,claude-sonnet-5,reference,"def remove_extras(lst):
+    newlst = []
+    for i in lst:
+        if i in newlst:
+            continue
+        newlst.append(i)
+    return newlst
+",True,0.7368,0.1373,0.1373,0.0,0,0,0.0,[],[]
+wrong_3_190,claude-sonnet-5,reference,"def remove_extras(lst):
+    i = 0
+    while i < len(lst):
+        for j in lst[i + 1:]:
+            if lst[i] == j:
+                lst.reverse()
+                lst.remove(j)
+                lst.reverse()
+        i = i + 1
+    return lst
+",True,0.7568,5.8554,5.8554,0.0,0,0,0.0,[],[]
+wrong_3_191,claude-sonnet-5,reference,"def remove_extras(lst):
+    check=True
+    lst1=[]
+    for i in lst:
+        check=True
+        for j in lst1:
+            if j==i:
+                check=False
+        if check:
+            lst1+=[i,]
+    return lst1
+",True,0.0909,0.3081,0.3081,0.0,0,0,0.0,[],[]
+wrong_3_192,claude-sonnet-5,rules,"def remove_extras(lst):
+    count=0
+    rev_lst = lst.copy()
+    rev_lst.reverse()
+    ori_len=len(lst)
+    for i in range(ori_len):
+        if rev_lst[i] in rev_lst[i+1:]:
+            lst.pop(ori_len-i-1)
+    return lst
+",True,0.0833,0.1467,0.1467,0.0,0,0,0.0,"[""assign_from_reverse""]",[]
+wrong_3_193,claude-sonnet-5,rules,"def remove_extras(lst):
+    count=0
+    rev_lst = lst.copy()
+    rev_lst.reverse()
+    ori_len=len(lst)
+    new_lst=lst.copy()
+    for i in range(ori_len):
+        if rev_lst[i] in rev_lst[i+1:]:
+            new_lst.pop(ori_len-i-1)
+    return new_lst
+",True,0.0755,0.1231,0.1231,0.0,0,0,0.0,"[""assign_from_reverse""]",[]
+wrong_3_194,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    for item in lst:
+        if item not in new_list:
+            new_list.append(item)
+    return new_list
+",True,0.0952,0.158,0.158,0.0,0,0,0.0,[],[]
+wrong_3_195,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    n = len(lst)
+    for counter1 in range(n):
+        if lst[counter1] not in new_list:
+            new_list.append(lst[counter1])
+    return new_list
+                
+",True,0.5556,2.8955,2.8955,0.0,0,0,0.0,[],[]
+wrong_3_196,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        if i not in new_lst:
+            new_lst = new_lst + [i,]
+        else:
+            continue
+    return new_lst
+    
+",True,0.0417,0.1556,0.1556,0.0,0,0,0.0,[],[]
+wrong_3_197,claude-sonnet-5,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.0853,0.0853,0.0,0,0,0.0,[],[]
+wrong_3_198,claude-sonnet-5,rules,"def remove_extras(lst):
+    new = []
+    for x in lst:
+        if x not in new:
+            new += [x]
+    return new
+    
+",True,0.0476,0.1072,0.1072,0.0,0,0,0.0,"[""augassign_needs_wrap""]",[]
+wrong_3_199,claude-sonnet-5,reference,"def remove_extras(lst):
+    if lst==[]:
+        return []
+    new_lst=[lst[0]]
+    for i in range(len(lst)):
+        a=lst[i]
+        for h in range(i,len(lst)):
+            if a!=lst[h]:
+                ele=lst[h]
+                if ele in new_lst:
+                    continue
+                new_lst.append(ele)
+    return new_lst
+",True,0.2258,2.4166,2.4166,0.0,0,0,0.0,[],[]
+wrong_3_200,claude-sonnet-5,reference,"def remove_extras(lst):
+    if lst==[]:
+        return []
+    new_lst=[lst[0]]
+    for i in range(len(lst)):
+        a=lst[i]
+        for h in range(i,len(lst)):
+            if a!=lst[h]:
+                ele=lst[h]
+                if ele in new_lst:
+                    continue
+                new_lst.append(ele)
+    return new_lst
+",True,0.2097,2.7206,2.7206,0.0,0,0,0.0,[],[]
+wrong_3_201,claude-sonnet-5,rules,"def remove_extras(lst):
+    lst1 = []
+    for item in lst:
+        if (item in lst1):
+            continue
+        else:
+            lst1 += [item]
+    return lst1
+",True,0.0455,0.122,0.122,0.0,0,0,0.0,"[""augassign_needs_wrap""]",[]
+wrong_3_202,claude-sonnet-5,reference,"def remove_extras(lst):
+    if lst==[]:
+        return []
+    new_lst=[lst[0]]
+    for i in range(len(lst)):
+        a=lst[i]
+        for h in range(i,len(lst)):
+            if a!=lst[h]:
+                ele=lst[h]
+                if ele in new_lst:
+                    continue
+                new_lst.append(ele)
+    return new_lst
+",True,0.1935,2.9193,2.9193,0.0,0,0,0.0,[],[]
+wrong_3_203,claude-sonnet-5,reference,"def remove_extras(lst):
+    elem=[]
+    for i in lst:
+        while i not in elem:
+            elem.append(i)
+    return elem
+",True,0.6429,0.1074,0.1074,0.0,0,0,0.0,[],[]
+wrong_3_204,claude-sonnet-5,reference,"def remove_extras(lst):
+    new = []
+    for i in range(len(lst)):
+        if lst[i] not in new:
+            new.append(lst[i])
+    return new
+",True,0.5652,2.8564,2.8564,0.0,0,0,0.0,[],[]
+wrong_3_205,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in range(len(lst)):
+	    if lst[i] not in new_lst:
+		    new_lst.append(lst[i])
+    return new_lst
+",True,0.6,3.9828,3.9828,0.0,0,0,0.0,[],[]
+wrong_3_206,claude-sonnet-5,reference,"def remove_extras(lst):
+    result = []
+    for i in lst:
+        if i not in result:
+            result = result + [i]
+    return result
+",True,0.1429,0.1457,0.1457,0.0,0,0,0.0,[],[]
+wrong_3_207,claude-sonnet-5,reference,"def remove_extras(lst):
+    i = []
+    n = len(lst)
+    for counter1 in range(n):
+        if lst[counter1] not in i:
+            i.append(lst[counter1])
+    return i
+                
+",True,0.64,3.9263,3.9263,0.0,0,0,0.0,[],[]
+wrong_3_208,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    n = len(lst)
+    for counter1 in range(n):
+        if lst[counter1] not in new_list:
+            new_list.append(lst[counter1])
+    return new_list
+                
+",True,0.6154,3.1636,3.1636,0.0,0,0,0.0,[],[]
+wrong_3_209,claude-sonnet-5,reference,"def remove_extras(lst):
+    i = []
+    n = len(lst)
+    for counter1 in range(n):
+        if lst[counter1] not in i:
+            i.append(lst[counter1])
+    return i
+                
+",True,0.64,3.8448,3.8448,0.0,0,0,0.0,[],[]
+wrong_3_210,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    for elem in lst:
+        if elem not in new_list:
+            new_list += [elem,]
+    return new_list
+",True,0.125,0.2314,0.2314,0.0,0,0,0.0,[],[]
+wrong_3_211,claude-sonnet-5,reference,"def remove_extras(lst):
+    element = []
+    for count in lst:
+        if element.count(count) == 0:
+            element.append(count)
+    return element
+",True,0.675,4.338,4.338,0.0,0,0,0.0,[],[]
+wrong_3_212,claude-sonnet-5,reference,"def remove_extras(lst):
+    n = list()
+    for j in lst:
+        if (j in n):
+            continue
+        else:
+            n.append(j)
+    return n
+",True,0.7846,4.6923,4.6923,0.0,0,0,0.0,[],[]
+wrong_3_213,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    for element in lst:
+        if element in new_list:
+            continue
+        else:
+            new_list += [element]
+    return new_list
+",True,0.2174,0.3178,0.3178,0.0,0,0,0.0,[],[]
+wrong_3_214,claude-sonnet-5,reference,"def remove_extras(lst):
+    i = []
+    curr = 0
+    while curr < len(lst):
+        new = lst[curr]
+        if new not in i:
+            i.append(new)
+        curr = curr + 1
+    return i
+",True,0.7727,8.8886,8.8886,0.0,0,0,0.0,[],[]
+wrong_3_215,claude-sonnet-5,reference,"def remove_extras(lst):
+    i = []
+    curr = 0
+    while curr < len(lst):
+        new = lst[curr]
+        if new not in i:
+            i.append(new)
+        curr = curr + 1
+    return i
+",True,0.7174,9.4839,9.4839,0.0,0,0,0.0,[],[]
+wrong_3_216,claude-sonnet-5,reference,"def remove_extras(lst):
+    i=0
+    new = []
+    while i<len(lst):    
+        curr = lst[i]
+        new += [curr,]
+        for ele in lst:
+            if ele == curr:
+                continue
+            new += [ele,]
+        lst = new.copy()
+        new = []
+        i +=1
+    lst.reverse()
+    return lst
+",True,0.2041,5.1147,5.1147,0.0,0,0,0.0,[],[]
+wrong_3_217,claude-sonnet-5,reference,"def remove_extras(lst):
+    i = []
+    new = 0
+    while new < len(lst):
+        curr = lst[new]
+        if curr not in i:
+            i.append(curr)
+        new = new + 1
+    return i
+",True,0.6122,5.2316,5.2316,0.0,0,0,0.0,[],[]
+wrong_3_218,claude-sonnet-5,reference,"def remove_extras(lst):
+    i=0
+    new = []
+    while i<=len(lst)-1:    
+        curr = lst[i]
+        new += [curr,]
+        for ele in lst:
+            if ele == curr:
+                continue
+            new += [ele,]
+        lst = new.copy()
+        new = []
+        i +=1
+    lst.reverse()
+    return lst
+",True,0.24,6.167,6.167,0.0,0,0,0.0,[],[]
+wrong_3_219,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    for item in lst:
+        if new_list.count(item) == 0:
+            new_list.append(item)
+    return new_list
+",True,0.5,0.2826,0.2826,0.0,0,0,0.0,[],[]
+wrong_3_220,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    for item in lst:
+        if new_list.count(item) == 0:
+            new_list.append(item)
+    return new_list
+",True,0.5,0.2408,0.2408,0.0,0,0,0.0,[],[]
+wrong_3_221,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in range(len(lst)):
+	    if lst[i] not in new_lst:
+		    new_lst.append(lst[i])
+    return new_lst
+",True,0.4839,3.3925,3.3925,0.0,0,0,0.0,[],[]
+wrong_3_222,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_lst=[]
+    for i in lst:
+        if i not in new_lst:
+            new_lst.append(i)
+    return new_lst
+        
+    pass
+",True,0.2963,0.2177,0.2177,0.0,0,0,0.0,[],[]
+wrong_3_223,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_lst=[]
+    for i in lst:
+        if i not in new_lst:
+            new_lst.append(i)
+    return new_lst
+        
+    pass
+",True,0.2593,0.2149,0.2149,0.0,0,0,0.0,[],[]
+wrong_3_224,claude-sonnet-5,reference,"def remove_extras(lst):
+    new = []
+    for i in range(len(lst)):
+        if lst[i] not in new:
+            new.append(lst[i])
+    return new
+",True,0.5,3.3992,3.3992,0.0,0,0,0.0,[],[]
+wrong_3_225,claude-sonnet-5,reference,"def remove_extras(lst):
+    for i in lst:
+        if lst.count(i) > 1:
+            num = lst[:lst.index(i)+1]
+            right = lst[lst.index(i)+1:]
+            right.remove(i)
+            lst = num + right
+    return lst
+",True,0.9143,3.7553,3.7553,0.0,0,0,0.0,[],[]
+wrong_3_226,claude-sonnet-5,reference,"def remove_extras(lst):
+    for i in lst:
+        if lst.count(i) > 1:
+            num = lst[:lst.index(i)+1]
+            right = lst[lst.index(i)+1:]
+            right.remove(i)
+            lst = num + right
+    return lst
+",True,0.9429,3.6934,3.6934,0.0,0,0,0.0,[],[]
+wrong_3_227,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    for item in lst:
+        if new_list.count(item) == 0:
+            new_list.append(item)
+    return new_list
+",True,0.5,0.218,0.218,0.0,0,0,0.0,[],[]
+wrong_3_228,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    for item in lst:
+        if new_list.count(item) == 0:
+            new_list.append(item)
+    return new_list
+",True,0.5417,0.2686,0.2686,0.0,0,0,0.0,[],[]
+wrong_3_229,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    for item in lst:
+        if new_list.count(item) == 0:
+            new_list.append(item)
+    return new_list
+",True,0.56,0.2621,0.2621,0.0,0,0,0.0,[],[]
+wrong_3_230,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        if i not in new_lst:
+            new_lst.append(i)
+    return new_lst
+        
+    pass
+",True,0.2222,0.16,0.16,0.0,0,0,0.0,[],[]
+wrong_3_231,claude-sonnet-5,reference,"def remove_extras(lst):
+    rem_lst=[]
+    for i in lst:
+        if rem_lst.count(i)==0:
+            rem_lst+=[i]
+    return rem_lst
+",True,0.25,0.2874,0.2874,0.0,0,0,0.0,[],[]
+wrong_3_232,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        if new_lst.count(i) == 0:
+            new_lst.append(i)
+    return new_lst
+",True,0.16,12.3809,12.3809,0.0,0,0,0.0,[],[]
+wrong_3_233,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        if new_lst.count(i) == 0:
+            new_lst.append(i)
+    return new_lst
+",True,0.12,6.2701,6.2701,0.0,0,0,0.0,[],[]
+wrong_3_234,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        if new_lst.count(i) == 0:
+            new_lst.append(i)
+    return new_lst
+",True,0.08,0.2716,0.2716,0.0,0,0,0.0,[],[]
+wrong_3_235,claude-sonnet-5,reference,"def remove_extras(lst):
+    newseq = []
+    for element in lst:
+        if element not in newseq:
+            newseq+= [element,]
+    return newseq
+",True,0.0455,0.1195,0.1195,0.0,0,0,0.0,[],[]
+wrong_3_236,claude-sonnet-5,reference,"def remove_extras(lst):
+    l = []
+    i = len(lst)
+    for j in range(i):
+        if lst[j] not in l:
+            l.append(lst[j])
+    return l
+                
+",True,0.6053,3.2264,3.2264,0.0,0,0,0.0,[],[]
+wrong_3_237,claude-sonnet-5,reference,"def remove_extras(lst):
+    lst_new=[]
+    l=len(lst)
+    for i in range (l):
+        if lst[i] in lst_new:
+            continue
+        else:
+            lst_new.append(lst[i])
+    return lst_new
+
+",True,0.5946,3.1149,3.1149,0.0,0,0,0.0,[],[]
+wrong_3_238,claude-sonnet-5,reference,"def remove_extras(lst):
+    l = []
+    i = len(lst)
+    for j in range(i):
+        if lst[j] not in l:
+            l.append(lst[j])
+    return l
+                
+",True,0.5641,2.2388,2.2388,0.0,0,0,0.0,[],[]
+wrong_3_239,claude-sonnet-5,reference,"def remove_extras(lst):
+    l = []
+    i = len(lst)
+    for j in range(i):
+        if lst[j] not in l:
+            l.append(lst[j])
+    return l
+                
+",True,0.5952,2.3146,2.3146,0.0,0,0,0.0,[],[]
+wrong_3_240,claude-sonnet-5,reference,"def remove_extras(mylist):
+    i=[]
+    for x in mylist:
+        if x not in i:
+            i.append(x)
+    return i
+",True,0.4737,0.1149,0.1149,0.0,0,0,0.0,[],[]
+wrong_3_241,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in range(len(lst)):
+        if lst[i] not in new_lst:
+            new_lst.append(lst[i])
+    return new_lst
+",True,0.7727,3.9135,3.9135,0.0,0,0,0.0,[],[]
+wrong_3_242,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    for i in lst:
+        if i in new_list:
+            continue
+        else:
+            new_list.append(i)
+    return new_list
+",True,0.1786,3.6726,3.6726,0.0,0,0,0.0,[],[]
+wrong_3_243,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    for i in lst:
+        if i in new_list:
+            continue
+        else:
+            new_list.append(i)
+    return new_list
+",True,0.1154,3.5336,3.5336,0.0,0,0,0.0,[],[]
+wrong_3_244,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    for i in lst:
+        if i in new_list:
+            continue
+        else:
+            new_list.append(i)
+    return new_list
+",True,0.1154,3.7584,3.7584,0.0,0,0,0.0,[],[]
+wrong_3_245,claude-sonnet-5,reference,"def remove_extras(lst):
+    i=1
+    if lst==[]: return lst
+    
+    while i!=len(lst):
+        if lst[i] in lst[:i]:
+            del lst[i]
+            continue
+        i+=1
+    return lst
+",True,0.6222,2.8579,2.8579,0.0,0,0,0.0,[],[]
+wrong_3_246,claude-sonnet-5,rules,"def remove_extras(lst):
+    i=1
+    while i < len(lst):
+        if lst[i] in lst[:i]:
+            del lst[i]
+            continue
+        i+=1
+    return lst
+",True,0.0278,0.3731,0.3731,0.0,0,0,0.0,"[""generic_flip_compare"", ""generic_flip_compare"", ""generic_flip_compare""]",[]
+wrong_3_247,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in range(len(lst)):
+        if lst[i] not in new_lst:
+            new_lst += [lst[i]]
+    return new_lst
+        
+        # your code here
+    pass
+",True,0.0667,2.5443,2.5443,0.0,0,0,0.0,[],[]
+wrong_3_248,claude-sonnet-5,reference,"def remove_extras(lst):
+    newLst = []
+    hashtable = len(lst)
+    for i in range(hashtable):
+        if lst[i] not in newLst:
+            newLst.append(lst[i])
+            
+        
+    return newLst
+",True,0.4474,2.3844,2.3844,0.0,0,0,0.0,[],[]
+wrong_3_249,claude-sonnet-5,rules,"def remove_extras(lst):
+    new_list = []
+    for number in lst:
+       if number not in new_list:
+           new_list.append(number)
+    return new_list
+",True,0.0455,0.111,0.111,0.0,0,0,0.0,"[""iter_over_builtin_list""]",[]
+wrong_3_250,claude-sonnet-5,rules,"def remove_extras(lst):
+    newlist = []
+    for element in lst:
+        if newlist.count(element)==0:
+            newlist += [element]
+    return newlist
+    pass
+",True,0.04,0.108,0.108,0.0,0,0,0.0,"[""augassign_needs_wrap""]",[]
+wrong_3_251,claude-sonnet-5,reference,"def remove_extras(lst):
+    result = []
+    for i in lst:
+        if result.count(i)==0:
+            result.append(i)
+    return result
+    pass
+",True,0.2222,0.222,0.222,0.0,0,0,0.0,[],[]
+wrong_3_252,claude-sonnet-5,rules,"def remove_extras(lst):
+    new = []
+    for ele in lst:
+        if ele not in new:
+            new = new + [ele,]
+    return new# your code here
+",True,0.0417,0.1246,0.1246,0.0,0,0,0.0,"[""membership_wrong_container""]",[]
+wrong_3_253,claude-sonnet-5,reference,"def remove_extras(lst):
+    # your code here
+    new_list = []
+    for i in lst:
+        if i not in new_list:
+            new_list = new_list + [i]
+    return new_list
+",True,0.0435,0.1541,0.1541,0.0,0,0,0.0,[],[]
+wrong_3_254,claude-sonnet-5,reference,"def remove_extras(lst):
+	if lst == []:
+		return []
+	elif lst[-1] in lst[:-1]:
+		return remove_extras(lst[:-1])
+	else:
+		return remove_extras(lst[:-1]) + [lst[-1]]
+",True,0.7292,4.297,4.297,0.0,0,0,0.0,[],[]
+wrong_3_255,claude-sonnet-5,rules,"from collections import OrderedDict
+
+def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst)) 
+  
+",True,0.0714,0.1054,0.1054,0.0,0,0,0.0,"[""ordereddict_lists_typo""]",[]
+wrong_3_256,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    for elem in lst:
+        if elem not in new_list:
+            new_list += [elem,]
+    return new_list
+",True,0.125,0.2155,0.2155,0.0,0,0,0.0,[],[]
+wrong_3_257,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    for elem in lst:
+        if elem not in new_list:
+            new_list.append(elem)
+    return new_list 
+",True,0.087,0.2552,0.2552,0.0,0,0,0.0,[],[]
+wrong_3_258,claude-sonnet-5,reference,"def remove_extras(lst):
+    i = []
+    counter = 0
+    while counter < len(lst):
+        temp = lst[counter]
+        if temp not in i:
+            i.append(temp)
+        counter = counter + 1
+    return i
+",True,0.7826,5.4453,5.4453,0.0,0,0,0.0,[],[]
+wrong_3_259,claude-sonnet-5,rules,"def remove_extras(lst):
+    new_list = []
+    for number in lst:
+       if number not in new_list:
+           new_list.append(number)
+    return new_list
+",True,0.0455,0.1993,0.1993,0.0,0,0,0.0,"[""iter_over_builtin_list""]",[]
+wrong_3_260,claude-sonnet-5,reference,"def remove_extras(lst):
+    newlist = []
+    for element in lst:
+        if newlist.count(element)==0:
+            newlist.append(element)
+    return newlist
+    pass
+",True,0.4762,0.2892,0.2892,0.0,0,0,0.0,[],[]
+wrong_3_261,claude-sonnet-5,reference,"def remove_extras(lst):
+    i = []
+    counter = 0
+    while counter < len(lst):
+        temp = lst[counter]
+        if temp not in i:
+            i.append(temp)
+        counter = counter + 1
+    return i
+",True,0.7826,4.593,4.593,0.0,0,0,0.0,[],[]
+wrong_3_262,claude-sonnet-5,reference,"def remove_extras(lst):
+    newlist = []
+    for element in lst:
+        if newlist.count(element)==0:
+            newlist.append(element)
+    return newlist
+    pass
+",True,0.4091,0.238,0.238,0.0,0,0,0.0,[],[]
+wrong_3_263,claude-sonnet-5,reference,"def remove_extras(lst):
+    i=1
+    if lst==[]: return lst
+    
+    while i!=len(lst):
+        if lst[i] in lst[:i]:
+            del lst[i]
+            continue
+        i+=1
+    return lst
+",True,0.6364,3.8741,3.8741,0.0,0,0,0.0,[],[]
+wrong_3_264,claude-sonnet-5,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.1039,0.1039,0.0,0,0,0.0,[],[]
+wrong_3_265,claude-sonnet-5,reference,"def remove_extras(lst):
+    listt = []
+    for element in lst:
+        if listt.count(element) == 0:
+            listt.append(element)
+    return listt
+",True,0.2759,0.435,0.435,0.0,0,0,0.0,[],[]
+wrong_3_266,claude-sonnet-5,reference,"def remove_extras(lst):
+    newlist = []
+    for element in lst:
+        if newlist.count(element)==0:
+            newlist.append(element)
+    return newlist
+    pass
+",True,0.5294,0.4608,0.4608,0.0,0,0,0.0,[],[]
+wrong_3_267,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    for item in lst:
+        if new_list.count(item) == 0:
+            new_list.append(item)
+    return new_list
+",True,0.8621,3.9964,3.9964,0.0,0,0,0.0,[],[]
+wrong_3_268,claude-sonnet-5,rules,"def remove_extras(lst):
+    from collections import OrderedDict
+    return list(OrderedDict.fromkeys(lst))
+",True,0.1818,0.1114,0.1114,0.0,0,0,0.0,"[""missing_ordereddict_import""]",[]
+wrong_3_269,claude-sonnet-5,rules,"def remove_extras(lst):
+    from collections import OrderedDict
+    return list(OrderedDict.fromkeys(lst))
+",True,0.1818,0.1171,0.1171,0.0,0,0,0.0,"[""missing_ordereddict_import""]",[]
+wrong_3_270,claude-sonnet-5,rules,"def remove_extras(lst):
+    newlist = []
+    for i in lst:
+        if i not in newlist:
+            newlist += i,
+    return newlist
+",True,0.0909,0.1621,0.1621,0.0,0,0,0.0,"[""iter_over_builtin_list"", ""membership_wrong_container""]",[]
+wrong_3_271,claude-sonnet-5,rules,"def remove_extras(lst):
+    s = []
+    for i in lst:
+            if i not in s:
+                s.append(i)
+    return s
+",True,0.1,0.1076,0.1076,0.0,0,0,0.0,"[""missing_return_statement""]",[]
+wrong_3_272,claude-sonnet-5,reference,"def remove_extras(lst):
+    result = []
+    for e in lst:
+        if e not in result:
+            result += (e,)
+    return result
+",True,0.125,3.8078,3.8078,0.0,0,0,0.0,[],[]
+wrong_3_273,claude-sonnet-5,reference,"def remove_extras(lst):
+    result = []
+    for e in lst:
+        if e not in result:
+            result += (e,)
+        else:
+            continue
+    return result
+",True,0.12,5.9743,5.9743,0.0,0,0,0.0,[],[]
+wrong_3_274,claude-sonnet-5,reference,"def remove_extras(lst):
+    result = []
+    for e in lst:
+        if e not in result:
+            result.append(e)
+        else:
+            continue
+    return result
+",True,0.12,5.8267,5.8267,0.0,0,0,0.0,[],[]
+wrong_3_275,claude-sonnet-5,reference,"def remove_extras(lst):
+    result = []
+    for e in lst:
+        if e not in result:
+            result.append(e)
+        else:
+            continue
+    return result
+",True,0.12,4.0997,4.0997,0.0,0,0,0.0,[],[]
+wrong_3_276,claude-sonnet-5,reference,"def remove_extras(lst):
+    result = []
+    for e in lst:
+        if e not in result:
+            result.append(e)
+        else:
+            continue
+    return result
+",True,0.1154,6.7105,6.7105,0.0,0,0,0.0,[],[]
+wrong_3_277,claude-sonnet-5,reference,"def remove_extras(lst):
+    if lst == []:
+        return []
+    else: 
+        result = [lst[0],]
+        for e in lst:
+            if e not in result:
+                result.append(e)
+            else:
+                continue
+        return result
+",True,0.0303,5.5636,5.5636,0.0,0,0,0.0,[],[]
+wrong_3_278,claude-sonnet-5,reference,"def remove_extras(lst):
+    if lst == []:
+        return []
+    else: 
+        result = [lst[0],]
+        for e in lst:
+            if e not in result:
+                result.append(e)
+            else:
+                continue
+        return result
+",True,0.0303,4.3531,4.3531,0.0,0,0,0.0,[],[]
+wrong_3_279,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    for x in lst:
+        if x not in new_list:
+            new_list += [x]
+    return new_list
+",True,0.0952,0.1726,0.1726,0.0,0,0,0.0,[],[]
+wrong_3_280,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    for x in lst:
+        if x not in new_list:
+            new_list.append(x)
+    return new_list
+",True,0.0455,0.1158,0.1158,0.0,0,0,0.0,[],[]
+wrong_3_281,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    for x in lst:
+        if x not in new_list:
+            new_list += [x]
+    return new_list
+",True,0.0952,0.1533,0.1533,0.0,0,0,0.0,[],[]
+wrong_3_282,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list = []
+    for x in lst:
+        if x not in new_list:
+            new_list += [x]
+    return new_list
+",True,0.0952,0.1666,0.1666,0.0,0,0,0.0,[],[]
+wrong_3_283,claude-sonnet-5,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.5,0.0804,0.0804,0.0,0,0,0.0,[],[]
+wrong_3_284,claude-sonnet-5,reference,"def remove_extras(lst):
+    x = []
+    for i in range(len(lst)):
+        if lst[i] not in x:
+            x.append(lst[i])
+    return x
+",True,0.5909,3.0956,3.0956,0.0,0,0,0.0,[],[]
+wrong_3_285,claude-sonnet-5,reference,"def remove_extras(lst):
+    lst2 = []
+    for x in lst:
+        if lst2.count(x) == 0:
+            lst2.append(x)
+    return lst2
+",True,0.12,0.2364,0.2364,0.0,0,0,0.0,[],[]
+wrong_3_286,claude-sonnet-5,reference,"def remove_extras(lst):
+    newlist = []
+    for element in lst:
+        if newlist.count(element)==0:
+            newlist.append(element)
+    return newlist
+    pass
+",True,0.6774,0.4113,0.4113,0.0,0,0,0.0,[],[]
+wrong_3_287,claude-sonnet-5,reference,"def remove_extras(lst):
+    newlist = []
+    for element in lst:
+        if newlist.count(element)==0:
+            newlist.append(element)
+    return newlist
+    pass
+",True,0.6774,0.4165,0.4165,0.0,0,0,0.0,[],[]
+wrong_3_288,claude-sonnet-5,reference,"def remove_extras(lst):
+    new = []
+    for i in lst:
+        j=True
+        for k in new:
+            if k==i:
+                j=False
+        if j:
+            new+=[i]
+    return new
+",True,0.76,0.4301,0.4301,0.0,0,0,0.0,[],[]
+wrong_3_289,claude-sonnet-5,rules,"def remove_extras(lst):
+    new_list=[]
+    for i in range(len(lst)):
+        judge=0
+        for j in range(i):
+            if lst[i]==lst[j]:
+                judge=1
+        if judge==0:
+            new_list+=[lst[i],]
+    return new_list
+    # your code here
+    pass
+",True,0.0204,0.1638,0.1638,0.0,0,0,0.0,"[""return_wrong_accumulator""]",[]
+wrong_3_290,claude-sonnet-5,reference,"def remove_extras(lst):
+    new_list=[]
+    for element in lst:
+        if not is_same(element,new_list):
+            new_list.append(element)
+        else:
+            continue
+    return new_list
+    
+def is_same(test,lst):
+    for e in lst:
+        if e == test:
+            return True
+        else:
+            continue
+    return False
+    
+",True,0.0233,0.3174,0.3174,0.0,0,0,0.0,[],[]
+wrong_3_291,claude-sonnet-5,reference,"def remove_extras(lst):
+    lst1 = []
+    for i in lst:
+        if i not in lst1:
+            lst1.append(i)
+    return lst1
+            
+",True,0.0455,0.1782,0.1782,0.0,0,0,0.0,[],[]
+wrong_3_292,claude-sonnet-5,rules,"def remove_extras(lst):
+    keep = []
+    remove = []
+    for i in lst :
+        if i not in keep :
+            keep.append(i)
+        else :
+            remove.append(i)
+    for i in remove :
+        lst.remove(i)
+    return keep
+    
+    pass
+",True,0.0256,0.1623,0.1623,0.0,0,0,0.0,"[""return_wrong_accumulator""]",[]
+wrong_3_293,claude-sonnet-5,rules,"def remove_extras(lst):
+    keep = []
+    remove = []
+    for i in lst :
+        if i not in keep :
+            keep.append(i)
+        elif i in keep :
+            remove.append(i)
+    for i in remove :
+        lst.remove(i)
+    return keep
+    
+    pass
+",True,0.0227,0.1758,0.1758,0.0,0,0,0.0,"[""return_wrong_accumulator""]",[]
+wrong_3_294,claude-sonnet-5,rules,"def remove_extras(lst):
+    keep = []
+    destroy = []
+    for i in lst :
+        if i not in keep :
+            keep.append(i)
+        elif i in keep :
+            destroy.append(i)
+    for i in destroy :
+        lst.remove(i)
+    return keep
+",True,0.0233,0.1697,0.1697,0.0,0,0,0.0,"[""return_wrong_accumulator""]",[]
+wrong_3_295,claude-sonnet-5,rules,"def remove_extras(lst):
+    keep = []
+    for i in lst :
+        if i not in keep :
+            keep.append(i)
+    return keep
+",True,0.0455,0.1587,0.1587,0.0,0,0,0.0,"[""return_wrong_accumulator""]",[]
+wrong_3_296,claude-sonnet-5,reference,"def remove_extras(lst):
+    new = []
+    x = 0
+    for x in range(len(lst)):
+        if lst[x] not in new:
+            new += [lst[x]]
+    return new
+",True,0.2778,76.2911,76.2911,0.0,0,0,0.0,[],[]
+wrong_3_297,claude-sonnet-5,reference,"def remove_extras(lst):
+    new = []
+    x = 0
+    for x in range(len(lst)):
+        if lst[x] not in new:
+            new += [lst[x]]
+        else:
+            continue
+    return new
+",True,0.2162,96.5098,96.5098,0.0,0,0,0.0,[],[]
+wrong_3_298,claude-sonnet-5,reference,"def remove_extras(lst):
+    new = []
+    x = 0
+    for x in range(len(lst)):
+        if lst[x] not in new:
+            new += [lst[x],]
+            continue
+    return new
+",True,0.0882,3.1863,3.1863,0.0,0,0,0.0,[],[]
+wrong_3_299,claude-sonnet-5,rules,"def remove_extras(lst):
+    a=[]
+    for i in lst:
+        if i not in a:
+            a += [i]
+    return a
+",True,0.0476,0.1082,0.1082,0.0,0,0,0.0,"[""augassign_needs_wrap""]",[]
+wrong_3_300,claude-sonnet-5,rules,"def remove_extras(lst):
+    new = []
+    for x in lst:
+        if x not in new:
+            new.append(x)
+    return new
+    
+",True,0.0455,0.1127,0.1127,0.0,0,0,0.0,"[""return_wrong_accumulator""]",[]
+wrong_3_301,claude-sonnet-5,reference,"def remove_extras(lst):
+    n=[]
+    for i in lst:
+        while i not in n:
+            n.append(i)
+    return n
+",True,0.7377,4.9161,4.9161,0.0,0,0,0.0,[],[]
+wrong_3_302,claude-sonnet-5,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.0834,0.0834,0.0,0,0,0.0,[],[]
+wrong_3_303,claude-sonnet-5,reference,"def remove_extras(lst):
+    a = []
+    for i in lst:
+        if i in a:
+            continue
+        a.append(i)
+    return a
+    
+",True,0.0435,0.1297,0.1297,0.0,0,0,0.0,[],[]
+wrong_3_304,claude-sonnet-5,reference,"def remove_extras(lst):
+    a = []
+    for i in lst:
+        if i in a:
+            continue
+        else:
+            a.append(i)
+    return a
+    
+",True,0.0435,0.1381,0.1381,0.0,0,0,0.0,[],[]
+wrong_3_305,claude-sonnet-5,rules,"def remove_extras(lst):
+    new_lst  = []
+    for i in lst:
+        if i not in new_lst:
+            new_lst.append(i)
+    return new_lst
+",True,0.0455,0.1105,0.1105,0.0,0,0,0.0,"[""append_call_on_undefined_name""]",[]
+wrong_3_306,claude-sonnet-5,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.0823,0.0823,0.0,0,0,0.0,[],[]
+wrong_3_307,claude-sonnet-5,rules,"def remove_extras(lst):
+    t=[]
+    for i in lst:
+            if i not in t:
+                t.append(i)
+    return t
+",True,0.1,0.107,0.107,0.0,0,0,0.0,"[""missing_return_statement""]",[]
+wrong_3_308,claude-sonnet-5,reference,"def remove_extras(lst):
+    t=[]
+    for i in lst:
+        if i not in t:
+            t.append(i)
+    return t
+",True,0.1818,0.1174,0.1174,0.0,0,0,0.0,[],[]
+wrong_3_001,gpt-5.4-mini,rules,"def remove_extras(lst):
+    output = []
+    for i in lst:
+        if i not in output:
+                    output.append(i)
+    return output
+",True,0.0455,0.138,0.138,0.0,0,0,0.0,"[""duplicate_elimination_membership_flip""]",[]
+wrong_3_002,gpt-5.4-mini,reference,"def remove_extras(lst):
+    # your code here
+    occurrences = ()
+    new_lst = []
+    for item in lst:
+        if item not in occurrences:
+            occurrences += (item,)
+            new_lst.append(item)
+    return new_lst
+",True,0.0667,46.7933,46.7933,0.0,0,0,0.0,[],[]
+wrong_3_003,gpt-5.4-mini,rules,"def remove_extras(lst):
+    # your code here
+    occurrences = ()
+    new_lst = []
+    for item in lst:
+        if item not in occurrences:
+            occurrences += (item,)
+            new_lst.append(item)
+    return new_lst
+",True,0.0333,0.1086,0.1086,0.0,0,0,0.0,"[""prefer_consistent_new_lst_name""]",[]
+wrong_3_004,gpt-5.4-mini,rules,"def remove_extras(lst):
+    # your code here
+    occurrences = ()
+    new_lst = []
+    for item in lst:
+        if item not in occurrences:
+            occurrences += (item,)
+            new_lst.append(item)
+    return new_lst
+",True,0.0333,0.1057,0.1057,0.0,0,0,0.0,"[""prefer_consistent_new_lst_name""]",[]
+wrong_3_005,gpt-5.4-mini,reference,"def remove_extras(lst):
+    length = len(lst)
+    if length == 0:
+        return []
+    result = [lst[0]]
+    for i in range(1,length):
+        if lst[i] not in result:
+            result = result + [lst[i]]
+    return result
+",True,0.1795,2.6682,2.6682,0.0,0,0,0.0,[],[]
+wrong_3_006,gpt-5.4-mini,rules,"def remove_extras(lst):
+    new_list = []
+    for number in lst:
+       if number not in new_list:
+           new_list.append(number)
+    return new_list
+",True,0.0455,0.1095,0.1095,0.0,0,0,0.0,"[""use_lst_not_builtin_list""]",[]
+wrong_3_007,gpt-5.4-mini,reference,"def remove_extras(lst):
+    lst1 = []
+    for i in lst:
+        if lst1.count(i) == 0:
+            lst1.append(i)
+    return lst1
+",True,0.3636,0.3791,0.3791,0.0,0,0,0.0,[],[]
+wrong_3_008,gpt-5.4-mini,reference,"def remove_extras(lst):
+    lst1 = []
+    for i in lst:
+        if lst1.count(i) == 0:
+            lst1.append(i)
+    return lst1
+",True,0.4615,0.6862,0.6862,0.0,0,0,0.0,[],[]
+wrong_3_009,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i = []
+    for k in range(len(lst)):
+        if lst[k] in lst[:k]:
+            i = i
+        else:
+            i = i + [lst[k]]
+    return i 
+",True,0.7429,3.6114,3.6114,0.0,0,0,0.0,[],[]
+wrong_3_010,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new = []
+    for i in range(len(lst)):
+        if lst[i] not in new:
+            new.append(lst[i])
+    return new
+",True,0.5676,3.7936,3.7936,0.0,0,0,0.0,[],[]
+wrong_3_011,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i = 0
+    while i < len(lst):
+        if lst[i] in lst[i+1:]:
+            ext = lst[i+1:]
+            ext.remove(lst[i])
+            lst = lst[:i+1] + ext
+        else:
+            i = i + 1
+    return lst
+        
+",True,0.975,3.6121,3.6121,0.0,0,0,0.0,[],[]
+wrong_3_012,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for i in lst:
+        if i not in result:
+            result = result + [i]
+    return result
+",True,0.375,0.2054,0.2054,0.0,0,0,0.0,[],[]
+wrong_3_013,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for i in lst:
+        if i not in result:
+            result += [i]
+    return result
+",True,0.125,0.1233,0.1233,0.0,0,0,0.0,[],[]
+wrong_3_014,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for i in lst:
+        if i not in result:
+            result += [i]
+    return result
+",True,0.1923,0.1699,0.1699,0.0,0,0,0.0,[],[]
+wrong_3_015,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for i in lst:
+        if i not in result:
+            result += [i]
+    return result
+",True,0.12,0.156,0.156,0.0,0,0,0.0,[],[]
+wrong_3_016,gpt-5.4-mini,none,,False,,1.9952,1.9952,0.0,0,0,0.0,[],[]
+wrong_3_017,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i = 0
+    while i < len(lst):
+        j = i + 1
+        while j < len(lst):
+            if lst[i] == lst[j]:
+                lst = lst[:j] + lst[j+1:]
+            else:
+                j += 1
+        i += 1
+    return lst
+    
+",True,0.5417,5.3586,5.3586,0.0,0,0,0.0,[],[]
+wrong_3_018,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i = 0
+    while i < len(lst):
+        j = i + 1
+        while j < len(lst):
+            if lst[i] == lst[j]:
+                lst = lst[:j] + lst[j+1:]
+            else:
+                j += 1
+        i += 1
+    return lst
+    
+",True,0.5208,4.7215,4.7215,0.0,0,0,0.0,[],[]
+wrong_3_019,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i = 0
+    while i < len(lst):
+        j = i + 1
+        while j < len(lst):
+            if lst[i] == lst[j]:
+                lst = lst[:j] + lst[j+1:]
+            else:
+                j += 1
+        i += 1
+    return lst
+    
+",True,0.2182,6.3619,6.3619,0.0,0,0,0.0,[],[]
+wrong_3_020,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i = 0
+    while i < len(lst):
+        j = i + 1
+        while j < len(lst):
+            if lst[i] == lst[j]:
+                lst = lst[:j] + lst[j+1:]
+            else:
+                j += 1
+        i += 1
+    return lst
+    
+",True,0.1053,91.0276,91.0276,0.0,0,0,0.0,[],[]
+wrong_3_021,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i = 0
+    while i < len(lst):
+        j = i + 1
+        while j < len(lst):
+            if lst[i] == lst[j]:
+                lst = lst[:j] + lst[j+1:]
+            else:
+                j += 1
+        i += 1
+    return lst
+    
+",True,0.0328,3.843,3.843,0.0,0,0,0.0,[],[]
+wrong_3_022,gpt-5.4-mini,rules,"def remove_extras(lst):
+    new_lst = []
+    for element in lst:
+        if element not in new_lst:
+            new_lst.append(element)
+    return new_lst
+    
+",True,0.0455,0.1079,0.1079,0.0,0,0,0.0,"[""prefer_consistent_new_lst_name""]",[]
+wrong_3_023,gpt-5.4-mini,reference,"def remove_extras(lst):
+    list1 = []
+    for i in lst:
+        if i not in list1:
+            list1+= [i,]
+    return list1
+",True,0.0476,0.1151,0.1151,0.0,0,0,0.0,[],[]
+wrong_3_024,gpt-5.4-mini,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.5,0.148,0.148,0.0,0,0,0.0,[],[]
+wrong_3_025,gpt-5.4-mini,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.1289,0.1289,0.0,0,0,0.0,[],[]
+wrong_3_026,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    counter = 0
+    while counter < len(lst):
+        for i in lst[counter + 1:]:
+            if lst[counter] == i:
+                lst.reverse()
+                lst.remove(i)
+                lst.reverse()
+        counter = counter + 1
+    return lst
+",True,0.4737,17.1407,17.1407,0.0,0,0,0.0,[],[]
+wrong_3_027,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    counter = 0
+    while counter < len(lst):
+        for i in lst[counter + 1:]:
+            if lst[counter] == i:
+                lst.reverse()
+                lst.remove(i)
+                lst.reverse()
+        counter = counter + 1
+    return lst
+                
+",True,0.3125,5.505,5.505,0.0,0,0,0.0,[],[]
+wrong_3_028,gpt-5.4-mini,reference,"def remove_extras(lst):
+    store = []
+    for ele in lst:
+        if ele not in store:
+            store+= [ele,]
+    return store
+",True,0.0476,0.1185,0.1185,0.0,0,0,0.0,[],[]
+wrong_3_029,gpt-5.4-mini,reference,"def remove_extras(lst):
+    for i in lst:
+        remove_multiple(i, lst)
+    return lst
+    
+    
+
+    
+    
+    
+    
+    
+def remove_multiple(n, lst):
+    if lst.count(n) == 1:
+        return lst
+    else:
+        lst.reverse()
+        lst.remove(n)
+        lst.reverse()
+        return remove_multiple(n, lst)
+",True,0.0213,2.8005,2.8005,0.0,0,0,0.0,[],[]
+wrong_3_030,gpt-5.4-mini,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.5,0.2258,0.2258,0.0,0,0,0.0,[],[]
+wrong_3_031,gpt-5.4-mini,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.1792,0.1792,0.0,0,0,0.0,[],[]
+wrong_3_032,gpt-5.4-mini,reference,"def remove_extras(lst):
+    l=[]
+    for i in lst:
+        if i not in l:
+            l.append(i)
+    return l 
+",True,0.3158,99.7227,99.7227,0.0,0,0,0.0,[],[]
+wrong_3_033,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = []
+    for ele in lst:
+        if not ele in new_lst:
+            new_lst.append(ele)
+    return new_lst
+    
+",True,0.1739,0.1245,0.1245,0.0,0,0,0.0,[],[]
+wrong_3_034,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = []
+    for ele in lst:
+        if not ele in new_lst:
+            new_lst.append(ele)
+    return new_lst
+    
+",True,0.2,3.6542,3.6542,0.0,0,0,0.0,[],[]
+wrong_3_035,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = []
+    for ele in lst:
+        if not ele in new_lst:
+            new_lst.append(ele)
+    return new_lst
+    
+",True,0.04,0.1373,0.1373,0.0,0,0,0.0,[],[]
+wrong_3_036,gpt-5.4-mini,reference,"def remove_extras(lst):
+    output = []
+    for entry in lst:
+        if output.count(entry) == 0:
+            output == output.append(entry)
+    return output
+",True,0.1667,1.3075,1.3075,0.0,0,0,0.0,[],[]
+wrong_3_037,gpt-5.4-mini,reference,"def remove_extras(lst):
+    output = []
+    for entry in lst:
+        if output.count(entry) == 0:
+            output == output.append(entry)
+    return output
+",True,0.0714,1.6039,1.6039,0.0,0,0,0.0,[],[]
+wrong_3_038,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = []
+    for element in lst:
+        if element not in new_lst:
+            new_lst += (element,)
+    return new_lst
+",True,0.0455,0.1338,0.1338,0.0,0,0,0.0,[],[]
+wrong_3_039,gpt-5.4-mini,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.1196,0.1196,0.0,0,0,0.0,[],[]
+wrong_3_040,gpt-5.4-mini,reference,"def remove_extras(lst):
+    s = []
+    for i in lst:
+       if i not in s:
+           s.append(i)
+    return s
+    # your code here
+    pass
+",True,0.0435,102.308,102.308,0.0,0,0,0.0,[],[]
+wrong_3_041,gpt-5.4-mini,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2727,0.1229,0.1229,0.0,0,0,0.0,[],[]
+wrong_3_042,gpt-5.4-mini,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.1794,0.1794,0.0,0,0,0.0,[],[]
+wrong_3_043,gpt-5.4-mini,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.153,0.153,0.0,0,0,0.0,[],[]
+wrong_3_044,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        if i not in new_lst:
+            new_lst += [i, ]
+        else:
+            continue
+    return new_lst
+            
+        
+",True,0.4074,3.6248,3.6248,0.0,0,0,0.0,[],[]
+wrong_3_045,gpt-5.4-mini,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.1753,0.1753,0.0,0,0,0.0,[],[]
+wrong_3_046,gpt-5.4-mini,reference,"def remove_extras(lst):
+    a = []
+    for i in lst:
+        if i not in a:
+            a+= [i,]
+    return a
+",True,0.0476,0.1474,0.1474,0.0,0,0,0.0,[],[]
+wrong_3_047,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new=[]
+    for x in lst:
+        if new.count(x)==0:
+            new+=[x]
+    return new
+    pass
+",True,0.2667,0.4353,0.4353,0.0,0,0,0.0,[],[]
+wrong_3_048,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new = []
+    for x in lst:
+        if new.count(x)==0:
+            new.append(x)
+    return new
+    pass
+",True,0.2903,11.7317,11.7317,0.0,0,0,0.0,[],[]
+wrong_3_049,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new = []
+    for x in lst:
+        if new.count(x)==0:
+            new+=[x]
+    return new
+    pass
+",True,0.2333,0.358,0.358,0.0,0,0,0.0,[],[]
+wrong_3_050,gpt-5.4-mini,reference,"def remove_extras(lst):
+    store = []
+    for ele in lst:
+        if ele not in store:
+            store += [ele]
+    return store
+",True,0.1538,0.127,0.127,0.0,0,0,0.0,[],[]
+wrong_3_051,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i=1
+    if lst==[]: return lst
+    
+    while i!=len(lst):
+        if lst[i] in lst[:i]:
+            del lst[i]
+            continue
+        i+=1
+    return lst
+",True,0.439,92.9786,92.9786,0.0,0,0,0.0,[],[]
+wrong_3_052,gpt-5.4-mini,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.1312,0.1312,0.0,0,0,0.0,[],[]
+wrong_3_053,gpt-5.4-mini,reference,"def remove_extras(lst):
+    newlst=[]
+    for i in lst:
+        while i not in newlst:
+            newlst.append(i)
+    return newlst
+",True,0.5909,0.5225,0.5225,0.0,0,0,0.0,[],[]
+wrong_3_054,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        if i not in new_lst:
+            new_lst += [i]
+    return new_lst
+    pass
+",True,0.1304,0.1263,0.1263,0.0,0,0,0.0,[],[]
+wrong_3_055,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        if i not in new_lst:
+            new_lst += [i]
+    return new_lst
+    pass
+",True,0.087,0.1291,0.1291,0.0,0,0,0.0,[],[]
+wrong_3_056,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        if i not in new_lst:
+            new_lst += [i,]
+    return new_lst    
+    pass
+",True,0.0435,0.123,0.123,0.0,0,0,0.0,[],[]
+wrong_3_057,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        if i not in new_lst:
+            new_lst += [i,]
+    return new_lst    
+    pass
+",True,0.0435,0.1256,0.1256,0.0,0,0,0.0,[],[]
+wrong_3_058,gpt-5.4-mini,reference,"from collections import OrderedDict
+def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.1667,0.0806,0.0806,0.0,0,0,0.0,[],[]
+wrong_3_059,gpt-5.4-mini,reference,"def remove_extras(lst):
+    lst_final = []
+    for i in lst:
+        if i not in lst_final:
+            lst_final = lst_final + [i]
+    return lst_final
+",True,0.0435,0.131,0.131,0.0,0,0,0.0,[],[]
+wrong_3_060,gpt-5.4-mini,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.1345,0.1345,0.0,0,0,0.0,[],[]
+wrong_3_061,gpt-5.4-mini,reference,"def remove_extras(lst):
+    o = []
+    for i in lst:
+        if i not in o:
+            o.append(i)
+    return o
+",True,0.12,94.3791,94.3791,0.0,0,0,0.0,[],[]
+wrong_3_062,gpt-5.4-mini,reference,"def remove_extras(lst):
+    o = []
+    for i in lst:
+        if i not in o:
+            o.append(i)
+    return o
+",True,0.12,102.2949,102.2949,0.0,0,0,0.0,[],[]
+wrong_3_063,gpt-5.4-mini,reference,"def remove_extras(lst):
+    o = []
+    for i in lst:
+        if i not in o:
+            o.append(i)
+    return o
+",True,0.1852,95.9982,95.9982,0.0,0,0,0.0,[],[]
+wrong_3_064,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = []
+    for e in lst:
+        if e in new_lst:
+            continue
+        else:
+            new_lst.append(e)
+            
+    return new_lst
+    
+    
+    
+",True,0.12,4.9019,4.9019,0.0,0,0,0.0,[],[]
+wrong_3_065,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = []
+    for e in lst:
+        if e in new_lst:
+            continue
+        else:
+            new_lst.append(e)
+            
+    return new_lst
+    
+    
+    
+",True,0.1154,4.4604,4.4604,0.0,0,0,0.0,[],[]
+wrong_3_066,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result =[]
+    for element in lst:
+        if element not in result:
+            result.append(element)
+    return result 
+        
+",True,0.0455,5.6983,5.6983,0.0,0,0,0.0,[],[]
+wrong_3_067,gpt-5.4-mini,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.157,0.157,0.0,0,0,0.0,[],[]
+wrong_3_068,gpt-5.4-mini,reference,"def remove_extras(lst):
+    extra = []
+    for i in lst:
+        if i not in extra:
+            extra += [i]
+        else:
+            continue
+    return extra
+",True,0.3333,0.1679,0.1679,0.0,0,0,0.0,[],[]
+wrong_3_069,gpt-5.4-mini,reference,"def remove_extras(lst):
+    remove_lst = []
+    for i in lst:
+        if i not in remove_lst:
+            remove_lst.append(i)
+    return remove_lst
+",True,0.0455,103.7312,103.7312,0.0,0,0,0.0,[],[]
+wrong_3_070,gpt-5.4-mini,reference,"def remove_extras(lst):
+    n = []
+    i = len(lst)
+    for j in range(i):
+        if lst[j] not in n:
+            n.append(lst[j])
+    return n
+                
+",True,0.6346,6.7607,6.7607,0.0,0,0,0.0,[],[]
+wrong_3_071,gpt-5.4-mini,reference,"def remove_extras(lst):
+    n = []
+    i = len(lst)
+    for j in range(i):
+        if lst[j] not in n:
+            n.append(lst[j])
+    return n
+                
+",True,0.6346,7.8326,7.8326,0.0,0,0,0.0,[],[]
+wrong_3_072,gpt-5.4-mini,rules,"def remove_extras(lst):
+    newlst = []
+    for i in lst:
+        if i not in newlst:
+            new_lst = newlst.append(i)
+    return newlst
+",True,0.0435,0.1182,0.1182,0.0,0,0,0.0,"[""prefer_consistent_new_lst_name_2""]",[]
+wrong_3_073,gpt-5.4-mini,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.1289,0.1289,0.0,0,0,0.0,[],[]
+wrong_3_074,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for i in lst:
+        if i not in result:
+            result+= [i,]
+    return result
+",True,0.0476,0.115,0.115,0.0,0,0,0.0,[],[]
+wrong_3_075,gpt-5.4-mini,none,,False,,0.4731,0.4731,0.0,0,0,0.0,[],[]
+wrong_3_076,gpt-5.4-mini,none,,False,,1.5623,1.5623,0.0,0,0,0.0,[],[]
+wrong_3_077,gpt-5.4-mini,rules,"def remove_extras(lst):
+    newlst=[]
+    for i in lst:
+        if i not in newlst:
+            new_lst=newlst.append(i)
+    return newlst
+    # your code here
+    pass
+",True,0.0417,0.118,0.118,0.0,0,0,0.0,"[""prefer_consistent_new_lst_name_2""]",[]
+wrong_3_078,gpt-5.4-mini,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2727,0.1318,0.1318,0.0,0,0,0.0,[],[]
+wrong_3_079,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i=[]
+    for result in lst:
+        while result not in i:
+            i.append(result)
+    return i
+",True,0.6129,0.3733,0.3733,0.0,0,0,0.0,[],[]
+wrong_3_080,gpt-5.4-mini,rules,"def remove_extras(lst):
+    new_lst = []
+    for x in lst:
+        if x not in new_lst:
+            new_lst += [x]
+    return new_lst
+",True,0.0455,0.1553,0.1553,0.0,0,0,0.0,"[""return_accumulator_instead_of_input"", ""prefer_consistent_new_lst_name""]",[]
+wrong_3_081,gpt-5.4-mini,rules,"def remove_extras(lst):
+    newlst=[]
+    for i in lst:
+        if i not in newlst:
+            new_lst=newlst.append(i)
+    return newlst
+
+    # your code here
+    pass
+",True,0.0417,0.1212,0.1212,0.0,0,0,0.0,"[""prefer_consistent_new_lst_name_2""]",[]
+wrong_3_082,gpt-5.4-mini,reference,"def remove_extras(lst):
+    if lst==[]:
+        return []
+    new_lst=[lst[0]]
+    for i in range(len(lst)):
+        a=lst[i]
+        for h in range(i,len(lst)):
+            if a!=lst[h]:
+                ele=lst[h]
+                if ele in new_lst:
+                    continue
+                new_lst.append(ele)
+    return new_lst
+",True,0.3077,2.4592,2.4592,0.0,0,0,0.0,[],[]
+wrong_3_083,gpt-5.4-mini,reference,"def remove_extras(lst):
+    list = []
+    for i in lst:
+        if i not in list:
+            list += [i]
+    return list 
+",True,0.1739,2.9094,2.9094,0.0,0,0,0.0,[],[]
+wrong_3_084,gpt-5.4-mini,reference,"def remove_extras(lst):
+	if lst == []:
+		return []
+	elif lst[-1] in lst[:-1]:
+		return remove_extras(lst[:-1])
+	else:
+		return remove_extras(lst[:-1]) + [lst[-1]]
+",True,0.575,5.0348,5.0348,0.0,0,0,0.0,[],[]
+wrong_3_085,gpt-5.4-mini,reference,"def remove_extras(lst):
+	if lst == []:
+		return []
+	elif lst[-1] in lst[:-1]:
+		return remove_extras(lst[:-1])
+	else:
+		return remove_extras(lst[:-1]) + [lst[-1]]
+",True,0.5854,4.8798,4.8798,0.0,0,0,0.0,[],[]
+wrong_3_086,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for i in lst:
+        if i not in result:
+            result = result + [i,]
+        else:
+            continue
+    return result
+",True,0.08,0.178,0.178,0.0,0,0,0.0,[],[]
+wrong_3_087,gpt-5.4-mini,reference,"def remove_extras(lst):
+    a = ()
+    c = ()
+    n = len(lst)
+    for i in range(n):
+        for j in range(i,n):
+            if lst[i] == lst[j] and i != j:
+                a += (j,) #j is the jth index of the list
+            else:
+                continue
+    d = tuple(set(a)) #[repeated_index1, repeated_index2]
+    for i in d:
+        c += (lst[i],)
+    b = lst[::-1]
+    for i in range(len(c)):
+        b.remove(c[i])
+    d = b[::-1]
+    return d
+",True,0.2558,3.1356,3.1356,0.0,0,0,0.0,[],[]
+wrong_3_088,gpt-5.4-mini,reference,"def remove_extras(lst):
+    for sub_list in lst:
+        if lst.count(sub_list) > 1:
+            elem = lst[:lst.index(sub_list)+1]
+            right = lst[lst.index(sub_list)+1:]
+            right.remove(sub_list)
+            lst = elem + right
+    return lst
+",True,0.5072,1.0225,1.0225,0.0,0,0,0.0,[],[]
+wrong_3_089,gpt-5.4-mini,reference,"def remove_extras(lst):
+    for sub_list in lst:
+        if lst.count(sub_list) > 1:
+            elem = lst[:lst.index(sub_list)+1]
+            right = lst[lst.index(sub_list)+1:]
+            right.remove(sub_list)
+            lst = elem + right
+    return lst
+",True,0.5072,1.0947,1.0947,0.0,0,0,0.0,[],[]
+wrong_3_090,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result=[]
+    for i in lst:
+        if i in result:
+            continue
+        result+= [i]
+    return result
+",True,0.1538,0.1735,0.1735,0.0,0,0,0.0,[],[]
+wrong_3_091,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for item in lst:
+        if item not in result:
+            result+= [item,]
+    return result
+",True,0.1429,0.1601,0.1601,0.0,0,0,0.0,[],[]
+wrong_3_092,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for item in lst:
+        if item not in result:
+            result+= [item,]
+    return result
+",True,0.0476,0.149,0.149,0.0,0,0,0.0,[],[]
+wrong_3_093,gpt-5.4-mini,reference,"def remove_extras(lst):
+    for sub_list in lst:
+        if lst.count(sub_list) > 1:
+            elem = lst[:lst.index(sub_list)+1]
+            right = lst[lst.index(sub_list)+1:]
+            right.remove(sub_list)
+            lst = elem + right
+    return lst
+",True,0.5325,1.0855,1.0855,0.0,0,0,0.0,[],[]
+wrong_3_094,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new = []
+    for i in lst:
+        if i not in new:
+            new += [i]
+        else:
+            continue
+    return new
+        
+
+",True,0.0455,0.146,0.146,0.0,0,0,0.0,[],[]
+wrong_3_095,gpt-5.4-mini,reference,"def remove_extras(values):
+    output = []
+    for value in values:
+        if value not in output:
+            output.append(value)
+    return output
+",True,0.0455,6.7749,6.7749,0.0,0,0,0.0,[],[]
+wrong_3_096,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for i in lst:
+        if i not in result:
+            result = result + [i]
+    return result
+            
+            
+    # your code here
+    pass
+",True,0.0417,0.136,0.136,0.0,0,0,0.0,[],[]
+wrong_3_097,gpt-5.4-mini,reference,"def remove_extras(lst):
+    copy = lst.copy()
+    for i in copy:
+        if copy.count(i) > 1:
+            left = copy[:copy.index(i)+1]
+            right = copy[copy.index(i)+1:]
+            right.remove(i)
+            copy = left + right
+    return copy
+",True,0.0351,0.7197,0.7197,0.0,0,0,0.0,[],[]
+wrong_3_098,gpt-5.4-mini,reference,"def remove_extras(lst):
+    newlist = []
+    for element in lst:
+        if newlist.count(element)==0:
+            newlist.append(element)
+    return newlist
+    pass
+",True,0.6154,0.2197,0.2197,0.0,0,0,0.0,[],[]
+wrong_3_099,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    for item in lst:
+        if new_list.count(item) == 0:
+            new_list.append(item)
+    return new_list
+",True,0.4545,0.5734,0.5734,0.0,0,0,0.0,[],[]
+wrong_3_100,gpt-5.4-mini,reference,"def remove_extras(lst):
+    newlst=[]
+    for i in lst:
+        while i not in newlst:
+            newlst.append(i)
+    return newlst
+",True,0.6333,0.6814,0.6814,0.0,0,0,0.0,[],[]
+wrong_3_101,gpt-5.4-mini,none,,False,,0.9681,0.9681,0.0,0,0,0.0,[],[]
+wrong_3_102,gpt-5.4-mini,none,,False,,0.7907,0.7907,0.0,0,0,0.0,[],[]
+wrong_3_103,gpt-5.4-mini,reference,"def remove_extras(lst):
+    a = []
+    for i in lst:
+        if i not in a:
+            a.append(i)
+    return a
+",True,0.0455,25.5424,25.5424,0.0,0,0,0.0,[],[]
+wrong_3_104,gpt-5.4-mini,reference,"def remove_extras(lst):
+    a = []
+    for i in lst:
+        if i not in a:
+            a.append(i)
+    return a
+",True,0.1364,24.3035,24.3035,0.0,0,0,0.0,[],[]
+wrong_3_105,gpt-5.4-mini,reference,"def remove_extras(lst):
+    k = []
+    for i in range(len(lst)):
+	    if lst[i] not in k:
+		    k.append(lst[i])
+    return k
+",True,0.5333,2.445,2.445,0.0,0,0,0.0,[],[]
+wrong_3_106,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    count = ()
+    for item in lst:
+        if item not in count:
+            result.append(item)
+            count += (item,)
+    return result
+        
+        
+",True,0.5366,3.6549,3.6549,0.0,0,0,0.0,[],[]
+wrong_3_107,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for item in lst:
+        if item not in result:
+            result += item,
+    return result
+        
+        
+",True,0.3103,4.9565,4.9565,0.0,0,0,0.0,[],[]
+wrong_3_108,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for item in lst:
+        if item not in result:
+            result += item,
+    return result
+",True,0.3548,4.9701,4.9701,0.0,0,0,0.0,[],[]
+wrong_3_109,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    for k in range(len(lst)):
+        if lst[k] in lst[:k]:
+            new_list = new_list
+        else:
+            new_list = new_list + [lst[k]]
+    return new_list 
+",True,0.5676,6.5624,6.5624,0.0,0,0,0.0,[],[]
+wrong_3_110,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new = []
+    for i in lst:
+        if i not in new:
+            new.append(i)
+        else:
+            new = new
+    return new
+",True,0.625,0.8798,0.8798,0.0,0,0,0.0,[],[]
+wrong_3_111,gpt-5.4-mini,rules,"def remove_extras(lst):
+    final=[]
+    for x in lst:
+        if x not in final:
+            final.append(x)
+    return final
+    pass
+",True,0.0435,0.1523,0.1523,0.0,0,0,0.0,"[""use_membership_instead_of_inequality_for_list_check""]",[]
+wrong_3_112,gpt-5.4-mini,reference,"def remove_extras(lst):
+    answer = []
+    for i in lst:
+        if i in answer:
+            continue
+        answer+= [i]
+    return answer
+",True,0.28,0.3633,0.3633,0.0,0,0,0.0,[],[]
+wrong_3_113,gpt-5.4-mini,reference,"def remove_extras(lst):
+    compare = []
+    for element in lst:
+      if element not in compare:
+        compare.append(element)
+    lst[:]= compare
+    return lst
+",True,0.5172,5.2221,5.2221,0.0,0,0,0.0,[],[]
+wrong_3_114,gpt-5.4-mini,reference,"def remove_extras(lst):
+    # your code here
+    new_lst = []
+    for i in lst:
+        if i not in new_lst:
+            new_lst += [i,]
+    return new_lst
+        
+",True,0.0455,0.1502,0.1502,0.0,0,0,0.0,[],[]
+wrong_3_115,gpt-5.4-mini,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.2396,0.2396,0.0,0,0,0.0,[],[]
+wrong_3_116,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for i in lst:
+        if i not in result:
+            result = result + [i]
+    return result
+",True,0.0435,0.1792,0.1792,0.0,0,0,0.0,[],[]
+wrong_3_117,gpt-5.4-mini,reference,"def remove_extras(lst):
+    newlist = []
+    for i in lst:
+        if i in newlist:
+            continue
+        else:
+             newlist += [i,]
+    return newlist
+",True,0.0455,0.153,0.153,0.0,0,0,0.0,[],[]
+wrong_3_118,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = []
+    for ele in lst:
+        if ele not in new_lst:
+            new_lst+= [ele,]
+    return new_lst
+",True,0.0952,0.2178,0.2178,0.0,0,0,0.0,[],[]
+wrong_3_119,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = []
+    for ele in lst:
+        if ele not in new_lst:
+            new_lst+= [ele,]
+    return new_lst
+",True,0.0476,0.157,0.157,0.0,0,0,0.0,[],[]
+wrong_3_120,gpt-5.4-mini,reference,"def remove_extras(lst):
+    seq = []
+    for i in lst:
+        if i not in seq:
+            seq = seq + [i,]
+    return seq
+    pass
+",True,0.2333,3.966,3.966,0.0,0,0,0.0,[],[]
+wrong_3_121,gpt-5.4-mini,reference,"def remove_extras(lst):
+    seq = []
+    for i in lst:
+        if i not in seq:
+            seq = seq + [i]
+    return seq
+",True,0.1852,3.9757,3.9757,0.0,0,0,0.0,[],[]
+wrong_3_122,gpt-5.4-mini,reference,"def remove_extras(lst):
+    seq = []
+    for i in lst:
+        if i not in seq:
+            seq = seq + [i]
+    return seq
+",True,0.1852,3.6605,3.6605,0.0,0,0,0.0,[],[]
+wrong_3_123,gpt-5.4-mini,reference,"def remove_extras(lst):
+    seq = []
+    for i in lst:
+        if i not in seq:
+            seq = seq + [i]
+    return seq
+",True,0.1852,3.4954,3.4954,0.0,0,0,0.0,[],[]
+wrong_3_124,gpt-5.4-mini,reference,"def remove_extras(lst):
+    seq = []
+    for i in lst:
+        if i not in seq:
+            seq = seq + [i]
+    return seq
+",True,0.1852,4.2199,4.2199,0.0,0,0,0.0,[],[]
+wrong_3_125,gpt-5.4-mini,reference,"def remove_extras(lst):
+    seq = []
+    for i in lst:
+        if i not in seq:
+            seq = seq + [i]
+    return seq
+",True,0.1852,3.56,3.56,0.0,0,0,0.0,[],[]
+wrong_3_126,gpt-5.4-mini,reference,"def remove_extras(lst):
+    seq = []
+    for i in lst:
+        if i not in seq:
+            seq = seq + [i]
+    return seq
+",True,0.1852,4.4036,4.4036,0.0,0,0,0.0,[],[]
+wrong_3_127,gpt-5.4-mini,reference,"def remove_extras(lst):
+    seq = []
+    for i in lst:
+        if i not in seq:
+            seq = seq + [i,]
+    return seq
+",True,0.1111,3.4798,3.4798,0.0,0,0,0.0,[],[]
+wrong_3_128,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i=1
+    if lst==[]: return lst
+    
+    while i!=len(lst):
+        if lst[i] in lst[:i]:
+            del lst[i]
+            continue
+        i+=1
+    return lst
+",True,0.5122,72.4848,72.4848,0.0,0,0,0.0,[],[]
+wrong_3_129,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i=1
+    if lst==[]: return lst
+    
+    while i!=len(lst):
+        if lst[i] in lst[:i]:
+            del lst[i]
+            continue
+        i+=1
+    return lst
+",True,0.5366,45.7763,45.7763,0.0,0,0,0.0,[],[]
+wrong_3_130,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i=1
+    if lst==[]: return lst
+    
+    while i!=len(lst):
+        if lst[i] in lst[:i]:
+            del lst[i]
+            continue
+        i+=1
+    return lst
+",True,0.5366,45.6335,45.6335,0.0,0,0,0.0,[],[]
+wrong_3_131,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i=1
+    if lst==[]: return lst
+    
+    while i!=len(lst):
+        if lst[i] in lst[:i]:
+            del lst[i]
+            continue
+        i+=1
+    return lst
+",True,0.561,54.1221,54.1221,0.0,0,0,0.0,[],[]
+wrong_3_132,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i=1
+    if lst==[]: return lst
+    
+    while i!=len(lst):
+        if lst[i] in lst[:i]:
+            del lst[i]
+            continue
+        i+=1
+    return lst
+",True,0.561,85.3555,85.3555,0.0,0,0,0.0,[],[]
+wrong_3_133,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i=1
+    if lst==[]: return lst
+    
+    while i!=len(lst):
+        if lst[i] in lst[:i]:
+            del lst[i]
+            continue
+        i+=1
+    return lst
+",True,0.561,85.6414,85.6414,0.0,0,0,0.0,[],[]
+wrong_3_134,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i=1
+    if lst==[]: return lst
+    
+    while i!=len(lst):
+        if lst[i] in lst[:i]:
+            del lst[i]
+            continue
+        i+=1
+    return lst
+",True,0.561,81.7024,81.7024,0.0,0,0,0.0,[],[]
+wrong_3_135,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i=1
+    if lst==[]: return lst
+    
+    while i!=len(lst):
+        if lst[i] in lst[:i]:
+            del lst[i]
+            continue
+        i+=1
+    return lst
+",True,0.6047,80.7231,80.7231,0.0,0,0,0.0,[],[]
+wrong_3_136,gpt-5.4-mini,rules,"def remove_extras(lst):
+    new_list = []
+    for item in lst:
+        if new_list.count(item) == 0:
+            new_list.append(item)
+    return new_list
+",True,0.04,0.1631,0.1631,0.0,0,0,0.0,"[""use_lst_not_builtin_list""]",[]
+wrong_3_137,gpt-5.4-mini,none,,False,,4.6533,4.6533,0.0,0,0,0.0,[],[]
+wrong_3_138,gpt-5.4-mini,reference,"def remove_extras(lst):
+    lst1 = []
+    for i in range(len(lst)):
+        if lst[i] in lst1:
+            continue
+        else:
+            lst1.append(lst[i])
+    return lst1
+",True,0.2188,3.2407,3.2407,0.0,0,0,0.0,[],[]
+wrong_3_139,gpt-5.4-mini,reference,"def remove_extras(lst):
+    lst1 = []
+    for i in range(len(lst)):
+        if lst[i] in lst1:
+            continue
+        else:
+            lst1.append(lst[i])
+    return lst1
+",True,0.2188,3.0174,3.0174,0.0,0,0,0.0,[],[]
+wrong_3_140,gpt-5.4-mini,reference,"def remove_extras(lst):
+    my_lst = []
+    for i in lst:
+        if i not in my_lst:
+            my_lst.append(i)
+    return my_lst
+",True,0.0909,91.4617,91.4617,0.0,0,0,0.0,[],[]
+wrong_3_141,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for i in range(len(lst)):
+        if lst[i] not in result:
+            result += [lst[i],]
+            continue
+    return result
+",True,0.0333,2.7258,2.7258,0.0,0,0,0.0,[],[]
+wrong_3_142,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i = []
+    for j in range(len(lst)):
+        if lst[j] not in i:
+            i.append(lst[j])
+    return i
+",True,0.6087,2.6712,2.6712,0.0,0,0,0.0,[],[]
+wrong_3_143,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i = []
+    for j in range(len(lst)):
+        if lst[j] not in i:
+            i.append(lst[j])
+    return i
+",True,0.5854,3.1833,3.1833,0.0,0,0,0.0,[],[]
+wrong_3_144,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        new_lst.append(i)
+        if new_lst.count(i) > 1:
+            new_lst.pop()
+            continue
+    return new_lst
+",True,0.1667,27.4497,27.4497,0.0,0,0,0.0,[],[]
+wrong_3_145,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        new_lst.append(i)
+        if new_lst.count(i) > 1:
+            new_lst.pop()
+            continue
+    return new_lst
+",True,0.0714,27.5609,27.5609,0.0,0,0,0.0,[],[]
+wrong_3_146,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        new_lst.append(i)
+        if new_lst.count(i) > 1:
+            new_lst.pop()
+            continue
+    return new_lst
+",True,0.0345,26.8431,26.8431,0.0,0,0,0.0,[],[]
+wrong_3_147,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    for item in lst:
+        if new_list.count(item) == 0:
+            new_list.append(item)
+    return new_list
+",True,0.5,0.7541,0.7541,0.0,0,0,0.0,[],[]
+wrong_3_148,gpt-5.4-mini,reference,"def remove_extras(lst):
+    lst2=[]
+    for i in lst:
+        if i not in lst2:
+            lst2+= [i,]
+    return lst2
+",True,0.0476,0.1678,0.1678,0.0,0,0,0.0,[],[]
+wrong_3_149,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for i in lst:
+        if i not in result:
+            result.append(i)
+    return result
+    pass
+",True,0.0435,4.7735,4.7735,0.0,0,0,0.0,[],[]
+wrong_3_150,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new = []
+    for i in range(len(lst)):
+        if lst[i] not in new:
+            new.append(lst[i])
+    return new
+",True,0.5357,4.4194,4.4194,0.0,0,0,0.0,[],[]
+wrong_3_151,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for ele in lst:
+        if ele not in result:
+            result+= [ele,]
+    return result
+",True,0.1429,0.1299,0.1299,0.0,0,0,0.0,[],[]
+wrong_3_152,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for ele in lst:
+        if ele not in result:
+            result += [ele]
+    return result
+",True,0.2381,0.1887,0.1887,0.0,0,0,0.0,[],[]
+wrong_3_153,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for ele in lst:
+        if ele not in result:
+            result+= [ele,]
+    return result
+",True,0.1429,0.1986,0.1986,0.0,0,0,0.0,[],[]
+wrong_3_154,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for ele in lst:
+        if ele not in result:
+            result+= [ele,]
+    return result
+",True,0.0476,0.2061,0.2061,0.0,0,0,0.0,[],[]
+wrong_3_155,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for ele in lst:
+        if ele not in result:
+            result += [ele]
+    return result
+",True,0.1429,0.1451,0.1451,0.0,0,0,0.0,[],[]
+wrong_3_156,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new = []
+    for i in lst:
+        if i not in new:
+            new += [i]
+        else:
+            continue
+    return new
+",True,0.0455,0.1535,0.1535,0.0,0,0,0.0,[],[]
+wrong_3_157,gpt-5.4-mini,reference,"def remove_extras(lst):
+    lst_new = list()
+    for i in lst:
+        if (i in lst_new):
+            continue
+        else:
+            lst_new.append(i)
+    return lst_new
+",True,0.5926,0.2985,0.2985,0.0,0,0,0.0,[],[]
+wrong_3_158,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = []
+    i = set()
+    for n in lst:
+        if n not in i:
+            new_lst.append(n)
+            i.add(n)
+    return new_lst
+",True,0.6,2.3437,2.3437,0.0,0,0,0.0,[],[]
+wrong_3_159,gpt-5.4-mini,reference,"def remove_extras(lst):
+    newlist = []
+    for i in lst:
+        if i not in newlist:
+            newlist.append(i)
+    return newlist
+            
+",True,0.1,95.9613,95.9613,0.0,0,0,0.0,[],[]
+wrong_3_160,gpt-5.4-mini,rules,"def remove_extras(lst):
+    pst=[]
+    for i in lst:
+        if i not in pst:
+            pst.append(i)
+    return pst
+",True,0.0455,0.1097,0.1097,0.0,0,0,0.0,"[""extend_singleton_should_append""]",[]
+wrong_3_161,gpt-5.4-mini,reference,"def remove_extras(lst):
+    pst=[]
+    for i in lst:
+        if i not in pst:
+            pst.append(i)
+    return pst
+",True,0.0833,55.4338,55.4338,0.0,0,0,0.0,[],[]
+wrong_3_162,gpt-5.4-mini,reference,"def remove_extras(lst):
+    newlst = []
+    for i in lst:
+        if i not in newlst:
+            newlst.append(i)
+    return newlst
+",True,0.0455,17.0489,17.0489,0.0,0,0,0.0,[],[]
+wrong_3_163,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = [] 
+    for i in lst:
+        if i not in new_lst:
+            new_lst+= [i,]
+    return new_lst
+        
+",True,0.0476,0.1256,0.1256,0.0,0,0,0.0,[],[]
+wrong_3_164,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new = []
+    for i in lst:
+        if i not in new:
+            new+= [i,]
+    return new
+",True,0.0476,0.1258,0.1258,0.0,0,0,0.0,[],[]
+wrong_3_165,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i = 0
+    while i < len(lst):
+        if lst[i] in lst[i+1:]:
+            ext = lst[i+1:]
+            ext.remove(lst[i])
+            lst = lst[:i+1] + ext
+        else:
+            i = i + 1
+    return lst
+
+",True,0.7436,3.7349,3.7349,0.0,0,0,0.0,[],[]
+wrong_3_166,gpt-5.4-mini,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.5,0.2278,0.2278,0.0,0,0,0.0,[],[]
+wrong_3_167,gpt-5.4-mini,reference,"def remove_extras(lst):
+    newlst = []
+    for i in lst:
+        if i not in newlst:
+            newlst += [i]
+    return newlst    
+",True,0.125,0.307,0.307,0.0,0,0,0.0,[],[]
+wrong_3_168,gpt-5.4-mini,reference,"def remove_extras(lst):
+    a = []
+    for repeat in lst:
+        if repeat not in a:
+            a += [repeat]
+    return a
+        
+        
+",True,0.3214,3.0511,3.0511,0.0,0,0,0.0,[],[]
+wrong_3_169,gpt-5.4-mini,reference,"def remove_extras(lst):
+    a = []
+    for repeat in lst:
+        if repeat not in a:
+            a += [repeat]
+    return a
+        
+        
+",True,0.2857,3.3218,3.3218,0.0,0,0,0.0,[],[]
+wrong_3_170,gpt-5.4-mini,reference,"def remove_extras(lst):
+    a = []
+    for repeat in lst:
+        if repeat not in a:
+            a += [repeat,]
+    return a
+        
+        
+",True,0.2414,3.3619,3.3619,0.0,0,0,0.0,[],[]
+wrong_3_171,gpt-5.4-mini,reference,"def remove_extras(lst):
+    one = []
+    for repeat in lst:
+        if repeat not in one:
+            one += [repeat,]
+    return one
+",True,0.12,3.3841,3.3841,0.0,0,0,0.0,[],[]
+wrong_3_172,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i = []
+    for j in range(len(lst)):
+	    if lst[j] not in i:
+		    i.append(lst[j])
+    return i
+",True,0.5676,2.0285,2.0285,0.0,0,0,0.0,[],[]
+wrong_3_173,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i = []
+    for j in range(len(lst)):
+        if lst[j] not in i:
+            i.append(lst[j])
+    return i
+",True,0.6364,2.0788,2.0788,0.0,0,0,0.0,[],[]
+wrong_3_174,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new = []
+    for i in range(len(lst)):
+        if lst[i] not in new:
+            new.append(lst[i])
+    return new
+",True,0.7333,3.5507,3.5507,0.0,0,0,0.0,[],[]
+wrong_3_175,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in range(len(lst)):
+	    if lst[i] not in new_lst:
+		    new_lst.append(lst[i])
+    return new_lst
+",True,0.4839,4.025,4.025,0.0,0,0,0.0,[],[]
+wrong_3_176,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    for k in range(len(lst)):
+        if lst[k] in lst[:k]:
+            new_list = new_list
+        else:
+            new_list = new_list + [lst[k]]
+    return new_list 
+",True,0.7353,7.3993,7.3993,0.0,0,0,0.0,[],[]
+wrong_3_177,gpt-5.4-mini,reference,"def remove_extras(lst):
+    # your code here
+    n = 0
+    while n < len(lst):
+        for i in lst[n + 1:]:
+            if lst[n] == i:
+                lst.reverse()
+                lst.remove(i)
+                lst.reverse()
+        n = n + 1
+    return lst
+",True,0.7,3.6869,3.6869,0.0,0,0,0.0,[],[]
+wrong_3_178,gpt-5.4-mini,reference,"def remove_extras(lst):
+    # your code here
+    n = 0
+    while n < len(lst):
+        for i in lst[n + 1:]:
+            if lst[n] == i:
+                lst.reverse()
+                lst.remove(i)
+                lst.reverse()
+        n = n + 1
+    return lst
+    pass
+",True,0.619,3.6359,3.6359,0.0,0,0,0.0,[],[]
+wrong_3_179,gpt-5.4-mini,reference,"def remove_extras(lst):
+    # your code here
+    n = 0
+    while n < len(lst):
+        if lst[n] in lst[n+1:]:
+            ext = lst[n+1:]
+            ext.remove(lst[n])
+            lst = lst[:n+1] + ext
+        else:
+            n = n + 1
+    return lst
+",True,0.3448,5.5486,5.5486,0.0,0,0,0.0,[],[]
+wrong_3_180,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new = []
+    for i in range(len(lst)):
+        if lst[i] not in new:
+            new.append(lst[i])
+    return new
+",True,0.6111,2.9964,2.9964,0.0,0,0,0.0,[],[]
+wrong_3_181,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new = []
+    for i in range(len(lst)):
+        if lst[i] not in new:
+            new.append(lst[i])
+    return new
+",True,0.6111,2.8113,2.8113,0.0,0,0,0.0,[],[]
+wrong_3_182,gpt-5.4-mini,reference,"def remove_extras(lst):
+    a=[]
+    for i in range (len(lst)):
+        if lst[i] not in a:
+            a += [lst[i]]
+    return a
+",True,0.425,2.7059,2.7059,0.0,0,0,0.0,[],[]
+wrong_3_183,gpt-5.4-mini,reference,"def remove_extras(lst):
+    removed = []
+    for e in lst:
+        if e not in removed:
+            removed.append(e)
+    return removed
+",True,0.0455,91.7127,91.7127,0.0,0,0,0.0,[],[]
+wrong_3_184,gpt-5.4-mini,reference,"def remove_extras(lst):
+    removed = []
+    for e in lst:
+        if e not in removed:
+            removed.append(e)
+    return removed
+",True,0.1304,94.2661,94.2661,0.0,0,0,0.0,[],[]
+wrong_3_185,gpt-5.4-mini,reference,"def remove_extras(lst):
+    removed = []
+    for e in lst:
+       if (e in lst) and (e not in removed):
+          removed.append(e)
+    return removed
+",True,0.069,33.1413,33.1413,0.0,0,0,0.0,[],[]
+wrong_3_186,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    for elem in lst:
+        if elem not in new_list:
+            new_list.append(elem)
+    return new_list
+    pass
+",True,0.16,14.1048,14.1048,0.0,0,0,0.0,[],[]
+wrong_3_187,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    for elem in lst:
+        if elem not in new_list:
+            new_list += [elem]
+    return new_list
+",True,0.2308,8.7373,8.7373,0.0,0,0,0.0,[],[]
+wrong_3_188,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    for elem in lst:
+        if elem not in new_list:
+            new_list += [elem,]
+    return new_list
+",True,0.1667,14.4148,14.4148,0.0,0,0,0.0,[],[]
+wrong_3_189,gpt-5.4-mini,reference,"def remove_extras(lst):
+    newlst = []
+    for i in lst:
+        if i in newlst:
+            continue
+        newlst.append(i)
+    return newlst
+",True,0.7368,0.2843,0.2843,0.0,0,0,0.0,[],[]
+wrong_3_190,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i = 0
+    while i < len(lst):
+        for j in lst[i + 1:]:
+            if lst[i] == j:
+                lst.reverse()
+                lst.remove(j)
+                lst.reverse()
+        i = i + 1
+    return lst
+",True,0.7568,5.01,5.01,0.0,0,0,0.0,[],[]
+wrong_3_191,gpt-5.4-mini,reference,"def remove_extras(lst):
+    check=True
+    lst1=[]
+    for i in lst:
+        check=True
+        for j in lst1:
+            if j==i:
+                check=False
+        if check:
+            lst1+=[i,]
+    return lst1
+",True,0.0909,0.3087,0.3087,0.0,0,0,0.0,[],[]
+wrong_3_192,gpt-5.4-mini,reference,"def remove_extras(lst):
+    rev_lst=lst.copy()
+    rev_lst.reverse()
+    ori_len=len(lst)
+    for i in range(ori_len):
+        if rev_lst[i] in rev_lst[i+1:]:
+            lst.pop(ori_len-i-1)
+    return lst
+",True,0.1458,5.0385,5.0385,0.0,0,0,0.0,[],[]
+wrong_3_193,gpt-5.4-mini,reference,"def remove_extras(lst):
+    rev_lst=lst.copy()
+    rev_lst.reverse()
+    ori_len=len(lst)
+    new_lst=lst.copy()
+    for i in range(ori_len):
+        if rev_lst[i] in rev_lst[i+1:]:
+            new_lst.pop(ori_len-i-1)
+    return new_lst
+",True,0.1321,4.8899,4.8899,0.0,0,0,0.0,[],[]
+wrong_3_194,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    for item in lst:
+        if item not in new_list:
+            new_list.append(item)
+    return new_list
+",True,0.0952,8.9138,8.9138,0.0,0,0,0.0,[],[]
+wrong_3_195,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    n = len(lst)
+    for counter1 in range(n):
+        if lst[counter1] not in new_list:
+            new_list.append(lst[counter1])
+    return new_list
+                
+",True,0.5556,2.3872,2.3872,0.0,0,0,0.0,[],[]
+wrong_3_196,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        if i not in new_lst:
+            new_lst = new_lst + [i,]
+        else:
+            continue
+    return new_lst
+    
+",True,0.0417,0.1462,0.1462,0.0,0,0,0.0,[],[]
+wrong_3_197,gpt-5.4-mini,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.1231,0.1231,0.0,0,0,0.0,[],[]
+wrong_3_198,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new = []
+    for x in lst:
+        if x not in new:
+            new+= [x,]
+    return new
+    
+",True,0.0476,0.1199,0.1199,0.0,0,0,0.0,[],[]
+wrong_3_199,gpt-5.4-mini,reference,"def remove_extras(lst):
+    if lst==[]:
+        return []
+    new_lst=[lst[0]]
+    for i in range(len(lst)):
+        a=lst[i]
+        for h in range(i,len(lst)):
+            if a!=lst[h]:
+                ele=lst[h]
+                if ele in new_lst:
+                    continue
+                new_lst.append(ele)
+    return new_lst
+",True,0.2258,2.5095,2.5095,0.0,0,0,0.0,[],[]
+wrong_3_200,gpt-5.4-mini,reference,"def remove_extras(lst):
+    if lst==[]:
+        return []
+    new_lst=[lst[0]]
+    for i in range(len(lst)):
+        a=lst[i]
+        for h in range(i,len(lst)):
+            if a!=lst[h]:
+                ele=lst[h]
+                if ele in new_lst:
+                    continue
+                new_lst.append(ele)
+    return new_lst
+",True,0.2097,2.8299,2.8299,0.0,0,0,0.0,[],[]
+wrong_3_201,gpt-5.4-mini,reference,"def remove_extras(lst):
+    lst1 = []
+    for item in lst:
+        if (item in lst1):
+            continue
+        else:
+             lst1 += [item,]
+    return lst1
+",True,0.0455,0.1479,0.1479,0.0,0,0,0.0,[],[]
+wrong_3_202,gpt-5.4-mini,reference,"def remove_extras(lst):
+    if lst==[]:
+        return []
+    new_lst=[lst[0]]
+    for i in range(len(lst)):
+        a=lst[i]
+        for h in range(i,len(lst)):
+            if a!=lst[h]:
+                ele=lst[h]
+                if ele in new_lst:
+                    continue
+                new_lst.append(ele)
+    return new_lst
+",True,0.1935,2.6063,2.6063,0.0,0,0,0.0,[],[]
+wrong_3_203,gpt-5.4-mini,reference,"def remove_extras(lst):
+    elem=[]
+    for i in lst:
+        while i not in elem:
+            elem.append(i)
+    return elem
+",True,0.6429,0.2167,0.2167,0.0,0,0,0.0,[],[]
+wrong_3_204,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new = []
+    for i in range(len(lst)):
+        if lst[i] not in new:
+            new.append(lst[i])
+    return new
+",True,0.5652,2.6613,2.6613,0.0,0,0,0.0,[],[]
+wrong_3_205,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in range(len(lst)):
+	    if lst[i] not in new_lst:
+		    new_lst.append(lst[i])
+    return new_lst
+",True,0.6,3.4555,3.4555,0.0,0,0,0.0,[],[]
+wrong_3_206,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for i in lst:
+        if i not in result:
+            result = result + [i]
+    return result
+",True,0.1429,0.1449,0.1449,0.0,0,0,0.0,[],[]
+wrong_3_207,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i = []
+    n = len(lst)
+    for counter1 in range(n):
+        if lst[counter1] not in i:
+            i.append(lst[counter1])
+    return i
+                
+",True,0.64,3.0579,3.0579,0.0,0,0,0.0,[],[]
+wrong_3_208,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    n = len(lst)
+    for counter1 in range(n):
+        if lst[counter1] not in new_list:
+            new_list.append(lst[counter1])
+    return new_list
+                
+",True,0.6154,2.6371,2.6371,0.0,0,0,0.0,[],[]
+wrong_3_209,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i = []
+    n = len(lst)
+    for counter1 in range(n):
+        if lst[counter1] not in i:
+            i.append(lst[counter1])
+    return i
+                
+",True,0.64,3.1103,3.1103,0.0,0,0,0.0,[],[]
+wrong_3_210,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    for elem in lst:
+        if elem not in new_list:
+            new_list += [elem,]
+    return new_list
+",True,0.125,8.5929,8.5929,0.0,0,0,0.0,[],[]
+wrong_3_211,gpt-5.4-mini,reference,"def remove_extras(lst):
+    element = []
+    for count in lst:
+        if element.count(count) == 0:
+            element.append(count)
+    return element
+",True,0.675,2.9248,2.9248,0.0,0,0,0.0,[],[]
+wrong_3_212,gpt-5.4-mini,reference,"def remove_extras(lst):
+    n = list()
+    for j in lst:
+        if (j in n):
+            continue
+        else:
+            n.append(j)
+    return n
+",True,0.7846,3.5119,3.5119,0.0,0,0,0.0,[],[]
+wrong_3_213,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    for element in lst:
+        if element in new_list:
+            continue
+        else:
+            new_list += [element]
+    return new_list
+",True,0.2174,9.0687,9.0687,0.0,0,0,0.0,[],[]
+wrong_3_214,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i = []
+    curr = 0
+    while curr < len(lst):
+        new = lst[curr]
+        if new not in i:
+            i.append(new)
+        curr = curr + 1
+    return i
+",True,0.7727,8.9679,8.9679,0.0,0,0,0.0,[],[]
+wrong_3_215,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i = []
+    curr = 0
+    while curr < len(lst):
+        new = lst[curr]
+        if new not in i:
+            i.append(new)
+        curr = curr + 1
+    return i
+",True,0.7174,9.4016,9.4016,0.0,0,0,0.0,[],[]
+wrong_3_216,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i=0
+    new = []
+    while i<len(lst):    
+        curr = lst[i]
+        new += [curr,]
+        for ele in lst:
+            if ele == curr:
+                continue
+            new += [ele,]
+        lst = new.copy()
+        new = []
+        i +=1
+    lst.reverse()
+    return lst
+",True,0.2041,4.2813,4.2813,0.0,0,0,0.0,[],[]
+wrong_3_217,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i = []
+    new = 0
+    while new < len(lst):
+        curr = lst[new]
+        if curr not in i:
+            i.append(curr)
+        new = new + 1
+    return i
+",True,0.6122,4.6853,4.6853,0.0,0,0,0.0,[],[]
+wrong_3_218,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i=0
+    new = []
+    while i<=len(lst)-1:    
+        curr = lst[i]
+        new += [curr,]
+        for ele in lst:
+            if ele == curr:
+                continue
+            new += [ele,]
+        lst = new.copy()
+        new = []
+        i +=1
+    lst.reverse()
+    return lst
+",True,0.24,4.4005,4.4005,0.0,0,0,0.0,[],[]
+wrong_3_219,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    for item in lst:
+        if new_list.count(item) == 0:
+            new_list.append(item)
+    return new_list
+",True,0.5,0.5384,0.5384,0.0,0,0,0.0,[],[]
+wrong_3_220,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    for item in lst:
+        if new_list.count(item) == 0:
+            new_list.append(item)
+    return new_list
+",True,0.5,0.5281,0.5281,0.0,0,0,0.0,[],[]
+wrong_3_221,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in range(len(lst)):
+	    if lst[i] not in new_lst:
+		    new_lst.append(lst[i])
+    return new_lst
+",True,0.4839,2.4774,2.4774,0.0,0,0,0.0,[],[]
+wrong_3_222,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst=[]
+    for i in lst:
+        if i not in new_lst:
+            new_lst.append(i)
+    return new_lst
+        
+    pass
+",True,0.2963,17.76,17.76,0.0,0,0,0.0,[],[]
+wrong_3_223,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst=[]
+    for i in lst:
+        if i not in new_lst:
+            new_lst.append(i)
+    return new_lst
+        
+    pass
+",True,0.2593,48.7829,48.7829,0.0,0,0,0.0,[],[]
+wrong_3_224,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new = []
+    for i in range(len(lst)):
+        if lst[i] not in new:
+            new.append(lst[i])
+    return new
+",True,0.5,3.9768,3.9768,0.0,0,0,0.0,[],[]
+wrong_3_225,gpt-5.4-mini,reference,"def remove_extras(lst):
+    for i in lst:
+        if lst.count(i) > 1:
+            num = lst[:lst.index(i)+1]
+            right = lst[lst.index(i)+1:]
+            right.remove(i)
+            lst = num + right
+    return lst
+",True,0.9143,4.2305,4.2305,0.0,0,0,0.0,[],[]
+wrong_3_226,gpt-5.4-mini,reference,"def remove_extras(lst):
+    for i in lst:
+        if lst.count(i) > 1:
+            num = lst[:lst.index(i)+1]
+            right = lst[lst.index(i)+1:]
+            right.remove(i)
+            lst = num + right
+    return lst
+",True,0.9429,3.5155,3.5155,0.0,0,0,0.0,[],[]
+wrong_3_227,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    for item in lst:
+        if new_list.count(item) == 0:
+            new_list.append(item)
+    return new_list
+",True,0.5,0.5763,0.5763,0.0,0,0,0.0,[],[]
+wrong_3_228,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    for item in lst:
+        if new_list.count(item) == 0:
+            new_list.append(item)
+    return new_list
+",True,0.5417,0.6314,0.6314,0.0,0,0,0.0,[],[]
+wrong_3_229,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    for item in lst:
+        if new_list.count(item) == 0:
+            new_list.append(item)
+    return new_list
+",True,0.56,0.558,0.558,0.0,0,0,0.0,[],[]
+wrong_3_230,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        if i not in new_lst:
+            new_lst.append(i)
+    return new_lst
+        
+    pass
+",True,0.2222,98.7086,98.7086,0.0,0,0,0.0,[],[]
+wrong_3_231,gpt-5.4-mini,reference,"def remove_extras(lst):
+    rem_lst=[]
+    for i in lst:
+        if rem_lst.count(i)==0:
+            rem_lst+=[i]
+    return rem_lst
+",True,0.25,0.7064,0.7064,0.0,0,0,0.0,[],[]
+wrong_3_232,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        if new_lst.count(i) == 0:
+            new_lst.append(i)
+    return new_lst
+",True,0.16,18.0997,18.0997,0.0,0,0,0.0,[],[]
+wrong_3_233,gpt-5.4-mini,rules,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        if new_lst.count(i) != 1:
+            new_lst.append(i)
+    return new_lst
+",True,0.12,12.8244,12.8244,0.0,0,0,0.0,"[""append_to_output_not_input"", ""prefer_consistent_new_lst_name"", ""count_should_target_accumulator"", ""prefer_consistent_new_lst_name"", ""generic_flip_compare""]",[]
+wrong_3_234,gpt-5.4-mini,rules,"def remove_extras(lst):
+    new_lst = []
+    for i in lst:
+        if new_lst.count(i) != 1:
+            new_lst.append(i)
+    return new_lst
+",True,0.08,0.2305,0.2305,0.0,0,0,0.0,"[""count_should_target_accumulator"", ""prefer_consistent_new_lst_name"", ""generic_flip_compare""]",[]
+wrong_3_235,gpt-5.4-mini,reference,"def remove_extras(lst):
+    newseq = []
+    for element in lst:
+        if element not in newseq:
+            newseq+= [element,]
+    return newseq
+",True,0.0455,0.1185,0.1185,0.0,0,0,0.0,[],[]
+wrong_3_236,gpt-5.4-mini,reference,"def remove_extras(lst):
+    l = []
+    i = len(lst)
+    for j in range(i):
+        if lst[j] not in l:
+            l.append(lst[j])
+    return l
+                
+",True,0.6053,2.2497,2.2497,0.0,0,0,0.0,[],[]
+wrong_3_237,gpt-5.4-mini,reference,"def remove_extras(lst):
+    lst_new=[]
+    l=len(lst)
+    for i in range (l):
+        if lst[i] in lst_new:
+            continue
+        else:
+            lst_new.append(lst[i])
+    return lst_new
+
+",True,0.5946,2.2324,2.2324,0.0,0,0,0.0,[],[]
+wrong_3_238,gpt-5.4-mini,reference,"def remove_extras(lst):
+    l = []
+    i = len(lst)
+    for j in range(i):
+        if lst[j] not in l:
+            l.append(lst[j])
+    return l
+                
+",True,0.5641,2.0313,2.0313,0.0,0,0,0.0,[],[]
+wrong_3_239,gpt-5.4-mini,reference,"def remove_extras(lst):
+    l = []
+    i = len(lst)
+    for j in range(i):
+        if lst[j] not in l:
+            l.append(lst[j])
+    return l
+                
+",True,0.5952,2.4109,2.4109,0.0,0,0,0.0,[],[]
+wrong_3_240,gpt-5.4-mini,reference,"def remove_extras(mylist):
+    i=[]
+    for x in mylist:
+        if x not in i:
+            i.append(x)
+    return i
+",True,0.4737,97.391,97.391,0.0,0,0,0.0,[],[]
+wrong_3_241,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in range(len(lst)):
+        if lst[i] not in new_lst:
+            new_lst.append(lst[i])
+    return new_lst
+",True,0.7727,4.3482,4.3482,0.0,0,0,0.0,[],[]
+wrong_3_242,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    for i in lst:
+        if i in new_list:
+            continue
+        else:
+            new_list.append(i)
+    return new_list
+",True,0.1786,3.4798,3.4798,0.0,0,0,0.0,[],[]
+wrong_3_243,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    for i in lst:
+        if i in new_list:
+            continue
+        else:
+            new_list.append(i)
+    return new_list
+",True,0.1154,2.9609,2.9609,0.0,0,0,0.0,[],[]
+wrong_3_244,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    for i in lst:
+        if i in new_list:
+            continue
+        else:
+            new_list.append(i)
+    return new_list
+",True,0.1154,2.9204,2.9204,0.0,0,0,0.0,[],[]
+wrong_3_245,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i=1
+    if lst==[]: return lst
+    
+    while i!=len(lst):
+        if lst[i] in lst[:i]:
+            del lst[i]
+            continue
+        i+=1
+    return lst
+",True,0.6222,2.4521,2.4521,0.0,0,0,0.0,[],[]
+wrong_3_246,gpt-5.4-mini,rules,"def remove_extras(lst):
+    i=1
+    while i < len(lst):
+        if lst[i] in lst[:i]:
+            del lst[i]
+            continue
+        i+=1
+    return lst
+",True,0.0278,0.5483,0.5483,0.0,0,0,0.0,"[""generic_flip_compare"", ""generic_flip_compare"", ""generic_flip_compare""]",[]
+wrong_3_247,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_lst = []
+    for i in range(len(lst)):
+        if lst[i] not in new_lst:
+            new_lst += [lst[i]]
+    return new_lst
+        
+        # your code here
+    pass
+",True,0.0667,2.4225,2.4225,0.0,0,0,0.0,[],[]
+wrong_3_248,gpt-5.4-mini,reference,"def remove_extras(lst):
+    newLst = []
+    hashtable = len(lst)
+    for i in range(hashtable):
+        if lst[i] not in newLst:
+            newLst.append(lst[i])
+            
+        
+    return newLst
+",True,0.4474,2.1863,2.1863,0.0,0,0,0.0,[],[]
+wrong_3_249,gpt-5.4-mini,rules,"def remove_extras(lst):
+    new_list = []
+    for number in lst:
+       if number not in new_list:
+           new_list.append(number)
+    return new_list
+",True,0.0455,0.1165,0.1165,0.0,0,0,0.0,"[""use_lst_not_builtin_list""]",[]
+wrong_3_250,gpt-5.4-mini,reference,"def remove_extras(lst):
+    newlist = []
+    for element in lst:
+        if newlist.count(element)==0:
+            newlist+=[element]
+    return newlist
+    pass
+",True,0.04,0.2319,0.2319,0.0,0,0,0.0,[],[]
+wrong_3_251,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for i in lst:
+        if result.count(i)==0:
+            result.append(i)
+    return result
+    pass
+",True,0.2222,0.3515,0.3515,0.0,0,0,0.0,[],[]
+wrong_3_252,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new = []
+    for ele in lst:
+        if ele not in new:
+            new = new + [ele]
+    return new
+",True,0.0417,0.1348,0.1348,0.0,0,0,0.0,[],[]
+wrong_3_253,gpt-5.4-mini,reference,"def remove_extras(lst):
+    # your code here
+    new_list = []
+    for i in lst:
+        if i not in new_list:
+            new_list = new_list + [i]
+    return new_list
+",True,0.0435,0.4053,0.4053,0.0,0,0,0.0,[],[]
+wrong_3_254,gpt-5.4-mini,reference,"def remove_extras(lst):
+	if lst == []:
+		return []
+	elif lst[-1] in lst[:-1]:
+		return remove_extras(lst[:-1])
+	else:
+		return remove_extras(lst[:-1]) + [lst[-1]]
+",True,0.7292,5.193,5.193,0.0,0,0,0.0,[],[]
+wrong_3_255,gpt-5.4-mini,reference,"from collections import OrderedDict
+
+def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst)) 
+  
+",True,0.0714,0.1109,0.1109,0.0,0,0,0.0,[],[]
+wrong_3_256,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    for elem in lst:
+        if elem not in new_list:
+            new_list += [elem,]
+    return new_list
+",True,0.125,6.3439,6.3439,0.0,0,0,0.0,[],[]
+wrong_3_257,gpt-5.4-mini,rules,"def remove_extras(lst):
+    new_list = []
+    for elem in lst:
+        if elem not in new_list:
+            new_lst = new_list.append(elem)
+    return new_list 
+",True,0.0435,0.1074,0.1074,0.0,0,0,0.0,"[""prefer_consistent_new_lst_name""]",[]
+wrong_3_258,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i = []
+    counter = 0
+    while counter < len(lst):
+        temp = lst[counter]
+        if temp not in i:
+            i.append(temp)
+        counter = counter + 1
+    return i
+",True,0.7826,3.172,3.172,0.0,0,0,0.0,[],[]
+wrong_3_259,gpt-5.4-mini,rules,"def remove_extras(lst):
+    new_list = []
+    for number in lst:
+       if number not in new_list:
+           new_list.append(number)
+    return new_list
+",True,0.0455,0.1386,0.1386,0.0,0,0,0.0,"[""use_lst_not_builtin_list""]",[]
+wrong_3_260,gpt-5.4-mini,reference,"def remove_extras(lst):
+    newlist = []
+    for element in lst:
+        if newlist.count(element)==0:
+            newlist.append(element)
+    return newlist
+    pass
+",True,0.4762,0.31,0.31,0.0,0,0,0.0,[],[]
+wrong_3_261,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i = []
+    counter = 0
+    while counter < len(lst):
+        temp = lst[counter]
+        if temp not in i:
+            i.append(temp)
+        counter = counter + 1
+    return i
+",True,0.7826,3.1869,3.1869,0.0,0,0,0.0,[],[]
+wrong_3_262,gpt-5.4-mini,reference,"def remove_extras(lst):
+    newlist = []
+    for element in lst:
+        if newlist.count(element)==0:
+            newlist.append(element)
+    return newlist
+    pass
+",True,0.4091,0.5925,0.5925,0.0,0,0,0.0,[],[]
+wrong_3_263,gpt-5.4-mini,reference,"def remove_extras(lst):
+    i=1
+    if lst==[]: return lst
+    
+    while i!=len(lst):
+        if lst[i] in lst[:i]:
+            del lst[i]
+            continue
+        i+=1
+    return lst
+",True,0.6364,2.8886,2.8886,0.0,0,0,0.0,[],[]
+wrong_3_264,gpt-5.4-mini,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.1315,0.1315,0.0,0,0,0.0,[],[]
+wrong_3_265,gpt-5.4-mini,reference,"def remove_extras(lst):
+    listt = []
+    for element in lst:
+        if listt.count(element) == 0:
+            listt.append(element)
+    return listt
+",True,0.2759,0.2301,0.2301,0.0,0,0,0.0,[],[]
+wrong_3_266,gpt-5.4-mini,reference,"def remove_extras(lst):
+    newlist = []
+    for element in lst:
+        if newlist.count(element)==0:
+            newlist.append(element)
+    return newlist
+    pass
+",True,0.5294,0.2368,0.2368,0.0,0,0,0.0,[],[]
+wrong_3_267,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    for item in lst:
+        if new_list.count(item) == 0:
+            new_list.append(item)
+    return new_list
+",True,0.8621,3.5142,3.5142,0.0,0,0,0.0,[],[]
+wrong_3_268,gpt-5.4-mini,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst)) 
+  
+",True,0.0909,0.1404,0.1404,0.0,0,0,0.0,[],[]
+wrong_3_269,gpt-5.4-mini,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst)) 
+  
+",True,0.0909,0.1319,0.1319,0.0,0,0,0.0,[],[]
+wrong_3_270,gpt-5.4-mini,reference,"def remove_extras(lst):
+    newlist = []
+    for i in lst:
+        if i not in newlist:
+            newlist += i,
+    return newlist
+",True,0.0909,0.2233,0.2233,0.0,0,0,0.0,[],[]
+wrong_3_271,gpt-5.4-mini,reference,"def remove_extras(lst):
+    s = []
+    for i in lst:
+        if i not in s:
+            s.append(i)
+    return s
+",True,0.1,87.2827,87.2827,0.0,0,0,0.0,[],[]
+wrong_3_272,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for e in lst:
+        if e not in result:
+            result += (e,)
+    return result
+",True,0.125,3.2207,3.2207,0.0,0,0,0.0,[],[]
+wrong_3_273,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for e in lst:
+        if e not in result:
+            result += (e,)
+        else:
+            continue
+    return result
+",True,0.12,3.3393,3.3393,0.0,0,0,0.0,[],[]
+wrong_3_274,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for e in lst:
+        if e not in result:
+            result.append(e)
+        else:
+            continue
+    return result
+",True,0.12,3.3776,3.3776,0.0,0,0,0.0,[],[]
+wrong_3_275,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for e in lst:
+        if e not in result:
+            result.append(e)
+        else:
+            continue
+    return result
+",True,0.12,3.2254,3.2254,0.0,0,0,0.0,[],[]
+wrong_3_276,gpt-5.4-mini,reference,"def remove_extras(lst):
+    result = []
+    for e in lst:
+        if e not in result:
+            result.append(e)
+        else:
+            continue
+    return result
+",True,0.1154,3.3742,3.3742,0.0,0,0,0.0,[],[]
+wrong_3_277,gpt-5.4-mini,rules,"def remove_extras(lst):
+    if lst == []:
+        return []
+    else: 
+        result = [lst[0],]
+        for e in lst:
+            if e not in result:
+                result.append(e)
+            else:
+                continue
+        return result
+",True,0.0303,0.1129,0.1129,0.0,0,0,0.0,"[""empty_input_should_return_empty_list""]",[]
+wrong_3_278,gpt-5.4-mini,rules,"def remove_extras(lst):
+    if lst == []:
+        return []
+    else: 
+        result = [lst[0],]
+        for e in lst:
+            if e not in result:
+                result.append(e)
+            else:
+                continue
+        return result
+",True,0.0303,0.1088,0.1088,0.0,0,0,0.0,"[""empty_input_should_return_empty_list""]",[]
+wrong_3_279,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    for x in lst:
+        if x not in new_list:
+            new_list += [x]
+    return new_list
+",True,0.0952,0.2985,0.2985,0.0,0,0,0.0,[],[]
+wrong_3_280,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    for x in lst:
+        if x not in new_list:
+            new_list.append(x)
+    return new_list
+",True,0.0455,8.442,8.442,0.0,0,0,0.0,[],[]
+wrong_3_281,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    for x in lst:
+        if x not in new_list:
+            new_list += [x]
+    return new_list
+",True,0.0952,0.309,0.309,0.0,0,0,0.0,[],[]
+wrong_3_282,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list = []
+    for x in lst:
+        if x not in new_list:
+            new_list += [x]
+    return new_list
+",True,0.0952,0.3144,0.3144,0.0,0,0,0.0,[],[]
+wrong_3_283,gpt-5.4-mini,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.5,0.1629,0.1629,0.0,0,0,0.0,[],[]
+wrong_3_284,gpt-5.4-mini,reference,"def remove_extras(lst):
+    x = []
+    for i in range(len(lst)):
+        if lst[i] not in x:
+            x.append(lst[i])
+    return x
+",True,0.5909,2.5111,2.5111,0.0,0,0,0.0,[],[]
+wrong_3_285,gpt-5.4-mini,reference,"def remove_extras(lst):
+    lst2 = []
+    for x in lst:
+        if lst2.count(x) == 0:
+            lst2.append(x)
+    return lst2
+",True,0.12,10.7909,10.7909,0.0,0,0,0.0,[],[]
+wrong_3_286,gpt-5.4-mini,reference,"def remove_extras(lst):
+    newlist = []
+    for element in lst:
+        if newlist.count(element)==0:
+            newlist.append(element)
+    return newlist
+    pass
+",True,0.6774,5.0265,5.0265,0.0,0,0,0.0,[],[]
+wrong_3_287,gpt-5.4-mini,reference,"def remove_extras(lst):
+    newlist = []
+    for element in lst:
+        if newlist.count(element)==0:
+            newlist.append(element)
+    return newlist
+    pass
+",True,0.6774,5.0069,5.0069,0.0,0,0,0.0,[],[]
+wrong_3_288,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new = []
+    for i in lst:
+        j=True
+        for k in new:
+            if k==i:
+                j=False
+        if j:
+            new+=[i]
+    return new
+",True,0.76,16.075,16.075,0.0,0,0,0.0,[],[]
+wrong_3_289,gpt-5.4-mini,rules,"def remove_extras(lst):
+    new_lst=[]
+    for i in range(len(lst)):
+        judge=0
+        for j in range(i):
+            if lst[i]==lst[j]:
+                judge=1
+        if judge==0:
+            new_lst+=[lst[i],]
+    return new_lst
+    # your code here
+    pass
+",True,0.0408,0.6015,0.6015,0.0,0,0,0.0,"[""prefer_consistent_new_lst_name"", ""prefer_consistent_new_lst_name""]",[]
+wrong_3_290,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new_list=[]
+    for element in lst:
+        if not is_same(element,new_list):
+            new_list.append(element)
+        else:
+            continue
+    return new_list
+    
+def is_same(test,lst):
+    for e in lst:
+        if e == test:
+            return True
+        else:
+            continue
+    return False
+    
+",True,0.0233,6.9668,6.9668,0.0,0,0,0.0,[],[]
+wrong_3_291,gpt-5.4-mini,reference,"def remove_extras(lst):
+    lst1 = []
+    for i in lst:
+        if i not in lst1:
+            lst1.append(i)
+    return lst1
+            
+",True,0.0455,88.7311,88.7311,0.0,0,0,0.0,[],[]
+wrong_3_292,gpt-5.4-mini,reference,"def remove_extras(lst):
+    keep = []
+    for remove in lst:
+        if remove not in keep:
+            keep.append(remove)
+    return keep
+    pass
+",True,0.5128,7.3433,7.3433,0.0,0,0,0.0,[],[]
+wrong_3_293,gpt-5.4-mini,reference,"def remove_extras(lst):
+    keep = []
+    for remove in lst:
+        if remove not in keep:
+            keep.append(remove)
+    return keep
+    pass
+",True,0.5682,8.0089,8.0089,0.0,0,0,0.0,[],[]
+wrong_3_294,gpt-5.4-mini,reference,"def remove_extras(lst):
+    keep = []
+    for destroy in lst:
+        if destroy not in keep:
+            keep.append(destroy)
+    return keep
+",True,0.5814,8.5611,8.5611,0.0,0,0,0.0,[],[]
+wrong_3_295,gpt-5.4-mini,reference,"def remove_extras(lst):
+    keep = []
+    for i in lst :
+        if i not in keep :
+            keep.append(i)
+    return keep
+",True,0.0455,26.0392,26.0392,0.0,0,0,0.0,[],[]
+wrong_3_296,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new = []
+    x = 0
+    for x in range(len(lst)):
+        if lst[x] not in new:
+            new += [lst[x]]
+    return new
+",True,0.2778,100.0281,100.0281,0.0,0,0,0.0,[],[]
+wrong_3_297,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new = []
+    x = 0
+    for x in range(len(lst)):
+        if lst[x] not in new:
+            new += [lst[x]]
+        else:
+            continue
+    return new
+",True,0.2162,96.1003,96.1003,0.0,0,0,0.0,[],[]
+wrong_3_298,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new = []
+    x = 0
+    for x in range(len(lst)):
+        if lst[x] not in new:
+            new += [lst[x],]
+            continue
+    return new
+",True,0.0882,2.741,2.741,0.0,0,0,0.0,[],[]
+wrong_3_299,gpt-5.4-mini,reference,"def remove_extras(lst):
+    a=[]
+    for i in lst:
+        if i not in a:
+            a+= [i,]
+    return a
+",True,0.0476,0.1251,0.1251,0.0,0,0,0.0,[],[]
+wrong_3_300,gpt-5.4-mini,reference,"def remove_extras(lst):
+    new = []
+    for x in lst:
+        if x not in new:
+            new.append(x)
+    return new
+",True,0.0455,25.0286,25.0286,0.0,0,0,0.0,[],[]
+wrong_3_301,gpt-5.4-mini,reference,"def remove_extras(lst):
+    n=[]
+    for i in lst:
+        while i not in n:
+            n.append(i)
+    return n
+",True,0.7377,3.8868,3.8868,0.0,0,0,0.0,[],[]
+wrong_3_302,gpt-5.4-mini,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.1545,0.1545,0.0,0,0,0.0,[],[]
+wrong_3_303,gpt-5.4-mini,rules,"def remove_extras(lst):
+    a = []
+    for i in lst:
+        if i in a:
+            continue
+        a.append(i)
+    return a
+    
+",True,0.0435,0.1684,0.1684,0.0,0,0,0.0,"[""extend_singleton_should_append""]",[]
+wrong_3_304,gpt-5.4-mini,rules,"def remove_extras(lst):
+    a = []
+    for i in lst:
+        if i in a:
+            continue
+        else:
+            a.append(i)
+    return a
+    
+",True,0.0435,0.1297,0.1297,0.0,0,0,0.0,"[""extend_singleton_should_append""]",[]
+wrong_3_305,gpt-5.4-mini,rules,"def remove_extras(lst):
+    new_lst  = []
+    for i in lst:
+        if i not in new_lst:
+            new_lst.append(i)
+    return new_lst
+",True,0.0455,0.156,0.156,0.0,0,0,0.0,"[""prefer_consistent_new_lst_name""]",[]
+wrong_3_306,gpt-5.4-mini,reference,"def remove_extras(lst):
+    return list(OrderedDict.fromkeys(lst))
+",True,0.2,0.1517,0.1517,0.0,0,0,0.0,[],[]
+wrong_3_307,gpt-5.4-mini,reference,"def remove_extras(lst):
+    t=[]
+    for i in lst:
+        if i not in t:
+            t.append(i)
+    return t
+",True,0.1,90.5761,90.5761,0.0,0,0,0.0,[],[]
+wrong_3_308,gpt-5.4-mini,reference,"def remove_extras(lst):
+    t=[]
+    for i in lst:
+        if i not in t:
+            t.append(i)
+    return t
+",True,0.1818,88.6202,88.6202,0.0,0,0,0.0,[],[]

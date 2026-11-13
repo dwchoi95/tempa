@@ -1,0 +1,236 @@
+rule fix_append_removed_item_to_selected_tuple
+symptoms: wrong
+match:
+    lst.remove($pick)
+    $out.append($pick)
+where:
+    inside("def sort_age($*args): $B:Stmts") and
+    some($B, "for $v in lst:\n    if $v[1] < $pick[1]:\n        $pick = $v") or
+    some($B, "for $v in lst:\n    if $v[1] > $pick[1]:\n        $pick = $v") or
+    some($B, "for $v in lst:\n    if $v[1] >= $pick[1]:\n        $pick = $v") or
+    some($B, "for $v in lst:\n    if $v[1] <= $pick[1]:\n        $pick = $v")
+rewrite:
+    lst.remove($pick)
+    $out.append($pick)
+
+rule fix_remove_append_wrong_variable
+symptoms: wrong
+match:
+    lst.remove($x)
+    $out.append($x)
+where:
+    inside("def sort_age($*args): $B:Stmts") and
+    some($B, "for $v in lst:\n    if $v[1] < $pick[1]:\n        $pick = $v") or
+    some($B, "for $v in lst:\n    if $v[1] > $pick[1]:\n        $pick = $v") or
+    some($B, "for $v in lst:\n    if $v[1] >= $pick[1]:\n        $pick = $v") or
+    some($B, "for $v in lst:\n    if $v[1] <= $pick[1]:\n        $pick = $v")
+rewrite:
+    lst.remove($pick)
+    $out.append($pick)
+
+rule fix_oldest_selection_comparison
+symptoms: wrong
+match:
+    if $v[1] >= $best[1]:
+        $best = $v
+where:
+    inside("def sort_age($*args): $B:Stmts")
+rewrite:
+    if $v[1] > $best[1]:
+        $best = $v
+
+rule fix_youngest_selection_comparison
+symptoms: wrong
+match:
+    if $v[1] <= $best[1]:
+        $best = $v
+where:
+    inside("def sort_age($*args): $B:Stmts")
+rewrite:
+    if $v[1] < $best[1]:
+        $best = $v
+
+rule fix_identifier_to_current_element
+symptoms: wrong
+match:
+    $x = n
+rewrite:
+    $x = element
+where:
+    inside("def sort_age($*args): $B:Stmts") and
+    some($B, "for element in lst:\n    if element[1] >= i[1]:\n        i = n") or
+    some($B, "for element in lst:\n    if element[1] >= i[1]:\n        i = n")
+
+rule fix_a_to_lst_in_removal
+symptoms: wrong
+match:
+    $a.remove($v)
+where:
+    inside("def sort_age($*args): $B:Stmts") and
+    some($B, "for $x in lst:") and load($a)
+rewrite:
+    lst.remove($v)
+
+rule fix_biggest_to_smallest_name
+symptoms: wrong
+match:
+    biggest = $e
+where:
+    inside("def sort_age($*args): $B:Stmts") and
+    some($B, "for $x in lst:\n    if $x[1] > biggest[1]:\n        biggest = $x")
+rewrite:
+    smallest = $e
+
+rule fix_larget_typo_comparison
+symptoms: wrong
+match:
+    if $i[1] < larget[1]:
+        $largest = $i
+where:
+    inside("def sort_age($*args): $B:Stmts")
+rewrite:
+    if $i[1] > $largest[1]:
+        $largest = $i
+
+rule fix_biggest_referenced_in_remove_append
+symptoms: wrong
+match:
+    lst.remove(biggest)
+    sort.append(biggest)
+where:
+    inside("def sort_age($*args): $B:Stmts")
+rewrite:
+    lst.remove(oldest)
+    sort.append(oldest)
+
+rule fix_return_missing_for_sort_age
+symptoms: wrong
+match:
+    $S:Stmts
+where:
+    inside("def sort_age($*args): $B:Stmts") and last() and not some($B, "return _")
+rewrite:
+    $S
+    return $sort if bound($sort) else return $new if bound($new) else return $output if bound($output) else return $result if bound($result) else return $new_list if bound($new_list) else return $sort_list if bound($sort_list) else return $sort1 if bound($sort1) else return $newlst if bound($newlst) else return $a if bound($a) else return $lst1 if bound($lst1) else return $final if bound($final) else return $new_lst if bound($new_lst) else return $output
+
+rule fix_reverse_call_standalone
+symptoms: wrong
+match:
+    $x.reverse
+where:
+    inside("def sort_age($*args): $B:Stmts")
+rewrite:
+    $x.reverse()
+
+rule fix_reverse_return
+symptoms: wrong
+match:
+    return $x.reverse()
+rewrite:
+    $x.reverse()
+    return $x
+where:
+    inside("def sort_age($*args): $B:Stmts")
+
+rule fix_pop_index_call
+symptoms: wrong
+match:
+    $lst.pop[$idx]
+where:
+    inside("def sort_age($*args): $B:Stmts")
+rewrite:
+    $lst.pop($idx)
+
+rule fix_swap_same_side_assignment
+symptoms: wrong
+match:
+    $lst[$i], $lst[$j] = $lst[$j], $lst[$j]
+where:
+    inside("def sort_age($*args): $B:Stmts")
+rewrite:
+    $lst[$i], $lst[$j] = $lst[$j], $lst[$i]
+
+rule fix_merge_pop_from_front
+symptoms: wrong
+match:
+    $result.append($a.pop())
+where:
+    inside("def sort_age($*args): $B:Stmts")
+rewrite:
+    $result.append($a.pop(0))
+
+rule fix_merge_branch_choice
+symptoms: wrong
+match:
+    if $left[0][1] < $right[0][1]:
+        $result.append($left.pop(0))
+    else:
+        $result.append($right.pop(0))
+where:
+    inside("def sort_age($*args): $B:Stmts")
+rewrite:
+    if $left[0][1] < $right[0][1]:
+        $result.append($right.pop(0))
+    else:
+        $result.append($left.pop(0))
+
+rule fix_merge_recursive_split
+symptoms: wrong
+match:
+    lst1 = $lst[:$mid]
+    lst2 = $lst[$mid:]
+where:
+    inside("def sort_age($*args): $B:Stmts")
+rewrite:
+    lst1 = sort_age($lst[:$mid])
+    lst2 = sort_age($lst[$mid:])
+
+rule fix_sort_age_single_element_guard
+symptoms: wrong
+match:
+    if len(lst) == 1:
+        return lst
+where:
+    inside("def sort_age($*args): $B:Stmts")
+rewrite:
+    if len(lst) <= 1:
+        return lst
+
+rule fix_sort_age_empty_guard
+symptoms: wrong
+match:
+    if lst == ():
+        return lst
+where:
+    inside("def sort_age($*args): $B:Stmts")
+rewrite:
+    if lst == []:
+        return lst
+
+rule fix_sort_age_keep_tuple_append
+symptoms: wrong
+match:
+    $x += $y
+where:
+    inside("def sort_age($*args): $B:Stmts") and regex($y, r"^\($") == False
+rewrite:
+    $x += ($y,)
+
+rule fix_reverse_order_after_selection
+symptoms: wrong
+match:
+    sort.reverse()
+where:
+    inside("def sort_age($*args): $B:Stmts")
+rewrite:
+    sort.reverse()
+
+rule fix_sort_reverse_on_returned_list
+symptoms: wrong
+match:
+    return $x.reverse()
+where:
+    inside("def sort_age($*args): $B:Stmts")
+rewrite:
+    $x.reverse()
+    return $x

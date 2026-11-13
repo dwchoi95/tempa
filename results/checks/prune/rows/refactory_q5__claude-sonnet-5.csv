@@ -1,0 +1,967 @@
+pid,model,buggy,off_repaired,off_tried,off_pruned,off_cut,off_seconds,off_rules,off_patch,on_repaired,on_tried,on_pruned,on_cut,on_seconds,on_rules,on_patch
+refactory_q5,claude-sonnet-5,wrong_5_001,True,2,0,False,0.127,generic_flip_compare,"def top_k(lst, k):
+    result = []
+    while k > 0:
+        big = max(lst)
+        result.append(big)
+        lst.remove(big)
+        k -= 1
+    return result
+",True,2,0,False,0.301,generic_flip_compare,"def top_k(lst, k):
+    result = []
+    while k > 0:
+        big = max(lst)
+        result.append(big)
+        lst.remove(big)
+        k -= 1
+    return result
+"
+refactory_q5,claude-sonnet-5,wrong_5_002,True,5,0,False,0.122,for_loop_compare_var_typo,"def top_k(lst, k):
+    lst_res = lst
+    sort = []
+    while lst_res:
+        largest = lst_res[0]
+        for elements in lst_res:
+            if elements > largest:
+                largest = elements
+        lst_res.remove(largest)
+        sort.append(largest)
+    return sort[:k]
+",True,5,0,False,0.339,for_loop_compare_var_typo,"def top_k(lst, k):
+    lst_res = lst
+    sort = []
+    while lst_res:
+        largest = lst_res[0]
+        for elements in lst_res:
+            if elements > largest:
+                largest = elements
+        lst_res.remove(largest)
+        sort.append(largest)
+    return sort[:k]
+"
+refactory_q5,claude-sonnet-5,wrong_5_003,True,3,0,False,0.119,slice_literal_should_be_k,"def top_k(lst, k):
+    tmp = []
+    while len(lst) > 0:
+        tmp.append(max(lst))
+        lst.remove(max(lst))
+    return tmp[:k]
+",True,3,0,False,0.223,slice_literal_should_be_k,"def top_k(lst, k):
+    tmp = []
+    while len(lst) > 0:
+        tmp.append(max(lst))
+        lst.remove(max(lst))
+    return tmp[:k]
+"
+refactory_q5,claude-sonnet-5,wrong_5_004,False,1000,0,True,5.266,,,False,1000,20,True,6.029,,
+refactory_q5,claude-sonnet-5,wrong_5_005,False,1000,0,True,5.797,,,False,1000,1,True,6.378,,
+refactory_q5,claude-sonnet-5,wrong_5_006,False,1000,0,True,6.181,,,False,1000,1,True,6.801,,
+refactory_q5,claude-sonnet-5,wrong_5_007,False,1000,0,True,7.161,,,False,1000,0,True,7.963,,
+refactory_q5,claude-sonnet-5,wrong_5_008,True,5,0,False,0.116,slice_plus_one_should_be_k,"def top_k(lst, k):
+    sort = []
+    while lst: 
+        biggest = lst[0]
+        for element in lst:
+            if element > biggest:
+                biggest = element
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort[:k]
+",True,5,0,False,0.256,slice_plus_one_should_be_k,"def top_k(lst, k):
+    sort = []
+    while lst: 
+        biggest = lst[0]
+        for element in lst:
+            if element > biggest:
+                biggest = element
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort[:k]
+"
+refactory_q5,claude-sonnet-5,wrong_5_009,False,47,0,False,0.784,,,False,47,0,False,0.999,,
+refactory_q5,claude-sonnet-5,wrong_5_010,True,4,0,False,0.124,wrong_bound_variable_in_prune_loop,"def top_k(lst, k):
+    n = len(lst) - k
+    counter = 0
+    while counter < n:
+        lst.remove(min(lst))
+        counter = counter + 1
+    sort_list = []
+    while lst != []:
+        sort_list.append(max(lst))
+        lst.remove(max(lst))
+    return sort_list
+    
+",True,4,0,False,0.271,wrong_bound_variable_in_prune_loop,"def top_k(lst, k):
+    n = len(lst) - k
+    counter = 0
+    while counter < n:
+        lst.remove(min(lst))
+        counter = counter + 1
+    sort_list = []
+    while lst != []:
+        sort_list.append(max(lst))
+        lst.remove(max(lst))
+    return sort_list
+    
+"
+refactory_q5,claude-sonnet-5,wrong_5_011,True,10,0,False,0.118,tuple_index_compare_unneeded,"def sort_age(lst):
+        new=[]
+        while lst !=[]:
+            big=lst[0]
+            for i in lst:
+                if i > big:
+                    big = i
+            lst.remove(big)
+            new.append(big)
+        return new
+def top_k(lst, k):
+    return sort_age(lst)[:k]
+    pass
+",True,10,0,False,0.304,tuple_index_compare_unneeded,"def sort_age(lst):
+        new=[]
+        while lst !=[]:
+            big=lst[0]
+            for i in lst:
+                if i > big:
+                    big = i
+            lst.remove(big)
+            new.append(big)
+        return new
+def top_k(lst, k):
+    return sort_age(lst)[:k]
+    pass
+"
+refactory_q5,claude-sonnet-5,wrong_5_012,False,1000,0,True,5.951,,,False,1000,3,True,7.104,,
+refactory_q5,claude-sonnet-5,wrong_5_013,False,1000,0,True,6.468,,,False,1000,3,True,7.403,,
+refactory_q5,claude-sonnet-5,wrong_5_014,False,1000,0,True,6.185,,,False,1000,0,True,7.269,,
+refactory_q5,claude-sonnet-5,wrong_5_015,False,1000,0,True,6.511,,,False,1000,0,True,7.313,,
+refactory_q5,claude-sonnet-5,wrong_5_016,False,1000,0,True,4.637,,,False,1000,4,True,5.783,,
+refactory_q5,claude-sonnet-5,wrong_5_017,True,6,0,False,0.117,max_scan_wrong_append_var,"def top_k(lst, k):
+    result = []
+    while lst:
+        biggest = lst[0]
+        for number in lst:
+            if number > biggest:
+                biggest = number
+        lst.remove(biggest)
+        result.append(biggest)
+    return result[:k]
+",True,6,0,False,0.313,max_scan_wrong_append_var,"def top_k(lst, k):
+    result = []
+    while lst:
+        biggest = lst[0]
+        for number in lst:
+            if number > biggest:
+                biggest = number
+        lst.remove(biggest)
+        result.append(biggest)
+    return result[:k]
+"
+refactory_q5,claude-sonnet-5,wrong_5_018,True,5,0,False,0.123,slice_plus_one_should_be_k,"def top_k(lst, k):
+    # Fill in your code here
+    sort = []
+    while lst: # a is not []
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+        lst.remove(largest)
+        sort.append(largest)
+    return sort[:k]
+",True,5,0,False,0.257,slice_plus_one_should_be_k,"def top_k(lst, k):
+    # Fill in your code here
+    sort = []
+    while lst: # a is not []
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+        lst.remove(largest)
+        sort.append(largest)
+    return sort[:k]
+"
+refactory_q5,claude-sonnet-5,wrong_5_019,False,4,0,False,0.155,,,False,3,1,False,0.281,,
+refactory_q5,claude-sonnet-5,wrong_5_020,False,3,0,False,0.131,,,False,3,0,False,0.276,,
+refactory_q5,claude-sonnet-5,wrong_5_021,True,104,0,False,0.405,call_written_as_subscript|call_written_as_subscript,"def top_k(lst, k):
+    r=[]
+    for qwerty in range(0,k):
+        biggest=lst[0]
+        for k in lst:
+            if biggest<k:
+                biggest=k
+        r.append(biggest)
+        lst.remove(biggest)
+    return r
+        
+",True,94,10,False,0.568,call_written_as_subscript|call_written_as_subscript,"def top_k(lst, k):
+    r=[]
+    for qwerty in range(0,k):
+        biggest=lst[0]
+        for k in lst:
+            if biggest<k:
+                biggest=k
+        r.append(biggest)
+        lst.remove(biggest)
+    return r
+        
+"
+refactory_q5,claude-sonnet-5,wrong_5_022,False,1000,0,True,2.865,,,False,1000,717,True,5.839,,
+refactory_q5,claude-sonnet-5,wrong_5_023,True,307,0,False,1.551,call_written_as_subscript|for_loop_assign_var_typo|counter_while_missing_increment,"def top_k(lst, k):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for i in lst[1:]:
+            if i > biggest:
+                biggest = i
+        lst.remove(biggest)
+        sort.append(biggest)
+    
+    n = 1
+    sort_k = []
+    while n <= k:
+        sort_k.append(sort.pop(0))
+        n += 1
+    
+    return sort_k
+        
+",True,307,0,False,1.921,call_written_as_subscript|for_loop_assign_var_typo|counter_while_missing_increment,"def top_k(lst, k):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for i in lst[1:]:
+            if i > biggest:
+                biggest = i
+        lst.remove(biggest)
+        sort.append(biggest)
+    
+    n = 1
+    sort_k = []
+    while n <= k:
+        sort_k.append(sort.pop(0))
+        n += 1
+    
+    return sort_k
+        
+"
+refactory_q5,claude-sonnet-5,wrong_5_024,True,61,0,False,0.331,call_written_as_subscript|for_loop_assign_var_typo,"def top_k(lst, k):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for i in lst[1:]:
+            if i > biggest:
+                biggest = i
+        lst.remove(biggest)
+        sort.append(biggest)
+    
+    n = 1
+    sort_k = []
+    while n <= k:
+        sort_k.append(sort.pop(0))
+        n += 1
+    
+    return sort_k
+        
+",True,61,0,False,0.516,call_written_as_subscript|for_loop_assign_var_typo,"def top_k(lst, k):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for i in lst[1:]:
+            if i > biggest:
+                biggest = i
+        lst.remove(biggest)
+        sort.append(biggest)
+    
+    n = 1
+    sort_k = []
+    while n <= k:
+        sort_k.append(sort.pop(0))
+        n += 1
+    
+    return sort_k
+        
+"
+refactory_q5,claude-sonnet-5,wrong_5_025,True,7,0,False,0.126,for_loop_assign_var_typo,"def top_k(lst, k):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for i in lst[1:]:
+            if i > biggest:
+                biggest = i
+        lst.remove(biggest)
+        sort.append(biggest)
+    
+    n = 1
+    sort_k = []
+    while n <= k:
+        sort_k.append(sort.pop(0))
+        n += 1
+    
+    return sort_k
+        
+",True,7,0,False,0.267,for_loop_assign_var_typo,"def top_k(lst, k):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for i in lst[1:]:
+            if i > biggest:
+                biggest = i
+        lst.remove(biggest)
+        sort.append(biggest)
+    
+    n = 1
+    sort_k = []
+    while n <= k:
+        sort_k.append(sort.pop(0))
+        n += 1
+    
+    return sort_k
+        
+"
+refactory_q5,claude-sonnet-5,wrong_5_026,True,12,0,False,0.118,tuple_index_compare_unneeded,"def top_k(lst, k):
+    if lst==[]:
+        return []
+    sort=[]
+    while lst:
+        largest = lst[0]
+        for i in lst:
+            if i > largest:
+                largest = i
+        lst.remove(largest)
+        sort.append(largest)
+    return sort[:k]
+    pass
+",True,12,0,False,0.301,tuple_index_compare_unneeded,"def top_k(lst, k):
+    if lst==[]:
+        return []
+    sort=[]
+    while lst:
+        largest = lst[0]
+        for i in lst:
+            if i > largest:
+                largest = i
+        lst.remove(largest)
+        sort.append(largest)
+    return sort[:k]
+    pass
+"
+refactory_q5,claude-sonnet-5,wrong_5_027,True,6,0,False,13.146,aliased_result_list_self_append,"def top_k(lst, k):
+    sorted_lst = []
+    while lst:
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+        lst.remove(largest)
+        sorted_lst.append(largest)
+    return sorted_lst[:k]
+    pass
+",True,6,0,False,13.169,aliased_result_list_self_append,"def top_k(lst, k):
+    sorted_lst = []
+    while lst:
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+        lst.remove(largest)
+        sorted_lst.append(largest)
+    return sorted_lst[:k]
+    pass
+"
+refactory_q5,claude-sonnet-5,wrong_5_028,False,5,0,True,13.128,,,False,5,0,True,13.141,,
+refactory_q5,claude-sonnet-5,wrong_5_029,False,1000,0,True,6.381,,,False,1000,0,True,7.07,,
+refactory_q5,claude-sonnet-5,wrong_5_030,False,1000,0,True,7.393,,,False,1000,0,True,8.388,,
+refactory_q5,claude-sonnet-5,wrong_5_031,False,1000,0,True,6.057,,,False,1000,1,True,9.127,,
+refactory_q5,claude-sonnet-5,wrong_5_032,True,6,0,False,0.184,max_scan_wrong_append_var,"def top_k(lst, k):
+    new_lst = []
+    while lst:
+        largest = lst[0]
+        for numbers in lst:
+            if numbers > largest:
+                largest = numbers
+        lst.remove(largest)
+        new_lst.append(largest)
+    return new_lst[:k]
+",True,6,0,False,0.391,max_scan_wrong_append_var,"def top_k(lst, k):
+    new_lst = []
+    while lst:
+        largest = lst[0]
+        for numbers in lst:
+            if numbers > largest:
+                largest = numbers
+        lst.remove(largest)
+        new_lst.append(largest)
+    return new_lst[:k]
+"
+refactory_q5,claude-sonnet-5,wrong_5_033,False,1000,0,True,6.573,,,False,1000,5,True,8.105,,
+refactory_q5,claude-sonnet-5,wrong_5_034,False,5,0,False,0.218,,,False,5,0,False,0.251,,
+refactory_q5,claude-sonnet-5,wrong_5_035,False,35,0,False,0.626,,,False,35,0,False,0.691,,
+refactory_q5,claude-sonnet-5,wrong_5_036,False,215,0,False,2.623,,,False,210,5,False,3.246,,
+refactory_q5,claude-sonnet-5,wrong_5_037,False,1000,0,True,7.152,,,False,1000,3,True,7.642,,
+refactory_q5,claude-sonnet-5,wrong_5_038,False,1000,0,True,82.388,,,False,1000,5,True,86.326,,
+refactory_q5,claude-sonnet-5,wrong_5_039,False,1000,0,True,82.185,,,False,1000,5,True,83.117,,
+refactory_q5,claude-sonnet-5,wrong_5_040,False,1000,0,True,83.775,,,False,1000,5,True,86.186,,
+refactory_q5,claude-sonnet-5,wrong_5_041,False,1000,0,True,82.636,,,False,1000,5,True,85.126,,
+refactory_q5,claude-sonnet-5,wrong_5_042,False,1000,0,True,6.937,,,False,1000,1,True,7.701,,
+refactory_q5,claude-sonnet-5,wrong_5_043,False,1000,0,True,84.07,,,False,1000,0,True,84.661,,
+refactory_q5,claude-sonnet-5,wrong_5_044,True,6,0,False,0.154,for_loop_wrong_iter_and_misindent,"def top_k(lst, k):
+    af_sort = []
+    while lst:
+        biggest = lst[0] 
+        for element in lst:
+            if element > biggest:
+                biggest = element
+        lst.remove(biggest)
+        af_sort.append(biggest)
+    return af_sort[0:k]
+    
+",True,4,2,False,0.329,for_loop_wrong_iter_and_misindent,"def top_k(lst, k):
+    af_sort = []
+    while lst:
+        biggest = lst[0] 
+        for element in lst:
+            if element > biggest:
+                biggest = element
+        lst.remove(biggest)
+        af_sort.append(biggest)
+    return af_sort[0:k]
+    
+"
+refactory_q5,claude-sonnet-5,wrong_5_045,True,6,0,False,0.131,generic_flip_compare,"def top_k(lst, k):
+    newlst = []
+    while len(newlst) < k:
+        maximum = lst[0]
+        for i in lst:
+            if i > maximum:
+                maximum = i
+        newlst.append(maximum)
+        lst.remove(maximum)
+    return newlst
+            
+",True,6,0,False,0.297,generic_flip_compare,"def top_k(lst, k):
+    newlst = []
+    while len(newlst) < k:
+        maximum = lst[0]
+        for i in lst:
+            if i > maximum:
+                maximum = i
+        newlst.append(maximum)
+        lst.remove(maximum)
+    return newlst
+            
+"
+refactory_q5,claude-sonnet-5,wrong_5_046,True,3,0,False,0.113,collector_list_name_mismatch,"def top_k(lst, k):
+    new_list = []
+    while len(new_list) < k:
+        maximum = max(lst)
+        new_list.append(maximum)
+        lst.remove(maximum)
+    return new_list
+",True,3,0,False,0.288,collector_list_name_mismatch,"def top_k(lst, k):
+    new_list = []
+    while len(new_list) < k:
+        maximum = max(lst)
+        new_list.append(maximum)
+        lst.remove(maximum)
+    return new_list
+"
+refactory_q5,claude-sonnet-5,wrong_5_047,False,1000,0,True,58.531,,,False,1000,0,True,59.06,,
+refactory_q5,claude-sonnet-5,wrong_5_048,False,1000,0,True,37.387,,,False,1000,0,True,39.467,,
+refactory_q5,claude-sonnet-5,wrong_5_049,True,46,0,False,0.246,generic_flip_compare|for_loop_compare_var_typo,"def top_k(lst, k):
+    sorted_lst = []
+    while lst:
+        biggest = lst[0]
+        for n in lst:
+            if n > biggest:
+                biggest = n
+        lst.remove(biggest)
+        sorted_lst.append(biggest)
+    return sorted_lst[0:k]
+            
+            
+",True,40,6,False,0.44,generic_flip_compare|for_loop_compare_var_typo,"def top_k(lst, k):
+    sorted_lst = []
+    while lst:
+        biggest = lst[0]
+        for n in lst:
+            if n > biggest:
+                biggest = n
+        lst.remove(biggest)
+        sorted_lst.append(biggest)
+    return sorted_lst[0:k]
+            
+            
+"
+refactory_q5,claude-sonnet-5,wrong_5_050,True,10,0,False,0.116,bare_index_compare_in_range_loop,"def top_k(lst, k):
+    newlist = []
+    while len(newlist) < k:
+        newlist += [max(lst)]
+        for i in range(len(lst)):
+            if lst[i] == max(lst):
+                print(i)
+                break
+        del lst[i]
+    return newlist
+",True,10,0,False,0.27,bare_index_compare_in_range_loop,"def top_k(lst, k):
+    newlist = []
+    while len(newlist) < k:
+        newlist += [max(lst)]
+        for i in range(len(lst)):
+            if lst[i] == max(lst):
+                print(i)
+                break
+        del lst[i]
+    return newlist
+"
+refactory_q5,claude-sonnet-5,wrong_5_051,False,1000,0,True,90.612,,,False,1000,0,True,90.166,,
+refactory_q5,claude-sonnet-5,wrong_5_052,False,0,0,False,0.054,,,False,0,0,False,0.275,,
+refactory_q5,claude-sonnet-5,wrong_5_053,False,1000,0,True,5.218,,,False,1000,0,True,5.516,,
+refactory_q5,claude-sonnet-5,wrong_5_054,False,1000,0,True,5.047,,,False,1000,0,True,5.898,,
+refactory_q5,claude-sonnet-5,wrong_5_055,False,1000,0,True,5.033,,,False,1000,0,True,5.473,,
+refactory_q5,claude-sonnet-5,wrong_5_056,False,1000,0,True,7.243,,,False,1000,0,True,7.083,,
+refactory_q5,claude-sonnet-5,wrong_5_057,False,1000,0,True,6.186,,,False,1000,0,True,6.798,,
+refactory_q5,claude-sonnet-5,wrong_5_058,False,1000,0,True,4.521,,,False,1000,0,True,4.978,,
+refactory_q5,claude-sonnet-5,wrong_5_059,False,1000,0,True,4.48,,,False,1000,0,True,5.405,,
+refactory_q5,claude-sonnet-5,wrong_5_060,False,1000,0,True,5.936,,,False,1000,0,True,6.687,,
+refactory_q5,claude-sonnet-5,wrong_5_061,False,1000,0,True,4.357,,,False,1000,0,True,5.069,,
+refactory_q5,claude-sonnet-5,wrong_5_062,True,5,0,False,0.116,slice_literal_should_be_k,"def top_k(lst,k):
+    a = []
+    while lst:
+        biggest = lst[0]
+        for element in lst:
+            if element > biggest:
+                biggest = element
+        lst.remove(biggest)
+        a.append(biggest)
+    return a[:k]
+",True,5,0,False,0.275,slice_literal_should_be_k,"def top_k(lst,k):
+    a = []
+    while lst:
+        biggest = lst[0]
+        for element in lst:
+            if element > biggest:
+                biggest = element
+        lst.remove(biggest)
+        a.append(biggest)
+    return a[:k]
+"
+refactory_q5,claude-sonnet-5,wrong_5_063,False,1000,0,True,5.182,,,False,1000,3,True,6.496,,
+refactory_q5,claude-sonnet-5,wrong_5_064,False,1000,0,True,63.611,,,False,1000,0,True,64.16,,
+refactory_q5,claude-sonnet-5,wrong_5_065,False,1000,0,True,5.902,,,False,1000,1,True,6.159,,
+refactory_q5,claude-sonnet-5,wrong_5_066,True,9,0,False,0.119,tuple_index_compare_unneeded,"def top_k(lst, k):
+    # Fill in your code here
+    a = lst
+    sort = []
+    while a:
+        largest = a[0]
+        for item in a:
+            if item > largest:
+                largest = item
+        a.remove(largest)
+        sort.append(largest)
+    return(sort)[:k]
+",True,9,0,False,0.297,tuple_index_compare_unneeded,"def top_k(lst, k):
+    # Fill in your code here
+    a = lst
+    sort = []
+    while a:
+        largest = a[0]
+        for item in a:
+            if item > largest:
+                largest = item
+        a.remove(largest)
+        sort.append(largest)
+    return(sort)[:k]
+"
+refactory_q5,claude-sonnet-5,wrong_5_067,True,17,0,False,0.181,undefined_i_range_while_loop|pop_with_value_instead_of_index,"def top_k(lst, k):
+    new = []
+    while len(new) < k:
+        new.append(lst.pop(lst.index(max(lst))))
+        
+    return new
+        
+",True,15,2,False,0.357,undefined_i_range_while_loop|pop_with_value_instead_of_index,"def top_k(lst, k):
+    new = []
+    while len(new) < k:
+        new.append(lst.pop(lst.index(max(lst))))
+        
+    return new
+        
+"
+refactory_q5,claude-sonnet-5,wrong_5_068,True,13,0,False,0.183,generic_shift_range|pop_with_value_instead_of_index,"def top_k(lst, k):
+    new = []
+    for i in range(k - 1 + 1):
+        new.append(lst.pop(lst.index(max(lst))))
+        
+    return new
+        
+",True,12,1,False,0.339,generic_shift_range|pop_with_value_instead_of_index,"def top_k(lst, k):
+    new = []
+    for i in range(k - 1 + 1):
+        new.append(lst.pop(lst.index(max(lst))))
+        
+    return new
+        
+"
+refactory_q5,claude-sonnet-5,wrong_5_069,False,7,0,False,0.198,,,False,7,0,False,0.338,,
+refactory_q5,claude-sonnet-5,wrong_5_070,False,3,0,False,0.129,,,False,3,0,False,0.311,,
+refactory_q5,claude-sonnet-5,wrong_5_071,False,3,0,False,0.179,,,False,3,0,False,0.433,,
+refactory_q5,claude-sonnet-5,wrong_5_072,False,1000,0,True,63.699,,,False,1000,0,True,63.406,,
+refactory_q5,claude-sonnet-5,wrong_5_073,False,1000,0,True,44.207,,,False,1000,0,True,45.416,,
+refactory_q5,claude-sonnet-5,wrong_5_074,False,1000,0,True,44.266,,,False,1000,0,True,44.995,,
+refactory_q5,claude-sonnet-5,wrong_5_075,False,3,0,False,0.153,,,False,3,0,False,0.313,,
+refactory_q5,claude-sonnet-5,wrong_5_076,False,3,0,False,0.159,,,False,3,0,False,0.299,,
+refactory_q5,claude-sonnet-5,wrong_5_077,True,5,0,False,0.137,return_wrong_collector_var,"
+def top_k(lst, k):
+    # Fill in your code here
+ 
+    result = []
+    while lst:
+        minimum = lst[0]  # arbitrary number in list 
+        for x in lst: 
+            if x > minimum:
+                minimum = x
+        result.append(minimum)
+        lst.remove(minimum) 
+    return result[:k]
+",True,5,0,False,0.263,return_wrong_collector_var,"
+def top_k(lst, k):
+    # Fill in your code here
+ 
+    result = []
+    while lst:
+        minimum = lst[0]  # arbitrary number in list 
+        for x in lst: 
+            if x > minimum:
+                minimum = x
+        result.append(minimum)
+        lst.remove(minimum) 
+    return result[:k]
+"
+refactory_q5,claude-sonnet-5,wrong_5_078,False,1000,0,True,84.198,,,False,1000,0,True,84.713,,
+refactory_q5,claude-sonnet-5,wrong_5_079,True,4,0,False,0.116,min_scan_should_be_max,"def top_k(lst, k):
+    # Fill in your code here
+    sort_lst = []
+    while lst: # a is not []
+        smallest = lst[0]
+        for element in lst:
+            if element > smallest:
+                smallest = element
+        lst.remove(smallest)
+        sort_lst.append(smallest)
+    return sort_lst[:k]
+",True,4,0,False,0.259,min_scan_should_be_max,"def top_k(lst, k):
+    # Fill in your code here
+    sort_lst = []
+    while lst: # a is not []
+        smallest = lst[0]
+        for element in lst:
+            if element > smallest:
+                smallest = element
+        lst.remove(smallest)
+        sort_lst.append(smallest)
+    return sort_lst[:k]
+"
+refactory_q5,claude-sonnet-5,wrong_5_080,True,2,0,False,0.111,generic_flip_compare,"def top_k(lst, k):
+    sotsot = []
+    while len(sotsot) < k:
+        sotsot.append(max(lst))
+        lst.remove(max(lst)) #wont return u any value just modified the list only.
+    return sotsot 
+    
+",True,2,0,False,0.286,generic_flip_compare,"def top_k(lst, k):
+    sotsot = []
+    while len(sotsot) < k:
+        sotsot.append(max(lst))
+        lst.remove(max(lst)) #wont return u any value just modified the list only.
+    return sotsot 
+    
+"
+refactory_q5,claude-sonnet-5,wrong_5_081,False,4,0,False,0.171,,,False,3,1,False,0.347,,
+refactory_q5,claude-sonnet-5,wrong_5_082,False,4,0,False,0.173,,,False,3,1,False,0.351,,
+refactory_q5,claude-sonnet-5,wrong_5_083,True,7,0,False,0.116,return_wrong_collector_var,"def top_k(lst, k):
+    result = []
+    for i in range(len(lst)):
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+        lst.remove(largest)
+        result.append(largest)
+    return result[:k]
+",True,7,0,False,0.256,return_wrong_collector_var,"def top_k(lst, k):
+    result = []
+    for i in range(len(lst)):
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+        lst.remove(largest)
+        result.append(largest)
+    return result[:k]
+"
+refactory_q5,claude-sonnet-5,wrong_5_084,False,6,0,False,0.151,,,False,5,1,False,0.327,,
+refactory_q5,claude-sonnet-5,wrong_5_085,False,1000,0,True,6.457,,,False,1000,1,True,7.565,,
+refactory_q5,claude-sonnet-5,wrong_5_086,True,3,0,False,0.139,collector_list_name_mismatch,"def top_k(lst, k):
+    list = []
+    while len(list) < k:
+        a = max(lst)
+        list.append(a)
+        lst.remove(a)
+    return list
+",True,3,0,False,0.441,collector_list_name_mismatch,"def top_k(lst, k):
+    list = []
+    while len(list) < k:
+        a = max(lst)
+        list.append(a)
+        lst.remove(a)
+    return list
+"
+refactory_q5,claude-sonnet-5,wrong_5_087,False,3,0,False,0.192,,,False,3,0,False,0.387,,
+refactory_q5,claude-sonnet-5,wrong_5_088,True,326,0,False,1.043,tuple_index_compare_unneeded|slice_minus_one_should_be_k,"def top_k(lst, k):
+    lst = sort_descending(lst)
+    return lst[:k]
+    
+
+def sort_descending(lst):
+    for i in range(len(lst)-1):
+        for j in range(i, len(lst)):
+            if lst[j] > lst[i]:
+                x = lst[i]
+                lst[i] = lst[j]
+                lst[j] = x
+    return lst
+",True,269,57,False,1.673,tuple_index_compare_unneeded|slice_minus_one_should_be_k,"def top_k(lst, k):
+    lst = sort_descending(lst)
+    return lst[:k]
+    
+
+def sort_descending(lst):
+    for i in range(len(lst)-1):
+        for j in range(i, len(lst)):
+            if lst[j] > lst[i]:
+                x = lst[i]
+                lst[i] = lst[j]
+                lst[j] = x
+    return lst
+"
+refactory_q5,claude-sonnet-5,wrong_5_089,True,8,0,False,0.173,misplaced_return_in_while,"def top_k(lst, k):
+    newlist = []
+    while lst:
+        biggest = lst[0]
+        for i in lst:
+            if i > biggest:
+                biggest = i
+            else:
+                continue
+        lst.remove(biggest)
+        if len(newlist) == k:
+            break
+        else:
+            newlist.append(biggest)
+    return newlist
+",True,8,0,False,0.46,misplaced_return_in_while,"def top_k(lst, k):
+    newlist = []
+    while lst:
+        biggest = lst[0]
+        for i in lst:
+            if i > biggest:
+                biggest = i
+            else:
+                continue
+        lst.remove(biggest)
+        if len(newlist) == k:
+            break
+        else:
+            newlist.append(biggest)
+    return newlist
+"
+refactory_q5,claude-sonnet-5,wrong_5_090,False,3,0,False,0.213,,,False,3,0,False,0.352,,
+refactory_q5,claude-sonnet-5,wrong_5_091,False,1000,0,True,5.744,,,False,1000,0,True,6.915,,
+refactory_q5,claude-sonnet-5,wrong_5_092,False,1000,0,True,8.365,,,False,1000,5,True,7.293,,
+refactory_q5,claude-sonnet-5,wrong_5_093,True,5,0,False,0.119,slice_literal_should_be_k,"def top_k(lst, k):
+    result = []
+    while lst:
+        biggest = lst[0]
+        for elem in lst:
+            if elem > biggest:
+                biggest = elem
+        lst.remove(biggest)
+        result.append(biggest)
+    
+    return result[:k]
+
+    # Fill in your code here
+    pass
+
+
+",True,5,0,False,0.261,slice_literal_should_be_k,"def top_k(lst, k):
+    result = []
+    while lst:
+        biggest = lst[0]
+        for elem in lst:
+            if elem > biggest:
+                biggest = elem
+        lst.remove(biggest)
+        result.append(biggest)
+    
+    return result[:k]
+
+    # Fill in your code here
+    pass
+
+
+"
+refactory_q5,claude-sonnet-5,wrong_5_094,False,1000,0,True,2.116,,,False,1000,1,True,3.021,,
+refactory_q5,claude-sonnet-5,wrong_5_095,False,1000,0,True,2.041,,,False,1000,0,True,2.945,,
+refactory_q5,claude-sonnet-5,wrong_5_096,False,1000,0,True,1.93,,,False,1000,4,True,2.735,,
+refactory_q5,claude-sonnet-5,wrong_5_097,True,12,0,False,0.134,slice_plus_one_should_be_k,"def top_k(lst, k):
+    # Fill in your code here
+    sort = []
+    while lst:
+        largest = lst[0]
+        for i in range(len(lst)):
+            if lst[i] > largest:
+                largest = lst[i]
+        sort.append(largest)
+        lst.remove(largest)
+    return sort[:k]
+        
+",True,12,0,False,0.268,slice_plus_one_should_be_k,"def top_k(lst, k):
+    # Fill in your code here
+    sort = []
+    while lst:
+        largest = lst[0]
+        for i in range(len(lst)):
+            if lst[i] > largest:
+                largest = lst[i]
+        sort.append(largest)
+        lst.remove(largest)
+    return sort[:k]
+        
+"
+refactory_q5,claude-sonnet-5,wrong_5_098,False,23,0,False,0.395,,,False,23,0,False,0.581,,
+refactory_q5,claude-sonnet-5,wrong_5_099,False,23,0,False,0.411,,,False,23,0,False,0.578,,
+refactory_q5,claude-sonnet-5,wrong_5_100,False,95,0,False,1.247,,,False,95,0,False,1.515,,
+refactory_q5,claude-sonnet-5,wrong_5_101,True,5,0,False,0.115,self_shadow_call,"def top_k(lst, k):
+    # Fill in your code here
+    result = sort(lst)
+    return result[:k]
+
+def sort(lst):
+    sort=[]
+    while lst:
+        largest=lst[0]
+        for elem in lst:
+            if elem > largest:
+                largest = elem
+        lst.remove(largest)
+        sort.append(largest)
+    return sort
+",True,1,4,False,0.294,self_shadow_call,"def top_k(lst, k):
+    # Fill in your code here
+    result = sort(lst)
+    return result[:k]
+
+def sort(lst):
+    sort=[]
+    while lst:
+        largest=lst[0]
+        for elem in lst:
+            if elem > largest:
+                largest = elem
+        lst.remove(largest)
+        sort.append(largest)
+    return sort
+"
+refactory_q5,claude-sonnet-5,wrong_5_102,True,3,0,False,0.123,missing_increment_return_append_remove_combo,"def top_k(lst, k):
+    counter=0
+    new_lst=[]
+    while counter < k:
+        new_lst.append(max(lst))
+        lst.remove(max(lst))
+        counter += 1
+    return new_lst
+",True,3,0,False,0.309,missing_increment_return_append_remove_combo,"def top_k(lst, k):
+    counter=0
+    new_lst=[]
+    while counter < k:
+        new_lst.append(max(lst))
+        lst.remove(max(lst))
+        counter += 1
+    return new_lst
+"
+refactory_q5,claude-sonnet-5,wrong_5_103,True,3,0,False,0.115,missing_counter_increment_and_return,"def top_k(lst, k):
+    counter=0
+    new_lst=[]
+    while counter < k:
+        maxi = max(lst)
+        new_lst.append(maxi)
+        lst.remove(maxi)
+        counter += 1
+    return new_lst
+",True,3,0,False,0.286,missing_counter_increment_and_return,"def top_k(lst, k):
+    counter=0
+    new_lst=[]
+    while counter < k:
+        maxi = max(lst)
+        new_lst.append(maxi)
+        lst.remove(maxi)
+        counter += 1
+    return new_lst
+"
+refactory_q5,claude-sonnet-5,wrong_5_104,False,4,0,False,0.147,,,False,3,1,False,0.321,,
+refactory_q5,claude-sonnet-5,wrong_5_105,False,1000,0,True,6.303,,,False,1000,0,True,7.82,,
+refactory_q5,claude-sonnet-5,wrong_5_106,True,6,0,False,0.157,sort_then_wrong_slice,"def top_k(lst, k):
+    new = []
+    lst.sort(reverse=True)
+    for i in range(k):
+        new.append(lst[i])
+    return new
+",True,6,0,False,0.328,sort_then_wrong_slice,"def top_k(lst, k):
+    new = []
+    lst.sort(reverse=True)
+    for i in range(k):
+        new.append(lst[i])
+    return new
+"
+refactory_q5,claude-sonnet-5,wrong_5_107,True,2,0,False,0.146,generic_shift_range,"def top_k(lst, k):
+
+    newlst = []
+    for i in range(k + 1 - 1):
+        newlst.append(max(lst))
+        lst.remove(max(lst))
+    return newlst
+",True,2,0,False,0.328,generic_shift_range,"def top_k(lst, k):
+
+    newlst = []
+    for i in range(k + 1 - 1):
+        newlst.append(max(lst))
+        lst.remove(max(lst))
+    return newlst
+"
+refactory_q5,claude-sonnet-5,wrong_5_108,True,6,0,False,0.117,generic_flip_compare,"def top_k(lst, k):
+    new_lst = []
+    counter = 0
+    while counter < k:
+        highest = lst[0]  # arbitrary number in list 
+        for x in lst: 
+            if x > highest:
+                highest = x
+        new_lst.append(highest)
+        lst.remove(highest)
+        counter +=1
+        
+    return new_lst
+",True,6,0,False,0.326,generic_flip_compare,"def top_k(lst, k):
+    new_lst = []
+    counter = 0
+    while counter < k:
+        highest = lst[0]  # arbitrary number in list 
+        for x in lst: 
+            if x > highest:
+                highest = x
+        new_lst.append(highest)
+        lst.remove(highest)
+        counter +=1
+        
+    return new_lst
+"

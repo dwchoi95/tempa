@@ -1,0 +1,132 @@
+rule input_map_to_abs_int
+symptoms: wrong
+match: $x = map(int, input())
+where: True
+rewrite: $x = abs(int(input()))
+
+rule print_raw_input_to_jump_loop
+symptoms: wrong
+match:
+    $x = map(int, input())
+    print($x)
+rewrite:
+    x = abs(int(input()))
+    jumps = 0
+    pos = 0
+    while pos < x or (pos - x) % 2 != 0:
+        jumps += 1
+        pos += jumps
+    print(jumps)
+
+rule fix_signed_target_and_parity_loop
+symptoms: wrong
+match:
+    $x = int(input())
+    $s = 0
+    $n = 0
+    while $s != $x:
+        $n += 1
+        if $s + $n <= $x:
+            $s += $n
+        else:
+            $s -= $n
+    print($n)
+rewrite:
+    x = abs(int(input()))
+    jumps = 0
+    pos = 0
+    while pos < x or (pos - x) % 2 != 0:
+        jumps += 1
+        pos += jumps
+    print(jumps)
+
+rule fix_pos_based_loop_with_three_way_branch
+symptoms: wrong
+match:
+    $x = int(input())
+    $count = 0
+    $pos = 0
+    $pos1 = 0
+    while $pos != $x:
+        $count += 1
+        $pos1 = $pos + $count
+        if $pos1 < $x:
+            $pos = $pos + $count
+        elif $pos1 > $x:
+            $pos = $pos - $count
+        elif $pos1 == $x:
+            $pos = $pos + $count
+    print($count)
+rewrite:
+    x = abs(int(input()))
+    jumps = 0
+    pos = 0
+    while pos < x or (pos - x) % 2 != 0:
+        jumps += 1
+        pos += jumps
+    print(jumps)
+
+rule fix_quadratic_search_solution
+symptoms: wrong
+match:
+    $a = int(input())
+    $n = 1
+    while True:
+        if $a == 0:
+            print(0)
+            break
+        elif $a > 0:
+            if ($n * $n + $n) / 2 < $a:
+                $n += 1
+            elif ($n * $n + $n) / 2 == $a:
+                print(int($n))
+                break
+            elif ($n * $n + $n) / 2 > $a:
+                $c = int($n + ((($n * $n + $n) / 2) - $a) * 2)
+                $d = int($n - 1 + ($a - ($n * ($n - 1)) / 2) * 2)
+                print(min($c, $d))
+                break
+        elif $a < 0:
+            $a = abs($a)
+            if ($n * $n + $n) / 2 < $a:
+                $n += 1
+            elif ($n * $n + $n) / 2 == $a:
+                print(int($n))
+                break
+            elif ($n * $n + $n) / 2 > $a:
+                $c = int($n + ((($n * $n + $n) / 2) - $a) * 2)
+                $d = int($n - 1 + ($a - ($n * ($n - 1)) / 2) * 2)
+                print(min($c, $d))
+                break
+rewrite:
+    x = abs(int(input()))
+    jumps = 0
+    pos = 0
+    while pos < x or (pos - x) % 2 != 0:
+        jumps += 1
+        pos += jumps
+    print(jumps)
+
+rule compare_flip_lt_to_gt
+symptoms: wrong
+match: $a < $b
+where: parent("if $a < $b: $B:Stmts") or parent("elif $a < $b: $B:Stmts")
+rewrite: $a > $b
+
+rule compare_flip_gt_to_lt
+symptoms: wrong
+match: $a > $b
+where: parent("if $a > $b: $B:Stmts") or parent("elif $a > $b: $B:Stmts")
+rewrite: $a < $b
+
+rule off_by_one_range_stop
+symptoms: wrong
+match: range($n)
+where: True
+rewrite: range($n + 1)
+
+rule wrong_return_name_to_value
+symptoms: wrong
+match: return $x
+where: inside("def $f($*xs): $B:Stmts") and some($B, "return 0")
+rewrite: return 0

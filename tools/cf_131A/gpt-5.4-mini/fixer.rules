@@ -1,0 +1,107 @@
+rule capslock_swapcase_for_title_or_capitalize
+symptoms: wrong
+match: $X.title()
+where: regex($X, r"^[A-Za-z_][A-Za-z0-9_]*$") or regex($X, r"^[A-Za-z_][A-Za-z0-9_]*\[[^\]]*:\s*\]$") or regex($X, r"^[A-Za-z_][A-Za-z0-9_]*\s*$")
+rewrite: $X.swapcase()
+
+rule capslock_swapcase_for_capitalize
+symptoms: wrong
+match: $X.capitalize()
+where: regex($X, r"^[A-Za-z_][A-Za-z0-9_]*$") or regex($X, r"^[A-Za-z_][A-Za-z0-9_]*\[[^\]]*:\s*\]$") or regex($X, r"^[A-Za-z_][A-Za-z0-9_]*\s*$")
+rewrite: $X.swapcase()
+
+rule capslock_swapcase_for_lower_or_upper_result
+symptoms: wrong
+match:
+    if $c:
+        $X = $Y.lower()
+    else:
+        $X = $Y.title()
+where: regex($c, r"\.isupper\(\)|\.isupper\b|\.islower\(\)|\.islower\b|len\(")
+rewrite:
+    if $c:
+        $X = $Y.swapcase()
+    else:
+        $X = $Y
+
+rule capslock_use_full_suffix_check
+symptoms: wrong, err:IndexError
+match: $S[1:].islower()
+rewrite: $S[1:].isupper()
+
+rule capslock_use_full_suffix_check_in_conditions
+symptoms: wrong
+match: $S[1:].islower()
+rewrite: $S[1:].isupper()
+
+rule capslock_single_char_needs_swapcase
+symptoms: wrong, err:IndexError
+match:
+    if len($s) == 1 and $s.isupper():
+        print($s.lower())
+    else:
+        $REST
+rewrite:
+    if len($s) == 1:
+        print($s.swapcase())
+    else:
+        $REST
+
+rule capslock_single_char_or_suffix_condition
+symptoms: wrong
+match: $S.isupper() or $S[1:].isupper()
+rewrite: $S.isupper() or $S[1:].upper() == $S[1:]
+
+rule capslock_suffix_isupper_to_equality
+symptoms: wrong
+match: $S[1:].isupper()
+rewrite: $S[1:].upper() == $S[1:]
+
+rule capslock_wholeword_isupper_to_swapcase
+symptoms: wrong
+match: $S.isupper()
+rewrite: $S.swapcase()
+
+rule capslock_title_on_condition_to_swapcase
+symptoms: wrong
+match:
+    if $COND:
+        print($S.capitalize())
+    else:
+        print($S)
+where: regex($COND, r"isupper|islower|len\(|swapcase|title|capitalize")
+rewrite:
+    if $COND:
+        print($S.swapcase())
+    else:
+        print($S)
+
+rule capslock_capitalize_on_assignment_to_swapcase
+symptoms: wrong
+match:
+    $R = $S.capitalize()
+where: regex($S, r"^[A-Za-z_][A-Za-z0-9_]*$") or regex($S, r"\[.*:.*\]")
+rewrite: $R = $S.swapcase()
+
+rule capslock_insert_missing_else_identity
+symptoms: wrong
+match:
+    if $COND:
+        $A
+    print($X)
+where: not some($A, "else:") and regex($COND, r"isupper|islower|len\(")
+rewrite:
+    if $COND:
+        $A
+    else:
+        $X = $X
+
+rule capslock_fix_lone_append_lower_pattern
+symptoms: wrong
+match:
+    for $v in $it:
+        $acc += $expr
+where: regex($expr, r"\.lower\(\)|\.capitalize\(\)|\.title\(\)")
+rewrite:
+    for $v in $it:
+        $acc += $expr

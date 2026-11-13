@@ -1,0 +1,2120 @@
+[
+ {
+  "id": "0",
+  "before": "a=input()\nif a[1:]==a[1:].upper():\n    print(a.title())\nelse:\n    print(a)",
+  "after": "s=input() \nif s[1:]==s[1:].upper():\n    print(s.swapcase()) \nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "1",
+  "before": "s=input()\nprint([s,s.capitalize()][s[1:]==s[1:].upper()])",
+  "after": "s=input();print([s,s.swapcase()][s[1:]==s[1:].upper()])",
+  "n": 1
+ },
+ {
+  "id": "2",
+  "before": "word = input()\n\nif word.isupper() or word[1:].isupper():\n    print(word.swapcase())\nelse:\n    print(word)",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 5
+ },
+ {
+  "id": "3",
+  "before": "n=input()\nif len(n)==1 and n.isupper():\n    print(n.lower())\nelif n.isupper():\n    print(n.lower())\nelif n[0].islower() and n[1:].isupper():\n    print(n.swapcase())\nelse:\n    print(n)",
+  "after": "s = input()\nif len(s) == 1 and s.islower():\n    print(s.upper())\nelif s.isupper():\n    print(s.swapcase())\nelif s[1:].isupper() and s[0].islower():\n    print(s.swapcase())\nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "4",
+  "before": "string = input()\n\nanswer = ''\n\nif len(string) == 1 or string[1:].upper():\n    for char in string:\n        answer += (char.upper() if char.islower() else char.lower())\nprint(answer)",
+  "after": "string = input()\n\nanswer = ''\nif len(string) == 1 or string[1:].isupper():\n    for char in string:\n        answer += (char.upper() if char.islower() else char.lower())\nelse:\n    answer = string\nprint(answer)",
+  "n": 1
+ },
+ {
+  "id": "5",
+  "before": "word = input()\n\nif word.isupper():\n    processed_word = word.lower()\n\nelif word[1:].isupper():\n    processed_word = word.capitalize()\n\nelse:\n    processed_word = word\n\nprint(processed_word)",
+  "after": "word = input()\nif len(word) == 1:\n    word = word.swapcase()\nelif word[1:].isupper():\n    word = word.swapcase()\nelse:\n    word = word\nprint(word)",
+  "n": 1
+ },
+ {
+  "id": "6",
+  "before": "s = input()\n\n# check if the word satisfies either of the two conditions\nif s.isupper() or (s[0].islower() and s[1:].isupper()):\n    # if it does, convert the case of all letters\n    print(s.swapcase())\nelse:\n    # otherwise, leave the word unchanged\n    print(s)",
+  "after": "s = input()\n\nif (len(s) == 1 or s.isupper() or (s[0].islower() and s[1:].isupper())):\n\n    print(s.swapcase())\n\nelse:\n\n    print(s)",
+  "n": 9
+ },
+ {
+  "id": "7",
+  "before": "old_word = input()\nif old_word[1:] == old_word[1:].upper():\n    new_word = old_word.capitalize()\nelse:\n    new_word = old_word\nprint(new_word)",
+  "after": "# Read input\nn = input()\n\n# Check if the word should be converted\nif n[1:].upper() == n[1:]:\n    result = n.swapcase()\nelse:\n    result = n\n\n# Print the result\nprint(result)",
+  "n": 3
+ },
+ {
+  "id": "8",
+  "before": "s = input()\nif(s[0].lower() or s[1:].upper()):\n   print(s.capitalize())\nelse:\n   print(s)",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 2
+ },
+ {
+  "id": "9",
+  "before": "y= input()\nif y.isupper() or (y[0].islower()) and (y[1:].isupper) or (len(y)==1) and (y.lower):\n   y=y.swapcase()\n\nprint(y)",
+  "after": "x = input()\nif x.isupper() or (x[0].islower()) and (x [1:].isupper()) or (len(x) == 1) and (x.islower):\n    x = x.swapcase()\n\nprint(x)",
+  "n": 2
+ },
+ {
+  "id": "10",
+  "before": "s = str(input())\nif s[1::].isupper() or s.isupper():\n    print(s.capitalize())\nelse:\n    print(s)",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 2
+ },
+ {
+  "id": "11",
+  "before": "m = input()\nif m.upper() == m:\n    print(m.lower())\nelse:\n    print(m.title())",
+  "after": "a = input()\nif a[1:].upper() == a[1:]:\n    print(a.swapcase())\nelse:\n    print(a)\n# Sun Oct 29 2023 14:01:35 GMT+0300 (Moscow Standard Time)",
+  "n": 1
+ },
+ {
+  "id": "12",
+  "before": "word = input()\n\nif len(word) == 1 and word.isupper():\n    print(word.lower())\nelse:\n    print(word)",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 1
+ },
+ {
+  "id": "13",
+  "before": "x = input()\nif x.isupper() or (x[0].isupper() and x[1:].islower() ):\n\tprint(x)\nelse:\n\tprint(x.upper())",
+  "after": "s = input()\n\nif (len(s) == 1 or s.isupper() or (s[0].islower() and s[1:].isupper())):\n\n    print(s.swapcase())\n\nelse:\n\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "14",
+  "before": "w = input()\nif w[0].isupper() or w[0].islower() and w[1::].isupper():\n    print(w.capitalize())\nelse:\n    print(w)",
+  "after": "s = input()\n\nif (len(s) == 1 or s.isupper() or (s[0].islower() and s[1:].isupper())):\n\n    print(s.swapcase())\n\nelse:\n\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "15",
+  "before": "s=input()\na=s.lower()\nif a==s:\n    print(s)\nelse:\n    print(s.swapcase())",
+  "after": "s=input()\na=s[1:]\nb=a.upper()\nif a!=b:\n    print(s)\nelse:\n    print(s.swapcase())",
+  "n": 1
+ },
+ {
+  "id": "16",
+  "before": "words = input()\n\nif words.isupper() or words[1:].isupper():\n    pro_words = words.swapcase()\nelse:\n    pro_words = words  \n\n\nprint(pro_words)",
+  "after": "# Read input\nn = input()\n\n# Check if the word should be converted\nif n[1:].upper() == n[1:]:\n    result = n.swapcase()\nelse:\n    result = n\n\n# Print the result\nprint(result)",
+  "n": 6
+ },
+ {
+  "id": "17",
+  "before": "word = input()\nif word[1:].lower():\n    print(word.capitalize())\nelse:\n    print(word.uppercase())",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 4
+ },
+ {
+  "id": "18",
+  "before": "word = input()\n\n# Check if the word meets the criteria for Caps Lock\nif word.isupper() or (word[0].islower() and word[1:].isupper()):\n    # Transform the word by toggling the case\n    transformed_word = word.swapcase()\n    print(transformed_word)\nelse:\n    # If the criteria are not met, leave the word unchanged\n    print(word)",
+  "after": "s = input()\n\nif (len(s) == 1 or s.isupper() or (s[0].islower() and s[1:].isupper())):\n\n    print(s.swapcase())\n\nelse:\n\n    print(s)",
+  "n": 2
+ },
+ {
+  "id": "19",
+  "before": "n = input()\nif n.isupper() or n[1:].isupper():\n  n = n.swapcase()\n  print(n)",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 1
+ },
+ {
+  "id": "20",
+  "before": "word = input()\nif len(word) == 1 and word.islower():\n    print(word.upper())\nelif len(word) > 1 and word[1:].isupper():\n    print(word.swapcase())\nelse:\n    print(word)",
+  "after": "a = input()\n\nif len(a) == 1 and a.islower():\n    print(a.capitalize())\nelif a[1:].isupper() or a.isupper():\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "21",
+  "before": "a=input()\nif a.lower()=='capslock':\n    print(a)\nelse:print(a.title())",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 3
+ },
+ {
+  "id": "22",
+  "before": "# Read the input word\nword = input()\n\n# Check if the first character is uppercase and the rest are uppercase\nif word[0].isupper() and word[1:].islower():\n    # Convert the whole word to lowercase\n    result = word.lower()\nelse:\n    # Leave the word unchanged\n    result = word\n\n# Print the result\nprint(result)",
+  "after": "# Read input\nn = input()\n\n# Check if the word should be converted\nif n[1:].upper() == n[1:]:\n    result = n.swapcase()\nelse:\n    result = n\n\n# Print the result\nprint(result)",
+  "n": 2
+ },
+ {
+  "id": "23",
+  "before": "word = input()\nif word[0].upper() or word[1:].lower():\n    print(word)\nelse:\n    print(word.capitalize())",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 2
+ },
+ {
+  "id": "24",
+  "before": "s=input()\nif s==s.lower() or s==s.capitalize:\n    print(s)\nelse:\n    print(s.capitalize())",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 2
+ },
+ {
+  "id": "25",
+  "before": "n = input()\nif n.isupper():\n    print(n.capitalize())\nelse:\n    if n[0].isupper() == False:\n        print(n.capitalize())\n    else:\n        print(n)",
+  "after": "a=input()\n\nif(a.upper()==a):\n    print(a.swapcase())\nelif(a.capitalize().swapcase()==a):\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "26",
+  "before": "import re\n\nword = input()\n# ans = re.findall(r'^[A-Z]+[a-z]+', word)\nif re.findall(r'^[a-z][A-Z]+', word) or re.findall(r'^[A-Z]+', word):\n    print(word.swapcase())\n\nelse:\n    print(word)",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 1
+ },
+ {
+  "id": "27",
+  "before": "string = input()\nstring = string[0].upper()+string[1:].lower()\nprint(string)",
+  "after": "word = input()\nif word[1:].upper() == word[1:]:\n    word = word.swapcase()\nprint(word)",
+  "n": 8
+ },
+ {
+  "id": "28",
+  "before": "s=input()\nif s.lower():\n    print(s)\nelse:\n    print(s.swapcase())",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 3
+ },
+ {
+  "id": "29",
+  "before": "word = input()\nif word[1:].isupper():\n    processed_word = word.swapcase()\nelse:\n    processed_word = word\nprint(processed_word)",
+  "after": "word = input()\nif word[1:].upper() == word[1:]:\n    word = word.swapcase()\nprint(word)",
+  "n": 1
+ },
+ {
+  "id": "30",
+  "before": "n=input()\nn=n.capitalize()\nfor i in range(1,len(n)):\n    n[i].lower()\nprint(n)",
+  "after": "input_string = input()\nneeds_change = True\nfor i in range(1, len(input_string)):\n    if input_string[i].islower():\n        needs_change = False\n        break\nif needs_change:\n    input_string = input_string.swapcase()\nprint(input_string)",
+  "n": 1
+ },
+ {
+  "id": "31",
+  "before": "word = input()\nif word.isupper() or word[1:].islower():\n    result = word.capitalize()\n    print(result)\nelse:\n    print(word)",
+  "after": "word = input()\n\nif word.isupper() or word[1:].isupper() or len(word) == 1:\n    print(word.swapcase())\nelse:\n    print(word)",
+  "n": 1
+ },
+ {
+  "id": "32",
+  "before": "a=input()\nif a==a.upper():\n    print(a.title())\nelif a[0]==a[0].lower():\n    print(a.title())\n\nelse:\n    print(a)",
+  "after": "a=input()\n\nif(a.upper()==a):\n    print(a.swapcase())\nelif(a.capitalize().swapcase()==a):\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "33",
+  "before": "n = input()\n\nn = n[0].upper() + n[1:]\n\nprint(n)",
+  "after": "word = input()\nif word[1:].upper() == word[1:]:\n    word = word.swapcase()\nprint(word)",
+  "n": 5
+ },
+ {
+  "id": "34",
+  "before": "str=input()\nif(str[0].isupper()):\n    print(str)\nelse:\n    print(str.swapcase())",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 3
+ },
+ {
+  "id": "35",
+  "before": "s = input()\nif (s[0].islower() and s[1:].isupper() or s.isupper()):\n    s = s.swapcase()\nprint(s)",
+  "after": "s = input()\nif len(s) == 1 or s[1:].upper() == s[1:]:\n    s = s.swapcase()\nprint(s)",
+  "n": 3
+ },
+ {
+  "id": "36",
+  "before": "def judge(n):\n    if n.upper()==n or n.capitalize()==n:\n        return n\n    else:\n        return n.capitalize()\n\nword=input()\nprint(judge(word))",
+  "after": "#CF_Problem:\t131A_Caps_Lock\n\ndef capsLock(s):\n\tif len(s) == 1 or s[1:].isupper():\n\t\treturn s.swapcase()\n\treturn s\n\n\ns = input()\nprint(capsLock(s))",
+  "n": 1
+ },
+ {
+  "id": "37",
+  "before": "word = input()\n\nif word.isupper():\n    print(word.lower())\nelif word[1:].isupper() and not word[0].isupper():\n    print(word.lower().capitalize())\nelse:\n    print(word)",
+  "after": "text = input()\nif text.isupper() :\n    print(text.lower())\nelif text[0:1].islower() and (text[1:].isupper() or len(text) == 1) : \n    print(text.capitalize())\nelse : print(text)",
+  "n": 1
+ },
+ {
+  "id": "38",
+  "before": "string=input()\nchar=list(string)\nuppercase=1\nfor i in range (1,len(char)):\n    if char[i].isupper==False:\n        uppercase==0\n\nif uppercase==1:\n    print(string.swapcase())\nelse:\n    print(string)",
+  "after": "string=input()\nchar=list(string)\nuppercase=1\nfor i in range (1,len(string)):\n    if str(char[i]).islower()==True:\n        uppercase=0\nif uppercase==0:\n    print(string)\nelse:\n    print(string.swapcase())",
+  "n": 1
+ },
+ {
+  "id": "39",
+  "before": "a = input()\nprint(a.swapcase() if a[1:].isupper() or a[0].islower() else a)",
+  "after": "n=input();print([n,n.swapcase()][n[1:].upper()==n[1:]])",
+  "n": 1
+ },
+ {
+  "id": "40",
+  "before": "# Read the input word\nword = input()\n\n# Check if the Caps Lock rule should be applied\nif word.isupper() or (word[0].islower() and word[1:].isupper()):\n    # Apply the rule: toggle the case of all letters\n    word = word.swapcase()\n\n# Print the result\nprint(word)",
+  "after": "s = input()\nif len(s) == 1 or s[1:].upper() == s[1:]:\n    s = s.swapcase()\nprint(s)",
+  "n": 1
+ },
+ {
+  "id": "41",
+  "before": "a = input()\nprint(a[0].upper()+a[1:].lower())",
+  "after": "n=input();print([n,n.swapcase()][n[1:].upper()==n[1:]])",
+  "n": 9
+ },
+ {
+  "id": "42",
+  "before": "x=input()\nprint(x[0].upper() + x[1:])",
+  "after": "n=input();print([n,n.swapcase()][n[1:].upper()==n[1:]])",
+  "n": 3
+ },
+ {
+  "id": "43",
+  "before": "def fix_caps_lock(word):\n    if word.isupper() or word[1:].isupper():\n        return word.swapcase()\n    return word\n\n# Read input\nword = input()\n\n# Apply the rule and print the result\nresult = fix_caps_lock(word)\nprint(result)",
+  "after": "#CF_Problem:\t131A_Caps_Lock\n\ndef capsLock(s):\n\tif len(s) == 1 or s[1:].isupper():\n\t\treturn s.swapcase()\n\treturn s\n\n\ns = input()\nprint(capsLock(s))",
+  "n": 3
+ },
+ {
+  "id": "44",
+  "before": "s = input()\nif s.isupper() or (len(s) > 1 and s[1:].islower()):\n    s = s.swapcase()\nprint(s)",
+  "after": "s = input()\nif len(s) == 1 or s[1:].upper() == s[1:]:\n    s = s.swapcase()\nprint(s)",
+  "n": 2
+ },
+ {
+  "id": "45",
+  "before": "str=input()\nif str[0].islower() and str[1].isupper():\n    str_final=str.title()\nelif str.isupper():\n    str_final=str.title()\nelse:\n    str_final=str\nprint(str_final)",
+  "after": "word = input()\nif len(word) == 1:\n    word = word.swapcase()\nelif word[1:].isupper():\n    word = word.swapcase()\nelse:\n    word = word\nprint(word)",
+  "n": 2
+ },
+ {
+  "id": "46",
+  "before": "word = input()\nif word.isupper() or (len(word) > 1 and word[1:].isupper()):\n    print(word.swapcase())\nelse:\n    print(word)",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 2
+ },
+ {
+  "id": "47",
+  "before": "# Read input\ns = input()\n\n# Check if the word should be converted\nif s.isupper() or s.islower() or (s[0].islower() and s[1:].isupper()):\n    # Convert the word\n    s = s.swapcase()\n\n# Print the result\nprint(s)",
+  "after": "x = input()\nif x.isupper() or (x[0].islower()) and (x [1:].isupper()) or (len(x) == 1) and (x.islower):\n    x = x.swapcase()\n\nprint(x)",
+  "n": 1
+ },
+ {
+  "id": "48",
+  "before": "s=input()\nif s.isupper():\n    print(s)\nelse:\n    s=s.capitalize()\n    print(s)",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 1
+ },
+ {
+  "id": "49",
+  "before": "s = input()\nfor i in range(len(s)):\n    if i != 0 and s[i].islower():\n        print(s)\n        exit()\n\nprint(s[0].upper()+s[1:].lower())",
+  "after": "s = input()\nfor i in range(len(s)):\n    if i != 0 and s[i].islower():\n        print(s)\n        exit()\n\nprint(s[0].upper() + s[1:].lower() if s[0].islower() else s.lower())",
+  "n": 1
+ },
+ {
+  "id": "50",
+  "before": "def solve(s):\n    if s.upper() == s:\n        return s\n    return s.capitalize()\n\ns = input()\nprint(solve(s))",
+  "after": "#CF_Problem:\t131A_Caps_Lock\n\ndef capsLock(s):\n\tif len(s) == 1 or s[1:].isupper():\n\t\treturn s.swapcase()\n\treturn s\n\n\ns = input()\nprint(capsLock(s))",
+  "n": 1
+ },
+ {
+  "id": "51",
+  "before": "word = input()\nif word.isupper() or (word[0].islower() and word[1:].isupper()):\n    result = word.swapcase()\nelse:\n    result = word\nprint(result)",
+  "after": "t=input()\nif (len(t)==1):\n    t=t.swapcase()\nelif (t.isupper() or t[0].islower() and t[1:].isupper()):\n    t=t.swapcase()\nprint(t)",
+  "n": 5
+ },
+ {
+  "id": "52",
+  "before": "a = input()\na.lower()\nprint(a[0].upper()+a[1:])",
+  "after": "word = input()\nif word[1:].upper() == word[1:]:\n    word = word.swapcase()\nprint(word)",
+  "n": 2
+ },
+ {
+  "id": "53",
+  "before": "import re\n\nword = input()\nans = re.findall(r'^[a-z]?[A-Z]+', word)\nif ans[0] == word:\n    print(word.capitalize())\nelse:\n    print(word)",
+  "after": "x=input()\ns=x[1:]\na=s.upper()\nif(s==a):\n    print(x.swapcase())\nelse:\n    print(x)",
+  "n": 2
+ },
+ {
+  "id": "54",
+  "before": "word = input()\nif((word[0].islower() and word[1:].isupper()) or word.isupper()):\n    word = word[0].upper() + word[1:].lower()\nprint(word)",
+  "after": "s = input()\nif (s[0].islower() and s[1:].isupper() or s.isupper() or len(s) == 1 and s.islower()):\n    s = s.swapcase()\nprint(s)",
+  "n": 1
+ },
+ {
+  "id": "55",
+  "before": "string = input()\n\ndef Invert(s):\n    if s.isupper():\n        return s.lower()\n    return s.upper()\n\nif string[1:].isupper():\n    print(Invert(string[0]) + string[1:].lower())\nelse:\n    print(string)",
+  "after": "string = input()\n\ndef invert(s):\n    if s.isupper():\n        return s.lower()\n    return s.upper()\n\nif len(string) == 1 or string[1:].isupper():\n    print(invert(string[0]) + string[1:].lower())\nelse:\n    print(string)",
+  "n": 1
+ },
+ {
+  "id": "56",
+  "before": "inp = input()\n\nif inp.isupper():\n    print(inp.lower().capitalize())\nelse:\n    if inp[0].islower() and inp[1:].isupper():\n        print(inp.lower().capitalize())\n    else:\n        print(inp)",
+  "after": "s = input().strip()\nif s.isupper():\n   print(s.lower())\nelif(s[0].islower() and (not s[1:] or s[1:].isupper())):\n   print(s.capitalize())\nelse:\n   print(s)",
+  "n": 1
+ },
+ {
+  "id": "57",
+  "before": "a = input()\nprint(a.swapcase() if a[1:].isupper() else a)",
+  "after": "n=input();print([n,n.swapcase()][n[1:].upper()==n[1:]])",
+  "n": 1
+ },
+ {
+  "id": "58",
+  "before": "word = input()\n\nif len(word) == 1 or (len(word) > 1 and word[1:].islower()):\n    result = word.swapcase()\nelse:\n    result = word\n\nprint(result)",
+  "after": "s = input()\nif len(s) == 1 or s[1:].upper() == s[1:]:\n    s = s.swapcase()\nprint(s)",
+  "n": 1
+ },
+ {
+  "id": "59",
+  "before": "x = input()\nif x.isupper() or (x[0].islower() and x[1:].isupper()):\n    x.capitalize()\nprint(x)",
+  "after": "# Read input\nn = input()\n\n# Check if the word should be converted\nif n[1:].upper() == n[1:]:\n    result = n.swapcase()\nelse:\n    result = n\n\n# Print the result\nprint(result)",
+  "n": 1
+ },
+ {
+  "id": "60",
+  "before": "# https://codeforces.com/problemset/problem/131/A\n\ns = input()\n\nif s.isupper():\n    print(s.lower())\nelif s[0].islower() and s[1:].isupper():\n    print(s[0].upper() + s[1:].lower())\nelse:\n    print(s)",
+  "after": "x = input()\n\nif x.isupper():\n    print(x.lower())\nelif x[0].islower() and all(char.isupper() for char in x[1:]):\n    print(x[0].upper() + x[1:].lower())\nelse:\n    print(x)",
+  "n": 1
+ },
+ {
+  "id": "61",
+  "before": "s = input()\nif len(s)>1:\n    s= s[0].upper() + s[1:].lower()\nelse:\n    s = s.upper()\nprint(s)",
+  "after": "# Read input\nn = input()\n\n# Check if the word should be converted\nif n[1:].upper() == n[1:]:\n    result = n.swapcase()\nelse:\n    result = n\n\n# Print the result\nprint(result)",
+  "n": 1
+ },
+ {
+  "id": "62",
+  "before": "line = input()\nif line[1:]==line[1:].upper():\n    print(line[0].upper()+line[1:].lower())\nelse:\n    print(line)",
+  "after": "s=input() \nif s[1:]==s[1:].upper():\n    print(s.swapcase()) \nelse:\n    print(s)",
+  "n": 6
+ },
+ {
+  "id": "63",
+  "before": "w=input()\ns=w.istitle()\nif s==True:\n   print(w)\nif s==False:\n    w2=w.title()\n    print(w2)",
+  "after": "x=input()\ns=x[1:]\na=s.upper()\nif(s==a):\n    print(x.swapcase())\nelse:\n    print(x)",
+  "n": 1
+ },
+ {
+  "id": "64",
+  "before": "s=input()\na=s.upper()\nb=s.lower()\nprint(a[0],b[1:])",
+  "after": "n=str(input())\nb = n.swapcase()\nc=n[1:]\nprint([n, b][c.upper()==c])",
+  "n": 1
+ },
+ {
+  "id": "65",
+  "before": "text = input()\nif text.isupper() :\n    print(text.lower())\nelif(text[0:1].islower() and text[1:].isupper()) : \n    print(text.capitalize())\nelse : print(text)",
+  "after": "s = input().strip()\nif s.isupper():\n   print(s.lower())\nelif(s[0].islower() and (not s[1:] or s[1:].isupper())):\n   print(s.capitalize())\nelse:\n   print(s)",
+  "n": 1
+ },
+ {
+  "id": "66",
+  "before": "word = input()\n\nif word[0].islower():\n    word = word[0].upper() + word[1:]\nprint(word)",
+  "after": "word = input()\nif word[1:].upper() == word[1:]:\n    word = word.swapcase()\nprint(word)",
+  "n": 1
+ },
+ {
+  "id": "67",
+  "before": "string = input()\nif string.isupper :\n    print(string[0].upper()+string[1:].lower())\nelse:\n    print(string)",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 1
+ },
+ {
+  "id": "68",
+  "before": "s=input(\"\")\nif len(s)>=1&len(s)<=100:\n a=(s.lower())\nprint(a.capitalize())",
+  "after": "word = input()\nif word[1:].upper() == word[1:]:\n    word = word.swapcase()\nprint(word)",
+  "n": 1
+ },
+ {
+  "id": "69",
+  "before": "s=input()\nif(s[0].isupper() and s[1:len(s)].islower()):\n    print(s)\nelse:\n    print(s.swapcase())",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 1
+ },
+ {
+  "id": "70",
+  "before": "a = input()\nif a[0].isupper() and a[1:].lower:\n    print(a)\nelse:\n    a = a.capitalize()\n    print(a)",
+  "after": "word = input()\n\nif word.isupper() or word[1:].isupper() or len(word) == 1:\n    print(word.swapcase())\nelse:\n    print(word)",
+  "n": 1
+ },
+ {
+  "id": "71",
+  "before": "word = input()\nresult = word.swapcase() if word.isupper() or word[1:].islower() else word\nprint(result)",
+  "after": "word = input()\nif word[1:].upper() == word[1:]:\n    word = word.swapcase()\nprint(word)",
+  "n": 1
+ },
+ {
+  "id": "72",
+  "before": "s = input()\nres  = s.capitalize()\nprint(res)",
+  "after": "word = input()\nif word[1:].upper() == word[1:]:\n    word = word.swapcase()\nprint(word)",
+  "n": 24
+ },
+ {
+  "id": "73",
+  "before": "def def1(x):\n    if x.isupper() or x[1:].isupper():\n        return x.swapcase()\n    else:\n        return x\n\nx1 = input().strip()\ntrans = def1(x1)\nprint(trans)",
+  "after": "s=str(input())\ndef qns(word):\n    if word.isupper() or word[1:].isupper() or len(word)==1:\n        return word.swapcase()\n    else:\n        return word\nprint(qns(s))",
+  "n": 3
+ },
+ {
+  "id": "74",
+  "before": "def apply_caps_lock_rule(word):\n    # Check if the word only contains uppercase letters or\n    # if all letters except the first one are uppercase\n    if word.isupper() or word[1:].isupper():\n        # Change the case of all letters in the word\n        return word.swapcase()\n    else:\n        # Leave the word unchanged\n        return word\n\n# Read the input word\ninput_word = input()\n\n# Apply the Caps lock rule and print the result\nresult = apply_caps_lock_rule(input_word)\nprint(result)",
+  "after": "#CF_Problem:\t131A_Caps_Lock\n\ndef capsLock(s):\n\tif len(s) == 1 or s[1:].isupper():\n\t\treturn s.swapcase()\n\treturn s\n\n\ns = input()\nprint(capsLock(s))",
+  "n": 3
+ },
+ {
+  "id": "75",
+  "before": "palabra = input()\npalabra_inicio = palabra[0].upper()\ns=\"\"\nfor i in range(1,len(palabra)):\n  s += palabra[i].lower()\n\n\n\nprint(palabra_inicio + s)",
+  "after": "input_string = input()\nneeds_change = True\nfor i in range(1, len(input_string)):\n    if input_string[i].islower():\n        needs_change = False\n        break\nif needs_change:\n    input_string = input_string.swapcase()\nprint(input_string)",
+  "n": 2
+ },
+ {
+  "id": "76",
+  "before": "s = input()\nfirst_char = s[0]\n\nif s.isupper():\n    print(s.lower())\nelif first_char.islower() and s[1:].isupper():\n    print(first_char.upper() + s[1:].lower())\nelse:\n    print(s)",
+  "after": "s = input()\ns2 = s[1:]\nif s.isupper():\n    print(s.lower())\nelif s2.isupper() or len(s) == 1:\n    print(s[0].upper() + s2.lower())\nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "77",
+  "before": "word=input()\n\nif (word[1:-1].isupper() and word[0].islower()) or word.isupper():\n  word=word.casefold()\n  word=word.capitalize()\nprint(word)",
+  "after": "s = input()\nif (s[0].islower() and s[1:].isupper() or s.isupper() or len(s) == 1 and s.islower()):\n    s = s.swapcase()\nprint(s)",
+  "n": 1
+ },
+ {
+  "id": "78",
+  "before": "a=input()\na=str(a)\nif (a.isalpha()==True):\n    b=a.swapcase()\nelse:\n    b=a\nprint(b)",
+  "after": "# Read input\nn = input()\n\n# Check if the word should be converted\nif n[1:].upper() == n[1:]:\n    result = n.swapcase()\nelse:\n    result = n\n\n# Print the result\nprint(result)",
+  "n": 1
+ },
+ {
+  "id": "79",
+  "before": "a = input()\nprint(a.capitalize() if a.isupper() or (a[0].islower() and a[1:].isupper()) else a)",
+  "after": "n=input();print([n,n.swapcase()][n[1:].upper()==n[1:]])",
+  "n": 1
+ },
+ {
+  "id": "80",
+  "before": "x = input()\nif (\"capslock\" not in x.lower()):\n    print(x.capitalize())\nelse:\n    print(x[0].lower() + x[1:].upper())",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 1
+ },
+ {
+  "id": "81",
+  "before": "n = input()\nprint(\"Caps\") if n in [n.lower(), n[0]+n[1:].upper()] else print(\"Lock\")",
+  "after": "n=input();print([n,n.swapcase()][n[1:].upper()==n[1:]])",
+  "n": 1
+ },
+ {
+  "id": "82",
+  "before": "n = str(input())\nn = n.lower()\nn = n.capitalize()\nprint(n)",
+  "after": "n=str(input())\nb = n.swapcase()\nc=n[1:]\nprint([n, b][c.upper()==c])",
+  "n": 7
+ },
+ {
+  "id": "83",
+  "before": "def main():\n    s = input();\n    if s[1:]==s[1:].upper():\n        return s.capitalize()\n    return s\nprint(main())",
+  "after": "s=input();print([s,s.swapcase()][s[1:]==s[1:].upper()])",
+  "n": 1
+ },
+ {
+  "id": "84",
+  "before": "import re\n\nword = input()\nif re.search(r'^[a-z][A-Z]$', word):\n    print(word.swapcase())\n\nelse:\n    if re.search(r'^[A-Z]$', word):\n        print(word.swapcase())\n    else:\n        print(word)",
+  "after": "a=input()\n\nif(a.upper()==a):\n    print(a.swapcase())\nelif(a.capitalize().swapcase()==a):\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "85",
+  "before": "# your code goes here\nx = input().lower()\np = x[0]\nx = x.replace(x[0],p.upper())\nprint(x)",
+  "after": "n=str(input())\nb = n.swapcase()\nc=n[1:]\nprint([n, b][c.upper()==c])",
+  "n": 1
+ },
+ {
+  "id": "86",
+  "before": "txt = input()\nif txt.isupper(): # T -> t | one letter case\n    print(txt.lower())\nelif txt[0].islower and txt[1:].isupper:\n    print(txt[0].upper() + txt[1:].lower())\nelse:\n    print(txt)",
+  "after": "s = input()\nif s.isupper():\n\tprint(s.lower())\nelif s[0].islower and (len(s) == 1 or s[1:].isupper()):\n\tprint(s[0].upper() + s[1:].lower())\nelse:\n\tprint(s)",
+  "n": 1
+ },
+ {
+  "id": "87",
+  "before": "a = input()\nb = a.lower()\n#print(b)\nprint(a[0].upper(),end=\"\")\nprint(b[1::],end=\"\")",
+  "after": "x=input()\ns=x[1:]\na=s.upper()\nif(s==a):\n    print(x.swapcase())\nelse:\n    print(x)",
+  "n": 1
+ },
+ {
+  "id": "88",
+  "before": "N=input()\ntest_str = N\n\nres = test_str.capitalize()\nprint( str(res))",
+  "after": "s=input()\na=s[1:]\nb=a.upper()\nif a!=b:\n    print(s)\nelse:\n    print(s.swapcase())",
+  "n": 1
+ },
+ {
+  "id": "89",
+  "before": "soz = input()\nif soz == 'cAPS':\n    print('Caps')\nelif soz == 'Lock':\n    print('Lock')",
+  "after": "s=input() \nif s[1:]==s[1:].upper():\n    print(s.swapcase()) \nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "90",
+  "before": "s = input()\nif s[0].isupper():\n    print(s)\nelse:\n    print(s[0].upper() + s[1:])",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 1
+ },
+ {
+  "id": "91",
+  "before": "sequence=input()\nfirst=sequence[0]\nsequence_edit=sequence[1:]\nif(sequence_edit.isupper()):\n    print(first.upper()+sequence_edit.lower())\nelse:\n    print(first+sequence_edit)",
+  "after": "x=input()\ns=x[1:]\na=s.upper()\nif(s==a):\n    print(x.swapcase())\nelse:\n    print(x)",
+  "n": 1
+ },
+ {
+  "id": "92",
+  "before": "x=input()\nif x[0].islower() and x[1:].isupper():\n    print(x[0].upper()+x[1::].lower())\nelif x.isupper():\n        print(x[0].upper()+x[1::].lower())\nelse:\n    print(x)",
+  "after": "a=input()\nif a==a.upper():\n    print(a.lower())\nelif a==a[0].lower()+a[1:].upper():\n    print(a[0].upper()+a[1:].lower())\nelse:\n    print(a)",
+  "n": 2
+ },
+ {
+  "id": "93",
+  "before": "a = input()\na.upper()\na = a[0] + a[1:].lower()\nprint(a)",
+  "after": "word = input()\nif word[1:].upper() == word[1:]:\n    word = word.swapcase()\nprint(word)",
+  "n": 1
+ },
+ {
+  "id": "94",
+  "before": "string = input()\n#string = string[0].upper()\nif string[0].islower() and string[1:].isupper():\n\tstring = string[0].upper()+string[1:].lower()\nprint(string)",
+  "after": "s = input()\nif len(s) == 1 or s[1:].upper() == s[1:]:\n    s = s.swapcase()\nprint(s)",
+  "n": 1
+ },
+ {
+  "id": "95",
+  "before": "word = input()\nif word.isupper():\n    word = word.lower()\nelif word[1:].isupper() and word[0].islower():\n    word = word[0].upper()+word[1:].lower()\nprint(word)",
+  "after": "t=input()\nif (len(t)==1):\n    t=t.swapcase()\nelif (t.isupper() or t[0].islower() and t[1:].isupper()):\n    t=t.swapcase()\nprint(t)",
+  "n": 1
+ },
+ {
+  "id": "96",
+  "before": "# Read input\ns = input()\n\n# Check if the word should be converted\nif s.isupper():\n    s = s.lower()\nelif len(s) > 1 and s[0].islower() and s[1:].isupper():\n    s = s.capitalize()\n\n# Print the result\nprint(s)",
+  "after": "s = input()\nif len(s) == 1:\n    s = s.swapcase()\nelse:\n    if s[0].islower() and s[1:].isupper():\n        s = s.swapcase()\n    if s.isupper():\n        s = s.lower()\nprint(s)",
+  "n": 1
+ },
+ {
+  "id": "97",
+  "before": "a=input()\nif a==a.upper() or (a[0]==a[0].upper and a[1:]==a[1:].upper()):\n    print(a.swapcase())\nelse:\n    print(a)",
+  "after": "value = input()\nif (value[0] == value[0].lower() and value[1:] == value[1:].upper()) or (value == value.upper()):\n    print(value.swapcase())\nelse:\n    print(value)",
+  "n": 1
+ },
+ {
+  "id": "98",
+  "before": "word = input()\nif word == word.title():\n  print(word)\nelse:\n  string = \"\"\n  for w in word:\n    if w == w.upper():\n      string += w.lower()\n    else:\n      string += w.upper()\n  print(string)",
+  "after": "s = input()\nif s[1:] == s[1:].upper():\n    new_s = ''\n    for l in s:\n        if l.upper() == l:\n            new_s += l.lower()\n        else:\n            new_s += l.upper()\n    print(new_s)\nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "99",
+  "before": "inputWord = input()\nif len(inputWord)==1:\n    print(inputWord.capitalize())\nelif inputWord[0].islower() and inputWord[1:].isupper:\n    print(inputWord.capitalize())",
+  "after": "a=input()\n\nif(a.upper()==a):\n    print(a.swapcase())\nelif(a.capitalize().swapcase()==a):\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "100",
+  "before": "word = input()\nif word.isupper() or (len(word) > 1 and word[1:].islower()):\n    result = word.swapcase()\n    print(result)\nelse:\n    print(word)",
+  "after": "s = input()\n\nif (len(s) == 1 or s.isupper() or (s[0].islower() and s[1:].isupper())):\n\n    print(s.swapcase())\n\nelse:\n\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "101",
+  "before": "x = input()\nif x.isupper() or (x[0].isupper() and x[1:].islower() ):\n\tprint(x)\nelse:\n\tprint(x[0].upper()+x[1:].lower())",
+  "after": "string=input()\nif (string.isupper() or (string[0].islower() and (string[1:].isupper() or len(string)==1))):\n    print(string.swapcase())\nelse:\n    print(string)",
+  "n": 1
+ },
+ {
+  "id": "102",
+  "before": "s=input()\nst=s[0].upper()\nfor i in range(1,len(s)):\n    st=st+s[i].lower()\nprint(st)",
+  "after": "input_string = input()\nneeds_change = True\nfor i in range(1, len(input_string)):\n    if input_string[i].islower():\n        needs_change = False\n        break\nif needs_change:\n    input_string = input_string.swapcase()\nprint(input_string)",
+  "n": 1
+ },
+ {
+  "id": "103",
+  "before": "word = input()\n\nif word.islower(): word = word.upper()\nelif word.isupper(): word = word.lower()\nelif word[0].islower() and word[1:].isupper(): word = word.capitalize()\n\nprint(word)",
+  "after": "t=input()\nif (len(t)==1):\n    t=t.swapcase()\nelif (t.isupper() or t[0].islower() and t[1:].isupper()):\n    t=t.swapcase()\nprint(t)",
+  "n": 1
+ },
+ {
+  "id": "104",
+  "before": "a = input()\n\nprint(a.swapcase() if a[1:].isupper() or (a[0].islower and len(a)) else a)",
+  "after": "s=input() \nif s[1:]==s[1:].upper():\n    print(s.swapcase()) \nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "105",
+  "before": "s=input()\ns=s.lower()\ns=s[0].upper()+s[1:]\nprint(s)",
+  "after": "s=input()\na=s[1:]\nb=a.upper()\nif a!=b:\n    print(s)\nelse:\n    print(s.swapcase())",
+  "n": 2
+ },
+ {
+  "id": "106",
+  "before": "s=input()\ns1=s.lower()\na=s1[0].upper()\nprint(a+s1[1:])",
+  "after": "x=input()\ns=x[1:]\na=s.upper()\nif(s==a):\n    print(x.swapcase())\nelse:\n    print(x)",
+  "n": 2
+ },
+ {
+  "id": "107",
+  "before": "s = input()\nfor i in range(len(s)):\n    if i != 0 and s[i].islower():\n        print(s)\n        exit()\n\nprint(s.lower())",
+  "after": "#CF_Problem:\t131A_Caps_Lock\n\ndef capsLock(s):\n\tif len(s) == 1 or s[1:].isupper():\n\t\treturn s.swapcase()\n\treturn s\n\n\ns = input()\nprint(capsLock(s))",
+  "n": 1
+ },
+ {
+  "id": "108",
+  "before": "s = input()\nr = s.lower()\nt = r.replace(r[0],r[0].upper())\nprint(t)",
+  "after": "s=input()\na=s[1:]\nb=a.upper()\nif a!=b:\n    print(s)\nelse:\n    print(s.swapcase())",
+  "n": 1
+ },
+ {
+  "id": "109",
+  "before": "a=input()\nx=a[0]\ny=x.upper()+a[1::].lower()\nprint(y)",
+  "after": "x=input()\ns=x[1:]\na=s.upper()\nif(s==a):\n    print(x.swapcase())\nelse:\n    print(x)",
+  "n": 1
+ },
+ {
+  "id": "110",
+  "before": "s=input()\nif s.isupper():\n    s=s.lower()\n    s=s.capitalize() \nelse:\n    if s[0].islower() and s[1].isupper:\n        s=s.lower()\n        s=s.capitalize()\n        \nprint(s)",
+  "after": "s = input()\nif len(s) == 1:\n    s = s.swapcase()\nelse:\n    if s[0].islower() and s[1:].isupper():\n        s = s.swapcase()\n    if s.isupper():\n        s = s.lower()\nprint(s)",
+  "n": 1
+ },
+ {
+  "id": "111",
+  "before": "string = input()\nif string.isupper or string[1:].isupper:\n    print(string[0].upper()+string[1:].lower())\nelse:\n    print(string)",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 1
+ },
+ {
+  "id": "112",
+  "before": "word = input()\nresult = word.upper() if word.islower() or (word[0].islower() and word[1:].isupper()) else word\nprint(result)",
+  "after": "s = input()\nif len(s) == 1 or s[1:].upper() == s[1:]:\n    s = s.swapcase()\nprint(s)",
+  "n": 1
+ },
+ {
+  "id": "113",
+  "before": "s=input()\nprint(s.swapcase())",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 48
+ },
+ {
+  "id": "114",
+  "before": "word = input()\n\n# Check if the word consists of only uppercase letters\nif word.isupper():\n    print(word.lower())\n\n# Check if all letters except for the first one are uppercase\nelif word[1:].isupper():\n    print(word[0].lower() + word[1:].upper())\n\n# If the word doesn't follow the rules, leave it unchanged\nelse:\n    print(word)",
+  "after": "x=input()\n\nif x==x.upper():\n\n    print(x.lower())\n\nelif x[1:]==x[1:].upper():\n\n    print(x[0].upper()+x[1:].lower())\n\nelse:\n\n    print(x)",
+  "n": 3
+ },
+ {
+  "id": "115",
+  "before": "sequence=input()\nfirst=sequence[0].upper()\nsequence=sequence[1:].lower()\nprint(first+sequence)",
+  "after": "s=input()\na=s[1:]\nb=a.upper()\nif a!=b:\n    print(s)\nelse:\n    print(s.swapcase())",
+  "n": 2
+ },
+ {
+  "id": "116",
+  "before": "word = input().strip()\nif word.isupper() or (word[1:].isupper() and word[0].islower()):\n   c = word.lower()  \nelse:\n    c = word\nprint(c)",
+  "after": "# Read input\nn = input()\n\n# Check if the word should be converted\nif n[1:].upper() == n[1:]:\n    result = n.swapcase()\nelse:\n    result = n\n\n# Print the result\nprint(result)",
+  "n": 2
+ },
+ {
+  "id": "117",
+  "before": "n = input()\n\ns = ''\n\nfor i in n:\n    s+=i.lower() if i.isupper() else i.upper()\n\nprint(s)",
+  "after": "word = input()\nif word[1:].upper() == word[1:]:\n    word = word.swapcase()\nprint(word)",
+  "n": 1
+ },
+ {
+  "id": "118",
+  "before": "s = input()\n\ntxt = ''\nfor char in s:\n    if char.isupper():\n        txt += char.lower()\n    else:\n        txt += char.upper()\n\nprint(txt)",
+  "after": "word = input()\nif word[1:].upper() == word[1:]:\n    word = word.swapcase()\nprint(word)",
+  "n": 1
+ },
+ {
+  "id": "119",
+  "before": "n=input()\ntest_str = n\n\n\n\nres = ' '.join([word.capitalize() for word in test_str.split()])\n\n\nprint(str(res))",
+  "after": "x=input()\ns=x[1:]\na=s.upper()\nif(s==a):\n    print(x.swapcase())\nelse:\n    print(x)",
+  "n": 1
+ },
+ {
+  "id": "120",
+  "before": "def process_word(word):\n    # \u041f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u043c, \u0441\u043e\u043e\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0443\u0435\u0442 \u043b\u0438 \u0441\u043b\u043e\u0432\u043e \u0443\u0441\u043b\u043e\u0432\u0438\u044f\u043c \u043e\u0448\u0438\u0431\u043e\u0447\u043d\u043e \u043d\u0430\u0431\u0440\u0430\u043d\u043d\u043e\u0433\u043e \u0441\u043b\u043e\u0432\u0430\n    if word[0].islower():\n        # \u041c\u0435\u043d\u044f\u0435\u043c \u0440\u0435\u0433\u0438\u0441\u0442\u0440 \u0432\u0441\u0435\u0445 \u0431\u0443\u043a\u0432 \u043d\u0430 \u043f\u0440\u043e\u0442\u0438\u0432\u043e\u043f\u043e\u043b\u043e\u0436\u043d\u044b\u0439\n        return word.swapcase()\n    else:\n        # \u0421\u043b\u043e\u0432\u043e \u043d\u0435 \u0442\u0440\u0435\u0431\u0443\u0435\u0442 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f\n        return word\n\n# \u0427\u0438\u0442\u0430\u0435\u043c \u0432\u0445\u043e\u0434\u043d\u044b\u0435 \u0434\u0430\u043d\u043d\u044b\u0435\nword = input()\n# \u0412\u044b\u0437\u044b\u0432\u0430\u0435\u043c \u0444\u0443\u043d\u043a\u0446\u0438\u044e \u0434\u043b\u044f \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0438 \u0441\u043b\u043e\u0432\u0430\nresult = process_word(word)\n# \u0412\u044b\u0432\u043e\u0434\u0438\u043c \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\nprint(result)",
+  "after": "x=input()\ns=x[1:]\na=s.upper()\nif(s==a):\n    print(x.swapcase())\nelse:\n    print(x)",
+  "n": 1
+ },
+ {
+  "id": "121",
+  "before": "#Two use cases:\n#1: contains only capital letter\n#2: all letters except for the first one are capital\n\n#In these two use ccases we change the case of all the letters \n\ns = input()\nif s.isupper():\n    print(s[0] + s[1:].lower())\nelif s[1:].isupper():\n    print(s[0].upper() + s[1:].lower())\nelse:\n    print(s)",
+  "after": "s = input()\nif s.isupper():\n\tprint(s.lower())\nelif s[0].islower and (len(s) == 1 or s[1:].isupper()):\n\tprint(s[0].upper() + s[1:].lower())\nelse:\n\tprint(s)",
+  "n": 1
+ },
+ {
+  "id": "122",
+  "before": "def main():\n    s = input().lower()\n    s[0].upper()\n    return s\nprint(main())",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 1
+ },
+ {
+  "id": "123",
+  "before": "t = input()\nprint(t[0].upper(),end = '')\nprint(t[1:].lower())",
+  "after": "word = input()\nif word[1:].upper() == word[1:]:\n    word = word.swapcase()\nprint(word)",
+  "n": 1
+ },
+ {
+  "id": "124",
+  "before": "# Read the input word\ns = input()\n\n# Check if the entire word is uppercase\nif s.isupper():\n    # Convert the entire word to lowercase\n    corrected_word = s.lower()\n    \n# Check if the first character is lowercase and all others are uppercase\nelif s[0].islower() and s[1:].isupper():\n    # Convert the first character to uppercase and the rest to lowercase\n    corrected_word = s[0].upper() + s[1:].lower()\n    \nelse:\n    # No capitalization corrections needed\n    corrected_word = s\n\n# Print the corrected word\nprint(corrected_word)",
+  "after": "s = input()\n\nif s.isupper():\n    corrected_word = s.lower()\nelif s[0].islower() and s[1:].isupper():\n    corrected_word = s[0].upper() + s[1:].lower()\nelif len(s) == 1:\n    corrected_word = s.upper()\nelse:\n    corrected_word = s\n\nprint(corrected_word)",
+  "n": 1
+ },
+ {
+  "id": "125",
+  "before": "import re\n\nword = input()\nans = re.findall(r'^[A-Z][a-z]+', word)\nif ans or re.findall(r'^[a-z]+[A-Z]+[a-z]', word):\n    print(word)\n\nelse:\n    print(word.swapcase())",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 1
+ },
+ {
+  "id": "126",
+  "before": "def main():\n    s = input();\n    if s.isupper():\n        return s.lower()\n    if s[1:].isupper():\n        return s.capitalize()\n    return s\nprint(main())",
+  "after": "s=input() \nif s[1:]==s[1:].upper():\n    print(s.swapcase()) \nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "127",
+  "before": "s = input()\nif s.isupper():\n    print(s.title())\nelif s[0].islower() and len([e for e in s[1::] if e.isupper()]) == len(s)-1:\n    print(s.title())\nelse:\n    print(s)",
+  "after": "text = input()\nif text.isupper() :\n    print(text.lower())\nelif text[0:1].islower() and (text[1:].isupper() or len(text) == 1) : \n    print(text.capitalize())\nelse : print(text)",
+  "n": 1
+ },
+ {
+  "id": "128",
+  "before": "x=input(\"\")\nif x==x.upper() or x==x.capitalize():\n    print(x)\nelif len(x)<5 :\n    print(x.capitalize())\nelse:\n        print(x)",
+  "after": "a=input()\n\nif(a.upper()==a):\n    print(a.swapcase())\nelif(a.capitalize().swapcase()==a):\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "129",
+  "before": "s = input()\nif s[0].islower() is True and s[1:].isupper() is True:\n    print(s.title())\nelif s.isupper() is True:\n    print(s.lower())\nelse:\n    print(s)",
+  "after": "a = input()\n\nif len(a) == 1 and a.islower():\n    print(a.capitalize())\nelif a[1:].isupper() or a.isupper():\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "130",
+  "before": "s=input()\np=s[0];\ny=s[1:len(s)];\nprint(p.upper()+y.lower())",
+  "after": "s=input()\na=s[1:]\nb=a.upper()\nif a!=b:\n    print(s)\nelse:\n    print(s.swapcase())",
+  "n": 1
+ },
+ {
+  "id": "131",
+  "before": "s= input()\nk = s.lower()\nf = s.upper()\nprint(f[0],end=\"\")\nfor i in range(1,len(k)):\n    print(k[i],end=\"\")",
+  "after": "input_string = input()\nneeds_change = True\nfor i in range(1, len(input_string)):\n    if input_string[i].islower():\n        needs_change = False\n        break\nif needs_change:\n    input_string = input_string.swapcase()\nprint(input_string)",
+  "n": 1
+ },
+ {
+  "id": "132",
+  "before": "S = input()\nif S.isupper() :\n    print(S[0] + S[1:].lower())\nelif (S[0].islower() and S[1:].isupper()):\n    print(S[0].upper()+ S[1:].lower())\nelse:\n    print(S)",
+  "after": "x = input()\n\nif x.isupper():\n    print(x.lower())\nelif x[0].islower() and all(char.isupper() for char in x[1:]):\n    print(x[0].upper() + x[1:].lower())\nelse:\n    print(x)",
+  "n": 3
+ },
+ {
+  "id": "133",
+  "before": "s = input()\nif (s[0].swapcase() == s[0].upper() and s[1:].swapcase() == s.lower()) or s.swapcase() == s.lower():\n    s= s.capitalize()\nprint(s)",
+  "after": "s = input()\nif (s[0].islower() and s[1:].isupper() or s.isupper() or len(s) == 1 and s.islower()):\n    s = s.swapcase()\nprint(s)",
+  "n": 1
+ },
+ {
+  "id": "134",
+  "before": "word = input()\nresult = word[0].upper() + word[1:].lower() if (word.isupper() or word[1:].isupper()) else word\nprint(result)",
+  "after": "a = input()\nif a.isupper() or (a[0].islower() and a[1:].isupper()) or (len(a) == 1 and a.islower()):\n    a = a.swapcase()\nprint(a)",
+  "n": 1
+ },
+ {
+  "id": "135",
+  "before": "s = input()\ncounter = 0\nfor c in range(1, len(s)):\n    if s[c].isupper() == True:\n        counter += 1\nif counter == len(s) - 1:    \n    print(s.capitalize())\nelse:\n    print(s)",
+  "after": "string=input()\nchar=list(string)\nuppercase=1\nfor i in range (1,len(string)):\n    if str(char[i]).islower()==True:\n        uppercase=0\nif uppercase==0:\n    print(string)\nelse:\n    print(string.swapcase())",
+  "n": 1
+ },
+ {
+  "id": "136",
+  "before": "n = input()\nif n == n.upper() or n[1:] == n[1:].upper():\n    print(n[0].upper()+n[1:].lower())\nelse:\n    print(n)",
+  "after": "value = input()\nif (value[0] == value[0].lower() and value[1:] == value[1:].upper()) or (value == value.upper()):\n    print(value.swapcase())\nelse:\n    print(value)",
+  "n": 2
+ },
+ {
+  "id": "137",
+  "before": "n = input()\nif n.isupper() == True: print(n.swapcase())\nelif n[0].isupper() == False and n[1:].isupper() == True: print(n.swapcase())\nelse: print(n)",
+  "after": "s = input()\n\nif (len(s) == 1 or s.isupper() or (s[0].islower() and s[1:].isupper())):\n\n    print(s.swapcase())\n\nelse:\n\n    print(s)",
+  "n": 2
+ },
+ {
+  "id": "138",
+  "before": "string = str(input().lower())\nans = ''\n\nans += string[0].upper()\nfor i in range(1, len(string)):\n   ans += string[i]\n\nprint(ans)",
+  "after": "input_string = input()\nneeds_change = True\nfor i in range(1, len(input_string)):\n    if input_string[i].islower():\n        needs_change = False\n        break\nif needs_change:\n    input_string = input_string.swapcase()\nprint(input_string)",
+  "n": 1
+ },
+ {
+  "id": "139",
+  "before": "word = input()\nhi = word[0].upper()\npoop = word.replace(word[0], '', 1).lower()\nprint(hi + poop)",
+  "after": "x=input()\ns=x[1:]\na=s.upper()\nif(s==a):\n    print(x.swapcase())\nelse:\n    print(x)",
+  "n": 1
+ },
+ {
+  "id": "140",
+  "before": "n = str(input())\nif n.isupper() :print(n.lower()) \nelif n[1:].isupper() :print(n[0].capitalize()+n[1:].lower())        \nelse :print(n)",
+  "after": "s = input().strip()\nif s.isupper():\n   print(s.lower())\nelif(s[0].islower() and (not s[1:] or s[1:].isupper())):\n   print(s.capitalize())\nelse:\n   print(s)",
+  "n": 1
+ },
+ {
+  "id": "141",
+  "before": "a = input()\n\nimport string\n\nif a[0].islower() and a[1:].upper():\n    print(a.capitalize())\nelif a.upper():\n    print(a)\nelse:\n    print(a.capitalize())",
+  "after": "a=input()\n\nif(a.upper()==a):\n    print(a.swapcase())\nelif(a.capitalize().swapcase()==a):\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "142",
+  "before": "class CheckWord:\n\n    def __init__(self, word):\n        self.word = word\n\n    def check_word(self):\n        print(self.word.capitalize())\n\na = CheckWord(input())\na.check_word()",
+  "after": "word = input()\nif word[1:].upper() == word[1:]:\n    word = word.swapcase()\nprint(word)",
+  "n": 1
+ },
+ {
+  "id": "143",
+  "before": "my_word = input()\n\nif ( my_word[0].islower() and my_word[1:].upper() )or my_word.upper():\n    print(my_word[0].upper()+ my_word[1:].lower())\nelse:\n    print(my_word)",
+  "after": "string=input()\nif (string.isupper() or (string[0].islower() and (string[1:].isupper() or len(string)==1))):\n    print(string.swapcase())\nelse:\n    print(string)",
+  "n": 1
+ },
+ {
+  "id": "144",
+  "before": "s = input()\nc = 0\nfor i in range(len(s)):\n  if s[i].isupper():\n    c += 1\nif c == len(s):\n  print(s.lower())\nelse:\n  if s[0].islower():\n    print(s.swapcase())\n  else:\n    print(s)",
+  "after": "st=input()\ncount=0\nfor i in st:\n    if i.islower():\n        count+=1\nif count<=1 and st[0].islower():\n    print(st.title())\nelif st.isupper():\n    print(st.lower())\nelse:\n    print(st)",
+  "n": 1
+ },
+ {
+  "id": "145",
+  "before": "word = input()\ndef correct(x):\n    if len(x) == 1:\n        correct_word = x.upper()\n    else:\n        correct_word = x[0].upper() + x[1:].lower()\n    return correct_word\nprint(correct(word))",
+  "after": "# Read input\nn = input()\n\n# Check if the word should be converted\nif n[1:].upper() == n[1:]:\n    result = n.swapcase()\nelse:\n    result = n\n\n# Print the result\nprint(result)",
+  "n": 1
+ },
+ {
+  "id": "146",
+  "before": "nome = input(\"\")\n\nif len(nome) > 0 and len(nome) <= 100:\n    teste = nome.lower()\n    print(teste[0].upper() + teste[1::])",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 1
+ },
+ {
+  "id": "147",
+  "before": "word = input()\nok = 1\nfor i in range(1, len(word)):\n    if word[i] >= 'a' and word[i] <= 'z':\n        ok = 0\nif ok == 1:\n    print(word[0].upper(),end='')\n    print(word[1:].lower())\nelse:\n    print(word)",
+  "after": "s = input()\ncaps_lock  = True\nfor i in range(1,len(s)):\n    if s[i] >= 'a' and s[i] <= 'z':\n        caps_lock = False\n        break\nif caps_lock:\n    print(s.swapcase())\nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "148",
+  "before": "word = input()\nif len(word)==1:\n    if word.islower() == True:\n        print(word.upper())\nelif (word[0].islower() == True and word[1:].isupper() == True):\n    print(word.capitalize())\nelif (word.isupper()==True):\n    print(word.lower())\nelse:\n    print(word)",
+  "after": "s = input()\nif len(s) == 1 and s.islower() is True:\n    print(s.upper())\nelif s[0].islower() is True and s[1:].isupper() is True:\n    print(s.title())\nelif s.isupper() is True:\n    print(s.lower())\nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "149",
+  "before": "word = input() # get user input\n\nif word.isupper(): # check if all letters are uppercase\n    print(word.lower()) # change to all lowercase\nelif word[1:].isupper(): # check if all letters except first are uppercase\n    print(word[0] + word[1:].lower()) # change all except first letter to lowercase\nelse:\n    print(word)",
+  "after": "a=input()\n\nif(a.upper()==a):\n    print(a.swapcase())\nelif(a.capitalize().swapcase()==a):\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 8
+ },
+ {
+  "id": "150",
+  "before": "def f():\n    a=input()\n    \n    print(a[0].upper()+a[1:].lower())\n    # l=list(map(int,input().split()))\n   \n    \n    \n  \nif __name__ == '__main__':\n    # for _ in range(int(input())):\n        f()",
+  "after": "s=input() \nif s[1:]==s[1:].upper():\n    print(s.swapcase()) \nelse:\n    print(s)",
+  "n": 2
+ },
+ {
+  "id": "151",
+  "before": "def main():\n    from sys import stdin, stdout\n    s = stdin.readline()\n    s = s.capitalize()\n    stdout.write(s)\nif __name__ == '__main__':\n\tmain()",
+  "after": "n=input();print([n,n.swapcase()][n[1:].upper()==n[1:]])",
+  "n": 1
+ },
+ {
+  "id": "152",
+  "before": "n = input()\nif n.isupper():\n  n = n.lower()\nif n[1:].isupper():\n  n = n.capitalize()\nprint(n)",
+  "after": "x=input()\ns=x[1:]\na=s.upper()\nif(s==a):\n    print(x.swapcase())\nelse:\n    print(x)",
+  "n": 1
+ },
+ {
+  "id": "153",
+  "before": "def main():\n    # input\n    s = input()\n\n    # soln\n    print(s.title())\n\nif __name__ == \"__main__\":\n    main()",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 1
+ },
+ {
+  "id": "154",
+  "before": "t = input()\nfor i in range(1, len(t)):\n    if ord(t[i]) > 97:\n        m = 1\n        break\n    else:\n        m = 0\nif m == 0:\n    print(t.title())\nelse:\n    print(t)",
+  "after": "s = input()\ncaps_lock  = True\nfor i in range(1,len(s)):\n    if s[i] >= 'a' and s[i] <= 'z':\n        caps_lock = False\n        break\nif caps_lock:\n    print(s.swapcase())\nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "155",
+  "before": "s=input()\ns=s.lower()\ns2=s[0]\ns2=s2.upper()\nfor i in range(1,len(s),1):\n    s2=s2+s[i]\nprint(s2)",
+  "after": "original = input()\n\ncapitalized = original.capitalize()\n\nswapedcase  = original.swapcase()\n\nloweredcase = original.lower()\n\n\n\nif swapedcase == capitalized or swapedcase == loweredcase:\n\n    print(swapedcase)\n\nelse:\n\n    print(original)",
+  "n": 1
+ },
+ {
+  "id": "156",
+  "before": "if __name__ == \"__main__\":\n    \n    n=str(input())\n    k=n.capitalize()\n    print(k)",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 1
+ },
+ {
+  "id": "157",
+  "before": "def process_word(word):\n    if word.isupper() or (word[0].isupper() and word[1:].islower()):\n        processed_word = word.lower()\n    else:\n        processed_word = word\n\n    return processed_word\nword = input().strip()\nresult = process_word(word)\nprint(result)",
+  "after": "t=input()\nif (len(t)==1):\n    t=t.swapcase()\nelif (t.isupper() or t[0].islower() and t[1:].isupper()):\n    t=t.swapcase()\nprint(t)",
+  "n": 1
+ },
+ {
+  "id": "158",
+  "before": "w = input()\n\nif (len(w) == 1) and (w[-1].islower()):\n    print(w.isupper())\nelif w.isupper():\n    print(w.lower())\nelif w[0].islower() and w[1:].isupper():\n    print(w[0].upper()+ w[1:].lower())\nelse:\n    print(w)",
+  "after": "n=input()\na=len(n)\nif a==1 and n.islower():\n    print(n.upper())\nelif n.isupper():\n    print(n.lower())\nelif n[0].islower and n[1::].isupper():\n    print(n[0].upper()+n[1::].lower())\nelse:\n    print(n)",
+  "n": 1
+ },
+ {
+  "id": "159",
+  "before": "word = input()\nif word[0].lower():\n    print(word.capitalize())\nelse:\n    print(word.uppercase())\nif word[1:].upper():\n    print(word)",
+  "after": "word = input()\nif word[1:].upper() == word[1:]:\n    word = word.swapcase()\nprint(word)",
+  "n": 1
+ },
+ {
+  "id": "160",
+  "before": "v=input()\nif v[0].lower()+v[1::].upper():\n    print(v)\nelse:\n  print(v[0].upper()+v[1::].lower())",
+  "after": "w = input()\nif w.isupper() or w.swapcase().istitle():\n    print(w.swapcase())\nelse:\n    print(w)",
+  "n": 1
+ },
+ {
+  "id": "161",
+  "before": "word = input()\n\nif (len(word) == 1 and word.islower()) or \\\n    word.isupper() or (word[0].islower() and word[1:].isupper()): word = word.capitalize()\nelif word.isupper(): word = word.lower()\nprint(word)",
+  "after": "s = input()\nif (s[0].islower() and s[1:].isupper() or s.isupper() or len(s) == 1 and s.islower()):\n    s = s.swapcase()\nprint(s)",
+  "n": 1
+ },
+ {
+  "id": "162",
+  "before": "def word_change(word):\n    if word.isupper() or word[0].islower() and word[1:].isupper():\n        return word.swapcase()\n    else:\n        return word\n        \nword = input()\nres = word_change(word)\nprint(res)",
+  "after": "s=str(input())\ndef qns(word):\n    if word.isupper() or word[1:].isupper() or len(word)==1:\n        return word.swapcase()\n    else:\n        return word\nprint(qns(s))",
+  "n": 4
+ },
+ {
+  "id": "163",
+  "before": "def f(n):\n    if n.islower() or n.isupper() or (n[0].islower() and n[1:].isupper()):\n        return n.swapcase()\n    return n\nn=input()\ns=f(n)\nprint(s)",
+  "after": "#CF_Problem:\t131A_Caps_Lock\n\ndef capsLock(s):\n\tif len(s) == 1 or s[1:].isupper():\n\t\treturn s.swapcase()\n\treturn s\n\n\ns = input()\nprint(capsLock(s))",
+  "n": 4
+ },
+ {
+  "id": "164",
+  "before": "word = input()\n\nnew_word = \"\"\n\nnew_word += word[0].upper()\n\nnew_word += word[1:].lower()\n\nprint(new_word)",
+  "after": "input_string = input()\nneeds_change = True\nfor i in range(1, len(input_string)):\n    if input_string[i].islower():\n        needs_change = False\n        break\nif needs_change:\n    input_string = input_string.swapcase()\nprint(input_string)",
+  "n": 3
+ },
+ {
+  "id": "165",
+  "before": "a=input()\nb=a[0].upper()\nb+=a[1:-1].lower()\nprint(b)",
+  "after": "s=input()\na=s[1:]\nb=a.upper()\nif a!=b:\n    print(s)\nelse:\n    print(s.swapcase())",
+  "n": 1
+ },
+ {
+  "id": "166",
+  "before": "a = input()\n\nif a[1:].isupper() or (len(a) == 1 and a.islower()):\n    print(a.capitalize())\nelif a.isupper():\n    print(a.lower())\nelse:\n    print(a)",
+  "after": "word = input()\n\nif word.isupper() or (word[0].islower() and word[1:].isupper()) or (len(word)==1 and word.islower()):\n    print(word.swapcase())\nelse:\n    print(word)",
+  "n": 1
+ },
+ {
+  "id": "167",
+  "before": "a = input()\nif a.isupper() or (a[0].islower() and a[1:].isupper()):\n    ans = ''\n    for i in a:\n        if i.islower():\n            ans += i.upper()\n        else:\n            ans += i.lower()\n    print(ans)\nelse:\n    print(a)",
+  "after": "s = input()\nif s[1:] == s[1:].upper():\n    new_s = ''\n    for l in s:\n        if l.upper() == l:\n            new_s += l.lower()\n        else:\n            new_s += l.upper()\n    print(new_s)\nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "168",
+  "before": "a=input()\nif a.islower():\n    print(a)\nelif a.isupper():\n    print(a.lower())\nelse:\n    print(a[0].upper()+a[1::].lower())",
+  "after": "x=input()\n\nif x==x.upper():\n\n    print(x.lower())\n\nelif x[1:]==x[1:].upper():\n\n    print(x[0].upper()+x[1:].lower())\n\nelse:\n\n    print(x)",
+  "n": 1
+ },
+ {
+  "id": "169",
+  "before": "#https://codeforces.com/problemset/problem/131/A\n\n\n\nname = str(input())\nfirst_letter = name[0]\n\nif first_letter != first_letter.capitalize:\n    name.capitalize\n\n#name.lower()\n#print(name.capitalize())\n\nx = 2%2\nprint(x)",
+  "after": "s=input()\na=s[1:]\nb=a.upper()\nif a!=b:\n    print(s)\nelse:\n    print(s.swapcase())",
+  "n": 1
+ },
+ {
+  "id": "170",
+  "before": "a = input()\nif a[0].islower() and a[1:].isupper() or a.islower() or a.isupper():\n\tprint(a[0].upper() + a[1:].lower())\nelse:\n\tprint(a)",
+  "after": "a=input()\nif a==a.upper():\n    print(a.lower())\nelif a==a[0].lower()+a[1:].upper():\n    print(a[0].upper()+a[1:].lower())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "171",
+  "before": "strr = input()\nk = True\nfor i in range(1, len(strr)):\n    if strr[i].islower():\n        k = False\nif k == True:\n    s = ''\n    for i in range(len(strr)):\n        if strr[i].islower():\n            s += strr[i].upper()\n        else:\n            s += strr[i].lower()\n    print(s)\nprint(strr)",
+  "after": "s  = input()\nc = True\nfor i in range (1, len(s)):\n    if s[i].islower():\n        c = False\nif c:\n    for j in range(len(s)):\n        if s[j].islower():\n            u = s[j].upper()\n        else:\n            u = s[j].lower()\n        print(u, end=\"\")\nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "172",
+  "before": "word = input()\nif (word[0].islower() == True and word[1:].isupper() == True):\n    print(word.capitalize())\nelif (word.isupper()==True):\n    print(word.capitalize())\nelse:\n    print(word.capitalize())",
+  "after": "a = input()\n\nif len(a) == 1 and a.islower():\n    print(a.capitalize())\nelif a[1:].isupper() or a.isupper():\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "173",
+  "before": "palavra = str(input())\n\nif palavra.upper() == palavra:\n    lower_word = palavra.lower()\n    capitalize_word = palavra.capitalize()\n    print(capitalize_word)\nelif palavra[0].lower() + palavra[1:].upper() == palavra:\n    lower_word = palavra.lower()\n    capitalize_word = palavra.capitalize()\n    print(capitalize_word)\nelse:\n    print(palavra)",
+  "after": "w = str(input())\nif len(w) < 2 : t = w.swapcase();print(t)\nelif w.isupper() or (w[0].islower() and w[1:].isupper()):q = w.swapcase();print(q)\nelse:print(w)",
+  "n": 1
+ },
+ {
+  "id": "174",
+  "before": "v=input()\nif v==\"cAPSlOCK\" or v==\"Lock\":\n    print(v)\nelif v==\"cAPS\":\n    print(v[0].upper()+v[1::].lower())",
+  "after": "s = input()\n\nif (len(s) == 1 or s.isupper() or (s[0].islower() and s[1:].isupper())):\n\n    print(s.swapcase())\n\nelse:\n\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "175",
+  "before": "s = input()\n\nif s.upper() == s:\n    print(s.capitalize())\nelif s[1:].upper() == s[1:] and s[0].lower() == s[0]:\n    print(s.capitalize())\nelse:\n    print(s)",
+  "after": "a = input()\nif a.upper() == a:\n    print(a.lower())\nelif a[0] == a[0].lower() and a[1:].upper() == a[1:]:\n    print(a[0].upper()+a[1:].lower())\nelse:\n    print(a)",
+  "n": 2
+ },
+ {
+  "id": "176",
+  "before": "def cAPS_lOCK(string):\n    if string[1:].isupper():\n        return string.capitalize()\n    elif string.isupper():\n        return string.capitalize()\n    else :\n        return string\n\nif __name__ == \"__main__\" :\n    string = input()\n    print(cAPS_lOCK(string))",
+  "after": "def cAPS_lOCK(word):\n    if word.isupper() or (word[0].islower() and all(ch.isupper() for ch in word[1:])):\n        return word.swapcase()\n    else :\n        return word\n\nif __name__ == \"__main__\":\n    word = input()\n    print(cAPS_lOCK(word))",
+  "n": 1
+ },
+ {
+  "id": "177",
+  "before": "nome = input(\"Digite um nome: \")\n\nif len(nome) >=1 and len(nome) <= 100:\n    teste = nome.lower()\n\n    teste = teste[0].upper() + teste[1::]\n\n    print(teste)",
+  "after": "s = input()\n\nif (len(s) == 1 or s.isupper() or (s[0].islower() and s[1:].isupper())):\n\n    print(s.swapcase())\n\nelse:\n\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "178",
+  "before": "a = input()\nif a.islower() or (a[0].islower and a[1:].isupper) or a.isupper or (a[0].isupper and a[1:].islower):\n    a = a.swapcase()\n    print(a)\nelse:\n    print(a)",
+  "after": "word = input()\n\nif word.isupper() or (word[0].islower() and word[1:].isupper()) or (len(word)==1 and word.islower()):\n    print(word.swapcase())\nelse:\n    print(word)",
+  "n": 1
+ },
+ {
+  "id": "179",
+  "before": "s = input()\nr = list(s.lower())\nr[0] = r[0].upper()\nt = \"\".join(r)\nprint(t)",
+  "after": "input_string = input()\nneeds_change = True\nfor i in range(1, len(input_string)):\n    if input_string[i].islower():\n        needs_change = False\n        break\nif needs_change:\n    input_string = input_string.swapcase()\nprint(input_string)",
+  "n": 1
+ },
+ {
+  "id": "180",
+  "before": "word=input()\nif word[0]==(word[0].capitalize()):\n    print(word[0]+word[1::])\nelse:\n    print((word[0].upper())+(word[1::].lower()))",
+  "after": "x=input()\n\nif x==x.upper():\n\n    print(x.lower())\n\nelif x[1:]==x[1:].upper():\n\n    print(x[0].upper()+x[1:].lower())\n\nelse:\n\n    print(x)",
+  "n": 1
+ },
+ {
+  "id": "181",
+  "before": "x=input()\nfor i in range(len(x)-1):\n    if(x.isupper()):\n        print(x.capitalize())\n        break\n    elif(x[0].islower() and x[i+1].isupper()):\n        print(x.capitalize())\n        break\n    else:\n        print(x)\n        break",
+  "after": "s = input()\nif len(s) == 1 and s.islower():\n    print(s.upper())\nelif s.isupper():\n    print(s.swapcase())\nelif s[1:].isupper() and s[0].islower():\n    print(s.swapcase())\nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "182",
+  "before": "# https://codeforces.com/problemset/problem/131/A\n\nword = input()\nconvert = True\ni = 1\nwhile i < len(word) and convert:\n    if 'a' <= word[i] <= 'z':\n        convert = False\n    i += 1\nif convert:\n    print(word.capitalize())\nelse:\n    print(word)",
+  "after": "s = input()\ncaps_lock  = True\nfor i in range(1,len(s)):\n    if s[i] >= 'a' and s[i] <= 'z':\n        caps_lock = False\n        break\nif caps_lock:\n    print(s.swapcase())\nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "183",
+  "before": "x = input()\nif(x[1::].isupper()):\n\tx = x.title()\n\tprint(x)\nelif(x.isupper()):\n\tx = x.title()\n\tprint(x)\nelse:\n\tprint(x)",
+  "after": "a=input()\n\nif(a.upper()==a):\n    print(a.swapcase())\nelif(a.capitalize().swapcase()==a):\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "184",
+  "before": "def fix_caps_lock(word):\n    if word.isupper() or (len(word) > 1 and word[1:].isupper()):\n        return word.swapcase()\n    return word\n\n# Read input\nword = input().strip()\n\n# Apply the rule and print the result\nresult = fix_caps_lock(word)\nprint(result)",
+  "after": "s=str(input())\ndef qns(word):\n    if word.isupper() or word[1:].isupper() or len(word)==1:\n        return word.swapcase()\n    else:\n        return word\nprint(qns(s))",
+  "n": 1
+ },
+ {
+  "id": "185",
+  "before": "def caps():\n    word = str(input())\n    if word.upper() == word:\n        return word.title()\n    elif word.upper()[1:] == word[1:]:\n        return word.title()\n    else:\n        return word\nprint(caps())",
+  "after": "a=input()\n\nif(a.upper()==a):\n    print(a.swapcase())\nelif(a.capitalize().swapcase()==a):\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "186",
+  "before": "x = input()\nif(x.isupper()):\n\tx = x.lower()\n\tprint(x)\nelif(x[1::].isupper()):\n\tx = x.title()\n\tprint(x)\nelse:\n\tprint(x)",
+  "after": "s=input() \nif s[1:]==s[1:].upper():\n    print(s.swapcase()) \nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "187",
+  "before": "a=input()\nif a[1::]==a[1::].upper():\n    print(a[0].upper()+a[1::].lower())\nelif a==a.upper():\n    print(a.lower())\nelse:\n    print(a)",
+  "after": "x=input()\n\nif x==x.upper():\n\n    print(x.lower())\n\nelif x[1:]==x[1:].upper():\n\n    print(x[0].upper()+x[1:].lower())\n\nelse:\n\n    print(x)",
+  "n": 1
+ },
+ {
+  "id": "188",
+  "before": "word = input()\n\nnew_word = \"\"\n\nif word[0].islower() and word[1:].isupper():\n\n    new_word += word[0].upper()\n\n    new_word += word[1:].lower()    \n\nelse:\n    new_word = word\n    \nprint(new_word)",
+  "after": "s = input()\nif (s[0].islower() and s[1:].isupper() or s.isupper() or len(s) == 1 and s.islower()):\n    s = s.swapcase()\nprint(s)",
+  "n": 1
+ },
+ {
+  "id": "189",
+  "before": "s=input()\ns2=''\ns2+=s[0].upper()\nn=len(s)\nfor i in range(1,n):\n    s2+=s[i].lower()\nprint(s2)",
+  "after": "input_string = input()\nneeds_change = True\nfor i in range(1, len(input_string)):\n    if input_string[i].islower():\n        needs_change = False\n        break\nif needs_change:\n    input_string = input_string.swapcase()\nprint(input_string)",
+  "n": 1
+ },
+ {
+  "id": "190",
+  "before": "a = input()\nif a.isupper():\n    a = a[0] + a[1:].lower()\nelif a[0].islower() and a[1:].isupper():\n    a = a[0].upper() + a[1:].lower()\nelse:\n    a = a[0].upper() + a[1:]\nprint(a)",
+  "after": "s = input()\n\nif s.isupper():\n    corrected_word = s.lower()\nelif s[0].islower() and s[1:].isupper():\n    corrected_word = s[0].upper() + s[1:].lower()\nelif len(s) == 1:\n    corrected_word = s.upper()\nelse:\n    corrected_word = s\n\nprint(corrected_word)",
+  "n": 1
+ },
+ {
+  "id": "191",
+  "before": "def process_word(word):\n    if len(word) > 1 and word[1:].isupper():\n        return word.swapcase()\n    return word\n\nif __name__ == \"__main__\":\n    input_word = input().strip()\n    result = process_word(input_word)\n    print(result)",
+  "after": "#CF_Problem:\t131A_Caps_Lock\n\ndef capsLock(s):\n\tif len(s) == 1 or s[1:].isupper():\n\t\treturn s.swapcase()\n\treturn s\n\n\ns = input()\nprint(capsLock(s))",
+  "n": 1
+ },
+ {
+  "id": "192",
+  "before": "s = input()\n\nresult = s.lower() if s.isupper() else s[0].upper() + s[1:].lower() \\\n                    if s[0].islower() and len(s) >= 2 else s\nprint(result)",
+  "after": "a = input()\nif a.isupper() or (a[0].islower() and a[1:].isupper()) or (len(a) == 1 and a.islower()):\n    a = a.swapcase()\nprint(a)",
+  "n": 1
+ },
+ {
+  "id": "193",
+  "before": "str1=(input())\nstr1=str1.lower()\nstr1=list(str1)\nstr1[0]=str1[0].upper()\nout=\"\".join(str1)\nprint(out)",
+  "after": "original = input()\n\ncapitalized = original.capitalize()\n\nswapedcase  = original.swapcase()\n\nloweredcase = original.lower()\n\n\n\nif swapedcase == capitalized or swapedcase == loweredcase:\n\n    print(swapedcase)\n\nelse:\n\n    print(original)",
+  "n": 1
+ },
+ {
+  "id": "194",
+  "before": "a=input()\nx=a[0]\nflag=True\nfor i in range(len(a)):\n    if \"a\"<=a[i]<=\"z\" or \"A\"<=a[i]<=\"Z\":\n        continue\n    else:\n        flag=False\n        break\nif flag:\n    print(x.upper()+a[1::].lower())\nelse:\n    print(a)",
+  "after": "s = input()\ncaps_lock  = True\nfor i in range(1,len(s)):\n    if s[i] >= 'a' and s[i] <= 'z':\n        caps_lock = False\n        break\nif caps_lock:\n    print(s.swapcase())\nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "195",
+  "before": "x= input()\ny=\"\"\nif x==x.upper():\n    print(x)\nelse:\n    y+=x[0].upper()\n    y+=x[1:len(x)].lower()\n    print(y)",
+  "after": "s=input() \nif s[1:]==s[1:].upper():\n    print(s.swapcase()) \nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "196",
+  "before": "x=input(\"\")\na=x.isupper()\nc=x.islower()\nif (a==True):\n   b=(x.lower())\n   print(b)\nif (c==True):\n   print(x)\nelse:\n   D=(x.lower())\n   print(D.capitalize())",
+  "after": "original = input()\n\ncapitalized = original.capitalize()\n\nswapedcase  = original.swapcase()\n\nloweredcase = original.lower()\n\n\n\nif swapedcase == capitalized or swapedcase == loweredcase:\n\n    print(swapedcase)\n\nelse:\n\n    print(original)",
+  "n": 1
+ },
+ {
+  "id": "197",
+  "before": "str=input()\nif len(str) > 1:\n    if str.upper()==str:\n        str_final=str.lower()\n    elif str[1:].upper()==str:\n        str_final=str.title()\n    else:\n        str_final=str\n\nelse:\n     str_final=str\nprint(str_final)",
+  "after": "word = input()\nif len(word) == 1:\n    word = word.swapcase()\nelif word[1:].isupper():\n    word = word.swapcase()\nelse:\n    word = word\nprint(word)",
+  "n": 1
+ },
+ {
+  "id": "198",
+  "before": "ss=\"aeiou\"\ns=input()\nnum=0\nfor i in range(0,len(s)):\n    if s[i] in ss:\n        num=i\nprint(s[0:num+1]+'ntry')",
+  "after": "input_string = input()\nneeds_change = True\nfor i in range(1, len(input_string)):\n    if input_string[i].islower():\n        needs_change = False\n        break\nif needs_change:\n    input_string = input_string.swapcase()\nprint(input_string)",
+  "n": 1
+ },
+ {
+  "id": "199",
+  "before": "s=input()\nc=0\nfor i in s:\n    if i.lower() == i:\n        c+=1\nif c<1:\n    print(s.title())\nelif c>1:\n    print(s)\nelse:\n    print(s.title())",
+  "after": "st=input()\ncount=0\nfor i in st:\n    if i.islower():\n        count+=1\nif count<=1 and st[0].islower():\n    print(st.title())\nelif st.isupper():\n    print(st.lower())\nelse:\n    print(st)",
+  "n": 1
+ },
+ {
+  "id": "200",
+  "before": "n=input()\ns=n[0].upper()\np=n[1::].lower()\nr=s+p\nprint(r)",
+  "after": "input_string = input()\nneeds_change = True\nfor i in range(1, len(input_string)):\n    if input_string[i].islower():\n        needs_change = False\n        break\nif needs_change:\n    input_string = input_string.swapcase()\nprint(input_string)",
+  "n": 2
+ },
+ {
+  "id": "201",
+  "before": "def modificar_palabra(palabra):\n  palabra_inicio = palabra[0].upper()\n  respuesta=\"\"\n  for i in range(1,len(palabra)):\n    respuesta += palabra[i].lower()\n  respuesta = palabra_inicio + respuesta\n  return respuesta\n\n\npalabra = input()\n\ntam = len(palabra)\nnum_mayusculas = 0\nfor i in range(len(palabra)):\n  if palabra[i].isupper():\n    num_mayusculas += 1\n\nif num_mayusculas == tam or num_mayusculas == tam - 1:\n  respuesta = modificar_palabra(palabra)\n  print(respuesta)\nelse:\n  print(palabra)",
+  "after": "def modificar_palabra(p):\n  palabra_inicio = palabra[0].upper()\n  respuesta=\"\"\n  for i in range(1,len(palabra)):\n    respuesta += palabra[i].lower()\n  respuesta = palabra_inicio + respuesta\n  return respuesta\n\n\n\n\npalabra = input()\n\ntam = len(palabra) - 1\nnum_mayusculas = 0\nfor i in range(1,len(palabra)):\n  if palabra[i].isupper():\n    num_mayusculas += 1\n\nif palabra.isupper():\n  palabra_min = palabra.lower()\n  print(palabra_min)\nelif num_mayusculas == tam:\n  modificar = modificar_palabra(palabra)\n  print(modificar)\nelse:\n  print(palabra)",
+  "n": 1
+ },
+ {
+  "id": "202",
+  "before": "n=input()\nb=n[0]\nc=b\nif(n.isupper() or n.islower() or (b.islower() and c.isupper()) ):\n    a=n.capitalize()\n    print(a)\nelse:\n    print(n)",
+  "after": "s = input()\n\nif (len(s) == 1 or s.isupper() or (s[0].islower() and s[1:].isupper())):\n\n    print(s.swapcase())\n\nelse:\n\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "203",
+  "before": "a = input()\na2 = \"\"\nif a.isupper() == True:\n    a2 += a.lower()\nelif a[0].islower() and a[1:].isupper():\n    a2 += a[0].upper()\n    a2 += a[1:].lower()\nelse:\n    a2 += a\n\nprint(a2)",
+  "after": "s = input()\nif len(s) == 1:\n    s = s.swapcase()\nelse:\n    if s[0].islower() and s[1:].isupper():\n        s = s.swapcase()\n    if s.isupper():\n        s = s.lower()\nprint(s)",
+  "n": 1
+ },
+ {
+  "id": "204",
+  "before": "def main():\n    # input\n    s = input()\n\n    # soln\n    if s == s.upper() or s[1:] == s[1:].upper():\n        s = s.title()\n    print(s)\n\nif __name__ == \"__main__\":\n    main()",
+  "after": "s=input();print([s,s.swapcase()][s[1:]==s[1:].upper()])",
+  "n": 1
+ },
+ {
+  "id": "205",
+  "before": "s=input()\nif(s==s.upper()):\n    print(s.capitalize())\nelse:\n    w=s[0]\n    w1=s[1]\n    if(w==w.upper()):\n        if(w1==w1.lower()):\n            print(s.capitalize())",
+  "after": "s = input()\nif(s.upper()==s):\n    print(s.lower())\nelse:\n    s1=s[1:]\n    s2=s1.upper()\n    if s1==s2:\n        print(s[0:1].upper()+s1.lower())\n    else:\n        print(s)",
+  "n": 2
+ },
+ {
+  "id": "206",
+  "before": "s=input()\na=s[0]\nb=s[1:]\na=a.upper()\nb=b.lower()\nprint(a+b,sep=\" \")",
+  "after": "s=input()\na=s[1:]\nb=a.upper()\nif a!=b:\n    print(s)\nelse:\n    print(s.swapcase())",
+  "n": 1
+ },
+ {
+  "id": "207",
+  "before": "s = input()\ns2 = s[1:]\no = False\nif s.isupper():\n    print(s[0].lower() + s[1:].lower())\nelif s2.isupper():\n    print(s[0].upper() + s[1:].lower())\nelse:\n    print(s)",
+  "after": "a=input()\nif a==a.upper():\n    print(a.lower())\nelif a==a[0].lower()+a[1:].upper():\n    print(a[0].upper()+a[1:].lower())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "208",
+  "before": "n = input()\ns = ''\n\nfor i in n:\n    if i.isupper():\n        s += i.lower()\n    else:\n        s += i.upper()\n\ns = s[0].upper() + s[1:]\n\nprint(s)",
+  "after": "input_string = input()\nneeds_change = True\nfor i in range(1, len(input_string)):\n    if input_string[i].islower():\n        needs_change = False\n        break\nif needs_change:\n    input_string = input_string.swapcase()\nprint(input_string)",
+  "n": 1
+ },
+ {
+  "id": "209",
+  "before": "inpStr = input()\n\ncapsNum = 0\n\nfor char in inpStr:\n    if char.isupper():\n        capsNum += 1\nif capsNum == len(inpStr):\n    print(inpStr.lower())\nelif capsNum == len(inpStr) - 1:\n    print(inpStr[0].upper() + inpStr[1:].lower())\nelse:\n    print(inpStr)",
+  "after": "st=input()\ncount=0\nfor i in st:\n    if i.islower():\n        count+=1\nif count<=1 and st[0].islower():\n    print(st.title())\nelif st.isupper():\n    print(st.lower())\nelse:\n    print(st)",
+  "n": 1
+ },
+ {
+  "id": "210",
+  "before": "def fix_caps_lock(word):\n    if word.isupper():\n        return word.lower()\n    elif word[0].islower() and word[1:].isupper():\n        return word.capitalize()\n    else:\n        return word\n\nif __name__ == \"__main__\":\n    input_word = input().strip()\n    result = fix_caps_lock(input_word)\n    print(result)",
+  "after": "def cAPS_lOCK(word):\n    if word.isupper() or (word[0].islower() and all(ch.isupper() for ch in word[1:])):\n        return word.swapcase()\n    else :\n        return word\n\nif __name__ == \"__main__\":\n    word = input()\n    print(cAPS_lOCK(word))",
+  "n": 1
+ },
+ {
+  "id": "211",
+  "before": "test = input()\n\ndef makeCaps(word):\n    newWord = \"Test\"\n    if word.isupper():\n        newWord = word.lower()\n    elif word[0].islower() and word[1:].isupper():\n         newWord = word[0].upper()       \n         newWord += word[1:].lower()   \n    else:\n         newWord =  word\n    return newWord        \n \n\nprint(makeCaps(test))",
+  "after": "s = input()\nif len(s) == 1:\n    s = s.swapcase()\nelse:\n    if s[0].islower() and s[1:].isupper():\n        s = s.swapcase()\n    if s.isupper():\n        s = s.lower()\nprint(s)",
+  "n": 1
+ },
+ {
+  "id": "212",
+  "before": "n = input()\nif n == n.upper() or n[1:len(n)] == n[1:len(n)]:\n    ans = n[0].upper() + n[1:len(n)].lower()\nprint(ans)",
+  "after": "s = input()\nif (s[0].islower() and s[1:].isupper() or s.isupper() or len(s) == 1 and s.islower()):\n    s = s.swapcase()\nprint(s)",
+  "n": 1
+ },
+ {
+  "id": "213",
+  "before": "def process_word(word):\n    if word.isupper() or word[1:].islower():\n        return word.swapcase()\n    else:\n        return word\n\ndef main():\n    word = input().strip()  # Input word\n\n    result = process_word(word)\n    print(result)\n\nif __name__ == \"__main__\":\n    main()",
+  "after": "s=str(input())\ndef qns(word):\n    if word.isupper() or word[1:].isupper() or len(word)==1:\n        return word.swapcase()\n    else:\n        return word\nprint(qns(s))",
+  "n": 1
+ },
+ {
+  "id": "214",
+  "before": "s = input()\ncounter = 0\nfor c in s:\n    if c.isupper() == True:\n        counter += 1\nif counter == len(s) - 1 or counter == len(s):    \n    print(s.capitalize())\nelse:\n    print(s)",
+  "after": "st=input()\ncount=0\nfor i in st:\n    if i.islower():\n        count+=1\nif count<=1 and st[0].islower():\n    print(st.title())\nelif st.isupper():\n    print(st.lower())\nelse:\n    print(st)",
+  "n": 2
+ },
+ {
+  "id": "215",
+  "before": "word = input()\n\nif word[0].islower():\n    word = word[0].upper() + word[1:]\nelif word.isupper() and word.isalpha():\n    word = word[0] + word[1:].lower()\nprint(word)",
+  "after": "s = input()\nif len(s) == 1:\n    s = s.swapcase()\nelse:\n    if s[0].islower() and s[1:].isupper():\n        s = s.swapcase()\n    if s.isupper():\n        s = s.lower()\nprint(s)",
+  "n": 1
+ },
+ {
+  "id": "216",
+  "before": "s=input()\nc=s[0]\nif c.islower():\n    if s[1:].isupper():\n        rs=s.swapcase()\n        print(rs)\n    else:\n        print(s)\nelif s.isupper():\n    es=s.swapcase()\n    print(es)\nelse:\n    print(s)",
+  "after": "s = input()\ns2 = s[1:]\nif s.isupper():\n    print(s.lower())\nelif s2.isupper() or len(s) == 1:\n    print(s[0].upper() + s2.lower())\nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "217",
+  "before": "x=input()\nnum=0\nfor i in range(len(x)):\n        if x[i]>='a':\n            num+=1\nif num==1:\n    print(x.swapcase())\n    \nelif x.isupper()==True:\n    print(x.swapcase())\n    pass\n\nelse:\n    print(x)",
+  "after": "st=input()\ncount=0\nfor i in st:\n    if i.islower():\n        count+=1\nif count<=1 and st[0].islower():\n    print(st.title())\nelif st.isupper():\n    print(st.lower())\nelse:\n    print(st)",
+  "n": 1
+ },
+ {
+  "id": "218",
+  "before": "word = input()\n\nfirst_letter = word[0]\nrest_word = word[1:]\n\nfirst_is_cap = True if first_letter.isupper() else False\n\nif word.isupper() or (first_is_cap == False and rest_word.isupper):\n    word = word.lower()\n    print(word.capitalize())\nelse:\n    print(word)",
+  "after": "original = input()\n\ncapitalized = original.capitalize()\n\nswapedcase  = original.swapcase()\n\nloweredcase = original.lower()\n\n\n\nif swapedcase == capitalized or swapedcase == loweredcase:\n\n    print(swapedcase)\n\nelse:\n\n    print(original)",
+  "n": 1
+ },
+ {
+  "id": "219",
+  "before": "word=input()\nif word.isupper()==True:\n    print(word.lower())\nelse:\n    abc=0\n    for a in range(0,len(word),1):\n        if word.isupper():\n            abc+=1\n\n    if abc ==len(word)-1 and word[1].islower()==True:\n        ans=\"\"\n        ans+=word[0].isupper()\n        ans+=word[1:].islower()",
+  "after": "h=input()\n\nif h.isupper():\n    print(h.lower())\nelse:\n    u=0\n    for i in range(0,len(h),1):\n        if h[i].isupper():\n            u+=1\n    if u==len(h)-1 and h[0].islower():\n        y=\"\"\n        y+=h[0].upper()\n        y+=h[1:].lower()\n        print(y)\n    else:\n        print(h)\n#",
+  "n": 1
+ },
+ {
+  "id": "220",
+  "before": "a=input()\nupper=0;lower=0\nfor i in a:\n    if i.isupper(): upper+=1\n    else:lower+=1\nif upper>lower:print('Caps')\nelse:print('Lock')",
+  "after": "input_string = input()\nneeds_change = True\nfor i in range(1, len(input_string)):\n    if input_string[i].islower():\n        needs_change = False\n        break\nif needs_change:\n    input_string = input_string.swapcase()\nprint(input_string)",
+  "n": 1
+ },
+ {
+  "id": "221",
+  "before": "n = str(input())\nif n.isupper() == True:\n    print(n.lower().capitalize())\nelif n[0:1].islower() == True and n[1:len(n)].isupper() == True:\n    print(n.lower().capitalize())\nelse: print(n)",
+  "after": "a=input()\nif a==a.upper():\n    print(a.lower())\nelif a==a[0].lower()+a[1:].upper():\n    print(a[0].upper()+a[1:].lower())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "222",
+  "before": "s=input()\nif s[0].islower():\n    s1=s[0].upper()\n    for i in range(1,len(s)):\n        if s[i].islower():\n            s1+=s[i].upper()\n        else:\n            s1+=s[i].lower()\nelse:\n    s1=s \nprint(s1)",
+  "after": "old_word = input()\nif old_word[1:] == old_word[1:].upper():\n    new_word = \"\"\n    for ch in old_word:\n        if ch == ch.upper():\n            new_word += ch.lower()\n        else:\n            new_word += ch.upper()\nelse:\n    new_word = old_word\nprint(new_word)",
+  "n": 1
+ },
+ {
+  "id": "223",
+  "before": "word = input()\nword = list(word)\n\nfor i in range(len(word)):\n    word[i] = word[i].lower()\nif word[0] in \"abcdefghijklmnopqrstuvwxyz\":\n    word[0] = word[0].upper()\nprint(\"\".join(word))",
+  "after": "input_string = input()\nneeds_change = True\nfor i in range(1, len(input_string)):\n    if input_string[i].islower():\n        needs_change = False\n        break\nif needs_change:\n    input_string = input_string.swapcase()\nprint(input_string)",
+  "n": 1
+ },
+ {
+  "id": "224",
+  "before": "s = input()\nif len(s)>=1 or len(s)<= 100:\n\n    if s[0].isupper():\n        print(s[0]+s[1:].casefold())\n    else:\n        if s[1:].isupper():\n            print(s[1:].casefold())\n        else:\n            print(s)",
+  "after": "n = str(input())\nif len(n) == 1 and n.islower() :print(n.capitalize())\nelif n.isupper() :print(n.lower()) \nelif n[1:].isupper() :print(n[0].capitalize()+n[1:].lower())        \nelse :print(n)",
+  "n": 1
+ },
+ {
+  "id": "225",
+  "before": "x = list(input())\ni = len(x) - 1\nwhile i >= 1:\n    x[i] = x[i].lower()\n    i = i - 1\nstring = ''.join([i for i in x])\nprint(string)",
+  "after": "input_string = input()\nneeds_change = True\nfor i in range(1, len(input_string)):\n    if input_string[i].islower():\n        needs_change = False\n        break\nif needs_change:\n    input_string = input_string.swapcase()\nprint(input_string)",
+  "n": 1
+ },
+ {
+  "id": "226",
+  "before": "word = input()\nsol = ''\nif word[1:].isupper():\n    for x in word:\n        if x.isupper():\n            sol += x.lower()\n        else:\n            sol += x.upper()\nelif word.islower():\n    sol = word.upper()\nelse:\n    sol = word\nprint(sol)",
+  "after": "string = input()\n\nanswer = ''\nif len(string) == 1 or string[1:].isupper():\n    for char in string:\n        answer += (char.upper() if char.islower() else char.lower())\nelse:\n    answer = string\nprint(answer)",
+  "n": 1
+ },
+ {
+  "id": "227",
+  "before": "a = input()\n\nimport string\nif len(a) == 1:\n    print(a.upper())\nelif a.islower():\n    print(a.lower())\nelif a[0].islower() and a[1:].upper():\n    print(a.capitalize())\nelif a.upper():\n    print(a)\nelse:\n    print(a.capitalize())",
+  "after": "s = input()\nif len(s) == 1 and s.islower():\n    print(s.upper())\nelif s.isupper():\n    print(s.swapcase())\nelif s[1:].isupper() and s[0].islower():\n    print(s.swapcase())\nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "228",
+  "before": "word = input()\ndef meets_caps_lock_rule(word):\n    return word.isupper() or (word[0].islower() and word[1:].isupper())\nif meets_caps_lock_rule(word):\n    result = word.swapcase()\nelse:\n    result = word\nprint(result)",
+  "after": "word = input()\ndef check(word):\n    if word[0].islower() and word[1:].isupper():\n        return True\n    else:\n        return False\n\nif word.isupper() or check(word) or len(word) == 1:\n    print(word.swapcase())\nelse:\n    print(word)",
+  "n": 3
+ },
+ {
+  "id": "229",
+  "before": "def apply_caps_lock_rule(word):\n    # Check if the word only contains uppercase letters\n    if word.isupper():\n        return word.lower()\n    \n    # Check if all letters except for the first one are uppercase\n    if word[1:].isupper():\n        return word[0] + word[1:].lower()\n\n    return word\n\n# Read the input word from the user\nword = input().strip()\nresult = apply_caps_lock_rule(word)\nprint(result)",
+  "after": "s=str(input())\ndef qns(word):\n    if word.isupper() or word[1:].isupper() or len(word)==1:\n        return word.swapcase()\n    else:\n        return word\nprint(qns(s))",
+  "n": 2
+ },
+ {
+  "id": "230",
+  "before": "x=input(\"\")\na=x.isupper()\nd=(x.swapcase())\nc=d.istitle()\nif (a==True):\n   b=(x.lower())\n   print(b)\nif (c==True):\n   print(d)\nelse:\n   print(x)",
+  "after": "original = input()\n\ncapitalized = original.capitalize()\n\nswapedcase  = original.swapcase()\n\nloweredcase = original.lower()\n\n\n\nif swapedcase == capitalized or swapedcase == loweredcase:\n\n    print(swapedcase)\n\nelse:\n\n    print(original)",
+  "n": 1
+ },
+ {
+  "id": "231",
+  "before": "s = input()\nfirst_char = s[0]\nif s.isupper():\n    print(s.lower())\nif first_char.islower():\n    print(s.capitalize())\nif s.istitle():\n    print(s)",
+  "after": "s=input()\na=s[1:]\nb=a.upper()\nif a!=b:\n    print(s)\nelse:\n    print(s.swapcase())",
+  "n": 1
+ },
+ {
+  "id": "232",
+  "before": "word = input()\n\nif word[0].islower() and word.isalpha() and word[1:].isupper():\n    word = word[0].upper() + word[1:].lower()\nelif word.isupper() and word.isalpha():\n    word = word[0] + word[1:].lower()\n\nprint(word)",
+  "after": "n = input()\n\nif len(n) == 1:\n    if n.islower():\n        n = n.upper()\n    else:\n        n = n.lower()\n\nelif (n[0].islower() and n[1:].isupper()):\n    n = n.capitalize()\n\nelif n.isupper():\n    n = n.lower()\n\nprint(n)",
+  "n": 1
+ },
+ {
+  "id": "233",
+  "before": "def judge(n):\n    if n.upper()==n:\n        return n.capitalize()\n    elif n[0].lower()==n[0] and n[1:len(n)].upper()==n[1:len(n)]:\n        return n.capitalize()\n    else:\n        return n\n\nword=input()\nprint(judge(word))",
+  "after": "word = input()\nif(word == word.upper()):\n    word = word.lower()\nelif(word[0] == word[0].lower() and word[1:] == word[1:].upper()):\n    word = word.capitalize()\nprint(word)",
+  "n": 1
+ },
+ {
+  "id": "234",
+  "before": "strInput = list(input())                       \n                                               \nfor i in range(len(strInput)):                 \n    if i > 0 and strInput[i].isupper():        \n        strInput[i] = strInput[i].lower()      \n        strInput[0] = strInput[0].upper()      \n                                               \nprint(''.join(strInput))",
+  "after": "s = input()\nif len(s) == 1:\n    s = s.swapcase()\nelse:\n    if s[0].islower() and s[1:].isupper():\n        s = s.swapcase()\n    if s.isupper():\n        s = s.lower()\nprint(s)",
+  "n": 1
+ },
+ {
+  "id": "235",
+  "before": "x = str(input())\nx = list(x)\nfor i in range(len(x)):\n    x[i] = x[i].lower()\n    x[0] = x[0].upper()\nprint(\"\".join(x))",
+  "after": "n=str(input())\nb = n.swapcase()\nc=n[1:]\nprint([n, b][c.upper()==c])",
+  "n": 1
+ },
+ {
+  "id": "236",
+  "before": "s = input()\ns2 = s[1:]\no = False\nif s2.isupper() or s2 == '':\n    o = True\nif o:\n    s3 = s[0].upper() + s2.lower()\n    print(s3)\nelse:\n    print(s)",
+  "after": "input_string = input()\nneeds_change = True\nfor i in range(1, len(input_string)):\n    if input_string[i].islower():\n        needs_change = False\n        break\nif needs_change:\n    input_string = input_string.swapcase()\nprint(input_string)",
+  "n": 1
+ },
+ {
+  "id": "237",
+  "before": "S = input()\nCapital = True\nfor C in S:\n    if not C.isupper():\n        Capital = False\n        break\nif Capital or (S[0].isupper() and S[1:] == S[1:].lower()):\n    S = S.lower()\nprint(S)",
+  "after": "input_string = input()\nneeds_change = True\nfor i in range(1, len(input_string)):\n    if input_string[i].islower():\n        needs_change = False\n        break\nif needs_change:\n    input_string = input_string.swapcase()\nprint(input_string)",
+  "n": 1
+ },
+ {
+  "id": "238",
+  "before": "word = input()\nsm = 0\nfor c in word:\n    if(c.islower()):\n        sm += 1\n        break\nif(sm == 1):\n    print(word[0].lower(), end='')\n    print(word[1:].upper(), end='')\nelse:\n    print(word, end='')\nprint()",
+  "after": "st=input()\ncount=0\nfor i in st:\n    if i.islower():\n        count+=1\nif count<=1 and st[0].islower():\n    print(st.title())\nelif st.isupper():\n    print(st.lower())\nelse:\n    print(st)",
+  "n": 1
+ },
+ {
+  "id": "239",
+  "before": "class Solution:\n\tdef __init__(self):\n\t\tpass\n\n\tdef solve(self):\n\t\ts = input()\n\n\t\tif (s[0].islower() and s[1:].isupper()) or (s.isupper()):\n\t\t\ts = s.swapcase()\n\n\t\tprint(s)\n\nif __name__ == \"__main__\":\n\tsol = Solution()\n\tsol.solve()",
+  "after": "def cAPS_lOCK(word):\n    if word.isupper() or (word[0].islower() and all(ch.isupper() for ch in word[1:])):\n        return word.swapcase()\n    else :\n        return word\n\nif __name__ == \"__main__\":\n    word = input()\n    print(cAPS_lOCK(word))",
+  "n": 1
+ },
+ {
+  "id": "240",
+  "before": "s = input()\nup = 0\nlow = 0\nfor i in s:\n    if i == i.upper():\n        up +=1\n    else:\n        low+=1\nif up == 1 :\n    print(s)\nelif up==len(s)-1:\n    print(s.capitalize())\nelse:\n    print(s.lower())",
+  "after": "st=input()\ncount=0\nfor i in st:\n    if i.islower():\n        count+=1\nif count<=1 and st[0].islower():\n    print(st.title())\nelif st.isupper():\n    print(st.lower())\nelse:\n    print(st)",
+  "n": 1
+ },
+ {
+  "id": "241",
+  "before": "def Standard(s):\n    for i in range(1,len(s)):\n        if s[i]!=s[i].upper():\n            return s\n    return s[0].upper()+s[1:len(s)].lower()\n\n\nif __name__==\"__main__\":\n    s=input()\n    print(Standard(s))",
+  "after": "def cAPS_lOCK(word):\n    if word.isupper() or (word[0].islower() and all(ch.isupper() for ch in word[1:])):\n        return word.swapcase()\n    else :\n        return word\n\nif __name__ == \"__main__\":\n    word = input()\n    print(cAPS_lOCK(word))",
+  "n": 1
+ },
+ {
+  "id": "242",
+  "before": "print(input().capitalize())",
+  "after": "word = input()\nif word[1:].upper() == word[1:]:\n    word = word.swapcase()\nprint(word)",
+  "n": 4
+ },
+ {
+  "id": "243",
+  "before": "s=input()\nif s[0].isupper():\n  a=s[1:].lower()\n  print(s[0]+a)\nelif s[0].islower():\n  a=s[1:].lower()\n  b=s[0].upper()\n  print(b+a)",
+  "after": "a = input()\n\nif len(a) == 1 and a.islower():\n    print(a.capitalize())\nelif a[1:].isupper() or a.isupper():\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "244",
+  "before": "s=input()\ns1=s\nnew_word=''\nif s==s.title():\n    print(s)\nelse:\n    for i in s:\n        if (ord(i)>94)and(ord(i)<122):\n            new_word+=i.upper()\n        else:\n            new_word+=i.lower()\n    print(new_word)",
+  "after": "s = input()\nif s[1:] == s[1:].upper():\n    new_s = ''\n    for l in s:\n        if l.upper() == l:\n            new_s += l.lower()\n        else:\n            new_s += l.upper()\n    print(new_s)\nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "245",
+  "before": "s = input()\nucount = 0\nfor i in range(len(s)):\n    if(s[i].isupper()):\n        ucount += 1 \n    if((ucount == len(s)-1) and (s[0].islower())):\n        s = s.lower()\nprint(s.capitalize())",
+  "after": "s = input()\ncaps_lock  = True\nfor i in range(1,len(s)):\n    if s[i] >= 'a' and s[i] <= 'z':\n        caps_lock = False\n        break\nif caps_lock:\n    print(s.swapcase())\nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "246",
+  "before": "x=input()\nif x.isupper()==True:\n    print(x.swapcase())\nelif 1==1:\n    num=0\n    for i in range(len(x)):\n        if x[i]>='a':\n            num+=1\n    if num==1:\n        print(x.swapcase())\nelse:\n    print(x)",
+  "after": "a=input()\n\nif(a.upper()==a):\n    print(a.swapcase())\nelif(a.capitalize().swapcase()==a):\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "247",
+  "before": "def cAPS_lOCK(string):\n    if len(string) == 1 :\n        return string.capitalize()\n    if string[0] == string[1]:\n        return string.lower()\n    elif string[1:].isupper():\n        return string.capitalize()\n    elif string.isupper():\n        return string.capitalize()\n    else :\n        return string\n\nif __name__ == \"__main__\" :\n    string = input()\n    print(cAPS_lOCK(string))",
+  "after": "def cAPS_lOCK(word):\n    if word.isupper() or (word[0].islower() and all(ch.isupper() for ch in word[1:])):\n        return word.swapcase()\n    else :\n        return word\n\nif __name__ == \"__main__\":\n    word = input()\n    print(cAPS_lOCK(word))",
+  "n": 1
+ },
+ {
+  "id": "248",
+  "before": "ss=\"aeiou\"\ns=input()\nnum=0\nfor i in range(0,len(s)):\n    if s[i] in ss:\n        num=i\naa=s[0:num+1]+'ntry'\nprint (aa.capitalize ())",
+  "after": "input_string = input()\nneeds_change = True\nfor i in range(1, len(input_string)):\n    if input_string[i].islower():\n        needs_change = False\n        break\nif needs_change:\n    input_string = input_string.swapcase()\nprint(input_string)",
+  "n": 1
+ },
+ {
+  "id": "249",
+  "before": "S = input()\n\ncount = 0\ncount1 = 0\nfor i in range(0,len(S)):\n    if S[i].islower():\n        count = count + 1\n    elif S[i].isupper():\n        count1 = count1 + 1\nif count==1 or count1==1:\n    print(S.title())\nelse:\n    print(S)",
+  "after": "s = input()\ncaps_lock  = True\nfor i in range(1,len(s)):\n    if s[i] >= 'a' and s[i] <= 'z':\n        caps_lock = False\n        break\nif caps_lock:\n    print(s.swapcase())\nelse:\n    print(s)",
+  "n": 2
+ },
+ {
+  "id": "250",
+  "before": "word = input()\nidx = 0\nnew = \"\"\nfor i in word:\n    \n    j = str(i)\n    if j != \" \":\n        j = j.lower()\n        if idx == 0:\n            j = j.capitalize()\n    new += j\n    idx += 1\nprint(new)",
+  "after": "string = input()\n\nanswer = ''\nif len(string) == 1 or string[1:].isupper():\n    for char in string:\n        answer += (char.upper() if char.islower() else char.lower())\nelse:\n    answer = string\nprint(answer)",
+  "n": 1
+ },
+ {
+  "id": "251",
+  "before": "s=input()\na=s[0]+s[1:].upper()\nif s==s.lower() or s==s.capitalize():\n    print(s)\nelif s==a or s==s.upper():\n    print(s.capitalize())\nelse:\n    print(s)",
+  "after": "s = input()\ns2 = s[1:]\nif s.isupper():\n    print(s.lower())\nelif s2.isupper() or len(s) == 1:\n    print(s[0].upper() + s2.lower())\nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "252",
+  "before": "s = input()\nif s.isupper() or s[0].islower():\n    if len(s) == 1 and s.islower():\n        print(s.swapcase())\n    if len(s) > 1 and s[1].isupper() and s[0].islower():\n        print(s.swapcase())\nelse:\n    print(s)",
+  "after": "word = input()\n\nif word.isupper() or (word[0].islower() and word[1:].isupper()) or (len(word)==1 and word.islower()):\n    print(word.swapcase())\nelse:\n    print(word)",
+  "n": 1
+ },
+ {
+  "id": "253",
+  "before": "def f():\n    a=input()\n    for i in range(1,len(a)):\n        if not a[i].isupper():\n             print(a)\n             return\n    print(a[0].upper()+a[1:].lower())\n    # l=list(map(int,input().split()))\n   \n    \n    \n  \nif __name__ == '__main__':\n    # for _ in range(int(input())):\n        f()",
+  "after": "s = input()\n\nif (len(s) == 1 or s.isupper() or (s[0].islower() and s[1:].isupper())):\n\n    print(s.swapcase())\n\nelse:\n\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "254",
+  "before": "word=input()\n\nif (word[1:-1].isupper() and word[0].islower()):\n  word=word.casefold()\n  word=word.capitalize()\nif word.isupper():\n  word=word.casefold()\nif len(word)==1 and word.islower():\n  word=word.upper()\nprint(word)",
+  "after": "x = input()\nif (len(x) == 1 and x.islower()) or (x[0].islower() and x[1:].isupper()):\n    print(x.capitalize())\n    exit()\nif x.islower():\n    x = x.upper()\nif x.isupper():\n    x = x.lower()\n\n\nprint(x)",
+  "n": 1
+ },
+ {
+  "id": "255",
+  "before": "s=input()\nl=len(s)\nn=' '\nif s.isupper():\n    print(s)\nelif s[0].isupper() and s[1:].islower():\n    print(s)\nelse:\n    for i in s:\n        if i.isupper():\n            n+=i.lower()\n        else:\n            n+=i.upper()\n    print(n)",
+  "after": "s = input()\ns2 = s[1:]\nif s.isupper():\n    print(s.lower())\nelif s2.isupper() or len(s) == 1:\n    print(s[0].upper() + s2.lower())\nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "256",
+  "before": "n = input()\nif n == \"cAPS\" :\n    print(n[0].upper()+n[1::].lower())\nelif n == \"cAPSLOCK\" :\n    print(n)\nelif n == \"lOCK\":\n    print(n[0].upper()+n[1::].lower())\nelif n == \"Lock\" :\n    print(n)  \nelse :\n    print(n)",
+  "after": "x=input()\n\nif x==x.upper():\n\n    print(x.lower())\n\nelif x[1:]==x[1:].upper():\n\n    print(x[0].upper()+x[1:].lower())\n\nelse:\n\n    print(x)",
+  "n": 1
+ },
+ {
+  "id": "257",
+  "before": "a=input()\no=0\nfor x in range(1,len(a)):\n    if a[x]==a[x].lower():\n        o+=1\nif o>0:\n    print(a)\nelse:\n    b=a.lower()\n    b=b[0].upper()+b[1:]\n    print(b)",
+  "after": "x=input()\nf=False\nfor i in range(1,len(x)):\n    if x[i].islower():\n        f=True\nif f==True:\n    print(x)\nelse:\n    s=\"\"\n    for i in x:\n        if i.islower():\n            s=s+i.upper()\n        else:\n            s=s+i.lower()\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "258",
+  "before": "word = input('')\n\ndef finder():\n    if word.isupper():\n        return word\n    if word[0].islower() and word[1:].isupper():\n        return word[0].upper() + word[1:].lower()\n    if word[0].istitle():\n        return word[0].upper() + word[1:].lower()\n\n\n\nprint(finder())",
+  "after": "s = input()\n\nif s.isupper():\n    corrected_word = s.lower()\nelif s[0].islower() and s[1:].isupper():\n    corrected_word = s[0].upper() + s[1:].lower()\nelif len(s) == 1:\n    corrected_word = s.upper()\nelse:\n    corrected_word = s\n\nprint(corrected_word)",
+  "n": 1
+ },
+ {
+  "id": "259",
+  "before": "s=input()\nif(s[0]!=s[0].upper() and s[1:]==s[1:].upper()):\n    print(s[0].upper()+s[1:].lower())\nif(s==s.upper()):\n    print(s.lower())\nelse:\n    print(s)",
+  "after": "string = input()\n\ndef invert(s):\n    if s.isupper():\n        return s.lower()\n    return s.upper()\n\nif len(string) == 1 or string[1:].isupper():\n    print(invert(string[0]) + string[1:].lower())\nelse:\n    print(string)",
+  "n": 1
+ },
+ {
+  "id": "260",
+  "before": "n=input()\nz=((n[0].upper())+(n[1:].lower()))\nif n.islower():\n    print(n.upper())\nelif (n[0].islower()) and (n[1:].isupper()):\n    print(z)\nelif n.isupper():\n    print(z)\nelse:\n    print(n)",
+  "after": "s = input()\nif (s[0].islower() and s[1:].isupper() or s.isupper() or len(s) == 1 and s.islower()):\n    s = s.swapcase()\nprint(s)",
+  "n": 1
+ },
+ {
+  "id": "261",
+  "before": "word = input()\nif len(word) == 1 and word.islower():\n    ans = word.swapcase()\n    print(ans)\nif word.isupper() or (word[0].islower() and word[1:].isupper()):\n    result = word.swapcase()\nelse:\n    result = word\n\nprint(result)",
+  "after": "word = input()\ndef check(word):\n    if word[0].islower() and word[1:].isupper():\n        return True\n    else:\n        return False\n\nif word.isupper() or check(word) or len(word) == 1:\n    print(word.swapcase())\nelse:\n    print(word)",
+  "n": 1
+ },
+ {
+  "id": "262",
+  "before": "s=input()\nc=s[0]\ncur=''\nfor i in range(1,len(s)):\n    cur+=s[i]\nif (cur==cur.lower() and c==c.lower()):\n    ans=c+cur\n    print(ans)\nelse:\n    ans=c.upper()+cur.lower()\n    print(ans)\n\n\n\n\n\n\n\n# Wed Nov 01 2023 22:53:09 GMT+0300 (Moscow Standard Time)",
+  "after": "a=input()\nb=[x for x in a]\nflag=0\n\nfor i in range(0, len(a)):\n    if b[i].isupper():\n        flag += 1\nif (flag==len(a)-1 and b[0].islower()==True) or flag==len(a):\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "263",
+  "before": "s=list(input())\nb=\"\"\nc=\"\"\nd=\"\"\na=s.pop(0)\n\nb=a.upper()\n\nd=c.join(s).lower()\n\nprint(b+d)",
+  "after": "n=str(input())\nb = n.swapcase()\nc=n[1:]\nprint([n, b][c.upper()==c])",
+  "n": 1
+ },
+ {
+  "id": "264",
+  "before": "word = input()\ncount = 0\nfor w in word:\n  if w.upper() == w:\n    count += 1\n\nif count == len(word):\n  print(word.lower())\nelif count == 1 and word[0] == word[0].lower():\n  print(word[0].upper() + word[1:].lower())\nelse:\n  print(word)",
+  "after": "w = input()\nif w == w.upper():\n    print(w.lower())\nelif w[0] == w[0].lower() and w[1:] == w[1:].upper():\n    print(w[0].upper()+w[1:].lower())\nelse: \n    print(w)",
+  "n": 1
+ },
+ {
+  "id": "265",
+  "before": "s = str(input())\n\nif s[0].islower() == True and s[1:].isupper() == True:\n    print(s[0].upper(),end=\"\")\n    print(s[1:].lower(),end=\"\")\nelif s.isupper() == True:\n    print(s[0].upper(),end=\"\")\n    print(s[1:].lower(),end=\"\")\nelse:\n    print(s)",
+  "after": "n = input()\nif n[0] == n[0].lower() and n[1:] == n[1:].upper():\n    print(n[0].upper()+n[1:].lower())\nelif n == n.upper():\n    print(n.lower())\nelse:\n    print(n)",
+  "n": 1
+ },
+ {
+  "id": "266",
+  "before": "# -*- coding: utf-8 -*-\n\"\"\"\nCreated on Mon Oct  9 14:22:36 2023\n\n@author: 25419\n\"\"\"\n\nword=input()\nstr1='QWERTYUIOPASDFGHJKLZXCVBNM'\nfor i in range(1,len(word)):\n    if word[i] not in str1:\n        print(word)\n        break\n    elif word[i] in str1 and i!=len(word)-1:\n        pass\n    else:print(word.swapcase())",
+  "after": "a=input()\n\nif(a.upper()==a):\n    print(a.swapcase())\nelif(a.capitalize().swapcase()==a):\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "267",
+  "before": "class CheckWord:\n\n    def __init__(self, word):\n        self.word = word\n\n    def check_word(self):\n        if self.word.upper():\n            if self.word[0].lower() and self.word[1:].upper:\n                print(self.word.capitalize())\n        else:\n            print(self.word)\n\n\na = CheckWord(input())\na.check_word()",
+  "after": "t=input()\nif (len(t)==1):\n    t=t.swapcase()\nelif (t.isupper() or t[0].islower() and t[1:].isupper()):\n    t=t.swapcase()\nprint(t)",
+  "n": 1
+ },
+ {
+  "id": "268",
+  "before": "word=input()\n\nif (word[1:-1].isupper() and word[0].islower()):\n  word=word.casefold()\n  word=word.capitalize()\n  print(word)\nelif word.isupper():\n  word=word.casefold()\n\n\nelif len(word)==1 :\n   if word.islower():\n       word=word.upper()\n       print(word)\n   else:\n       word=word.lower()\nprint(word)",
+  "after": "n=input()\nif (n[0].islower() and n[1:].isupper()):\n    n=n.capitalize()\nelif n.isupper():\n    n=n.lower()\nelif n.islower() and len(n)==1:\n    n=n.upper()\nprint(n)",
+  "n": 1
+ },
+ {
+  "id": "269",
+  "before": "s = input()\nc = 0\nfor i in s:\n    if i.isupper():\n        c += 1\nif c == len(s) or c == len(s) - 1:\n    r = list(s.lower())\n    r[0] = r[0].upper()\n    t = \"\".join(r)\n    print(t)\nelse:\n    print(s)",
+  "after": "st=input()\ncount=0\nfor i in st:\n    if i.islower():\n        count+=1\nif count<=1 and st[0].islower():\n    print(st.title())\nelif st.isupper():\n    print(st.lower())\nelse:\n    print(st)",
+  "n": 1
+ },
+ {
+  "id": "270",
+  "before": "def change_case(word):\n    if word.isupper():\n        return word.lower()\n    elif word.istitle():\n        return word.swapcase()\n    else:\n        return word\n\ndef correct_capitalization(sentence):\n    words = sentence.split()\n    corrected_words = [change_case(word) for word in words]\n    return ' '.join(corrected_words)\n\nsentence = \"H e L L O HTTP z\"\ncorrected_sentence = correct_capitalization(sentence)\nprint(corrected_sentence)",
+  "after": "a=input()\nk=0\nfor i in range(1,len(a)):\n    if a[i].upper()==a[i]:\n        k=k+1\nif k==(len(a)-1):\n    a=a.swapcase()\nprint(a)",
+  "n": 1
+ },
+ {
+  "id": "271",
+  "before": "a=str(input())\ndont=False\nfor k in range(len(a)):\n    if a[k] != a[k].upper() and k>=1:\n        dont=True\n        break\nif len(a)==1:\n        print(a.lower())\nelse:\n    if not dont:\n        print(a[0].upper()+a[1:].lower())",
+  "after": "s = input()\nfor i in range(len(s)):\n    if i != 0 and s[i].islower():\n        print(s)\n        exit()\n\nprint(s[0].upper() + s[1:].lower() if s[0].islower() else s.lower())",
+  "n": 1
+ },
+ {
+  "id": "272",
+  "before": "word = input()\n\ndef shouldGetFix(word):\n    for i in range (1,len(word)):\n        print(word[i])\n        if word[i].islower():\n            return False\n    return True\n\nif len(word) == 1:\n    print(word.upper())\nelif shouldGetFix(word):\n    print(word.lower().capitalize())\nelse:\n    print(word)",
+  "after": "string = input()\ncheck = True\nfor i in range(1, len(string)):\n    if string[i].islower():\n        check = False\n        break\n\nif check:\n    for s in string:\n        if s.islower():\n            print(s.upper(), end=\"\")\n        else:\n            print(s.lower(), end=\"\")\n    print(\"\")\nelse:\n    print(string)",
+  "n": 1
+ },
+ {
+  "id": "273",
+  "before": "string = str(input())\nstring2 = ''\ncount = 0\nfor i in range(len(string)):\n    if string[i].isupper() == True:\n        count += 1\nif count == len(string) or (count == (len(string) - 1) and string[0].islower() == True):\n    string2 = string[0].upper() + string[1:].lower()\n    print(string2)\nelse:\n    print(string)\n\n# Sat Oct 21 2023 16:09:13 GMT+0300 (Moscow Standard Time)",
+  "after": "a=input()\nb=[x for x in a]\nflag=0\n\nfor i in range(0, len(a)):\n    if b[i].isupper():\n        flag += 1\nif (flag==len(a)-1 and b[0].islower()==True) or flag==len(a):\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "274",
+  "before": "s=str(input())\nif s.isupper():\n    string=\"\"\n    string+=s[0]\n    string+=s[1:].lower()\n    print(string)\nelif s[0].islower() and s[1:].isupper():\n    stringnew=''\n    stringnew+=s[0].upper()\n    stringnew+=s[1:].lower()\n    print(stringnew)\nelse:\n    print(s)",
+  "after": "h=input()\n\nif h.isupper():\n    print(h.lower())\nelse:\n    u=0\n    for i in range(0,len(h),1):\n        if h[i].isupper():\n            u+=1\n    if u==len(h)-1 and h[0].islower():\n        y=\"\"\n        y+=h[0].upper()\n        y+=h[1:].lower()\n        print(y)\n    else:\n        print(h)\n#",
+  "n": 1
+ },
+ {
+  "id": "275",
+  "before": "s = str(input())\nx = s.upper()\nz = s[0].lower() + s[1:].upper()\n\nif s == x or s == z:\n    z2 =  s[0].upper() + s[1:].lower()\n    print(z2)\nelse:\n    print(s)",
+  "after": "word = input()\ndef check(word):\n    if word[0].islower() and word[1:].isupper():\n        return True\n    else:\n        return False\n\nif word.isupper() or check(word) or len(word) == 1:\n    print(word.swapcase())\nelse:\n    print(word)",
+  "n": 1
+ },
+ {
+  "id": "276",
+  "before": "s = str(input())\nuppercase_test = 0\nuppercase_except_1 = 0\n\nfor i in range(len(s)):\n    if ord(s[i])>=65 and ord(s[i])<=90:\n        uppercase_test += 1\nfor i in range(1,len(s)):\n    if ord(s[i])>=65 and ord(s[i])<=90:\n        uppercase_except_1 += 1\n\nif uppercase_except_1 == len(s)-1:\n    print(str(s[0]).upper()+str(s[1:]).lower())\nelif uppercase_test == len(s):\n    print(str(s[0]).upper()+str(s[1:]).lower())\nelse:\n    print(s)",
+  "after": "s = str(input())\nuppercase_test = 0\nx = 0\n\nfor i in range(len(s)):\n    if ord(s[i])>=65 and ord(s[i])<=90:\n        uppercase_test += 1\nfor i in range(1,len(s)):\n    if ord(s[i])>=65 and ord(s[i])<=90:\n        x +=1\n\nif (ord(s[0])>=97 and ord(s[0])<=122) and x== len(s)-1 :\n    print(str(s[0]).upper()+str(s[1:]).lower())\nelif uppercase_test == len(s):\n    print(str(s.lower()))\nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "277",
+  "before": "n=input()\narr=[]\nfor num in n:\n    arr.append(num)\narr[0]=arr[0].upper()\nfor i in range(1,len(arr)):\n    arr[i]=arr[i].lower()\nbrr=\"\"\nfor b in arr :\n    brr=brr+b\nprint(brr)",
+  "after": "input_string = input()\nneeds_change = True\nfor i in range(1, len(input_string)):\n    if input_string[i].islower():\n        needs_change = False\n        break\nif needs_change:\n    input_string = input_string.swapcase()\nprint(input_string)",
+  "n": 1
+ },
+ {
+  "id": "278",
+  "before": "word = input()\n\ndef should_capitalize(word):\n    return word.isupper() or (word[0].isupper() and word[1:].islower()) or (word[0].islower() and word[1:].isupper())\n\nif should_capitalize(word):\n    print(word[0].upper() + word[1:].lower())\nelse:\n    print(word)",
+  "after": "s = input()\nfor i in range(len(s)):\n    if i != 0 and s[i].islower():\n        print(s)\n        exit()\n\nprint(s[0].upper() + s[1:].lower() if s[0].islower() else s.lower())",
+  "n": 1
+ },
+ {
+  "id": "279",
+  "before": "word =str(input())\nword2=\"\"\nif word.islower():\n    print(word)\nelif word.isupper():\n    print(word)\nelse:\n    for let in word:\n        \n        if let.islower():\n            let=let.upper()\n            word2+=let\n            \n        elif let.isupper():\n            let=let.lower()\n            word2+=let\n            \nprint(word2)",
+  "after": "string = input()\n\nanswer = ''\nif len(string) == 1 or string[1:].isupper():\n    for char in string:\n        answer += (char.upper() if char.islower() else char.lower())\nelse:\n    answer = string\nprint(answer)",
+  "n": 1
+ },
+ {
+  "id": "280",
+  "before": "strInput = list(input())                                 \n                                                         \nfor i in range(len(strInput)):                           \n    if i > 0 and strInput[i].isupper():                  \n        for x in range(len(strInput)):                   \n            if strInput[x].isupper():                    \n                strInput[x] = strInput[x].lower()        \n            else:                                        \n                strInput[x] = strInput[x].upper()        \n        break                                            \n                                                         \nprint(''.join(strInput))",
+  "after": "a=str(input())\ns=0\noutput=str()\nfor i in range(1, len(a)):\n    if a[i].isupper():\n        continue\n    else:\n        print(a)\n        break\nelse:\n    for i in range(len(a)):\n        if a[i].isupper():\n            output+=a[i].lower()\n        else:\n            output+=a[i].upper()\n    print(output)",
+  "n": 1
+ },
+ {
+  "id": "281",
+  "before": "x = str(input())\nx = list(x)\n\nfor i in range(len(x)):\n    x[i] = x[i].lower()\nif (\"\".join(x) == \"capslock\"):\n    print(\"cAPSlOCK\")\nelse:\n    for i in range(len(x)):\n        x[0] = x[0].upper()\n    print(\"\".join(x))",
+  "after": "a=input()\nb=[x for x in a]\nflag=0\n\nfor i in range(0, len(a)):\n    if b[i].isupper():\n        flag += 1\nif (flag==len(a)-1 and b[0].islower()==True) or flag==len(a):\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "282",
+  "before": "s = input()\ndef flip(s):\n    return (s[0].upper() if s[0].islower() else s.lower()) + s[1:].lower()\nres = flip(s) if all(c.isupper() for c in s[1:]) else s\nprint(res)",
+  "after": "word = input()\ndef check(word):\n    if word[0].islower() and word[1:].isupper():\n        return True\n    else:\n        return False\n\nif word.isupper() or check(word) or len(word) == 1:\n    print(word.swapcase())\nelse:\n    print(word)",
+  "n": 1
+ },
+ {
+  "id": "283",
+  "before": "s = input()\nif s[0] >= 'a' and s[1] < 'a':\n    print(s[0].upper(), end='')\n    for i in range(1, len(s)):\n        print(s[i].lower(), end='')\nelif s[0] < 'a' and s[1] < 'a':\n    print(s.lower())\nelse:\n    print(s)",
+  "after": "n = input()\nif n[0] == n[0].lower() and n[1:] == n[1:].upper():\n    print(n[0].upper()+n[1:].lower())\nelif n == n.upper():\n    print(n.lower())\nelse:\n    print(n)",
+  "n": 1
+ },
+ {
+  "id": "284",
+  "before": "st=str(input())\nif st[0].islower() and st[1:].isupper():\n    print(st.title())\nelif st[0].isupper() and st[1:].islower():\n    print(st)\nif st[0].islower() and not st[1:].isupper():\n    print(st)",
+  "after": "string = input()\n\ndef invert(s):\n    if s.isupper():\n        return s.lower()\n    return s.upper()\n\nif len(string) == 1 or string[1:].isupper():\n    print(invert(string[0]) + string[1:].lower())\nelse:\n    print(string)",
+  "n": 1
+ },
+ {
+  "id": "285",
+  "before": "a=str(input())\ns=0\noutput=str()\nfor i in range(1, len(a)):\n    if a[i].isupper():\n        s+=1\nif s==len(a) or s+1==len(a):\n    output+=str(a[0]).upper()\n    for j in range(1, len(a)):\n        output+=(str(a[j]).lower())\n    print(output)\nelse:\n    print(a)",
+  "after": "a=input()\nb=[x for x in a]\nflag=0\n\nfor i in range(0, len(a)):\n    if b[i].isupper():\n        flag += 1\nif (flag==len(a)-1 and b[0].islower()==True) or flag==len(a):\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "286",
+  "before": "from itertools import *\nfrom functools import *\n\nprint((lambda x,\n       la = (lambda y: y[1:].isupper()),\n       inverse = (lambda y:\n                  ''.join(map((lambda x:\n                           x.lower() if x.isupper() else x.upper()),\n                          y)))\n       :\n       inverse(x) if la(x) else x)(input()))",
+  "after": "n=input()\nif len(n) == 1 or n.isupper() == True or n[0:1].islower() and n[1:len(n)].isupper():\n    print(n.swapcase())\nelse: print(n)",
+  "n": 1
+ },
+ {
+  "id": "287",
+  "before": "word = input()\nsm = 0\nfor c in word:\n    if(c.islower()):\n        sm += 1\n        break\nprint(word[0].upper(), end='')\nif(sm == 1):\n    print(word[1:].lower(), end='')\nelse:\n    print(word[1:].upper(), end='')\nprint()",
+  "after": "st=input()\ncount=0\nfor i in st:\n    if i.islower():\n        count+=1\nif count<=1 and st[0].islower():\n    print(st.title())\nelif st.isupper():\n    print(st.lower())\nelse:\n    print(st)",
+  "n": 1
+ },
+ {
+  "id": "288",
+  "before": "x = input()\na = x[0].isupper()\nn = 1\nfor u in x:\n    if a != u.isupper():\n        n = 0\n        break\nif n == 1:\n    print(x)\nif n == 0:\n    z = x.lower()\n    z = z.capitalize()\n    print(z)",
+  "after": "a=input()\na=str(a)\nb=[]\nj=0\nl=\"\"\nfor i in a[1:] :\n    if(i.islower()==True):\n        j=1\nif (j==0):\n    for k in a:\n        b.append(k.swapcase())\n    for m in b:\n        l+=m\n    print(l)\n\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "289",
+  "before": "s=input()\na=s[0]+s[1:].upper()\nif s==s.lower() or s==s.capitalize():\n    print(s)\nelif s==s.upper():\n    print(s.lower())\nelif s==a:\n    print(s.capitalize())\nelse:\n    print(s)",
+  "after": "s = input()\ns2 = s[1:]\nif s.isupper():\n    print(s.lower())\nelif s2.isupper() or len(s) == 1:\n    print(s[0].upper() + s2.lower())\nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "290",
+  "before": "p = input()\n\n\nif(p == p.upper() or p[1:len(p)]==p[1:len(p)].upper()):\n    l = []\n    nl = list(p.lower())\n    l.append(nl[0].upper())\n    l.extend(nl[1:len(p)])\n    print(''.join(l))\nelse:\n    print(p)",
+  "after": "word = input()\n\nif word == word.upper() or word[1:] == word[1:].upper() or len(word) == 1:\n    fin = \"\"\n    for i in word:\n        if i == i.lower():\n            fin += i.upper()\n        else:\n            fin += i.lower()\n\n    print(fin)\nelse:\n\n    print(word)",
+  "n": 1
+ },
+ {
+  "id": "291",
+  "before": "#https://codeforces.com/problemset/problem/131/A\ns=str(input())\n''''''\ns1=[]\nfor i in range(1,len(s)):\n    s1.append(s[i])\ns2=''.join(s1).split()\n#print(s2[0].isupper())\nif s2[0].isupper()==True:\n    a=s.capitalize()\n    print(a)\nelse:\n    print(s)",
+  "after": "alphabet=[chr(x) for x in range(65,91)]\nword=input()\nn=len(word)\nsta=1\nfor i in range(1,n):\n    if word[i] not in alphabet:\n        sta=0\n        break\nif sta==0:\n    print(word)\nelse:\n    if word[0] in alphabet:\n        print(word.lower())\n    else:\n        print(word.title())",
+  "n": 1
+ },
+ {
+  "id": "292",
+  "before": "x = input()\nif x[0].islower():\n    if x[1].isupper():\n        x = x.lower()\n        x = x.capitalize()\n        print(x)\n        exit(0)\nfor u in x:\n    if u.isupper():\n        x = x.lower()\n        x = x.capitalize()\n        print(x)\n        exit(0)\nprint(x)",
+  "after": "s = input()\nfor i in range(len(s)):\n    if i != 0 and s[i].islower():\n        print(s)\n        exit()\n\nprint(s[0].upper() + s[1:].lower() if s[0].islower() else s.lower())",
+  "n": 1
+ },
+ {
+  "id": "293",
+  "before": "x = input()\nif x.isupper():\n    print(x.lower())\nelse:\n    if str(x[0]).islower():\n        y = x[0]\n        x = x[1:]\n        if x.isupper():\n            x = y + x[0:]\n            print(x.swapcase())\n        else:\n            x = y + x[0:]\n            print(x)\n    else:\n        print(x)",
+  "after": "s = input()\nif(s.upper()==s):\n    print(s.lower())\nelse:\n    s1=s[1:]\n    s2=s1.upper()\n    if s1==s2:\n        print(s[0:1].upper()+s1.lower())\n    else:\n        print(s)",
+  "n": 1
+ },
+ {
+  "id": "294",
+  "before": "class Solution:\n\tdef __init__(self):\n\t\tpass\n\n\tdef solve(self):\n\t\ts = input()\n\t\tstring = \"\"\n\n\t\tif (s[0].islower() and s[1:].isupper()) or (s.isupper()):\n\t\t\tstring += s[0].upper() + s[1:].lower()\n\t\telse:\n\t\t\tstring = s\n\n\t\tprint(string)\n\nif __name__ == \"__main__\":\n\tsol = Solution()\n\tsol.solve()",
+  "after": "def cAPS_lOCK(word):\n    if word.isupper() or (word[0].islower() and all(ch.isupper() for ch in word[1:])):\n        return word.swapcase()\n    else :\n        return word\n\nif __name__ == \"__main__\":\n    word = input()\n    print(cAPS_lOCK(word))",
+  "n": 1
+ },
+ {
+  "id": "295",
+  "before": "s = input()\ncount = 0\ns1 = 'ABCDEFGHUJKLMNOPQRSTUVWXYZ'\nfor i in range(len(s)):\n    if s[i] in s1:\n        count+=1\nif count == len(s):\n    print(s.lower().title())\nelif s[0] not in s1 and count == len(s)-1:\n    print(s.lower().title())\nelse:\n    print(s)",
+  "after": "a=input()\nb=[x for x in a]\nflag=0\n\nfor i in range(0, len(a)):\n    if b[i].isupper():\n        flag += 1\nif (flag==len(a)-1 and b[0].islower()==True) or flag==len(a):\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "296",
+  "before": "n=input()\ns=\"\"\nflag=False\nfor i in range(1,len(n)):\n  if 65<=ord(n[i])<=90:\n    flag=True\ns+=n[0].upper()\nif flag==True and 97<=ord(n[0])<=122:\n  for i in range(1,len(n)):\n    s+=n[i].lower()\n  print(s)\nelse:\n  print(n)",
+  "after": "a=input()\nb=[x for x in a]\nflag=0\n\nfor i in range(0, len(a)):\n    if b[i].isupper():\n        flag += 1\nif (flag==len(a)-1 and b[0].islower()==True) or flag==len(a):\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "297",
+  "before": "def caps(stri):\n    count=0\n    t=0\n    for d in stri:\n        if d in \"A B C D E F G H I K L M N O P Q R S T V X Y Z \":\n            count+=1\n    if count==len(stri):\n        return True\n    if stri[0] not in \"A B C D E F G H I K L M N O P Q R S T V X Y Z \" and count==len(stri)-1:\n        return True\n    return False\n\ns=input()\nif caps(s):\n    print(s.capitalize())\nelse:\n    print(s)",
+  "after": "s = input()\ncaps_lock  = True\nfor i in range(1,len(s)):\n    if s[i] >= 'a' and s[i] <= 'z':\n        caps_lock = False\n        break\nif caps_lock:\n    print(s.swapcase())\nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "298",
+  "before": "a=input()\nb=len(a)\nc=0\nfor i in range(1,b):\n    if ord(a[i])>96:\n        print(a)\n        c=2\n        break\nif(c!=2):\n    d=a.lower()\n    c=list(d)\n    c[0]=c[0].upper()\n    for i in range(0,b):\n        print(c[i],end=\"\")",
+  "after": "string=input()\nchar=list(string)\nuppercase=1\nfor i in range (1,len(string)):\n    if str(char[i]).islower()==True:\n        uppercase=0\nif uppercase==0:\n    print(string)\nelse:\n    print(string.swapcase())",
+  "n": 2
+ },
+ {
+  "id": "299",
+  "before": "soz = input()\nres = ''\nalphaBet = [ 'a','b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j','k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y' ,'z']\nif soz[0] in alphaBet:\n    res += soz[0].upper()+soz[1::].lower()\n    print(res)\nelse:print(soz)",
+  "after": "s = input()\n\nif (len(s) == 1 or s.isupper() or (s[0].islower() and s[1:].isupper())):\n\n    print(s.swapcase())\n\nelse:\n\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "300",
+  "before": "def caps(stri):\n    stri=str(stri)\n    count=0\n    t=0\n    for d in stri:\n        if d in \"A B C D E F G H I K L M N O P Q R S T V X Y Z \":\n            count+=1\n    if count==len(stri):\n        return stri.lower()\n    if stri[0] not in \"A B C D E F G H I K L M N O P Q R S T V X Y Z \" and count==len(stri)-1:\n        return stri.capitalize()\n    return stri\ns=input()\nprint(caps(s))",
+  "after": "old_word = input()\nif old_word[1:] == old_word[1:].upper():\n    new_word = \"\"\n    for ch in old_word:\n        if ch == ch.upper():\n            new_word += ch.lower()\n        else:\n            new_word += ch.upper()\nelse:\n    new_word = old_word\nprint(new_word)",
+  "n": 1
+ },
+ {
+  "id": "301",
+  "before": "ch=input(\"\")\nif \"a\"<=ch[0]<=\"z\":\n    ch1=chr(ord(ch[0])-32)\nelse:\n    ch1=ch[0]\nfor i in range(1,len(ch)):\n    if \"A\"<=ch[i]<=\"Z\":\n        ch1=ch1+chr(ord(ch[i])+32)\n    else:\n        ch1=ch1+ch[i]\nprint(ch1)",
+  "after": "a=input()\nk=0\nfor i in range(1,len(a)):\n    if a[i].upper()==a[i]:\n        k=k+1\nif k==(len(a)-1):\n    a=a.swapcase()\nprint(a)",
+  "n": 1
+ },
+ {
+  "id": "302",
+  "before": "word=input()\nx=\"\"\nif word[0].islower()==True and word[1:len(word)].isupper()==True:\n   x=(word[0].upper()+word[1:len(word)].lower())\n   print(x)\nelif word[0:len(word)].isupper==True:\n    x=word[0].upper()\n    x+=word[1:len(word)].lower()\n    print(x)\nelse:\n    print(word)",
+  "after": "x= input()\ny=\"\"\nif x==x.upper():\n    print(x.lower())\nelif x[0].lower()==x[0] and x[1:len(x)].upper()==x[1:len(x)]:\n    y+=x[0].upper()\n    y+=x[1:len(x)].lower()\n    print(y)\nelse:\n    print(x)",
+  "n": 1
+ },
+ {
+  "id": "303",
+  "before": "s = input()\n\nif len(s) == 1:\n    if s == s.lower():\n        print(s.upper())\n    else:\n        print(s)    \nelse:\n    if s[0] == s[0].lower() and s[1:] == s[1:].upper():\n        ns = s[0].upper() + s[1:].lower()\n        print(ns)\n    elif s == s.upper():\n        print(s.lower())\n    else:\n        print(s)",
+  "after": "s=input()\nif len(s)==1:\n    if s.islower():\n        a=s.upper()\n    if s.isupper():\n        a=s.lower()\n    print(a)\nelif s.isupper():\n    a=s.lower()\n    print(a)\nelif s[0].islower() and s[1:].isupper():\n    a=s[1:].lower()\n    b=s[0].upper()\n    print(b+a)\nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "304",
+  "before": "word = input()\n\nif word.isupper() == True or word[0].islower() == True and word[1:].isupper() == True:\n    string = \"\"\n    letters = []\n    for x in word:\n        letters.append(x)\n    for x in letters:\n        if x.isupper():\n            x = str(x).lower()\n        else:\n            x = str(x).upper()\n        string += x\n    print(string)\nelse:\n    print(word)",
+  "after": "word = input()\n\nif word == word.upper() or word[1:] == word[1:].upper() or len(word) == 1:\n    fin = \"\"\n    for i in word:\n        if i == i.lower():\n            fin += i.upper()\n        else:\n            fin += i.lower()\n\n    print(fin)\nelse:\n\n    print(word)",
+  "n": 1
+ },
+ {
+  "id": "305",
+  "before": "s=(input())\nlength=len(s)\ncount=0\nfor i in range(length):\n    if s[i]>=\"A\" and s[i]<=\"Z\":\n        count=count+1\nif count==length or count==length-1:\n    if count==length:\n        print(s.lower())\n    elif count==length-1:\n        print(s.capitalize())\nelse:\n    print(s)",
+  "after": "a=input()\nb=[x for x in a]\nflag=0\n\nfor i in range(0, len(a)):\n    if b[i].isupper():\n        flag += 1\nif (flag==len(a)-1 and b[0].islower()==True) or flag==len(a):\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "306",
+  "before": "def check_case(s):\n    x = s[1:]\n    y = s[0]\n    if s.isupper() or (y.islower() and x.isupper()):\n        return True\n    else:\n        return False\n\n\ndef reverse_case(s):\n    string_list = list(s)\n    for i in range(len(string_list)):\n        if string_list[i].isupper():\n            string_list[i] = string_list[i].lower()\n        else:\n            string_list[i] = string_list[i].upper()\n\n    new_string = \"\"\n    for char in string_list:\n        new_string += char\n    return new_string\n\n\ns = input()\nif check_case(s):\n    print(reverse_case(s))\nelse:\n    print(s)",
+  "after": "def isCapsLock(string):\n\n    for i in range(1, len(string)):\n\n        if(string[i].islower()):\n\n            return False\n\n    return True\n\n    \n\ndef toggleCase(string):\n\n    x = list(string)\n\n    for i in range(len(x)):\n\n        if(x[i].isupper()):\n\n            x[i] = x[i].lower()\n\n        else:\n\n            x[i] = x[i].upper()\n\n    return ''.join(x)\n\n\n\nstring = input()\n\nif(isCapsLock(string)):\n\n    string = toggleCase(string)\n\nprint(string)",
+  "n": 1
+ },
+ {
+  "id": "307",
+  "before": "s = input() \nn = len(s) \ndem = 0\nok = 0  \nif 'A' <= s[0] <= 'Z':\n    ok = 1 \nfor x in s :\n    if'A' <= x <= 'Z' : \n        dem += 1 \nif dem == n or (dem == n - 1 and ok == 0):\n    s = s.capitalize() ; \nprint(s) ;",
+  "after": "s = input()\n\nq = True\n\nfor i in s:\n\n    if (i>='A' and i<='Z'):\n\n        continue\n\n    q = False\n\nif (q==True):\n\n    print(s.swapcase())\n\n    exit(0)\n\nq = True\n\nfor i in range(1,len(s)):\n\n    if (s[i]>='A' and s[i]<='Z'):\n\n        continue\n\n    q = False\n\nif (q==True):\n\n    print(s.swapcase())\n\n    exit(0)\n\nprint(s)",
+  "n": 1
+ },
+ {
+  "id": "308",
+  "before": "s=input()\nif len(s)==1:\n    if s==s.upper():\n        print(s.lower())\n    if s==s.upper():\n        print(s.upper())\nelse:\n    a=s[1:]\n    b=s[0]\n    if a==a.upper():\n        if b==b.upper():\n            print(s.lower())\n        elif b==b.lower():\n            print(s.title())",
+  "after": "a = input()\n\nif len(a)>1:\n\n    if a.upper() == a:\n\n        print(a.lower())\n    elif a[1:].upper() == a[1:]:\n\n        print(a.capitalize())\n    else:\n        print(a)\nelse:\n    print(a.swapcase())",
+  "n": 1
+ },
+ {
+  "id": "309",
+  "before": "s1=input()\nse1=set(s1)\ns2=s1.upper()\nse2=set(s2)\nif len(s1)==1:\n    print(s1.swapcase())\nif se1==se2:\n    s3=s1.lower()\n    print(s3)\nelse:\n    se3=set(s1[1:len(s1)])\n    se4=set(s2[1:len(s2)])\n    if se3==se4:\n        print(s1.swapcase())\n    else:\n        print(s1)",
+  "after": "s = input()\nup = s.upper()\nif up == s:\n    print(s.lower())\nelif s[1:len(s)] == up[1:len(s)]:\n    print(s.capitalize())\nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "310",
+  "before": "s = input()\nok = True\nfor i in range(1,len(s)):\n    if ord('A') <= ord(s[i]) <= ord('Z'):\n        ok = False\nif not ok:\n    for c in s:\n        if ord('a') <= ord(c) <= ord('z'): #\u5c0f\u5199\u5b57\u6bcd\n            print (chr(ord(c)-(ord('a')-ord('A'))),end='')\n        else:\n            print (chr(ord(c)+(ord('a')-ord('A'))),end='')\nelse:\n    print(s)",
+  "after": "s  = input()\nc = True\nfor i in range (1, len(s)):\n    if s[i].islower():\n        c = False\nif c:\n    for j in range(len(s)):\n        if s[j].islower():\n            u = s[j].upper()\n        else:\n            u = s[j].lower()\n        print(u, end=\"\")\nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "311",
+  "before": "counter_capital=0\ncounter_small=0\nword=input()\nlol=len(word)\nfor i in word:\n    if i==i.capitalize():\n        counter_capital+=1\n    else:\n        counter_small+=1    \nif lol==1:\n    print(word.capitalize())\nif (lol!=1) and ((counter_capital)>(counter_small)):\n    print(word[0].capitalize()+word[1::].lower()) \nif (lol!=1) and ((counter_capital)<(counter_small)):\n    print(word)",
+  "after": "s = input()\n\nq = True\n\nfor i in s:\n\n    if (i>='A' and i<='Z'):\n\n        continue\n\n    q = False\n\nif (q==True):\n\n    print(s.swapcase())\n\n    exit(0)\n\nq = True\n\nfor i in range(1,len(s)):\n\n    if (s[i]>='A' and s[i]<='Z'):\n\n        continue\n\n    q = False\n\nif (q==True):\n\n    print(s.swapcase())\n\n    exit(0)\n\nprint(s)",
+  "n": 1
+ },
+ {
+  "id": "312",
+  "before": "import math\n#f = open(\"test.txt\")\n\ntxt = input()\nlst = list(txt)\n\nfor i in range(len(lst)):\n\tif (i == 0 and lst[i] == lst[i].lower()):\n\t\tlst[i] = lst[i].upper()\n\telif (i > 0 and lst[i] == lst[i].upper()):\n\t\tlst[i] = lst[i].lower()\n\nprint(\"\".join(lst))",
+  "after": "a = input()\nif a.isupper():\n    a = a.lower()\nelif a[0].islower() and a[1:].isupper():\n    a = a[0].upper() + a[1:].lower()\nelif a.islower() and len(a)==1:\n    a = a.upper()\nelse:\n    a = a\nprint(a)",
+  "n": 1
+ },
+ {
+  "id": "313",
+  "before": "s = input()\nif (len(s) == 1 and s[0].lower() == s[0]):\n    print(s[0].upper())\n\nelse:\n    c = s[0]\n    cur = ''\n    for i in range(1, len(s)):\n        cur += s[i]\n    if (cur == cur.lower() and c == c.lower()):\n        ans = c + cur\n        print(ans)\n    else:\n        ans = c.upper() + cur.lower()\n        print(ans)\n\n# Wed Nov 01 2023 22:55:41 GMT+0300 (Moscow Standard Time)",
+  "after": "h=input()\n\nif h.isupper():\n    print(h.lower())\nelse:\n    u=0\n    for i in range(0,len(h),1):\n        if h[i].isupper():\n            u+=1\n    if u==len(h)-1 and h[0].islower():\n        y=\"\"\n        y+=h[0].upper()\n        y+=h[1:].lower()\n        print(y)\n    else:\n        print(h)\n#",
+  "n": 1
+ },
+ {
+  "id": "314",
+  "before": "a=input()\nb=bool(True)\nc=len(a)\nd=a.lower()\nfor i in range(0,c):\n    if (ord(a[i])>96):\n        b=False\nif (b==True):\n    print(d)\nelse:\n    if(ord(a[0])<97):\n        print(a)\n    else:\n        d=list(d)\n        d[0]=d[0].upper()\n        for i in range(0,c):\n            print(d[i],end=\"\")",
+  "after": "alphabet=[chr(x) for x in range(65,91)]\nword=input()\nn=len(word)\nsta=1\nfor i in range(1,n):\n    if word[i] not in alphabet:\n        sta=0\n        break\nif sta==0:\n    print(word)\nelse:\n    if word[0] in alphabet:\n        print(word.lower())\n    else:\n        print(word.title())",
+  "n": 1
+ },
+ {
+  "id": "315",
+  "before": "s = str(input())  \nupp = 0 \nlow = 0 \nfor i in range(len(s)):\n    if s[i].isupper():\n        upp += 1\n    else:\n        low+=1\n\nif s[0].islower() and upp == len(s)-1 :\n    d = s.lower()\n    f = d.capitalize()\n    print(f)\nelif s[0].isupper() and low == len(s)-1:\n    d = s \n    print(d)\nelse:\n    print(s)",
+  "after": "a=input()\nb=[x for x in a]\nflag=0\n\nfor i in range(0, len(a)):\n    if b[i].isupper():\n        flag += 1\nif (flag==len(a)-1 and b[0].islower()==True) or flag==len(a):\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "316",
+  "before": "def toggle_case(s):\n    if not s.isalpha():\n        return s\n    return s.lower() if s.isupper() else s.upper()\n\ndef apply_rule(word):\n    if word.isupper() or word[1:].isupper():\n        return ''.join(toggle_case(c) for c in word)\n    return word\n\nprint(apply_rule(\"hELLO\")) # hello\nprint(apply_rule(\"HTTP\"))   # http\nprint(apply_rule(\"z\"))      # Z\nprint(apply_rule(\"Hello\")) # Hello",
+  "after": "word = input()\ndef check(word):\n    if word[0].islower() and word[1:].isupper():\n        return True\n    else:\n        return False\n\nif word.isupper() or check(word) or len(word) == 1:\n    print(word.swapcase())\nelse:\n    print(word)",
+  "n": 1
+ },
+ {
+  "id": "317",
+  "before": "slovo=input()\nstav=True\n\n\nif len(slovo) != 1 :\n    for k in range(1,len(slovo)):\n        if slovo[k].islower() == True:\n            stav=False\n\n    if stav== True:\n        if slovo[0].islower() == True:\n            slovo=slovo[0].upper() + slovo[1:].lower()\n        elif slovo[0].islower() == False:\n            slovo = slovo.lower()\n\nelif len(slovo) == 1 and slovo[0].islower() == True:\n    slovo = slovo.upper()\n\n\nprint(slovo)",
+  "after": "s = input()\n\nif s.isupper():\n    corrected_word = s.lower()\nelif s[0].islower() and s[1:].isupper():\n    corrected_word = s[0].upper() + s[1:].lower()\nelif len(s) == 1:\n    corrected_word = s.upper()\nelse:\n    corrected_word = s\n\nprint(corrected_word)",
+  "n": 2
+ },
+ {
+  "id": "318",
+  "before": "nome = input()\nres = ''\nisTudolower = True\n\nif(nome.isalpha() and len(nome) > 0):\n    for i in nome:\n        if(i.isupper()):\n            isTudolower = False\n\n    if len(nome) > 0 and len(nome) <= 100 and isTudolower == False:\n        teste = nome.lower()\n        a = teste[0].upper()\n        b = teste[1::].lower()\n        res = a + b\n        print(res.capitalize())\n    else:\n        res = nome\n        print(res)",
+  "after": "h=input()\n\nif h.isupper():\n    print(h.lower())\nelse:\n    u=0\n    for i in range(0,len(h),1):\n        if h[i].isupper():\n            u+=1\n    if u==len(h)-1 and h[0].islower():\n        y=\"\"\n        y+=h[0].upper()\n        y+=h[1:].lower()\n        print(y)\n    else:\n        print(h)\n#",
+  "n": 1
+ },
+ {
+  "id": "319",
+  "before": "s=input()\nsa=[]\nflag=0\nif(s[0].islower()):\n    sa.append(s[0].upper())\n    for i in range(1,len(s)):\n          sa.append(s[i].lower())\nelse:\n    for i in range(1,len(s)):\n       if(s[i].lower()):\n           print(s)\n           flag=1\n           break\n    for i in range(len(s)):\n          sa.append(s[i].upper())\n\nif(flag==0):\n print(sa)",
+  "after": "a=str(input())\ns=0\noutput=str()\nfor i in range(1, len(a)):\n    if a[i].isupper():\n        continue\n    else:\n        print(a)\n        break\nelse:\n    for i in range(len(a)):\n        if a[i].isupper():\n            output+=a[i].lower()\n        else:\n            output+=a[i].upper()\n    print(output)",
+  "n": 1
+ },
+ {
+  "id": "320",
+  "before": "ch=input()\nchup = ord(ch[0])\nchup = chup-32\nchup = chr(chup)\nprint(chup, end=\"\")\n\nfor i in range(1,len(ch)):\n    if ch[i]>=\"A\" and ch[i]<=\"Z\":\n       asci = ord(ch[i])\n       asci = asci + 32\n       asci = chr(asci)\n       print(asci, end=\"\")\n\n    else:\n        print(ch[i])",
+  "after": "#counter_capital=0\n#counter_small=0\nword=input()\nlol=len(word)\nif len(word)==1:\n    if word.islower():\n        print(word.upper())\n    else:\n        print(word.lower())\nelif word[1::].isupper() or word.isupper():\n    print(word.swapcase())\nelse:\n    print(word)",
+  "n": 1
+ },
+ {
+  "id": "321",
+  "before": "def adjust_caps_lock(word):\n    # Check if all letters are capitalized or if all but the first are capitalized\n    if word.isupper() or (len(word) > 1 and word[1:].isupper()):\n        # Change all letters to lowercase if there is only one uppercase letter (except for the first letter)\n        if len(word) == word.count('A') + word.count('E') + word.count('I') + word.count('O') + word.count('U'):\n            return word.lower()\n    return word\n\nprint(adjust_caps_lock(\"HELLO\")) # \"hello\"\nprint(adjust_caps_lock(\"HTTP\"))   # \"http\"\nprint(adjust_caps_lock(\"Z\"))      # \"z\"\nprint(adjust_caps_lock(\"WORLD\")) # \"WORLD\" (unaffected as the capitalization rule was not applied)",
+  "after": "n = input()\nans = n\nif n == n.upper():\n    ans = n.lower()\nelif n[1:len(n)] == n[1:len(n)].upper():\n    ans = n[0].upper() + n[1:len(n)].lower()\nprint(ans)",
+  "n": 1
+ },
+ {
+  "id": "322",
+  "before": "s = input()\nif len(s) == 1:\n    print(s[0].upper())\nelse:\n    n = True\n    for i in range(1, len(s)):\n        if s[i] >= 'a':\n            n = False\n    if s[0] >= 'a' and n:\n        print(s[0].upper(), end='')\n        for i in range(1, len(s)):\n            print(s[i].lower(), end='')\n    elif s[0] < 'a' and n:\n        print(s.lower())\n    else:\n        print(s)",
+  "after": "h=input()\n\nif h.isupper():\n    print(h.lower())\nelse:\n    u=0\n    for i in range(0,len(h),1):\n        if h[i].isupper():\n            u+=1\n    if u==len(h)-1 and h[0].islower():\n        y=\"\"\n        y+=h[0].upper()\n        y+=h[1:].lower()\n        print(y)\n    else:\n        print(h)\n#",
+  "n": 1
+ },
+ {
+  "id": "323",
+  "before": "n = input()\nif n.isupper():\n    n = n.capitalize()\n    quit()\nif n[0].islower() and n[1:].isupper():\n    n = list(n)\n    for i in range(0, len(n)):\n        if n[i].islower():\n            n[i] = n[i].upper()\n        else:\n            n[i] = n[i].lower()\n    t = ''\n    for i in range(len(n)):\n        t += n[i]\n    print(t)\n    quit()\nprint(n)",
+  "after": "a=str(input())\ns=0\noutput=str()\nfor i in range(1, len(a)):\n    if a[i].isupper():\n        continue\n    else:\n        print(a)\n        break\nelse:\n    for i in range(len(a)):\n        if a[i].isupper():\n            output+=a[i].lower()\n        else:\n            output+=a[i].upper()\n    print(output)",
+  "n": 1
+ },
+ {
+  "id": "324",
+  "before": "n = str(input())\nif n.upper() == n:\n    print(n[0]+n[1:-1].lower()+n[-1].lower())\nelif n[0].lower() == n[0] and n[-1].upper() == n[-1] and n[1:-1].upper() == n[1:-1]:\n    print(n[0].upper()+n[1:-1].lower()+n[-1].lower())\nelse: print(n)",
+  "after": "a = input()\nif a.upper() == a:\n    print(a.lower())\nelif a[0] == a[0].lower() and a[1:].upper() == a[1:]:\n    print(a[0].upper()+a[1:].lower())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "325",
+  "before": "s = input()\nans = []\nl = \"qwertyuiopasdfghjklzxcvbnm\"\nb = \"QWERTYUIOPASDFGHJKLZXCVBNM\"\nif s[0] in l:\n    ans.append(b[l.index(s[0])])\nelse:\n    ans.append(s[0])\nfor i in range(1, len(s)):\n    if s[i] in b:\n        ans.append(l[b.index(s[i])])\n    else:\n        ans.append(s[i])\n\nans = \"\".join(ans)\nprint(ans)",
+  "after": "s = input()\nfor i in range(len(s)):\n    if i != 0 and s[i].islower():\n        print(s)\n        exit()\n\nprint(s[0].upper() + s[1:].lower() if s[0].islower() else s.lower())",
+  "n": 1
+ },
+ {
+  "id": "326",
+  "before": "S= input()\ns=''\nif (len(S))>1:\n  if 'A'<=(S[::])<='Z':\n    lower= (S[::]).lower()\n    s+=lower\n    print(s)\n  elif 'a'<=S[0]<='z' and 'A'<=(S[1:])<='Z':\n    upper= (S[0]).upper()\n    s+=upper\n    lower= (S[1:]).lower()\n    s+=lower\n    print(s)\n  else:\n    print(S)\nelse:\n  upper= S.upper()\n  s+=upper\n  print(s)",
+  "after": "strli=input()\nif strli.isupper():\n    x=strli.lower()\n    print(x)\nelif strli[0].islower() and strli[1:].isupper():\n    x=list(strli.lower())\n    x[0]=x[0].upper()\n    out=\"\".join(x)\n    print(out)\nelif len(strli)==1 and strli[0].islower():\n    x=strli.upper()\n    print(x)\nelse:\n    print(strli)",
+  "n": 1
+ },
+ {
+  "id": "327",
+  "before": "word = input()\ndef correct(x):\n    correct_word = x\n    if len(x) == 1:\n        correct_word = x.upper()\n    elif len(x) > 1 and x[0] == x[0].lower() and x[1:] == x[1:].upper():\n        correct_word = x[0].upper() + x[1:].lower()\n    elif len(x) > 1 and x == x.upper():\n        correct_word = x[0].upper() + x[1:].lower()\n    return correct_word\nprint(correct(word))",
+  "after": "a = input()\nif a.isupper():\n    a = a.lower()\nelif a[0].islower() and a[1:].isupper():\n    a = a[0].upper() + a[1:].lower()\nelif a.islower() and len(a)==1:\n    a = a.upper()\nelse:\n    a = a\nprint(a)",
+  "n": 1
+ },
+ {
+  "id": "328",
+  "before": "a = str(input())\nb = str()\nb += a[0].upper()\ncnt = 0\nfirst_flag = False\nif a[0] != a[0].upper():\n    first_flag = True\nfor i in range(1, len(a)):\n    if a[i] == a[i].upper():\n        cnt += 1\n\nif ((first_flag == True and cnt == len(a)-1) or (cnt == len(a))):\n    for i in range(1, len(a)):\n        b += (a[i].lower())\n    print(b)\nelse:\n    print(a)\n# Mon Oct 16 2023 12:21:45 GMT+0300 (Moscow Standard Time)",
+  "after": "a=input()\nb=[x for x in a]\nflag=0\n\nfor i in range(0, len(a)):\n    if b[i].isupper():\n        flag += 1\nif (flag==len(a)-1 and b[0].islower()==True) or flag==len(a):\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 2
+ },
+ {
+  "id": "329",
+  "before": "word = input()  # No need to use str() for input\n\ncopy = word\nn = len(word)\nis_valid = True\n\n# Check and modify the first character if it's a lowercase letter\nif 'a' <= copy[0] <= 'z':\n    copy = copy[0].upper() + copy[1:]\n\n# Loop through the rest of the characters\nfor i in range(1, n):\n    if 'A' <= copy[i] <= 'Z':\n        copy = copy[:i] + copy[i].lower() + copy[i+1:]\n    else:\n        is_valid = False\n        break\n\nif is_valid:\n    print(copy)\nelse:\n    print(word)",
+  "after": "a=input()\na=str(a)\nb=[]\nj=0\nl=\"\"\nfor i in a[1:] :\n    if(i.islower()==True):\n        j=1\nif (j==0):\n    for k in a:\n        b.append(k.swapcase())\n    for m in b:\n        l+=m\n    print(l)\n\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "330",
+  "before": "a=input()\na=[str(i) for i in a]\ncount=sum(1 for i in range(1,len(a)) if a[i].isupper())\nif count==len(a)-1:\n    if a[0].isupper():\n        a=[a[i].lower() for i in range(len(a)) ]\n        print(''.join(a))\n    else:\n        print(a[0].upper()+''.join(a[i].lower() for i in range(1,len(a))))",
+  "after": "n = input()\nans = n\nif n == n.upper():\n    ans = n.lower()\nelif n[1:len(n)] == n[1:len(n)].upper():\n    ans = n[0].upper() + n[1:len(n)].lower()\nprint(ans)",
+  "n": 1
+ },
+ {
+  "id": "331",
+  "before": "s = input()\nans = s[0].upper() + s[1:].lower()\n\nfor i in range(1, len(s)):\n    if ord('a') <= ord(s[i]) <= ord('z') and \\\n            ord('a') <= ord(s[1]) <= ord('z') or \\\n            ord('A') <= ord(s[i]) <= ord('Z') and \\\n            ord('A') <= ord(s[1]) <= ord('Z'):\n        continue\n    ans = s\n    break\n\nprint(ans)",
+  "after": "a=str(input())\ns=0\noutput=str()\nfor i in range(1, len(a)):\n    if a[i].isupper():\n        continue\n    else:\n        print(a)\n        break\nelse:\n    for i in range(len(a)):\n        if a[i].isupper():\n            output+=a[i].lower()\n        else:\n            output+=a[i].upper()\n    print(output)",
+  "n": 1
+ },
+ {
+  "id": "332",
+  "before": "innitial=input()\ninnitials=[]\nnum=len(innitial)\nfor i in range(num):\n    a=innitial[i]\n    if a==a.upper():\n        innitials.append(i)\nif len(innitials)==num:\n    print(innitial.title())\nelif 0 not in innitials:\n    num2=len(innitials)\n    n=0\n    for item in range(1,num):\n        if item in innitials:\n            n=n+1\n    if n == num2:\n        print(innitial.title())\n    else:\n        print(innitial)\nelse:\n    print(innitial)",
+  "after": "a=input()\nb=[x for x in a]\nflag=0\n\nfor i in range(0, len(a)):\n    if b[i].isupper():\n        flag += 1\nif (flag==len(a)-1 and b[0].islower()==True) or flag==len(a):\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "333",
+  "before": "if __name__==\"__main__\":\n    s=str(input())\n    \n    cnt=0\n    \n    for i in range(len(s)):\n        if ord(s[i]) >= 65 and ord(s[i])<97:\n            cnt=cnt+1\n    \n    if cnt == len(s):\n        print(s.capitalize())\n    elif cnt==(len(s)-1) and ord(s[0])>=97:\n        print(s.capitalize())    \n        \n    else:\n        print(s)\n    print(cnt)\n    print(ord(s[0]))",
+  "after": "values = input()\n\n\n\nif (values[0].islower() and values[1:].isupper()):\n\n    values = values.lower()\n\n    print(values[0].upper() + values[1:])\n\nelif values.isupper():\n\n    print(values.lower())\n\nelif (values[0].islower() and len(values) == 1):\n\n    print(values.upper())\n\nelse:\n\n    print(values)",
+  "n": 1
+ },
+ {
+  "id": "334",
+  "before": "ring=input()\nres=list(ring)\nval=len(ring)\nfor i in range(val):\n    if i==0 and ord(res[i])>96:\n        char=ord(res[i])\n        res.pop(i)\n        res.insert(i,chr(char-32))\n    elif i!=0 and ord(res[i])<96:\n        char=ord(res[i])\n        res.pop(i)\n        res.insert(i,chr(char+32))\nprint(\"\".join(res))",
+  "after": "a=str(input())\ns=0\noutput=str()\nfor i in range(1, len(a)):\n    if a[i].isupper():\n        continue\n    else:\n        print(a)\n        break\nelse:\n    for i in range(len(a)):\n        if a[i].isupper():\n            output+=a[i].lower()\n        else:\n            output+=a[i].upper()\n    print(output)",
+  "n": 1
+ },
+ {
+  "id": "335",
+  "before": "a=input()\n\nif \"a\"<=a[0]<=\"z\":\n    x=ord(a[0])-32\n    y=chr(x)\nelif \"A\"<=a[0]<=\"Z\":\n    x=ord(a[0])\n    y=chr(x)\nprint(y,end=\"\")\nfor j in range(1,len(a)):\n  if \"A\"<=a[j]<=\"Z\":\n    x=ord(a[j])+32\n    y=chr(x)\n    print(y,end=\"\")\n  else:\n    print(a[j],end=\"\")",
+  "after": "def check(s, n):\n    for i in range(n, len(s)):\n        if (s[i].islower()):\n            return 0\n    return 1\n\ns = input()\nif check(s, 0):\n    res = s.lower()\nelif check(s, 1):\n    res = s[0].upper() + s[1:].lower()\nelse:\n    res = s\nprint(res)",
+  "n": 2
+ },
+ {
+  "id": "336",
+  "before": "word = input()\n\ndef shouldGetFix(word):\n    for i in range (1,len(word)):\n        if word[i].islower():\n            return False\n    return True\n\ndef allUpper(word):\n    for i in range (len(word)):\n        if word[i].islower():\n            return False\n    return True\n\ndef shouldGetFix(word):\n    for i in range (1,len(word)):\n        if word[i].islower():\n            return False\n    return True\n\nif len(word) == 1:\n    print(word.upper())\nelif allUpper(word):\n    print(word.lower())\nelif shouldGetFix(word):\n    print(word.lower().capitalize())\nelse:\n    print(word)",
+  "after": "def isCapsLock(string):\n\n    for i in range(1, len(string)):\n\n        if(string[i].islower()):\n\n            return False\n\n    return True\n\n    \n\ndef toggleCase(string):\n\n    x = list(string)\n\n    for i in range(len(x)):\n\n        if(x[i].isupper()):\n\n            x[i] = x[i].lower()\n\n        else:\n\n            x[i] = x[i].upper()\n\n    return ''.join(x)\n\n\n\nstring = input()\n\nif(isCapsLock(string)):\n\n    string = toggleCase(string)\n\nprint(string)",
+  "n": 1
+ },
+ {
+  "id": "337",
+  "before": "s=input()\nc=\"\"\n\nif(s.isupper()):\n    print(s.lower())\nif(s[0].islower() and s[1:].isupper()):\n    s=s.lower()\n    c=s[0].upper()\n    s=c+s[1:]\n    print(s)\nif(s[0].islower() and s[1:].islower()):\n    print(s)\nif(s[0].islower() and len(s)==1):\n    print(s.upper())",
+  "after": "def modificar_palabra(p):\n  palabra_inicio = palabra[0].upper()\n  respuesta=\"\"\n  for i in range(1,len(palabra)):\n    respuesta += palabra[i].lower()\n  respuesta = palabra_inicio + respuesta\n  return respuesta\n\n\n\n\npalabra = input()\n\ntam = len(palabra) - 1\nnum_mayusculas = 0\nfor i in range(1,len(palabra)):\n  if palabra[i].isupper():\n    num_mayusculas += 1\n\nif palabra.isupper():\n  palabra_min = palabra.lower()\n  print(palabra_min)\nelif num_mayusculas == tam:\n  modificar = modificar_palabra(palabra)\n  print(modificar)\nelse:\n  print(palabra)",
+  "n": 1
+ },
+ {
+  "id": "338",
+  "before": "a=input()\nj=list(a)\nl=[]\nll=[]\nl.append(j[0])\nfor i in range (len(j)):\n    ll.append(j[i])\nll.remove(ll[0])\nbb=(\"\").join(ll)\nee=(\"\").join(l)\nif(ee==ee.upper() or ee==ee.lower() and bb==bb.upper() ):\n    print(ee.upper()+bb.lower())\nelse:\n    print(a)",
+  "after": "a=input()\nb=[x for x in a]\nflag=0\n\nfor i in range(0, len(a)):\n    if b[i].isupper():\n        flag += 1\nif (flag==len(a)-1 and b[0].islower()==True) or flag==len(a):\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "339",
+  "before": "s=input()\nc=\"\"\ns1=\"\"\nif(s.isupper()):\n    s1=s.lower()\n    print(s1)\nif(s[0].islower() and s[1:].isupper()):\n    s=s.lower()\n    c=s[0].upper()\n    s1=c+s[1:]\n    print(s1)\nif(s[0].isupper() and s[1:].islower()):\n    print(s)\nif(s[0].islower() and len(s)==1):\n    print(s.upper())",
+  "after": "import math\n\n\n\nstrToChange = input()\n\nisNeedChange = True\nnewStr = strToChange\nfor idx in range(1, len(strToChange)):\n    if strToChange[idx] != strToChange[idx].upper():\n        isNeedChange = False\n        break\nif strToChange[0] == strToChange[0].upper() and isNeedChange:\n    newStr = strToChange.lower()\n    isNeedChange = False\nif isNeedChange:\n    newStr = strToChange[0].upper() + strToChange[1:len(strToChange)].lower()\nprint(newStr)",
+  "n": 1
+ },
+ {
+  "id": "340",
+  "before": "ch=input()\nif ch[0]>=\"a\" and ch[0]<=\"z\":\n    chup = ord(ch[0])\n    chup = chup - 32\n    chup = chr(chup)\n    print(chup, end=\"\")\nelse:\n    print(ch[0],end=\"\")\n\n\nfor i in range(1,len(ch)):\n    if ch[i]>=\"A\" and ch[i]<=\"Z\":\n       asci = ord(ch[i])\n       asci = asci + 32\n       asci = chr(asci)\n       print(asci, end=\"\")\n\n    else:\n        print(ch[i],end=\"\")",
+  "after": "s = input()\nfor i in range(len(s)):\n    if i != 0 and s[i].islower():\n        print(s)\n        exit()\n\nprint(s[0].upper() + s[1:].lower() if s[0].islower() else s.lower())",
+  "n": 1
+ },
+ {
+  "id": "341",
+  "before": "counter_capital=0\ncounter_small=0\nword=input()\nlol=len(word)\nanswer=''\nfor i in word:\n    if i==i.capitalize():\n        counter_capital+=1\n    else:\n        counter_small+=1    \nif lol==1:\n    print(word.capitalize())\nif (lol!=1) and ((counter_capital)>(counter_small)):\n    for e in word:\n        if e.islower():\n            answer+=(e.upper())\n        else:\n            answer+=(e.lower())\n    print(answer)         \nif (lol!=1) and ((counter_capital)<(counter_small)):\n    print(word)",
+  "after": "a=input()\nb=[x for x in a]\nflag=0\n\nfor i in range(0, len(a)):\n    if b[i].isupper():\n        flag += 1\nif (flag==len(a)-1 and b[0].islower()==True) or flag==len(a):\n    print(a.swapcase())\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "342",
+  "before": "s = str(input())\nisAllUpperCase = 1\nprinted = 0\n\nfor i, item in enumerate(s):\n    if s.isupper():\n        print(s[0].lower() + s[1:].lower())\n        printed = 1\n        break\n    if i == 0 and printed == 0:\n        if item.islower():\n            \n            for j in range(i+1,len(s)):\n                if s[j].islower():\n                    isAllUpperCase = 0\n                    break\n        if isAllUpperCase == 1:\n            print(s[0].upper()+s[1:].lower())\n            printed = 1\n            break\n\n    if s[0].isupper() and s[1:].islower() and printed == 0:\n        print(s)\n        break",
+  "after": "s = input(); e = \"\"; l = len(s)\nif l == 1:\n    print(s.upper() if s.islower() else s.lower())\nelif (s[0].islower() and s[1:].isupper()) or s.isupper():\n    for i in range(l):\n        e += s[i].lower() if s[i].isupper() else s[i].upper()\n    print(e)\nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "343",
+  "before": "# LUOGU_RID: 133058732\n'''\n#include<bits/stdc++.h>//1\nusing namespace std;//xx\nstring a;\nint main()//fayHVGDUS\n{\n    cin>>a;\n    for(int i=0;i<a.size();i++){\n        if(i==0&&a[i]>='a'&&a[i]<='z'){\n            toupper(a[i]);\n        }\n        else{\n            tolower(a[i]);\n        }\n    }\n    cout<<a;\n    return 0;\n}\n'''\na = input()\ns = list(a)\nfor i in range(0,len(s)):\n    if i == 0 and ord(s[i]) >= ord('a') and ord(s[i]) <= ord('z'):\n        s[i] = chr(ord(a[i])-32)\n    elif ord(s[i]) >= ord('A') and ord(s[i]) <= ord('Z'):\n        s[i] = chr(ord(a[i])+32)\nans=str()\nfor i in range(0,len(s)):\n    ans+=s[i]\nprint(ans)\n#lxm",
+  "after": "s=input()\nup=s.upper()\nf=0\nz=0\nans=\"\"\nif s==up:\n    z=1\n    print(s.lower())\nelse:\n    if s[0]==s[0].lower():\n        for i in range(1,len(s)):\n            if s[i]!=s[i].upper():\n                f=1\n        if f==0:\n            ans+=s[0].upper()\n            for i in range(1,len(s)):\n                ans+=s[i].lower()\n            z=1\n            print(ans)\nif z==0:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "344",
+  "before": "from collections import Counter\nimport math\nimport re\ns = input()\nf, cnt = -1, 0\nfor i in range(len(s)):\n    if s[i] >= 'A' and s[i] <= 'Z':\n        if f == -1: f = i\n        cnt += 1\n\nif cnt == len(s) or cnt == len(s) - 1 and f == 1:\n    ans = ''\n    for i in range(len(s)):\n        if s[i] >= 'A' and s[i] <= 'Z':\n            ans += chr(97 + ord(s[i]) - 65)\n        else:\n            ans += chr(65 + ord(s[i]) - 97)\n    print(ans)\nelse:\n    print(s)",
+  "after": "s = input()\n\ncheck =0\nnew_s=\"\"\nif (s[0]>='a' and s[0]<='z') or (s[0] >=\"A\" and s[0] <=\"Z\"):\n    for i in range(1,len(s)):\n        if s[i] >='a' and s[i]<='z':\n            check = 1\n            break\n    \n        else:\n            continue\n            \n\nif check == 0:\n    for i in range(len(s)):\n        if s[i] >='a' and s[i] <= 'z':\n            new_s+=chr(ord(s[i])-32)\n        else:\n            new_s+=chr(ord(s[i])+32)\n\n    print(new_s)\n\nelse:\n    print(s)",
+  "n": 1
+ },
+ {
+  "id": "345",
+  "before": "a=input()\nb=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']\nc=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']\nd=''\nflag=True\nif len(a)>1:\n    for j in a[1:]:\n        if j not in c:\n            flag=False\nif a[0] in b and len(a)>1 and flag:\n    for i in a:\n        if i in b:\n            d+=c[b.index(i)]\n        else:\n            d+=b[c.index(i)]\n    print(d)\nelse:\n    print(a)",
+  "after": "a=input()\na=str(a)\nb=[]\nj=0\nl=\"\"\nfor i in a[1:] :\n    if(i.islower()==True):\n        j=1\nif (j==0):\n    for k in a:\n        b.append(k.swapcase())\n    for m in b:\n        l+=m\n    print(l)\n\nelse:\n    print(a)",
+  "n": 2
+ },
+ {
+  "id": "346",
+  "before": "s = input()\nans = []\nl = \"qwertyuiopasdfghjklzxcvbnm\"\nb = \"QWERTYUIOPASDFGHJKLZXCVBNM\"\nz = 0\nfor i in range(1, len(s)):\n    if s[i] in l:\n        z += 1\n        break\nif s[0] in l:\n    ans.append(b[l.index(s[0])])\nelse:\n    ans.append(s[0])\nfor i in range(1, len(s)):\n    if s[i] in b:\n        ans.append(l[b.index(s[i])])\n    else:\n        ans.append(s[i])\n\nans = \"\".join(ans)\nif z == 0:\n    print(ans)\nelse:\n    print(s)",
+  "after": "a=input()\na=str(a)\nb=[]\nj=0\nl=\"\"\nfor i in a[1:] :\n    if(i.islower()==True):\n        j=1\nif (j==0):\n    for k in a:\n        b.append(k.swapcase())\n    for m in b:\n        l+=m\n    print(l)\n\nelse:\n    print(a)",
+  "n": 1
+ },
+ {
+  "id": "347",
+  "before": "n=str(input())\nn1=(list(n))\n\nm=''\nlist1=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']\nlist2=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']\n\nfor i in range(26):\n    if(n1[0]==list2[i]):\n        n1[0]=(list1[i])\n\nfor i in range(1,len(n)):\n    for j in range(26):\n        if(n1[i]==list1[j]):\n            n1[i]=(list2[j])\n\nfor i in range(len(n1)):\n    m+=n1[i]\nprint(m)",
+  "after": "s = input()\n\nq = True\n\nfor i in s:\n\n    if (i>='A' and i<='Z'):\n\n        continue\n\n    q = False\n\nif (q==True):\n\n    print(s.swapcase())\n\n    exit(0)\n\nq = True\n\nfor i in range(1,len(s)):\n\n    if (s[i]>='A' and s[i]<='Z'):\n\n        continue\n\n    q = False\n\nif (q==True):\n\n    print(s.swapcase())\n\n    exit(0)\n\nprint(s)",
+  "n": 1
+ },
+ {
+  "id": "348",
+  "before": "s=input()\na='qwertyuiopasdfghjklzxcvbnm'\nb='QWERTYUIOPASDFGHJKLZXCVBNM'\nq=0\ne=0\nw=0\nif s[0] in a:\n    for i in range(1,len(s)):\n        if s[i] in b:\n            q+=1\n    if q==len(s)-1:\n        print(s[0].upper()+s[1:].lower())\n        w+=1\nif s[0] in b:\n    for j in range(1,len(s)):\n        if s[j] in b:\n            e+=1\n    if e==len(s)-1:\n        print(s[0].upper()+s[1:].lower())\n        w+=1\nif w==0:\n    print(s)",
+  "after": "s = input()\nS = []\nfor i in range(len(s)):\n    S.append(s[i])\nx = 0\nif s[0] == s[0].upper():\n    for i in range(1,len(s)):\n        if s[i] == s[i].upper():\n            pass\n        else:\n            x = 1\nelse:\n    for i in range(1,len(s)):\n        if s[i] == s[i].upper():\n            pass\n        else:\n            x = 1\nif x == 1:\n    print(s)\nelse:\n    for i in range(len(s)):\n        if S[i] == S[i].upper():\n            S[i] = S[i].lower()\n        else:\n            S[i] = S[i].upper()\n    s1 = ''\n    for letter1 in S:\n        s1 += letter1\n    print(s1)",
+  "n": 1
+ },
+ {
+  "id": "349",
+  "before": "s = input()\ncount = 0\nnew_str = \"\"\nif 1<=len(s)<=100:\n    if 97<=ord(s[0])<=122:\n        for i in range(1, len(s)):\n            if 65<=ord(s[i])<=90:\n                count += 1\n        if count == len(s)-1:\n            new_str += chr(ord(s[0])-32)\n            for m in range(1, len(s)):\n                new_str += chr(ord(s[m])+32)\n        else:\n            new_str = s\n    elif 65<=ord(s[0])<=90:\n        for j in range(1, len(s)):\n            if 65<=ord(s[j])<=90:\n                count += 1\n        if count == len(s)-1:\n            new_str += s[0]\n            for n in range(1, len(s)):\n                new_str += chr(ord(s[n])+32)\n        else:\n            new_str = s\nprint(new_str)",
+  "after": "a = input()\nif len(a) == 1:\n    if ord(a) >= 97:\n        print(chr(ord(a) - 32))\n    else:\n        print(chr(ord(a) + 32))\nelse:\n    check = 1\n    for i in range(1 , len(a)):\n        if ord(a[i]) < 65 or ord(a[i]) > 90:\n            check = 0\n            break\n    if check == 1:\n        for j in range(len(a)):\n            if ord(a[j]) >= 97:\n                print(chr(ord(a[j]) - 32) , end = \"\")\n            else:\n                print(chr(ord(a[j]) + 32) , end = \"\")\n    if check == 0:\n        print(a)",
+  "n": 1
+ },
+ {
+  "id": "350",
+  "before": "str = input()\ncounter = 0\nnew_str = \"\"\nif 1<=len(str)<=100:\n  for i in range(0, len(str)):\n    if 65<=ord(str[i])<=90:\n      counter += 1\nif counter == len(str):\n  if 65<=ord(str[0])<=90:\n    new_str += str[0]\n  elif 97<=str[0]<=122:\n    new_str += chr(ord(str[0])-32)\n  for i in range(1, len(str)):\n    if 65<=ord(str[i])<=90:\n      new_str += chr(ord(str[i])+32)\n    elif 97<=str[i]<=122:\n      new_str += str[i]\nelif counter==len(str)-1:\n  if 97<=ord(str[0])<=122:\n    new_str += chr(ord(str[0])-32)\n    for i in range(1, len(str)):\n      if 65<=ord(str[i])<=90:\n        new_str += chr(ord(str[i])+32)\n      elif 97<=str[i]<=122:\n        new_str += str[i]\nelse:\n  print(str)\nprint(new_str)",
+  "after": "s=input()\n\nl=len(s)\n\nif l==1:\n\n    if ord(s[0])>=65 and ord(s[0])<=90:\n\n        print(chr(ord(s[0])-65+97),end='')\n\n    else:\n\n        print(chr(ord(s[0])+65-97),end='')\n\nelse:\n\n    #print(s[0],end='')\n\n    cnt=0\n\n    for i in range(1,l):\n\n        if ord(s[i])>=65 and ord(s[i])<=90:\n\n            cnt+=1\n\n    if cnt==l-1:\n\n        if ord(s[0])>=65 and ord(s[0])<=90:\n\n            print(chr(ord(s[0])-65+97),end='')\n\n        else:\n\n            print(chr(ord(s[0])+65-97),end='')\n\n        for i in range(1,l):\n\n            print(s[i].lower(),end='')\n\n    else:\n\n        print(s)",
+  "n": 1
+ },
+ {
+  "id": "351",
+  "before": "x = list(input())\nflag1 = True\nflag2 = True\nflag3 = True\nflag4 = False\nstring = ''\nfor i in range(len(x)):\n    if x[i] != x[i].capitalize():\n        flag1 = False\n    if flag1:\n        while i >= 1:\n            x[i] = x[i].lower()\n            i = i - 1\n        string = ''.join([i for i in x])\n        flag4 = True\n        print(string)\nif x[0] != x[0].capitalize():\n    flag2 = True\nfor i in range(1, len(x)):\n    if x[i] == x[i].lower():\n        flag3 = False\n\ni = len(x) - 1\nif not flag4:\n    if flag2 == True and flag3 == True:\n        x[0] = x[0].capitalize()\n        while i >= 1:\n            x[i] = x[i].lower()\n            i = i - 1\n        string = ''.join([i for i in x])\n        print(string)\n    else:\n        string = ''.join([i for i in x])\n        print(string)",
+  "after": "n=input()\nflag=True\narr=[]\nfor num in n:\n    arr.append(num)\nfor i in range(1,len(arr)):\n    if arr[i].islower():\n        flag=False\nif flag==True:\n    if arr[0].isupper():\n        for i in range(0,len(arr)):\n            arr[i]=arr[i].lower()\n    else:\n        arr[0]=arr[0].upper()\n        for i in range (1,len(arr)):\n            arr[i]=arr[i].lower()\nbrr=\"\"\nfor b in arr :\n    brr=brr+b\nprint(brr)",
+  "n": 1
+ },
+ {
+  "id": "352",
+  "before": "word = input()\nn = len(word)\nsm = 0\nif(ord('A') <= ord(word[0]) <= ord('Z')):\n    for c in word:\n        if(ord('a') <= ord(c) <= ord('z')):\n            sm+=1\n            break\n    if sm == 1:\n        # Make small\n        for i in range(n):\n            if i == 0:\n                print(word[i], end='')\n            elif(ord('a') <= ord(word[i]) <= ord('z')):\n                print(word[i], end='')\n            else:\n                print(chr(97+ord(word[i])-ord('A')), end='')\n    else:\n        for i in range(n):\n            if i == 0:\n                print(word[i], end='')\n            elif(ord('a') <= ord(word[i]) <= ord('z')):\n                print(chr(ord('A')+ord(word[i])-ord('a')), end='')\n            else:\n                print(word[i], end='')\nelse:\n    for i in range(n):\n        if(i == 0):\n            if(ord('a') <= ord(word[i]) <= ord('z')):\n                print(chr(ord('A')+ord(word[i])-ord('a')), end='')\n            else:\n                print(word[i], end='')\n        elif(ord('a') <= ord(word[i]) <= ord('z')):\n            print(word[i], end='')\n        else:\n            print(chr(97+ord(word[i])-ord('A')), end='')\nprint()",
+  "after": "x=input()\nupp=0\nlow=0\nfor i in x:\n    if i.isupper():\n        upp+=1\n    else: \n        low+=1\nif (x[0].islower() and upp==len(x)-1):\n    for i in range(len(x)):\n        if(i==0):\n            print(x[i].upper(), end=\"\")\n        else:\n            print(x[i].lower(), end=\"\")\nelif(upp==len(x)):\n    for i in range(len(x)):\n        print(x[i].lower(),end=\"\")\nelse:\n    print(x)",
+  "n": 10
+ }
+]

@@ -1,0 +1,14 @@
+[
+ {
+  "id": "0",
+  "before": "def f(s):\n    k = 0\n    for el in b.values():\n        k += el // s\n    if k >= n:\n        return True\n    else:\n        return False\n\n\nn, m = map(int, input().split())\na = [int(i) for i in input().split()]\nb = {}\nfor i in a:\n    b[i] = b.get(i, 0) + 1\nl = 0\nr = 100\nwhile r - l > 1:\n    m = (l + r) // 2\n    if f(m):\n        l = m\n    else:\n        r = m\nif not f(1):\n    print(0)\nelse:\n    print(l)",
+  "after": "def f(s):\n    k = 0\n    for el in b.values():\n        k += el // s\n    if k >= n:\n        return True\n    else:\n        return False\n\n\nn, m = map(int, input().split())\na = [int(i) for i in input().split()]\nb = {}\nfor i in a:\n    b[i] = b.get(i, 0) + 1\nl = 0\nr = 100000\nwhile r - l > 1:\n    m = (l + r) // 2\n    if f(m):\n        l = m\n    else:\n        r = m\nif not f(1):\n    print(0)\nelse:\n    print(l)",
+  "n": 1
+ },
+ {
+  "id": "1",
+  "before": "n,m = map(int,input().split())\nimport collections\nfood=collections.Counter(input().split())\nfood=dict(food)\n#a.sort()\n\nimport operator\n#a = {1: 2, 3: 4, 4: 3, 2: 1, 0: 0}\nfoodz = sorted(food.items(), key=operator.itemgetter(1), reverse=True)\nfood=[0]*len(foodz)\nfor i in range(len(foodz)):\n    food[i]=foodz[i][1]\n\n#print(food)\nb=[0]*len(food)\n\nb[0]=n\nprev_days=food[0]//b[0]\nmin_days=prev_days\nmin_pos=0\nfor j in range(1,len(food)):\n    good=False\n    i=0\n    while (i<j):\n        if b[i]-1>=b[i+1]:\n            #print(i,j)\n            if b[i]>1:\n                days=min(food[i]//(b[i]-1),\n                food[j]//(b[j]+1))\n                #print('days',days)\n            else:\n                days=-1\n\n\n            if days>=prev_days:\n                prev_days=days\n                if (min_days>prev_days):\n                   min_days=prev_days\n                   if food[i]//(b[i]-1)<food[j]//(b[j]+1):\n                      min_pos=i\n                   else:\n                      min_pos=j\n                if (min_pos!=i)and(min_pos!=j):\n                   prev_days=min_days\n                b[i]-=1\n                b[j]+=1\n                #print(b)\n                good=True\n                i-=1\n        i+=1\n        \n    if not(good):\n        break\nprint(prev_days)",
+  "after": "import math\nimport itertools\nfrom collections import defaultdict\ngetInputList = lambda : list(input().split())\ngetInputIntList = lambda : list(map(int,input().split()))\n\nn , m = getInputIntList()\narr = getInputIntList()\nmyset = defaultdict(int)\nfor i in arr:\n    myset[i] += 1\nl = []\nfor k,v in myset.items():\n    l.append(v)\nl.sort(reverse=True)\nans = 0\nfor i in range(100,0,-1):\n    to = 0\n    for j in l:\n        to += j//i\n    if to >= n:\n        ans=i\n        break\nprint(ans)",
+  "n": 68
+ }
+]

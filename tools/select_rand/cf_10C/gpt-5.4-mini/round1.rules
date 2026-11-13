@@ -1,0 +1,61 @@
+rule fix_input_to_int_in_digital_root
+symptoms: wrong
+match: d(input())
+where: inside("def $f($*xs): $B:Stmts")
+rewrite: d(int(input()))
+
+rule fix_root_base_case_to_one_digit
+symptoms: wrong
+match:
+    if(num<=9):
+        return num
+where: inside("def root($*xs): $B:Stmts") or inside("def d($*xs): $B:Stmts")
+rewrite:
+    if(num<10):
+        return num
+
+rule fix_digital_root_loop_condition
+symptoms: wrong
+match:
+    while len(str(n))!=1:
+        n = sum(int(d) for d in str(n))
+where: inside("def $f($*xs): $B:Stmts")
+rewrite:
+    while n > 9:
+        n = sum(int(d) for d in str(n))
+
+rule fix_range_upper_bound_in_bruteforce
+symptoms: wrong
+match: range(1,n+1)
+where: some(parent("for $v in $R:Expr:")), match($R, "range(1, $n + 1)")
+rewrite: range(1,n)
+
+rule fix_inner_loop_start_in_bruteforce
+symptoms: wrong
+match: range(i,n+1)
+where: some(parent("for $v in $R:Expr:")), match($R, "range($i, $n + 1)")
+rewrite: range(i,n)
+
+rule fix_product_inequality_to_upper_bound_check
+symptoms: wrong
+match: c<n+1 and c!=i*j
+where: inside("for $i in range($*xs): $B:Stmts")
+rewrite: c<n+1 and c!=i+j
+
+rule fix_missing_equality_in_product_check
+symptoms: wrong
+match: c!=i*j
+where: inside("for $i in range($*xs): $B:Stmts")
+rewrite: c==i*j
+
+rule fix_compare_product_to_input_not_loop_index
+symptoms: wrong
+match: c!=i*j
+where: inside("for $i in range($*xs): $B:Stmts")
+rewrite: c!=i+j
+
+rule fix_off_by_one_accumulator_increment
+symptoms: wrong
+match: d=d+2
+where: inside("for $i in range($*xs): $B:Stmts")
+rewrite: d=d+1

@@ -1,0 +1,96 @@
+rule inch_overflow_missing_carry
+symptoms: wrong
+match:
+    print($a:Name, $b:Name)
+    |
+    print($a:Name, $sep:Str, $b:Name)
+    |
+    print(f"{$a:Name} {$b:Name}")
+    |
+    print("{} {}".format($a:Name, $b:Name))
+where: not before("if _ == 12:")
+rewrite:
+    if $b == 12:
+        $a += 1
+        $b = 0
+    print($a, $b)
+
+rule inline_div36_two_args_missing_carry
+symptoms: wrong
+match: print($n // 36, $binch)
+where: not before("if _ == 12:")
+rewrite:
+    _feet = $n // 36
+    _inch = $binch
+    if _inch == 12:
+        _feet += 1
+        _inch = 0
+    print(_feet, _inch)
+
+rule inline_div36_concat_missing_carry
+symptoms: wrong
+match: print(str($n // 36)+' '+str($binch))
+where: not before("if _ == 12:")
+rewrite:
+    _feet = $n // 36
+    _inch = $binch
+    if _inch == 12:
+        _feet += 1
+        _inch = 0
+    print(_feet, _inch)
+
+rule inline_round_inch_missing_carry
+symptoms: wrong
+match: print($a, $binch)
+where: (regex($binch, r"ceil") or regex($binch, r"round")) and not before("if _ == 12:")
+rewrite:
+    _feet = $a
+    _inch = $binch
+    if _inch == 12:
+        _feet += 1
+        _inch = 0
+    print(_feet, _inch)
+
+rule modf_round_missing_carry
+symptoms: wrong
+match:
+    $frac:Name, $intzr:Name = math.modf($ft)
+    $feet:Name = int($intzr)
+    $inch:Name = round($frac * 12)
+rewrite:
+    $frac, $intzr = math.modf($ft)
+    $feet = int($intzr)
+    $inch = round($frac * 12)
+    if $inch == 12:
+        $feet += 1
+        $inch = 0
+
+rule feet_round_instead_of_floor
+symptoms: wrong
+match: round($n / 36)
+rewrite: $n // 36
+
+rule feet_plus_half_instead_of_floor
+symptoms: wrong
+match: int($n / 36 + 0.5)
+rewrite: $n // 36
+
+rule rounding_add_wrong_constant
+symptoms: wrong
+match: ($n + $k:Int) // 3
+where: $k == 2
+rewrite: ($n + 1) // 3
+
+rule collapsed_single_output_missing_split
+symptoms: wrong
+match:
+    $x:Name = ($x + 6) // 12
+    print($x)
+rewrite:
+    print($x // 12, $x % 12)
+
+rule wrong_remainder_modulus
+symptoms: wrong
+match: $n % 26
+where: before("$a:Name = $n // 36")
+rewrite: $n % 36

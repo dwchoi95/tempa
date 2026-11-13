@@ -1,0 +1,1098 @@
+Buggy,Model,Source,Patch,Fixed,RPS,ATT_all,ATT_cpu,ATT_api,InT,OuT,$API,Rules_L,Rules_SL
+101614833,gpt-5.4-mini,none,,False,,1.6078,0.0,1.6078,499,52,0.000608,[],[]
+107953809,gpt-5.4-mini,none,,False,,11.5902,0.0,11.5902,3907,3139,0.014809,[],[]
+118929329,gpt-5.4-mini,llm,"n=int(input())
+x1=n//36
+x2=n%36
+a=x1
+b1=x2//3
+b2=x2%3
+if b2==1 or b2==0:
+    b=b1
+else:
+    b=b1+1
+a += b//12
+b %= 12
+print(a,b)",True,0.2131,1.7137,0.0,1.7137,549,81,0.000776,[],[]
+129307429,gpt-5.4-mini,none,,False,,1.359,0.0,1.359,593,50,0.00067,[],[]
+130490363,gpt-5.4-mini,llm,"centimeters = int(input())
+mod = centimeters % 36
+div = int(centimeters / 36)
+newMod = mod % 3
+newDiv = int(mod / 3)
+if newMod == 2:
+    newDiv += 1
+if newDiv == 12:
+    div += 1
+    newDiv = 0
+print(div, newDiv)",True,0.26,1.5494,0.0,1.5494,541,87,0.000797,[],[]
+144606347,gpt-5.4-mini,llm,"n=int(input())
+a=n//36
+b=round((n%36)/3)
+if b==12:
+    a+=1
+    b=0
+print(str(a)+' '+str(b))",True,0.3158,1.8709,0.0,1.8709,501,49,0.000596,[],[]
+146953666,gpt-5.4-mini,none,,False,,0.8392,0.0,0.8392,517,67,0.000689,[],[]
+146953909,gpt-5.4-mini,llm,"import math
+
+n = int(input())
+ft = n / 36
+frctn, intzr = math.modf(ft)
+fts = int(intzr)
+cm = round(frctn * 12)
+
+if cm == 12:
+    fts += 1
+    cm = 0
+
+print(fts, cm)",True,0.2927,0.766,0.0,0.766,518,75,0.000726,[],[]
+146958658,gpt-5.4-mini,llm,"import math
+
+n = int(input())
+ft = n / 36
+frctn, intzr = math.modf(ft)
+ftss = int(intzr)
+cm = round(frctn * 12)
+if cm == 12:
+    ftss += 1
+    cm = 0
+
+print(ftss, cm)",True,0.2927,1.2175,0.0,1.2175,519,82,0.000758,[],[]
+146992153,gpt-5.4-mini,none,,False,,0.8044,0.0,0.8044,663,81,0.000862,[],[]
+147007270,gpt-5.4-mini,llm,"def fi(n):
+    # n in cm
+    
+    ft = n//36
+    rem = n % 36
+    ic = round(rem/3)
+    if ic == 12:
+        ft += 1
+        ic = 0
+    
+    return ft,ic
+    
+    return 
+        
+#main program
+
+n = int(input())
+a,b = fi(n)
+print(a,b)",True,0.25,1.1842,0.0,1.1842,580,87,0.000826,[],[]
+147008686,gpt-5.4-mini,none,,False,,0.9397,0.0,0.9397,624,62,0.000747,[],[]
+149945129,gpt-5.4-mini,llm,"n=int(input())
+f=3
+c=0
+b=0
+while(n>=36):
+    n=n-36
+    c+=1
+while(n>=3):
+    n=n-3
+    b+=1
+if n==1:
+    b+=0
+else:
+    if n==2:
+        b+=1
+if b>=12:
+    c+=b//12
+    b=b%12
+print(c,b)",True,0.2609,1.1558,0.0,1.1558,573,100,0.00088,[],[]
+149945330,gpt-5.4-mini,llm,"n=int(input())
+f=3
+c=0
+b=0
+while(n>=36):
+    n=n-36
+    c+=1
+while(n>=3):
+    n=n-3
+    b+=1
+if n==1:
+    b+=0
+    n=n-1
+else:
+    if n==2:
+        b+=1
+        n=n-2
+if b>=12:
+    c+=b//12
+    b=b%12
+print(c,b)",True,0.2222,1.466,0.0,1.466,585,112,0.000943,[],[]
+190704099,gpt-5.4-mini,llm,"n = int(input())
+
+if n % 3 == 0:
+    b = n // 3
+elif n % 3 == 2:
+    b = n // 3 + 1
+else:
+    b = n // 3
+    
+a = b // 12
+b %= 12
+
+print(a, b)",True,0.0645,0.8202,0.0,0.8202,630,76,0.000815,[],[]
+204859315,gpt-5.4-mini,llm,"""""""
+https://codeforces.com/problemset/problem/125/A
+
+""""""
+INCHINCM = 3
+FOOTINCM = 12 * 3
+
+length = int(input())
+
+feet, rest = divmod(length, FOOTINCM)
+
+inches, rest = divmod(rest, INCHINCM)
+
+if rest > 1:
+    inches += 1
+
+if inches == 12:
+    feet += 1
+    inches = 0
+
+print(feet, inches)",True,0.4792,0.9269,0.0,0.9269,566,107,0.000906,[],[]
+210509999,gpt-5.4-mini,llm,"centimeters = int(input())
+
+inches = round(centimeters / 3)
+feet = inches // 12
+rem_inches = inches - feet * 12
+
+print(feet, rem_inches)",True,0.3636,0.8959,0.0,0.8959,519,48,0.000605,[],[]
+214030441,gpt-5.4-mini,llm,"n = int(input())
+feet = n // 36
+n %= 36
+inch = n // 3
+if n % 3 == 2:
+    inch += 1
+feet += inch // 12
+inch %= 12
+print(feet, inch)",True,0.275,0.7386,0.0,0.7386,528,64,0.000684,[],[]
+218167179,gpt-5.4-mini,llm,"n=int(input())
+n+=1
+a=n//36
+b=(n%36)//3
+print(a,b)",True,0.4167,0.6592,0.0,0.6592,493,32,0.000514,[],[]
+219225771,gpt-5.4-mini,none,,False,,0.9546,0.0,0.9546,519,64,0.000677,[],[]
+22026877,gpt-5.4-mini,llm,"n=(int(input())+1)//3
+print(n//12,n%12)",True,0.0417,0.7609,0.0,0.7609,532,25,0.000512,[],[]
+42101202,gpt-5.4-mini,none,,False,,0.9153,0.0,0.9153,520,70,0.000705,[],[]
+42101236,gpt-5.4-mini,none,,False,,0.8334,0.0,0.8334,624,69,0.000779,[],[]
+49637309,gpt-5.4-mini,llm,"n = int(input()) + 1
+print(n//36, n%36//3)",True,0.2609,0.7561,0.0,0.7561,550,27,0.000534,[],[]
+49637385,gpt-5.4-mini,none,,False,,0.6956,0.0,0.6956,546,44,0.000607,[],[]
+49637539,gpt-5.4-mini,llm,"from math import ceil
+a = int(input())
+f = a // 36
+d = int((a % 36) / 3 + 0.5)
+if d == 12:
+	f += 1
+	d = 0
+print(f, d)",True,0.3265,1.1944,0.0,1.1944,583,63,0.000721,[],[]
+49637703,gpt-5.4-mini,llm,"from math import ceil
+a = int(input())
+a/=3
+if a%1<0.5:
+	a//=1
+else:
+	a=a//1+1
+print(str(int(a//12))+' '+str(int(a%12)))",True,0.0741,0.6978,0.0,0.6978,509,58,0.000643,[],[]
+49646595,gpt-5.4-mini,llm,"cms=int(input())
+cms+=1
+inch=cms//36 
+cms=cms%36 
+print(inch,cms//3)",True,0.1852,0.7671,0.0,0.7671,547,35,0.000568,[],[]
+49646620,gpt-5.4-mini,llm,"cms=int(input())
+from math import ceil 
+inch=round(cms/3)
+feet=inch//12
+inch=inch%12
+print(feet,inch)",True,0.6452,0.7159,0.0,0.7159,557,42,0.000607,[],[]
+49646660,gpt-5.4-mini,llm,"cms=int(input())
+from math import ceil 
+inch=cms//36 
+cms=cms%36 
+al=cms%3 
+if al==1 or al==0 :
+    ans=cms//3 
+else:
+    ans=cms//3+1
+if ans==12:
+    inch+=1
+    ans=0
+    
+print(inch,ans)",True,0.2069,0.9065,0.0,0.9065,538,82,0.000772,[],[]
+52474077,gpt-5.4-mini,llm,"import math
+import queue
+
+from itertools import permutations 
+
+
+n=int(input())
+
+a=n//36
+
+n%=36
+
+b=n//3
+
+if n%3==2:
+    b+=1
+
+a += b // 12
+b %= 12
+    
+print(a,b)",True,0.2391,0.824,0.0,0.824,531,64,0.000686,[],[]
+64165010,gpt-5.4-mini,llm,"n=int(input())
+a=n//36
+c=(n%36)
+if c%3==2:
+    b=(c//3)+1
+else:
+    b=c//3
+if b==12:
+    a+=1
+    b=0
+print(a,b)",True,0.2553,1.0612,0.0,1.0612,512,65,0.000677,[],[]
+67012425,gpt-5.4-mini,llm,"n=int(input())
+f=n//36
+r=n%36
+if r%3==0:
+    i=r//3
+elif r%3==1:
+    i=r//3
+elif r%3==2:
+    i=r//3+1
+f += i//12
+i %= 12
+print(f,i)",True,0.1594,0.8099,0.0,0.8099,561,77,0.000767,[],[]
+67135490,gpt-5.4-mini,llm,"n=int(input())
+a=int(n/36)
+b=n%36
+if b%3==0 or b%3==1:
+    b=int(b/3)
+else:
+    b=int(b/3)+1
+a += b//12
+b %= 12
+print(a,b)",True,0.1774,0.8967,0.0,0.8967,552,68,0.00072,[],[]
+71553415,gpt-5.4-mini,none,,False,,0.7261,0.0,0.7261,550,39,0.000588,[],[]
+79735114,gpt-5.4-mini,llm,"n = int(input())
+a = int(n / 36)
+b = int(n % 36)
+c = int(b / 3)
+
+d = int(b % 3)
+
+if d == 2:
+    c = c + 1
+
+a = a + int(c / 12)
+c = c % 12
+
+print(str(a) + "" "" + str(c))",True,0.2656,0.8318,0.0,0.8318,540,86,0.000792,[],[]
+89644423,gpt-5.4-mini,llm,"x = int(input())
+a = (x + 1) // 36
+x -= 36 * a
+b = (x + 1) // 3
+print(a, b)",True,0.4828,0.89,0.0,0.89,541,48,0.000622,[],[]
+90801693,gpt-5.4-mini,llm,"n=int(input())
+n+=1
+a=n//36
+n%=36
+b=n//3
+print(a,b)",True,0.2258,0.6499,0.0,0.6499,491,33,0.000517,[],[]
+101614833,claude-sonnet-5,llm,"dum=3
+fut=12*dum
+x=int(input())
+total_inches=(x+1)//dum
+print(str(total_inches//12)+' '+str(total_inches%12))",True,0.439,17.8589,0.0,17.8589,716,1501,0.016442,[],[]
+107953809,claude-sonnet-5,llm,"import random  
+import heapq 
+import math
+from collections import Counter 
+import sys
+from math import gcd
+sys.setrecursionlimit(300000)
+from random import randrange
+ 
+ 
+ 
+ 
+#########################################################################
+ 
+# O(|m| log(max(m) + max(a)))
+def chinese_remainder(m, a):
+    '''
+        m - modulos, a - coefficients (arrays)
+        * m have to be mutually COPRIME *
+    '''
+    res, prod = 0, 1
+    for m_i in m:
+        prod *= m_i
+    for m_i, a_i in zip(m, a):
+        p = prod // m_i
+        res += a_i * modinv(p, m_i) * p
+    return res % prod
+ 
+ 
+ 
+# O(log(a+b))
+def egcd(a, b):
+    ''' Extended Euclidian algorithm. '''
+    if a == 0:
+        return (b, 0, 1)
+    else:
+        g, y, x = egcd(b % a, a)
+        return (g, x - (b // a) * y, y)
+ 
+def modinv(a, m):
+    ''' Finds modular inverse of a modulo m.  '''
+    while a < 0:
+        a += m
+    g, x, y = egcd(a, m)
+    if g != 1:
+        raise Exception('Modular inverse does not exist')
+    else:
+        return x % m
+ 
+#########################################################################
+#########################################################################
+ 
+def pi(n):
+    ''' Returns two arrays pi1, pi2:
+            pi1[i] = pi(i) for i <= sqrt(n)
+            pi2[i] = pi(n // i) for i <= sqrt(n)
+     '''
+    lim = int(n**0.5)
+    while lim*lim <= n: lim += 1
+    lim -= 1
+ 
+    pi1, pi2 = [0]*(lim + 1), [0]*(lim + 1)
+    for i in range(1, lim + 1):
+        pi1[i] = i - 1
+        pi2[i] = n//i - 1
+ 
+    for i in range(2, lim + 1):
+        if pi1[i] == pi1[i - 1]:
+            continue
+        p = pi1[i - 1]
+        for j in range(1, min(n // (i * i), lim) + 1):
+            st = i * j
+            if st <= lim:
+                pi2[j] -= pi2[st] - p
+            else:
+                pi2[j] -= pi1[n // st] - p
+        for j in range(lim, min(lim, i * i - 1), -1):
+            pi1[j] -= pi1[j // i] - p
+    return pi1, pi2
+ 
+#########################################################################
+#########################################################################
+ 
+def num_of_divisors(n):
+    nd = [0] * (n+1)
+    for i in range(1, n+1):
+        for j in range(i, n+1, i):
+            nd[j] += 1
+    return nd
+ 
+ 
+def sum_of_divisors(n):
+    sd = [0] * (n+1)
+    for i in range(1, n+1):
+        for j in range(i, n+1, i):
+            sd[j] += i
+    return sd
+ 
+#########################################################################
+def fast_prime_sieve(n):
+    """"""
+        Input n>=6, Returns a list of primes, 2 <= p <= n
+        Taken from: https://stackoverflow.com/questions/2068372/fastest-way-to-list-all-primes-below-n/
+    """"""
+    n += 1
+    n, correction = n-n%6+6, 2-(n%6>1)
+    sieve = [True] * (n//3)
+    for i in range(1,int(n**0.5)//3+1):
+      if sieve[i]:
+        k=3*i+1|1
+        sieve[      k*k//3      ::2*k] = [False] * ((n//6-k*k//6-1)//k+1)
+        sieve[k*(k-2*(i&1)+4)//3::2*k] = [False] * ((n//6-k*(k-2*(i&1)+4)//6-1)//k+1)
+    return [2,3] + [3*i+1|1 for i in range(1,n//3-correction) if sieve[i]]
+#########################################################################
+ 
+def egcd(a, b):
+    ''' Extended Euclidian algorithm. '''
+    if a == 0:
+        return (b, 0, 1)
+    else:
+        g, y, x = egcd(b % a, a)
+        # x * a + y * b = g
+        return (g, x - (b // a) * y, y)
+ 
+_gcd = lambda a, b: a+b if a==0 or b==0 else gcd(b, a % b)
+ 
+def gcd(a, b):
+    if a==0 or b == 0:
+        return a+b
+    return gcd(b, a % b)
+ 
+ 
+#########################################################################
+ 
+''' Modular square root '''
+ 
+ 
+#########################################################################
+ 
+def legendre_symbol(a, p):
+    ls = pow(a, (p - 1) // 2, p)
+    return -1 if ls == p - 1 else ls
+ 
+def modular_sqrt(a, p):
+    if legendre_symbol(a, p) != 1:
+        return 0
+    elif a == 0:
+        return 0
+    elif p == 2:
+        return 0
+    elif p % 4 == 3:
+        return pow(a, (p + 1) // 4, p)
+    s = p - 1
+    e = 0
+    while s % 2 == 0:
+        s //= 2
+        e += 1
+    n = 2
+    while legendre_symbol(n, p) != -1:
+        n += 1
+    x = pow(a, (s + 1) // 2, p)
+    b = pow(a, s, p)
+    g = pow(n, s, p)
+    r = e
+ 
+    while True:
+        t = b
+        m = 0
+        for m in range(r):
+            if t == 1:
+                break
+            t = pow(t, 2, p)
+ 
+        if m == 0:
+            return x
+        gs = pow(g, 2 ** (r - m - 1), p)
+        g = (gs * gs) % p
+        x = (x * gs) % p
+        b = (b * g) % p
+        r = m
+ 
+#########################################################################
+''' Euler""s totient function for a single number '''
+ 
+ 
+#########################################################################
+ 
+from functools import lru_cache
+ 
+def factorize(n):
+    factorization = set()
+    while n > 1:
+        for i in range(2, n + 1):
+            if n % i == 0:
+                n //= i
+                factorization.add(i)
+                break
+    return factorization
+ 
+@lru_cache(maxsize=None)
+def phi(n):
+    totient = n
+    for p in factorize(n):
+        totient -= totient//p
+    return totient
+ 
+#########################################################################
+ 
+#########################################################################
+ 
+def max_subarray(a):
+    max_so_far = max_ending_here = 0
+    for el in a:
+        # in case a speed-up is required, change the below max/min to if-else statements.
+        max_ending_here = max(0, max_ending_here + el)
+        max_so_far = max(max_so_far, max_ending_here)
+    return max_so_far
+ 
+ 
+#########################################################################
+ 
+ 
+#########################################################################
+ 
+def maximum_xor(nums):
+    answer = 0
+    for i in range(31, -1, -1):
+        answer <<= 1
+        prefixes = {num >> i for num in nums}
+        answer += any(answer^1^p in prefixes for p in prefixes)
+    return answer
+ 
+ 
+#########################################################################
+ 
+'''
+    Finds longest increasing subsequence in O(n log n) time.
+'''
+ 
+ 
+#########################################################################
+ 
+def lis(a):
+    p, m, l = [0]*len(a), [0]*(len(a) + 1), 0
+    for i in range(len(a)):
+       lo, hi = 1, l
+       while lo <= hi:
+           mid = (lo + hi)//2
+           if a[m[mid]] < a[i]:
+               lo = mid+1
+           else:
+               hi = mid-1
+       p[i], m[lo] = m[lo-1], i
+       if lo > l:
+           l = lo
+    s, k = [], m[l]
+    for i in range(l-1, -1, -1):
+        s.append(a[k])
+        k = p[k]
+    return s[::-1]
+ 
+#########################################################################
+#########################################################################
+#########################################################################
+def find_kth(arr, k, start=0, end=None):
+    if not end:
+        end = len(arr) -1
+    pivot_ridx = randrange(start, end)
+    pivot = arr[pivot_ridx]
+    pivot_idx = _partition(arr, start, end, pivot_ridx)
+    if pivot_idx + 1 == k:
+        return pivot
+    elif pivot_idx + 1 > k:
+        return find_kth(arr, k, start, pivot_idx)
+    else:
+        return find_kth(arr, k, pivot_idx, end)
+ 
+def _partition(arr, start, end, pivot_idx):
+    pivot = arr[pivot_idx]
+    arr[end], arr[pivot_idx] = arr[pivot_idx], arr[end]
+    inc_idx = start
+    for i in range(start, end):
+        if arr[i] <= pivot:
+            arr[inc_idx], arr[i] = arr[i], arr[inc_idx]
+            inc_idx += 1
+    arr[end], arr[inc_idx] = arr[inc_idx], arr[end]
+    return inc_idx
+#########################################################################
+#########################################################################
+ 
+def count_sort(a):
+    mn, mx = float('inf'), -float('inf')
+    for x in a:
+        if x < mn: mn = x
+        if x > mx: mx = x
+    counter = [0 for _ in range(mx - mn + 1)]
+    for x in a:
+        counter[x - mn] += 1
+    j = 0
+    for i in range(mx - mn + 1):
+        a[j:j+counter[i]] = [i + mn]*counter[i]
+        j += counter[i]
+ 
+ 
+#########################################################################
+ 
+ 
+#########################################################################
+ 
+ 
+ 
+def lcs(a, b):
+    ''' Finds longest common subsequence of arrays a, b. '''
+    lengths = [[0 for j in range(len(b) + 1)] for i in range(len(a) + 1)]
+    for i, x in enumerate(a):
+        for j, y in enumerate(b):
+            if x == y:
+                lengths[i+1][j+1] = lengths[i][j] + 1
+            else:
+                lengths[i+1][j+1] = max(lengths[i+1][j], lengths[i][j+1])
+    result = []
+    x, y = len(a), len(b)
+    while x != 0 and y != 0:
+        if lengths[x][y] == lengths[x-1][y]:
+            x -= 1
+        elif lengths[x][y] == lengths[x][y-1]:
+            y -= 1
+        else:
+            result.append(a[x-1])
+            x, y = x - 1, y - 1
+    return result[::-1]
+ 
+ 
+#########################################################################
+#########################################################################
+def is_anagram(str1, str2): 
+     return Counter(str1) == Counter(str2)
+#########################################################################
+#########################################################################
+def power(x, y, p): 
+    res = 1;  
+    x = x % p;  
+    while (y > 0): 
+        if (y & 1): 
+            res = (res * x) % p; 
+        y = y>>1;
+        x = (x * x) % p; 
+    return res;
+#########################################################################
+def miillerTest(d, n): 
+    a = 2 + random.randint(1, n - 4); 
+    x = power(a, d, n); 
+    if (x == 1 or x == n - 1): 
+        return True; 
+    while (d != n - 1): 
+        x = (x * x) % n; 
+        d *= 2; 
+        if (x == 1): 
+            return False; 
+        if (x == n - 1): 
+            return True; 
+    return False; 
+def isPrime( n, k): 
+    if (n <= 1 or n == 4): 
+        return False; 
+    if (n <= 3): 
+        return True; 
+    d = n - 1; 
+    while (d % 2 == 0): 
+        d //= 2; 
+    for i in range(k): 
+        if (miillerTest(d, n) == False): 
+            return False; 
+  
+    return True;
+#########################################################################
+#########################################################################
+  
+def gcd_list(li):
+    return reduce(gcd,li)
+  
+'''
+    Finds longest increasing subsequence in O(n log n) time.
+'''
+
+
+#########################################################################
+
+def lis(a):
+    p, m, l = [0]*len(a), [0]*(len(a) + 1), 0
+    for i in range(len(a)):
+       lo, hi = 1, l
+       while lo <= hi:
+           mid = (lo + hi)//2
+           if a[m[mid]] < a[i]:
+               lo = mid+1
+           else:
+               hi = mid-1
+       p[i], m[lo] = m[lo-1], i
+       if lo > l:
+           l = lo
+    s, k = [], m[l]
+    for i in range(l-1, -1, -1):
+        s.append(a[k])
+        k = p[k]
+    return s[::-1]
+
+#########################################################################
+ 
+# for _ in range(int(input())):
+# input=open(""input.txt"",""r"").readline
+n=int(input())
+e=n//36
+f=n%36
+ic=round(f/3)
+if ic == 12:
+    e += 1
+    ic = 0
+print(e,ic)
+# if len(set(e))==1:
+#     open(""output.txt"",""w"").write(""YES"")
+# else:
+#     open(""output.txt"",""w"").write(""NO"")",True,0.0129,36.2616,0.0,36.2616,5593,5115,0.062336,[],[]
+118929329,claude-sonnet-5,llm,"n=int(input())
+x1=n//36
+x2=n%36
+a=x1
+b1=x2//3
+b2=x2%3
+if b2==1 or b2==0:
+    b=b1
+else:
+    b=b1+1
+if b==12:
+    a+=1
+    b=0
+print(a,b)",True,0.2295,2.1714,0.0,2.1714,778,102,0.002576,[],[]
+129307429,claude-sonnet-5,llm,"n = float(input())
+inch = int(n / 3 + 0.5)
+feet = int(inch / 12)
+r = inch - 12 * feet
+print(feet,""  "",r)",True,0.4545,1.8949,0.0,1.8949,829,66,0.002318,[],[]
+130490363,claude-sonnet-5,llm,"centimeters = int(input())
+mod = centimeters % 36
+div = int(centimeters/36)
+newMod = mod % 3
+newDiv = int(mod/3)
+if newMod == 2:
+    newDiv += 1
+else:
+    pass
+if newDiv == 12:
+    newDiv = 0
+    div += 1
+print(div, newDiv)",True,0.24,2.7896,0.0,2.7896,773,154,0.003086,[],[]
+144606347,claude-sonnet-5,llm,"n=int(input())
+a=n//36
+b=round((n%36)/3)
+if b==12:
+    a+=1
+    b=0
+print(str(a)+' '+str(b))",True,0.3158,1.6785,0.0,1.6785,716,63,0.002062,[],[]
+146953666,claude-sonnet-5,llm,"import math
+
+n = int(input())
+
+i = round(n / 3)
+ft = i // 12
+cm = i % 12
+
+print(ft, cm)",True,0.4878,2.0312,0.0,2.0312,735,145,0.00292,[],[]
+146953909,claude-sonnet-5,llm,"import math
+
+n = int(input())
+i = round(n / 3)
+fts = i // 12
+cm = i % 12
+
+print(fts, cm)",True,0.4878,2.269,0.0,2.269,735,137,0.00284,[],[]
+146958658,claude-sonnet-5,llm,"import math
+
+n = int(input())
+total_inches = round(n / 3)
+ftss = total_inches // 12
+cm = total_inches % 12
+
+print(ftss, cm)",True,0.4878,1.8683,0.0,1.8683,737,136,0.002834,[],[]
+146992153,claude-sonnet-5,llm,"N = int(input())
+
+def roundI(inch):
+    if inch<=1:
+        return 0
+    return 1
+
+feet = int(N/36)
+fullinch = (N - (feet*36))//3
+
+finalinch = fullinch + roundI(N-feet*36-fullinch*3)
+if finalinch == 12:
+    feet += 1
+    finalinch = 0
+
+print(feet,finalinch)",True,0.2154,1.6542,0.0,1.6542,932,134,0.003204,[],[]
+147007270,claude-sonnet-5,llm,"def fi(n):
+    # n in cm
+    
+    ft = n//36
+    rem = n % 36
+    ic = round(rem/3)
+    if ic == 12:
+        ft += 1
+        ic = 0
+    
+    return ft,ic
+    
+    return 
+        
+#main program
+
+n = int(input())
+a,b = fi(n)
+print(a,b)",True,0.25,1.55,0.0,1.55,837,120,0.002874,[],[]
+147008686,claude-sonnet-5,llm,"cm = int(input())
+b = cm // 3
+a = b // 12
+b = b % 12
+cm = cm % 3
+if cm >= 2:
+    b=b+1
+if b==12:
+    b=0
+    a=a+1
+print(f""{a} {b}"")",True,0.2885,5.2855,0.0,5.2855,890,389,0.00567,[],[]
+149945129,claude-sonnet-5,llm,"n=int(input())
+f=3
+c=0
+b=0
+while(n>=36):
+    n=n-36
+    c+=1
+while(n>=3):
+    n=n-3
+    b+=1
+if n==1:
+    b+=0
+else:
+    if n==2:
+        b+=1
+if b>=12:
+    c+=1
+    b-=12
+print(c,b)",True,0.1884,1.4994,0.0,1.4994,794,121,0.002798,[],[]
+149945330,claude-sonnet-5,llm,"n=int(input())
+f=3
+c=0
+b=0
+while(n>=36):
+    n=n-36
+    c+=1
+while(n>=3):
+    n=n-3
+    b+=1
+if n==1:
+    b+=0
+    n=n-1
+else:
+    if n==2:
+        b+=1
+        n=n-2
+if b>=12:
+    b=b-12
+    c+=1
+print(c,b)",True,0.1852,1.7106,0.0,1.7106,808,136,0.002976,[],[]
+190704099,claude-sonnet-5,llm,"n = int(input())
+
+if n % 3 == 0:
+    b = n // 3
+elif n % 3 == 2:
+    b = n // 3 + 1
+else:
+    b = n // 3
+    
+a = b // 12
+b %= 12
+
+print(a, b)",True,0.0645,1.6139,0.0,1.6139,865,89,0.00262,[],[]
+204859315,claude-sonnet-5,llm,"""""""
+https://codeforces.com/problemset/problem/125/A
+
+""""""
+INCHINCM = 3
+FOOTINCM = 12 * 3
+
+length = int(input())
+
+feet, rest = divmod(length, FOOTINCM)
+
+inches, rest = divmod(rest, INCHINCM)
+
+inches = inches + 1 if rest > 1 else inches
+
+if inches == 12:
+    feet += 1
+    inches = 0
+
+print(feet, inches)",True,0.4375,2.1964,0.0,2.1964,817,181,0.003444,[],[]
+210509999,claude-sonnet-5,llm,"centimeters = int(input())
+
+inches = round(centimeters / 3)
+feet = inches // 12
+rem_inches = inches - feet*12
+
+print(feet, rem_inches)",True,0.3636,1.432,0.0,1.432,754,86,0.002368,[],[]
+214030441,claude-sonnet-5,llm,"n = int(input())
+feet = n//36
+n %= 36
+inch = n//3
+if(n%3 == 2):
+    inch += 1
+if inch == 12:
+    feet += 1
+    inch = 0
+print(feet,inch)",True,0.3,1.4442,0.0,1.4442,746,82,0.002312,[],[]
+218167179,claude-sonnet-5,llm,"n=int(input())
+n+=1
+total=n//3
+a=total//12
+b=total%12
+print(a,b)",True,0.6667,1.8499,0.0,1.8499,704,101,0.002418,[],[]
+219225771,claude-sonnet-5,llm,"n = int(input())
+
+total_inch = round(n / 3)
+foot = total_inch // 12
+inch = total_inch - 12 * foot
+
+print(""{} {}"".format(foot,inch))",True,0.4737,1.4165,0.0,1.4165,741,68,0.002162,[],[]
+22026877,claude-sonnet-5,llm,"n=(int(input())+1)//3
+print(n//12,n%12)",True,0.0417,1.2366,0.0,1.2366,748,30,0.001796,[],[]
+42101202,claude-sonnet-5,llm,"n = int(input())
+add = (n%36)%3
+if add >= 2:
+	add = 1
+else:
+	add = 0
+total = n//36*12 + (n%36)//3+add
+print(total//12, total%12)",True,0.4773,1.9091,0.0,1.9091,733,135,0.002816,[],[]
+42101236,claude-sonnet-5,llm,"n = int(input())
+
+inc = n//3
+if n%3 >= 2:
+	inc += 1
+
+a = inc//12
+b = inc%12
+
+print(a, b)",True,0.55,3.3149,0.0,3.3149,864,245,0.004178,[],[]
+49637309,claude-sonnet-5,none,,False,,1.2312,0.0,1.2312,765,49,0.00202,[],[]
+49637385,claude-sonnet-5,llm,"from math import ceil
+n = int(input())
+total_inches = round(n/3)
+print(str(total_inches//12)+' '+str(total_inches%12))",True,0.5,1.3795,0.0,1.3795,769,57,0.002108,[],[]
+49637539,claude-sonnet-5,llm,"a = int(input())
+total = int(a / 3 + 0.5)
+f = str(total // 12)
+d = total % 12
+print(f + ' ' + str(d))",True,0.5102,8.0218,0.0,8.0218,821,657,0.008212,[],[]
+49637703,claude-sonnet-5,llm,"from math import ceil
+a = int(input())
+a/=3
+if a%1<0.5:
+	a//=1
+else:
+	a=a//1+1
+print(str(int(a//12))+' '+str(int(a%12)))",True,0.0741,1.3924,0.0,1.3924,732,77,0.002234,[],[]
+49646595,claude-sonnet-5,llm,"cms=int(input())
+cms+=1
+inch=cms//36
+cms=cms%36
+print(inch,cms//3)",True,0.1852,1.1361,0.0,1.1361,772,47,0.002014,[],[]
+49646620,claude-sonnet-5,llm,"cms=int(input())
+inch=round(cms/3)
+feet=inch//12
+inch=inch%12
+print(feet,inch)",True,0.6774,3.2638,0.0,3.2638,786,266,0.004232,[],[]
+49646660,claude-sonnet-5,llm,"cms=int(input())
+from math import ceil 
+inch=cms//36 
+cms=cms%36 
+al=cms%3 
+if al==1 or al==0 :
+    ans=cms//3 
+else:
+    ans=cms//3+1 
+
+if ans==12:
+    inch=inch+1
+    ans=0
+    
+print(inch,ans)",True,0.2414,1.8133,0.0,1.8133,772,150,0.003044,[],[]
+52474077,claude-sonnet-5,llm,"import math
+import queue
+
+from itertools import permutations 
+
+
+n=int(input())
+
+a=n//36
+
+n%=36
+
+b=n//3
+
+if n%3==2:
+    b+=1
+
+if b==12:
+    b=0
+    a+=1
+
+print(a,b)",True,0.2609,1.5137,0.0,1.5137,756,108,0.002592,[],[]
+64165010,claude-sonnet-5,llm,"n=int(input())
+a=n//36
+c=(n%36)
+if c%3==2:
+    b=(c//3)+1
+else:
+    b=c//3
+if b==12:
+    a+=1
+    b=0
+print(a,b)",True,0.2553,1.492,0.0,1.492,725,102,0.00247,[],[]
+67012425,claude-sonnet-5,llm,"n=int(input())
+f=n//36
+r=n%36
+if r%3==0:
+    i=r//3
+elif r%3==1:
+    i=r//3
+elif r%3==2:
+    i=r//3+1
+if i==12:
+    f+=1
+    i=0
+print(f,i)",True,0.1739,1.5589,0.0,1.5589,786,98,0.002552,[],[]
+67135490,claude-sonnet-5,llm,"n=int(input())
+a=int(n/36)
+b=n%36
+if b%3==0 or b%3==1:
+    b=int(b/3)
+else:
+    b=int(b/3)+1
+if b==12:
+    a+=1
+    b=0
+print(a,b)",True,0.1935,1.7013,0.0,1.7013,780,115,0.00271,[],[]
+71553415,claude-sonnet-5,llm,"from math import *
+n=int(input())
+i=round(n/3)
+x=i//12
+y=i%12
+print(x,y)",True,0.5357,1.2177,0.0,1.2177,771,46,0.002002,[],[]
+79735114,claude-sonnet-5,llm,"n = int(input())
+a = int(n / 36)
+b = int(n % 36)
+c = int(b / 3)
+
+d = int(b % 3)
+
+if d == 2:
+    c = c + 1
+
+if c == 12:
+    c = 0
+    a = a + 1
+
+print(str(a) + "" "" + str(c))",True,0.2188,1.6996,0.0,1.6996,759,104,0.002558,[],[]
+89644423,claude-sonnet-5,llm,"x = int(input())
+x = (x+1)//3
+a = x // 12
+b = x % 12
+print(a, b)",True,0.4138,1.6953,0.0,1.6953,763,103,0.002556,[],[]
+90801693,claude-sonnet-5,llm,"n=int(input())
+n=(n+1)//3
+a=n//12
+b=n%12
+print(a,b)",True,0.4839,4.5932,0.0,4.5932,701,429,0.005692,[],[]

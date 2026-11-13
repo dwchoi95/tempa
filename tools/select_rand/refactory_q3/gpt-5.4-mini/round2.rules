@@ -1,0 +1,251 @@
+rule fix_append_vs_extend_singleton
+symptoms: wrong
+match:
+    $acc += $x
+where:
+    kind($x) != "List" and kind($x) != "Tuple" and kind($x) != "Call"
+rewrite:
+    $acc.append($x)
+
+rule fix_append_assignment_none
+symptoms: wrong
+match: $acc = $acc.append($x)
+rewrite: $acc.append($x)
+
+rule fix_missing_return_after_building_list
+symptoms: wrong
+match:
+    $acc = []
+    for $x in $xs:
+        if $x not in $acc:
+            $acc.append($x)
+where:
+    inside("def $f($*ps): $B:Stmts")
+rewrite:
+    $acc = []
+    for $x in $xs:
+        if $x not in $acc:
+            $acc.append($x)
+    return $acc
+
+rule fix_return_wrong_variable
+symptoms: wrong
+match: return $x
+where:
+    inside("def $f($*ps): $B:Stmts") and some($B, "$acc = []") and some($B, "for $i in $xs:\n        if $i not in $acc:\n            $acc.append($i)")
+rewrite: return $acc
+
+rule fix_membership_against_input_not_output
+symptoms: wrong
+match: if $x not in $inp:
+where:
+    inside("def $f($*ps): $B:Stmts") and some($B, "for $i in $xs:\n        if $i not in $acc:")
+rewrite: if $x not in $acc:
+
+rule fix_count_based_removal_to_keep_first_occurrence
+symptoms: wrong
+match:
+    for $x in $xs:
+        if $xs.count($x) > 1:
+            $xs.remove($x)
+    return $xs
+rewrite:
+    $acc = []
+    for $x in $xs:
+        if $x not in $acc:
+            $acc.append($x)
+    return $acc
+
+rule fix_count_based_removal_while_loop
+symptoms: wrong
+match:
+    for $x in $xs:
+        if $xs.count($x) > 1:
+            $xs.remove($x)
+    return $xs
+where:
+    some($xs, "$_")
+rewrite:
+    $acc = []
+    for $x in $xs:
+        if $x not in $acc:
+            $acc.append($x)
+    return $acc
+
+rule fix_self_membership_test
+symptoms: wrong
+match: if $x not in $xs:
+rewrite: if $x not in $acc:
+
+rule fix_output_membership_inversion
+symptoms: wrong
+match: if $x in $acc:
+rewrite: if $x not in $acc:
+
+rule fix_return_none_from_reverse
+symptoms: wrong
+match: return $x.reverse()
+rewrite: $x.reverse()
+return $x
+
+rule fix_reverse_method_not_called
+symptoms: wrong
+match: $x = $y.reverse
+rewrite: $x = $y.reverse()
+
+rule fix_pop_method_not_called
+symptoms: wrong
+match: $x.pop
+rewrite: $x.pop()
+
+rule fix_pop_wrong_argument_name
+symptoms: wrong
+match: $x.pop($i)
+where: kind($i) == "Name"
+rewrite: $x.pop()
+
+rule fix_list_index_vs_literal_name
+symptoms: wrong
+match: for $i in list:
+rewrite: for $i in lst:
+
+rule fix_builtins_list_as_iterable_name
+symptoms: wrong
+match: for $i in list:
+    $B:Stmts
+where: inside("def $f($*ps): $body:Stmts")
+rewrite:
+    for $i in lst:
+        $B
+
+rule fix_sorted_duplicate_pattern_to_unsorted_scan
+symptoms: wrong
+match:
+    $lst.sort()
+    $i = $start:Int
+    while $i < $n:
+        if $lst[$i] == $lst[$j]:
+            $lst.remove($lst[$k])
+        else:
+            $i += 1
+        $n = len($lst)
+    return $lst
+rewrite:
+    $acc = []
+    for $x in $lst:
+        if $x not in $acc:
+            $acc.append($x)
+    return $acc
+
+rule fix_tuple_result_to_list
+symptoms: wrong
+match:
+    $acc = ()
+    for $x in $xs:
+        if $x not in $acc:
+            $acc += ($x,)
+    return $acc
+rewrite:
+    $acc = []
+    for $x in $xs:
+        if $x not in $acc:
+            $acc.append($x)
+    return $acc
+
+rule fix_seeded_list_to_empty_list
+symptoms: wrong
+match:
+    $acc = [$xs[0],]
+    for $x in $xs:
+        if $x not in $acc:
+            $acc.append($x)
+    return $acc
+rewrite:
+    $acc = []
+    for $x in $xs:
+        if $x not in $acc:
+            $acc.append($x)
+    return $acc
+
+rule fix_nonempty_guard_missing_empty_case
+symptoms: wrong
+match:
+    $acc = [$xs[0],]
+    for $x in $xs:
+        if $x not in $acc:
+            $acc.append($x)
+    return $acc
+where:
+    inside("def $f($*ps): $body:Stmts")
+rewrite:
+    if $xs == []:
+        return []
+    $acc = []
+    for $x in $xs:
+        if $x not in $acc:
+            $acc.append($x)
+    return $acc
+
+rule fix_recursive_concat_missing_list_wrap
+symptoms: wrong
+match: return $a + $b($xs[1:])
+where: kind($a) == "Name"
+rewrite: return $a + [$b($xs[1:])]
+
+rule fix_direct_set_return_to_ordered_scan
+symptoms: wrong
+match: return set($xs)
+rewrite:
+    $acc = []
+    for $x in $xs:
+        if $x not in $acc:
+            $acc.append($x)
+    return $acc
+
+rule fix_direct_list_set_return_to_ordered_scan
+symptoms: wrong
+match: return list(set($xs))
+rewrite:
+    $acc = []
+    for $x in $xs:
+        if $x not in $acc:
+            $acc.append($x)
+    return $acc
+
+rule fix_ordereddict_return_to_ordered_scan
+symptoms: wrong
+match: return list(OrderedDict.fromkeys($xs))
+rewrite:
+    $acc = []
+    for $x in $xs:
+        if $x not in $acc:
+            $acc.append($x)
+    return $acc
+
+rule fix_list_index_access_in_loop
+symptoms: wrong
+match:
+    for $i in range(len($xs)):
+        if $xs[$i] not in $acc:
+            $acc += $xs[$i]
+    return $acc
+rewrite:
+    for $i in range(len($xs)):
+        if $xs[$i] not in $acc:
+            $acc.append($xs[$i])
+    return $acc
+
+rule fix_remove_extras_empty_return_on_build
+symptoms: wrong
+match:
+    $acc = []
+    for $x in $xs:
+        if $x not in $acc:
+            $acc.append($x)
+where: inside("def remove_extras($*ps): $body:Stmts")
+rewrite:
+    $acc = []
+    for $x in $xs:
+        if $x not in $acc:
+            $acc.append($x)
+    return $acc

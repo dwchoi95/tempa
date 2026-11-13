@@ -1,0 +1,270 @@
+rule ceil_based_rounding_to_inches
+symptoms: wrong
+match:
+    from math import ceil
+    $n:Name = int(input())
+    print($e1, ceil($e2))
+where:
+    some($e2, "$n % 36 / 3") or some($e2, "$n%36/3") or some($e2, "($n % 36) / 3")
+rewrite:
+    $n = int(input())
+    $x = ($n + 1) // 3
+    print($x // 12, $x % 12)
+
+rule rounded_inches_then_feet
+symptoms: wrong
+match:
+    $n:Name = int(input())
+    $a:Name = $n // 36
+    $b:Name = $n % 36
+    if $c % 3 == 0:
+        $i:Name = $b // 3
+    elif $c % 3 == 1:
+        $i:Name = $b // 3
+    elif $c % 3 == 2:
+        $i:Name = $b // 3 + 1
+    print($a, $i)
+where:
+    $c == $b
+rewrite:
+    $n = int(input())
+    $x = ($n + 1) // 3
+    print($x // 12, $x % 12)
+
+rule remainder_rounding_branch
+symptoms: wrong
+match:
+    $n:Name = int(input())
+    $a:Name = $n // 36
+    $c:Name = ($n % 36)
+    if $c % 3 == 2:
+        $b:Name = ($c // 3) + 1
+    else:
+        $b:Name = $c // 3
+    print($a, $b)
+rewrite:
+    $n = int(input())
+    $x = ($n + 1) // 3
+    print($x // 12, $x % 12)
+
+rule print_textual_feet_inches
+symptoms: wrong
+match:
+    $from math import ceil
+    $a:Name = int(input())
+    $f:Name = str($a // 36)
+    $d:Name = ceil($a % 36 / 3)
+    if $d == 12:
+        $f += 1
+    print($f + ' ' + str($d))
+rewrite:
+    $n = int(input())
+    $x = ($n + 1) // 3
+    print($x // 12, $x % 12)
+
+rule division_then_round
+symptoms: wrong
+match:
+    import math
+    $n:Name = int(input())
+    $ft:Name = $n / 36
+    $frctn:Name, $intzr:Name = math.modf($ft)
+    $ftss:Name = int($intzr)
+    $cm:Name = round($frctn * 12)
+    print($ftss, $cm)
+rewrite:
+    $n = int(input())
+    $x = ($n + 1) // 3
+    print($x // 12, $x % 12)
+
+rule divide_then_round_inches_only
+symptoms: wrong
+match:
+    $n:Name = int(input())
+    $f:Name = $n // 36
+    $r:Name = $n % 36
+    if $r % 3 == 0:
+        $i:Name = $r // 3
+    elif $r % 3 == 1:
+        $i:Name = $r // 3
+    elif $r % 3 == 2:
+        $i:Name = $r // 3 + 1
+    print($f, $i)
+rewrite:
+    $n = int(input())
+    $x = ($n + 1) // 3
+    print($x // 12, $x % 12)
+
+rule round_rem_and_keep_feet
+symptoms: wrong
+match:
+    $centimeters:Name = int(input())
+    $inches:Name = $centimeters // 3
+    $feet:Name = $inches // 12
+    $rem_centimeters:Name = $centimeters - $feet * 12 * 3
+    $rem_inches:Name = round($rem_centimeters / 3)
+    print($feet, $rem_inches)
+rewrite:
+    $n = int(input())
+    $x = ($n + 1) // 3
+    print($x // 12, $x % 12)
+
+rule round_modf_feet_inches
+symptoms: wrong
+match:
+    import math
+    $n:Name = int(input())
+    $ft:Name = $n / 36
+    $frctn:Name, $intzr:Name = math.modf($ft)
+    $ftss:Name = int($intzr)
+    $cm:Name = round($frctn * 12)
+    print($ftss, $cm)
+rewrite:
+    $n = int(input())
+    $x = ($n + 1) // 3
+    print($x // 12, $x % 12)
+
+rule add_one_after_total_inches
+symptoms: wrong
+match:
+    $n:Name = int(input())
+    $n = ($n + 1) // 3
+    $n = ($n + 6) // 12
+    print($n)
+rewrite:
+    $n = int(input())
+    $x = ($n + 1) // 3
+    print($x // 12, $x % 12)
+
+rule ceil_remainder_then_bump_foot
+symptoms: wrong
+match:
+    from math import ceil
+    $a:Name = int(input())
+    $f:Name = $a // 36
+    $d:Name = ceil($a % 36 / 3)
+    if $d == 12:
+        $f += 1
+    print($f + ' ' + str($d))
+rewrite:
+    $n = int(input())
+    $x = ($n + 1) // 3
+    print($x // 12, $x % 12)
+
+rule wrong_round_helper
+symptoms: wrong
+match:
+    $N:Name = int(input())
+    def $roundI($inch:Name):
+        if $roundI == 1:
+            return 0
+        return 1
+    $feet:Name = int($N / 36)
+    $fullinch:Name = ($N - ($feet * 36)) // 3
+    $finalinch:Name = $fullinch + $roundI($N - $feet * 36 - $fullinch * 3)
+    print($feet, $finalinch)
+rewrite:
+    $n = int(input())
+    $x = ($n + 1) // 3
+    print($x // 12, $x % 12)
+
+rule divmod_round_remainder
+symptoms: wrong
+match:
+    $length:Name = int(input())
+    $feet:Name, $rest:Name = divmod($length, 12 * 3)
+    $inches:Name, $rest2:Name = divmod($rest, 3)
+    print($feet, $inches + 1 if $rest2 > 1 else $inches)
+rewrite:
+    $n = int(input())
+    $x = ($n + 1) // 3
+    print($x // 12, $x % 12)
+
+rule integer_parse_then_round
+symptoms: wrong
+match:
+    $cm:Name = int(input("Enter length in centimeter : "))
+    $b:Name = $cm // 3
+    $a:Name = $b // 12
+    $b = $b % 12
+    $cm = $cm % 3
+    if $cm >= 2:
+        $b = $b + 1
+    print(f"{$a} {$b}")
+rewrite:
+    $n = int(input())
+    $x = ($n + 1) // 3
+    print($x // 12, $x % 12)
+
+rule correct_branch_for_remainder_two
+symptoms: wrong
+match:
+    $n:Name = int(input())
+    $a:Name = $n // (3 * 12)
+    $b:Name = ($n - $a * 36 + 1) // 3
+    print($a, $b)
+rewrite:
+    $n = int(input())
+    $x = ($n + 1) // 3
+    print($x // 12, $x % 12)
+
+rule float_round_then_split
+symptoms: wrong
+match:
+    $n:Name = float(input())
+    $feet:Name = int($n / 36 + 0.5)
+    $r:Name = $n - 36 * $feet
+    $inch:Name = int($r / 3 + 0.5)
+    print($feet, $inch)
+rewrite:
+    $n = int(input())
+    $x = ($n + 1) // 3
+    print($x // 12, $x % 12)
+
+rule round_inches_from_total_inches
+symptoms: wrong
+match:
+    $n:Name = int(input())
+    $x:Name = round($n / 3)
+    print($x // 12, $x % 12)
+rewrite:
+    $n = int(input())
+    $x = ($n + 1) // 3
+    print($x // 12, $x % 12)
+
+rule add_two_over_three
+symptoms: wrong
+match:
+    $n:Name = (int(input()) + 2) // 3
+    print($n // 12, $n % 12)
+rewrite:
+    $n = int(input())
+    $x = ($n + 1) // 3
+    print($x // 12, $x % 12)
+
+rule wrong_remainder_modulus_26
+symptoms: wrong
+match:
+    $cms:Name = int(input())
+    $inch:Name = $cms // 36
+    $cms = $cms % 26
+    print($inch, $cms // 3)
+rewrite:
+    $n = int(input())
+    $x = ($n + 1) // 3
+    print($x // 12, $x % 12)
+
+rule compare_remainder_to_two
+symptoms: wrong
+match:
+    $n:Name = int(input())
+    $add:Name = ($n % 36) % 3
+    if $add >= 2:
+        $add = 1
+    else:
+        $add = 0
+    print($n // 36, ($n % 36) // 3 + $add)
+rewrite:
+    $n = int(input())
+    $x = ($n + 1) // 3
+    print($x // 12, $x % 12)

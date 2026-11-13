@@ -1,0 +1,124 @@
+rule fix_direct_formula_for_digital_root_count
+symptoms: wrong
+match:
+    d = 0
+    for i in range(1, n+1):
+        for j in range(i, n+1):
+            c = digr(digr(i) * digr(j))
+            if c < n+1 and c != i*j:
+                d = d + 2
+    print(d)
+where:
+    inside("def $f($*xs): $B:Stmts") or before("print($X)")
+rewrite:
+    q,r = divmod(n,9)
+    d = [q]+[q+1]*r+[q]*(8-r)
+    res = 0
+    for i in range(9):
+        for j in range(9):
+            res += d[i]*d[j]*d[(i*j)%9]
+    for i in range(1,n+1): res -= n//i
+    print(res)
+
+rule fix_digit_root_input_conversion
+symptoms: wrong
+match:
+    print(d(input()))
+rewrite:
+    n = int(input())
+    q,r = divmod(n,9)
+    d = [q]+[q+1]*r+[q]*(8-r)
+    res = 0
+    for i in range(9):
+        for j in range(9):
+            res += d[i]*d[j]*d[(i*j)%9]
+    for i in range(1,n+1): res -= n//i
+    print(res)
+
+rule fix_recursive_digit_root_helper_call
+symptoms: wrong
+match:
+    return dct[num]
+where:
+    inside("def $f($*xs): $B:Stmts") and some($B, "return dct[num]")
+rewrite:
+    return root(num)
+
+rule fix_bad_cache_return_in_root
+symptoms: wrong
+match:
+    if(num in dct.keys()):
+        m.append(0)
+        return dct[num]
+where:
+    inside("def root($*xs): $B:Stmts")
+rewrite:
+    if num in dct:
+        return dct[num]
+
+rule fix_root_recursive_sum_return
+symptoms: wrong
+match:
+    dct[num] = root(sm)
+    return dct[num]
+where:
+    inside("def root($*xs): $B:Stmts")
+rewrite:
+    dct[num] = root(sm)
+    return dct[num]
+
+rule fix_input_to_int_in_digit_root_function
+symptoms: wrong
+match:
+    print(d(input()))
+rewrite:
+    n = int(input())
+    q,r = divmod(n,9)
+    d = [q]+[q+1]*r+[q]*(8-r)
+    res = 0
+    for i in range(9):
+        for j in range(9):
+            res += d[i]*d[j]*d[(i*j)%9]
+    for i in range(1,n+1): res -= n//i
+    print(res)
+
+rule fix_wrong_equals_nplus1_guard
+symptoms: wrong
+match:
+    if c < n+1 and c != i*j:
+        d = d + 2
+rewrite:
+    if c <= n and c != i*j:
+        d = d + 2
+
+rule fix_missing_symmetric_pairs
+symptoms: wrong
+match:
+    for j in range(i, n+1):
+        c = digr(digr(i) * digr(j))
+        if c < n+1 and c != i*j:
+            d = d + 2
+rewrite:
+    for j in range(1, n+1):
+        c = digr(digr(i) * digr(j))
+        if c <= n and c != i*j:
+            d = d + 1
+
+rule fix_off_by_one_range_start
+symptoms: wrong
+match:
+    for i in range(1, n+1):
+rewrite:
+    for i in range(n):
+|    for i in range(1, n+1):
+
+rule fix_compare_operator_flips
+symptoms: wrong
+match: $a < $b
+where: text($a) == "x" or text($a) == "c"
+rewrite: $a <= $b
+
+rule fix_compare_operator_flips_gt
+symptoms: wrong
+match: $a > $b
+rewrite: $a >= $b

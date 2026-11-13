@@ -1,0 +1,640 @@
+pid,model,buggy,off_repaired,off_tried,off_pruned,off_cut,off_seconds,off_rules,off_patch,on_repaired,on_tried,on_pruned,on_cut,on_seconds,on_rules,on_patch
+cf_1011B,claude-sonnet-5,110060265,False,1000,0,True,3.685,,,False,1000,3,True,4.565,,
+cf_1011B,claude-sonnet-5,111339447,False,1000,0,True,3.706,,,False,1000,6,True,5.197,,
+cf_1011B,claude-sonnet-5,138403856,False,1000,0,True,10.068,,,False,1000,15,True,11.918,,
+cf_1011B,claude-sonnet-5,149592101,False,1000,0,True,62.43,,,False,1000,0,True,63.738,,
+cf_1011B,claude-sonnet-5,178683471,True,3,0,False,0.106,generic_flip_compare,"from collections import defaultdict, deque, Counter
+from functools import lru_cache
+from heapq import heappush, heappop
+from bisect import bisect_right, bisect_left
+
+def inpNum():
+    return int(input())
+def inpStr():
+    return input()
+def inpSepNum():
+    return map(int, input().split())
+def inpNumList():
+    return list(map(int, input().split()))
+def inpChList():
+    return list(input().split())
+m, n = inpSepNum()
+nums = inpNumList()
+freq = Counter(nums)
+trial = n // m
+while trial:
+    cur = m
+    for k, v in freq.items():
+        cur -= v // trial
+        if cur <= 0:
+            print(trial)
+            exit(0)
+    trial -= 1
+print(0)",True,3,0,False,0.399,generic_flip_compare,"from collections import defaultdict, deque, Counter
+from functools import lru_cache
+from heapq import heappush, heappop
+from bisect import bisect_right, bisect_left
+
+def inpNum():
+    return int(input())
+def inpStr():
+    return input()
+def inpSepNum():
+    return map(int, input().split())
+def inpNumList():
+    return list(map(int, input().split()))
+def inpChList():
+    return list(input().split())
+m, n = inpSepNum()
+nums = inpNumList()
+freq = Counter(nums)
+trial = n // m
+while trial:
+    cur = m
+    for k, v in freq.items():
+        cur -= v // trial
+        if cur <= 0:
+            print(trial)
+            exit(0)
+    trial -= 1
+print(0)"
+cf_1011B,claude-sonnet-5,223176100,False,48,0,False,8.526,,,False,45,3,False,9.585,,
+cf_1011B,claude-sonnet-5,40805536,True,7,0,False,2.082,binary_search_upper_bound_too_small,"def f(s):
+    k = 0
+    for el in b.values():
+        k += el // s
+    if k >= n:
+        return True
+    else:
+        return False
+
+
+n, m = map(int, input().split())
+a = [int(i) for i in input().split()]
+b = {}
+for i in a:
+    b[i] = b.get(i, 0) + 1
+l = 0
+r = 100000
+while r - l > 1:
+    m = (l + r) // 2
+    if f(m):
+        l = m
+    else:
+        r = m
+if not f(1):
+    print(0)
+else:
+    print(l)",True,7,0,False,2.132,binary_search_upper_bound_too_small,"def f(s):
+    k = 0
+    for el in b.values():
+        k += el // s
+    if k >= n:
+        return True
+    else:
+        return False
+
+
+n, m = map(int, input().split())
+a = [int(i) for i in input().split()]
+b = {}
+for i in a:
+    b[i] = b.get(i, 0) + 1
+l = 0
+r = 100000
+while r - l > 1:
+    m = (l + r) // 2
+    if f(m):
+        l = m
+    else:
+        r = m
+if not f(1):
+    print(0)
+else:
+    print(l)"
+cf_1011B,claude-sonnet-5,40805895,False,383,0,False,4.226,,,False,383,0,False,5.209,,
+cf_1011B,claude-sonnet-5,40805931,False,1000,0,True,5.133,,,False,1000,0,True,5.16,,
+cf_1011B,claude-sonnet-5,40806213,True,41,0,False,0.128,generic_shift_range,"n,m=[int(x) for x in input().split()]
+a=list(map(int,input().split()))
+if n==m:
+    print(1)
+    exit()
+d=dict()
+v=[]
+for i in range(101):
+    d[i]=0
+for i in range(m):
+    d[a[i]]+=1
+for i in range(101):
+    if d[i]:
+        v.append(d[i])
+v.sort()
+maxa=0
+if len(v)==1:
+    print(v[0]//n)
+    exit()
+for i in range(0,len(v)):
+    num=v[i]
+    for k in range(1, num + 1 + 1):
+        c=0
+        c+=(num//k)
+        for j in range(i+1,len(v)):
+            c+=v[j]//k
+            if c>=n and k>maxa:
+                maxa=k
+        
+        
+print(maxa)",True,39,2,False,0.212,generic_shift_range,"n,m=[int(x) for x in input().split()]
+a=list(map(int,input().split()))
+if n==m:
+    print(1)
+    exit()
+d=dict()
+v=[]
+for i in range(101):
+    d[i]=0
+for i in range(m):
+    d[a[i]]+=1
+for i in range(101):
+    if d[i]:
+        v.append(d[i])
+v.sort()
+maxa=0
+if len(v)==1:
+    print(v[0]//n)
+    exit()
+for i in range(0,len(v)):
+    num=v[i]
+    for k in range(1, num + 1 + 1):
+        c=0
+        c+=(num//k)
+        for j in range(i+1,len(v)):
+            c+=v[j]//k
+            if c>=n and k>maxa:
+                maxa=k
+        
+        
+print(maxa)"
+cf_1011B,claude-sonnet-5,40807678,False,1000,0,True,4.481,,,False,1000,469,True,8.396,,
+cf_1011B,claude-sonnet-5,40808052,False,1000,0,True,1.965,,,False,1000,21,True,5.021,,
+cf_1011B,claude-sonnet-5,40808131,False,1000,0,True,3.081,,,False,1000,14,True,4.16,,
+cf_1011B,claude-sonnet-5,40808887,False,1000,0,True,4.596,,,False,1000,3,True,5.623,,
+cf_1011B,claude-sonnet-5,40810515,True,8,0,False,0.103,generic_flip_compare,"from itertools import groupby
+
+n, k = [int(x) for x in input().split()]
+values = [int(x) for x in input().split()]
+
+result = 0
+if n > k:
+    pass
+elif n == k:
+    result = 1
+else:
+    values = sorted(values)
+    max_days = k // n
+    while max_days:
+        humans = n
+        count = 0
+        current_item = None
+        for _, items in groupby(values):
+            l = len(list(items))
+
+            humans -= max(l // max_days, 0)
+        if humans <= 0:
+            break
+        else:
+            max_days -= 1
+    result = max_days
+print(result)",True,8,0,False,0.695,generic_flip_compare,"from itertools import groupby
+
+n, k = [int(x) for x in input().split()]
+values = [int(x) for x in input().split()]
+
+result = 0
+if n > k:
+    pass
+elif n == k:
+    result = 1
+else:
+    values = sorted(values)
+    max_days = k // n
+    while max_days:
+        humans = n
+        count = 0
+        current_item = None
+        for _, items in groupby(values):
+            l = len(list(items))
+
+            humans -= max(l // max_days, 0)
+        if humans <= 0:
+            break
+        else:
+            max_days -= 1
+    result = max_days
+print(result)"
+cf_1011B,claude-sonnet-5,40811562,False,1000,0,True,19.655,,,False,1000,36,True,27.5,,
+cf_1011B,claude-sonnet-5,40813870,True,1000,0,False,2.016,generic_flip_compare|generic_flip_compare,"n,m=map(int,input().split())
+l=list(map(int,input().split()))
+z={}
+for i in l:
+  if(i in z):
+    z[i]=z[i]+1
+  else:
+    z[i]=1
+l=list(z.values())
+l.sort(reverse=True)
+for i in range(len(l)):
+  if(i>n):
+    l.pop()
+ans=[]
+f=[]
+noans=0
+for i in range(len(l)):
+  ans.append(1)
+  f.append(0)
+while(n>0):
+  maxi=0
+  for i in range(1,len(l)):
+    if(l[i]//ans[i]>l[maxi]//ans[maxi]):
+      maxi=i
+  ans[maxi]=ans[maxi]+1
+  if(l[maxi] // ans[maxi] < 0 and f[maxi]==1):
+    noans=1
+    break
+  f[maxi]=1
+  n=n-1
+mini=0
+for i in range(len(l)):
+  if(f[i]==1):
+    if(l[mini]/(ans[mini]-1)>l[i]//(ans[i]-1)):
+      mini=i
+  else:
+    break
+if(noans):
+  print(0)
+else:
+  print(l[mini]//(ans[mini]-1))",True,1000,46,False,6.109,generic_flip_compare|generic_flip_compare,"n,m=map(int,input().split())
+l=list(map(int,input().split()))
+z={}
+for i in l:
+  if(i in z):
+    z[i]=z[i]+1
+  else:
+    z[i]=1
+l=list(z.values())
+l.sort(reverse=True)
+for i in range(len(l)):
+  if(i>n):
+    l.pop()
+ans=[]
+f=[]
+noans=0
+for i in range(len(l)):
+  ans.append(1)
+  f.append(0)
+while(n>0):
+  maxi=0
+  for i in range(1,len(l)):
+    if(l[i]//ans[i]>l[maxi]//ans[maxi]):
+      maxi=i
+  ans[maxi]=ans[maxi]+1
+  if(l[maxi] // ans[maxi] < 0 and f[maxi]==1):
+    noans=1
+    break
+  f[maxi]=1
+  n=n-1
+mini=0
+for i in range(len(l)):
+  if(f[i]==1):
+    if(l[mini]/(ans[mini]-1)>l[i]//(ans[i]-1)):
+      mini=i
+  else:
+    break
+if(noans):
+  print(0)
+else:
+  print(l[mini]//(ans[mini]-1))"
+cf_1011B,claude-sonnet-5,40815402,True,8,0,False,0.114,generic_shift_range,"import itertools
+import collections
+import sys
+import math
+
+input = sys.stdin.readline
+read = lambda: input().rstrip()
+puts = sys.stdout.write
+
+
+def read_ints():
+	yield from map(int, read().split())
+
+
+def main():
+	n, m = read_ints()
+	a = collections.Counter(read_ints())
+	ans = 0
+	for days in range(1, m + 1):
+		can = 0
+		for k, v in a.items():
+			can += v // days
+		if can >= n:
+			ans = days
+	print(ans)
+
+
+if __name__ == '__main__':
+	main()",True,6,2,False,0.324,generic_shift_range,"import itertools
+import collections
+import sys
+import math
+
+input = sys.stdin.readline
+read = lambda: input().rstrip()
+puts = sys.stdout.write
+
+
+def read_ints():
+	yield from map(int, read().split())
+
+
+def main():
+	n, m = read_ints()
+	a = collections.Counter(read_ints())
+	ans = 0
+	for days in range(1, m + 1):
+		can = 0
+		for k, v in a.items():
+			can += v // days
+		if can >= n:
+			ans = days
+	print(ans)
+
+
+if __name__ == '__main__':
+	main()"
+cf_1011B,claude-sonnet-5,40834472,False,1000,0,True,23.657,,,False,1000,2922,True,92.689,,
+cf_1011B,claude-sonnet-5,40835937,False,1000,0,True,2.064,,,False,1000,183,True,4.299,,
+cf_1011B,claude-sonnet-5,40840652,False,1000,0,True,1.47,,,False,1000,6,True,3.807,,
+cf_1011B,claude-sonnet-5,40851836,False,1000,0,True,4.154,,,False,1000,73,True,5.461,,
+cf_1011B,claude-sonnet-5,40853644,False,34,0,False,0.358,,,False,31,3,False,0.663,,
+cf_1011B,claude-sonnet-5,40872068,False,1000,0,True,2.604,,,False,1000,429,True,5.431,,
+cf_1011B,claude-sonnet-5,40875967,False,1000,0,True,2.672,,,False,1000,0,True,3.704,,
+cf_1011B,claude-sonnet-5,40880695,True,60,0,False,6.173,greedy_swap_to_counting_days,"n,m = map(int,input().split())
+import collections
+food=collections.Counter(input().split())
+food=dict(food)
+#a.sort()
+
+import operator
+#a = {1: 2, 3: 4, 4: 3, 2: 1, 0: 0}
+foodz = sorted(food.items(), key=operator.itemgetter(1), reverse=True)
+food=[0]*len(foodz)
+for i in range(len(foodz)):
+    food[i]=foodz[i][1]
+
+#print(food)
+b=[0]*len(food)
+
+b[0]=n
+prev_days=food[0]//b[0]
+min_days=prev_days
+min_pos=0
+prev_days = 0
+for j in range(1, 101):
+    total = 0
+    for cnt in food:
+        total += cnt // j
+    if total >= n:
+        prev_days = j
+print(prev_days)",True,50,10,False,6.77,greedy_swap_to_counting_days,"n,m = map(int,input().split())
+import collections
+food=collections.Counter(input().split())
+food=dict(food)
+#a.sort()
+
+import operator
+#a = {1: 2, 3: 4, 4: 3, 2: 1, 0: 0}
+foodz = sorted(food.items(), key=operator.itemgetter(1), reverse=True)
+food=[0]*len(foodz)
+for i in range(len(foodz)):
+    food[i]=foodz[i][1]
+
+#print(food)
+b=[0]*len(food)
+
+b[0]=n
+prev_days=food[0]//b[0]
+min_days=prev_days
+min_pos=0
+prev_days = 0
+for j in range(1, 101):
+    total = 0
+    for cnt in food:
+        total += cnt // j
+    if total >= n:
+        prev_days = j
+print(prev_days)"
+cf_1011B,claude-sonnet-5,40893975,False,1000,0,True,3.266,,,False,1000,18,True,4.658,,
+cf_1011B,claude-sonnet-5,40896415,False,1000,0,True,2.933,,,False,1000,4,True,5.138,,
+cf_1011B,claude-sonnet-5,40896860,True,59,0,False,0.281,generic_flip_compare|generic_flip_compare,"n,m=map(int,input().split())
+l=list(map(int,input().split()))
+d={}
+d=d.fromkeys(l,0)
+for i in l:
+    d[i]=d.get(i)+1
+x=list(d.values())
+x.sort()
+k=1
+u=0
+while(k):
+    newList = [ int(t / k) for t in x ]
+    if sum(newList)<n:
+        u=1
+        break
+    elif sum(newList) < n:
+        u=2
+        break
+    else:
+        k=k+1
+print(k if u==2 else k-1)",True,56,3,False,0.484,generic_flip_compare|generic_flip_compare,"n,m=map(int,input().split())
+l=list(map(int,input().split()))
+d={}
+d=d.fromkeys(l,0)
+for i in l:
+    d[i]=d.get(i)+1
+x=list(d.values())
+x.sort()
+k=1
+u=0
+while(k):
+    newList = [ int(t / k) for t in x ]
+    if sum(newList)<n:
+        u=1
+        break
+    elif sum(newList) < n:
+        u=2
+        break
+    else:
+        k=k+1
+print(k if u==2 else k-1)"
+cf_1011B,claude-sonnet-5,40902105,False,1000,0,True,2.613,,,False,1000,2212,True,11.735,,
+cf_1011B,claude-sonnet-5,40918807,False,1000,0,True,25.809,,,False,1000,240,True,36.352,,
+cf_1011B,claude-sonnet-5,40929925,False,1000,0,True,54.617,,,False,1000,40,True,44.582,,
+cf_1011B,claude-sonnet-5,40936744,False,1000,0,True,3.804,,,False,1000,3,True,4.138,,
+cf_1011B,claude-sonnet-5,41157789,False,1000,0,True,2.218,,,False,1000,2,True,3.616,,
+cf_1011B,claude-sonnet-5,41445696,False,1000,0,True,63.889,,,False,1000,0,True,63.92,,
+cf_1011B,claude-sonnet-5,41445799,False,1000,0,True,28.263,,,False,1000,85,True,38.373,,
+cf_1011B,claude-sonnet-5,41974430,False,0,0,False,0.045,,,False,0,0,False,0.335,,
+cf_1011B,claude-sonnet-5,42125589,False,4,0,False,0.13,,,False,3,1,False,1.175,,
+cf_1011B,claude-sonnet-5,44767748,False,1000,0,True,2.65,,,False,1000,25,True,4.647,,
+cf_1011B,claude-sonnet-5,48715812,False,1000,0,True,1.81,,,False,1000,2,True,2.862,,
+cf_1011B,claude-sonnet-5,48945625,False,1000,0,True,16.904,,,False,1000,31,True,19.978,,
+cf_1011B,claude-sonnet-5,49129257,False,1000,0,True,2.594,,,False,1000,85,True,6.393,,
+cf_1011B,claude-sonnet-5,50783370,False,1000,0,True,28.818,,,False,1000,0,True,29.625,,
+cf_1011B,claude-sonnet-5,54397537,False,1000,0,True,2.476,,,False,1000,0,True,3.552,,
+cf_1011B,claude-sonnet-5,58045502,False,3,0,False,0.124,,,False,3,0,False,0.339,,
+cf_1011B,claude-sonnet-5,59254197,False,1000,0,True,31.653,,,False,1000,6,True,32.159,,
+cf_1011B,claude-sonnet-5,60583583,False,1000,0,True,3.049,,,False,1000,126,True,4.146,,
+cf_1011B,claude-sonnet-5,60586482,False,1000,0,True,3.914,,,False,1000,161,True,6.605,,
+cf_1011B,claude-sonnet-5,60739469,False,1000,0,True,3.168,,,False,1000,83,True,4.843,,
+cf_1011B,claude-sonnet-5,63064727,False,1000,0,True,14.837,,,False,1000,15,True,18.404,,
+cf_1011B,claude-sonnet-5,64422237,False,224,0,False,2.634,,,False,217,7,False,3.207,,
+cf_1011B,claude-sonnet-5,64461238,False,1000,0,True,47.24,,,False,1000,33,True,59.599,,
+cf_1011B,claude-sonnet-5,72056750,True,18,0,False,0.132,generic_flip_compare,"def funca(mean,a,h):
+    if mean == 0: 
+        print(""0"")
+        return 0
+    s = 0
+    for f in a:
+        s+= int(f/mean)
+    if s >= h: 
+        print(mean)
+        return 0
+    else: 
+        mean-=1
+        funca(mean,a,h)
+inp = input().split()
+h = int(inp[0])
+e = int(inp[1])
+mean = int(e/h)+1
+a = [int(f) for f in input().split()]
+b = set(a)
+c = {f:0 for f in range(1,max(a)+1)}
+for f in b:
+    for g in a:
+        if f==g:
+            c[f]+=1
+colvo = []
+for f,g in c.items():
+    colvo.append(int(g))
+
+
+funca(mean, colvo,h)",True,18,0,False,0.76,generic_flip_compare,"def funca(mean,a,h):
+    if mean == 0: 
+        print(""0"")
+        return 0
+    s = 0
+    for f in a:
+        s+= int(f/mean)
+    if s >= h: 
+        print(mean)
+        return 0
+    else: 
+        mean-=1
+        funca(mean,a,h)
+inp = input().split()
+h = int(inp[0])
+e = int(inp[1])
+mean = int(e/h)+1
+a = [int(f) for f in input().split()]
+b = set(a)
+c = {f:0 for f in range(1,max(a)+1)}
+for f in b:
+    for g in a:
+        if f==g:
+            c[f]+=1
+colvo = []
+for f,g in c.items():
+    colvo.append(int(g))
+
+
+funca(mean, colvo,h)"
+cf_1011B,claude-sonnet-5,73153613,False,1000,0,True,6.481,,,False,1000,6,True,7.751,,
+cf_1011B,claude-sonnet-5,73157437,False,1000,0,True,4.468,,,False,1000,4,True,5.89,,
+cf_1011B,claude-sonnet-5,73158004,False,1000,0,True,3.327,,,False,1000,0,True,3.546,,
+cf_1011B,claude-sonnet-5,73915406,False,1000,0,True,2.823,,,False,1000,7,True,4.68,,
+cf_1011B,claude-sonnet-5,78026811,True,12,0,False,0.102,generic_shift_range,"n, m = map(int, input().split())
+a = list(map(int, input().split()))
+z = [0] * 101
+t = 0
+b = 0
+for i in a:
+    z[i] += 1
+for i in range(1, m + 1):
+    t = 0
+    for j in range(1, 101):
+        t += z[j] // i
+    if t >= n:
+        b += 1
+    else:
+        break
+print(b)",True,5,7,False,0.283,generic_shift_range,"n, m = map(int, input().split())
+a = list(map(int, input().split()))
+z = [0] * 101
+t = 0
+b = 0
+for i in a:
+    z[i] += 1
+for i in range(1, m + 1):
+    t = 0
+    for j in range(1, 101):
+        t += z[j] // i
+    if t >= n:
+        b += 1
+    else:
+        break
+print(b)"
+cf_1011B,claude-sonnet-5,78892892,False,1000,0,True,3.43,,,False,1000,0,True,4.963,,
+cf_1011B,claude-sonnet-5,80341696,False,0,0,False,0.037,,,False,0,0,False,0.325,,
+cf_1011B,claude-sonnet-5,80435697,True,19,0,False,0.143,generic_shift_range|generic_shift_range,"from collections import Counter
+def PlanExp(n, m, l):
+	d = dict(Counter(l))
+	curResult = 0
+	for i in range(1, 100 + 1 + 1):
+		for val in d.values():
+			curResult += val//i
+		if curResult<n:
+			break
+		curResult=0
+	return i-1
+
+n, m  = map(int, input().split())
+#n = int(input())
+#m = int(input())
+l = list(map(int, input().split()))
+result = PlanExp(n, m, l)
+print(result)",True,18,1,False,0.193,generic_shift_range|generic_shift_range,"from collections import Counter
+def PlanExp(n, m, l):
+	d = dict(Counter(l))
+	curResult = 0
+	for i in range(1, 100 + 1 + 1):
+		for val in d.values():
+			curResult += val//i
+		if curResult<n:
+			break
+		curResult=0
+	return i-1
+
+n, m  = map(int, input().split())
+#n = int(input())
+#m = int(input())
+l = list(map(int, input().split()))
+result = PlanExp(n, m, l)
+print(result)"
+cf_1011B,claude-sonnet-5,87697986,False,1000,0,True,40.775,,,False,1000,53,True,42.006,,
+cf_1011B,claude-sonnet-5,88822978,False,4,0,False,0.139,,,False,3,1,False,0.208,,
+cf_1011B,claude-sonnet-5,88824432,False,4,0,False,0.132,,,False,3,1,False,1.274,,
+cf_1011B,claude-sonnet-5,91291600,False,1000,0,True,2.544,,,False,1000,1280,True,10.412,,
+cf_1011B,claude-sonnet-5,91799842,False,1000,0,True,31.96,,,False,1000,159,True,29.935,,
+cf_1011B,claude-sonnet-5,93146883,False,1000,0,True,2.685,,,False,1000,35,True,4.741,,
+cf_1011B,claude-sonnet-5,93147182,False,1000,0,True,2.42,,,False,1000,0,True,3.723,,
+cf_1011B,claude-sonnet-5,95724752,False,1000,0,True,12.769,,,False,1000,0,True,14.382,,

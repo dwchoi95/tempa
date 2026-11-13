@@ -1,0 +1,243 @@
+rule fix_return_name_after_selecting_largest
+symptoms: wrong
+match:
+    $OUT = []
+    while $LST:
+        $BEST = $LST[0]
+        for $E in $LST:
+            if $E[1] > $BEST[1]:
+                $BEST = $E
+        $LST.remove($BEST)
+        $OUT.append($BEST)
+    return $RET
+where: $RET != $OUT and text($RET) in {"sort", "sortt", "rslt", "new", "final", "product", "sorted_list", "lst1", "a", "sort_list"}
+rewrite:
+    $OUT = []
+    while $LST:
+        $BEST = $LST[0]
+        for $E in $LST:
+            if $E[1] > $BEST[1]:
+                $BEST = $E
+        $LST.remove($BEST)
+        $OUT.append($BEST)
+    return $OUT
+
+rule fix_remove_and_append_selected_name
+symptoms: wrong
+match:
+    $OUT = []
+    while $LST:
+        $BEST = $LST[0]
+        for $E in $LST:
+            if $E[1] > $BEST[1]:
+                $BEST = $E
+        $LST.remove($REM)
+        $OUT.append($REM)
+    return $OUT
+where:
+    $REM != $BEST and
+    ($REM == $E or text($REM) in {"i", "a", "j", "k", "biggest", "largest", "smallest", "oldest"}) and
+    some($OUT, "$OUT.append($REM)")
+rewrite:
+    $OUT = []
+    while $LST:
+        $BEST = $LST[0]
+        for $E in $LST:
+            if $E[1] > $BEST[1]:
+                $BEST = $E
+        $LST.remove($BEST)
+        $OUT.append($BEST)
+    return $OUT
+
+rule fix_assignment_in_comparison_loop
+symptoms: wrong
+match:
+    while $LST:
+        $CUR = $LST[0]
+        for $P in $LST:
+            if $P[1] >= $CUR[1]:
+                $CUR = $BAD
+        $LST.remove($CUR)
+        $OUT.append($CUR)
+where:
+    $BAD != $P and
+    (text($BAD) in {"n", "oldest", "largest"} or match($BAD, "$P"))
+rewrite:
+    while $LST:
+        $CUR = $LST[0]
+        for $P in $LST:
+            if $P[1] >= $CUR[1]:
+                $CUR = $P
+        $LST.remove($CUR)
+        $OUT.append($CUR)
+
+rule fix_name_mismatch_in_selection
+symptoms: wrong
+match:
+    $OUT = []
+    while $LST:
+        $BEST = $LST[0]
+        for $E in $LST:
+            if $E[1] > $BEST[1]:
+                $BEST = $E
+        $LST.remove($WRONG)
+        $OUT.append($WRONG)
+    return $OUT
+where: $WRONG != $BEST and (load($WRONG) or text($WRONG) in {"i", "a", "j", "k", "count", "biggest", "largest", "smallest", "oldest"})
+rewrite:
+    $OUT = []
+    while $LST:
+        $BEST = $LST[0]
+        for $E in $LST:
+            if $E[1] > $BEST[1]:
+                $BEST = $E
+        $LST.remove($BEST)
+        $OUT.append($BEST)
+    return $OUT
+
+rule fix_remove_tuple_instead_of_age
+symptoms: wrong, err:TypeError
+match:
+    $LST.remove($X)
+where: some($X, "$Y[1]") and not some($X, "$Y")
+rewrite:
+    $LST.remove($Y)
+
+rule fix_max_tuple_comparison_key
+symptoms: wrong
+match: max($LST)
+where: inside("def sort_age($*args): $B:Stmts") and some($B, "max($LST)")
+rewrite: max($LST, key=lambda p: p[1])
+
+rule fix_min_to_max_for_descending_sort
+symptoms: wrong
+match:
+    while $SEQ != []:
+        $AGES.append(min($SEQ))
+        $SEQ.remove(min($SEQ))
+where: some($AGES, "_") or True
+rewrite:
+    while $SEQ != []:
+        $AGES.append(max($SEQ))
+        $SEQ.remove(max($SEQ))
+
+rule fix_min_age_scalar_to_tuple
+symptoms: wrong
+match:
+    $SMALL = $LST[0][1]
+    for $I in $LST:
+        if $I[1] < $SMALL:
+            $SMALL = $I[1]
+    $LST.remove($SMALL)
+    $OUT.append($SMALL)
+rewrite:
+    $SMALL = $LST[0]
+    for $I in $LST:
+        if $I[1] < $SMALL[1]:
+            $SMALL = $I
+    $LST.remove($SMALL)
+    $OUT.append($SMALL)
+
+rule fix_append_result_then_reverse_not_reverse_return
+symptoms: wrong
+match:
+    $SORT.append($X)
+    $SORT.reverse()
+    return $SORT
+rewrite:
+    $SORT.append($X)
+    $SORT.reverse()
+    return $SORT
+
+rule fix_reverse_call_not_value
+symptoms: wrong
+match: return $X.reverse()
+rewrite:
+    $X.reverse()
+    return $X
+
+rule fix_reverse_method_missing_call
+symptoms: wrong
+match: $X.reverse
+rewrite: $X.reverse()
+
+rule fix_last_statement_pass_to_return
+symptoms: wrong
+match:
+    $BODY:Stmts
+    pass
+rewrite:
+    $BODY
+    return $OUT
+where: some($BODY, "return $OUT")
+| 
+rule fix_return_none_after_append
+symptoms: wrong
+match:
+    $X.append($Y)
+    return $X.append($Y)
+rewrite:
+    $X.append($Y)
+    return $X
+
+rule fix_bubble_swap_elements_not_components
+symptoms: wrong
+match:
+    $LST[$I] = $LST[$J][1]
+    $LST[$J] = $LST[$I][1]
+rewrite:
+    $LST[$I], $LST[$J] = $LST[$J], $LST[$I]
+
+rule fix_swap_same_index
+symptoms: wrong
+match:
+    $LST[$I] = $LST[$J]
+    $LST[$J] = $LST[$I]
+rewrite:
+    $LST[$I], $LST[$J] = $LST[$J], $LST[$I]
+
+rule fix_recursive_list_concat_paren
+symptoms: wrong
+match:
+    return [$BEST] + [sort_age($REST)]
+rewrite:
+    return [$BEST] + sort_age($REST)
+
+rule fix_empty_list_guard_tuple_literal
+symptoms: wrong
+match: if $LST == ():
+rewrite: if $LST == []:
+
+rule fix_inner_loop_bound_to_previous_item
+symptoms: wrong
+match:
+    for $I in range(len($LST)):
+        $CUR = $LST[0]
+        if $LST[$I][1] > $CUR[1]:
+            $CUR = $LST[$I]
+rewrite:
+    for $I in range(len($LST)):
+        $CUR = $LST[0]
+        if $LST[$I][1] > $CUR[1]:
+            $CUR = $LST[$I]
+
+rule fix_remove_selected_after_loop
+symptoms: wrong
+match:
+    while $LST:
+        $CUR = $LST[0]
+        for $E in $LST:
+            if $E[1] > $CUR[1]:
+                $CUR = $E
+        $LST.remove($CUR)
+        $OUT.append($CUR)
+        return $OUT
+rewrite:
+    while $LST:
+        $CUR = $LST[0]
+        for $E in $LST:
+            if $E[1] > $CUR[1]:
+                $CUR = $E
+        $LST.remove($CUR)
+        $OUT.append($CUR)
+    return $OUT

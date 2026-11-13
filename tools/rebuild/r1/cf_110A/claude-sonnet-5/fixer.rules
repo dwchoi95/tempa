@@ -1,0 +1,112 @@
+rule wrong_case_affirmative_literal
+symptoms: wrong
+match: $s:Str
+where: regex($s, r'(?i)^[\'"](yes|si)[\'"]$') and text($s) not in {'"YES"', "'YES'"}
+rewrite: "YES"
+
+rule wrong_case_negative_literal
+symptoms: wrong
+match: $s:Str
+where: regex($s, r'(?i)^[\'"]no[\'"]$') and text($s) not in {'"NO"', "'NO'"}
+rewrite: "NO"
+
+rule count_equals_length_misconception
+symptoms: wrong
+match:
+    $cnt == len($s)
+    |
+    len($s) == $cnt
+where: not match($cnt, "$k:Int")
+rewrite: $cnt == 4 or $cnt == 7
+
+rule mod_check_misconception
+symptoms: wrong
+match: $a % $m1:Int == 0 or $b % $m2:Int == 0
+where: text($m1) in {"4", "7"} and text($m2) in {"4", "7"} and text($m1) != text($m2)
+rewrite: $a == 4 or $a == 7
+
+rule missing_repeated_comparison
+symptoms: wrong
+match:
+    $x == $a or $b
+    |
+    $x == ($a or $b)
+where: match($b, "$n:Int")
+rewrite:
+    $x == $a or $x == $b
+    |
+    $x == $a or $x == $b
+
+rule length_instead_of_count
+symptoms: wrong
+match:
+    len($s) == 4 or len($s) == 7
+    |
+    len($s) == 7 or len($s) == 4
+rewrite:
+    sum(1 for ch in $s if ch in '47') == 4 or sum(1 for ch in $s if ch in '47') == 7
+    |
+    sum(1 for ch in $s if ch in '47') == 4 or sum(1 for ch in $s if ch in '47') == 7
+
+rule both_present_misconception
+symptoms: wrong
+match:
+    '4' in $x and '7' in $x
+    |
+    '7' in $x and '4' in $x
+rewrite:
+    sum(1 for ch in $x if ch in '47') in (4, 7)
+    |
+    sum(1 for ch in $x if ch in '47') in (4, 7)
+
+rule char_compared_as_int
+symptoms: wrong
+match:
+    $i == 4 or $i == 7
+    |
+    $s[$i] == 4 or $s[$i] == 7
+where: (inside("for $i2:Name in $s2: $B:Stmts") and $i2 == $i) or bound($s)
+rewrite:
+    $i == '4' or $i == '7'
+    |
+    $s[$i] == '4' or $s[$i] == '7'
+
+rule len_compared_to_string_digit
+symptoms: wrong
+match: len($x) == $s:Str
+where: text($s) in {"'4'", '"4"', "'7'", '"7"'}
+rewrite: len($x) == ${delit[$s]}
+table delit: {"'4'": "4", '"4"': "4", "'7'": "7", '"7"': "7"}
+
+rule break_on_non_lucky_stops_count
+symptoms: wrong
+match:
+    for $i in $s:
+        if $i == '4' or $i == '7':
+            $cnt += 1
+        else:
+            break
+    |
+    for $i in $s:
+        if $i not in '47':
+            break
+        else:
+            $cnt += 1
+rewrite:
+    for $i in $s:
+        if $i == '4' or $i == '7':
+            $cnt += 1
+    |
+    for $i in $s:
+        if $i in '47':
+            $cnt += 1
+
+rule while_ge_zero_infinite_loop
+symptoms: timeout, wrong
+match: while $x >= 0:
+rewrite: while $x > 0:
+
+rule range_upper_off_by_one
+symptoms: wrong
+match: range($a, $b - 1)
+rewrite: range($a, $b)

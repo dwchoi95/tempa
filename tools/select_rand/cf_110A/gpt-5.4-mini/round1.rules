@@ -1,0 +1,193 @@
+rule nearly_lucky_count_digits_not_whole_number
+symptoms: wrong
+match: if $cond:
+    $then:Stmts
+else:
+    $else:Stmts
+where: (
+    (match($cond, "$x.count('4') + $x.count('7') == len($x)") or
+     match($cond, "len($x) == $x.count('4') + $x.count('7')") or
+     match($cond, "$x.count('4') + $x.count('7') == len($x) and $_") or
+     match($cond, "len($x) == $x.count('4') + $x.count('7') and $_"))
+)
+rewrite:
+    if $x.count('4') + $x.count('7') in (4, 7):
+        $then
+    else:
+        $else
+
+rule nearly_lucky_len_equals_4_or_7_to_count_check
+symptoms: wrong
+match: if len($s) == 4 or len($s) == 7:
+    $then:Stmts
+else:
+    $else:Stmts
+rewrite:
+    if $s.count('4') + $s.count('7') in (4, 7):
+        $then
+    else:
+        $else
+
+rule nearly_lucky_any_digit_membership_to_count_check
+symptoms: wrong
+match:
+    if $e in $s:
+        $then:Stmts
+    else:
+        $else:Stmts
+where: text($e) in {"'4'", '"4"', "'7'", '"7"'} and regex($s, r"^[A-Za-z_][A-Za-z0-9_]*$")
+rewrite:
+    if $s.count('4') + $s.count('7') in (4, 7):
+        $then
+    else:
+        $else
+
+rule nearly_lucky_digits_all_or_not_in_to_count_check
+symptoms: wrong
+match:
+    for $x in $s:
+        if $x not in $digits:
+            $bad:Stmts
+    $rest:Stmts
+where: match($digits, "['4', '7']") or match($digits, "('4', '7')") or text($digits) == '"47"' or text($digits) == "'47'"
+rewrite:
+    count = $s.count('4') + $s.count('7')
+    if count in (4, 7):
+        $rest
+    else:
+        $bad
+
+rule nearly_lucky_count_modulo_to_equality
+symptoms: wrong
+match: if $c % 4 == 0 or $c % 7 == 0:
+    $then:Stmts
+else:
+    $else:Stmts
+rewrite:
+    if $c in (4, 7):
+        $then
+    else:
+        $else
+
+rule nearly_lucky_count_modulo_to_equality_alt
+symptoms: wrong
+match: if ($c % 7 == 0 or $c % 4 == 0) and $c != 0:
+    $then:Stmts
+else:
+    $else:Stmts
+rewrite:
+    if $c in (4, 7):
+        $then
+    else:
+        $else
+
+rule nearly_lucky_count_equals_lucky_string
+symptoms: wrong
+match:
+    $cnt = str($n)
+    $body:Stmts
+where: (
+    some($body, "$v == len($cnt)") or
+    some($body, "len($cnt) == $v") or
+    some($body, "count == len(str($n))") or
+    some($body, "len(str($n)) == count")
+)
+rewrite:
+    $cnt = str($n)
+    $body
+
+rule nearly_lucky_fix_lucky_digit_count_test
+symptoms: wrong
+match:
+    $count = 0
+    for $i in $s:
+        if $i == '4' or $i == '7':
+            $count += 1
+    if $count == len($s):
+        $then:Stmts
+    else:
+        $else:Stmts
+rewrite:
+    $count = 0
+    for $i in $s:
+        if $i == '4' or $i == '7':
+            $count += 1
+    if $count == 4 or $count == 7:
+        $then
+    else:
+        $else
+
+rule nearly_lucky_fix_bare_lucky_check_to_count
+symptoms: wrong
+match:
+    for $i in $s:
+        if $i != '4' and $i != '7':
+            $bad:Stmts
+    print("YES")
+where: before("if $i != '4' and $i != '7': $bad:Stmts")
+rewrite:
+    count = 0
+    for $i in $s:
+        if $i == '4' or $i == '7':
+            count += 1
+    if count == 4 or count == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule nearly_lucky_fix_digit_filter_break
+symptoms: wrong
+match:
+    for $i in $s:
+        if $i == '4' or $i == '7':
+            $body:Stmts
+        else:
+            break
+    if $cond:
+        $then:Stmts
+    else:
+        $else:Stmts
+rewrite:
+    count = 0
+    for $i in $s:
+        if $i == '4' or $i == '7':
+            count += 1
+    if count == 4 or count == 7:
+        $then
+    else:
+        $else
+
+rule nearly_lucky_fix_len_based_answer
+symptoms: wrong
+match:
+    if len($s) == 7 or len($s) == 4:
+        $then:Stmts
+    else:
+        $else:Stmts
+rewrite:
+    count = 0
+    for $i in $s:
+        if $i == '4' or $i == '7':
+            count += 1
+    if count == 4 or count == 7:
+        $then
+    else:
+        $else
+
+rule nearly_lucky_fix_input_as_int_to_string_count
+symptoms: wrong
+match:
+    n = int(input())
+    $rest:Stmts
+where: some($rest, "count == len(str(n))") or some($rest, "if count == len(str(n))")
+rewrite:
+    n = input()
+    $rest
+
+rule nearly_lucky_fix_digit_count_return_bool
+symptoms: wrong
+match:
+    return is_lucky($x)
+where: match($x, "lucky_count") or match($x, "count") or match($x, "digit_count")
+rewrite:
+    return $x == 4 or $x == 7

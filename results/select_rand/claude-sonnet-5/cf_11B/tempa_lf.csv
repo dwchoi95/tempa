@@ -1,0 +1,714 @@
+Buggy,Model,Source,Patch,Fixed,RPS,ATT_all,ATT_cpu,ATT_api,InT,OuT,$API,Rules_L,Rules_SL
+10166888,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8365,11.6399,11.6399,0.0,0,0,0.0,[],[]
+104878747,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7778,101.7579,101.7579,0.0,0,0,0.0,[],[]
+105281670,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.9306,1.1725,1.1725,0.0,0,0,0.0,[],[]
+109106963,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8033,3.3632,3.3632,0.0,0,0,0.0,[],[]
+11086185,claude-sonnet-5,llm,"__author__ = 'Darren'
+
+
+def solve():
+    from math import isqrt
+    x = abs(int(input()))
+    k = isqrt(2 * x)
+    while k * (k + 1) // 2 < x:
+        k += 1
+    location = k * (k + 1) // 2
+    diff = location - x
+    if diff % 2 == 0:
+        print(k)
+    elif (diff - (k + 1)) % 2 == 0:
+        print(k + 1)
+    else:
+        print(k + 2)
+
+
+if __name__ == '__main__':
+    solve()",True,0.4021,23.5569,8.5903,14.9666,851,1380,0.015502,[],[]
+119556210,claude-sonnet-5,llm,"def main():
+    x = abs(int(input()))
+    num = ans = 0
+
+    while num < x or (num - x) % 2 != 0:
+        ans += 1
+        num += ans
+
+    print(ans)
+
+if __name__ == ""__main__"":
+    main()",True,0.4493,114.5464,111.923,2.6234,807,168,0.003294,[],[]
+123564768,claude-sonnet-5,rules,"x = int(input())
+if (x < 0):
+    x = -x
+if (x < 0):
+    print(0)
+s = 0
+j = 1
+y = 0
+
+while (s<x):
+    y=y+1;
+    s = s+j
+    j=j+1
+
+diff = s-x
+
+if(diff % 2 == 0):
+    print(y)
+elif((diff + j) % 2 == 0):
+    print(y+1)
+else:
+    print(y+2)",True,0.0099,3.5346,3.5346,0.0,0,0,0.0,"[""generic_flip_compare"", ""generic_flip_compare""]",[]
+127863850,claude-sonnet-5,llm,"def findN(sum):
+    sum = abs(sum)
+    i = 0
+    num = 0
+    while num < sum:
+        i += 1
+        num += i
+    diff = num - sum
+    while diff % 2 != 0:
+        i += 1
+        diff += i
+    print(i)
+
+
+x = int(input())
+findN(x)",True,0.5857,13.1139,1.6046,11.5093,807,1091,0.012524,[],[]
+128057340,claude-sonnet-5,llm,"def findN(sumNum):
+    i = 0
+    num = 0
+    if sumNum < 0:
+        sumNum = -sumNum
+    while num <= sumNum:
+        num += i
+        i += 1
+    num -= i - 1
+    i -= 2
+    if num == sumNum:
+        print(i)
+    else:
+        diff = sumNum - num
+        diff0 = (i + 1) - diff
+        if diff0 % 2 == 0:
+            print(i + 1)
+        else:
+            if i % 2 == 1:
+                print(i + 2)
+            else:
+                print(i + 3)
+
+
+x = int(input())
+findN(x)",True,0.3478,166.0864,87.1178,78.9686,853,7858,0.080286,[],[]
+134777504,claude-sonnet-5,llm,"l=abs(int(input()))
+def county(l):
+    x=0
+    a=0
+    while a<l or (a-l)%2!=0:
+        x+=1
+        a+=x
+    return x
+nm=county(l)
+print(nm)",True,0.449,14.2708,10.8869,3.3839,723,289,0.004336,[],[]
+136178882,claude-sonnet-5,reference,"import math
+x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.6667,23.5187,23.5187,0.0,0,0,0.0,[],[]
+143315993,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7027,11.1443,11.1443,0.0,0,0,0.0,[],[]
+144626360,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8795,18.2693,18.2693,0.0,0,0,0.0,[],[]
+145961586,claude-sonnet-5,rules,"x = int(input())
+x = abs(x)
+k = 0
+i = 1
+
+while k < x:
+    k += i
+    i += 1
+
+while (k - x) % 2 != 0:
+    k += i
+    i += 1
+
+print(i-1)",True,0.0962,0.2758,0.2758,0.0,0,0,0.0,"[""missing_abs_after_reading_input""]",[]
+15562768,claude-sonnet-5,rules,"def main():
+	x = int(input())
+	x = abs(x)
+	print(jumps(x))
+
+def jumps(n):
+	i = 0
+	while True:
+		product = i * (i + 1) // 2
+		if product >= n and product % 2 == n % 2:
+			return i
+		i += 1
+
+#print(jumps(6))
+main()",True,0.0794,0.255,0.255,0.0,0,0,0.0,"[""missing_abs_after_reading_input""]",[]
+156190173,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.9646,9.7126,9.7126,0.0,0,0,0.0,[],[]
+156190914,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.9692,15.5291,15.5291,0.0,0,0,0.0,[],[]
+160252586,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7925,67.0664,67.0664,0.0,0,0,0.0,[],[]
+168631062,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7045,10.6826,10.6826,0.0,0,0,0.0,[],[]
+172428652,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.85,12.2127,12.2127,0.0,0,0,0.0,[],[]
+178458907,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8387,2.0032,2.0032,0.0,0,0,0.0,[],[]
+214031173,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.6522,1.1031,1.1031,0.0,0,0,0.0,[],[]
+216531543,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8919,2.7254,2.7254,0.0,0,0,0.0,[],[]
+216624206,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7021,47.0636,47.0636,0.0,0,0,0.0,[],[]
+218033753,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,5.2857,1.7992,0.3183,1.4809,690,74,0.00212,[],[]
+26991983,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8,105.9699,105.9699,0.0,0,0,0.0,[],[]
+26993448,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8261,114.2987,114.2987,0.0,0,0,0.0,[],[]
+28663791,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.6833,111.9336,111.9336,0.0,0,0,0.0,[],[]
+34078499,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7961,141.933,141.933,0.0,0,0,0.0,[],[]
+34078563,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8667,8.9163,8.9163,0.0,0,0,0.0,[],[]
+34078633,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7619,1.3553,1.3553,0.0,0,0,0.0,[],[]
+41088785,claude-sonnet-5,rules,"n = int(input())
+n = abs(n)
+o = 0
+i = 0
+while True:
+  if o >= n and o % 2 == n % 2:
+    print(i)
+    break
+  else:
+    i += 1
+    o += i",True,0.1111,0.3774,0.3774,0.0,0,0,0.0,"[""missing_abs_after_reading_input""]",[]
+46772460,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7581,14.6694,14.6694,0.0,0,0,0.0,[],[]
+47295170,claude-sonnet-5,rules,"x=int(input())
+x=abs(x)
+i,sum=0,0
+while True:
+    i+=1
+    sum+=i
+    if sum>=x:
+        break
+if x == 0:
+    print(0)
+elif (sum - x) % 2 == 0:
+    print(i)
+elif i % 2 == 0:
+    print(i + 1)
+else:
+    print(i + 2)",True,0.4898,0.4206,0.4206,0.0,0,0,0.0,"[""triangular_diff_parity_bad_fallback_formula""]",[]
+47295832,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8528,62.286,62.286,0.0,0,0,0.0,[],[]
+47296302,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8736,118.2644,118.2644,0.0,0,0,0.0,[],[]
+47297145,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.9339,79.3819,79.3819,0.0,0,0,0.0,[],[]
+47297296,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8642,12.3926,12.3926,0.0,0,0,0.0,[],[]
+47299216,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7018,0.9872,0.9872,0.0,0,0,0.0,[],[]
+47299374,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8288,83.2848,83.2848,0.0,0,0,0.0,[],[]
+51183255,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7292,0.8197,0.8197,0.0,0,0,0.0,[],[]
+5293912,claude-sonnet-5,reference,"from math import sqrt
+x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8493,1.1498,1.1498,0.0,0,0,0.0,[],[]
+55214862,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8814,0.9402,0.9402,0.0,0,0,0.0,[],[]
+55214979,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8824,2.7176,2.7176,0.0,0,0,0.0,[],[]
+55501249,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,1.0,0.9685,0.9685,0.0,0,0,0.0,[],[]
+58234112,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7544,36.8481,36.8481,0.0,0,0,0.0,[],[]
+62944245,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,2.8333,1.6014,0.282,1.3194,762,74,0.002264,[],[]
+67646714,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7805,2.9425,2.9425,0.0,0,0,0.0,[],[]
+67962175,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.5526,4.6356,4.6356,0.0,0,0,0.0,[],[]
+7047288,claude-sonnet-5,rules,"def Solve(n):
+    a=-1
+    b=1000000000
+    while(b-a>1):
+        e=(b+a)//2
+        x=(e*(e+1))//2
+        if(x>=n):
+            b=e
+        else:
+            a=e
+    x = b * (b + 1) // 2
+    if (x - n) % 2 == 0:
+        return b
+    x2 = (b + 1) * (b + 2) // 2
+    if (x2 - n) % 2 == 0:
+        return b + 1
+    return b + 2
+
+
+x=int(input())
+x=abs(x)
+print(Solve(x))",True,0.31,2.1532,2.1532,0.0,0,0,0.0,"[""triangular_search_missing_two_step_fallback""]",[]
+70905642,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7167,54.1596,54.1596,0.0,0,0,0.0,[],[]
+73585233,claude-sonnet-5,llm,"def numberOfJumps(n):
+    n = abs(n)
+    j = 0
+    while True:
+        s = j*(j+1)//2
+        if s >= n and not (s - n)%2:
+            break
+        j += 1
+    return j
+
+x = int(input())
+print(numberOfJumps(x))",True,0.1311,57.9774,56.4116,1.5658,915,101,0.00284,[],[]
+73585688,claude-sonnet-5,llm,"def numberOfJumps(n):
+    n = abs(n)
+    j = 0
+    while True:
+        s = j*(j+1)//2
+        if s >= n and not (s - n)%2:
+            break
+        j += 1
+    return j
+
+x = int(input())
+print(numberOfJumps(x))",True,0.4098,2.9109,0.955,1.9559,765,136,0.00289,[],[]
+73587130,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7742,117.6058,117.6058,0.0,0,0,0.0,[],[]
+73595592,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8043,1.3634,1.3634,0.0,0,0,0.0,[],[]
+73595605,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7353,119.8462,119.8462,0.0,0,0,0.0,[],[]
+73595780,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8125,25.0428,25.0428,0.0,0,0,0.0,[],[]
+73596888,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8142,100.3071,100.3071,0.0,0,0,0.0,[],[]
+73633505,claude-sonnet-5,llm,"#!/usr/bin/env python
+
+import math
+
+def findJumps (dest, jumps, l, maxHops) :
+    if (len(l) > maxHops) :
+        return []
+    if (dest == sum(l)) :
+        return l
+
+    l1 = l[:]
+    l2 = l[:]
+    l1.append(jumps + 1)
+    l2.append(-(jumps + 1))
+
+    ret = findJumps (dest, jumps + 1, l1, maxHops)
+    if (len(ret) > 0) :
+        return ret
+    return findJumps (dest, jumps + 1, l2, maxHops)
+
+maxHops = 5
+def findShortest (dest) :
+    dest = abs(dest)
+    if dest == 0:
+        return []
+
+    def total(k):
+        return k * (k + 1) // 2
+
+    def check(a, b):
+        return (a % 2) == (b % 2)
+
+    n = (-1 + (1 + 8 * dest) ** 0.5) / 2
+    ceil_n = math.ceil(n)
+
+    if check(total(ceil_n), dest):
+        k = ceil_n
+    elif check(total(ceil_n + 1), dest):
+        k = ceil_n + 1
+    else:
+        k = ceil_n + 2
+
+    return [0] * k
+
+dest = int(input())
+print(len(findShortest(dest)))",True,0.7846,61.2854,52.6972,8.5882,1352,930,0.012004,[],[]
+73824373,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8879,1.2189,1.2189,0.0,0,0,0.0,[],[]
+73899304,claude-sonnet-5,rules,"n = int(input())
+n = abs(n)
+i=0
+while n>0 or n%2==1:
+    i+=1
+    n-=i
+print(i)",True,0.1389,2.3063,2.3063,0.0,0,0,0.0,"[""missing_abs_after_reading_input""]",[]
+74554821,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8852,8.955,8.955,0.0,0,0,0.0,[],[]
+74564222,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.9245,10.6696,10.6696,0.0,0,0,0.0,[],[]
+75174137,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7619,136.414,136.414,0.0,0,0,0.0,[],[]
+76041873,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8,17.3518,17.3518,0.0,0,0,0.0,[],[]
+76043427,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8707,42.4009,42.4009,0.0,0,0,0.0,[],[]
+7620572,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8333,0.5817,0.5817,0.0,0,0,0.0,[],[]
+85152796,claude-sonnet-5,llm,"#rOkY
+#FuCk
+
+################################## kOpAl #######################################
+
+t=abs(int(input()))
+jumps=0
+pos=0
+while pos < t or (pos-t) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,1.65,2.0048,0.5623,1.4425,740,97,0.00245,[],[]
+88385249,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.4727,52.0629,52.0629,0.0,0,0,0.0,[],[]
+88385333,claude-sonnet-5,rules,"#rOkY
+#FuCk
+
+################################## kOpAl #######################################
+
+t = int(input())
+t = abs(t)
+
+r=0
+f=0
+
+while(f<t or (f-t)%2!=0):
+    r+=1
+    f+=r
+print(r)",True,0.119,0.2824,0.2824,0.0,0,0,0.0,"[""missing_abs_after_reading_input""]",[]
+90819161,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8852,14.1201,14.1201,0.0,0,0,0.0,[],[]
+92399330,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.9074,9.6656,9.6656,0.0,0,0,0.0,[],[]
+93003180,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8265,81.0238,81.0238,0.0,0,0,0.0,[],[]
+93176549,claude-sonnet-5,reference,"from math import ceil, sqrt, floor, trunc
+
+x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.6947,17.9817,17.9817,0.0,0,0,0.0,[],[]
+94198886,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.8361,7.9463,7.9463,0.0,0,0,0.0,[],[]
+97000012,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.6429,41.3542,41.3542,0.0,0,0,0.0,[],[]
+97006078,claude-sonnet-5,reference,"x = abs(int(input()))
+jumps = 0
+pos = 0
+while pos < x or (pos-x) % 2 != 0:
+    jumps += 1
+    pos += jumps
+print(jumps)",True,0.7429,11.0256,11.0256,0.0,0,0,0.0,[],[]

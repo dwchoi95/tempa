@@ -1,0 +1,99 @@
+rule fix_topk_recursion_variable_name
+symptoms: wrong
+match:
+    new_list = $lst.copy()
+    $new_list.pop($pos)
+    return [ $maxi ] + top_k($bad, $k - 1)
+where:
+    $bad != $new_list
+    match($bad, "$X:Name")
+rewrite:
+    new_list = $lst.copy()
+    $new_list.pop($pos)
+    return [ $maxi ] + top_k($new_list, $k - 1)
+
+rule select_biggest_instead_of_smallest
+symptoms: wrong
+match:
+    $sort_list = []
+    while $lst:
+        $smallest = $lst[0]
+        for $e in $lst:
+            if $e < $smallest:
+                $smallest = $e
+        $lst.remove($smallest)
+        $sort_list.append($smallest)
+    return $sort_list[:$k]
+where:
+    inside("def $f($*xs, $k, $*ys): $B:Stmts")
+rewrite:
+    $sort_list = []
+    while $lst:
+        $biggest = $lst[0]
+        for $e in $lst:
+            if $biggest < $e:
+                $biggest = $e
+        $lst.remove($biggest)
+        $sort_list.append($biggest)
+    return $sort_list[:$k]
+
+rule remove_inside_search_loop_fix_topk
+symptoms: wrong
+match:
+    $sort = []
+    while $lst:
+        $largest = $lst[0]
+        for $element in $lst:
+            if $element > $largest:
+                $largest = $element
+                $lst.remove($largest)
+                $sort.append($largest)
+    return $sort[:$k]
+rewrite:
+    $sort = []
+    while $lst:
+        $largest = $lst[0]
+        for $element in $lst:
+            if $element > $largest:
+                $largest = $element
+        $lst.remove($largest)
+        $sort.append($largest)
+    return $sort[:$k]
+
+rule topk_use_for_loop_over_k_and_drop_bad_base_cases
+symptoms: wrong
+match:
+    $l = []
+    if $k > len($lst):
+        return $r1
+    elif $k == 1:
+        return $r2
+    else:
+        $a = max($lst)
+        $lst.remove($a)
+        $l.append($a)
+        top_k($lst, $k - 1)
+        return $l
+rewrite:
+    sort = []
+    for i in range($k):
+        biggest = max($lst)
+        $lst.remove(biggest)
+        sort.append(biggest)
+    return sort
+
+rule flip_comparison_less_to_greater
+symptoms: wrong
+match: $a < $b
+rewrite: $a > $b
+
+rule flip_comparison_greater_to_less
+symptoms: wrong
+match: $a > $b
+rewrite: $a < $b
+
+rule range_off_by_one_plus_one
+symptoms: wrong
+match: range($n)
+where: kind($n) != "Call"
+rewrite: range($n + 1)

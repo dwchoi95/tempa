@@ -1,0 +1,240 @@
+rule empty_seq_returns_zero
+symptoms: wrong, err:IndexError
+match:
+    if $seq == () or $seq == []:
+        return $R
+where: text($R) != "0"
+rewrite:
+    if $seq == () or $seq == []:
+        return 0
+
+rule empty_seq_guard_not_first
+symptoms: wrong, err:IndexError
+match:
+    if $seq == () or []:
+        return $R
+where: text($R) != "0"
+rewrite:
+    if $seq == () or $seq == []:
+        return 0
+
+rule empty_seq_guard_len_zero
+symptoms: wrong, err:IndexError
+match:
+    if len($seq) == 0:
+        return $R
+where: text($R) != "0"
+rewrite:
+    if len($seq) == 0:
+        return 0
+
+rule empty_seq_bool_guard
+symptoms: wrong, err:IndexError
+match:
+    if $seq:
+        $B1:Stmts
+    else:
+        return $R
+where: text($R) != "0" and some($B1, "return seq")
+rewrite:
+    if $seq:
+        $B1
+    else:
+        return 0
+
+rule compare_x_to_elem_strict_lt
+symptoms: wrong
+match: if $x < $elem:
+where: inside("def $f($*ps): $B:Stmts") and some($B, "if $x < $elem:")
+rewrite: if $x <= $elem:
+
+rule compare_elem_to_x_strict_lt
+symptoms: wrong
+match: if $elem < $x:
+where: inside("def $f($*ps): $B:Stmts") and some($B, "if $elem < $x:")
+rewrite: if $elem <= $x:
+
+rule compare_x_to_seq_end_ge
+symptoms: wrong
+match: elif $x >= $seq[len($seq)-1]:
+rewrite: elif $x > $seq[len($seq)-1]:
+
+rule compare_x_to_seq_start_gt
+symptoms: wrong
+match: elif $x > $seq[0]:
+rewrite: elif $x <= $seq[0]:
+
+rule return_len_plus_one_to_len
+symptoms: wrong
+match: return len($seq) + 1
+rewrite: return len($seq)
+
+rule return_i_plus_one_to_len_generic
+symptoms: wrong
+match: return $i + 1
+where: bound($i)
+rewrite: return len($seq)
+
+rule return_none_to_len
+symptoms: wrong
+match: return None
+rewrite: return len($seq)
+
+rule loop_return_should_not_be_inside_else
+symptoms: wrong
+match:
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            return $i
+        else:
+            return len($seq)
+rewrite:
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            return $i
+    return len($seq)
+
+rule loop_break_should_return
+symptoms: wrong
+match:
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            break
+    return $i
+rewrite:
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            return $i
+    return len($seq)
+
+rule while_increment_by_self
+symptoms: wrong
+match: $pos += $pos
+rewrite: $pos += 1
+
+rule while_return_minus_one
+symptoms: wrong
+match: return $count - 1
+rewrite: return $count
+
+rule append_x_before_sort_search
+symptoms: wrong
+match:
+    seq.append(x)
+    sorted(seq)
+    return seq.index(x)
+rewrite:
+    a = sorted(seq)
+    return a.index(x)
+
+rule list_tuple_empty_check_fix
+symptoms: wrong
+match:
+    if $seq == () or []:
+        return $R
+where: text($R) != "0"
+rewrite:
+    if $seq == () or $seq == []:
+        return 0
+
+rule empty_check_inside_loop
+symptoms: wrong
+match:
+    for $i in range(len($seq)):
+        if len($seq) == 0:
+            return $R
+where: text($R) != "0"
+rewrite:
+    if len($seq) == 0:
+        return 0
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            return $i
+
+rule seq_index_to_enumerate
+symptoms: wrong
+match:
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            return $seq.index($seq[$i])
+rewrite:
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            return $i
+
+rule x_returns_value_not_position
+symptoms: wrong
+match:
+    for $i in range(len($seq)):
+        if $seq[$i] < $x:
+            return $x
+rewrite:
+    for $i in range(len($seq)):
+        if $seq[$i] < $x:
+            return $i
+
+rule enumerate_element_name_flip
+symptoms: wrong
+match:
+    for $i, $x in enumerate($seq):
+        if $x < $seq[$i]:
+            return $i
+rewrite:
+    for $i, $elem in enumerate($seq):
+        if $x <= $elem:
+            return $i
+
+rule missing_default_return_len
+symptoms: wrong
+match:
+    for $i, $elem in enumerate($seq):
+        if $x <= $elem:
+            return $i
+rewrite:
+    for $i, $elem in enumerate($seq):
+        if $x <= $elem:
+            return $i
+    return len($seq)
+
+rule default_return_off_by_one
+symptoms: wrong
+match:
+    for $i, $elem in enumerate($seq):
+        if $x <= $elem:
+            return $i
+    return $i + 1
+rewrite:
+    for $i, $elem in enumerate($seq):
+        if $x <= $elem:
+            return $i
+    return len($seq)
+
+rule range_len_minus_one_to_len
+symptoms: wrong
+match: range(len($seq)-1)
+rewrite: range(len($seq))
+
+rule range_len_plus_one_to_len
+symptoms: wrong
+match: range(len($seq)+1)
+rewrite: range(len($seq))
+
+rule compare_flip_counting
+symptoms: wrong
+match:
+    if $x < $i:
+        $B:Stmts
+where: inside("def search($*ps): $Body:Stmts") and some($Body, "return $count")
+rewrite:
+    if $x > $i:
+        $B
+
+rule seq_empty_return_wrong_literal
+symptoms: wrong
+match:
+    if $seq == ():
+        return $R
+where: text($R) != "0"
+rewrite:
+    if $seq == ():
+        return 0

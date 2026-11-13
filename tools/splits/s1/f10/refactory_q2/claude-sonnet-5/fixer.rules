@@ -1,0 +1,136 @@
+rule undefined_day_variable_in_unique_day
+symptoms: wrong, err:NameError
+match:
+    day == $i[$idx:Int]
+    |
+    $i[$idx:Int] == day
+where: inside("def unique_day($p, $*ys): $B:Stmts") and text($p) != "day"
+rewrite:
+    $p == $i[$idx]
+    |
+    $i[$idx] == $p
+
+rule threshold_gt1_else_should_be_eq1
+symptoms: wrong
+match:
+    if $cnt > 1:
+        return False
+    else:
+        return True
+rewrite:
+    if $cnt == 1:
+        return True
+    else:
+        return False
+
+rule threshold_lte1_else_should_be_eq1
+symptoms: wrong
+match:
+    if $cnt <= 1:
+        return True
+    else:
+        return False
+rewrite:
+    if $cnt == 1:
+        return True
+    else:
+        return False
+
+rule threshold_gte2_sequential_should_be_eq1
+symptoms: wrong
+match:
+    if $cnt >= 2:
+        return False
+    return True
+rewrite:
+    if $cnt == 1:
+        return True
+    return False
+
+rule loop_nested_count_guard_then_return_true
+symptoms: wrong
+match:
+    for $v in $lst:
+        $B:Stmts
+    return True
+where: some($B, "if $cnt > 1:\n    return False")
+rewrite:
+    for $v in $lst:
+        $B:Stmts
+    return $cnt == 1
+
+rule loop_nested_flag_guard_then_return_true
+symptoms: wrong
+match:
+    for $v in $lst:
+        $B:Stmts
+    return True
+where: some($B, "if $flag:\n    return False\nelse:\n    $flag = True")
+rewrite:
+    for $v in $lst:
+        $B:Stmts
+    return $flag
+
+rule while_loop_offbyone_bound
+symptoms: wrong, err:IndexError, timeout
+match: while $i <= len($lst):
+rewrite: while $i < len($lst):
+
+rule while_increment_nested_inside_if
+symptoms: wrong, timeout
+match:
+    if $cond:
+        $cnt += 1
+        $i += 1
+where: inside("while $i2 < len($lst): $B:Stmts") and $i2 == $i
+rewrite:
+    if $cond:
+        $cnt += 1
+    $i += 1
+
+rule while_missing_increment
+symptoms: wrong, timeout
+match:
+    while $i < len($lst):
+        if $cond:
+            $cnt += 1
+rewrite:
+    while $i < len($lst):
+        if $cond:
+            $cnt += 1
+        $i += 1
+
+rule contains_unique_day_wrong_early_return
+symptoms: wrong
+match:
+    for $d in $lst:
+        $m2, $dy = $d
+        if unique_day($dy, $lst):
+            return $month == $m2
+where: inside("def contains_unique_day($month, $p): $B:Stmts") and $lst == $p
+rewrite:
+    for $d in $lst:
+        $m2, $dy = $d
+        if $month == $m2:
+            if unique_day($dy, $lst):
+                return True
+    return False
+
+rule contains_unique_day_premature_false_return
+symptoms: wrong
+match:
+    for $i in $lst:
+        if $i[0] == $month:
+            if unique_day($x, $lst):
+                return True
+            else:
+                return False
+        else:
+            return False
+where: inside("def contains_unique_day($month, $p): $B:Stmts") and $lst == $p
+rewrite:
+    for $i in $lst:
+        if $i[0] == $month:
+            if unique_day($i[1], $lst):
+                return True
+    return False

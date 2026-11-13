@@ -1,0 +1,183 @@
+rule lowercase_true_literal
+symptoms: wrong, err:NameError
+match: return true
+rewrite: return True
+
+rule lowercase_false_literal
+symptoms: wrong, err:NameError
+match: return false
+rewrite: return False
+
+rule off_by_one_while_le_len
+symptoms: wrong, timeout, err:IndexError
+match: while $i <= len($xs):
+rewrite: while $i < len($xs):
+
+rule increment_inside_if_causes_infinite_loop
+symptoms: timeout, wrong
+match:
+    if $cond:
+        $c += 1
+        $i += 1
+where: inside("while $i2 <= len($xs):") and $i2 == $i
+rewrite:
+    if $cond:
+        $c += 1
+    $i += 1
+
+rule count_gt1_should_be_eq1_withelse
+symptoms: wrong
+match:
+    if $c > 1:
+        return False
+    else:
+        return True
+rewrite:
+    if $c == 1:
+        return True
+    else:
+        return False
+
+rule count_gt1_should_be_eq1_noelse
+symptoms: wrong
+match:
+    if $c > 1:
+        return False
+    return True
+rewrite:
+    if $c == 1:
+        return True
+    return False
+
+rule count_ge2_should_be_eq1_withelse
+symptoms: wrong
+match:
+    if $c >= 2:
+        return False
+    else:
+        return True
+rewrite:
+    if $c == 1:
+        return True
+    else:
+        return False
+
+rule count_le1_should_be_eq1_withelse
+symptoms: wrong
+match:
+    if $c <= 1:
+        return True
+    else:
+        return False
+rewrite:
+    if $c == 1:
+        return True
+    else:
+        return False
+
+rule return_count_le1_to_eq1
+symptoms: wrong
+match: return $c <= 1
+where: inside("def unique_day($p, $*ys): $B:Stmts") or inside("def unique_month($p, $*ys): $B:Stmts")
+rewrite: return $c == 1
+
+rule return_count_ge2_to_eq1
+symptoms: wrong
+match: return $c >= 2
+where: inside("def unique_day($p, $*ys): $B:Stmts") or inside("def unique_month($p, $*ys): $B:Stmts")
+rewrite: return $c == 1
+
+rule return_count_gt1_to_eq1
+symptoms: wrong
+match: return $c > 1
+where: inside("def unique_day($p, $*ys): $B:Stmts") or inside("def unique_month($p, $*ys): $B:Stmts")
+rewrite: return $c == 1
+
+rule dead_return_before_count_check_withelse
+symptoms: wrong
+match:
+    return $c
+    if $c == 1:
+        return True
+    else:
+        return False
+rewrite:
+    if $c == 1:
+        return True
+    else:
+        return False
+
+rule dead_return_before_count_check_noelse
+symptoms: wrong
+match:
+    return $c
+    if $c == 1:
+        return True
+    return False
+rewrite:
+    if $c == 1:
+        return True
+    return False
+
+rule unique_day_wrong_field_index
+symptoms: wrong
+match:
+    $i[0] == $v
+    |
+    $v == $i[0]
+where: inside("def unique_day($p, $*ys): $B:Stmts") and $v == $p
+rewrite: $i[1] == $v
+
+rule unique_month_wrong_field_index
+symptoms: wrong
+match:
+    $i[1] == $v
+    |
+    $v == $i[1]
+where: inside("def unique_month($p, $*ys): $B:Stmts") and $v == $p
+rewrite: $i[0] == $v
+
+rule unique_day_membership_test
+symptoms: wrong
+match: $v in $i
+where: inside("def unique_day($p, $*ys): $B:Stmts") and $v == $p and inside("for $i2 in $xs: $B2:Stmts") and $i2 == $i
+rewrite: $i[1] == $v
+
+rule unique_month_membership_test
+symptoms: wrong
+match: $v in $i
+where: inside("def unique_month($p, $*ys): $B:Stmts") and $v == $p and inside("for $i2 in $xs: $B2:Stmts") and $i2 == $i
+rewrite: $i[0] == $v
+
+rule wrong_arg_index_to_unique_day
+symptoms: wrong
+match: unique_day($t[0], $pbd)
+where: inside("def contains_unique_day($p, $*ys): $B:Stmts")
+rewrite: unique_day($t[1], $pbd)
+
+rule contains_unique_day_loop_returns_false_early
+symptoms: wrong
+match:
+    for $j in $xs:
+        if $cond:
+            return True
+        else:
+            return False
+where: inside("def contains_unique_day($p, $*ys): $B:Stmts")
+rewrite:
+    for $j in $xs:
+        if $cond:
+            return True
+    return False
+
+rule count_loop_missing_zero_check
+symptoms: wrong
+match:
+    for $x in $xs:
+        $B:Stmts
+    return True
+where: (inside("def unique_day($p, $*ys): $B2:Stmts") or inside("def unique_month($p, $*ys): $B2:Stmts")) and (some($B, "$c:Name += 1") or some($B, "$c:Name = $c + 1"))
+rewrite:
+    for $x in $xs:
+        $B
+    return $c == 1

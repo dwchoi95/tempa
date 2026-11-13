@@ -1,0 +1,41 @@
+rule triangular_formula_direct
+symptoms: wrong
+match:
+    $x:Name = int(input())
+    $n:Name = 1
+    while True:
+        $BODY:Stmts
+where: some($BODY, "($n*$n+$n)/2")
+rewrite:
+    $x = abs(int(input()))
+    jumps = 0
+    pos = 0
+    while pos < $x or (pos - $x) % 2 != 0:
+        jumps += 1
+        pos += jumps
+    print(jumps)
+
+rule greedy_sign_loop_fix
+symptoms: wrong
+match:
+    while $pos:Name != $x:Name:
+        $BODY:Stmts
+where: some($BODY, "$n:Name += 1")
+rewrite:
+    while $pos < abs($x) or ($pos - abs($x)) % 2 != 0:
+        $n += 1
+        $pos += $n
+
+rule nonsense_map_print
+symptoms: wrong, err:TypeError
+match:
+    $x:Name = map(int, input())
+    print($x)
+rewrite:
+    $x = abs(int(input()))
+    jumps = 0
+    pos = 0
+    while pos < $x or (pos - $x) % 2 != 0:
+        jumps += 1
+        pos += jumps
+    print(jumps)

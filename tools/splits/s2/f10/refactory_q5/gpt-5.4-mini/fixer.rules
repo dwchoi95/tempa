@@ -1,0 +1,58 @@
+rule fix_topk_remove_max_append_instead_of_min
+symptoms: wrong
+match:
+    while $c < $k:
+        $lst.remove(min($lst))
+        $c = $c + 1
+    $out = []
+    while $lst != []:
+        $out.append(max($lst))
+        $lst.remove(max($lst))
+where: inside("def $f($*ps, $k, $*qs): $B:Stmts") and some($B, "remove(min($_))") and some($B, "append(max($_))")
+rewrite:
+    $out = []
+    $c = 0
+    while $c < $k:
+        $out.append(max($lst))
+        $lst.remove(max($lst))
+        $c = $c + 1
+    return $out
+
+rule fix_topk_range_off_by_one_and_append
+symptoms: wrong
+match:
+    $out = []
+    for $i in range($k - 1):
+        $y = $i
+        for $j in $lst:
+            if $y < $j:
+                $y = $j
+        $out += $y
+where: inside("def $f($*ps, $k, $*qs): $B:Stmts")
+rewrite:
+    $out = []
+    for $i in range($k):
+        $y = 0
+        for $j in $lst:
+            if $y <= $j:
+                $y = $j
+        $lst.remove($y)
+        $out.append($y)
+    return $out
+
+rule fix_topk_addition_to_append
+symptoms: wrong
+match: $xs += $v
+where: kind($xs) == "Name" and kind($v) != "List"
+rewrite: $xs.append($v)
+
+rule fix_topk_less_to_less_equal
+symptoms: wrong
+match: if $a < $b:
+rewrite: if $a <= $b:
+
+rule fix_topk_return_bare_list_to_return_name
+symptoms: wrong
+match: return $x
+where: kind($x) == "List" and some($x, "$e")
+rewrite: return $x

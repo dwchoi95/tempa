@@ -1,0 +1,127 @@
+rule undefined_compare_var_should_be_param
+symptoms: wrong
+match: $other:Name == $idx[$k:Int]
+    |
+    $idx[$k:Int] == $other:Name
+where: inside("def $f($p, $pb): $B:Stmts") and $other != $p and not(some($B, "$other = _"))
+rewrite: $p == $idx[$k]
+    |
+    $idx[$k] == $p
+
+rule loop_else_return_false_should_continue
+symptoms: wrong
+match:
+    for $i in $xs:
+        if $cond:
+            return True
+        else:
+            return False
+rewrite:
+    for $i in $xs:
+        if $cond:
+            return True
+        else:
+            continue
+    return False
+
+rule bare_return_first_iteration_should_loop
+symptoms: wrong
+match:
+    for $t in $xs:
+        return $fn:Name($d, $arg)
+where: text($fn) in {"unique_day", "unique_month"} and inside("def contains_unique_day($month, $pb): $B:Stmts")
+rewrite:
+    for $t in $xs:
+        if $fn($d, $pb):
+            return True
+    return False
+
+rule count_gt1_then_true_two_stmts
+symptoms: wrong
+match:
+    if $cnt > 1:
+        return False
+    return True
+rewrite: return $cnt == 1
+
+rule count_gt1_then_true_if_else
+symptoms: wrong
+match:
+    if $cnt > 1:
+        return False
+    else:
+        return True
+rewrite: return $cnt == 1
+
+rule counter_le1_should_be_eq1
+symptoms: wrong
+match: return $cnt <= 1
+rewrite: return $cnt == 1
+
+rule filter_compares_to_first_element_instead_of_month
+symptoms: wrong
+match:
+    for $j in $xs:
+        if $j == $xs[0]:
+            $acc = $acc + ($j,)
+where: inside("def contains_unique_day($month, $pb): $B:Stmts") and $xs == $pb
+rewrite:
+    for $j in $xs:
+        if $j[0] == $month:
+            $acc = $acc + ($j,)
+
+rule compares_to_counter_instead_of_param
+symptoms: wrong
+match: $arr[$idx][$k:Int] == $cnt:Name
+where: inside("def $f($p, $pb): $B:Stmts") and some($B, "if $cnt == 1:") and $cnt != $p
+rewrite: $arr[$idx][$k] == $p
+
+rule increment_target_mismatches_checked_counter
+symptoms: wrong
+match: $other:Name = $other + 1
+where: inside("def $f($p, $pb): $B:Stmts") and some($B, "if $cnt == 1:") and $other != $cnt
+rewrite: $cnt = $cnt + 1
+
+rule undefined_index_var_should_be_loop_var
+symptoms: wrong, err:NameError
+match: $arr[$other:Name]
+where: inside("for $n:Name in range(len($arr2)): $B:Stmts") and $arr == $arr2 and $other != $n and not(some($B, "$other = _"))
+rewrite: $arr[$n]
+
+rule loop_return_inside_should_be_after
+symptoms: wrong
+match:
+    for $i in $xs:
+        $assign:Stmt
+        if $cond:
+            $incr:Stmt
+        if $cnt == 0:
+            return False
+        else:
+            return True
+rewrite:
+    for $i in $xs:
+        $assign
+        if $cond:
+            $incr
+    if $cnt == 0:
+        return False
+    else:
+        return True
+
+rule flag_toggle_missing_zero_case
+symptoms: wrong
+match: return True
+where: inside("def $f($p, $pb): $B:Stmts") and some($B, "$flag:Name = False") and some($B, "if $flag:") and last()
+rewrite: return $flag
+
+rule sentinel_tracker_zero_match_bug
+symptoms: wrong
+match: return True
+where: inside("def $f($p, $pb): $B:Stmts") and some($B, "$a:Name = ''") and last()
+rewrite: return $a != ''
+
+rule typo_unique_date_should_be_unique_day
+symptoms: wrong, err:NameError
+match: unique_date($d, $pb)
+rewrite: unique_day($d, $pb)

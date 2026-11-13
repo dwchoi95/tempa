@@ -1,0 +1,172 @@
+rule fix_remove_appended_variable
+symptoms: wrong
+match:
+    $lst.remove($x)
+    $out.append($y)
+where: $x != $y and load($x) and load($y)
+rewrite:
+    $lst.remove($y)
+    $out.append($y)
+
+rule fix_return_missing_or_wrong_list
+symptoms: wrong
+match: return $x
+where: regex($x, r"^(sort|sort_list|sorted|output|new_lst|new_list|result|new|lst1)$")
+rewrite: return $x
+
+rule fix_sort_age_max_selection_low_level
+symptoms: wrong
+match:
+    $best = $lst[0]
+    for $item in $lst:
+        if $item[1] < $best[1]:
+            $best = $item
+where: inside("def sort_age($*args): $B:Stmts")
+rewrite:
+    $best = $lst[0]
+    for $item in $lst:
+        if $item[1] > $best[1]:
+            $best = $item
+
+rule fix_sort_age_max_selection_indexed
+symptoms: wrong
+match:
+    $best = $lst[0][1]
+    for $item in $lst:
+        if $item[1] < $best:
+            $best = $item[1]
+where: inside("def sort_age($*args): $B:Stmts")
+rewrite:
+    $best = $lst[0]
+    for $item in $lst:
+        if $item[1] > $best[1]:
+            $best = $item
+
+rule fix_sort_age_for_indexed_selection
+symptoms: wrong
+match:
+    for $i in range($*xs):
+        if $lst[$i][1] < $best[1]:
+            $best = $lst[$i]
+where: inside("def sort_age($*args): $B:Stmts")
+rewrite:
+    for $i in range($*xs):
+        if $lst[$i][1] > $best[1]:
+            $best = $lst[$i]
+
+rule fix_remove_indexed_element
+symptoms: wrong
+match: $lst.remove($x)
+where: inside("def sort_age($*args): $B:Stmts") and some($B, "$x = $lst[0][1]") and not some($B, "$x = _")
+rewrite: $lst.remove($x)
+
+rule fix_append_tuple_element_not_age
+symptoms: wrong
+match: $out.append($x)
+where: inside("def sort_age($*args): $B:Stmts") and some($B, "$x = $lst[0][1]") 
+rewrite: $out.append($x)
+
+rule fix_swap_assignment
+symptoms: wrong
+match:
+    $lst[$i] = $lst[$a]
+    $lst[$a] = $lst[$i]
+where: inside("def sort_age($*args): $B:Stmts")
+rewrite:
+    $lst[$i], $lst[$a] = $lst[$a], $lst[$i]
+
+rule fix_reverse_call_to_call
+symptoms: wrong
+match: return $x.reverse
+where: inside("def sort_age($*args): $B:Stmts")
+rewrite:
+    $x.reverse()
+    return $x
+
+rule fix_reverse_result_method_call
+symptoms: wrong
+match: return $x.reverse($*args)
+where: inside("def sort_age($*args): $B:Stmts")
+rewrite:
+    $x.reverse()
+    return $x
+
+rule fix_pop_index_call
+symptoms: wrong
+match: $lst.pop[$i]
+where: inside("def sort_age($*args): $B:Stmts")
+rewrite: $lst.pop($i)
+
+rule fix_sort_age_empty_guard
+symptoms: wrong, err:IndexError
+match:
+    result = [$lst[0]]
+    for $i in $lst:
+        $B:Stmts
+where: inside("def sort_age($*args): $B:Stmts")
+rewrite:
+    if $lst == []:
+        return []
+    result = [$lst[0]]
+    for $i in $lst[1:]:
+        $B
+
+rule fix_merge_recursive_halves
+symptoms: wrong
+match:
+    lst1 = $lst[:$mid]
+    lst2 = $lst[$mid:]
+where: inside("def sort_age($*args): $B:Stmts")
+rewrite:
+    lst1 = sort_age($lst[:$mid])
+    lst2 = sort_age($lst[$mid:])
+
+rule fix_merge_pop_front
+symptoms: wrong
+match:
+    if $a[0][1] < $b[0][1]:
+        $res.append($a.pop())
+    else:
+        $res.append($b.pop())
+where: inside("def sort_age($*args): $B:Stmts")
+rewrite:
+    if $a[0][1] < $b[0][1]:
+        $res.append($b.pop(0))
+    else:
+        $res.append($a.pop(0))
+
+rule fix_merge_compare_gender_to_age
+symptoms: wrong
+match:
+    if $left[0][0] < $right[0][0]:
+        $res.append($left.pop(0))
+    else:
+        $res.append($right.pop(0))
+where: inside("def merge($*args): $B:Stmts")
+rewrite:
+    if $left[0][1] > $right[0][1]:
+        $res.append($left.pop(0))
+    else:
+        $res.append($right.pop(0))
+
+rule fix_reverse_at_end_not_inside_loop
+symptoms: wrong
+match:
+    $sort.reverse()
+    return $sort
+where: inside("def sort_age($*args): $B:Stmts")
+rewrite:
+    $sort.reverse()
+    return $sort
+
+rule fix_return_after_loop_not_inside
+symptoms: wrong
+match:
+    while $c:
+        $B:Stmts
+        return $r
+where: inside("def sort_age($*args): $B:Stmts")
+rewrite:
+    while $c:
+        $B
+    return $r

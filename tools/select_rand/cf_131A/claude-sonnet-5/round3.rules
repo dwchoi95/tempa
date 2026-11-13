@@ -1,0 +1,421 @@
+rule lower_then_capitalize_diffvar
+symptoms: wrong
+match:
+    $V = $E
+    $V = $V.lower()
+    $W = $V.capitalize()
+where: regex($E, "input")
+rewrite:
+    $V = $E
+    if $V.isupper():
+        $W = $V.lower()
+    elif len($V) == 1:
+        $W = $V.upper()
+    elif $V[0].islower() and $V[1:].isupper():
+        $W = $V.capitalize()
+    else:
+        $W = $V
+
+rule lower_input_combined_then_manual_capitalize
+symptoms: wrong
+match:
+    $V = input().lower()
+    $W = $V[0].upper()+$V[1::]
+ |
+    $V = input().lower()
+    $W = $V[0].upper()+$V[1:]
+rewrite:
+    $V = input()
+    if $V.isupper():
+        $W = $V.lower()
+    elif len($V) == 1:
+        $W = $V.upper()
+    elif $V[0].islower() and $V[1:].isupper():
+        $W = $V[0].upper()+$V[1:].lower()
+    else:
+        $W = $V
+
+rule bare_attr_capitalize_in_print
+symptoms: wrong
+match: print($X.capitalize)
+where: kind($X) == "Name"
+rewrite: print($X.lower() if $X.isupper() else ($X.upper() if len($X) == 1 else ($X[0].upper()+$X[1:].lower() if $X[0].islower() and $X[1:].isupper() else $X)))
+
+rule unconditional_capitalize_title_name
+symptoms: wrong
+match: $X.capitalize()
+ | $X.title()
+where: kind($X) == "Name"
+rewrite: ($X.lower() if $X.isupper() else ($X.upper() if len($X) == 1 else ($X[0].upper()+$X[1:].lower() if $X[0].islower() and $X[1:].isupper() else $X)))
+
+rule unconditional_capitalize_title_input_call
+symptoms: wrong
+match: print(input().capitalize())
+ | print(input().title())
+rewrite:
+    s = input()
+    print(s.lower() if s.isupper() else (s.upper() if len(s) == 1 else (s[0].upper()+s[1:].lower() if s[0].islower() and s[1:].isupper() else s)))
+
+rule unconditional_swapcase_name
+symptoms: wrong
+match: $X.swapcase()
+where: kind($X) == "Name"
+rewrite: ($X.swapcase() if ($X.isupper() or len($X) == 1 or ($X[0].islower() and $X[1:].isupper())) else $X)
+
+rule unconditional_swapcase_input_call
+symptoms: wrong
+match: print(input().swapcase())
+rewrite:
+    s = input()
+    print(s.swapcase() if (s.isupper() or len(s) == 1 or (s[0].islower() and s[1:].isupper())) else s)
+
+rule isupper_check_inverted_branches
+symptoms: wrong
+match:
+    if $X.isupper():
+        print($X)
+    else:
+        print($X.capitalize())
+rewrite:
+    if $X.isupper():
+        print($X.lower())
+    elif len($X) == 1:
+        print($X.upper())
+    elif $X[0].islower() and $X[1:].isupper():
+        print($X.capitalize())
+    else:
+        print($X)
+
+rule isupper_eqtrue_inverted_branches
+symptoms: wrong
+match:
+    if $X.isupper() == True:
+        print($X)
+    else:
+        print($X.capitalize())
+rewrite:
+    if $X.isupper():
+        print($X.lower())
+    elif len($X) == 1:
+        print($X.upper())
+    elif $X[0].islower() and $X[1:].isupper():
+        print($X.capitalize())
+    else:
+        print($X)
+
+rule missing_parens_isupper_wrong_branch
+symptoms: wrong
+match:
+    if $X.isupper:
+        print($X[0].upper()+$Y.lower())
+    else:
+        print($X)
+where: match($Y, "$X[1:]")
+rewrite:
+    if $X.isupper():
+        print($X.lower())
+    elif len($X) == 1:
+        print($X.upper())
+    elif $X[0].islower() and $Y.isupper():
+        print($X[0].upper()+$Y.lower())
+    else:
+        print($X)
+
+rule islower_should_be_isupper_in_or
+symptoms: wrong
+match: $X.isupper() or $Y.islower()
+where: match($Y, "$X[1:]") or match($Y, "$X[1::]")
+rewrite: $X.isupper() or $Y.isupper()
+
+rule islower_should_be_isupper_len_variant
+symptoms: wrong
+match: $X.isupper() or (len($X) > 1 and $Y.islower())
+where: match($Y, "$X[1:]") or match($Y, "$X[1::]")
+rewrite: $X.isupper() or (len($X) > 1 and $Y.isupper())
+
+rule truthy_upper_elif_chain
+symptoms: wrong
+match:
+    if $X[0].islower() and $Y.upper():
+        print($X.capitalize())
+    elif $X.upper():
+        print($X)
+    else:
+        print($X.capitalize())
+where: match($Y, "$X[1:]")
+rewrite:
+    if $X.isupper():
+        print($X.lower())
+    elif len($X) == 1:
+        print($X.upper())
+    elif $X[0].islower() and $Y.isupper():
+        print($X.capitalize())
+    else:
+        print($X)
+
+rule truthy_upper_chain_5branch
+symptoms: wrong
+match:
+    if len($X) == 1:
+        print($X.upper())
+    elif $X.islower():
+        print($X.lower())
+    elif $X[0].islower() and $Y.upper():
+        print($X.capitalize())
+    elif $X.upper():
+        print($X)
+    else:
+        print($X.capitalize())
+where: match($Y, "$X[1:]")
+rewrite:
+    if $X.isupper():
+        print($X.lower())
+    elif len($X) == 1:
+        print($X.upper())
+    elif $X[0].islower() and $Y.isupper():
+        print($X.capitalize())
+    else:
+        print($X)
+
+rule regex_missing_end_anchor
+symptoms: wrong
+match:
+    if re.findall($P1, $W) or re.findall($P2, $W):
+        print($W.swapcase())
+    else:
+        print($W)
+where: text($P1) == "r'^[a-z][A-Z]+'" and text($P2) == "r'^[A-Z]+'"
+rewrite:
+    if $W.isupper() or len($W) == 1 or ($W[0].islower() and $W[1:].isupper()):
+        print($W.swapcase())
+    else:
+        print($W)
+
+rule regex_ans_or_swapcase
+symptoms: wrong
+match:
+    ans = re.findall($P, $W)
+    if ans:
+        print($W)
+    else:
+        print($W.swapcase())
+where: text($P) == "r'^[A-Z][a-z]+'"
+rewrite:
+    if $W.isupper() or len($W) == 1 or ($W[0].islower() and $W[1:].isupper()):
+        print($W.swapcase())
+    else:
+        print($W)
+
+rule regex_ans_or_regex2_inverted
+symptoms: wrong
+match:
+    ans = re.findall($P1, $W)
+    if ans or re.findall($P2, $W):
+        print($W)
+    else:
+        print($W.swapcase())
+where: text($P1) == "r'^[A-Z][a-z]+'"
+rewrite:
+    if $W.isupper() or len($W) == 1 or ($W[0].islower() and $W[1:].isupper()):
+        print($W.swapcase())
+    else:
+        print($W)
+
+rule regex_search_specific_length_bug
+symptoms: wrong
+match:
+    if re.search($P1, $W):
+        print($W.swapcase())
+    else:
+        if re.search($P2, $W):
+            print($W.swapcase())
+        else:
+            print($W)
+where: text($P1) == "r'^[a-z][A-Z]$'" and text($P2) == "r'^[A-Z]$'"
+rewrite:
+    if $W.isupper() or len($W) == 1 or ($W[0].islower() and $W[1:].isupper()):
+        print($W.swapcase())
+    else:
+        print($W)
+
+rule regex_findall_index_error_capitalize
+symptoms: wrong, err:IndexError
+match:
+    ans = re.findall($P, $W)
+    if ans[0] == $W:
+        print($W.capitalize())
+    else:
+        print($W)
+rewrite:
+    if $W.isupper():
+        print($W.lower())
+    elif len($W) == 1:
+        print($W.upper())
+    elif $W[0].islower() and $W[1:].isupper():
+        print($W.capitalize())
+    else:
+        print($W)
+
+rule missing_len1_case_helper
+symptoms: wrong, err:IndexError
+match:
+    if $S.isupper() or ($Y.islower() and $X.isupper()):
+        return True
+    else:
+        return False
+where: match($X, "$S[1:]") and match($Y, "$S[0]")
+rewrite:
+    if $S.isupper() or ($Y.islower() and $X.isupper()) or len($S) == 1:
+        return True
+    else:
+        return False
+
+rule missing_single_char_case_general
+symptoms: wrong, err:IndexError
+match: $X.isupper() or ($X[0].islower() and $Y.isupper())
+where: match($Y, "$X[1:]") or match($Y, "$X[1::]")
+rewrite: $X.isupper() or ($X[0].islower() and $Y.isupper()) or len($X) == 1
+
+rule missing_single_char_case_general_slice01
+symptoms: wrong, err:IndexError
+match: $X.isupper() or ($F.islower() and $Y.isupper())
+where: match($F, "$X[0:1]") and (match($Y, "$X[1:]") or match($Y, "$X[1::]"))
+rewrite: $X.isupper() or ($F.islower() and $Y.isupper()) or len($X) == 1
+
+rule missing_single_char_case_general3
+symptoms: wrong, err:IndexError
+match: ($X[0].islower() and $Y.isupper()) or $X.isupper()
+where: match($Y, "$X[1:]") or match($Y, "$X[1::]")
+rewrite: ($X[0].islower() and $Y.isupper()) or $X.isupper() or len($X) == 1
+
+rule missing_single_char_case_general2
+symptoms: wrong, err:IndexError
+match: $X.isupper() or $Y.isupper()
+where: match($Y, "$X[1:]") or match($Y, "$X[1::]")
+rewrite: $X.isupper() or $Y.isupper() or len($X) == 1
+
+rule missing_single_char_case_general4
+symptoms: wrong, err:IndexError
+match: $Y.isupper() or $X.isupper()
+where: match($Y, "$X[1:]") or match($Y, "$X[1::]")
+rewrite: $Y.isupper() or $X.isupper() or len($X) == 1
+
+rule missing_single_char_case_ifelif
+symptoms: wrong, err:IndexError
+match:
+    if $X.isupper():
+        print($X.lower())
+    elif $Y.isupper():
+        print($X.swapcase())
+    else:
+        print($X)
+where: match($Y, "$X[1:]") or match($Y, "$X[1::]")
+rewrite:
+    if $X.isupper():
+        print($X.lower())
+    elif len($X) == 1:
+        print($X.upper())
+    elif $Y.isupper():
+        print($X.swapcase())
+    else:
+        print($X)
+
+rule missing_single_char_case_ifelif_manual
+symptoms: wrong, err:IndexError
+match:
+    if $X.isupper():
+        print($X.lower())
+    elif $Y.isupper():
+        print($X[0].upper()+$Y.lower())
+    else:
+        print($X)
+where: match($Y, "$X[1:]") or match($Y, "$X[1::]")
+rewrite:
+    if $X.isupper():
+        print($X.lower())
+    elif len($X) == 1:
+        print($X.upper())
+    elif $Y.isupper():
+        print($X[0].upper()+$Y.lower())
+    else:
+        print($X)
+
+rule missing_single_char_case_ifelif_capitalize
+symptoms: wrong, err:IndexError
+match:
+    if $X.isupper():
+        print($X.lower())
+    elif $Y.isupper():
+        print($X.capitalize())
+    else:
+        print($X)
+where: match($Y, "$X[1:]") or match($Y, "$X[1::]")
+rewrite:
+    if $X.isupper():
+        print($X.lower())
+    elif len($X) == 1:
+        print($X.upper())
+    elif $Y.isupper():
+        print($X.capitalize())
+    else:
+        print($X)
+
+rule missing_single_char_case_ifelif_and
+symptoms: wrong, err:IndexError
+match:
+    if $X.isupper():
+        print($X.lower())
+    elif $F.islower() and $Y.isupper():
+        print($X.capitalize())
+    else:
+        print($X)
+where: (match($F, "$X[0]") or match($F, "$X[0:1]")) and (match($Y, "$X[1:]") or match($Y, "$X[1::]"))
+rewrite:
+    if $X.isupper():
+        print($X.lower())
+    elif len($X) == 1:
+        print($X.upper())
+    elif $F.islower() and $Y.isupper():
+        print($X.capitalize())
+    else:
+        print($X)
+
+rule missing_single_char_case_return_and
+symptoms: wrong, err:IndexError
+match:
+    if $X.isupper():
+        return $X.lower()
+    elif $X[0].islower() and $Y.isupper():
+        return $X.capitalize()
+    else:
+        return $X
+where: match($Y, "$X[1:]") or match($Y, "$X[1::]")
+rewrite:
+    if $X.isupper():
+        return $X.lower()
+    elif len($X) == 1:
+        return $X.upper()
+    elif $X[0].islower() and $Y.isupper():
+        return $X.capitalize()
+    else:
+        return $X
+
+rule missing_single_char_case_return_and_swapcase
+symptoms: wrong, err:IndexError
+match:
+    if $X.isupper():
+        return $X.lower()
+    elif $X[0].islower() and $Y.isupper():
+        return $X.swapcase()
+    else:
+        return $X
+where: match($Y, "$X[1:]") or match($Y, "$X[1::]")
+rewrite:
+    if $X.isupper():
+        return $X.lower()
+    elif len($X) == 1:
+        return $X.upper()
+    elif $X[0].islower() and $Y.isupper():
+        return $X.swapcase()
+    else:
+        return $X

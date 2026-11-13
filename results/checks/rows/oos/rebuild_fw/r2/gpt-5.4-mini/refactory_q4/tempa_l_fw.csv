@@ -1,0 +1,4054 @@
+Buggy,Model,Source,Patch,Fixed,RPS,ATT_all,ATT_cpu,ATT_api,InT,OuT,$API,Rules_L,Rules_SL
+wrong_4_001,gpt-5.4-mini,reference,"def sort_age(lst):
+    result = []
+    while lst !=[]:
+        lowest = lst[0][1]
+        index = 0
+        for i in range(1,len(lst)):
+            if lst[i][1]<lowest:
+                index = i
+                lowest = lst[i][1]
+        result = [lst[index]] + result
+        lst.pop(index)
+    return result
+            
+",True,0.0769,3.245,3.245,0.0,0,0,0.0,[],[]
+wrong_4_002,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest=lst[0][1]
+        person=lst[0]
+        for i in lst:
+            if i[1]>oldest:
+                oldest=i[1]
+                person=i
+        lst.remove(person)
+        sort.append(person)
+    return sort
+",True,0.6667,4.9462,4.9462,0.0,0,0,0.0,[],[]
+wrong_4_003,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for person in lst:
+            if person[1] > oldest[1]:
+                oldest = person
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+",True,0.186,6.7997,6.7997,0.0,0,0,0.0,[],[]
+wrong_4_004,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for person in lst:
+            if person[1] > oldest[1]:
+                oldest = person
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+",True,0.2093,6.2298,6.2298,0.0,0,0,0.0,[],[]
+wrong_4_005,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for person in lst:
+            if person[1] >= oldest[1]:
+                oldest = person
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+    
+            
+",True,0.1395,4.676,4.676,0.0,0,0,0.0,[],[]
+wrong_4_006,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for person in lst:
+            if person[1] >= oldest[1]:
+                oldest = person
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+    
+            
+",True,0.0488,4.597,4.597,0.0,0,0,0.0,[],[]
+wrong_4_007,gpt-5.4-mini,reference,"def sort_age(lst):
+    for i in range(0,len(lst)):
+        this=lst[i]
+        j=0
+        while j<i:
+            if this[1]>lst[j][1]:
+                break
+            j+=1
+        del lst[i]
+        lst.insert(j,this)
+    return lst
+    
+",True,0.625,3.8609,3.8609,0.0,0,0,0.0,[],[]
+wrong_4_008,gpt-5.4-mini,reference,"def sort_age(lst):
+    for i in range(0,len(lst)):
+        this=lst[i]
+        j=0
+        while j<i:
+            if this[1]>lst[j][1]:
+                break
+            j+=1
+        del lst[i]
+        lst.insert(j,this)
+    return lst
+    
+",True,0.6066,3.8091,3.8091,0.0,0,0,0.0,[],[]
+wrong_4_009,gpt-5.4-mini,rules,"def sort_age(lst):
+    for i in range(0,len(lst)):
+        this=lst[i]
+        for j in range(0,len(lst)):
+            if lst[j][1] <= this[1]:
+                del lst[i]
+                lst=lst[0:j]+[this]+lst[j:]
+                break
+    return lst
+",True,0.0164,0.1763,0.1763,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_010,gpt-5.4-mini,reference,"def sort_age(lst):
+    for i in range(len(lst)):
+        this = i
+        j = this
+        for a in range(this, len(lst)):
+            if lst[a][1] > lst[j][1]:
+                j = a
+        tmp = lst[this]
+        lst[this] = lst[j]
+        lst[j] = tmp
+    return lst
+",True,0.726,5.1964,5.1964,0.0,0,0,0.0,[],[]
+wrong_4_011,gpt-5.4-mini,rules,"def sort_age(lst):
+    result = []
+    while lst != []:
+        largest = lst[0][1]
+        for i in lst:
+            if i[1] >= largest:
+                largest_tup = i 
+                largest = i[1]
+        lst.remove(largest_tup)
+        result.append(largest_tup)
+    return result
+    
+",True,0.0204,0.4399,0.4399,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_012,gpt-5.4-mini,reference,"def sort_age(lst):
+    old_lst = lst
+    new_lst = []
+    while old_lst:
+        largest = old_lst[0]
+        for i in old_lst:
+            if i[1] >largest[1]:
+                largest = i
+        old_lst.remove(largest)
+        new_lst.append(largest)
+    return new_lst
+",True,0.125,6.8914,6.8914,0.0,0,0,0.0,[],[]
+wrong_4_013,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.3529,4.1392,4.1392,0.0,0,0,0.0,[],[]
+wrong_4_014,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1], reverse=True)
+    return lst
+",True,0.3158,0.4774,0.4774,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_015,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst: 
+        smallest = lst[0][1]
+        element=lst[0]
+        for ele in lst:
+            if ele[1] > smallest:
+                smallest = ele[1]
+                element=ele
+        lst.remove(element)
+        sort.append(element)
+    return sort
+",True,0.5676,6.163,6.163,0.0,0,0,0.0,[],[]
+wrong_4_016,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst: 
+        biggest = lst[0][1]
+        element=lst[0]
+        for ele in lst:
+            if ele[1] > biggest:
+                biggest = ele[1]
+                element=ele
+        lst.remove(element)
+        sort.append(element)
+    return sort
+",True,0.5135,6.4354,6.4354,0.0,0,0,0.0,[],[]
+wrong_4_017,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1],reverse = True)
+    return lst
+",True,0.3158,0.3262,0.3262,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_018,gpt-5.4-mini,reference,"def sort_age(lst):
+    sample=[]
+    newlst=0
+    while lst:
+        for i in lst:
+            if i[1]>newlst:
+                newlst = i[1]
+                count=i
+        sample=sample+[count]
+        lst.remove(count)
+        newlst=0
+    return sample
+",True,0.8421,5.0271,5.0271,0.0,0,0,0.0,[],[]
+wrong_4_019,gpt-5.4-mini,rules,"def sort_age(lst):
+    product = []
+    while lst:
+        smallest = lst[0]
+        for i in lst:
+            if i[1] > smallest[1]:
+                smallest = i
+        lst.remove(smallest)
+        product.append(smallest)
+    return product
+",True,0.0244,0.2095,0.2095,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_020,gpt-5.4-mini,reference,"def sort_age(lst):
+	new_lst=[]
+	for i in lst:
+		if new_lst==[]:
+			new_lst+=[i]
+		else:
+			for j in range(len(new_lst)):
+				if i[1]<new_lst[j][1] and j==len(new_lst)-1:
+					new_lst.append(i)
+				elif i[1]<new_lst[j][1]:
+					continue
+				else:
+					new_lst.insert(j,i)
+					break
+
+	return new_lst
+
+",True,0.5222,8.5433,8.5433,0.0,0,0,0.0,[],[]
+wrong_4_021,gpt-5.4-mini,reference,"def sort_age(lst):
+    product = []
+    while lst:
+        largest = lst[0]
+        for i in lst:
+            if largest[1] < i[1]:
+                largest = i
+        lst.remove(largest)
+        product.append(largest)
+    return product
+",True,0.0488,4.9499,4.9499,0.0,0,0,0.0,[],[]
+wrong_4_022,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst: 
+        biggest = lst[0][1]
+        element=lst[0]
+        for ele in lst:
+            if ele[1] > biggest:
+                biggest = ele[1]
+                element=ele
+        lst.remove(element)
+        sort.append(element)
+    return sort
+",True,0.8235,6.2216,6.2216,0.0,0,0,0.0,[],[]
+wrong_4_023,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        element = lst[0][1]
+        for smallest in lst:
+            if smallest[1] > element:
+                element = smallest[1]
+                biggest = smallest
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort
+",True,0.5946,7.0911,7.0911,0.0,0,0,0.0,[],[]
+wrong_4_024,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        element = lst[0][1]
+        for smallest in lst:
+            if smallest[1] > element:
+                element = smallest[1]
+                biggest = smallest
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort
+",True,0.5405,6.962,6.962,0.0,0,0,0.0,[],[]
+wrong_4_025,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst: 
+        biggest = lst[0]
+        element = lst[0][1]
+        for smallest in lst:
+            if smallest[1] > element:
+                element = smallest[1]
+                biggest = smallest
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort
+",True,0.4865,6.5408,6.5408,0.0,0,0,0.0,[],[]
+wrong_4_026,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst: 
+        biggest = lst[0][1]
+        element=lst[0]
+        for ele in lst:
+            if ele[1] > biggest:
+                biggest = ele[1]
+                element=ele
+        lst.remove(element)
+        sort.append(element)
+    return sort
+",True,0.5135,5.3295,5.3295,0.0,0,0,0.0,[],[]
+wrong_4_027,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst: 
+        biggest = lst[0][1]
+        element=lst[0]
+        for ele in lst:
+            if ele[1] > biggest:
+                biggest = ele[1]
+                element=ele
+        lst.remove(element)
+        sort.append(element)
+    return sort
+",True,0.5135,5.1985,5.1985,0.0,0,0,0.0,[],[]
+wrong_4_028,gpt-5.4-mini,reference,"def sort_age(lst):
+    def for_age(lst):
+        for i in range(len(lst)):
+            if i == 0: continue
+            else:
+                while i > 0:
+                    if lst[i][1] < lst[i-1][1]:
+                        lst[i], lst[i-1] = lst[i-1], lst[i]
+                        i -= 1
+                    else: i = 0
+    for_age(lst)
+    lst.reverse()
+    return lst
+",True,0.0658,20.4118,20.4118,0.0,0,0,0.0,[],[]
+wrong_4_029,gpt-5.4-mini,reference,"def sort_age(lst):
+    if len(lst) == 0:
+        return []
+    elif len(lst) == 1:
+        return lst
+    else:
+        mid = len(lst) // 2
+        lst1 = sort_age(lst[:mid])
+        lst2 = sort_age(lst[mid:])
+        
+        result = []
+        while lst1 and lst2:
+            if lst1[0][1] < lst2[0][1]:
+                result.append(lst2.pop(0))
+            else:
+                result.append(lst1.pop(0))
+        result.extend(lst1)
+        result.extend(lst2)
+        
+        return result
+",True,0.0899,7.8693,7.8693,0.0,0,0,0.0,[],[]
+wrong_4_030,gpt-5.4-mini,reference,"def sort_age(lst):
+    if len(lst) == 0:
+        return []
+    elif len(lst) == 1:
+        return lst
+    else:
+        mid = len(lst) // 2
+        lst1 = sort_age(lst[:mid])
+        lst2 = sort_age(lst[mid:])
+        
+        result = []
+        while lst1 and lst2:
+            if lst1[0][1] < lst2[0][1]:
+                result.append(lst2.pop(0))
+            else:
+                result.append(lst1.pop(0))
+        result.extend(lst1)
+        result.extend(lst2)
+        
+        return result
+",True,0.043,8.6337,8.6337,0.0,0,0,0.0,[],[]
+wrong_4_031,gpt-5.4-mini,reference,"def sort_age(lst):
+    if len(lst) == 0:
+        return []
+    elif len(lst) == 1:
+        return lst
+    else:
+        mid = len(lst) // 2
+        lst1 = sort_age(lst[:mid])
+        lst2 = sort_age(lst[mid:])
+        
+        result = []
+        while lst1 and lst2:
+            if lst1[0][1] < lst2[0][1]:
+                result.append(lst2.pop(0))
+            else:
+                result.append(lst1.pop(0))
+        result.extend(lst1)
+        result.extend(lst2)
+        
+        return result
+",True,0.0215,9.0659,9.0659,0.0,0,0,0.0,[],[]
+wrong_4_032,gpt-5.4-mini,reference,"def sort_age(lst):
+    a=lst
+    sort=[]
+    while a:
+        smallest=a[0]
+        for element in a:
+            if element[1]<smallest[1]:
+                smallest=element
+        a.remove(smallest)
+        sort.append(smallest)
+    sort.reverse()
+    return sort
+",True,0.1364,67.6147,67.6147,0.0,0,0,0.0,[],[]
+wrong_4_033,gpt-5.4-mini,rules,"def sort_age(lst):
+    a=lst
+    sort=[]
+    while a:
+        smallest=a[0]
+        for element in a:
+            if element[1] > smallest[1]:
+                smallest=element
+        a.remove(smallest)
+        sort.append(smallest)
+        sort.reverse
+    return sort
+",True,0.0213,0.2326,0.2326,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_034,gpt-5.4-mini,reference,"def sort_age(lst):
+    a=lst
+    sort=[]
+    while a:
+        smallest=a[0]
+        for element in a:
+            if element[1] >smallest[1]:
+                smallest = element
+        a.remove(smallest)
+        sort.append(smallest)
+
+    return(sort)# Fill in your code here
+    
+",True,0.1042,5.7658,5.7658,0.0,0,0,0.0,[],[]
+wrong_4_035,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1], reverse=True)
+    return lst
+",True,0.3158,0.2885,0.2885,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_036,gpt-5.4-mini,reference,"def sort_age(lst):
+    """"""selection sort""""""
+    l = len(lst)
+    for i in range(l):
+        largest = lst[i]
+        for j in range(i+1,l):
+            if lst[j][1] > largest[1]:
+                largest = lst[j] #assign new largest value
+                lst[i],lst[j] = lst[j],lst[i] #swap positions if larger
+        #print(i,lst)
+    return lst
+                
+                
+",True,0.0159,4.1162,4.1162,0.0,0,0,0.0,[],[]
+wrong_4_037,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.0,4.1862,4.1862,0.0,0,0,0.0,[],[]
+wrong_4_038,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1], reverse=True)
+    return lst
+",True,0.3158,0.3012,0.3012,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_039,gpt-5.4-mini,reference,"def sort_age(lst):
+    if lst==[]:
+        return []
+    sort=[]
+    while lst:
+        largest = lst[0]
+        for i in lst:
+            if i[1] > largest[1]:
+                largest = i
+        lst.remove(largest)
+        sort.append(largest)
+    return sort
+    pass
+
+
+",True,0.0889,6.6758,6.6758,0.0,0,0,0.0,[],[]
+wrong_4_040,gpt-5.4-mini,reference,"def sort_age(lst):
+    
+    sort_lst = []
+    
+    while lst:
+        smallest = lst[0]
+        for element in lst:
+            if element[1] > smallest[1]:
+                smallest=element
+        lst.remove(smallest)
+        sort_lst.append(smallest)
+    return sort_lst
+",True,0.0698,5.1695,5.1695,0.0,0,0,0.0,[],[]
+wrong_4_041,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.3299,0.3299,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_042,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.3529,4.188,4.188,0.0,0,0,0.0,[],[]
+wrong_4_043,gpt-5.4-mini,reference,"def sort_age(lst):
+    if lst == []:
+        return []
+    else:
+        result = [lst[0]]
+        for i in lst[1:]:
+            if i[1] > result[0][1]:
+                result.insert(0, i)
+            elif i[1] < result[-1][1]:
+                result.append(i)
+            else:
+                for j in range(len(result) - 1):
+                    if i[1] < result[j][1] and i[1] > result[j+1][1]:
+                        result.insert(j+1, i)
+        return result
+",True,0.1053,11.0625,11.0625,0.0,0,0,0.0,[],[]
+wrong_4_044,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.3742,0.3742,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_045,gpt-5.4-mini,reference,"def sort_age(lst):
+    if lst == []:
+        return []
+    else:
+        result = [lst[0]]
+        for i in lst[1:]:
+            if i[1] > result[0][1]:
+                result.insert(0, i)
+            elif i[1] < result[-1][1]:
+                result.append(i)
+            else:
+                for j in range(len(result) - 1):
+                    if i[1] < result[j][1] and i[1] > result[j+1][1]:
+                        result.insert(j+1, i)
+        return result
+",True,0.0714,12.6021,12.6021,0.0,0,0,0.0,[],[]
+wrong_4_046,gpt-5.4-mini,reference,"def sort_age(lst):
+    output = []
+    while lst:
+        smallest = lst[0]
+        for i in lst:
+            if smallest[1] < i[1]:
+                smallest = i
+        lst.remove(smallest)
+        output.append(smallest)
+    return output
+",True,0.0976,6.7223,6.7223,0.0,0,0,0.0,[],[]
+wrong_4_047,gpt-5.4-mini,reference,"def sort_age(lst):
+    output = []
+    while lst:
+        smallest = lst[0]
+        for i in lst:
+            if smallest[1] < i[1]:
+                smallest = i
+        lst.remove(smallest)
+        output.append(smallest)
+    return output
+",True,0.0976,5.9692,5.9692,0.0,0,0,0.0,[],[]
+wrong_4_048,gpt-5.4-mini,rules,"def sort_age(lst):
+    output = []
+    while lst:
+        smallest = lst[0]
+        for i in lst:
+            if i[1] > smallest[1]:
+                smallest = i
+        lst.remove(smallest)
+        output.append(smallest)
+    return output
+",True,0.0244,0.253,0.253,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_049,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.3529,4.8346,4.8346,0.0,0,0,0.0,[],[]
+wrong_4_050,gpt-5.4-mini,reference,"def sort_age(lst):
+    final = []
+    while lst:
+        smallest = lst[0]
+        for i in lst:
+            if i[1] < smallest[1]:
+                smallest = i
+        lst.remove(smallest)
+        final.append(smallest)
+    final.reverse()
+    return final
+",True,0.1163,6.0108,6.0108,0.0,0,0,0.0,[],[]
+wrong_4_051,gpt-5.4-mini,reference,"def sort_age(lst):
+    final = []
+    while lst:
+        biggest = lst[0]
+        for i in lst:
+            if i[1] > biggest[1]:
+                biggest = i
+        lst.remove(biggest)
+        final.append(biggest)
+    return final
+",True,0.1163,5.9254,5.9254,0.0,0,0,0.0,[],[]
+wrong_4_052,gpt-5.4-mini,reference,"def sort_age(lst):
+    newlst=[]
+    while lst:
+        oldest = lst[0][1] #first age
+        for person in lst:
+            if person[1]>oldest:
+                oldest=person[1]
+        for person in lst:
+            if person[1]==oldest:
+                newlst.append(person)
+                lst.remove(person)            
+    return newlst
+",True,0.4211,7.3829,7.3829,0.0,0,0,0.0,[],[]
+wrong_4_053,gpt-5.4-mini,reference,"def sort_age(lst):
+    newlst = []
+    while lst:
+        current = lst[0]
+        for element in lst:
+            if element[1] > current[1]:
+                current = element
+        newlst += (current,)
+        lst.remove(current)
+    return newlst
+        
+",True,0.05,4.7485,4.7485,0.0,0,0,0.0,[],[]
+wrong_4_054,gpt-5.4-mini,rules,"def sort_age(lst):
+    newlst = []
+    while lst:
+        current = lst[0]
+        for element in lst:
+            if element[1] > current[1]:
+                current = element
+        newlst += (current,)
+        lst.remove(current)
+    return newlst
+        
+",True,0.0244,0.2486,0.2486,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_055,gpt-5.4-mini,reference,"def sort_age(lst):
+    result = []
+    while lst:
+        oldest = lst[0]
+        for people in lst:
+            if people[1] > oldest[1]:
+                oldest = people
+        lst.remove(oldest)
+        result += (oldest,)
+    return result
+",True,0.0513,4.2301,4.2301,0.0,0,0,0.0,[],[]
+wrong_4_056,gpt-5.4-mini,reference,"def sort_age(lst):
+    # Fill in your code here
+    new_lst = []
+    while lst:
+        oldest = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] > oldest[1]:
+                oldest = lst[i] 
+        lst.remove(oldest)
+        new_lst.append(oldest)
+        
+    return new_lst
+            
+        
+",True,0.2041,4.8124,4.8124,0.0,0,0,0.0,[],[]
+wrong_4_057,gpt-5.4-mini,reference,"def sort_age(lst):
+    arranged = []
+    while lst:
+        oldest = lst[0]
+        for person in lst:
+            if person[1] > oldest[1]:
+                oldest = person
+        lst.remove(oldest)
+        arranged.append(oldest)
+    return arranged
+    pass
+",True,0.1053,5.9994,5.9994,0.0,0,0,0.0,[],[]
+wrong_4_058,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key = lambda x:x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.3257,0.3257,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_059,gpt-5.4-mini,rules,"def sort_age(lst):
+    a = []
+    b = []
+    n = len(lst)
+    for i in range(n):
+        age = lst[i - 1][1]
+        a += [age]
+        a.sort()
+        a.reverse()
+    for j in range(n):
+        for k in range(n):
+            if a[j] == lst[k][1]:
+                b += [lst[k]]
+            else:
+                continue
+    return b
+",True,0.0423,0.2119,0.2119,0.0,0,0,0.0,"[""generic_shift_index""]",[]
+wrong_4_060,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        largest = lst[0]
+        largestx = lst[0][1]
+        for element in lst:
+            if element[1] > largestx:
+                largestx = element[1]
+                largest = element
+        lst.remove(largest)
+        sort.append(largest)
+    return sort
+",True,0.5135,5.8752,5.8752,0.0,0,0,0.0,[],[]
+wrong_4_061,gpt-5.4-mini,rules,"def sort_age(lst):
+	lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+	return lst
+",True,0.3158,0.2774,0.2774,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_062,gpt-5.4-mini,reference,"def sort_age(lst):
+    final=[]
+    while lst:
+        old=lst[0]
+        for i in lst:
+            if old[1]<i[1]:
+                old=i
+        lst.remove(old)
+        final.append(old)
+    return final
+",True,0.0976,4.9175,4.9175,0.0,0,0,0.0,[],[]
+wrong_4_063,gpt-5.4-mini,reference,"def sort_age(lst):
+    final=[]
+    while lst:
+        old=lst[0]
+        for i in lst:
+            if old[1]<i[1]:
+                old=i
+        lst.remove(old)
+        final.append(old)
+    return final
+",True,0.0488,4.5762,4.5762,0.0,0,0,0.0,[],[]
+wrong_4_064,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.2804,0.2804,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_065,gpt-5.4-mini,reference,"def sort_age(lst):
+    rslt=[]
+    while lst:
+        smallest = lst[0]
+        for element in lst:
+            if element[1]>smallest[1]:
+                smallest=element
+        lst.remove(smallest)
+        rslt.append(smallest)
+    return rslt
+        
+",True,0.0488,5.1434,5.1434,0.0,0,0,0.0,[],[]
+wrong_4_066,gpt-5.4-mini,reference,"def sort_age(lst):
+    rslt=[]
+    while lst:
+        smallest=lst[0]
+        for element in lst:
+            if element[1]>smallest[1]:
+                smallest=element
+        lst.remove(smallest)
+        rslt.append(smallest)
+    return rslt
+        
+",True,0.0244,4.8965,4.8965,0.0,0,0,0.0,[],[]
+wrong_4_067,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.4,3.7703,3.7703,0.0,0,0,0.0,[],[]
+wrong_4_068,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.4086,0.4086,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_069,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for i in lst[1:]:
+            if i[1] > oldest[1]:
+                oldest = i
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+",True,0.119,4.3764,4.3764,0.0,0,0,0.0,[],[]
+wrong_4_070,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for i in lst[1:]:
+            if i[1] > oldest[1]:
+                oldest = i
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+",True,0.0714,4.494,4.494,0.0,0,0,0.0,[],[]
+wrong_4_071,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for i in lst[1:]:
+            if i[1] > oldest[1]:
+                oldest = i
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+",True,0.0732,4.4783,4.4783,0.0,0,0,0.0,[],[]
+wrong_4_072,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for i in lst[1:]:
+            if i[1] > oldest[1]:
+                oldest = i
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+",True,0.122,4.5202,4.5202,0.0,0,0,0.0,[],[]
+wrong_4_073,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for i in lst[1:]:
+            if i[1] > oldest[1]:
+                oldest = i
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+",True,0.0455,4.8127,4.8127,0.0,0,0,0.0,[],[]
+wrong_4_074,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.234,0.234,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_075,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.2869,0.2869,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_076,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.3688,0.3688,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_077,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.3268,0.3268,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_078,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.3206,0.3206,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_079,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+    
+
+
+",True,1.05,6.0015,6.0015,0.0,0,0,0.0,[],[]
+wrong_4_080,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.2861,0.2861,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_081,gpt-5.4-mini,reference,"def sort_age(lst):
+    new_lst = []
+    while lst:
+        oldest = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] >= oldest[1]:
+                oldest = lst[i]
+        lst.remove(oldest)
+        new_lst.append(oldest)
+    return new_lst
+",True,0.0588,3.7854,3.7854,0.0,0,0,0.0,[],[]
+wrong_4_082,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.3529,3.4232,3.4232,0.0,0,0,0.0,[],[]
+wrong_4_083,gpt-5.4-mini,reference,"def sort_age(lst):
+    new_lst = []
+    while lst:
+        oldest = lst [0]
+        for i in range(len(lst)):
+            if lst[i][1] > oldest[1]:
+                oldest = lst[i]
+        lst.remove(oldest)
+        new_lst.append(oldest)
+    return new_lst
+",True,0.0588,4.0458,4.0458,0.0,0,0,0.0,[],[]
+wrong_4_084,gpt-5.4-mini,reference,"def sort_age(lst):
+    new_lst = []
+    while lst:
+        oldest = lst [0]
+        for i in range(len(lst)):
+            if lst[i][1] > oldest[1]:
+                oldest = lst[i]
+        lst.remove(oldest)
+        new_lst.append(oldest)
+    return new_lst
+",True,0.0588,4.4176,4.4176,0.0,0,0,0.0,[],[]
+wrong_4_085,gpt-5.4-mini,reference,"def sort_age(lst):
+    new_lst = []
+    while lst:
+        oldest = lst [0]
+        for i in range(len(lst)):
+            if lst[i][1] > oldest[1]:
+                oldest = lst[i]
+        lst.remove(oldest)
+        new_lst.append(oldest)
+    return new_lst
+",True,0.0588,4.3451,4.3451,0.0,0,0,0.0,[],[]
+wrong_4_086,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key = lambda x:x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.3772,0.3772,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_087,gpt-5.4-mini,reference,"def sort_age(lst):
+    new_lst = []
+    while lst:
+        oldest = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] > oldest[1]:
+                oldest = lst[i]
+        lst.remove(oldest)
+        new_lst.append(oldest)
+    return new_lst
+",True,0.0588,4.1664,4.1664,0.0,0,0,0.0,[],[]
+wrong_4_088,gpt-5.4-mini,reference,"def sort_age(lst):
+    holder=[]
+    if lst==[]:
+        return []
+    for x in lst:
+        if holder==[]:
+            holder=x
+        elif x[1]>holder[1]:
+            holder=x
+    lst.remove(holder)
+    return [holder]+sort_age(lst)
+
+",True,0.4,6.5891,6.5891,0.0,0,0,0.0,[],[]
+wrong_4_089,gpt-5.4-mini,reference,"def sort_age(lst):
+    holder=[]
+    if lst==[]:
+        return []
+    for x in lst:
+        if holder==[]:
+            holder=x
+        elif x[1]>holder[1]:
+            holder=x
+    lst.remove(holder)
+    return [holder]+sort_age(lst)
+
+",True,0.1915,5.0528,5.0528,0.0,0,0,0.0,[],[]
+wrong_4_090,gpt-5.4-mini,reference,"def sort_age(lst):
+    holder=[]
+    if lst==[]:
+        return []
+    for x in lst:
+        if holder==[]:
+            holder=x
+        elif x[1]>holder[1]:
+            holder=x
+    lst.remove(holder)
+    return [holder]+sort_age(lst)
+
+",True,0.1667,4.5923,4.5923,0.0,0,0,0.0,[],[]
+wrong_4_091,gpt-5.4-mini,reference,"def sort_age(lst):
+    holder=[]
+    if lst==[]:
+        return []
+    for x in lst:
+        if holder==[]:
+            holder=x
+        elif x[1]>holder[1]:
+            holder=x
+    lst.remove(holder)
+    return [holder]+sort_age(lst)
+
+",True,0.1667,4.6043,4.6043,0.0,0,0,0.0,[],[]
+wrong_4_092,gpt-5.4-mini,reference,"def sort_age(lst):
+    answer = []
+    while lst:
+        i = lst[0]
+        for biggest in range(len(lst)):
+            if lst[biggest][1] > i[1]:
+                i = lst[biggest]
+        lst.remove(i)
+        answer.append(i)
+    return answer
+",True,0.6,3.2925,3.2925,0.0,0,0,0.0,[],[]
+wrong_4_093,gpt-5.4-mini,reference,"def sort_age(lst):
+    result=[]
+    while lst:
+        maximum = lst[0][1] #first age
+        for i in lst:
+            if i[1]>maximum:
+                maximum=i[1]
+        for i in lst:
+            if i[1]==maximum:
+                result.append(i)
+                lst.remove(i)            
+    return result
+",True,0.5789,4.4339,4.4339,0.0,0,0,0.0,[],[]
+wrong_4_094,gpt-5.4-mini,rules,"def sort_age(lst):
+	lst.sort(key=lambda tup:tup[1 - 1 - 1], reverse = True)
+	return lst
+",True,0.3158,0.2903,0.2903,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_095,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.3125,3.708,3.708,0.0,0,0,0.0,[],[]
+wrong_4_096,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.1765,3.4225,3.4225,0.0,0,0,0.0,[],[]
+wrong_4_097,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.2657,0.2657,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_098,gpt-5.4-mini,reference,"def sort_age(lst):
+    for i in range(len(lst)-1,0,-1):
+        for a in range(i):
+            if lst[a][1]<lst[a+1][1]:
+                temp = lst[a]
+                lst[a] = lst[a+1]
+                lst[a+1] = temp
+    return lst
+",True,0.5957,51.4304,51.4304,0.0,0,0,0.0,[],[]
+wrong_4_099,gpt-5.4-mini,reference,"def sort_age(lst):
+    for i in range(len(lst)-1,0,-1):
+        for a in range(i):
+            if lst[a][1]<lst[a+1][1]:
+                temp = lst[a]
+                lst[a] = lst[a+1]
+                lst[a+1] = temp
+    return lst
+",True,0.5745,42.8693,42.8693,0.0,0,0,0.0,[],[]
+wrong_4_100,gpt-5.4-mini,reference,"def sort_age(lst):
+    for i in range(len(lst)-1,0,-1):
+        for a in range(i):
+            if lst[a][1]<lst[a+1][1]:
+                temp = lst[a]
+                lst[a] = lst[a+1]
+                lst[a+1] = temp
+    return lst
+",True,0.6122,6.7497,6.7497,0.0,0,0,0.0,[],[]
+wrong_4_101,gpt-5.4-mini,reference,"def sort_age(lst):
+    for i in range(len(lst)-1,0,-1):
+        for a in range(i):
+            if lst[a][1]<lst[a+1][1]:
+                temp = lst[a]
+                lst[a] = lst[a+1]
+                lst[a+1] = temp
+    return lst
+",True,0.6275,51.4055,51.4055,0.0,0,0,0.0,[],[]
+wrong_4_102,gpt-5.4-mini,reference,"def sort_age(lst):
+    largest=[]
+    while lst:
+        sort1 = lst[0][1] #first age
+        for i in lst:
+            if i[1]>sort1:
+                sort1=i[1]
+        for i in lst:
+            if i[1]==sort1:
+                largest.append(i)
+                lst.remove(i)            
+    return largest
+",True,0.875,5.0086,5.0086,0.0,0,0,0.0,[],[]
+wrong_4_103,gpt-5.4-mini,reference,"def sort_age(lst):
+    result=[] 
+    while lst:
+        biggest=lst[0][1]
+        tuple_biggest=lst[0]
+        for i in lst:
+            if i[1]>biggest:
+                biggest=i[1]
+                tuple_biggest=i
+        lst.remove(tuple_biggest)
+        result.append(tuple_biggest)
+    return result
+",True,0.6944,4.1726,4.1726,0.0,0,0,0.0,[],[]
+wrong_4_104,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort1 = []
+    while lst:
+        largest=lst[0][1]
+        tuple_biggest=lst[0]
+        for i in lst:
+            if i[1]>largest:
+                largest=i[1]
+                tuple_biggest=i
+        lst.remove(tuple_biggest)
+        sort1.append(tuple_biggest)
+    return sort1
+            
+            
+",True,0.325,3.8104,3.8104,0.0,0,0,0.0,[],[]
+wrong_4_105,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort1 = []
+    while lst:
+        largest = lst[0][1]
+        i=lst[0]
+        for ele in lst:
+            if ele[1] > largest:
+                largest = ele[1]
+                i=ele
+        lst.remove(i)
+        sort1.append(i)
+    return sort1
+            
+            
+",True,0.2558,4.5068,4.5068,0.0,0,0,0.0,[],[]
+wrong_4_106,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst: 
+        biggest = lst[0][1]
+        element=lst[0]
+        for ele in lst:
+            if ele[1] > biggest:
+                biggest = ele[1]
+                element=ele
+        lst.remove(element)
+        sort.append(element)
+    return sort
+",True,0.6341,3.9598,3.9598,0.0,0,0,0.0,[],[]
+wrong_4_107,gpt-5.4-mini,reference,"def sort_age(lst):
+    smallest=[] 
+    while lst:
+        sort=lst[0][1]
+        k=lst[0]
+        for smallest_tuple in lst:
+            if smallest_tuple[1]>sort:
+                sort=smallest_tuple[1]
+                k=smallest_tuple
+        lst.remove(k)
+        smallest.append(k)
+    return smallest
+",True,0.5227,4.1183,4.1183,0.0,0,0,0.0,[],[]
+wrong_4_108,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1], reverse=True)
+    return lst
+",True,0.3158,0.3473,0.3473,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_109,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for k in lst:
+            if k[1] > biggest[1]:
+                biggest = k
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort
+",True,0.0513,4.6972,4.6972,0.0,0,0,0.0,[],[]
+wrong_4_110,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        largest = lst[0][1]
+        for i in lst:
+            if i[1]>largest:
+                largest = i[1]
+        tpl = ()
+        for j in lst:
+            if j[1] == largest:
+                tpl = j
+        lst.remove(tpl)
+        new.append(tpl)
+    return new    
+",True,0.0339,5.7166,5.7166,0.0,0,0,0.0,[],[]
+wrong_4_111,gpt-5.4-mini,reference,"def sort_age(lst):
+    new_lst = []
+    while lst:
+        oldest = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] > oldest[1]:
+                oldest = lst[i]
+        lst.remove(oldest)
+        new_lst.append(oldest)
+    return new_lst
+",True,0.0588,4.8733,4.8733,0.0,0,0,0.0,[],[]
+wrong_4_112,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.4843,0.4843,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_113,gpt-5.4-mini,reference,"def sort_age(lst):
+    # Fill in your code here
+    if lst == []:
+        return lst
+        
+    out = [lst[0],]
+    for ele in lst[1:]:
+        for indx in range(len(out)):
+            if out[indx][1] < ele[1]:
+                out.insert(indx, ele)
+                break
+            elif indx == len(out) - 1:
+                out.append(ele)
+    return out
+",True,0.2037,6.922,6.922,0.0,0,0,0.0,[],[]
+wrong_4_114,gpt-5.4-mini,reference,"def sort_age(lst):
+    # Fill in your code here
+    if lst == []:
+        return lst
+        
+    out = [lst[0],]
+    for ele in lst[1:]:
+        for indx in range(len(out)):
+            if out[indx][1] < ele[1]:
+                out.insert(indx, ele)
+                break
+            elif indx == len(out) - 1:
+                out.append(ele)
+    return out
+",True,0.1207,6.5307,6.5307,0.0,0,0,0.0,[],[]
+wrong_4_115,gpt-5.4-mini,reference,"def sort_age(lst):
+    # Fill in your code here
+    if lst == []:
+        return lst
+        
+    out = [lst[0],]
+    for ele in lst[1:]:
+        for indx in range(len(out)):
+            if out[indx][1] < ele[1]:
+                out.insert(indx, ele)
+                break
+            elif indx == len(out) - 1:
+                out.append(ele)
+    return out
+",True,0.0154,7.2568,7.2568,0.0,0,0,0.0,[],[]
+wrong_4_116,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.3934,0.3934,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_117,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.3529,4.9203,4.9203,0.0,0,0,0.0,[],[]
+wrong_4_118,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort=[]
+    while lst:
+        biggest=lst[0]
+        for element in lst:
+            if element[1] < biggest[1]:
+                biggest = element
+        lst.remove(biggest)
+        sort.append(biggest)
+    sort.reverse()
+    return sort
+",True,0.0435,6.7002,6.7002,0.0,0,0,0.0,[],[]
+wrong_4_119,gpt-5.4-mini,reference,"def sort_age(lst):
+    first = []
+    while lst:
+        result = lst[0]
+        for x in lst[1:]:
+            if x[1] > result[1]:
+                result = x
+        lst.remove(result)
+        first.append(result)
+    return first
+",True,0.7917,6.0347,6.0347,0.0,0,0,0.0,[],[]
+wrong_4_120,gpt-5.4-mini,reference,"def sort_age(lst):
+    first = []
+    while lst:
+        result = lst[0]
+        for x in lst[1:]:
+            if x[1] > result[1]:
+                result = x
+        lst.remove(result)
+        first.append(result)
+    return first
+",True,0.78,6.2839,6.2839,0.0,0,0,0.0,[],[]
+wrong_4_121,gpt-5.4-mini,reference,"def sort_age(lst):
+    first = []
+    while lst:
+        firstnum = lst[0]
+        for result in lst[1:]:
+            if result[1] > firstnum[1]:
+                firstnum = result
+        lst.remove(firstnum)
+        first.append(firstnum)
+    return first
+",True,0.7255,5.5598,5.5598,0.0,0,0,0.0,[],[]
+wrong_4_122,gpt-5.4-mini,reference,"def sort_age(lst):
+    firstnum = []
+    while lst:
+        result = lst[0]
+        for x in lst[1:]:
+            if x[1] > result[1]:
+                result = x
+        lst.remove(result)
+        firstnum.append(result)
+    return firstnum
+",True,0.6667,4.8865,4.8865,0.0,0,0,0.0,[],[]
+wrong_4_123,gpt-5.4-mini,reference,"def sort_age(lst):
+    firstnum = []
+    while lst:
+        result = lst[0]
+        for x in lst:
+            if x[1] > result[1]:
+                result = x
+        firstnum += (result,)
+        lst.remove(result)
+    return firstnum
+        
+",True,0.7111,4.9293,4.9293,0.0,0,0,0.0,[],[]
+wrong_4_124,gpt-5.4-mini,reference,"def sort_age(lst):
+    firstnum = []
+    while lst:
+        result = lst[0]
+        for x in lst:
+            if x[1] > result[1]:
+                result = x
+        lst.remove(result)
+        firstnum += (result,)
+    return firstnum
+",True,0.7333,4.9835,4.9835,0.0,0,0,0.0,[],[]
+wrong_4_125,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst1=[]
+    while lst:
+        smallest=lst[0]
+        for ele in lst:
+            if ele[1] > smallest[1]:
+                smallest=ele
+        lst.remove(smallest)
+        lst1.append(smallest)
+    return lst1
+",True,0.0244,0.1878,0.1878,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_126,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for i in lst:
+            if i[1] > oldest[1]:
+                oldest = i
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+    # Fill in your code here
+",True,0.0976,5.7843,5.7843,0.0,0,0,0.0,[],[]
+wrong_4_127,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for i in lst:
+            if i[1] > oldest[1]:
+                oldest = i
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+    # Fill in your code here
+",True,0.0488,5.9838,5.9838,0.0,0,0,0.0,[],[]
+wrong_4_128,gpt-5.4-mini,reference,"def sort_age(lst):
+    
+    people = []
+    
+    while lst:
+        
+        i = lst[0]
+        
+        for a in lst:
+            
+            if i[1] <= a[1] :
+                
+                i = a
+                
+        lst.remove(i)
+        people.append(i)
+    return people
+",True,0.0488,6.2902,6.2902,0.0,0,0,0.0,[],[]
+wrong_4_129,gpt-5.4-mini,reference,"def sort_age(lst):
+    
+    people = []
+    
+    while lst:
+        
+        i = lst[0]
+        
+        for a in lst:
+            
+            if a[1] >= i[1] :
+                
+                i = a
+                
+        lst.remove(i)
+        
+        people.append(i)
+        
+    return people
+",True,0.0488,5.7641,5.7641,0.0,0,0,0.0,[],[]
+wrong_4_130,gpt-5.4-mini,reference,"def sort_age(lst):
+    
+    people = []
+    
+    while lst:
+        
+        i = lst[0]
+        
+        for a in lst:
+            
+            if a[1] >= i[1] :
+                
+                i = a
+                
+        lst.remove(i)
+        
+        people.append(i)
+        
+    return people
+",True,0.0244,5.552,5.552,0.0,0,0,0.0,[],[]
+wrong_4_131,gpt-5.4-mini,rules,"def sort(lst):
+    for i in range(len(lst)-1):
+        if lst[i][1] < lst[i + 1][1]:
+            temp = lst[i]
+            del lst[i]
+            lst += [temp]
+        else:
+            continue
+    return lst
+
+def sort_age(lst):
+    oldlist = tuple(lst)
+    if tuple(sort(lst)) == oldlist:
+        return lst
+    else:
+        sort(lst)
+        return sort_age(lst)
+",True,0.0132,0.2281,0.2281,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_132,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key= lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.2162,0.2162,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_133,gpt-5.4-mini,reference,"def sort_age(lst):
+    smallest = []
+    while lst:
+        e = lst[0]
+        for i in lst[1:]:
+            if i[1] > e[1]:
+                e = i
+        lst.remove(e)
+        smallest.append(e)
+    return smallest
+",True,0.4634,101.1327,101.1327,0.0,0,0,0.0,[],[]
+wrong_4_134,gpt-5.4-mini,reference,"def sort_age(lst):
+    # Fill in your code here
+    new = []
+    while lst:
+        small = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] > small[1]:
+                small = lst[i]
+        new.append(small)
+        lst.remove(small)
+    return new
+",True,0.3559,4.8514,4.8514,0.0,0,0,0.0,[],[]
+wrong_4_135,gpt-5.4-mini,reference,"def sort_age(lst):
+    if len(lst) < 2:
+        return lst
+    new = []
+    while lst:
+        small = lst[0][1]
+        i = lst[0]
+        for j in range(1, len(lst)):
+            if lst[j][1] > small:
+                small = lst[j][1]
+                i = lst[j]
+        new.append(i)
+        lst.remove(i)
+    return new
+",True,0.4407,4.5197,4.5197,0.0,0,0,0.0,[],[]
+wrong_4_136,gpt-5.4-mini,reference,"def sort_age(lst):
+    a = lst
+    sort = []
+    while a:
+        smallest = a[0]
+        for element in a:
+            if element[1] >smallest[1]:
+                smallest = element
+        a.remove(smallest)
+        sort.append(smallest)
+
+    return(sort)# Fill in your code here
+    
+",True,0.2326,6.142,6.142,0.0,0,0,0.0,[],[]
+wrong_4_137,gpt-5.4-mini,reference,"def sort_age(lst):
+    if len(lst) == 1:
+        return lst
+    else:
+        new_list = []
+        while lst:
+            minimum = lst[0]
+            for i in lst:
+                if i[1] < minimum[1]:
+                    minimum = i
+            new_list.append(minimum)
+            lst.remove(minimum)
+        return new_list[::-1]
+",True,0.12,6.103,6.103,0.0,0,0,0.0,[],[]
+wrong_4_138,gpt-5.4-mini,reference,"def sort_age(lst):
+    new_list = []
+    while lst:
+        smallest = lst[0]
+        for element in lst:
+            if smallest[1]<element[1]:
+                smallest = element
+        lst.remove(smallest)
+        new_list.append(smallest)
+    return new_list
+                
+        
+",True,0.2222,5.3199,5.3199,0.0,0,0,0.0,[],[]
+wrong_4_139,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort_list = []
+    while lst: # a is not []
+        smallest = lst[0]
+        for element in lst:
+            if element[1] > smallest[1]:
+                smallest=element
+        lst.remove(smallest)
+        sort_list.append(smallest)
+    return sort_list
+",True,0.0769,5.89,5.89,0.0,0,0,0.0,[],[]
+wrong_4_140,gpt-5.4-mini,rules,"def sort_age(lst):
+    sort_list = []
+    while lst: # a is not []
+        smallest = lst[0]
+        for element in lst:
+            if element[1] > smallest[1]:
+                smallest = element
+        lst.remove(smallest)
+        sort_list.append(smallest)
+    return sort_list
+",True,0.0244,0.2251,0.2251,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_141,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort_list = []
+    while lst: # a is not []
+        biggest = lst[0]
+        for element in lst:
+            if element[1]>biggest[1]:
+                biggest = element
+        lst.remove(biggest)
+        sort_list.append(biggest)
+    return sort_list
+",True,0.0244,6.2258,6.2258,0.0,0,0,0.0,[],[]
+wrong_4_142,gpt-5.4-mini,rules,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for i in lst:
+            if i[1] > oldest[1]:
+                oldest = i
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+            
+",True,0.0244,0.1915,0.1915,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_143,gpt-5.4-mini,reference,"def sort_age(lst):
+    males = []
+    females = []
+    for i in lst:
+        if lst[0][0] == ""M"":
+            males = males + [lst[0],]
+        elif lst[0][0] == ""F"":
+            females = females + [lst[0],]
+        lst = lst[1:]
+    return merge(merge_sort(males), merge_sort(females))
+    
+def merge(left, right):
+    results = []
+    while left and right:
+        if left[0][1] > right[0][1]:
+            results.append(left.pop(0))
+        else:
+            results.append(right.pop(0))
+    results.extend(left)
+    results.extend(right)
+    return results
+
+def merge_sort(lst):
+    if len(lst) < 2:
+        return lst
+    mid = len(lst) // 2
+    left = merge_sort(lst[:mid])
+    right = merge_sort(lst[mid:])
+    return merge(left, right)
+",True,0.0974,8.4986,8.4986,0.0,0,0,0.0,[],[]
+wrong_4_144,gpt-5.4-mini,reference,"def sort_age(lst):
+    males = []
+    females = []
+    while len(lst) > 0:
+        if lst[0][0] == ""M"":
+            males = males + [lst[0],]
+        elif lst[0][0] == ""F"":
+            females = females + [lst[0],]
+        lst = lst[1:]
+    return merge(merge_sort(males), merge_sort(females))
+    
+def merge(left, right):
+    results = []
+    while left and right:
+        if left[0][1] > right[0][1]:
+            results.append(left.pop(0))
+        else:
+            results.append(right.pop(0))
+    results.extend(left)
+    results.extend(right)
+    return results
+
+def merge_sort(lst):
+    if len(lst) < 2:
+        return lst
+    mid = len(lst) // 2
+    left = merge_sort(lst[:mid])
+    right = merge_sort(lst[mid:])
+    return merge(left, right)
+",True,0.0183,8.5533,8.5533,0.0,0,0,0.0,[],[]
+wrong_4_145,gpt-5.4-mini,reference,"def sort_age(lst):
+    males, females = [], []
+    for i in lst:
+        if i[0] == ""M"":
+            males = males + [lst[0],]
+        elif i[0] == ""F"":
+            females = females + [lst[0],]
+        lst = lst[1:]
+    return merge(merge_sort(males), merge_sort(females))
+    
+def merge(left, right):
+    results = []
+    while left and right:
+        if left[0][1] > right[0][1]:
+            results.append(left.pop(0))
+        else:
+            results.append(right.pop(0))
+    results.extend(left)
+    results.extend(right)
+    return results
+
+def merge_sort(lst):
+    if len(lst) < 2:
+        return lst
+    mid = len(lst) // 2
+    left = merge_sort(lst[:mid])
+    right = merge_sort(lst[mid:])
+    return merge(left, right)
+",True,0.0261,9.2127,9.2127,0.0,0,0,0.0,[],[]
+wrong_4_146,gpt-5.4-mini,reference,"def sort_age(lst):
+    result=[] 
+    while lst:
+        largest=lst[0][1]
+        tuple_largest=lst[0]
+        for i in lst:
+            if i[1]>largest:
+                largest=i[1]
+                tuple_largest=i
+        lst.remove(tuple_largest)
+        result.append(tuple_largest)
+    return result
+",True,0.5814,5.143,5.143,0.0,0,0,0.0,[],[]
+wrong_4_147,gpt-5.4-mini,rules,"def sort_age(lst):
+    sorted = []
+    while lst:
+        youngest = lst[0]
+        for elem in lst:
+            if elem[1] > youngest[1]:
+                youngest = elem
+        print(youngest)
+        lst.remove(youngest)
+        sorted.append(youngest)
+    return sorted
+",True,0.0222,0.1872,0.1872,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_148,gpt-5.4-mini,reference,"def sort_age(lst):
+    i=0
+    while i+1<len(lst):
+        if lst[i][1]<lst[i+1][1]:
+            lst.extend([lst[i]])
+            del lst[i]
+            i=0
+        else:
+            i+=1
+    return lst
+",True,0.3778,7.3139,7.3139,0.0,0,0,0.0,[],[]
+wrong_4_149,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        small = lst[0][1]
+        name=lst[0]
+        for ele in lst:
+            if ele[1] > small:
+                small = ele[1]
+                name=ele
+        lst.remove(name)
+        new.append(name)
+    return new
+",True,0.1864,5.5374,5.5374,0.0,0,0,0.0,[],[]
+wrong_4_150,gpt-5.4-mini,reference,"def sort_age(lst):
+    i=0
+    while i+1<len(lst):
+        if lst[i][1]<lst[i+1][1]:
+            lst.extend([lst[i]])
+            del lst[i]
+            i=0
+        else:
+            i+=1
+    return lst
+",True,0.1636,5.2944,5.2944,0.0,0,0,0.0,[],[]
+wrong_4_151,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        small = lst[0][1]
+        name=lst[0]
+        for ele in lst:
+            if ele[1] > small:
+                small = ele[1]
+                name=ele
+        lst.remove(name)
+        new.append(name)
+    return new
+",True,0.2,5.3348,5.3348,0.0,0,0,0.0,[],[]
+wrong_4_152,gpt-5.4-mini,reference,"def sort_age(lst):
+    i=0
+    while i+1<len(lst):
+        if lst[i][1]<lst[i+1][1]:
+            lst.extend([lst[i]])
+            del lst[i]
+            i=0
+        else:
+            i+=1
+    return lst
+",True,0.1481,4.9563,4.9563,0.0,0,0,0.0,[],[]
+wrong_4_153,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.4,4.2045,4.2045,0.0,0,0,0.0,[],[]
+wrong_4_154,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        small = lst[0][1]
+        name=lst[0]
+        for ele in lst:
+            if ele[1]>small:
+                small = ele[1]
+                name=ele
+        lst.remove(name)
+        new.append(name)
+    return new
+",True,0.1833,5.5076,5.5076,0.0,0,0,0.0,[],[]
+wrong_4_155,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        curr = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] > curr[1]:
+                curr = lst[i] 
+        lst.remove(curr)
+        new.append(curr)
+        
+    return new
+",True,0.2593,5.4228,5.4228,0.0,0,0,0.0,[],[]
+wrong_4_156,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        curr = lst[0]
+        for i in lst:
+            if i[1] > curr[1]:
+                curr=i
+        lst.remove(curr)
+        new.append(curr)
+    return new
+
+",True,0.0732,6.9355,6.9355,0.0,0,0,0.0,[],[]
+wrong_4_157,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        curr = lst[0]
+        for i in lst:
+            if i[1] > curr[1]:
+                curr=i
+        lst.remove(curr)
+        new.append(curr)
+    return new
+
+",True,0.0732,6.7004,6.7004,0.0,0,0,0.0,[],[]
+wrong_4_158,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.0,4.7434,4.7434,0.0,0,0,0.0,[],[]
+wrong_4_159,gpt-5.4-mini,reference,"def sort_age(lst):
+    i=0
+    while i+1<len(lst):
+        if lst[i][1]<lst[i+1][1]:
+            lst.extend([lst[i]])
+            del lst[i]
+            i=0
+        else:
+            i+=1
+    return lst
+",True,0.0577,40.876,40.876,0.0,0,0,0.0,[],[]
+wrong_4_160,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.3529,3.8857,3.8857,0.0,0,0,0.0,[],[]
+wrong_4_161,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.3962,0.3962,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_162,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.229,0.229,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_163,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    for x in lst:
+        index = 0
+        for i in new:
+            if x[1] < i[1]:
+                index += 1
+        new.insert(index,x)
+    return new
+",True,0.8108,3.9101,3.9101,0.0,0,0,0.0,[],[]
+wrong_4_164,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.4,3.8351,3.8351,0.0,0,0,0.0,[],[]
+wrong_4_165,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = [] #empty list
+    while lst:
+        largest = lst[0] #let the first element be the smallest first
+        for i in lst:
+            if i[1] > largest[1]:
+                largest = i
+        lst.remove(largest)
+        sort.append(largest)
+    return sort
+",True,0.0244,5.079,5.079,0.0,0,0,0.0,[],[]
+wrong_4_166,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = [] #empty list
+    while lst:
+        largest = lst[0] #let the first element be the smallest first
+        for i in lst:
+            if i[1] > largest[1]:
+                largest = i
+        lst.remove(largest)
+        sort.append(largest)
+    return sort
+",True,0.0244,10.5912,10.5912,0.0,0,0,0.0,[],[]
+wrong_4_167,gpt-5.4-mini,reference,"def sort_age(lst):
+    sortt = [] #empty list
+    while lst:
+        largest = lst[0] #let the first element be the largest first
+        for i in lst:
+            if i[1] > largest[1]:
+                largest = i
+        lst.remove(largest)
+        sortt.append(largest)
+    return sortt
+",True,0.0244,4.7195,4.7195,0.0,0,0,0.0,[],[]
+wrong_4_168,gpt-5.4-mini,reference,"def sort_age(lst):
+    sortt = [] #empty list
+    while lst:
+        largest = lst[0] #let the first element be the largest first
+        for i in lst:
+            if i[1] > largest[1]:
+                largest = i
+        lst.remove(largest)
+        sortt.append(largest)
+    return sortt
+",True,0.0244,4.8754,4.8754,0.0,0,0,0.0,[],[]
+wrong_4_169,gpt-5.4-mini,rules,"def sort_age(lst):
+    sorted_lst = []
+    while lst:
+        smallest = lst[0]
+        for i in lst:
+            if i[1] > smallest[1]:
+                smallest = i
+        lst.remove(smallest)
+        sorted_lst.append(smallest)
+    return sorted_lst
+",True,0.0244,0.1948,0.1948,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_170,gpt-5.4-mini,reference,"def sort_age(lst):
+    sorted_lst = []
+    while lst:
+        smallest = lst[0]
+        for i in lst:
+            if i[1] > smallest[1]:
+                smallest=i
+        lst.remove(smallest)
+        sorted_lst.append(smallest)
+    return sorted_lst
+",True,0.0476,4.8652,4.8652,0.0,0,0,0.0,[],[]
+wrong_4_171,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.3125,3.4661,3.4661,0.0,0,0,0.0,[],[]
+wrong_4_172,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.3138,0.3138,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_173,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort=[]
+    while lst:
+        smallest = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] > smallest[1]:
+                smallest = lst[i]
+        lst.remove(smallest)
+        sort.append(smallest)
+    return sort
+",True,0.2679,4.0184,4.0184,0.0,0,0,0.0,[],[]
+wrong_4_174,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort=[]
+    while lst:
+        smallest = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] > smallest[1]:
+                smallest = lst[i]
+        lst.remove(smallest)
+        sort.append(smallest)
+    return sort
+",True,0.25,4.2595,4.2595,0.0,0,0,0.0,[],[]
+wrong_4_175,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort=[]
+    while lst:
+        smallest = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] > smallest[1]:
+                smallest = lst[i]
+        lst.remove(smallest)
+        sort.append(smallest)
+    return sort
+",True,0.2632,3.9216,3.9216,0.0,0,0,0.0,[],[]
+wrong_4_176,gpt-5.4-mini,rules,"def sort_age(lst):
+    newlst = []
+    ages = []
+    for i in lst:
+        ages.append(i[1 - 1 - 1])
+    ages.sort()
+    for x in ages[::-1]:
+        for i in lst:
+            if i[1] == x:
+                newlst.append(i)
+    return newlst
+        
+",True,0.1224,0.352,0.352,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_177,gpt-5.4-mini,rules,"def sort_age(lst):
+	lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+	return lst
+",True,0.3158,0.3393,0.3393,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_178,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.2223,0.2223,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_179,gpt-5.4-mini,reference,"def sort_age(lst):
+    a = lst
+    sort = []
+    while a:
+        largest = a[0][1]
+        item=a[0]
+        for element in  a:
+            if element[1] > largest:
+                largest = element[1]
+                item=element
+        a.remove(item)
+        sort.append(item)
+    return sort
+",True,0.4348,4.7283,4.7283,0.0,0,0,0.0,[],[]
+wrong_4_180,gpt-5.4-mini,reference,"def sort_age(lst):
+    a = lst
+    sort = []
+    while a:
+        largest = a[0]
+        for item in a:
+            if item[1] >largest[1]:
+                largest = item
+        a.remove(largest)
+        sort.append(largest)
+
+    return(sort)# Fill in your code here
+    
+",True,0.18,5.1587,5.1587,0.0,0,0,0.0,[],[]
+wrong_4_181,gpt-5.4-mini,reference,"def sort_age(lst):
+    a = lst
+    sort = []
+    while a:
+        largest = a[0]
+        for item in a:
+            if item[1] >largest[1]:
+                largest = item
+        a.remove(largest)
+        sort.append(largest)
+
+    return(sort)# Fill in your code here
+    
+",True,0.1087,5.1256,5.1256,0.0,0,0,0.0,[],[]
+wrong_4_182,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.0,4.2295,4.2295,0.0,0,0,0.0,[],[]
+wrong_4_183,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.0,3.9015,3.9015,0.0,0,0,0.0,[],[]
+wrong_4_184,gpt-5.4-mini,reference,"def sort_age(lst):
+    a = lst
+    sort = []
+    while a:
+        largest = a[0]
+        for item in a:
+            if item[1] >largest[1]:
+                largest = item
+        a.remove(largest)
+        sort.append(largest)
+
+    return(sort)# Fill in your code here
+    
+",True,0.0455,4.9958,4.9958,0.0,0,0,0.0,[],[]
+wrong_4_185,gpt-5.4-mini,reference,"def sort_age(lst):
+    a = lst
+    sort = []
+    while a:
+        largest = a[0]
+        for item in a:
+            if item[1] >largest[1]:
+                largest = item
+        a.remove(largest)
+        sort.append(largest)
+
+    return(sort)# Fill in your code here
+    
+",True,0.18,5.0051,5.0051,0.0,0,0,0.0,[],[]
+wrong_4_186,gpt-5.4-mini,reference,"def sort_age(lst):
+    a = lst
+    sort = []
+    while a:
+        largest = a[0]
+        for item in a:
+            if item[1]<largest[1]:
+                largest=item
+        a.remove(largest)
+        sort.append(largest)
+    sort.reverse()
+    return sort
+",True,0.1087,4.8762,4.8762,0.0,0,0,0.0,[],[]
+wrong_4_187,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        eldest = lst[0]
+        i = lst[0][1]
+        for element in lst:
+            if element[1] > i:
+                i = element[1]
+                eldest = element
+        lst.remove(eldest)
+        new.append(eldest)
+    return new
+",True,0.4865,5.2823,5.2823,0.0,0,0,0.0,[],[]
+wrong_4_188,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.3529,3.2412,3.2412,0.0,0,0,0.0,[],[]
+wrong_4_189,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1], reverse=True)
+    return lst
+",True,0.3158,0.2349,0.2349,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_190,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for element in lst:
+            if element[1] < biggest[1]:
+                biggest = element
+        lst.remove(biggest)
+        sort.append(biggest)
+    sort.reverse()
+    return sort
+",True,0.1707,93.3668,93.3668,0.0,0,0,0.0,[],[]
+wrong_4_191,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for element in lst:
+            if element[1] < biggest[1]:
+                biggest = element
+        lst.remove(biggest)
+        sort.append(biggest)
+    sort.reverse()
+    return sort
+",True,0.1707,92.8234,92.8234,0.0,0,0,0.0,[],[]
+wrong_4_192,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort=[]
+    while lst:
+        smallest = lst[0]
+        for i in lst:
+            if i[1] < smallest[1]:
+                smallest = i
+        sort.append(smallest)
+        lst.remove(smallest)
+    sort.reverse()
+    return sort
+",True,2.2667,0.2457,0.2457,0.0,0,0,0.0,[],[]
+wrong_4_193,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1], reverse=True)
+    return lst
+    pass
+",True,0.3,0.2425,0.2425,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_194,gpt-5.4-mini,reference,"def sort_age(lst):
+    result = []
+    while lst:
+        largest = lst[0][1]
+        index = 0
+        for i in range(len(lst)):
+            if lst[i][1] > largest:
+                index = i
+                largest = lst[i][1]
+        result.append(lst[index])
+        lst.remove(lst[index])
+    return result
+",True,0.7049,4.3031,4.3031,0.0,0,0,0.0,[],[]
+wrong_4_195,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        smallest = lst[0][1]
+        i=lst[0]
+        for ele in lst:
+            if ele[1] > smallest:
+                smallest = ele[1]
+                i=ele
+        lst.remove(i)
+        new.append(i)
+    return new
+",True,0.3256,5.4052,5.4052,0.0,0,0,0.0,[],[]
+wrong_4_196,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        largest = lst[0][1]
+        i=lst[0]
+        for ele in lst:
+            if ele[1] > largest:
+                largest = ele[1]
+                i=ele
+        lst.remove(i)
+        new.append(i)
+    return new
+",True,0.2558,5.2224,5.2224,0.0,0,0,0.0,[],[]
+wrong_4_197,gpt-5.4-mini,reference,"def sort_age(lst):
+	new_lst = 0
+	for i in range(len(lst) - 1):
+		if lst[i][1] < lst[i+1][1]:
+			lst.insert(i, lst[i+1])
+			lst.pop(i + 2)
+			new_lst += 1
+	if new_lst == 0:
+		return lst
+	else:
+		return sort_age(lst)
+",True,0.6818,4.7302,4.7302,0.0,0,0,0.0,[],[]
+wrong_4_198,gpt-5.4-mini,reference,"def sort_age(lst):
+	new_lst = 0
+	for i in range(len(lst) - 1):
+		if lst[i][1] < lst[i+1][1]:
+			lst.insert(i, lst[i+1])
+			lst.pop(i + 2)
+			new_lst += 1
+	if new_lst == 0:
+		return lst
+	else:
+		return sort_age(lst)
+",True,0.6889,5.1682,5.1682,0.0,0,0,0.0,[],[]
+wrong_4_199,gpt-5.4-mini,reference,"def sort_age(lst):
+	new_lst = 0
+	for i in range(len(lst) - 1):
+		if lst[i][1] < lst[i+1][1]:
+			lst.insert(i, lst[i+1])
+			lst.pop(i + 2)
+			new_lst += 1
+	if new_lst == 0:
+		return lst
+	else:
+		return sort_age(lst)
+",True,0.775,4.2089,4.2089,0.0,0,0,0.0,[],[]
+wrong_4_200,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.3274,0.3274,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_201,gpt-5.4-mini,reference,"def sort_age(lst):
+	agelist = 0
+	while agelist < len(lst)-1:
+	    if lst[agelist][1] > lst[agelist+1][1]:
+	        agelist += 1
+	    elif lst[agelist][1] < lst[agelist+1][1]:
+	        lst.append(lst[agelist])
+	        lst.remove(lst[agelist])
+	        sort_age(lst)
+	return lst
+",True,0.7634,6.2511,6.2511,0.0,0,0,0.0,[],[]
+wrong_4_202,gpt-5.4-mini,reference,"def sort_age(lst):
+    decoy = []
+    decoy2 = []
+    final = []
+    for i in lst:
+        decoy.append(i[1])
+    while decoy != []:
+        decoy2.append(max(decoy))
+        decoy.remove(max(decoy))
+    for i in decoy2:
+        for j in lst:
+            if i == j[1]:
+                final.append(j)
+    return final
+    
+    
+",True,0.0323,9.0697,9.0697,0.0,0,0,0.0,[],[]
+wrong_4_203,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while len(lst) > 0:
+        smallest = lst[0]
+        for i in lst:
+            if i[1] > smallest[1]:
+                smallest = i
+        
+        lst.remove(smallest)
+        sort.append(smallest)
+    return sort
+        
+        
+",True,0.1,6.0938,6.0938,0.0,0,0,0.0,[],[]
+wrong_4_204,gpt-5.4-mini,reference,"def sort_age(lst):
+    if lst == []:
+        return []
+    else:
+        agelist = [lst[0],]
+        for i in range(1,len(lst)):
+            if lst[i][1] > agelist[0][1]:
+                agelist.insert(0, lst[i])
+            elif lst[i][1] < agelist[len(agelist)-1][1]:
+                agelist.insert(len(agelist), lst[i])
+            else:
+                for x in range(0,len(agelist)):
+                    if agelist[x][1]> lst[i][1] > agelist[x+1][1]:
+                        agelist.insert(x+1, lst[i])
+                        break
+        return agelist
+    
+",True,0.0811,9.6709,9.6709,0.0,0,0,0.0,[],[]
+wrong_4_205,gpt-5.4-mini,rules,"def sort_age(lst):
+    if len(lst) <= 1:
+        return lst
+    else:
+        used_lst=lst.copy()
+        ages=()
+        for i in lst:
+            ages+=(i[1],)
+        for i in lst:
+            if i[1]==max(ages):
+                new_lst=[i]
+                used_lst.remove(i)
+        return new_lst+sort_age(used_lst)
+",True,0.0169,0.168,0.168,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_206,gpt-5.4-mini,reference,"def sort_age(lst):
+    # Fill in your code here
+    agelist = []
+    for i in lst:
+        if agelist ==[]:
+            agelist.append(i)
+            continue
+        else:
+            for x in range(0,len(lst)):
+                if i[1]>agelist[0][1]:
+                    agelist.insert(0,i)
+                    break
+                elif agelist[-1][1]>i[1]:
+                    agelist.insert(len(lst),i)
+                    break
+                elif i[1] > agelist[x+1][1] and i[1]<agelist[x][1]:
+                    agelist.insert(x+1,i)
+                    break
+    return agelist
+    
+",True,0.6036,9.3526,9.3526,0.0,0,0,0.0,[],[]
+wrong_4_207,gpt-5.4-mini,reference,"def merge(one,two):
+    new_tup = []
+    while left and right:
+        if one[0][1] < two[0][1]:
+            new_tup.append(one.pop(0))
+        else:
+            new_tup.append(two.pop(0))
+    return new_tup
+
+def sort_age(lst):
+	if len(lst) < 2:
+		return lst
+	mid = len(lst) // 2
+	left = sort_age(lst[:mid])
+	right = sort_age(lst[mid:])
+	return merge(left, right)
+	
+def merge(left, right):
+	a = []
+	while left and right:
+		if left[0][1] < right[0][1]:
+			a.append(right.pop(0))
+		else:
+			a.append(left.pop(0))
+	a.extend(left)
+	a.extend(right)
+	return a
+",True,0.5663,6.6093,6.6093,0.0,0,0,0.0,[],[]
+wrong_4_208,gpt-5.4-mini,reference,"def merge(one,two):
+    new_tup = []
+    while one and two:
+        if one[0][1] < two[0][1]:
+            new_tup.append(one.pop(0))
+        else:
+            new_tup.append(two.pop(0))
+    return new_tup
+
+def sort_age(lst):
+	if len(lst) < 2:
+		return lst
+	mid = len(lst) // 2
+	left = sort_age(lst[:mid])
+	right = sort_age(lst[mid:])
+	return merge(left, right)
+	
+def merge(left, right):
+	a = []
+	while left and right:
+		if left[0][1] < right[0][1]:
+			a.append(right.pop(0))
+		else:
+			a.append(left.pop(0))
+	a.extend(left)
+	a.extend(right)
+	return a
+",True,0.5904,5.9012,5.9012,0.0,0,0,0.0,[],[]
+wrong_4_209,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        smallest = lst[0]
+        for element in lst:
+            if element[1] > smallest[1]:
+                smallest = element
+        lst.remove(smallest)
+        sort.append(smallest)
+    return sort
+        
+    pass
+",True,0.15,6.3224,6.3224,0.0,0,0,0.0,[],[]
+wrong_4_210,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.3529,3.4631,3.4631,0.0,0,0,0.0,[],[]
+wrong_4_211,gpt-5.4-mini,reference,"def sort_age(lst):
+    n = len(lst)
+    result = []
+    while n != 0:
+        test = []
+        for counter in range(n):
+            test.append(lst[counter][1])
+        first = max(test)
+        for counter in range(n):
+            if counter == len(lst):
+                break
+            elif lst[counter][1] == first:
+                result.append(lst.pop(counter))
+        n = len(lst)
+    return result
+        
+",True,0.1471,4.8742,4.8742,0.0,0,0,0.0,[],[]
+wrong_4_212,gpt-5.4-mini,reference,"def sort_age(lst):
+    n = len(lst)
+    result = []
+    while n != 0:
+        test = []
+        for counter in range(n):
+            test.append(lst[counter][1])
+        first = max(test)
+        for counter in range(n):
+            if counter == len(lst):
+                break
+            elif lst[counter][1] == first:
+                result.append(lst.pop(counter))
+        n = len(lst)
+    return result
+        
+",True,0.1176,47.0741,47.0741,0.0,0,0,0.0,[],[]
+wrong_4_213,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1], reverse=True)
+    return lst
+",True,0.3158,0.2536,0.2536,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_214,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.1765,4.4932,4.4932,0.0,0,0,0.0,[],[]
+wrong_4_215,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1])
+    lst.reverse()
+    return lst
+",True,0.2857,0.2497,0.2497,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_216,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.1765,4.4243,4.4243,0.0,0,0,0.0,[],[]
+wrong_4_217,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key= lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.4076,0.4076,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_218,gpt-5.4-mini,reference,"def sort_age(lst):
+    new_lst = []
+    for i in range(len(lst)):
+        max_num = max(lst, key=lambda p: p[1])
+        lst.remove(max_num)
+        new_lst.append(max_num)
+    return new_lst
+",True,0.2647,5.6441,5.6441,0.0,0,0,0.0,[],[]
+wrong_4_219,gpt-5.4-mini,reference,"def sort_age(lst):
+    new_lst = []
+    for i in range(len(lst)):
+        max_num = max(lst, key=lambda p: p[1])
+        lst.remove(max_num)
+        new_lst.append(max_num)
+    return new_lst
+
+",True,0.2258,5.2876,5.2876,0.0,0,0,0.0,[],[]
+wrong_4_220,gpt-5.4-mini,reference,"def sort_age(lst):
+    result = []
+    while lst:
+        largest = lst[0][1]
+        index = 0
+        for i in range(len(lst)):
+            if lst[i][1] > largest:
+                index = i
+                largest = lst[i][1]
+        result.append(lst[index])
+        lst.remove(lst[index])
+    return result
+",True,0.7727,8.5936,8.5936,0.0,0,0,0.0,[],[]
+wrong_4_221,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.2224,0.2224,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_222,gpt-5.4-mini,reference,"def sort_age(lst):
+    n = len(lst)
+    result = []
+    while n != 0:
+        test = []
+        for counter in range(n):
+            test.append(lst[counter][1])
+        first = max(test)
+        for counter in range(n):
+            if counter == len(lst):
+                break
+            elif lst[counter][1] == first:
+                result.append(lst.pop(counter))
+        n = len(lst)
+    return result
+        
+",True,0.1176,44.6584,44.6584,0.0,0,0,0.0,[],[]
+wrong_4_223,gpt-5.4-mini,reference,"def sort_age(lst):
+    a=[]
+    while lst:
+        i = lst[0]
+        smallest = lst[0][1]
+        for element in lst:
+            if element[1] > smallest:
+                smallest = element[1]
+                i = element
+        lst.remove(i)
+        a.append(i)
+    return a
+",True,1.3077,27.9731,27.9731,0.0,0,0,0.0,[],[]
+wrong_4_224,gpt-5.4-mini,reference,"def sort_age(lst):
+    a = []
+    i = []
+    for item in lst:
+        a.append(item[1])
+    while a:
+        age = max(a)
+        for item in lst:
+            if age == item[1]:
+                i.append(item)
+                a.remove(age)
+    return i
+",True,1.32,0.5538,0.5538,0.0,0,0,0.0,[],[]
+wrong_4_225,gpt-5.4-mini,reference,"def sort_age(lst):
+    a=[]
+    while lst:
+        i = lst[0][1] #first age
+        for person in lst:
+            if person[1]>i:
+                i=person[1]
+        for person in lst:
+            if person[1]==i:
+                a.append(person)
+                lst.remove(person)            
+    return a
+",True,1.2414,4.7591,4.7591,0.0,0,0,0.0,[],[]
+wrong_4_226,gpt-5.4-mini,reference,"def sort_age(lst):
+    a=[]
+    while lst:
+        i = lst[0][1] #first age
+        for person in lst:
+            if person[1]>i:
+                i=person[1]
+        for person in lst:
+            if person[1]==i:
+                a.append(person)
+                lst.remove(person)            
+    return a
+",True,1.2857,4.6198,4.6198,0.0,0,0,0.0,[],[]
+wrong_4_227,gpt-5.4-mini,reference,"def sort_age(lst):
+    a=[]
+    while lst:
+        biggest = lst[0]
+        i = lst[0][1]
+        for element in lst:
+            if element[1] > i:
+                i = element[1]
+                biggest = element
+        lst.remove(biggest)
+        a.append(biggest)
+    return a
+",True,0.4865,6.1009,6.1009,0.0,0,0,0.0,[],[]
+wrong_4_228,gpt-5.4-mini,reference,"def sort_age(lst):
+	youngest=[]
+	while lst:
+		item=lst[0]
+		minimum=lst[0][1]
+		for x in lst:
+			if x[1]>minimum:
+				minimum=x[1]
+				item=x
+		youngest.append(item)
+		lst.remove(item)
+	return youngest
+",True,0.8205,4.6274,4.6274,0.0,0,0,0.0,[],[]
+wrong_4_229,gpt-5.4-mini,reference,"def sort_age(lst):
+    youngest=[]
+    item=0
+    while lst:
+        for i in lst:
+            if i[1]>item:
+                item = i[1]
+                count=i
+        youngest=youngest+[count]
+        lst.remove(count)
+        item=0
+    return youngest
+",True,0.875,5.0585,5.0585,0.0,0,0,0.0,[],[]
+wrong_4_230,gpt-5.4-mini,reference,"def sort_age(lst):
+    newlst=[]
+    while lst:
+        oldest = lst[0][1] #first age
+        for person in lst:
+            if person[1]>oldest:
+                oldest=person[1]
+        for person in lst:
+            if person[1]==oldest:
+                newlst.append(person)
+                lst.remove(person)            
+    return newlst
+",True,0.8,4.3352,4.3352,0.0,0,0,0.0,[],[]
+wrong_4_231,gpt-5.4-mini,reference,"def sort_age(lst):
+    a=[]
+    while lst:
+        biggest=lst[0]
+        for i in lst:
+            if i[1] >= biggest[1]:
+                biggest=i
+        lst.remove(biggest)
+        a.append(biggest)
+    return a
+",True,0.1081,6.3632,6.3632,0.0,0,0,0.0,[],[]
+wrong_4_232,gpt-5.4-mini,rules,"def sort_age(lst):
+    compiled = []
+    result = []
+    for i in lst:
+        compiled = compiled + [i[1 - 1 - 1]]
+    compiled.sort()
+    compiled.reverse()
+    for i in compiled:
+        for j in lst:
+            if i == j[1]:
+                result = result + [j]
+    return result
+",True,0.1154,0.2908,0.2908,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_233,gpt-5.4-mini,reference,"def sort_age(lst):
+	sort = []
+	while lst:
+		smallest = lst[0][1]
+		for element in lst:
+			if element[1] >= smallest:
+				smallest = element[1]
+				remove_people = element
+		sort.append(remove_people)
+		lst.remove(remove_people)
+	return sort
+",True,0.2683,5.509,5.509,0.0,0,0,0.0,[],[]
+wrong_4_234,gpt-5.4-mini,reference,"def sort_age(lst):
+    sorted = []
+    while lst:
+        oldest = lst[0]
+        for element in lst:
+            if element[1] > oldest[1]:
+                oldest = element
+        lst.remove(oldest)
+        sorted.append(oldest)
+    return sorted
+            
+",True,0.0488,5.2832,5.2832,0.0,0,0,0.0,[],[]
+wrong_4_235,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.4,3.6698,3.6698,0.0,0,0,0.0,[],[]
+wrong_4_236,gpt-5.4-mini,reference,"def sort_age(lst):
+    def age(i):
+        return i[1]
+        
+    def position(seq, ele):
+        n = len(seq)
+        for i in range(n):
+            if seq[i] == ele:
+                return i
+                
+    def largest_age(seq):
+        largest = age(seq[0])
+        largest_pos = 0
+        for i in seq:
+            if age(i) > largest:
+                largest = age(i)
+                largest_pos = position(seq,i)
+        return seq[largest_pos]
+    n = len(lst)
+    if n ==0:
+        return []
+    elif n ==1:
+        return lst
+    else:
+        final = [largest_age(lst)]
+        lst.remove(largest_age(lst))
+        final = final + sort_age(lst)
+        return final
+
+",True,0.2075,10.7356,10.7356,0.0,0,0,0.0,[],[]
+wrong_4_237,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1])
+    lst.reverse()
+    return lst
+",True,0.2857,0.22,0.22,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_238,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for x in lst:
+            if x[1] > oldest[1]:
+                oldest = x
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+            
+        
+",True,0.0488,8.7939,8.7939,0.0,0,0,0.0,[],[]
+wrong_4_239,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        oldest = lst[0]
+        for x in lst:
+            if x[1] > oldest[1]:
+                oldest = x
+        lst.remove(oldest)
+        sort.append(oldest)
+    return sort
+            
+        
+",True,0.0244,8.8,8.8,0.0,0,0,0.0,[],[]
+wrong_4_240,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1])
+    lst.reverse()
+    return lst
+",True,0.2857,0.355,0.355,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_241,gpt-5.4-mini,reference,"def sort_age(lst):
+    list1 =[]
+    while lst:
+        i = 0
+        smallest = lst[0][1]
+        for s in range(1, len(lst)):
+            if lst[s][1] >smallest:
+                smallest = lst[s][1]
+                i = s
+        list1.append(lst[i])
+        del lst[i]
+    return list1
+",True,0.4737,3.9843,3.9843,0.0,0,0,0.0,[],[]
+wrong_4_242,gpt-5.4-mini,reference,"def sort_age(lst):
+    list1 = []
+    while lst:
+        i = lst[0][1]
+        smallest = lst[0]
+        for s in range(1, len(lst)):
+            if lst[s][1] > i:
+                i = lst[s][1]
+                smallest = lst[s]
+        list1.append(smallest)
+        lst.remove(smallest)
+    return list1
+",True,0.4211,3.5545,3.5545,0.0,0,0,0.0,[],[]
+wrong_4_243,gpt-5.4-mini,reference,"def sort_age(lst):
+    for list1 in range(len(lst)):
+        for i in range(len(lst)):
+            if lst[i][1] < lst[list1][1]:
+                lst[i], lst[list1] = lst[list1], lst[i]
+    return lst
+",True,0.6949,3.449,3.449,0.0,0,0,0.0,[],[]
+wrong_4_244,gpt-5.4-mini,reference,"def sort_age(lst):
+    for start in range (len(lst) - 1):
+        for i in range(start, len(lst)):
+            if lst[i][1] > lst[start][1]:
+                lst[i], lst[start] = lst[start], lst[i]
+    return lst
+",True,0.7143,3.3533,3.3533,0.0,0,0,0.0,[],[]
+wrong_4_245,gpt-5.4-mini,reference,"def sort_age(lst):
+    for start in range (len(lst) - 1):
+        for i in range(start, len(lst)):
+            if lst[i][1] > lst[start][1]:
+                lst[i], lst[start] = lst[start], lst[i]
+    return lst
+",True,0.7143,3.4479,3.4479,0.0,0,0,0.0,[],[]
+wrong_4_246,gpt-5.4-mini,reference,"def sort_age(lst):
+    for i in range(0,len(lst)-1):
+        for j in range(i+1,len(lst)):
+            if lst[i][1]<lst[j][1]:
+                lst[i],lst[j]=lst[j],lst[i]
+    return lst
+",True,0.7313,4.0008,4.0008,0.0,0,0,0.0,[],[]
+wrong_4_247,gpt-5.4-mini,reference,"def sort_age(lst):
+    list1 = []
+    while lst:
+        biggest = lst[0][1]
+        b = lst[0]
+        for i in range(1, len(lst)):
+            if lst[i][1] > biggest:
+                biggest = lst[i][1]
+                b = lst[i]
+        list1.append(b)
+        lst.remove(b)
+    return list1
+
+",True,0.1364,4.0702,4.0702,0.0,0,0,0.0,[],[]
+wrong_4_248,gpt-5.4-mini,reference,"def sort_age(lst):
+    list1 = []
+    while lst:
+        biggest = lst[0][1]
+        b = lst[0]
+        for i in range(1,len(lst)):
+            if lst[i][1] > biggest:
+                biggest = lst[i][1]
+                b = lst[i]
+        list1.append(b)
+        lst.remove(b)
+    return list1
+
+",True,0.0952,4.3162,4.3162,0.0,0,0,0.0,[],[]
+wrong_4_249,gpt-5.4-mini,reference,"def sort_age(lst):
+    list1 = []
+    while lst:
+        biggest = lst[0][1]
+        b = lst[0]
+        for i in range(1,len(lst)):
+            if lst[i][1] > biggest:
+                biggest = lst[i][1]
+                b = lst[i]
+        list1.append(b)
+        lst.remove(b)
+    return list1
+
+",True,0.0476,4.046,4.046,0.0,0,0,0.0,[],[]
+wrong_4_250,gpt-5.4-mini,reference,"def sort_age(lst):
+    swap = True
+    while swap:
+        swap = False
+        for tag in range(len(lst)-1):
+            if lst[tag][1] < lst[tag+1][1]:
+                lst[tag], lst[tag+1] = lst[tag+1], lst[tag]
+                swap = True
+    return lst
+",True,0.0323,4.7744,4.7744,0.0,0,0,0.0,[],[]
+wrong_4_251,gpt-5.4-mini,reference,"def sort_age(lst):
+    list1 = []
+    while lst:
+        biggest = lst[0]
+       
+        for i in range(1,len(lst)):
+            if lst[i][1] > biggest[1]:
+                biggest = lst[i] 
+        lst.remove(biggest)
+        list1.append(biggest)
+    return list1
+
+",True,0.0385,3.9716,3.9716,0.0,0,0,0.0,[],[]
+wrong_4_252,gpt-5.4-mini,reference,"def sort_age(lst):
+    list1 = []
+    while lst:
+        biggest = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] > biggest[1]:
+                biggest = lst[i]
+        lst.remove(biggest)
+        list1.append(biggest)
+    return list1
+
+",True,0.1091,3.7683,3.7683,0.0,0,0,0.0,[],[]
+wrong_4_253,gpt-5.4-mini,reference,"def sort_age(lst):
+    list1 = []
+    while lst:
+        biggest = lst[0]
+       
+        for i in lst:
+            if i[1] > biggest[1]:
+                biggest = i
+                
+        lst.remove(biggest)
+        list1.append(biggest)
+    return list1
+
+",True,0.0465,4.2211,4.2211,0.0,0,0,0.0,[],[]
+wrong_4_254,gpt-5.4-mini,rules,"def sort_age(lst):
+	lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+	return lst
+",True,0.3158,0.2796,0.2796,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_255,gpt-5.4-mini,reference,"def sort_age(lst):
+    newlst = []
+    while lst:
+        i = lst[0]
+        for element in lst:
+            if element[1] >= i[1]:
+                i = element
+        lst.remove(i)
+        newlst.append(i)
+    return newlst
+",True,0.0488,4.488,4.488,0.0,0,0,0.0,[],[]
+wrong_4_256,gpt-5.4-mini,reference,"def sort_age(lst):
+    newlst = []
+    while lst:
+        i = lst[0]
+        for element in lst:
+            if element[1] >= i[1]:
+                i = element
+        lst.remove(i)
+        newlst.append(i)
+    return newlst
+",True,0.0244,4.9556,4.9556,0.0,0,0,0.0,[],[]
+wrong_4_257,gpt-5.4-mini,reference,"def sort_age(lst):
+    sorted_lst = []
+    while lst:
+        smallest = lst[0]
+        for i in lst:
+            if i[1] < smallest[1]:
+                smallest = i
+        lst.remove(smallest)
+        sorted_lst.append(smallest)
+    sorted_lst.reverse()
+    return sorted_lst
+",True,1.5,0.267,0.267,0.0,0,0,0.0,[],[]
+wrong_4_258,gpt-5.4-mini,reference,"def sort_age(lst):
+    res=[]
+    age_list=0
+    while lst:
+        for i in lst:
+            if i[1]>age_list:
+                age_list = i[1]
+                count=i
+        res=res+[count]
+        lst.remove(count)
+        age_list=0
+    return res
+",True,0.5909,5.3364,5.3364,0.0,0,0,0.0,[],[]
+wrong_4_259,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.2909,0.2909,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_260,gpt-5.4-mini,rules,"def sort_age(lst):
+    sort = []
+    while lst:
+        smallest = lst[0]
+        for element in lst:
+            if element[1] > smallest[1]:
+                smallest = element
+        lst.remove(smallest)
+        sort.append(smallest)
+
+    return sort
+",True,0.0244,0.2283,0.2283,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_261,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.3154,0.3154,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_262,gpt-5.4-mini,reference,"def sort_age(lst):
+    s = []
+    while lst:
+        smallest = lst[0]
+        for element in lst:
+            if smallest[1] < element[1]:
+                smallest = element
+        lst.remove(smallest)
+        s.append(smallest)
+    return s
+",True,0.1333,5.0307,5.0307,0.0,0,0,0.0,[],[]
+wrong_4_263,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.4,3.4492,3.4492,0.0,0,0,0.0,[],[]
+wrong_4_264,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key= lambda x: x[1 - 1 - 1], reverse=True)
+    return lst
+",True,0.3158,0.265,0.265,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_265,gpt-5.4-mini,reference,"def sort_age(lst):
+    for i in range(len(lst)-1):
+        for a in range(i, len(lst)):
+            if lst[a][1] > lst[i][1]:
+                x = lst[i]
+                lst[i] = lst[a]
+                lst[a] = x
+    return lst
+
+        
+",True,0.2593,4.0909,4.0909,0.0,0,0,0.0,[],[]
+wrong_4_266,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        largest = lst[0]
+        largestx = lst[0][1]
+        for element in lst:
+            if element[1] > largestx:
+                largestx = element[1]
+                largest = element
+        lst.remove(largest)
+        sort.append(largest)
+    return sort
+",True,0.6579,4.6903,4.6903,0.0,0,0,0.0,[],[]
+wrong_4_267,gpt-5.4-mini,reference,"def sort_age(lst):
+    # Fill in your code here
+    sorted_list = []
+    while lst: 
+        oldest = lst[0][1]
+        element=lst[0]
+        for ele in lst:
+            if ele[1] > oldest:
+                oldest = ele[1]
+                element=ele
+        lst.remove(element)
+        sorted_list.append(element)
+    return sorted_list
+",True,0.3902,4.743,4.743,0.0,0,0,0.0,[],[]
+wrong_4_268,gpt-5.4-mini,rules,"def sort_age(lst):
+    # Fill in your code here
+    lst.sort(key=lambda x: x[1 - 1 - 1], reverse=True)
+    return lst
+",True,0.3158,0.2239,0.2239,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_269,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.2551,0.2551,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_270,gpt-5.4-mini,reference,"def sort_age(lst):
+    if len(lst) < 2:
+        return lst
+    else:
+        midpoint = len(lst) // 2
+        left = sort_age(lst[:midpoint])
+        right = sort_age(lst[midpoint:])
+        
+        new_list = []
+        while left and right:
+            if left[0][1] < right[0][1]:
+                new_list.append(right.pop(0))
+            else:
+                new_list.append(left.pop(0))
+        new_list.extend(left)
+        new_list.extend(right)
+        return new_list
+",True,0.0465,8.4782,8.4782,0.0,0,0,0.0,[],[]
+wrong_4_271,gpt-5.4-mini,reference,"def sort_age(lst):
+    if len(lst) < 2:
+        return lst
+    else:
+        midpoint = len(lst) // 2
+        left = sort_age(lst[:midpoint])
+        right = sort_age(lst[midpoint:])
+        
+        new_list = []
+        while left and right:
+            if left[0][1] < right[0][1]:
+                new_list.append(right.pop(0))
+            else:
+                new_list.append(left.pop(0))
+        new_list.extend(left)
+        new_list.extend(right)
+        return new_list
+",True,0.0465,9.2372,9.2372,0.0,0,0,0.0,[],[]
+wrong_4_272,gpt-5.4-mini,reference,"def sort_age(lst):
+    if len(lst) < 2:
+        return lst
+    else:
+        midpoint = len(lst) // 2
+        left = sort_age(lst[:midpoint])
+        right = sort_age(lst[midpoint:])
+        
+        new_list = []
+        while left and right:
+            if left[0][1] < right[0][1]:
+                new_list.append(right.pop(0))
+            else:
+                new_list.append(left.pop(0))
+        new_list.extend(left)
+        new_list.extend(right)
+        new_list.reverse
+        return new_list
+",True,0.0787,13.8771,13.8771,0.0,0,0,0.0,[],[]
+wrong_4_273,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        largest = lst[0]
+        for ele in lst:
+            if ele[1] > largest[1]:
+                largest = ele
+        lst.remove(largest)
+        new.append(largest)
+    return new
+        
+",True,0.0769,9.2507,9.2507,0.0,0,0,0.0,[],[]
+wrong_4_274,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        largest = lst[0]
+        for ele in lst:
+            if ele[1] > largest[1]:
+                largest = ele
+        lst.remove(largest)
+        new.append(largest)
+    return new
+",True,0.1282,8.0227,8.0227,0.0,0,0,0.0,[],[]
+wrong_4_275,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.26,0.26,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_276,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst: 
+        largest = lst[0][1]
+        i=lst[0]
+        for ele in lst:
+            if ele[1] > largest:
+                largest = ele[1]
+                i=ele
+        lst.remove(i)
+        sort.append(i)
+    return sort 
+",True,0.2558,6.3649,6.3649,0.0,0,0,0.0,[],[]
+wrong_4_277,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1], reverse = True)
+    return lst 
+    pass
+",True,0.3,0.2235,0.2235,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_278,gpt-5.4-mini,reference,"def sort_age(lst):
+    for i in range(len(lst)-1):
+        for j in range(i, len(lst)):
+            if lst[j][1] > lst[i][1]:
+                x = lst[i]
+                lst[i] = lst[j]
+                lst[j] = x
+    return lst
+",True,0.3818,5.4011,5.4011,0.0,0,0,0.0,[],[]
+wrong_4_279,gpt-5.4-mini,reference,"def sort_age(lst):
+    for i in range(len(lst)-1):
+        for j in range(i, len(lst)):
+            if lst[j][1] > lst[i][1]:
+                x = lst[i]
+                lst[i] = lst[j]
+                lst[j] = x
+    return lst
+",True,0.3636,5.0138,5.0138,0.0,0,0,0.0,[],[]
+wrong_4_280,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.2713,0.2713,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_281,gpt-5.4-mini,reference,"def sort_age(lst):
+    for i in range(len(lst)-1):
+        for j in range(len(lst)-1-i):
+            if lst[j][1]< lst[j+1][1]:
+                lst[j],lst[j+1] = lst[j+1],lst[j]
+    return lst
+",True,0.25,5.7276,5.7276,0.0,0,0,0.0,[],[]
+wrong_4_282,gpt-5.4-mini,reference,"def sort_age(lst):
+    for i in range(len(lst)-1):
+        for j in range(len(lst)-1-i):
+            if lst[j][1]< lst[j+1][1]:
+                lst[j],lst[j+1] = lst[j+1],lst[j]
+    return lst
+",True,0.1447,5.6221,5.6221,0.0,0,0,0.0,[],[]
+wrong_4_283,gpt-5.4-mini,reference,"def sort_age(lst):
+    for i in range(len(lst)-1):
+        for j in range(len(lst)-1-i):
+            if lst[j][1]< lst[j+1][1]:
+                lst[j],lst[j+1] = lst[j+1],lst[j]
+    return lst
+",True,0.1316,5.8636,5.8636,0.0,0,0,0.0,[],[]
+wrong_4_284,gpt-5.4-mini,reference,"def sort_age(lst):
+    newlist = []
+    while lst:
+        oldest = lst[0]
+        for i in lst:
+            if i[1] > oldest[1]:
+                oldest = i
+            else:
+                continue
+        lst.remove(oldest)
+        newlist.append(oldest)
+    return newlist
+",True,0.05,5.3985,5.3985,0.0,0,0,0.0,[],[]
+wrong_4_285,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.3529,3.6551,3.6551,0.0,0,0,0.0,[],[]
+wrong_4_286,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.3529,3.6426,3.6426,0.0,0,0,0.0,[],[]
+wrong_4_287,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.2185,0.2185,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_288,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        largest = lst[0]
+        for element in lst:
+            if element[1] < largest[1]:
+                largest = element
+        lst.remove(largest)
+        sort.append(largest)
+    sort.reverse()
+    return sort
+",True,0.3333,5.7202,5.7202,0.0,0,0,0.0,[],[]
+wrong_4_289,gpt-5.4-mini,reference,"def sort_age(lst):
+    final = []
+    temp = 0
+    while lst:
+        biggest = lst[0][1]
+        for i in lst:
+            if i[1]>=biggest:
+                biggest = i[1]
+                temp = i 
+        lst.remove(temp)
+        final.append(temp)
+    return final
+
+",True,0.55,4.973,4.973,0.0,0,0,0.0,[],[]
+wrong_4_290,gpt-5.4-mini,reference,"def sort_age(lst):
+    final = []
+    temp = 0
+    while lst:
+        biggest = lst[0][1]
+        for i in lst:
+            if i[1]>=biggest:
+                biggest = i[1]
+                temp = i 
+        lst.remove(temp)
+        final.append(temp)
+    return final
+
+",True,0.5,5.0284,5.0284,0.0,0,0,0.0,[],[]
+wrong_4_291,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst: 
+        biggest = lst[0][1]
+        i=lst[0]
+        for ele in lst:
+            if ele[1] > biggest:
+                biggest = ele[1]
+                i=ele
+        lst.remove(i)
+        sort.append(i)
+    return sort
+",True,0.2791,3.6962,3.6962,0.0,0,0,0.0,[],[]
+wrong_4_292,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst: 
+        biggest = lst[0][1]
+        i=lst[0]
+        for ele in lst:
+            if ele[1] > biggest:
+                biggest = ele[1]
+                i=ele
+        lst.remove(i)
+        sort.append(i)
+    return sort# Fill in your code here
+    
+",True,0.2558,4.398,4.398,0.0,0,0,0.0,[],[]
+wrong_4_293,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort=[]
+    while lst:
+        biggest = lst[0]
+        for i in lst:
+            if i[1] > biggest[1]:
+                biggest = i
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort
+",True,0.2051,5.3407,5.3407,0.0,0,0,0.0,[],[]
+wrong_4_294,gpt-5.4-mini,reference,"def sort_age(lst):
+    result=[] 
+    while lst:
+        biggest=lst[0][1]
+        for i in lst:
+            if i[1]>=biggest:
+                biggest=i[1]
+                tuple_biggest=i
+        lst.remove(tuple_biggest)
+        result.append(tuple_biggest)
+    return result
+",True,0.186,4.3276,4.3276,0.0,0,0,0.0,[],[]
+wrong_4_295,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort=[]
+    while lst:
+        biggest = lst[0][1]
+        i = 0
+        for count in range(len(lst)):
+            if lst[count][1] > biggest:
+                i = count
+                biggest = lst[count][1]
+        sort.append(lst[i])
+        lst.remove(lst[i])
+    return sort
+",True,0.4028,6.0893,6.0893,0.0,0,0,0.0,[],[]
+wrong_4_296,gpt-5.4-mini,reference,"def sort_age(lst):
+    ages = []
+    output = []
+    for item in lst:
+        ages.append(item[1])
+    while ages:
+        age = max(ages)
+        for item in lst:
+            if age == item[1]:
+                output.append(item)
+                ages.remove(age)
+    return output
+",True,0.2273,8.3762,8.3762,0.0,0,0,0.0,[],[]
+wrong_4_297,gpt-5.4-mini,reference,"def sort_age(lst):
+    ages = []
+    output = []
+    for item in lst:
+        ages.append(item[1])
+    for item in lst:
+        age = max(ages)
+        for item in lst:
+            if age == item[1]:
+                output.append(item)
+                ages.remove(age)
+    return output
+",True,0.0638,9.9544,9.9544,0.0,0,0,0.0,[],[]
+wrong_4_298,gpt-5.4-mini,reference,"def sort_age(lst):
+    a = []
+    while lst:
+        oldest = lst[0]
+        for i in lst:
+            if i[1] > oldest[1]:
+                oldest = i
+        lst.remove(oldest)
+        a.append(oldest)
+    return a
+    pass
+",True,0.05,6.9973,6.9973,0.0,0,0,0.0,[],[]
+wrong_4_299,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.4,4.0537,4.0537,0.0,0,0,0.0,[],[]
+wrong_4_300,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,0.6957,4.495,4.495,0.0,0,0,0.0,[],[]
+wrong_4_301,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,0.6957,5.6232,5.6232,0.0,0,0,0.0,[],[]
+wrong_4_302,gpt-5.4-mini,reference,"def sort_age(lst):
+	for i in range(len(lst) -1):
+		for j in range(len(lst) -1):
+			if lst[j][1] < lst[j+1][1]:
+				lst[j], lst[j+1] = lst[j+1], lst[j]
+	return lst
+",True,0.1507,7.9027,7.9027,0.0,0,0,0.0,[],[]
+wrong_4_303,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,0.6957,5.0387,5.0387,0.0,0,0,0.0,[],[]
+wrong_4_304,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,0.6957,4.6411,4.6411,0.0,0,0,0.0,[],[]
+wrong_4_305,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,0.6957,4.053,4.053,0.0,0,0,0.0,[],[]
+wrong_4_306,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort =[]
+    while lst:
+        smallest = lst[0]
+        for i in lst:
+            if i[1] > smallest[1]:
+                smallest = i
+        lst.remove(smallest)
+        sort.append(smallest)
+    return sort
+    pass
+",True,0.1944,5.2167,5.2167,0.0,0,0,0.0,[],[]
+wrong_4_307,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort =[]
+    while lst:
+        smallest = lst[0]
+        for i in lst:
+            if i[1] > smallest[1]:
+                smallest = i
+        lst.remove(smallest)
+        sort.append(smallest)
+    return sort
+    pass
+",True,0.1316,5.2645,5.2645,0.0,0,0,0.0,[],[]
+wrong_4_308,gpt-5.4-mini,rules,"def sort_age(lst):
+    for j in range(len(lst)-1):
+        for i in range(len(lst)-1-j):
+            if lst[i][1] < lst[i + 1][1]:
+                lst[i],lst[i+1] = lst[i+1],lst[i]
+    return lst
+",True,0.0152,0.2064,0.2064,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_309,gpt-5.4-mini,reference,"def sort_age(lst):
+    for i in range(len(lst)):
+        for j in range(len(lst)-1-i):
+            if lst[j][1] < lst[j+1][1]:
+                lst[j], lst[j+1] = lst[j+1], lst[j]
+    return lst
+            
+            
+",True,0.1711,5.1024,5.1024,0.0,0,0,0.0,[],[]
+wrong_4_310,gpt-5.4-mini,reference,"def sort_age(lst):
+    for i in range(len(lst)):
+        for j in range(len(lst)-1-i):
+            if lst[j][1] < lst[j+1][1]:
+                lst[j], lst[j+1] = lst[j+1], lst[j]
+    return lst
+            
+            
+",True,0.1711,5.1833,5.1833,0.0,0,0,0.0,[],[]
+wrong_4_311,gpt-5.4-mini,reference,"def sort_age(lst):
+    for i in range(len(lst)):
+        for j in range(len(lst)-1-i):
+            if lst[j][1] < lst[j+1][1]:
+                lst[j], lst[j+1] = lst[j+1], lst[j]
+    return lst
+            
+            
+",True,0.1711,4.9452,4.9452,0.0,0,0,0.0,[],[]
+wrong_4_312,gpt-5.4-mini,reference,"def sort_age(lst):
+    for i in range(len(lst)-1):
+        for j in range(len(lst)-1-i):
+            if lst[j][1]< lst[j+1][1]:
+                lst[j],lst[j+1] = lst[j+1],lst[j]
+    return lst
+",True,0.1316,5.0675,5.0675,0.0,0,0,0.0,[],[]
+wrong_4_313,gpt-5.4-mini,rules,"
+
+def sort_age(lst):
+    lst.sort()
+    lst.sort(key=lambda x:x[1 - 1 - 1],reverse=True)
+
+    return lst
+    pass
+
+",True,0.25,0.2356,0.2356,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_314,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.1765,3.2353,3.2353,0.0,0,0,0.0,[],[]
+wrong_4_315,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1],reverse = True)
+    return lst
+",True,0.3158,0.2271,0.2271,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_316,gpt-5.4-mini,reference,"def sort_age(lst):
+    lst1 = []
+    
+    while lst:
+        largest = lst[0]
+        for i in lst:
+            if i[1]<largest[1]:
+                largest = i
+        lst.remove(largest)
+        lst1.append(largest)
+    lst1.reverse()
+    return lst1
+
+            
+",True,0.2973,108.119,108.119,0.0,0,0,0.0,[],[]
+wrong_4_317,gpt-5.4-mini,rules,"def sort_age(lst):
+    a = []
+    for i in lst:
+        a.append(i[1])
+    print(a)
+    sort = []
+    while a:
+        smallest = a[0]
+        for element in a:
+            if element > smallest:
+                smallest = element
+        a.remove(smallest)
+        sort.append(smallest)
+    print(sort)
+    lst2 = []
+    counter = 0
+    for i in sort:
+        for j in lst:
+            if j[1] == i:
+                lst2.append(j)
+                counter += 1
+    return lst2
+",True,0.0116,0.1822,0.1822,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_318,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.2778,3.4064,3.4064,0.0,0,0,0.0,[],[]
+wrong_4_319,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.3313,0.3313,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_320,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1], reverse = True)
+    return lst
+",True,0.3158,0.2827,0.2827,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_321,gpt-5.4-mini,reference,"def sort_age(lst):
+    newlst=[]
+    for i in lst:
+        big = 0
+        for n in newlst:
+            if i[1] < n[1]:
+                big += 1
+        newlst.insert(big,i)
+    return newlst
+            
+",True,0.3571,3.9863,3.9863,0.0,0,0,0.0,[],[]
+wrong_4_322,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1], reverse=True)
+    return lst
+",True,0.3158,0.266,0.266,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_323,gpt-5.4-mini,reference,"def sort_age(lst):
+    new_lst = []
+    while lst:
+        newnew = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] > newnew[1]:
+                newnew = lst[i]
+        lst.remove(newnew)
+        new_lst.append(newnew)
+    return new_lst
+",True,0.6562,3.1752,3.1752,0.0,0,0,0.0,[],[]
+wrong_4_324,gpt-5.4-mini,reference,"def sort_age(lst):
+    # Fill in your code here
+    if lst == []:
+        return lst
+        
+    newnew = [lst[0],]
+    for i in lst[1:]:
+        for j in range(len(newnew)):
+            if newnew[j][1] < i[1]:
+                newnew.insert(j, i)
+                break
+            elif j == len(newnew) - 1:
+                newnew.append(i)
+    return newnew
+",True,0.5738,5.0714,5.0714,0.0,0,0,0.0,[],[]
+wrong_4_325,gpt-5.4-mini,reference,"def sort_age(lst):
+    newnew = []
+    while lst:
+        i = lst[0]
+        for j in range(len(lst)):
+            if lst[j][1] > i[1]:
+                i = lst[j]
+        newnew.append(i)
+        lst.remove(i)
+    return newnew
+",True,0.6032,4.3956,4.3956,0.0,0,0,0.0,[],[]
+wrong_4_326,gpt-5.4-mini,reference,"def sort_age(lst):
+    # Fill in your code here
+    if lst == []:
+        return lst
+        
+    newnew = [lst[0],]
+    for i in lst[1:]:
+        for j in range(len(newnew)):
+            if newnew[j][1] < i[1]:
+                newnew.insert(j, i)
+                break
+            elif j == len(newnew) - 1:
+                newnew.append(i)
+    return newnew
+",True,0.5738,5.7739,5.7739,0.0,0,0,0.0,[],[]
+wrong_4_327,gpt-5.4-mini,reference,"def sort_age(lst):
+    # Fill in your code here
+    sorted = []
+    while lst:
+        oldest = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] > oldest[1]:
+                oldest = lst[i]
+        sorted.append(oldest)
+        lst.remove(oldest)
+    return sorted
+",True,0.1489,4.5199,4.5199,0.0,0,0,0.0,[],[]
+wrong_4_328,gpt-5.4-mini,reference,"def sort_age(lst):
+    # Fill in your code here
+    sorted = []
+    while lst:
+        oldest = lst[0]
+        for i in range(len(lst)):
+            if lst[i][1] > oldest[1]:
+                oldest = lst[i]
+        sorted.append(oldest)
+        lst.remove(oldest)
+    return sorted
+",True,0.1489,4.6612,4.6612,0.0,0,0,0.0,[],[]
+wrong_4_329,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for i in lst:
+            if i[1] > biggest[1]:
+                biggest = i
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort
+    
+",True,0.1163,5.8641,5.8641,0.0,0,0,0.0,[],[]
+wrong_4_330,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for i in lst:
+            if i[1] > biggest[1]:
+                biggest = i
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort
+    
+",True,0.1163,5.0718,5.0718,0.0,0,0,0.0,[],[]
+wrong_4_331,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for i in lst:
+            if i[1] > biggest[1]:
+                biggest = i
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort
+    
+",True,0.093,5.2495,5.2495,0.0,0,0,0.0,[],[]
+wrong_4_332,gpt-5.4-mini,reference,"def sort_age(lst):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for i in lst:
+            if i[1] > biggest[1]:
+                biggest = i
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort
+    
+",True,0.0698,5.0361,5.0361,0.0,0,0,0.0,[],[]
+wrong_4_333,gpt-5.4-mini,reference,"def sort_age(lst):
+	a = 0
+	for i in range(len(lst) - 1):
+		if lst[i][1] < lst[i+1][1]:
+			lst.insert(i, lst[i+1])
+			lst.pop(i + 2)
+			a += 1
+	if a == 0:
+		return lst
+	else:
+		return sort_age(lst)
+",True,0.62,3.9919,3.9919,0.0,0,0,0.0,[],[]
+wrong_4_334,gpt-5.4-mini,reference,"def sort_age(lst):
+	a = 0
+	for i in range(len(lst) - 1):
+		if lst[i][1] < lst[i+1][1]:
+			lst.insert(i, lst[i+1])
+			lst.pop(i + 2)
+			a += 1
+	if a == 0:
+		return lst
+	else:
+		return sort_age(lst)
+",True,0.6875,4.151,4.151,0.0,0,0,0.0,[],[]
+wrong_4_335,gpt-5.4-mini,rules,"def sort_age(lst):
+    if len(lst) <= 1:
+        return lst
+    else:
+        temp=lst[0][1]
+        for i in range(len(lst)):
+            if lst[i][1] >= temp:
+                temp=lst[i][1]
+                count=i
+        result=[lst[count],]
+        pop=lst.pop(count)
+        return result+sort_age(lst)
+    # Fill in your code here
+    pass
+",True,0.0303,2.855,2.855,0.0,0,0,0.0,"[""generic_flip_compare"", ""generic_flip_compare"", ""generic_flip_compare""]",[]
+wrong_4_336,gpt-5.4-mini,rules,"def sort_age(lst):
+    if len(lst) <= 1:
+        return lst
+    else:
+        temp=lst[0][1]
+        count=0
+        for i in range(len(lst)):
+            if lst[i][1]>temp:
+                temp=lst[i][1]
+                count=i
+        result=[lst[count],]
+        pop=lst.pop(count)
+        return result+sort_age(lst)
+    # Fill in your code here
+    pass
+",True,0.0145,0.1946,0.1946,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_337,gpt-5.4-mini,reference,"def sort_age(lst):
+    if lst==[]:
+        return []
+    new_lst=[lst[0],]
+    for x in lst[1:]:
+        if x[1] > new_lst[-1][1]:
+            new_lst += [x,]
+        else:
+            count=0
+            while count<len(new_lst):
+                if x[1] > new_lst[count][1]:
+                    count+=1
+                    continue
+                else:
+                    new_lst = new_lst[0:count]+[x,]+new_lst[count:]
+                    break
+    return new_lst[::-1]
+",True,0.0824,15.6382,15.6382,0.0,0,0,0.0,[],[]
+wrong_4_338,gpt-5.4-mini,reference,"def sort_age(lst):
+    if lst==[]:
+        return []
+    new_lst=[lst[0],]
+    for x in lst[1:]:
+        if x[1] > new_lst[-1][1]:
+            new_lst += [x,]
+        else:
+            count=0
+            while count<len(new_lst):
+                if x[1] > new_lst[count][1]:
+                    count+=1
+                    continue
+                else:
+                    new_lst = new_lst[0:count]+[x,]+new_lst[count:]
+                    break
+    return new_lst[::-1]
+",True,0.1304,15.6253,15.6253,0.0,0,0,0.0,[],[]
+wrong_4_339,gpt-5.4-mini,reference,"def sort_age(lst):
+    if lst == []:
+        return lst
+    else:
+        age_lst, new_lst = [], []
+        for x in lst:
+            age_lst.append(x[1])
+        while age_lst:
+            max_age = max(age_lst)
+            for i in lst:
+                if i[1] == max_age:
+                    new_lst.append(i)
+                    age_lst.remove(i[1])
+        return new_lst
+    pass
+",True,0.1321,63.2544,63.2544,0.0,0,0,0.0,[],[]
+wrong_4_340,gpt-5.4-mini,rules,"def sort_age(lst):
+    l = len(lst)
+    for i in range(0, l):
+        for j in range(0, l-i-1):
+            if (lst[j][1] < lst[j + 1][1]):
+                temp = lst[j]
+                lst[j]= lst[j + 1]
+                lst[j + 1]= temp
+    return lst
+",True,0.0147,0.178,0.178,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_341,gpt-5.4-mini,reference,"def sort_age(lst):
+    l = len(lst)
+    for i in range(0, l):
+        for j in range(0, l-i-1):
+            if (lst[j][1] > lst[j + 1][1]):
+                temp = lst[j]
+                lst[j]= lst[j + 1]
+                lst[j + 1]= temp
+    return lst[::-1]
+",True,0.0986,4.804,4.804,0.0,0,0,0.0,[],[]
+wrong_4_342,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key=lambda x: x[1 - 1 - 1], reverse=True)
+    return lst
+",True,0.3158,0.3839,0.3839,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_343,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    while lst:
+        Max = max(lst,key = lambda x : x[1])
+        new.append(Max)
+        lst.remove(Max)
+    return new
+    
+",True,1.3529,3.7545,3.7545,0.0,0,0,0.0,[],[]
+wrong_4_344,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    for x in lst:
+        index = 0
+        for i in new:
+            if x[1] < i[1]:
+                index += 1
+        new.insert(index,x)
+    return new
+",True,0.825,5.2065,5.2065,0.0,0,0,0.0,[],[]
+wrong_4_345,gpt-5.4-mini,reference,"def sort_age(lst):
+    new = []
+    for x in lst:
+        index = 0
+        for i in new:
+            if x[1] < i[1]:
+                index += 1
+        new.insert(index,x)
+    return new
+",True,0.825,5.6159,5.6159,0.0,0,0,0.0,[],[]
+wrong_4_346,gpt-5.4-mini,reference,"def sort_age(lst):
+    current=[]
+    tup=0
+    while lst:
+        for i in lst:
+            if i[1]>tup:
+                tup = i[1]
+                count=i
+        current=current+[count]
+        lst.remove(count)
+        tup=0
+    return current
+",True,0.7561,5.9309,5.9309,0.0,0,0,0.0,[],[]
+wrong_4_347,gpt-5.4-mini,reference,"def sort_age(lst):
+    current = []
+    for tup in lst:
+        current.append(tup[1])
+    i = []
+    while current:
+        largest = current[0]
+        for element in current:
+            if element > largest:
+                largest = element
+        current.remove(largest)
+        i.append(largest)
+    lst2 = []
+    counter = 0
+    for tup in i:
+        for j in lst:
+            if j[1] == tup:
+                lst2.append(j)
+                counter += 1
+    return lst2
+",True,1.5814,5.4535,5.4535,0.0,0,0,0.0,[],[]
+wrong_4_348,gpt-5.4-mini,reference,"def sort_age(lst):
+    current=[]
+    tup=0
+    while lst:
+        for i in lst:
+            if i[1]>tup:
+                tup = i[1]
+                count=i
+        current=current+[count]
+        lst.remove(count)
+        tup=0
+    return current
+",True,0.7619,5.0944,5.0944,0.0,0,0,0.0,[],[]
+wrong_4_349,gpt-5.4-mini,reference,"def sort_age(lst):
+    current = []
+    tup = []
+    for i in lst:
+        current.append(i[1])
+    while current:
+        age = max(current)
+        for i in lst:
+            if age == i[1]:
+                tup.append(i)
+                current.remove(age)
+    return tup
+            
+",True,0.75,5.174,5.174,0.0,0,0,0.0,[],[]
+wrong_4_350,gpt-5.4-mini,reference,"def sort_age(lst):
+    result=[]
+    for i in lst:
+        result+=[i[::-1],]
+    result.sort()
+    result.reverse()
+    ans=[]
+    for i in result:
+        ans+=[i[::-1],]
+    return ans
+",True,0.0217,0.545,0.545,0.0,0,0,0.0,[],[]
+wrong_4_351,gpt-5.4-mini,reference,"def sort_age(lst):
+    lst.sort()
+    new = []
+    i = len(lst)
+    
+    for j in range(i):
+        smallest = lst[0] #create a variable called ""smallest""
+        for element in lst: #loop through each element in list
+            if element[1] < smallest[1]: #must compare by the same property of element
+                smallest = element
+        lst.remove(smallest)
+        new.append(smallest)
+    
+    
+    new.reverse() #reverse the list that is sorted
+    return new
+",True,1.0526,4.785,4.785,0.0,0,0,0.0,[],[]
+wrong_4_352,gpt-5.4-mini,rules,"def sort_age(lst):
+    # lst.sort(key = lambda x: x[1], reverse= True)
+    # return lst
+    while True: 
+        changed = False 
+        for i in range (len(lst)-1):
+            if lst[i][1] <= lst[i + 1][1]:
+                lst[i], lst[i+1] = lst[i+1], lst[i]
+                changed = True 
+        if not changed: 
+            break 
+    return lst 
+",True,0.0152,6.2291,6.2291,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_4_353,gpt-5.4-mini,reference,"def sort_age(lst):
+    # Fill in your code here
+    A = map(lambda x:x[1],lst)
+    a = []
+    for i in lst:
+        a.append(i[1])
+    sort = []
+    while a:
+        largest = a[0]
+        for element in a:
+            if element > largest:
+                largest = element
+        a.remove(largest)
+        sort.append(largest)
+    lst2 = []
+    counter = 0
+    for i in sort:
+        for j in lst:
+            if j[1] == i:
+                lst2.append(j)
+                counter += 1
+    return lst2
+",True,0.7093,4.6957,4.6957,0.0,0,0,0.0,[],[]
+wrong_4_354,gpt-5.4-mini,rules,"def sort_age(lst):
+    lst.sort(key = lambda x: x[1 - 1 - 1],reverse=True)
+    return lst
+",True,0.3158,0.2458,0.2458,0.0,0,0,0.0,"[""generic_shift_index"", ""generic_shift_index""]",[]
+wrong_4_355,gpt-5.4-mini,reference,"def sort_age(lst):
+    # Fill in your code here
+    newlst=[]
+    while lst:
+        maximum = lst[0][1]
+        i=lst[0]
+        for ele in lst:
+            if ele[1] > maximum:
+                maximum = ele[1]
+                i=ele
+        lst.remove(i)
+        newlst.append(i)
+    return newlst
+",True,0.3556,13.4266,13.4266,0.0,0,0,0.0,[],[]
+wrong_4_356,gpt-5.4-mini,reference,"def sort_age(lst):
+    # Fill in your code here
+    newlst=[]
+    while lst:
+        maximum = lst[0][1]
+        i=lst[0]
+        for ele in lst:
+            if ele[1] > maximum:
+                maximum = ele[1]
+                i=ele
+        lst.remove(i)
+        newlst.append(i)
+    return newlst
+",True,0.3023,13.3372,13.3372,0.0,0,0,0.0,[],[]
+wrong_4_357,gpt-5.4-mini,reference,"def sort_age(lst):
+    # Fill in your code here
+    newlst=[]
+    while lst:
+        maximum = lst[0][1]
+        for i in lst:
+            if i[1]>maximum:
+                maximum=i[1]
+        for i in lst:
+            if i[1]==maximum:
+                newlst.append(i)
+                lst.remove(i)
+
+    return newlst
+",True,0.3256,82.0113,82.0113,0.0,0,0,0.0,[],[]

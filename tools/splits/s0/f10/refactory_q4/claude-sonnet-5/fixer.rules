@@ -1,0 +1,197 @@
+rule reorder_empty_guard_after_unsafe_index
+symptoms: wrong, err:IndexError
+match:
+    $s1:Stmt
+    if $lst == []:
+        return []
+    |
+    $s1:Stmt
+    if not $lst:
+        return []
+where: first() and some($s1, "$lst[0]")
+rewrite:
+    if $lst == []:
+        return []
+    $s1
+    |
+    if not $lst:
+        return []
+    $s1
+
+rule init_age_scalar_not_tuple
+symptoms: wrong
+match: $v:Name = $lst[0][1]
+where: inside("while $c: $B:Stmts") and some($B, "$v = $e:Name") and not($v == $e)
+rewrite: $v = $lst[0]
+
+rule cmp_scalar_vs_tuple_elem
+symptoms: wrong
+match: $a[1] $o:Cmp $v:Name
+where: regex($o, "^[<>]=?$") and inside("while $c: $B:Stmts") and some($B, "$v = $a2:Name") and not($v == $a2)
+rewrite: $a[1] ${flip[$o]} $v[1]
+table flip: {"<": ">", ">": "<", "<=": ">=", ">=": "<="}
+
+rule return_wrong_variable_use_accumulator
+symptoms: wrong
+match: return $x:Name
+where: inside("def $f($*ps): $B:Stmts") and some($B, "$x2:Name = []") and not($x == $x2) and some($B, "$x2.append($_)")
+rewrite: return $x2
+
+rule age_only_tracking_full_fix
+symptoms: wrong
+match:
+    for $e in $lst:
+        if $e[1] $o:Cmp $v:
+            $v = $e[1]
+    $a.remove($e)
+    $b.append($e)
+where: regex($o, "^[<>]=?$") and before("$v = $lst[0][1]")
+rewrite:
+    $v = $lst[0]
+    for $e in $lst:
+        if $e[1] $o $v[1]:
+            $v = $e
+    $a.remove($v)
+    $b.append($v)
+
+rule wrap_single_pass_selection_in_while
+symptoms: wrong
+match:
+    for $e in $lst[1:]:
+        if $e[1] > $v[1]:
+            $v = $e
+    $a.remove($v)
+    $b.append($v)
+where: before("$v = $lst[0]") and not inside("while $c: $Bz:Stmts")
+rewrite:
+    while $lst:
+        $v = $lst[0]
+        for $e in $lst[1:]:
+            if $e[1] > $v[1]:
+                $v = $e
+        $a.remove($v)
+        $b.append($v)
+
+rule mismatched_accumulator_name
+symptoms: wrong, err:NameError
+match: $x:Name = []
+where: inside("def $f($p): $B:Stmts") and some($B, "$y:Name.append($_)") and not($x == $y) and some($B, "return $y")
+rewrite: $y = []
+
+rule missing_base_case_before_recursion
+symptoms: wrong, timeout
+match: $h:Name = []
+where: inside("def $f($p): $B:Stmts") and some($B, "return $_ + sort_age($_)") and not some($B, "if $p == []") and not some($B, "if not $p") and first()
+rewrite:
+    if $p == []:
+        return []
+    $h = []
+
+rule recursive_call_drops_found_max
+symptoms: wrong
+match:
+    return $h + sort_age($lst[1:])
+    |
+    return [$h] + sort_age($lst[1:])
+rewrite:
+    $lst.remove($h)
+    return [$h] + sort_age($lst)
+
+rule fake_sort_track_max_always_append
+symptoms: wrong
+match:
+    $maxv:Name = $lst[0][1]
+    $acc:Name = []
+    for $i in $lst:
+        if $i[1] > $maxv:
+            $maxv = $i[1]
+        $acc.append($i)
+rewrite:
+    $acc = []
+    while $lst:
+        $maxv = $lst[0]
+        for $i in $lst:
+            if $i[1] > $maxv[1]:
+                $maxv = $i
+        $acc.append($maxv)
+        $lst.remove($maxv)
+
+rule fake_sort_insert_front_else_append
+symptoms: wrong
+match:
+    $acc:Name = []
+    $maxv:Name = $init:Const
+    for $i in $lst:
+        if $i[1] > $maxv:
+            $maxv = $i[1]
+            $acc.insert(0, $i)
+        else:
+            $acc.append($i)
+rewrite:
+    $acc = []
+    while $lst:
+        $maxv = $lst[0]
+        for $i in $lst:
+            if $i[1] > $maxv[1]:
+                $maxv = $i
+        $acc.append($maxv)
+        $lst.remove($maxv)
+
+rule split_by_category_then_concat
+symptoms: wrong
+match:
+    $m.sort()
+    $f.sort()
+    $c:Name = $m[::-1] + $f[::-1]
+rewrite:
+    $c = sorted($m + $f, key=lambda t: t[1], reverse=True)
+
+rule merge_pop_wrong_end
+symptoms: wrong
+match:
+    if $a[0][1] $o:Cmp $b[0][1]:
+        $r.append($x.pop())
+    else:
+        $r.append($y.pop())
+where: ($x == $a and $y == $b) or ($x == $b and $y == $a)
+rewrite:
+    if $a[0][1] $o $b[0][1]:
+        $r.append($x.pop(0))
+    else:
+        $r.append($y.pop(0))
+
+rule extend_pop_misused_as_swap
+symptoms: wrong, err:TypeError
+match:
+    $i:Name = 0
+    while $i+1 < len($lst):
+        if $lst[$i][1] < $lst[$i+1][1]:
+            $lst.extend([$lst[$i]])
+            $lst.pop($lst[$i])
+        else:
+            $i += 1
+rewrite:
+    swap = True
+    while swap:
+        swap = False
+        for $i in range(len($lst)-1):
+            if $lst[$i][1] < $lst[$i+1][1]:
+                $lst[$i], $lst[$i+1] = $lst[$i+1], $lst[$i]
+                swap = True
+
+rule single_pass_temp_swap_bubble
+symptoms: wrong
+match:
+    for $i in range(len($lst)-1):
+        if $lst[$i+1][1] > $lst[$i][1]:
+            $t:Name = $lst[$i]
+            $lst[$i] = $lst[$i+1]
+            $lst[$i+1] = $t
+rewrite:
+    swap = True
+    while swap:
+        swap = False
+        for $i in range(len($lst)-1):
+            if $lst[$i][1] < $lst[$i+1][1]:
+                $lst[$i], $lst[$i+1] = $lst[$i+1], $lst[$i]
+                swap = True

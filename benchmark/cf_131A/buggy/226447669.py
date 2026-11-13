@@ -1,0 +1,5 @@
+s = input()
+r = list(s.lower())
+r[0] = r[0].upper()
+t = "".join(r)
+print(t)

@@ -1,0 +1,161 @@
+rule ceil_cm_to_inches_plus1
+symptoms: wrong
+match: (int(input())+2)//3
+rewrite: (int(input())+1)//3
+
+rule round_feet_to_inches_then_split
+symptoms: wrong
+match:
+    feet = n // 36
+    left = n - 36 * feet
+    inch = round(left / 3)
+rewrite:
+    inch = round(n / 3)
+    feet = inch // 12
+    inch = inch % 12
+
+rule round_total_inches_then_split
+symptoms: wrong
+match:
+    x = n//36
+    y = round(n/3)
+rewrite:
+    x = round(n/3)
+    y = x//12
+
+rule fix_inch_rounding_from_rem
+symptoms: wrong
+match:
+    n=int(input())
+    a=n//36
+    n%=36
+    b=(n+1)//3
+rewrite:
+    n=int(input())
+    n += 1
+    a = n//36
+    n %= 36
+    b = n//3
+
+rule fix_mod26_to_mod36
+symptoms: wrong
+match:
+    cms=int(input())
+    inch=cms//36 
+    cms=cms%26 
+    print(inch,cms//3)
+rewrite:
+    cms=int(input())
+    inch=cms//36 
+    cms=cms%36 
+    print(inch,cms//3)
+
+rule round_inches_with_carry_to_feet
+symptoms: wrong
+match:
+    n=int(input())
+    x1=n//36
+    x2=n%36
+    a=x1
+    b1=x2//3
+    b2=x2%3
+    if b2==1 or b2==0:
+        b=b1
+    else:
+        b=b1+1
+    print(a,b,end=" ")
+rewrite:
+    n = int(input())
+    inc = n//3
+    rem = n%3
+    inc += 1 if rem == 2 else 0
+    ft = inc//12
+    inc = inc%12
+    print(ft, inc)
+
+rule fix_float_rounding_direction
+symptoms: wrong
+match:
+    feet = int(n / 36 + 0.5)
+    r = n - 36 * feet
+    inch = int(r / 3 + 0.5)
+rewrite:
+    inch = int(n / 3 + 0.5)
+    feet = int(inch / 12)
+    r = inch - 12 * feet
+
+rule cast_split_outputs_to_int
+symptoms: wrong
+match:
+    print(str(a//12)+' '+str(a%12))
+rewrite:
+    print(str(int(a//12))+' '+str(int(a%12)))
+
+rule fix_final_inch_carry
+symptoms: wrong
+match:
+    finalinch = fullinch + roundI(N-feet*36-fullinch*3)
+rewrite:
+    finalinch = fullinch + roundI(N-feet*36-fullinch*3)
+    if finalinch == 12:
+        feet += 1
+        finalinch = 0
+
+rule correct_roundI_base_case
+symptoms: wrong
+match:
+    if roundI==1:
+        return 0
+rewrite:
+    if inch<=1:
+        return 0
+
+rule fix_rem_inches_after_feet
+symptoms: wrong
+match:
+    rem_centimeters = centimeters - feet*12*3
+    rem_inches = round(rem_centimeters/3)
+rewrite:
+    rem_inches = round(centimeters/3)
+    feet = rem_inches // 12
+    rem_inches = rem_inches % 12
+
+rule fix_print_trailing_spaces
+symptoms: wrong
+match: print(feet,'  ',inch)
+rewrite: print(feet,"  ",r)
+
+rule fix_ceil_on_remainder
+symptoms: wrong
+match:
+    if al == 1 or al == 0 :
+        ans=cms//3 
+    else:
+        ans=cms//3+1
+rewrite:
+    if al == 2:
+        ans=cms//3+1
+    else:
+        ans=cms//3
+
+rule fix_divmod_rounding_to_total_inches
+symptoms: wrong
+match:
+    feet, rest = divmod(length, FOOTINCM)
+    inches, rest = divmod(rest, INCHINCM)
+    print(feet, inches + 1 if rest > 1 else inches)
+rewrite:
+    inc = length//3
+    rem = length%3
+    inc += 1 if rem == 2 else 0
+    feet = inc//12
+    inc = inc%12
+    print(feet, inc)
+
+rule fix_integer_index_rounding
+symptoms: wrong
+match:
+    print(n//36+(n%36)/3)
+rewrite:
+    n = int(input()) + 1
+    print(n // 36, n % 36 // 3)

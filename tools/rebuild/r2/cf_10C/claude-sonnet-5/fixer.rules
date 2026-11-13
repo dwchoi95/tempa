@@ -1,0 +1,34 @@
+rule digit_root_bruteforce_closed_form_with_n
+symptoms: wrong
+match: print($e)
+where: last()
+    and before("$n:Name = int(input())")
+    and before("def $g($p): $B:Stmts")
+    and some($B, "str($p)")
+rewrite:
+    q, r = divmod($n, 9)
+    droots = [q] + [q+1]*r + [q]*(8-r)
+    res = 0
+    for a in range(9):
+        for b in range(9):
+            res += droots[a]*droots[b]*droots[(a*b) % 9]
+    for k in range(1, $n+1):
+        res -= $n // k
+    print(res)
+
+rule digit_root_bruteforce_closed_form_direct_call
+symptoms: wrong
+match: print($g:Name(input()))
+where: before("def $g($p): $B:Stmts")
+    and some($B, "str($p)")
+rewrite:
+    n = int(input())
+    q, r = divmod(n, 9)
+    droots = [q] + [q+1]*r + [q]*(8-r)
+    res = 0
+    for a in range(9):
+        for b in range(9):
+            res += droots[a]*droots[b]*droots[(a*b) % 9]
+    for k in range(1, n+1):
+        res -= n // k
+    print(res)

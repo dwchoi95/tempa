@@ -1,0 +1,447 @@
+rule bare_lower_print
+symptoms: wrong
+match:
+    $k = $s.lower()
+    print($k)
+rewrite:
+    if len($s) == 1 or $s.isupper() or ($s[0].islower() and $s[1:].isupper()):
+        $k = $s.swapcase()
+    else:
+        $k = $s
+    print($k)
+
+rule print_title_or_capitalize
+symptoms: wrong
+match:
+    print($s.title())
+    |
+    print($s.capitalize())
+rewrite:
+    if len($s) == 1 or $s.isupper() or ($s[0].islower() and $s[1:].isupper()):
+        print($s.swapcase())
+    else:
+        print($s)
+
+rule assign_title_capitalize_then_print
+symptoms: wrong
+match:
+    $k = $s.title()
+    print($k)
+    |
+    $k = $s.capitalize()
+    print($k)
+rewrite:
+    if len($s) == 1 or $s.isupper() or ($s[0].islower() and $s[1:].isupper()):
+        $k = $s.swapcase()
+    else:
+        $k = $s
+    print($k)
+
+rule forgotten_assignment_title_or_capitalize
+symptoms: wrong
+match:
+    $s.title()
+    print($s)
+    |
+    $s.capitalize()
+    print($s)
+rewrite:
+    if len($s) == 1 or $s.isupper() or ($s[0].islower() and $s[1:].isupper()):
+        print($s.swapcase())
+    else:
+        print($s)
+
+rule input_title_assign_then_print
+symptoms: wrong
+match:
+    $s = input().title()
+    print($s)
+rewrite:
+    $s = input()
+    if len($s) == 1 or $s.isupper() or ($s[0].islower() and $s[1:].isupper()):
+        $s = $s.swapcase()
+    print($s)
+
+rule lower_input_then_print_title
+symptoms: wrong
+match:
+    $s = input().lower()
+    print($s.title())
+rewrite:
+    $s = input()
+    if len($s) == 1 or $s.isupper() or ($s[0].islower() and $s[1:].isupper()):
+        $s = $s.swapcase()
+    print($s)
+
+rule inline_lower_capitalize_print
+symptoms: wrong
+match: print(input().lower().capitalize())
+rewrite:
+    s = input()
+    if len(s) == 1 or s.isupper() or (s[0].islower() and s[1:].isupper()):
+        s = s.swapcase()
+    print(s)
+
+rule inline_title_print
+symptoms: wrong
+match: print(input().title())
+rewrite:
+    s = input()
+    if len(s) == 1 or s.isupper() or (s[0].islower() and s[1:].isupper()):
+        s = s.swapcase()
+    print(s)
+
+rule lower_then_print_capitalize
+symptoms: wrong
+match:
+    $s = $s.lower()
+    print($s.capitalize())
+rewrite:
+    if len($s) == 1 or $s.isupper() or ($s[0].islower() and $s[1:].isupper()):
+        $s = $s.swapcase()
+    print($s)
+
+rule lower_var_then_capitalize_var_then_print
+symptoms: wrong
+match:
+    $f = $s.lower()
+    $d = $f.capitalize()
+    print($d)
+rewrite:
+    if len($s) == 1 or $s.isupper() or ($s[0].islower() and $s[1:].isupper()):
+        $d = $s.swapcase()
+    else:
+        $d = $s
+    print($d)
+
+rule print_slice_capitalize
+symptoms: wrong
+match:
+    print($s[0].upper() + $s[1:].lower())
+    |
+    print($s[0].upper() + $s[1::].lower())
+    |
+    print($s[0].upper() + $s[1:].casefold())
+    |
+    print($s[:1].upper() + $s[1:])
+rewrite:
+    if len($s) == 1 or $s.isupper() or ($s[0].islower() and $s[1:].isupper()):
+        print($s.swapcase())
+    else:
+        print($s)
+
+rule assign_slice_capitalize_then_print
+symptoms: wrong
+match:
+    $k = $s[0].upper() + $s[1:].lower()
+    print($k)
+    |
+    $k = $s[0].upper() + $s[1::].lower()
+    print($k)
+    |
+    $k = $s[0].upper() + $s[1:len($s)]
+    print($k)
+rewrite:
+    if len($s) == 1 or $s.isupper() or ($s[0].islower() and $s[1:].isupper()):
+        $k = $s.swapcase()
+    else:
+        $k = $s
+    print($k)
+
+rule lower_then_firstupper_assign_print
+symptoms: wrong
+match:
+    $s = $s.lower()
+    $d = $s[0].upper() + $s[1:]
+    print($d)
+    |
+    $s = $s.lower()
+    $d = $s[0].upper() + $s[1::]
+    print($d)
+rewrite:
+    if len($s) == 1 or $s.isupper() or ($s[0].islower() and $s[1:].isupper()):
+        $d = $s.swapcase()
+    else:
+        $d = $s
+    print($d)
+
+rule lower_then_split_upper_then_print_concat
+symptoms: wrong
+match:
+    $s = $s.lower()
+    $x = $s[0].upper()
+    print($x + $s[1:])
+rewrite:
+    if len($s) == 1 or $s.isupper() or ($s[0].islower() and $s[1:].isupper()):
+        $s = $s.swapcase()
+    print($s)
+
+rule augmented_assign_capitalize
+symptoms: wrong
+match:
+    $b = $s[0].upper()
+    $b += $s[1:].lower()
+    print($b)
+rewrite:
+    if len($s) == 1 or $s.isupper() or ($s[0].islower() and $s[1:].isupper()):
+        $b = $s.swapcase()
+    else:
+        $b = $s
+    print($b)
+
+rule split_x_then_concat_print
+symptoms: wrong
+match:
+    $x = $s[0]
+    $y = $x.upper() + $s[1:].lower()
+    print($y)
+    |
+    $x = $s[0]
+    $y = $x.upper() + $s[1::].lower()
+    print($y)
+rewrite:
+    if len($s) == 1 or $s.isupper() or ($s[0].islower() and $s[1:].isupper()):
+        $y = $s.swapcase()
+    else:
+        $y = $s
+    print($y)
+
+rule split_first_rest_then_print
+symptoms: wrong
+match:
+    $p = $s[0]
+    $y = $s[1:len($s)]
+    print($p.upper()+$y.lower())
+rewrite:
+    if len($s) == 1 or $s.isupper() or ($s[0].islower() and $s[1:].isupper()):
+        print($s.swapcase())
+    else:
+        print($s)
+
+rule split_upper_lower_concat_three
+symptoms: wrong
+match:
+    $s = $n[0].upper()
+    $p = $n[1::].lower()
+    $r = $s + $p
+rewrite:
+    if len($n) == 1 or $n.isupper() or ($n[0].islower() and $n[1:].isupper()):
+        $r = $n.swapcase()
+    else:
+        $r = $n
+
+rule capslock_wrong_predicate_upper_cmp
+symptoms: wrong
+match:
+    $k = $s.upper()
+    if $k == $s:
+        print($s)
+    else:
+        print($k[0]+$s[1:len($s)].lower())
+rewrite:
+    $k = $s.upper()
+    if $k == $s:
+        print($s.lower())
+    elif $s[0].islower() and $s[1:] == $k[1:]:
+        print($k[0]+$s[1:].lower())
+    else:
+        print($s)
+
+rule truthy_lower_condition_wrong_branches
+symptoms: wrong
+match:
+    if $s[1:].lower():
+        print($s.capitalize())
+    else:
+        print($s.uppercase())
+rewrite:
+    if $s.isupper() or ($s[0].islower() and $s[1:].isupper()) or len($s) == 1:
+        print($s.swapcase())
+    else:
+        print($s)
+
+rule truthy_first_char_lower_condition
+symptoms: wrong
+match:
+    if $s[0].lower():
+        print($s.capitalize())
+    else:
+        print($s.uppercase())
+rewrite:
+    if $s.isupper() or ($s[0].islower() and $s[1:].isupper()) or len($s) == 1:
+        print($s.swapcase())
+    else:
+        print($s)
+
+rule truthy_condition_always_capitalize
+symptoms: wrong
+match:
+    if $s[0].lower() or $s[1:].upper():
+        print($s.capitalize())
+    else:
+        print($s)
+rewrite:
+    if $s.isupper() or ($s[0].islower() and $s[1:].isupper()) or len($s) == 1:
+        print($s.swapcase())
+    else:
+        print($s)
+
+rule truthy_upper_condition_print_unchanged
+symptoms: wrong
+match:
+    if $s[1:].upper():
+        print($s)
+    else:
+        print($s.capatalize())
+rewrite:
+    if $s.isupper() or ($s[0].islower() and $s[1:].isupper()) or len($s) == 1:
+        print($s.swapcase())
+    else:
+        print($s)
+
+rule truthy_lower_always_unchanged
+symptoms: wrong
+match:
+    if $s.lower():
+        print($s)
+    else:
+        print($s.swapcase())
+rewrite:
+    if $s.isupper() or ($s[0].islower() and $s[1:].isupper()) or len($s) == 1:
+        print($s.swapcase())
+    else:
+        print($s)
+
+rule truthy_import_string_variant
+symptoms: wrong
+match:
+    if $s[0].islower() and $s[1:].upper():
+        print($s.capitalize())
+    elif $s.upper():
+        print($s)
+    else:
+        print($s.capitalize())
+rewrite:
+    if $s.isupper():
+        print($s.lower())
+    elif $s[0].islower() and $s[1:].isupper():
+        print($s.capitalize())
+    elif len($s) == 1:
+        print($s.swapcase())
+    else:
+        print($s)
+
+rule import_string_long_chain_missing_allupper
+symptoms: wrong
+match:
+    if len($s) == 1:
+        print($s.upper())
+    elif $s.islower():
+        print($s.lower())
+    elif $s[0].islower() and $s[1:].upper():
+        print($s.capitalize())
+    elif $s.upper():
+        print($s)
+    else:
+        print($s.capitalize())
+rewrite:
+    if len($s) == 1:
+        print($s.upper())
+    elif $s.isupper():
+        print($s.lower())
+    elif $s[0].islower() and $s[1:].isupper():
+        print($s.capitalize())
+    else:
+        print($s)
+
+rule missing_first_char_prefix
+symptoms: wrong
+match:
+    if $s[1:].isupper():
+        print($s[1:].casefold())
+    else:
+        print($s)
+rewrite:
+    if $s[1:].isupper():
+        print($s[0].upper() + $s[1:].casefold())
+    else:
+        print($s)
+
+rule outer_isupper_wrong_body
+symptoms: wrong
+match:
+    if $s[0].isupper():
+        print($s[0]+$s[1:].casefold())
+    else:
+        $REST:Stmts
+rewrite:
+    if $s.isupper():
+        print($s.lower())
+    else:
+        $REST
+
+rule missing_single_char_case_isupper_chain
+symptoms: wrong
+match:
+    if $s.isupper():
+        $s = $s.lower()
+        print($s)
+    elif $s[1::].isupper():
+        $s = $s.title()
+        print($s)
+    else:
+        print($s)
+rewrite:
+    if $s.isupper() or len($s) == 1:
+        $s = $s.swapcase()
+        print($s)
+    elif $s[1::].isupper():
+        $s = $s.title()
+        print($s)
+    else:
+        print($s)
+
+rule regex_swapcase_missing_singlechar
+symptoms: wrong
+match:
+    if $cond:
+        print($s.swapcase())
+    else:
+        print($s)
+where: regex($cond, "findall")
+rewrite:
+    if len($s) == 1 or $cond:
+        print($s.swapcase())
+    else:
+        print($s)
+
+rule regex_inverted_swapcase_default
+symptoms: wrong
+match:
+    if $cond:
+        print($s)
+    else:
+        print($s.swapcase())
+where: regex($cond, "findall")
+rewrite:
+    if $s.isupper() or (len($s) > 1 and $s[0].islower() and $s[1:].isupper()) or len($s) == 1:
+        print($s.swapcase())
+    else:
+        print($s)
+
+rule ternary_swapcase_missing_singlechar
+symptoms: wrong
+match: $s.swapcase() if $s[1:].isupper() else $s
+rewrite: $s.swapcase() if (len($s) == 1 or $s[1:].isupper()) else $s
+
+rule forgotten_assignment_return_variant
+symptoms: wrong
+match:
+    $s = input().lower()
+    $s[0].upper()
+    return $s
+rewrite:
+    $s = input()
+    if len($s) == 1 or $s.isupper() or ($s[0].islower() and $s[1:].isupper()):
+        $s = $s.swapcase()
+    return $s

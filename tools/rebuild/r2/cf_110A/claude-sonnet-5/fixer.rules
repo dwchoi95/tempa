@@ -1,0 +1,177 @@
+rule yes_literal_case_fix
+symptoms: wrong
+match: print($s:Str)
+where: regex($s, "(?i)^['\"]yes['\"]$") and not regex($s, "YES")
+rewrite: print("YES")
+
+rule no_literal_case_fix
+symptoms: wrong
+match: print($s:Str)
+where: regex($s, "(?i)^['\"]no['\"]$") and not regex($s, "NO")
+rewrite: print("NO")
+
+rule ternary_yesno_case_fix
+symptoms: wrong
+match: print($a:Str if $cond else $b:Str)
+where: regex($a, "(?i)^['\"]yes['\"]$") and regex($b, "(?i)^['\"]no['\"]$") and not (regex($a, "YES") and regex($b, "NO"))
+rewrite: print("YES" if $cond else "NO")
+
+rule ternary_si_no_fix
+symptoms: wrong
+match: print($a:Str if $cond else $b:Str)
+where: regex($a, "(?i)^['\"]si['\"]$") and regex($b, "(?i)^['\"]no['\"]$")
+rewrite: print("YES" if $cond else "NO")
+
+rule char_eq_int_literal
+symptoms: wrong
+match: $c == $n:Int
+where: ($n == 4 or $n == 7) and inside("for $c2:Name in $s: $B:Stmts") and $c2 == $c and not regex($s, "int")
+rewrite: $c == str($n)
+
+rule indexed_char_eq_int_literal
+symptoms: wrong
+match: $arr[$i] == $n:Int
+where: ($n == 4 or $n == 7) and not regex($arr, "int")
+rewrite: $arr[$i] == str($n)
+
+rule duplicate_digit_count
+symptoms: wrong
+match:
+    $a:Name = $s.count($lit:Str)
+    $b:Name = $s.count($lit2:Str)
+where: text($lit) == text($lit2) and regex($lit, "4")
+rewrite:
+    $a = $s.count($lit)
+    $b = $s.count("7")
+
+rule digit_extracted_but_original_compared
+symptoms: wrong
+match:
+    $d:Name = $n % 10
+    if $n == $k1:Int or $n == $k2:Int:
+        $body:Stmts
+    $n = $n // 10
+where: ($k1 == 4 and $k2 == 7) or ($k1 == 7 and $k2 == 4)
+rewrite:
+    $d = $n % 10
+    if $d == $k1 or $d == $k2:
+        $body
+    $n = $n // 10
+
+rule remove_break_in_lucky_count_loop
+symptoms: wrong
+match:
+    for $i in $s:
+        if $i == $a:Str or $i == $b:Str:
+            $c:Name = $c + 1
+        else:
+            break
+    |
+    for $i in $s:
+        if $i == $a:Str or $i == $b:Str:
+            $c:Name += 1
+        else:
+            break
+rewrite:
+    for $i in $s:
+        if $i == $a or $i == $b:
+            $c = $c + 1
+    |
+    for $i in $s:
+        if $i == $a or $i == $b:
+            $c += 1
+
+rule or_literal_membership_bug
+symptoms: wrong
+match: $n == ($a:Int or $b:Int)
+rewrite: $n in ($a, $b)
+
+rule mod_instead_of_equal
+symptoms: wrong
+match: $c % $k:Int == 0
+where: $k == 4 or $k == 7
+rewrite: $c == $k
+
+rule len_input_instead_of_count
+symptoms: wrong
+match: len($a) == $k1:Int or len($a) == $k2:Int
+where: ($k1 == 4 and $k2 == 7) or ($k1 == 7 and $k2 == 4)
+rewrite: $a.count('4') + $a.count('7') == $k1 or $a.count('4') + $a.count('7') == $k2
+
+rule len_var_instead_of_count
+symptoms: wrong
+match: $g == $k1:Int or $g == $k2:Int
+where: (($k1 == 4 and $k2 == 7) or ($k1 == 7 and $k2 == 4)) and before("$g = len($a)")
+rewrite: $a.count('4') + $a.count('7') == $k1 or $a.count('4') + $a.count('7') == $k2
+
+rule count_eq_len_should_be_lucky_check
+symptoms: wrong
+match:
+    $sum == len($s)
+    |
+    len($s) == $sum
+    |
+    $sum != len($s)
+    |
+    len($s) != $sum
+rewrite:
+    $sum == 4 or $sum == 7
+    |
+    $sum == 4 or $sum == 7
+    |
+    $sum != 4 and $sum != 7
+    |
+    $sum != 4 and $sum != 7
+
+rule invert_lucky_membership_check
+symptoms: wrong
+match:
+    if $i not in $lst:
+        $c:Name += 1
+where: regex($lst, "4") and regex($lst, "7")
+rewrite:
+    if $i in $lst:
+        $c += 1
+
+rule demorgan_flip_or_to_and
+symptoms: wrong
+match: $x != $a:Int or $x != $b:Int
+where: not ($a == $b)
+rewrite: $x != $a and $x != $b
+
+rule print_typo_fix
+symptoms: wrong, err:NameError
+match: pRint($x)
+rewrite: print($x)
+
+rule drop_nonzero_count_guard
+symptoms: wrong
+match:
+    $a != 0 and $b != 0 and ($expr)
+    |
+    ($a != 0 and $b != 0) and ($expr)
+where: regex($a, "count") and regex($b, "count")
+rewrite:
+    $expr
+    |
+    $expr
+
+rule remove_bogus_type_mismatch_check
+symptoms: wrong
+match:
+    if $sum != $s:
+        print($msg:Str)
+    if $sum == $a:Int or $sum == $b:Int:
+        print($msg2:Str)
+where: ($a == 4 and $b == 7) or ($a == 7 and $b == 4)
+rewrite:
+    if $sum == $a or $sum == $b:
+        print($msg2)
+    else:
+        print($msg)
+
+rule range_missing_last_index
+symptoms: wrong
+match: range($a, $s - 1)
+where: before("$s = len($x)")
+rewrite: range($a, $s)

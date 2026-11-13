@@ -1,0 +1,13 @@
+; part (2) must cover occurrences in scopes nested in the one whose classification changes:
+; x is free in g in both p and q, but local in f in p and nonlocal in f in q
+(pair
+ (module
+  (def 1 h u
+   ((assign 2 x (const 3 1))
+    (def 4 f v
+     ((def 5 g w ((return 6 (name 7 x))))
+      (if 8 (const 9 False) ((assign 10 x (const 11 2))) ())
+      (return 12 (call 13 (name 14 g) (const 15 None)))))
+    (return 16 (call 17 (name 18 f) (const 19 None)))))
+  (print 20 (call 21 (name 22 h) (const 23 None))))
+ (sites (stmts 10 ((nonlocal 10 x)))))

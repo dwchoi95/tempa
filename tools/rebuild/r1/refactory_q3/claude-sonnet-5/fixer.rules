@@ -1,0 +1,281 @@
+rule iterate_builtin_list
+symptoms: wrong, err:TypeError
+match: for $x in $b:
+where: builtin($b) and inside("def $f($p): $B:Stmts") and not ($b == $p)
+rewrite: for $x in $p:
+
+rule if_check_wrong_target
+symptoms: wrong
+match: if $x not in $target:
+where: inside("for $x2 in $src: $B:Stmts") and $x2 == $x and not ($target == $acc) and (some($B, "$acc.append($x)") or some($B, "$acc += [$x]") or some($B, "$acc += [$x,]") or some($B, "$acc.extend([$x])") or some($B, "$acc += $x,"))
+rewrite: if $x not in $acc:
+
+rule if_check_whole_source
+symptoms: wrong
+match: if $src not in $acc:
+where: inside("for $x in $src2: $B:Stmts") and $src2 == $src and (some($B, "$acc.append($x)") or some($B, "$acc += [$x]") or some($B, "$acc += [$x,]") or some($B, "$acc.extend([$x])") or some($B, "$acc += $x,"))
+rewrite: if $x not in $acc:
+
+rule check_and_augassign_append_combo
+symptoms: wrong, err:NameError
+match:
+    if $x not in $target:
+        $acc += $other.append($x)
+where: not ($target == $acc)
+rewrite:
+    if $x not in $acc:
+        $acc.append($x)
+
+rule broken_augassign_append
+symptoms: wrong, err:TypeError
+match: $acc += $other.append($x)
+rewrite: $acc.append($x)
+
+rule augassign_scalar_to_list
+symptoms: wrong, err:TypeError
+match: $acc += $x
+where: (kind($x) == "Name" or kind($x) == "Subscript") and inside("for $x2 in $_: $B:Stmts")
+rewrite: $acc += [$x]
+
+rule extend_list_wrap_fix
+symptoms: wrong, err:TypeError
+match: $acc.extend(list($x))
+rewrite: $acc.extend([$x])
+
+rule extend_scalar_fix
+symptoms: wrong, err:TypeError
+match: $acc.extend($x)
+where: kind($x) == "Name"
+rewrite: $acc.extend([$x])
+
+rule append_dot_to_call
+symptoms: wrong, err:AttributeError
+match: $acc.append.$x:Attr
+rewrite: $acc.append($x)
+
+rule count_bracket_to_call
+symptoms: wrong, err:TypeError
+match: $acc.count[$x]
+rewrite: $acc.count($x)
+
+rule append_bracket_to_call
+symptoms: wrong, err:TypeError
+match: $acc.append[$x]
+rewrite: $acc.append($x)
+
+rule eq_as_assign
+symptoms: wrong, err:NameError
+match: $acc == $val
+where: field("Expr", "value") and kind($val) == "List"
+rewrite: $acc = $val
+
+rule set_dedup_order
+symptoms: wrong
+match:
+    return list(set($x))
+    |
+    return set($x)
+rewrite:
+    from collections import OrderedDict
+    return list(OrderedDict.fromkeys($x))
+    |
+    from collections import OrderedDict
+    return list(OrderedDict.fromkeys($x))
+
+rule missing_return_add
+symptoms: wrong
+match:
+    for $x in $lst:
+        if $x not in $acc:
+            $acc.append($x)
+where: last()
+rewrite:
+    for $x in $lst:
+        if $x not in $acc:
+            $acc.append($x)
+    return $acc
+
+rule copy_slice_fix
+symptoms: wrong
+match:
+    $left = $lst[:$copy.index($i)+1]
+    $right = $lst[$copy.index($i)+1:]
+where: not ($lst == $copy)
+rewrite:
+    $left = $copy[:$copy.index($i)+1]
+    $right = $copy[$copy.index($i)+1:]
+
+rule alias_list_dedup
+symptoms: wrong
+match:
+    $acc = $lst
+    for $x in $acc:
+    return $acc
+where: not ($acc == $lst)
+rewrite:
+    $acc = []
+    for $x in $lst:
+        if $x not in $acc:
+            $acc.append($x)
+    return $acc
+
+rule init_singleton_list_to_empty
+symptoms: wrong, err:IndexError
+match:
+    $acc = [$lst[0],]
+    |
+    $acc = [$lst[0]]
+where: next("for $x in $lst:")
+rewrite:
+    $acc = []
+    |
+    $acc = []
+
+rule init_from_first_element_to_empty
+symptoms: wrong, err:IndexError
+match:
+    $acc = $lst[0]
+    for $x in $lst:
+rewrite:
+    $acc = []
+    for $x in $lst:
+
+rule premature_return_in_else_branch
+symptoms: wrong
+match:
+    for $x in $lst:
+        if $x not in $acc:
+            $acc.append($x)
+        else:
+            return $acc
+rewrite:
+    for $x in $lst:
+        if $x not in $acc:
+            $acc.append($x)
+    return $acc
+
+rule remove_while_iterating_dedup
+symptoms: wrong
+match:
+    for $x in $lst:
+        if $lst.count($x) > 1:
+            $lst.remove($x)
+    return $lst
+    |
+    for $x in $lst:
+        while $lst.count($x) > 1:
+            $lst.remove($x)
+    return $lst
+rewrite:
+    new_list = []
+    for item in $lst:
+        if new_list.count(item) == 0:
+            new_list.append(item)
+    return new_list
+    |
+    new_list = []
+    for item in $lst:
+        if new_list.count(item) == 0:
+            new_list.append(item)
+    return new_list
+
+rule missing_second_reverse
+symptoms: wrong
+match:
+    $lst.reverse()
+    for $x in $lst:
+    return $lst
+rewrite:
+    $lst.reverse()
+    for $x in $lst:
+    $lst.reverse()
+    return $lst
+
+rule fix_while_bound_to_count
+symptoms: wrong, err:IndexError
+match: while $j < $i:
+where: inside("if $lst.count($i2) > $n: $B:Stmts") and $i2 == $i
+rewrite: while $j < $lst.count($i):
+
+rule reverse_assigned_to_var
+symptoms: wrong, err:TypeError
+match: $v = $lst.reverse()
+where: not ($v == $lst)
+rewrite:
+    $v = $lst.copy()
+    $v.reverse()
+
+rule return_reverse_fix
+symptoms: wrong
+match: return $x.reverse()
+rewrite:
+    $x.reverse()
+    return $x
+
+rule chained_comparison_true_fix
+symptoms: wrong
+match: $x in $acc == True
+rewrite: $x in $acc
+
+rule insert_len_bracket_offset_fix
+symptoms: wrong, err:TypeError
+match: $acc.insert(len[$acc2] - 1, $x)
+where: $acc2 == $acc
+rewrite: $acc.insert(len($acc), $x)
+
+rule wrong_scalar_compare_to_list
+symptoms: wrong
+match: if $lst[$i] != $acc:
+where: inside("for $i2 in range(len($lst2)): $B:Stmts") and $i2 == $i and $lst2 == $lst
+rewrite: if $lst[$i] not in $acc:
+
+rule reset_flag_each_iteration
+symptoms: wrong
+match:
+    $flag = True
+    for $x in $lst:
+        for $y in $acc:
+            if $y == $x:
+                $flag = False
+        if $flag:
+            $acc += [$x,]
+    return $acc
+rewrite:
+    for $x in $lst:
+        $flag = True
+        for $y in $acc:
+            if $y == $x:
+                $flag = False
+        if $flag:
+            $acc += [$x,]
+    return $acc
+
+rule else_guard_before_increment
+symptoms: wrong
+match:
+    if $a == $b:
+        $lst = $lst[:$j] + $lst[$j+1:]
+    $j += 1
+rewrite:
+    if $a == $b:
+        $lst = $lst[:$j] + $lst[$j+1:]
+    else:
+        $j += 1
+
+rule iterate_over_length_int
+symptoms: wrong, err:TypeError
+match: for $i in $l:
+where: before("$l = len($_)")
+rewrite: for $i in range($l):
+
+rule fix_return_should_be_accumulator
+symptoms: wrong
+match: return $x
+where: inside("def $f($p): $B:Stmts") and some($B, "for $x2 in $_: $B2:Stmts") and $x2 == $x and some($B, "$acc.append($x3)") and $x3 == $x
+rewrite: return $acc
+
+rule fix_typo_remove_multiple
+symptoms: wrong, err:NameError
+match: $f:Name($*args)
+where: text($f) == "remove_mutiple"
+rewrite: remove_multiple($*args)

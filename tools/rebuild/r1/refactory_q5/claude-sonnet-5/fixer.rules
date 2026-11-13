@@ -1,0 +1,341 @@
+rule append_before_remove_maxcall
+symptoms: wrong
+match:
+    $a.remove($v)
+    $b.append($w)
+where: $v == $w
+rewrite:
+    $b.append($w)
+    $a.remove($v)
+
+rule fix_collector_append_mistargeted
+symptoms: wrong
+match:
+    $max = max($lst)
+    $lst.remove($max)
+    $other.append($arg)
+    |
+    $max = max($lst)
+    $other.append($arg)
+    $lst.remove($max)
+where: inside("while len($coll) < $k:") and ($other != $coll or $arg != $max)
+rewrite:
+    $max = max($lst)
+    $coll.append($max)
+    $lst.remove($max)
+
+rule fix_assign_wrong_var_in_max_loop
+symptoms: wrong, err:NameError
+match:
+    for $i in $xs:
+        if $i $o:Cmp $big:
+            $wrong = $i
+where: $wrong != $big
+rewrite:
+    for $i in $xs:
+        if $i $o:Cmp $big:
+            $big = $i
+
+rule fix_forvar_typo_in_comparison
+symptoms: wrong, err:NameError
+match:
+    for $i in $xs:
+        if $e $o:Cmp $big:
+            $big = $e
+where: $e != $i
+rewrite:
+    for $i in $xs:
+        if $i $o:Cmp $big:
+            $big = $i
+
+rule fix_loopvar_leak_after_max_search
+symptoms: wrong
+match:
+    $coll.append($i)
+    $lst.remove($i)
+    |
+    $lst.remove($i)
+    $coll.append($i)
+    |
+    $coll.append($i)
+where: prev("for $i in $lst:\n    if $i > $big:\n        $big = $i")
+rewrite:
+    $coll.append($big)
+    $lst.remove($big)
+
+rule dedent_remove_append_in_for
+symptoms: wrong
+match:
+    for $i in $xs:
+        if $i $o:Cmp $big:
+            $big = $i
+        $lst.remove($big)
+        $coll.append($big)
+    |
+    for $i in $xs:
+        if $i $o:Cmp $big:
+            $big = $i
+        $coll.append($big)
+        $lst.remove($big)
+rewrite:
+    for $i in $xs:
+        if $i $o:Cmp $big:
+            $big = $i
+    $lst.remove($big)
+    $coll.append($big)
+
+rule dedent_remove_append_in_if
+symptoms: wrong
+match:
+    for $i in $xs:
+        if $i $o:Cmp $big:
+            $big = $i
+            $lst.remove($big)
+            $coll.append($big)
+    |
+    for $i in $xs:
+        if $i $o:Cmp $big:
+            $big = $i
+            $coll.append($big)
+            $lst.remove($big)
+rewrite:
+    for $i in $xs:
+        if $i $o:Cmp $big:
+            $big = $i
+    $lst.remove($big)
+    $coll.append($big)
+
+rule fix_for_loop_wrong_iterable
+symptoms: wrong, err:NameError
+match: for $i in $xs:
+    $B:Stmts
+where: some($B, "$lst:Name.remove($_)") and $xs != $lst
+rewrite: for $i in $lst:
+    $B
+
+rule fix_min_instead_of_max
+symptoms: wrong
+match:
+    $v = $lst[0]
+    for $i in $lst:
+        if $i < $v:
+            $v = $i
+rewrite:
+    $v = $lst[0]
+    for $i in $lst:
+        if $i > $v:
+            $v = $i
+
+rule fix_return_source_list_sliced
+symptoms: wrong
+match: return $lst[:$k]
+where: inside("def $f($p1, $p2): $B:Stmts") and $lst == $p1 and some($B, "$coll:Name.append($_)") and $coll != $lst
+rewrite: return $coll[:$k]
+
+rule fix_hardcoded_slice_literal
+symptoms: wrong
+match: return $coll[:$n:Int]
+    |
+    return $coll[0:$n:Int]
+where: inside("def $f($p1, $p2): $B:Stmts")
+rewrite: return $coll[:$p2]
+
+rule fix_offbyone_lte_bound
+symptoms: wrong, timeout
+match: while $x <= $k:
+rewrite: while $x < $k:
+
+rule fix_offbyone_slice_k_plus_1
+symptoms: wrong
+match: $coll[:$k + 1]
+rewrite: $coll[:$k]
+
+rule fix_offbyone_slice_k_minus_1
+symptoms: wrong
+match: $coll[:$k - 1]
+rewrite: $coll[:$k]
+
+rule fix_off_by_one_range_k_minus_1
+symptoms: wrong, timeout
+match: range($k - 1)
+rewrite: range($k)
+
+rule fix_pop_max_as_index
+symptoms: wrong, err:ValueError
+match: $coll.append($lst.pop(max($lst)))
+rewrite: $coll.append($lst.pop($lst.index(max($lst))))
+
+rule fix_pop_tracked_value_as_index
+symptoms: wrong, err:ValueError
+match:
+    for $i in $lst:
+        if $i > $v:
+            $v = $i
+    $coll.append($lst.pop($v))
+where: $v != $i
+rewrite:
+    for $i in $lst:
+        if $i > $v:
+            $v = $i
+    $coll.append($v)
+    $lst.remove($v)
+
+rule fix_constant_while_condition
+symptoms: timeout, wrong
+match:
+    $coll = []
+    while len($lst) $o:Cmp len($lst) - $k:
+where: text($o) in {">", ">=", "=="}
+rewrite:
+    $coll = []
+    length = len($lst)
+    while len($lst) $o length - $k:
+
+rule fix_bracket_call_syntax
+symptoms: wrong, err:TypeError
+match: $obj.$m:Attr[$arg]
+where: text($m) in {"append", "remove", "pop", "insert"}
+rewrite: $obj.$m($arg)
+
+rule fix_index_value_confusion
+symptoms: wrong
+match: if $i == max($lst):
+where: inside("for $i2 in range(len($lst2)):") and $i2 == $i and $lst2 == $lst
+rewrite: if $lst[$i] == max($lst):
+
+rule fix_tuple_subscript_leftover
+symptoms: wrong, err:TypeError
+match: $i[1] > $big[1]
+rewrite: $i > $big
+
+rule fix_extend_wrong_value
+symptoms: wrong
+match:
+    if $lst[$i] < $lst[$i + 1]:
+        $lst.extend([$i])
+        $lst.pop($i)
+rewrite:
+    if $lst[$i] < $lst[$i + 1]:
+        $lst.extend([$lst[$i]])
+        $lst.pop($i)
+
+rule fix_single_pass_should_be_full_bubble_sort
+symptoms: wrong
+match: for $i in range(len($lst) - 1):
+    $B:Stmts
+where: not inside("for $_ in range(len($_)):")
+rewrite:
+    for pass_ in range(len($lst)):
+        for $i in range(len($lst) - 1):
+            $B
+
+rule fix_broken_swap
+symptoms: wrong
+match:
+    $a[$i] = $a[$j]
+    $a[$j] = $a[$i]
+rewrite:
+    $a[$i], $a[$j] = $a[$j], $a[$i]
+
+rule fix_return_misindented_in_loop
+symptoms: wrong
+match:
+    while $cond:
+        $B:Stmts
+        return $x
+where: some($B, "break")
+rewrite:
+    while $cond:
+        $B
+    return $x
+
+rule add_missing_return
+symptoms: wrong, timeout
+match: while $cond:
+    $B:Stmts
+where: last() and not some($B, "return $_") and some($B, "$coll:Name.append($_)")
+rewrite:
+    while $cond:
+        $B
+    return $coll
+
+rule fix_append_wraps_remove
+symptoms: wrong
+match: $coll.append($lst.remove($x))
+rewrite:
+    $coll.append($x)
+    $lst.remove($x)
+
+rule fix_local_name_shadows_called_function
+symptoms: wrong, err:UnboundLocalError
+match:
+    $v = $v($arg)
+    return $v[:$k]
+rewrite:
+    result = $v($arg)
+    return result[:$k]
+
+rule fix_recursive_call_typo_var
+symptoms: wrong, err:NameError
+match:
+    $new = $lst.copy()
+    $new.pop($pos)
+    return [$maxi] + $f($new2, $k - 1)
+where: $new2 != $new
+rewrite:
+    $new = $lst.copy()
+    $new.pop($pos)
+    return [$maxi] + $f($new, $k - 1)
+
+rule fix_recursive_topk_discards_accumulator
+symptoms: wrong, timeout
+match:
+    $a = max($lst)
+    $lst.remove($a)
+    $l.append($a)
+    return $f($lst, $k - 1)
+    |
+    $a = max($lst)
+    $lst.remove($a)
+    $l.append($a)
+    $f($lst, $k - 1)
+    return $l
+where: inside("def $f2($p1, $p2): $B:Stmts") and $f == $f2
+rewrite:
+    while len($l) < $k:
+        $a = max($lst)
+        $lst.remove($a)
+        $l.append($a)
+    return $l
+
+rule add_missing_k_zero_guard
+symptoms: wrong
+match: if $lst == []:
+    return []
+where: inside("def $f($p1, $p2): $B:Stmts") and $lst == $p1
+rewrite: if $lst == [] or $p2 == 0:
+    return []
+
+rule merge_k_zero_branch
+symptoms: wrong
+match:
+    if $lst == []:
+        return []
+    elif $k == 0:
+        return $lst
+    else:
+        $B:Stmts
+rewrite:
+    if $lst == [] or $k == 0:
+        return []
+    else:
+        $B
+
+rule insert_k_zero_guard_for_break_style
+symptoms: wrong
+match: $first:Stmt
+where: inside("def $f($p1, $p2): $B:Stmts") and first() and some($B, "if len($coll) == $p2:\n        break") and not some($B, "$p1 == []") and not some($B, "$p2 == 0")
+rewrite:
+    if $p2 == 0:
+        return []
+    $first

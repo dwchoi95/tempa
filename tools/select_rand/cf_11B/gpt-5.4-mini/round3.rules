@@ -1,0 +1,93 @@
+rule abs_input_normalization
+symptoms: wrong
+match: x = int(input())
+where: not some(next("x = int(input())"), "x = abs(x)") and not some(next("x = int(input())"), "x = abs(int(input()))")
+rewrite:
+    x = abs(int(input()))
+
+rule binary_search_parity_fix
+symptoms: wrong
+match:
+    x=(b*(b+1))//2
+    if((x-n)%2==0):
+        return b
+    return b+1
+rewrite:
+    x=(b*(b+1))//2
+    if((x-n)%2==0):
+        return b
+    return b+2
+
+rule wrong_direction_branch_to_abs_jump
+symptoms: wrong
+match:
+    if n_p <= x:
+        cur_pos += jump
+    if n_p > x:
+        cur_pos -= jump
+rewrite:
+    if n_p <= x:
+        cur_pos += jump
+    if n_p > x:
+        cur_pos += jump
+
+rule compare_towards_target_in_loop
+symptoms: wrong
+match:
+    if num+ans+1 <= x: 
+        ans += 1
+        num += ans
+    
+    elif num+ans+1 > x: 
+        ans += 1
+        num -= ans
+rewrite:
+    if num+ans+1 <= x: 
+        ans += 1
+        num += ans
+    
+    elif num+ans+1 > x: 
+        ans += 1
+        num += ans
+
+rule missing_zero_case_before_formula
+symptoms: wrong
+match:
+    x = abs(int(input()))
+
+    if x == 0:
+        print(0)
+    else:
+        n = (-1+pow(1+4*2*x, 0.5))/2
+rewrite:
+    x = abs(int(input()))
+
+    if x == 0:
+        print(0)
+    else:
+        n = (-1+pow(1+4*2*x, 0.5))/2
+
+rule fix_parity_search_return
+symptoms: wrong
+match:
+    if sum==x:
+        print(i)
+    elif sum>x:
+        a=(sum-x)*2+i
+        sum-=i
+        b=i+(x-sum)*2-1
+        if a>=b:
+            print(b)
+        elif a<b:
+            print(a)
+rewrite:
+    if sum==x:
+        print(i)
+    else:
+        a=(sum-x)*2+i
+        sum-=i
+        b=i+(x-sum)*2-1
+        if a>=b:
+            print(b)
+        elif a<b:
+            print(a)

@@ -1,0 +1,52 @@
+Buggy,Model,Source,Patch,Fixed,RPS,ATT_all,ATT_cpu,ATT_api,InT,OuT,$API,Rules_L,Rules_SL
+134903349,claude-sonnet-5,rules,"def d(n):
+	while len(str(n))!=1:
+		n = sum(int(d) for d in str(n))
+	return n
+
+n_1 = int(input())
+true_products, a = (0, 1)
+while a ** 2 <= n_1:
+    true_products += n_1 // a - a
+    a += 1
+true_products *= 2
+true_products += int(n_1 ** 0.5)
+digit_roots = [n_1 // 9 for _ in range(9)]
+for idx in range(1, n_1 % 9 + 1):
+    digit_roots[idx] += 1
+digit_root_products = 0
+for p in range(9):
+    for q in range(9):
+        digit_root_products += digit_roots[p] * digit_roots[q] * digit_roots[p * q % 9]
+print(digit_root_products - true_products)",True,3.2778,2.1479,2.1479,0.0,0,0,0.0,"[""digital_root_passthrough_inline""]",[]
+70108877,claude-sonnet-5,rules,"def digr(n):
+    x = sum(int(dig) for dig in str(n))
+    if x<10:
+        return x
+    else:
+        return digr(x)
+n=int(input())
+true_products, a = (0, 1)
+while a ** 2 <= n:
+    true_products += n // a - a
+    a += 1
+true_products *= 2
+true_products += int(n ** 0.5)
+digit_roots = [n // 9 for _ in range(9)]
+for idx in range(1, n % 9 + 1):
+    digit_roots[idx] += 1
+digit_root_products = 0
+for p in range(9):
+    for q in range(9):
+        digit_root_products += digit_roots[p] * digit_roots[q] * digit_roots[p * q % 9]
+d = digit_root_products - true_products
+print(d)",True,1.0737,3.1572,3.1572,0.0,0,0,0.0,"[""bruteforce_double_loop_to_formula""]",[]
+82322301,claude-sonnet-5,reference,"n = int(input())
+q,r = divmod(n,9)
+d = [q]+[q+1]*r+[q]*(8-r)
+res = 0
+for i in range(9):
+    for j in range(9):
+        res += d[i]*d[j]*d[(i*j)%9]
+for i in range(1,n+1): res -= n//i
+print(res)",True,0.9362,31.3225,31.3225,0.0,0,0,0.0,[],[]

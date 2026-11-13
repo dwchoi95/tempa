@@ -1,0 +1,208 @@
+rule counter_var_misused_as_comparison
+symptoms: wrong
+match:
+    $cnt = 0
+    for $i in range(len($lst)):
+        if $lst[$i][$idx] == $cnt:
+            $inc = $inc + 1
+    if $cnt == 1:
+        return True
+    else:
+        return False
+where: inside("def $f($p, $full): $B:Stmts") and $lst == $full
+rewrite:
+    $cnt = 0
+    for $i in range(len($lst)):
+        if $lst[$i][$idx] == $p:
+            $cnt = $cnt + 1
+    if $cnt == 1:
+        return True
+    else:
+        return False
+
+rule counter_shadows_parameter
+symptoms: wrong
+match:
+    $p = 0
+    for $i in range(len($lst)):
+        if $lst[$i][$idx] == $p:
+            $inc = $inc + 1
+    if $cnt2 == 1:
+        return True
+    else:
+        return False
+where: inside("def $f($p, $full): $B:Stmts") and $lst == $full
+rewrite:
+    ucount = 0
+    for $i in range(len($lst)):
+        if $lst[$i][$idx] == $p:
+            ucount = ucount + 1
+    if ucount == 1:
+        return True
+    else:
+        return False
+
+rule pass_filtered_list_instead_of_full
+symptoms: wrong
+match: unique_day($d, $filtered)
+where: inside("def $f($m, $full): $B:Stmts") and some($B, "$filtered = ()") and $filtered != $full
+rewrite: unique_day($d, $full)
+
+rule typo_singular_possible_birthdays
+symptoms: wrong, err:NameError
+match: $x[$i][$k]
+where: text($x) == "possible_birthday" and inside("def $f($p, $full): $B:Stmts") and text($full) == "possible_birthdays"
+rewrite: $full[$i][$k]
+
+rule tuple_append_missing_wrap
+symptoms: wrong
+match: $t = $t + $elem
+where: inside("for $elem2 in $src: $B:Stmts") and $elem == $elem2 and not regex($elem, r"^\(.*\)$")
+rewrite: $t = $t + ($elem,)
+
+rule search_loop_else_return_false
+symptoms: wrong
+match:
+    for $i in $range:
+        if $cond:
+            return True
+        else:
+            return False
+where: not after("return False")
+rewrite:
+    for $i in $range:
+        if $cond:
+            return True
+    return False
+
+rule counter_based_early_return_in_loop
+symptoms: wrong
+match:
+    for $i in $range:
+        $B:Stmts
+        if $cond:
+            $ctr = $ctr + 1
+        if $ctr == 0:
+            return False
+        else:
+            return True
+    |
+    for $i in $range:
+        if $cond:
+            $ctr = $ctr + 1
+        if $ctr == 0:
+            return False
+        else:
+            return True
+where: not after("return False")
+rewrite:
+    for $i in $range:
+        $B:Stmts
+        if $cond:
+            return True
+    return False
+    |
+    for $i in $range:
+        if $cond:
+            return True
+    return False
+
+rule days_helper_call_replaced_by_local_accumulator
+symptoms: wrong, err:NameError
+match: range(len($g($p, $full)))
+where: inside("def $f($p2, $full2): $B:Stmts") and $p == $p2 and $full == $full2 and some($B, "$acc = ()")
+rewrite: range(len($acc))
+
+rule index_used_instead_of_filtered_element
+symptoms: wrong
+match: unique_day($i, $full)
+where: inside("for $i2 in range(len($acc)): $B:Stmts") and $i == $i2
+rewrite: unique_day($acc[$i], $full)
+
+rule wrong_loop_var_reference
+symptoms: wrong, err:NameError
+match: $lst[$i]
+where: inside("for $j in range(len($lst)): $B:Stmts") and $i != $j and kind($i) == "Name" and not some($B, "$i = _")
+rewrite: $lst[$j]
+
+rule month_cmp_wrong_field_index
+symptoms: wrong
+match: $m == $item[$k:Int]
+       |
+       $item[$k:Int] == $m
+where: inside("def $f($p, $full): $B:Stmts") and $m == $p and text($p) == "month" and text($k) == "1"
+rewrite: $m == $item[0]
+
+rule day_cmp_wrong_field_index
+symptoms: wrong
+match: $m == $item[$k:Int]
+       |
+       $item[$k:Int] == $m
+where: inside("def $f($p, $full): $B:Stmts") and $m == $p and text($p) in {"day", "date"} and text($k) == "0"
+rewrite: $m == $item[1]
+
+rule month_in_should_be_index0
+symptoms: wrong
+match: $m in $item
+where: inside("def $f($p, $full): $B:Stmts") and $m == $p and text($p) == "month"
+rewrite: $m == $item[0]
+
+rule day_in_should_be_index1
+symptoms: wrong
+match: $m in $item
+where: inside("def $f($p, $full): $B:Stmts") and $m == $p and text($p) in {"day", "date"}
+rewrite: $m == $item[1]
+
+rule undefined_var_should_be_param
+symptoms: wrong, err:NameError
+match: $expr == $wrong
+       |
+       $wrong == $expr
+where: inside("def $f($p, $full): $B:Stmts") and kind($wrong) == "Name" and load($wrong) and not builtin($wrong) and $wrong != $p and $wrong != $full and not some($B, "$wrong = _")
+rewrite: $expr == $p
+
+rule init_missing_before_loop_bool_var
+symptoms: wrong, err:UnboundLocalError
+match:
+    for $i in $lst:
+        $B:Stmts
+    return $v
+where: kind($v) == "Name" and some($B, "$v = True") and not before("$v = _")
+rewrite:
+    $v = False
+    for $i in $lst:
+        $B:Stmts
+    return $v
+
+rule threshold_check_missing_zero_case
+symptoms: wrong
+match:
+    if $cnt > $t:Int:
+        return False
+    else:
+        return True
+rewrite: return $cnt == $t
+
+rule trailing_threshold_check_missing_zero_case
+symptoms: wrong
+match:
+    if $cnt > $t:Int:
+        return False
+    return True
+rewrite: return $cnt == $t
+
+rule loop_early_false_trailing_true_missing_zero_case
+symptoms: wrong
+match:
+    for $i in $lst:
+        $B:Stmts
+        if $cnt > $t:Int:
+            return False
+    return True
+where: some($B, "$cnt = $cnt + 1") or some($B, "$cnt += 1")
+rewrite:
+    for $i in $lst:
+        $B:Stmts
+        if $cnt > $t:Int:
+            return False
+    return $cnt == $t

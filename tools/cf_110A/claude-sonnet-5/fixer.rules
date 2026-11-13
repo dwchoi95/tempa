@@ -1,0 +1,332 @@
+rule loop_char_eq_4
+symptoms: wrong
+match: $v == 4
+where: inside("for $v in $s: $B:Stmts")
+rewrite: $v == '4'
+
+rule loop_char_eq_7
+symptoms: wrong
+match: $v == 7
+where: inside("for $v in $s: $B:Stmts")
+rewrite: $v == '7'
+
+rule loop_char_neq_4
+symptoms: wrong
+match: $v != 4
+where: inside("for $v in $s: $B:Stmts")
+rewrite: $v != '4'
+
+rule loop_char_neq_7
+symptoms: wrong
+match: $v != 7
+where: inside("for $v in $s: $B:Stmts")
+rewrite: $v != '7'
+
+rule index_char_eq_4
+symptoms: wrong
+match: $s[$i] == 4
+rewrite: $s[$i] == '4'
+
+rule index_char_eq_7
+symptoms: wrong
+match: $s[$i] == 7
+rewrite: $s[$i] == '7'
+
+rule plus_equal_typo
+symptoms: wrong
+match: $v =+ $e
+rewrite: $v += $e
+
+rule bare_or_literal_truthy
+symptoms: wrong
+match: $x == $a:Int or $b:Int
+rewrite: $x == $a or $x == $b
+
+rule or_literal_in_comparison
+symptoms: wrong
+match: $x == ($a:Int or $b:Int)
+rewrite: $x == $a or $x == $b
+
+rule remove_b_eq_zero_or_clause
+symptoms: wrong
+match: $b == 0 or $a == ($x:Int or $y:Int)
+rewrite: $a == $x or $a == $y
+
+rule float_div_truncate
+symptoms: wrong
+match: $n = int($n / $d:Int)
+rewrite: $n = $n // $d
+
+rule cnt_eq_len_should_be_lucky_set
+symptoms: wrong
+match: $cnt == len($s)
+where: match($cnt, "$v:Name")
+rewrite: $cnt == 4 or $cnt == 7
+
+rule len_eq_cnt_should_be_lucky_set
+symptoms: wrong
+match: len($s) == $cnt
+where: match($cnt, "$v:Name")
+rewrite: $cnt == 4 or $cnt == 7
+
+rule len_eq_len_should_be_count
+symptoms: wrong
+match: len($a) == len($b)
+rewrite: len($b) == 4 or len($b) == 7
+
+rule len_eq_or_flag_should_be_lucky_set
+symptoms: wrong
+match: $cnt == len($s) or $flag:Name
+rewrite: $cnt == 4 or $cnt == 7
+
+rule count_sum_eq_len_should_be_lucky_set
+symptoms: wrong
+match: $x + $y == len($s)
+rewrite: $x + $y == 4 or $x + $y == 7
+
+rule count_minus_len_eq_zero
+symptoms: wrong
+match: ($b + $c) - len($a) == 0
+rewrite: $b + $c == 4 or $b + $c == 7
+
+rule count_nonzero_and_sum_eq_len
+symptoms: wrong
+match: $a != 0 and $b != 0 and $a + $b == len($s)
+rewrite: $a + $b == 4 or $a + $b == 7
+
+rule digit_count_compare_int_should_be_len
+symptoms: wrong
+match: $cnt2 == int($cnt)
+rewrite: $cnt2 == len($cnt)
+
+rule range_len_minus_one_direct
+symptoms: wrong
+match: range($a, len($n) - 1)
+rewrite: range($a, len($n))
+
+rule range_var_minus_one_from_len
+symptoms: wrong
+match: range($a, $s - 1)
+where: before("$s = len($n2)")
+rewrite: range($a, $s)
+
+rule count_not_in_should_be_in
+symptoms: wrong
+match:
+    if $i not in $lst:
+        $cnt += 1
+where: inside("for $i2 in $s: $B:Stmts") and $i2 == $i
+rewrite:
+    if $i in $lst:
+        $cnt += 1
+
+rule neq_or_neq_should_be_not_in
+symptoms: wrong
+match: $cnt != $a:Const or $cnt != $b:Const
+where: not ($a == $b)
+rewrite: $cnt not in ($a, $b)
+
+rule wrong_index_var_in_loop
+symptoms: wrong
+match: $s[$f] == $a or $s[$f] == $b
+where: inside("for $i in $s: $B:Stmts") and not ($f == $i)
+rewrite: $s[$i] == $a or $s[$i] == $b
+
+rule lucky_digit_arg_needs_str
+symptoms: wrong
+match: is_lucky_digit($cnt)
+where: not match($cnt, "str($_)")
+rewrite: is_lucky_digit(str($cnt))
+
+rule duplicate_count_digit
+symptoms: wrong
+match:
+    $a = $s.count("4")
+    $b = $s.count("4")
+where: not ($a == $b)
+rewrite:
+    $a = $s.count("4")
+    $b = $s.count("7")
+
+rule isdigit_should_check_lucky
+symptoms: wrong
+match: $v.isdigit()
+where: inside("for $v2 in $s: $B:Stmts") and $v2 == $v
+rewrite: $v in '47'
+
+rule membership_whole_string_should_be_index
+symptoms: wrong
+match: '4' in $n or '7' in $n
+where: inside("for $i in range(len($n)): $B:Stmts")
+rewrite: $n[$i] == '4' or $n[$i] == '7'
+
+rule count_all_chars_should_filter_lucky
+symptoms: wrong
+match:
+    for $i in $n:
+        $cnt = $cnt + 1
+    if $cnt == 4 or $cnt == 7:
+        print("YES")
+    else:
+        print("NO")
+rewrite:
+    for $i in $n:
+        if $i in '47':
+            $cnt = $cnt + 1
+    if $cnt == 4 or $cnt == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule split_if_should_be_elif
+symptoms: wrong
+match:
+    if $cnt == $a:Int:
+        print("YES")
+    if $cnt == $b:Int:
+        print("YES")
+    else:
+        print("NO")
+where: not ($a == $b)
+rewrite:
+    if $cnt == $a or $cnt == $b:
+        print("YES")
+    else:
+        print("NO")
+
+rule len_a_eq_7_or_4
+symptoms: wrong
+match: len($a) == 7 or len($a) == 4
+rewrite: $a.count('4') + $a.count('7') in (4, 7)
+
+rule len_a_eq_4_or_7
+symptoms: wrong
+match: len($a) == 4 or len($a) == 7
+rewrite: $a.count('4') + $a.count('7') in (4, 7)
+
+rule len_var_eq_7_or_4
+symptoms: wrong
+match: $g == 7 or $g == 4
+where: before("$g = len($a)")
+rewrite: $a.count('4') + $a.count('7') in (4, 7)
+
+rule len_var_eq_4_or_7
+symptoms: wrong
+match: $g == 4 or $g == 7
+where: before("$g = len($a)")
+rewrite: $a.count('4') + $a.count('7') in (4, 7)
+
+rule len_var_if_elif_4_7
+symptoms: wrong
+match:
+    if $g == 4:
+        print("YES")
+    elif $g == 7:
+        print("YES")
+    else:
+        print("NO")
+where: before("$g = len($a)")
+rewrite:
+    if $a.count('4') + $a.count('7') in (4, 7):
+        print("YES")
+    else:
+        print("NO")
+
+rule missing_else_return_no
+symptoms: wrong
+match:
+    if $cond:
+        return "YES"
+where: last()
+rewrite:
+    if $cond:
+        return "YES"
+    return "NO"
+
+rule remove_early_return_on_non_lucky_digit
+symptoms: wrong
+match:
+    if $d == $a:Str or $d == $b:Str:
+        $cnt += 1
+    else:
+        return $r
+rewrite:
+    if $d == $a or $d == $b:
+        $cnt += 1
+
+rule flag_based_all_lucky_to_count
+symptoms: wrong
+match:
+    for $i in $n:
+        if $i != $a:Int or $i != $b:Int:
+            $flag = 0
+    if $flag == 0:
+        print("NO")
+    else:
+        print("YES")
+where: not ($a == $b)
+rewrite:
+    s = 0
+    for $i in $n:
+        if $i == '4' or $i == '7':
+            s += 1
+    if s == 4 or s == 7:
+        print('YES')
+    else:
+        print('NO')
+
+rule both_branches_print_yes
+symptoms: wrong
+match:
+    if $cond:
+        print("YES")
+    else:
+        print("YES")
+rewrite:
+    if $cond:
+        print("YES")
+    else:
+        print("NO")
+
+rule remove_debug_print_after_input
+symptoms: wrong
+match:
+    $v = input()
+    print($v)
+rewrite:
+    $v = input()
+
+rule remove_debug_print_after_list_input
+symptoms: wrong
+match:
+    $v = list(input())
+    print($v)
+rewrite:
+    $v = list(input())
+
+rule remove_trailing_debug_print
+symptoms: wrong
+match:
+    if $cond:
+        print("YES")
+    else:
+        print("NO")
+    print($v)
+where: match($v, "$x:Name")
+rewrite:
+    if $cond:
+        print("YES")
+    else:
+        print("NO")
+
+rule fix_yes_wording
+symptoms: wrong
+match: print($s:Str)
+where: regex($s, r'^[\'"](si|Si|yes|Yes)[\'"]$')
+rewrite: print("YES")
+
+rule fix_no_wording
+symptoms: wrong
+match: print($s:Str)
+where: regex($s, r'^[\'"](no|No)[\'"]$')
+rewrite: print("NO")

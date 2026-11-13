@@ -1,0 +1,89 @@
+rule bruteforce_pair_loop_to_formula
+symptoms: wrong, timeout
+match:
+    for $i in range($lo, $n+1):
+    print($d)
+where: last()
+rewrite:
+    from math import sqrt, floor
+    true_products, a = 0, 1
+    while a ** 2 <= $n:
+        true_products += $n // a - a
+        a += 1
+    true_products *= 2
+    true_products += floor(sqrt($n))
+    digit_roots = [$n // 9 for _ in range(9)]
+    for i in range(1, $n % 9 + 1):
+        digit_roots[i] += 1
+    digit_root_products = 0
+    for i in range(9):
+        for j in range(9):
+            digit_root_products += digit_roots[i] * digit_roots[j] * digit_roots[(i * j) % 9]
+    print(digit_root_products - true_products)
+
+rule bruteforce_dict_tally_to_formula
+symptoms: wrong, timeout
+match:
+    $s:Name = 0
+    for $k in $dctn.keys():
+    print($s2)
+where: $s2 == $s and before("$n:Name = int(input())")
+rewrite:
+    from math import sqrt, floor
+    true_products, a = 0, 1
+    while a ** 2 <= $n:
+        true_products += $n // a - a
+        a += 1
+    true_products *= 2
+    true_products += floor(sqrt($n))
+    digit_roots = [$n // 9 for _ in range(9)]
+    for i in range(1, $n % 9 + 1):
+        digit_roots[i] += 1
+    digit_root_products = 0
+    for i in range(9):
+        for j in range(9):
+            digit_root_products += digit_roots[i] * digit_roots[j] * digit_roots[(i * j) % 9]
+    print(digit_root_products - true_products)
+
+rule missing_triple_count_inline_input
+symptoms: wrong
+match: print($f($x))
+where: not builtin($f) and regex($x, r"input\(\)") and last()
+rewrite:
+    n = int($x)
+    from math import sqrt, floor
+    true_products, a = 0, 1
+    while a ** 2 <= n:
+        true_products += n // a - a
+        a += 1
+    true_products *= 2
+    true_products += floor(sqrt(n))
+    digit_roots = [n // 9 for _ in range(9)]
+    for i in range(1, n % 9 + 1):
+        digit_roots[i] += 1
+    digit_root_products = 0
+    for i in range(9):
+        for j in range(9):
+            digit_root_products += digit_roots[i] * digit_roots[j] * digit_roots[(i * j) % 9]
+    print(digit_root_products - true_products)
+
+rule missing_triple_count_named_input
+symptoms: wrong
+match: print($f($n))
+where: not builtin($f) and load($n) and before("$n2:Name = int(input())") and $n2 == $n and last()
+rewrite:
+    from math import sqrt, floor
+    true_products, a = 0, 1
+    while a ** 2 <= $n:
+        true_products += $n // a - a
+        a += 1
+    true_products *= 2
+    true_products += floor(sqrt($n))
+    digit_roots = [$n // 9 for _ in range(9)]
+    for i in range(1, $n % 9 + 1):
+        digit_roots[i] += 1
+    digit_root_products = 0
+    for i in range(9):
+        for j in range(9):
+            digit_root_products += digit_roots[i] * digit_roots[j] * digit_roots[(i * j) % 9]
+    print(digit_root_products - true_products)

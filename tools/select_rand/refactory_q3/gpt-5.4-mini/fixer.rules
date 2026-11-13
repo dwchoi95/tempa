@@ -1,0 +1,149 @@
+rule append_on_seen_check
+symptoms: wrong
+match:
+    for $x in $xs:
+        if $x not in $seen:
+            $body
+where: some($body, "new += $x") or some($body, "new = new + $x") or some($body, "new_list = new_list.append($x)") or some($body, "new_lst = new_lst.append($x)")
+rewrite:
+    for $x in $xs:
+        if $x not in $seen:
+            $body
+        else:
+            continue
+
+rule append_instead_of_add_item
+symptoms: wrong
+match:
+    $lhs += $x
+where: kind($x) != "List"
+rewrite:
+    $lhs.append($x)
+
+rule use_container_not_input_for_membership
+symptoms: wrong
+match: if $x not in $xs:
+where: some($xs, "$x") and text($xs) != text($x)
+rewrite: if $x not in $new:
+| if $x not in $new_lst:
+| if $x not in $result:
+| if $x not in $output:
+| if $x not in $result:
+| if $x not in $lst2:
+| if $x not in $o:
+
+rule use_container_not_input_for_membership_else
+symptoms: wrong
+match: if $x not in $xs:
+where: some($xs, "$x") and text($xs) != text($x)
+rewrite:
+    if $x not in $new:
+        $body
+    else:
+        continue
+
+rule append_returned_value_instead_of_result_of_append
+symptoms: wrong
+match: $v = $v.append($x)
+rewrite: $v.append($x)
+
+rule return_accumulator_not_last_element
+symptoms: wrong
+match: return $x
+where: inside("def $f($*ps): $B:Stmts") and some($B, "$acc:Name = []") and some($B, "for $i in $it:") and some($B, "$acc.append($y)") and text($x) != text($acc)
+rewrite: return $acc
+
+rule fix_missing_return_after_loop
+symptoms: wrong
+match:
+    for $x in $xs:
+        $body
+where: inside("def $f($*ps): $B:Stmts") and last() and not some($B, "return $_")
+rewrite:
+    for $x in $xs:
+        $body
+    return $acc
+|    for $x in $xs:
+        $body
+    return $new
+|    for $x in $xs:
+        $body
+    return $result
+|    for $x in $xs:
+        $body
+    return $output
+|    for $x in $xs:
+        $body
+    return $lst2
+
+rule guard_empty_list
+symptoms: wrong, err:IndexError
+match:
+    $first = $lst[0]
+where: inside("def $f($*ps): $B:Stmts") and some($B, "$lst:Name[0]")
+rewrite:
+    if $lst == []:
+        return []
+    $first = $lst[0]
+
+rule off_by_one_range_upper
+symptoms: wrong
+match: range($n + 1)
+rewrite: range($n)
+
+rule off_by_one_while_bound
+symptoms: wrong
+match: while $i <= $n:
+rewrite: while $i < $n:
+
+rule remove_self_membership_test
+symptoms: wrong
+match: if $x not in $x:
+rewrite: if $x not in $acc:
+| if $x not in $new:
+| if $x not in $result:
+| if $x not in $output:
+| if $x not in $new_lst:
+| if $x not in $lst2:
+| if $x not in $list:
+
+rule fix_set_to_ordered_accumulator
+symptoms: wrong
+match: return list(set($xs))
+rewrite:
+    result = []
+    for i in $xs:
+        if i not in result:
+            result.append(i)
+    return result
+
+rule fix_return_of_none_from_list_method
+symptoms: wrong
+match: return $x.reverse()
+rewrite:
+    $x.reverse()
+    return $x
+
+rule fix_return_of_none_from_append
+symptoms: wrong
+match: $v = $v.append($x)
+rewrite: $v.append($x)
+
+rule fix_pop_without_call
+symptoms: wrong
+match: $x.pop
+rewrite: $x.pop($i)
+| $x.pop()
+
+rule keep_order_unique_append_loop
+symptoms: wrong
+match:
+    $acc = []
+    for $x in $xs:
+        if $x not in $acc:
+            $body
+rewrite:
+    $acc = []
+    for $x in $xs:
+        if $x not in $acc:
+            $acc.append($x)

@@ -1,0 +1,184 @@
+rule misplaced_remove_append_under_if
+symptoms: wrong
+match:
+    for $e in $lst:
+        if $e > $largest:
+            $largest = $e
+            $lst.remove($largest)
+            $sort.append($largest)
+rewrite:
+    for $e in $lst:
+        if $e > $largest:
+            $largest = $e
+    $lst.remove($largest)
+    $sort.append($largest)
+
+rule misplaced_remove_append_under_for
+symptoms: wrong
+match:
+    for $e in $lst:
+        if $e > $largest:
+            $largest = $e
+        $lst.remove($largest)
+        $sort.append($largest)
+rewrite:
+    for $e in $lst:
+        if $e > $largest:
+            $largest = $e
+    $lst.remove($largest)
+    $sort.append($largest)
+
+rule wrong_var_remove_append_after_loop
+symptoms: wrong
+match:
+    for $e in $lst:
+        if $e > $largest:
+            $largest = $e
+    $lst.remove($e)
+    $sort.append($e)
+where: not ($e == $largest)
+rewrite:
+    for $e in $lst:
+        if $e > $largest:
+            $largest = $e
+    $lst.remove($largest)
+    $sort.append($largest)
+
+rule hoist_max_init_out_of_loop
+symptoms: wrong
+match:
+    for $e in $lst:
+        $largest = $lst[0]
+        if $e > $largest:
+            $largest = $e
+rewrite:
+    $largest = $lst[0]
+    for $e in $lst:
+        if $e > $largest:
+            $largest = $e
+
+rule return_inside_while_should_be_after
+symptoms: wrong
+match:
+    while $cond:
+        $B:Stmts
+        return $r
+where: not (text($cond) == "True")
+rewrite:
+    while $cond:
+        $B
+    return $r
+
+rule index_compared_to_max_value
+symptoms: wrong
+match: if $i == max($lst):
+where: inside("for $i in range(len($lst)):")
+rewrite: if $lst[$i] == max($lst):
+
+rule off_by_one_len_le_k
+symptoms: wrong, timeout
+match: while len($x) <= $k:
+where: inside("def $f($p, $k): $B:Stmts")
+rewrite: while len($x) < $k:
+
+rule decrement_loop_off_by_one
+symptoms: wrong
+match: while $k >= 0:
+where: inside("def $f($p, $k): $B:Stmts")
+rewrite: while $k > 0:
+
+rule off_by_one_return_slice_arith
+symptoms: wrong
+match:
+    return $X[:$k $o:Arith $n:Int]
+    |
+    return $X[0:$k $o:Arith $n:Int]
+where: text($o) in {"+", "-"} and text($n) == "1"
+rewrite: return $X[:$k]
+
+rule hardcoded_return_slice_literal
+symptoms: wrong
+match:
+    return $X[:$n:Int]
+    |
+    return $X[0:$n:Int]
+where: inside("def $f($p, $k): $B:Stmts")
+rewrite: return $X[:$k]
+
+rule append_before_remove
+symptoms: wrong
+match:
+    $a.remove($v)
+    $b.append($w)
+where: $v == $w
+rewrite:
+    $b.append($w)
+    $a.remove($v)
+
+rule append_pop_as_index_confusion
+symptoms: wrong, err:IndexError
+match: $result.append($lst.pop(max($lst)))
+rewrite:
+    $e = max($lst)
+    $lst.remove($e)
+    $result.append($e)
+
+rule append_remove_returns_none
+symptoms: wrong
+match: $result.append($lst.remove($e))
+rewrite:
+    $result.append($e)
+    $lst.remove($e)
+
+rule append_bracket_to_call
+symptoms: wrong, err:TypeError
+match: $x.append[$y]
+rewrite: $x.append($y)
+
+rule remove_bracket_to_call
+symptoms: wrong, err:TypeError
+match: $x.remove[$y]
+rewrite: $x.remove($y)
+
+rule return_typo_undefined_var
+symptoms: err:NameError
+match: return $r:Name
+where: inside("def $f($p, $k): $B:Stmts") and some($B, "$result:Name = []") and not ($r == $result)
+rewrite: return $result
+
+rule range_neg_upper_bound_off_by_one
+symptoms: wrong, timeout
+match: range(-len($lst), -1)
+rewrite: range(-len($lst), 0)
+
+rule missing_break_after_pop_max
+symptoms: wrong, timeout, err:IndexError
+match:
+    for $i in range($a, $b):
+        if $lst[$i] == max($lst):
+            $result.append($lst.pop($i))
+            $counter += $n
+rewrite:
+    for $i in range($a, $b):
+        if $lst[$i] == max($lst):
+            $result.append($lst.pop($i))
+            $counter += $n
+            break
+
+rule name_shadows_function_call
+symptoms: err:UnboundLocalError
+match:
+    $f:Name = $f($*args)
+    return $f[:$k]
+rewrite:
+    result = $f($*args)
+    return result[:$k]
+
+rule missing_return_after_loop
+symptoms: wrong
+match: while $cond: $B:Stmts
+where: last() and some($B, "$result:Name.append($_)")
+rewrite:
+    while $cond:
+        $B
+    return $result

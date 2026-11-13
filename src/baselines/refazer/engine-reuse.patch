@@ -1,0 +1,19 @@
+diff --git a/Tutor/ast/ASTHelper.cs b/Tutor/ast/ASTHelper.cs
+index 615bd9e..f2adfdf 100644
+--- a/Tutor/ast/ASTHelper.cs
++++ b/Tutor/ast/ASTHelper.cs
+@@ -39,9 +39,13 @@ namespace Tutor
+         //    return Parse(src, js);
+         //}
+ 
++        // tempa: one engine for every parse. Upstream created a new IronPython engine per
++        // call, and Patch.Run parses every candidate output (seconds per Apply on mono).
++        private static readonly ScriptEngine SharedEngine = Python.CreateEngine();
++
+         public static PythonAst ParseContent(string content)
+         {
+-            var py = Python.CreateEngine();
++            var py = SharedEngine;
+             var src = HostingHelpers.GetSourceUnit(py.CreateScriptSourceFromString(content));
+             return Parse(src, py);
+         }

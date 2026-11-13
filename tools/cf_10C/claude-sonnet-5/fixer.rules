@@ -1,0 +1,51 @@
+rule digital_root_bruteforce_missing_c_loop
+symptoms: wrong, timeout
+match:
+    $acc:Name = 0
+    $outer:Stmt
+    print($acc)
+where: some($outer, "$c:Name = $f:Name($g:Name($i:Name) * $g:Name($j:Name))") and before("$n:Name = int(input())")
+rewrite:
+    q, r = divmod($n, 9)
+    dcnt = [q]+[q+1]*r+[q]*(8-r)
+    res = 0
+    for di in range(9):
+        for dj in range(9):
+            res += dcnt[di]*dcnt[dj]*dcnt[(di*dj)%9]
+    for ii in range(1, $n+1):
+        res -= $n // ii
+    print(res)
+
+rule digital_root_single_call_no_loop
+symptoms: wrong
+match: print($f:Name(input()))
+where: before("def $f($p): $B:Stmts")
+rewrite:
+    n = int(input())
+    q, r = divmod(n, 9)
+    dcnt = [q]+[q+1]*r+[q]*(8-r)
+    res = 0
+    for di in range(9):
+        for dj in range(9):
+            res += dcnt[di]*dcnt[dj]*dcnt[(di*dj)%9]
+    for ii in range(1, n+1):
+        res -= n // ii
+    print(res)
+
+rule digital_root_dict_memo_missing_c_loop
+symptoms: wrong, timeout
+match:
+    $outer1:Stmt
+    $outer2:Stmt
+    print($s:Name)
+where: some($outer1, "$x:Name = $root:Name($i:Name * $j:Name)") and before("$n:Name = int(input())")
+rewrite:
+    q, r = divmod($n, 9)
+    dcnt = [q]+[q+1]*r+[q]*(8-r)
+    res = 0
+    for di in range(9):
+        for dj in range(9):
+            res += dcnt[di]*dcnt[dj]*dcnt[(di*dj)%9]
+    for ii in range(1, $n+1):
+        res -= $n // ii
+    print(res)

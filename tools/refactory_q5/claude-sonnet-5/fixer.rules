@@ -1,0 +1,314 @@
+rule self_shadow_call
+symptoms: wrong, err:UnboundLocalError
+match:
+    $v = $v($*args)
+    return $v[:$k]
+rewrite:
+    result = $v($*args)
+    return result[:$k]
+
+rule for_loop_compare_var_typo
+symptoms: wrong, err:NameError
+match:
+    for $item in $src:
+        if $other > $big:
+            $big = $other
+where: $other != $item and $other != $big
+rewrite:
+    for $item in $src:
+        if $item > $big:
+            $big = $item
+
+rule for_loop_assign_var_typo
+symptoms: wrong, err:NameError
+match:
+    for $item in $src:
+        if $item > $big:
+            $other = $item
+where: $other != $big
+rewrite:
+    for $item in $src:
+        if $item > $big:
+            $big = $item
+
+rule min_scan_should_be_max
+symptoms: wrong
+match:
+    $big = $lst[0]
+    for $item in $lst:
+        if $item < $big:
+            $big = $item
+rewrite:
+    $big = $lst[0]
+    for $item in $lst:
+        if $item > $big:
+            $big = $item
+
+rule max_scan_wrong_append_var
+symptoms: wrong, err:NameError
+match:
+    for $item in $lst:
+        $ifbody:Stmts
+    $lst.remove($w1)
+    $res.append($w2)
+    |
+    for $item in $lst:
+        $ifbody:Stmts
+    $res.append($w2)
+    $lst.remove($w1)
+where: prev("$big = $lst[0]") and ($w1 != $big or $w2 != $big)
+rewrite:
+    for $item in $lst:
+        $ifbody:Stmts
+    $lst.remove($big)
+    $res.append($big)
+    |
+    for $item in $lst:
+        $ifbody:Stmts
+    $res.append($big)
+    $lst.remove($big)
+
+rule remove_append_misindented_inside_for
+symptoms: wrong
+match:
+    for $item in $src:
+        if $item > $big:
+            $big = $item
+        $lst.remove($big2)
+        $res.append($big3)
+where: $big2 == $big and $big3 == $big
+rewrite:
+    for $item in $src:
+        if $item > $big:
+            $big = $item
+    $lst.remove($big)
+    $res.append($big)
+
+rule for_loop_wrong_iter_and_misindent
+symptoms: wrong, err:NameError
+match:
+    for $item in $src:
+        if $item > $big:
+            $big = $item
+        $lst.remove($big2)
+        $res.append($big3)
+where: prev("$big4 = $lst[0]") and $big4 == $big and $big2 == $big and $big3 == $big and $src != $lst
+rewrite:
+    for $item in $lst:
+        if $item > $big:
+            $big = $item
+    $lst.remove($big)
+    $res.append($big)
+
+rule call_written_as_subscript
+symptoms: wrong, err:TypeError
+match: $obj.$m:Attr[$arg]
+where: text($m) in {"append", "remove", "pop"}
+rewrite: $obj.$m($arg)
+
+rule collector_list_name_mismatch
+symptoms: wrong, err:NameError
+match:
+    $new1 = []
+    while len($new1) < $k:
+        $m = max($lst)
+        $new2.append($arg)
+        $lst.remove($m2)
+    return $new3
+    |
+    $new1 = []
+    while len($new1) < $k:
+        $m = max($lst)
+        $lst.remove($m2)
+        $new2.append($arg)
+    return $new3
+where: $new2 != $new1 and $m == $m2
+rewrite:
+    $new1 = []
+    while len($new1) < $k:
+        $m = max($lst)
+        $new1.append($m)
+        $lst.remove($m)
+    return $new1
+    |
+    $new1 = []
+    while len($new1) < $k:
+        $m = max($lst)
+        $new1.append($m)
+        $lst.remove($m)
+    return $new1
+
+rule collector_typo_in_second_loop
+symptoms: wrong, err:NameError
+match:
+    while $lst:
+        $res2.append($x)
+        $lst.remove($y)
+where: prev("$res = []") and $res2 != $res
+rewrite:
+    while $lst:
+        $res.append($x)
+        $lst.remove($y)
+
+rule wrong_bound_variable_in_prune_loop
+symptoms: wrong, timeout
+match: while $counter < $k:
+where: before("$n = len($lst) - $k2") and $k == $k2
+rewrite: while $counter < $n:
+
+rule return_wrong_collector_var
+symptoms: wrong
+match: return $lst[:$k]
+where: inside("def top_k($lst2, $k2): $B:Stmts") and $lst == $lst2 and $k == $k2 and some($B, "$res:Name.append($_)") and $res != $lst
+rewrite: return $res[:$k]
+
+rule slice_minus_one_should_be_k
+symptoms: wrong
+match: return $X[:$k - $n:Int]
+where: inside("def top_k($lst, $k2): $B:Stmts") and $k == $k2 and $n == 1
+rewrite: return $X[:$k]
+
+rule slice_plus_one_should_be_k
+symptoms: wrong
+match: return $X[:$k + $n:Int]
+where: inside("def top_k($lst, $k2): $B:Stmts") and $k == $k2 and $n == 1
+rewrite: return $X[:$k]
+
+rule slice_literal_should_be_k
+symptoms: wrong
+match: return $X[:$n:Int]
+where: inside("def top_k($lst, $k): $B:Stmts")
+rewrite: return $X[:$k]
+
+rule range_k_minus_one_should_be_k
+symptoms: wrong
+match: range($k - $n:Int)
+where: inside("def top_k($lst, $k2): $B:Stmts") and $k == $k2 and $n == 1
+rewrite: range($k)
+
+rule misplaced_return_in_while
+symptoms: wrong
+match:
+    while $c:
+        $B:Stmts
+        return $res
+where: some($B, "break")
+rewrite:
+    while $c:
+        $B:Stmts
+    return $res
+
+rule bare_index_compare_in_range_loop
+symptoms: wrong
+match:
+    for $i in range(len($lst)):
+        if $i == $val:
+            $B:Stmts
+rewrite:
+    for $i in range(len($lst)):
+        if $lst[$i] == $val:
+            $B:Stmts
+
+rule aliased_result_list_self_append
+symptoms: wrong, timeout
+match:
+    $res = $lst
+    while $res:
+        $big = $res[0]
+        for $item in $res:
+            if $item > $big:
+                $big = $item
+        $res.remove($big)
+        $res.append($big)
+    return $res[$slice]
+where: inside("def top_k($p1, $k): $B:Stmts")
+rewrite:
+    $res = []
+    while $lst:
+        $big = $lst[0]
+        for $item in $lst:
+            if $item > $big:
+                $big = $item
+        $lst.remove($big)
+        $res.append($big)
+    return $res[:$k]
+
+rule extend_wrong_arg_index_not_value
+symptoms: wrong
+match: $lst.extend([$i])
+where: inside("if $lst2[$i2] < $lst2[$i2 + 1]: $B:Stmts") and $i == $i2 and $lst == $lst2
+rewrite: $lst.extend([$lst[$i]])
+
+rule counter_while_missing_increment
+symptoms: wrong, timeout
+match:
+    while $n <= $k:
+        $res.append($expr)
+where: before("$n = $init:Int")
+rewrite:
+    while $n <= $k:
+        $res.append($expr)
+        $n += 1
+
+rule missing_counter_increment_and_return
+symptoms: wrong, timeout
+match:
+    while $counter < $k:
+        $m = max($lst)
+        $res.append($m)
+        $lst.remove($m)
+where: last()
+rewrite:
+    while $counter < $k:
+        $m = max($lst)
+        $res.append($m)
+        $lst.remove($m)
+        $counter += 1
+    return $res
+
+rule missing_increment_return_append_remove_combo
+symptoms: wrong, timeout
+match:
+    while $counter < $k:
+        $res.append($lst.remove($x))
+where: last()
+rewrite:
+    while $counter < $k:
+        $res.append($x)
+        $lst.remove($x)
+        $counter += 1
+    return $res
+
+rule pop_with_value_instead_of_index
+symptoms: wrong, err:ValueError
+match: $lst.pop(max($lst2))
+where: $lst == $lst2
+rewrite: $lst.pop($lst.index(max($lst)))
+
+rule undefined_i_range_while_loop
+symptoms: wrong, err:NameError
+match:
+    while $i in range($k - $n:Int):
+        $B:Stmts
+where: inside("def top_k($lst, $k2): $B2:Stmts") and $k == $k2 and $n == 1 and some($B, "$new:Name.append($_)")
+rewrite:
+    while len($new) < $k:
+        $B:Stmts
+
+rule tuple_index_compare_unneeded
+symptoms: wrong, err:TypeError
+match: if $i[$n:Int] > $big[$m:Int]:
+where: $n == $m
+rewrite: if $i > $big:
+
+rule sort_then_wrong_slice
+symptoms: wrong
+match:
+    $lst.sort()
+    for $i in range($k - $n:Int):
+        $new.append($lst[$i])
+where: $n == 1
+rewrite:
+    $lst.sort(reverse=True)
+    for $i in range($k):
+        $new.append($lst[$i])

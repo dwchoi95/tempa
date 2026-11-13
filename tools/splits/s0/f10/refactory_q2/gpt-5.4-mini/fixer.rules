@@ -1,0 +1,127 @@
+rule fix_day_parameter_name
+symptoms: wrong
+match: if day == $x:
+where: inside("def unique_day($*p): $B:Stmts") and load(day)
+rewrite: if date == $x:
+
+rule fix_unique_day_comparison_side
+symptoms: wrong
+match: if $x == i[1]:
+where: inside("def unique_day($*p): $B:Stmts") and text($x) != "day" and text($x) != "date"
+rewrite: if date == i[1]:
+
+rule fix_unique_month_comparison_side
+symptoms: wrong
+match: if $x == i[0]:
+where: inside("def unique_month($*p): $B:Stmts") and text($x) != "month"
+rewrite: if month == i[0]:
+
+rule fix_unique_day_return_boolean
+symptoms: wrong
+match:
+    if $c > 1:
+        return False
+    return True
+where: inside("def unique_day($*p): $B:Stmts") and some($B, "if $d == $x:\n    $inc")
+rewrite:
+    return $c == 1
+
+rule fix_unique_month_return_boolean
+symptoms: wrong
+match:
+    if $c > 1:
+        return False
+    return True
+where: inside("def unique_month($*p): $B:Stmts") and some($B, "if $m == $x:\n    $inc")
+rewrite:
+    return $c == 1
+
+rule fix_unique_day_count_check
+symptoms: wrong
+match:
+    if $c > 1:
+        return False
+    return True
+where: inside("def unique_day($*p): $B:Stmts") and some($B, "$c += 1")
+rewrite:
+    return $c == 1
+
+rule fix_unique_month_count_check
+symptoms: wrong
+match:
+    if $c > 1:
+        return False
+    return True
+where: inside("def unique_month($*p): $B:Stmts") and some($B, "$c += 1")
+rewrite:
+    return $c == 1
+
+rule fix_contains_unique_day_false_tail
+symptoms: wrong
+match:
+    else:
+        return False
+where: inside("def contains_unique_day($*p): $B:Stmts") and some($B, "return True")
+rewrite:
+    else:
+        continue
+
+rule fix_contains_unique_day_missing_false
+symptoms: wrong
+match:
+    if unique_day($d, $pb):
+        return True
+where: inside("def contains_unique_day($*p): $B:Stmts")
+rewrite:
+    if unique_day($d, $pb):
+        return True
+    else:
+        continue
+
+rule fix_contains_unique_day_return_false
+symptoms: wrong
+match: return $e
+where: inside("def contains_unique_day($*p): $B:Stmts") and not some($B, "return False") and some($B, "return True")
+rewrite: return False
+
+rule fix_unique_day_leq_to_eq
+symptoms: wrong
+match: return $c <= 1
+where: inside("def unique_day($*p): $B:Stmts")
+rewrite: return $c == 1
+
+rule fix_unique_month_leq_to_eq
+symptoms: wrong
+match: return $c <= 1
+where: inside("def unique_month($*p): $B:Stmts")
+rewrite: return $c == 1
+
+rule fix_count_dates_leq_to_eq
+symptoms: wrong
+match: return $c != 1
+where: inside("def unique_day($*p): $B:Stmts") or inside("def unique_month($*p): $B:Stmts")
+rewrite: return $c == 1
+
+rule fix_range_index_name_in_unique_day
+symptoms: wrong, err:NameError
+match: if possible_birthdays[$i][1] == $d:
+where: inside("def unique_day($*p): $B:Stmts")
+rewrite: if possible_birthdays[$i][1] == date:
+
+rule fix_range_index_name_in_unique_month
+symptoms: wrong, err:NameError
+match: if possible_birthdays[$i][0] == $m:
+where: inside("def unique_month($*p): $B:Stmts")
+rewrite: if possible_birthdays[$i][0] == month:
+
+rule fix_contains_unique_day_unique_date_call
+symptoms: wrong, err:NameError
+match: unique_date($x, $pb)
+where: inside("def contains_unique_day($*p): $B:Stmts")
+rewrite: unique_day($x, $pb)
+
+rule fix_contains_unique_day_false_keyword
+symptoms: wrong, err:NameError
+match: return false
+where: inside("def contains_unique_day($*p): $B:Stmts")
+rewrite: return False

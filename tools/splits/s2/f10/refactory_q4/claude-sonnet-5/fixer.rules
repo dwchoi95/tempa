@@ -1,0 +1,19 @@
+rule accumulator_returned_under_wrong_name
+symptoms: wrong, err:NameError
+match: return $r:Name
+where: inside("def $f($*xs): $B:Stmts") and some($B, "$v:Name = []") and some($B, "$v.append($_)") and $r != $v
+rewrite: return $v
+
+rule empty_check_compares_to_tuple_not_list
+symptoms: wrong
+match: $x == ()
+where: inside("def $f($*xs, $p, $*ys): $B:Stmts") and $x == $p
+rewrite: $x == []
+
+rule inplace_sort_mutates_then_return_should_be_sorted_copy
+symptoms: wrong
+match:
+    $x.sort(key=$k, reverse=$r)
+    return $x
+rewrite:
+    return sorted($x, key=$k, reverse=$r)

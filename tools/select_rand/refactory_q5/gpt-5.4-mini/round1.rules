@@ -1,0 +1,169 @@
+rule fix_return_first_k_from_descending_sort
+symptoms: wrong
+match:
+    return $X[:$k]
+where:
+    inside("def top_k($*args, $lst, $k): $B:Stmts") and
+    some($B, "while $C:\n        $S:Stmts") and
+    some($B, "for $I in range($*rs):\n        $T:Stmts")
+rewrite:
+    return $X[:k]
+
+rule fix_off_by_one_slice_k_plus_one
+symptoms: wrong
+match: return $X[:$k + 1]
+rewrite: return $X[:k]
+
+rule fix_off_by_one_slice_k_minus_one
+symptoms: wrong
+match: return $X[:$k - 1]
+rewrite: return $X[:k]
+
+rule fix_off_by_one_range_k_plus_one
+symptoms: wrong
+match: for $i in range($k + 1):
+rewrite: for $i in range($k):
+
+rule fix_off_by_one_range_k_minus_one
+symptoms: wrong
+match: for $i in range($k - 1):
+rewrite: for $i in range($k):
+
+rule fix_while_len_newlist_le_k
+symptoms: wrong
+match: while len($nl) <= $k:
+rewrite: while len($nl) < $k:
+
+rule fix_while_len_lst_ge_len_minus_k
+symptoms: wrong
+match: while len($lst) >= len($lst) - $k:
+rewrite: while len($lst) > $k - len($lst):
+
+rule fix_pop_max_index_to_pop_last
+symptoms: wrong
+match: $lst.pop(max($lst))
+rewrite: $lst.pop()
+
+rule fix_pop_max_index_to_remove_max
+symptoms: wrong
+match: $lst.pop(max($lst))
+rewrite: $lst.remove(max($lst))
+
+rule fix_append_max_remove_order
+symptoms: wrong
+match:
+    $seq.remove(max($seq))
+    $out.append(max($seq))
+rewrite:
+    $out.append(max($seq))
+    $seq.remove(max($seq))
+
+rule fix_append_variable_after_max_loop
+symptoms: wrong
+match:
+    for $x in $lst:
+        if $x > $biggest:
+            $biggest = $x
+    $out.append($x)
+rewrite:
+    for $x in $lst:
+        if $x > $biggest:
+            $biggest = $x
+    $out.append($biggest)
+
+rule fix_remove_variable_after_max_loop
+symptoms: wrong
+match:
+    for $x in $lst:
+        if $x > $biggest:
+            $biggest = $x
+    $lst.remove($x)
+rewrite:
+    for $x in $lst:
+        if $x > $biggest:
+            $biggest = $x
+    $lst.remove($biggest)
+
+rule fix_append_list_of_max_to_list
+symptoms: wrong
+match: $out += max($lst)
+rewrite: $out.append(max($lst))
+
+rule fix_append_brackets_for_max
+symptoms: wrong
+match: $out += max($lst)
+rewrite: $out += [max($lst)]
+
+rule fix_append_remove_call_result
+symptoms: wrong
+match: $out.append($lst.remove($v))
+rewrite: $out.append($v)
+
+rule fix_remove_then_append_same_max
+symptoms: wrong
+match:
+    $lst.remove(max($lst))
+    $out.append(max($lst))
+rewrite:
+    $m = max($lst)
+    $out.append($m)
+    $lst.remove($m)
+
+rule fix_return_sorted_prefix_from_full_result
+symptoms: wrong
+match: return $res[:$k + 1]
+rewrite: return $res[:k]
+
+rule fix_return_full_list_when_k_zero
+symptoms: wrong
+match:
+    elif k == 0:
+        return $lst
+rewrite:
+    elif k == 0:
+        return []
+
+rule fix_return_lst_when_k_one
+symptoms: wrong
+match:
+    elif k == 1:
+        return $lst
+rewrite:
+    elif k == 1:
+        return [max(lst)]
+
+rule fix_return_lst_when_k_nonpositive
+symptoms: wrong
+match:
+    if k <= 0:
+        return $lst
+rewrite:
+    if k <= 0:
+        return []
+
+rule fix_wrong_return_name_newlst
+symptoms: wrong
+match: return $new_lst
+rewrite: return $newlist
+
+rule fix_wrong_return_name_newlst2
+symptoms: wrong
+match: return $new_lst
+rewrite: return $new
+
+rule fix_wrong_return_name_lst
+symptoms: wrong
+match: return $lst
+rewrite: return $sort
+
+rule fix_reverse_sorted_list_before_slice
+symptoms: wrong
+match:
+    $lst = $sort($lst)
+    return $lst[:$k]
+where:
+    regex($sort, r"sort|order|quick_sort|merge_sort|selection_sort")
+rewrite:
+    $lst = $sort($lst)
+    $lst.reverse()
+    return $lst[:k]

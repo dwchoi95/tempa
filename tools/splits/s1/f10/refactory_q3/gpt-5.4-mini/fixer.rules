@@ -1,0 +1,78 @@
+rule fix_not_in_wrong_container
+symptoms: wrong
+match: if $x not in $seq:
+where: some($seq, "$x") and not some($seq, "$x:Name")
+rewrite: if $x not in $x:
+|
+
+rule fix_membership_against_input_list
+symptoms: wrong
+match: if $x not in $seq:
+where: inside("def $f($p, $*ys): $B:Stmts") and some($B, "$x not in $p") and load($p)
+rewrite: if $x not in $seq:
+|
+
+rule fix_membership_against_output_list
+symptoms: wrong
+match: if $x not in $seq:
+where: some($seq, "$x") and regex($seq, r"seen|new|output|result|remove_lst|new_lst|newlist|new_list|lst2")
+rewrite: if $x not in $seq:
+|
+
+rule fix_seen_variable_to_output_accumulator
+symptoms: wrong
+match: if $x not in $seen:
+where: load($seen) and regex($seen, r"seen")
+rewrite: if $x not in $output:
+|
+
+rule fix_count_against_input_list
+symptoms: wrong
+match: if $seq.count($x) < 1:
+where: regex($seq, r"^lst$|values|items|input")
+rewrite: if $seq.count($x) == 0:
+|
+
+rule fix_count_check_to_output_list
+symptoms: wrong
+match: if $seq.count($x) < 1:
+rewrite: if $seq.count($x) == 0:
+|
+
+rule append_to_accumulator_instead_of_input
+symptoms: wrong
+match: $a.append($x)
+where: regex($a, r"^lst$|^values$|^input$") and inside("def $f($*ps): $B:Stmts") and some($B, "$a.append($x)")
+rewrite: $a2.append($x)
+|
+
+rule replace_bad_set_return_with_list_accumulation
+symptoms: wrong
+match: return set($x)
+rewrite:
+    newlist = []
+    for i in $x:
+        if i not in newlist:
+            newlist.append(i)
+    return newlist
+|
+
+rule fix_append_to_nonexistent_new
+symptoms: wrong
+match: $a += $b.append($x)
+where: regex($b, r"^new$|^new_")
+rewrite: $a.append($x)
+|
+
+rule fix_append_result_addition
+symptoms: wrong
+match: $a += $b.append($x)
+rewrite: $a.append($x)
+|
+
+rule fix_returning_wrong_container
+symptoms: wrong
+match: return $x
+where: inside("def remove_extras($p): $B:Stmts") and regex($x, r"^set\(")
+rewrite: return newlist
+|

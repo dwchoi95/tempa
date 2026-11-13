@@ -1,0 +1,82 @@
+rule sort_ascending_needs_reverse
+symptoms: wrong
+match: $lst.sort(key=lambda $x: $x[1])
+where: not parent("return $r") and not next("$lst.reverse()")
+rewrite: $lst.sort(key=lambda $x: $x[1], reverse=True)
+
+rule sort_positional_cmp_to_key
+symptoms: wrong, err:TypeError
+match: $lst.sort($f)
+where: kind($f) == "Lambda"
+rewrite: $lst.sort(key=$f, reverse=True)
+
+rule return_sort_call_split
+symptoms: wrong
+match:
+    return $lst.sort(key=lambda $x: $x[1])
+    |
+    return $lst.sort(key=lambda $x: $x[1], reverse=True)
+rewrite:
+    $lst.sort(key=lambda $x: $x[1], reverse=True)
+    return $lst
+
+rule reverse_missing_parens
+symptoms: wrong, err:TypeError
+match: $acc.reverse
+where: not parent("return $r")
+rewrite: $acc.reverse()
+
+rule append_reassignment_none
+symptoms: wrong, err:AttributeError
+match: $acc = $acc.append($x)
+rewrite: $acc.append($x)
+
+rule missing_final_return_inplace
+symptoms: wrong
+match: $S:Stmt
+where: inside("def sort_age($p): $B:Stmts") and last() and not match($S, "return $r")
+       and not some($B, "$acc:Name = []")
+       and not inside("while $c: $W:Stmts")
+       and not inside("for $fv in $fi: $F:Stmts")
+rewrite:
+    $S
+    return $p
+
+rule missing_final_return_accumulator
+symptoms: wrong
+match: $S:Stmt
+where: inside("def sort_age($p): $B:Stmts") and last() and not match($S, "return $r")
+       and some($B, "$acc:Name = []")
+       and not inside("while $c: $W:Stmts")
+       and not inside("for $fv in $fi: $F:Stmts")
+rewrite:
+    $S
+    return $acc
+
+rule selection_sort_min_to_max
+symptoms: wrong
+match:
+    if $e[1] < $m[1]:
+        $m = $e
+where: inside("def $f($*ps): $B:Stmts")
+       and not some($B, "$acc.reverse()")
+       and not some($B, "return $acc[::-1]")
+       and not some($B, "$acc = $acc[::-1]")
+rewrite:
+    if $e[1] > $m[1]:
+        $m = $e
+
+rule loop_var_used_after_for
+symptoms: wrong
+match:
+    for $i in $lst:
+        if $i[1] < $cur[1]:
+            $cur = $i
+    $lst.remove($i)
+    $acc.append($i)
+rewrite:
+    for $i in $lst:
+        if $i[1] < $cur[1]:
+            $cur = $i
+    $lst.remove($cur)
+    $acc.append($cur)

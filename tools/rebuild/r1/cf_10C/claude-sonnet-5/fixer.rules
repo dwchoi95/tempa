@@ -1,0 +1,53 @@
+rule digitalroot_bruteforce_pair_count
+symptoms: wrong, timeout
+match:
+    $d:Name = 0
+    for $i:Name in range($lo1, $n:Name + 1):
+        for $j:Name in range($lo2, $n2:Name + 1):
+            $Body:Stmts
+    print($d)
+where: some($Body, "$c:Name = $f:Name($f:Name($i) * $f:Name($j))")
+rewrite:
+    q, r = divmod($n, 9)
+    dd = [q]+[q+1]*r+[q]*(8-r)
+    res = 0
+    for i9 in range(9):
+        for j9 in range(9):
+            res += dd[i9]*dd[j9]*dd[(i9*j9)%9]
+    for isub in range(1, $n+1): res -= $n//isub
+    $d = res
+    print($d)
+
+rule digitalroot_input_wrapper_shortcut
+symptoms: wrong
+match: print($f:Name(input()))
+where: not builtin($f)
+rewrite:
+    n = int(input())
+    q, r = divmod(n, 9)
+    dd = [q]+[q+1]*r+[q]*(8-r)
+    res = 0
+    for i9 in range(9):
+        for j9 in range(9):
+            res += dd[i9]*dd[j9]*dd[(i9*j9)%9]
+    for isub in range(1, n+1): res -= n//isub
+    print(res)
+
+rule digitalroot_dict_tally_formula
+symptoms: wrong, timeout
+match:
+    $s:Name = 0
+    for $k:Name in $dctn:Name.keys():
+        $Body2:Stmts
+    print($s)
+where: before("$n:Name = int(input())")
+rewrite:
+    q, r = divmod($n, 9)
+    dd = [q]+[q+1]*r+[q]*(8-r)
+    res = 0
+    for i9 in range(9):
+        for j9 in range(9):
+            res += dd[i9]*dd[j9]*dd[(i9*j9)%9]
+    for isub in range(1, $n+1): res -= $n//isub
+    $s = res
+    print($s)

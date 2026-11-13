@@ -1,0 +1,31 @@
+rule bsearch_missed_upper_bound_feasibility
+symptoms: wrong
+match:
+    if $l:Name == 0:
+        if $cond_r:
+            print($r:Name)
+        else:
+            print(0)
+    else:
+        if $cond_l:
+            print($l2:Name)
+        else:
+            print($r2:Name)
+where: $l2 == $l and $r2 == $r and some($cond_r, "$r")
+rewrite:
+    if $cond_r:
+        print($r)
+    elif $l > 0:
+        print($l)
+    else:
+        print(0)
+
+rule sentinel_negative_one_not_clamped_to_zero
+symptoms: wrong
+match: print($ans:Name)
+where: before("$ans = -1") and not inside("if $ans $o:Cmp $k:Int: $B:Stmts")
+rewrite:
+    if $ans < 0:
+        print(0)
+    else:
+        print($ans)

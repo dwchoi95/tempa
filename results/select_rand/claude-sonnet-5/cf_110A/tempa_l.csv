@@ -1,0 +1,5014 @@
+Buggy,Model,Source,Patch,Fixed,RPS,ATT_all,ATT_cpu,ATT_api,InT,OuT,$API,Rules_L,Rules_SL
+222357031,claude-sonnet-5,reference,"n=int(input())
+c=0
+while n>0:
+    if n%10==4 or n%10==7:
+        c+=1
+    n//=10
+if c==4 or c==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.4314,153.0936,153.0936,0.0,0,0,0.0,[],[]
+222359050,claude-sonnet-5,reference,"n = int(input())
+count = 0
+flag = False
+while n > 0:
+    if n % 10 == 7 or n % 10 == 4:
+        count += 1
+    n //= 10
+if not flag and (count == 4 or count == 7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.0429,49.8835,49.8835,0.0,0,0,0.0,[],[]
+222381976,claude-sonnet-5,reference,"n = int(input())
+b = str(n)
+arr2 = ['4','7']
+count =0
+for i in b:
+    if i in arr2:
+        count+=1
+if count ==4 or count ==7:
+    print('YES')
+else:
+    print('NO')",True,0.4884,1.0941,1.0941,0.0,0,0,0.0,[],[]
+222382409,claude-sonnet-5,reference,"n = int(input())
+b = str(n)
+arr2 = ['4','7']
+count =0
+for i in b:
+    if i in arr2:
+        count+=1
+if count ==4 or count ==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.375,6.0039,6.0039,0.0,0,0,0.0,[],[]
+222398075,claude-sonnet-5,rules,"num=(list(input()))
+n=set(num)
+if('4' in n or '7' in n):
+    a,b=num.count(""4""),num.count(""7"")
+    if(a+b==4 or a+b==7):
+        print(""YES"")
+    else:
+        print(""NO"")
+else:
+    print(""NO"")",True,0.0154,0.1696,0.1696,0.0,0,0,0.0,"[""generic_flip_bool_op""]",[]
+222398741,claude-sonnet-5,reference,"n=int(input())
+c=0
+while(n>0):
+    
+    if (n%10==4 or n%10==7):
+        
+        c=c+1
+    n=n//10
+
+if (c==7 or c==4):
+    
+    print(""YES"")
+    
+else:
+    print(""NO"")",True,0.4898,75.0974,75.0974,0.0,0,0,0.0,[],[]
+222480008,claude-sonnet-5,reference,"s=input()
+a,b=s.count('4'),s.count('7')
+print(""YES"" if (a+b)==7 or (a+b)==4 else ""NO"")",True,0.3333,10.8861,10.8861,0.0,0,0,0.0,[],[]
+222480513,claude-sonnet-5,reference,"s=input()
+a,b=s.count('4'),s.count('7')
+print(""YES"" if (a+b)==7 or (a+b)==4 else ""NO"")",True,0.4426,6.7528,6.7528,0.0,0,0,0.0,[],[]
+222541769,claude-sonnet-5,reference,"n = input()
+c = 0
+for i in n:
+    if i in '47':
+        c += 1
+if c == 4 or c == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.617,19.3776,19.3776,0.0,0,0,0.0,[],[]
+222554253,claude-sonnet-5,rules,"n = int(input())
+s = str(n)
+flag =1
+count = 0
+for i in s:
+    if i != '4' and i !='7':
+        flag = 0
+    else:
+        flag =1
+    if flag == 1:
+       count = count +1
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.125,0.209,0.209,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+222555010,claude-sonnet-5,reference,"n = int(input())
+n = str(n)
+count = 0
+
+for i in n:
+    if i=='4' or i=='7':
+        count+=1
+        
+
+if count==4 or count==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.7164,28.9302,28.9302,0.0,0,0,0.0,[],[]
+222619846,claude-sonnet-5,rules,"n=input()
+s = n.count('4') + n.count('7')
+count=0
+for i in range(0, s - 1 + 1):
+    if(n[i] != 4 or n[i]==7):
+        count=count+1
+        
+if(count==4 or count==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2097,5.3961,5.3961,0.0,0,0,0.0,"[""length_assigned_as_count_before_flag_init"", ""generic_flip_compare"", ""generic_shift_range""]",[]
+222620268,claude-sonnet-5,rules,"n=input()
+s = n.count('4') + n.count('7')
+count4=0
+count7=0
+for i in range(0, s - 1 + 1):
+    if(n[i] != 4 ):
+        count4=count4+1
+    if(n[i]==7):
+        count7=count7+1
+s=count4+count7        
+if(count4==4 or count7==7 or s==4 or s==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.1548,8.3411,8.3411,0.0,0,0,0.0,"[""length_assigned_as_count_before_flag_init"", ""generic_flip_compare"", ""generic_shift_range""]",[]
+222620503,claude-sonnet-5,rules,"n=input()
+s = n.count('4') + n.count('7')
+count4=0
+count7=0
+for i in range(0, s - 1 + 1):
+    if(n[i] != 4 ):
+        count4=count4+1
+    if(n[i]==7):
+        count7=count7+1
+x=count4+count7        
+if(count4==4 or count7==7 or x==4 or x==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.1548,9.1933,9.1933,0.0,0,0,0.0,"[""length_assigned_as_count_before_flag_init"", ""generic_flip_compare"", ""generic_shift_range""]",[]
+222627756,claude-sonnet-5,reference,"# O(n)
+n = input()
+count = 0
+res = 'YES'
+for i in range(len(n)):
+    if n[i] == '4' or n[i] == '7':
+        count += 1
+count = str(count)
+for i in range(len(count)):
+    if count[i] != '4' and count[i] != '7':
+        res = 'NO'
+        break
+print(res)",True,1.0488,10.436,10.436,0.0,0,0,0.0,[],[]
+222631706,claude-sonnet-5,reference,"# O(1)
+n = int(input())
+n = str(n)
+count = 0
+
+for i in n:
+    if i=='4' or i=='7':
+        count+=1
+        
+
+if count==4 or count==7:
+    print('YES')
+else:
+    print('NO')",True,0.6909,36.5819,36.5819,0.0,0,0,0.0,[],[]
+222643111,claude-sonnet-5,reference,"n=int(input())
+count=0
+while n>0:
+   t=n%10
+   if t==4 or t==7:
+       count+=1
+   n=n//10
+if(count==4 or count==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.375,76.3408,76.3408,0.0,0,0,0.0,[],[]
+222643382,claude-sonnet-5,reference,"n=int(input())
+ans=0
+while n>0:
+    r=n%10
+    if r==4 or r==7:
+        ans+=1 
+    n=n//10 
+if ans==4 or ans==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2,42.0649,42.0649,0.0,0,0,0.0,[],[]
+222657101,claude-sonnet-5,reference,"x=str(input())
+sum=0
+for i in x:
+    if i=='7' or i=='4':
+        sum+=1
+if sum==7 or sum==4:
+    print('YES')
+else:
+    print('NO')",True,0.3774,17.6785,17.6785,0.0,0,0,0.0,[],[]
+222665290,claude-sonnet-5,reference,"s=input()
+a,b=0,0
+for i in range(len(s)):
+    if int(s[i])==4 or int(s[i])==7:
+        a+=1
+a=str(a)
+for i in range(len(a)):
+    if int(a[i])==4 or int(a[i])==7:
+        b+=1
+if b==len(a):
+    print('YES')
+else:
+    print('NO')",True,0.4947,12.349,12.349,0.0,0,0,0.0,[],[]
+222679064,claude-sonnet-5,rules,"num = int (input())
+
+
+lucky = True
+_cnt = 0
+while num > 0:
+    if num % 10 == 4 or num % 10 == 7:
+        _cnt += 1
+    num //= 10
+if _cnt == 4 or _cnt == 7:
+    print('YES')
+else:
+    print('NO')",True,0.375,0.1468,0.1468,0.0,0,0,0.0,"[""while_digit_allflag_to_count_eqtrue""]",[]
+222683519,claude-sonnet-5,reference,"l=input()
+cnt=0
+c=1
+
+for i in l:
+
+    if i=='4' or i=='7':
+        cnt=cnt+1
+cnt=str(cnt)
+
+#####
+for i in cnt:
+    if i=='4' or i=='7':
+        continue
+    else:
+        print(""NO"")
+        c=0
+        break
+if c==1:
+    print(""YES"")",True,0.898,25.9004,25.9004,0.0,0,0,0.0,[],[]
+222683963,claude-sonnet-5,reference,"n=int(input())
+c=0
+a=0
+while(n>0):
+    a=n%10
+    if a==4 or a==7:
+        c+=1
+    n=n//10
+if c==7 or c==4:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6724,29.3543,29.3543,0.0,0,0,0.0,[],[]
+222684227,claude-sonnet-5,reference,"n=int(input())
+c=0
+a=0
+while(n>0):
+    a=n%10
+    if a==4 or a==7:
+        c+=1
+    n=n//10
+if c==7 or c==4:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6615,48.9214,48.9214,0.0,0,0,0.0,[],[]
+222685119,claude-sonnet-5,reference,"n=int(input())
+c=0
+a=0
+while(n>0):
+    a=n%10
+    if a==4 or a==7:
+        c+=1
+    n=n//10
+if c==7 or c==4:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.4512,38.2704,38.2704,0.0,0,0,0.0,[],[]
+222696558,claude-sonnet-5,reference,"petya_input = input()
+count = 0
+for i in range(len(petya_input)):
+    if petya_input[i] == ""4"" or petya_input[i] == ""7"":
+        count += 1
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.1132,9.9531,9.9531,0.0,0,0,0.0,[],[]
+222762005,claude-sonnet-5,reference,"n = input()
+cnt = 0
+for char in n:
+  if char == '4' or char == '7':
+    cnt += 1
+for char in str(cnt):
+  if char != '4' and char != '7':
+    print('NO')
+    break
+else:
+  print('YES')",True,1.3929,22.8505,22.8505,0.0,0,0,0.0,[],[]
+222792153,claude-sonnet-5,reference,"n = input()
+contador = 0
+for i in n:
+    if i == '4' or i == '7':
+        contador += 1
+if contador == 7 or contador == 4:
+    print(""YES"")
+else:
+  print('NO')",True,0.413,22.7405,22.7405,0.0,0,0,0.0,[],[]
+222809618,claude-sonnet-5,reference,"a=input()
+t=0
+for i in a:
+    if i=='4' or i=='7':
+        t=t+1
+if t==4 or t==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.439,24.0365,24.0365,0.0,0,0,0.0,[],[]
+222848844,claude-sonnet-5,reference,"n = input()
+cnt = 0
+for char in n:
+  if char == '4' or char == '7':
+    cnt += 1
+for char in str(cnt):
+  if char != '4' and char != '7':
+    print('NO')
+    break
+else:
+    print(""YES"")",True,0.7632,25.5227,25.5227,0.0,0,0,0.0,[],[]
+222866412,claude-sonnet-5,reference,"n = input()
+c = 0
+for i in n:
+    if i in '47':
+        c += 1
+if c == 4 or c == 7:
+    print('YES')
+else:
+  print('NO')",True,0.5,0.625,0.625,0.0,0,0,0.0,[],[]
+222885144,claude-sonnet-5,reference,"n = input()
+count = 0
+for i in range(len(n)):
+    c = n[i]
+    if c == '4' or c == '7':
+        count += 1
+    else:
+        continue
+if count == 4 or count == 7:
+    print('YES')
+else:
+    print('NO')",True,0.66,22.5789,22.5789,0.0,0,0,0.0,[],[]
+222897502,claude-sonnet-5,reference,"n = input()
+count = 0
+for i in n:
+    if i == '4' or i == '7':
+        count += 1
+ris = 'YES'
+for i in str(count):
+    if i != '4' and i != '7':
+        ris = 'NO'
+print(ris)",True,0.9667,4.3611,4.3611,0.0,0,0,0.0,[],[]
+222898317,claude-sonnet-5,reference,"n = str(input())
+ans = 'NO'
+counts = 0
+for i in n:
+	if i=='4' or i == '7':
+		counts += 1		
+if counts ==4 or counts==7:
+	ans = 'YES'		
+print(ans)",True,0.9,5.4539,5.4539,0.0,0,0,0.0,[],[]
+222898852,claude-sonnet-5,rules,"n=input()
+total7=n.count('7')
+total4=n.count('4')
+
+if(total7 != 0 or total4 != 0) and (total7 + total4 == 4 or total7 + total4 == 7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2553,0.6226,0.6226,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count"", ""generic_flip_bool_op""]",[]
+222910322,claude-sonnet-5,reference,"n=input()
+t=0
+for i in n:
+    if int(i)==4 or int(i)==7:
+        t+=1
+    else:
+        continue
+if t==4 or t==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7619,17.7435,17.7435,0.0,0,0,0.0,[],[]
+222934097,claude-sonnet-5,reference,"n = input()
+count = 0
+for i in n:
+  if i == ""4"" or i == ""7"":
+    count += 1
+
+print(""YES"" if count == 7 or count == 4 else ""NO"")",True,0.8667,2.7254,2.7254,0.0,0,0,0.0,[],[]
+222938267,claude-sonnet-5,reference,"n = input()
+count = 0
+for i in n:
+  if i == ""4"" or i == ""7"":
+    count += 1
+
+print(""YES"" if count == 7 or count == 4 else ""NO"")",True,0.8286,0.6247,0.6247,0.0,0,0,0.0,[],[]
+223027096,claude-sonnet-5,reference,"n=int(input())
+count=0
+while n>0:
+    if(n%10==7 or n%10==4):
+        count+=1
+    n=n//10
+if(count==4 or count==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2381,41.2182,41.2182,0.0,0,0,0.0,[],[]
+223028622,claude-sonnet-5,reference,"n = int(input())
+count = 0
+
+while n != 0:
+    if n % 10 == 4 or n % 10 == 7:
+        count += 1
+    n //= 10
+
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5176,49.7165,49.7165,0.0,0,0,0.0,[],[]
+223052958,claude-sonnet-5,reference,"list1 = list(input())
+
+num = list1.count(""4"") + list1.count(""7"")
+list2 =list(str(num))
+
+result = True
+for ch in list2:
+    if ch != ""4"" and ch != ""7"":
+        result = False
+        
+if result == False:
+    print(""NO"")
+else:
+    print(""YES"")",True,0.7209,3.2736,3.2736,0.0,0,0,0.0,[],[]
+223053698,claude-sonnet-5,reference,"n = input()
+count = 0
+for i in n:
+    if i == '4' or i == '7':
+        count += 1
+ris = 'YES'
+for i in str(count):
+    if i != '4' and i != '7':
+        ris = 'NO'
+print(ris)",True,0.3857,17.5124,17.5124,0.0,0,0,0.0,[],[]
+223054040,claude-sonnet-5,reference,"if __name__ == ""__main__"":
+    num = input()
+    luckyDigits = int(num.count('4')) + int(num.count('7'))
+
+    if(luckyDigits == 4 or luckyDigits == 7):
+        print(""YES"")
+    else:
+        print(""NO"")",True,0.7903,18.8761,18.8761,0.0,0,0,0.0,[],[]
+223058606,claude-sonnet-5,rules,"# -*- coding: utf-8 -*-
+""""""
+Created on Tue Sep 12 16:30:18 2023
+
+@author: gzk16
+""""""
+
+lucky_number = input()
+numbers = [int(x) for x in lucky_number]
+if all(x == 4 and x == 7 for x in numbers):
+    print('YES')
+else:
+    count = 0
+    for number in numbers:
+        if number == 4 or number == 7:
+            count += 1
+    if count == 4 or count == 7:
+        print('YES')
+    else:
+        print('NO')",True,0.0541,2.3957,2.3957,0.0,0,0,0.0,"[""missing_comparison_repeat"", ""generic_flip_bool_op""]",[]
+223068898,claude-sonnet-5,reference,"a=input()
+l=list(a)
+c=0
+for i in l:
+    if i in '47':
+        c=c+1
+    else:
+        continue
+if c==4 or c==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.3191,30.5653,30.5653,0.0,0,0,0.0,[],[]
+223083146,claude-sonnet-5,rules,"angka = input()
+jumlah=0
+for karakter in angka:
+    if karakter == '4' or karakter == '7':
+        jumlah += 1
+if jumlah == 4 or jumlah == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2368,0.1285,0.1285,0.0,0,0,0.0,"[""isdigit_should_check_lucky""]",[]
+223093691,claude-sonnet-5,rules,"inp=input()
+st=''
+for i in inp:
+  if i==""4"" or i ==""7"":
+      st+=i
+if len(st) == 4 or len(st) == 7:
+  print(""YES"")
+else:
+  print(""NO"")",True,0.186,0.1413,0.1413,0.0,0,0,0.0,"[""len_eq_count_should_be_lucky_count""]",[]
+223094181,claude-sonnet-5,rules,"if __name__ == '__main__':
+    num=input();
+    
+    cnt=0
+    dumcnt=0
+    new_num=str(num)
+    
+    for i in range(len(new_num)):
+        if new_num[i] == '4' or new_num[i]=='7':
+            cnt=cnt+1
+            
+            
+    if(cnt == 4 or cnt == 7):
+        print(""YES"")
+    else:
+        strcnt=str(cnt)
+        for i in range(len(strcnt)):
+            if strcnt[i]=='4' or strcnt[i]=='7':
+                dumcnt=dumcnt+1
+        
+             
+        if(dumcnt==len(strcnt)):
+            print(""Yes"")
+        else:
+            print(""NO"")",True,0.0741,0.2186,0.2186,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+223094886,claude-sonnet-5,rules,"inp=input()
+st1=''
+st2=''
+for i in inp:
+  if len(inp)>1:
+    if i==""4"":
+        st1+=i
+    elif i ==""7"":
+        st2+=i
+if (len(st1) + len(st2) == 4 or len(st1) + len(st2) == 7) and len(st1) + len(st2) > 3 :
+  print(""YES"")
+else:
+  print(""NO"")",True,0.1892,1.1657,1.1657,0.0,0,0,0.0,"[""len_eq_count_should_be_lucky_count"", ""generic_flip_bool_op""]",[]
+223096399,claude-sonnet-5,rules,"n=int(input())
+count=0
+while n>0:
+    if n % 10 == 4 or n % 10 == 7:
+        count+=1
+    n=n//10
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2192,7.5159,7.5159,0.0,0,0,0.0,"[""modulo_should_be_equality"", ""modulo_should_be_equality""]",[]
+223099521,claude-sonnet-5,rules,"inp=input()
+st1=''
+st2=''
+for i in inp:
+  if len(inp)>1:
+    if i==""4"":
+        st1+=i
+    elif i ==""7"":
+        st2+=i
+a=len(st1)+len(st2)
+if (a == 4 or a == 7) or a==7 or a==4:
+  print(""YES"")
+else:
+  print(""NO"")",True,0.1216,0.2044,0.2044,0.0,0,0,0.0,"[""len_eq_count_should_be_lucky_count""]",[]
+223102222,claude-sonnet-5,rules,"word=input()
+b=0
+for w in word:
+    if (w=='4' or w=='7'):
+      b+=1
+if b == 4 or b == 7:
+    print('YES')
+else:
+    print('NO')",True,0.1951,0.2325,0.2325,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+223117990,claude-sonnet-5,reference,"a=input()
+l=list(a)
+c=0
+for i in l:
+    if i in '47':
+        c=c+1
+    else:
+        continue
+if c==4 or c==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2439,2.6592,2.6592,0.0,0,0,0.0,[],[]
+223141936,claude-sonnet-5,reference,"n=int(input())
+c=0
+while n>0:
+    if n%10==4 or n%10==7:
+        c+=1
+    n//=10
+if c==4 or c==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,1.2759,2.2535,2.2535,0.0,0,0,0.0,[],[]
+223143008,claude-sonnet-5,reference,"n = input()
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+    print(""NO"")",True,1.1481,0.4101,0.4101,0.0,0,0,0.0,[],[]
+223144341,claude-sonnet-5,reference,"def is_nearly_lucky(n):
+  count = 0
+  while n > 0:
+    if n % 10 == 4 or n % 10 == 7:
+      count += 1
+    n //= 10
+  return count in (4, 7)
+
+if __name__ == ""__main__"":
+  n = int(input())
+  print(""YES"" if is_nearly_lucky(n) else ""NO"")",True,1.3768,60.0389,60.0389,0.0,0,0,0.0,[],[]
+223144821,claude-sonnet-5,reference,"def is_nearly_lucky(n):
+  count = 0
+  while n > 0:
+    if n % 10 == 4 or n % 10 == 7:
+      count += 1
+    n //= 10
+  return count in (4, 7)
+
+if __name__ == ""__main__"":
+  n = int(input())
+  print(""YES"" if is_nearly_lucky(n) else ""NO"")",True,1.4,105.1877,105.1877,0.0,0,0,0.0,[],[]
+223144877,claude-sonnet-5,reference,"def is_nearly_lucky(n):
+  count = 0
+  while n > 0:
+    if n % 10 == 4 or n % 10 == 7:
+      count += 1
+    n //= 10
+  return count in (4, 7)
+
+if __name__ == ""__main__"":
+  n = int(input())
+  print(""YES"" if is_nearly_lucky(n) else ""NO"")",True,1.4,108.6282,108.6282,0.0,0,0,0.0,[],[]
+223145455,claude-sonnet-5,reference,"def code(*args):
+    
+    num = args[0]
+    digit = 0
+    
+    while (num > 0):
+        last_digit = num % 10
+        if (last_digit == 4 or last_digit == 7):
+            digit += 1            
+        num //= 10
+    
+    if (digit == 4 or digit == 7):
+        return ""YES""
+    
+    return ""NO""
+
+def is_nearly_lucky(num):
+    count = 0
+    while num > 0:
+        digit = num % 10
+        if digit == 4 or digit == 7:
+            count += 1
+        num //= 10
+    return is_lucky(count)
+
+if __name__ == ""__main__"":
+    # Take inputs here
+    number = int(input())
+    result = code(number)  # Pass arguments
+    print(result)",True,1.0,60.6901,60.6901,0.0,0,0,0.0,[],[]
+223159171,claude-sonnet-5,rules,"a = input()
+
+if (a.count('4') + a.count('7') == 4 or a.count('4') + a.count('7') == 7) or len(a) == 7 or (4 != 4 or 4 == 7):
+    print('YES')
+else:
+    print('NO')",True,0.5814,5.5915,5.5915,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count"", ""len_eq_count_should_be_lucky_count"", ""generic_flip_compare""]",[]
+223159437,claude-sonnet-5,rules,"a = input()
+
+if a.count('4') + a.count('7') in (4, 7):
+    print('YES')
+else:
+    print('NO')",True,0.5714,0.118,0.118,0.0,0,0,0.0,"[""length_as_lucky_count_or_rev""]",[]
+223159576,claude-sonnet-5,reference,"n=input()
+a=n.count('4')
+b=n.count('7')
+c=a+b
+if c==4 or c==7:
+    print('YES')
+else:
+    print('NO')",True,1.0811,0.4504,0.4504,0.0,0,0,0.0,[],[]
+223159593,claude-sonnet-5,rules,"n = str(input())
+count = 0
+for i in range(len(n)):
+    if n[i] == '4' or n[i] == '7':
+        count+=1
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.1569,0.1816,0.1816,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+223162878,claude-sonnet-5,rules,"a=int(input())
+x=[i for i in str(a)]
+if x.count('4') + x.count('7') == 4 or x.count('4') + x.count('7') == 7:
+    print('YES')
+else:
+    print('NO')",True,0.4,0.1376,0.1376,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+223163294,claude-sonnet-5,rules,"a=input()
+x=[*a]
+if '4' or '7' in x:
+    if x.count('4') + x.count('7') in (4, 7):
+        print('YES')
+    else:
+        print('NO')
+else:
+    print(""No"")",True,0.4,6.6588,6.6588,0.0,0,0,0.0,"[""length_as_lucky_count_or"", ""fix_titlecase_yes"", ""fix_titlecase_no""]",[]
+223167792,claude-sonnet-5,reference,"n=input()
+l=len(n)
+sum=0
+for i in range(l):
+    if n[i]==""4"" or n[i]==""7"":
+        sum+=1
+if sum==4 or sum==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5714,10.6135,10.6135,0.0,0,0,0.0,[],[]
+223168009,claude-sonnet-5,reference,"n = list(input())
+happy_nums = 0
+
+for num in n:
+    if num == '4' or num == '7':
+        happy_nums += 1
+
+if happy_nums == 4 or happy_nums == 7:
+    print('YES')
+else:
+    print(""NO"")",True,1.0385,0.3926,0.3926,0.0,0,0,0.0,[],[]
+223168717,claude-sonnet-5,reference,"n = input()
+a=sum(1 for i in n if i in '47')
+if a == 4 or a == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.9583,0.5962,0.5962,0.0,0,0,0.0,[],[]
+223176636,claude-sonnet-5,reference,"num=input()
+c=0
+for i in num:
+    if(i=='4' or i=='7'):
+        c+=1
+if(c==4 or c==7):
+    print('YES')
+else:
+    print(""NO"")",True,0.8136,36.3322,36.3322,0.0,0,0,0.0,[],[]
+223185505,claude-sonnet-5,reference,"def isLucky(num):
+    num = str(num)
+    Lucky = 0
+    for i in range(0, len(num)):
+        if (num[i] == ""4"" or num[i] == ""7""):
+            Lucky += 1
+
+    return ""YES"" if Lucky == 7 or Lucky == 4 else ""NO""
+
+print(isLucky(input()))",True,0.3725,11.2305,11.2305,0.0,0,0,0.0,[],[]
+223188836,claude-sonnet-5,reference,"a=input()
+t=0
+for i in a:
+    if i=='4' or i=='7':
+        t=t+1
+if t==4 or t==7:
+    print('YES')
+else:
+    print('NO')",True,0.4286,18.1472,18.1472,0.0,0,0,0.0,[],[]
+223189499,claude-sonnet-5,reference,"a=input()
+t=0
+for i in a:
+    if i=='4' or i=='7':
+        t=t+1
+if t==4 or t==7:
+    print('YES')
+else:
+    print('NO')",True,0.2083,11.8248,11.8248,0.0,0,0,0.0,[],[]
+223218496,claude-sonnet-5,reference,"n = input()
+length = list(str(len(n)))
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2549,13.6979,13.6979,0.0,0,0,0.0,[],[]
+223218821,claude-sonnet-5,reference,"n= input()
+a=0
+for i in n:
+    if(i==""4"" or i==""7""):
+        a +=1
+b=0
+for i in str(a):
+    if(i==""4"" or i==""7""):
+        b+=1
+if(b==len(str(a))):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.4651,11.8361,11.8361,0.0,0,0,0.0,[],[]
+223221855,claude-sonnet-5,reference,"n = input()
+su = 0
+for i in n:
+    if i == '4' or i == '7':
+        su += 1
+if su == 4 or su == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2667,13.8184,13.8184,0.0,0,0,0.0,[],[]
+223224405,claude-sonnet-5,reference,"n=int(input())
+c=0
+while n>0:
+    if n%10==4 or n%10==7:
+        c+=1
+    n//=10
+if c==4 or c==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.4138,28.8004,28.8004,0.0,0,0,0.0,[],[]
+223297023,claude-sonnet-5,rules,"n = input()
+x = n.count(""7"")
+y = n.count(""4"")
+z = x+y
+if x==0 and y==0:
+    print(""NO"")
+elif z == 4 or z == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.127,0.1522,0.1522,0.0,0,0,0.0,"[""modulo_should_be_equality""]",[]
+223297140,claude-sonnet-5,reference,"n=input()
+a=n.count('4')
+b=n.count('7')
+c=a+b
+if c==4 or c==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.5217,17.393,17.393,0.0,0,0,0.0,[],[]
+223299193,claude-sonnet-5,reference,"s = input()
+if(s.count('4')+s.count('7') in {4,7}):
+    print(""YES"")
+else:
+    print('NO')",True,0.6471,17.7544,17.7544,0.0,0,0,0.0,[],[]
+223299389,claude-sonnet-5,reference,"s=input()
+a= set(str(s.count('4')+s.count('7')))
+if a=={'4','7'} or a=={'4'} or a=={'7'} :
+    print ('YES')
+else:
+    print('NO')",True,0.6222,11.4806,11.4806,0.0,0,0,0.0,[],[]
+223323122,claude-sonnet-5,reference,"n = input()
+
+lucky_count = n.count('4') + n.count('7')
+
+def is_lucky(number):
+    return all(digit in '47' for digit in str(number))
+
+if is_lucky(lucky_count):
+    print(""YES"")
+else:
+    print(""NO"")",True,1.1702,0.4842,0.4842,0.0,0,0,0.0,[],[]
+223392096,claude-sonnet-5,reference,"n=int(input())
+count=0
+while n!=0:
+    a=n%10
+    if a==4 or a==7:
+        count+=1
+    n=n//10
+if count==4 or count==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,1.7895,38.0481,38.0481,0.0,0,0,0.0,[],[]
+223400436,claude-sonnet-5,reference,"inp = input()
+count = 0
+for i in range(len(inp)):
+    if int(inp[i]) in [4,7]:
+        count +=1
+if count in [4, 7]:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7333,20.5593,20.5593,0.0,0,0,0.0,[],[]
+223412538,claude-sonnet-5,reference,"a=int(input())
+s=0
+while a>0:
+    e=a%10
+    if e==4 or e==7:
+        s=s+1
+    a=a//10
+if s==4 or s==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.3966,45.5739,45.5739,0.0,0,0,0.0,[],[]
+223474466,claude-sonnet-5,reference,"n = int(input())
+lucky = []
+unlucky = []
+for i in str(n):
+    if i == ""4"" or i == ""7"":
+        lucky.append(i)
+    else:
+        unlucky.append(i)
+        
+if len(lucky) == 4 or len(lucky) == 7:
+    print(""YES"")
+else :
+    print(""NO"")",True,0.4727,12.1839,12.1839,0.0,0,0,0.0,[],[]
+223500955,claude-sonnet-5,reference,"number=list(input())
+n=0
+for digit in number:
+    if digit==""4"" or digit==""7"":
+        n+=1
+num=list(str(n))
+while ""4"" in num:
+    num.remove(""4"")
+while ""7"" in num:
+    num.remove(""7"")
+if num==[]:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7885,13.2711,13.2711,0.0,0,0,0.0,[],[]
+223501798,claude-sonnet-5,rules,"x = input()
+numbers = []
+a = 0
+for i in range(len(x)):
+    numbers.append(x[i])
+while '4' in numbers:
+    numbers.remove('4')
+    a += 1
+while '7' in numbers:
+    numbers.remove('7')
+    a += 1
+if a == 4 or a == 7:
+    print('YES')
+else:
+    print('NO')",True,0.1026,0.1376,0.1376,0.0,0,0,0.0,"[""modulo_should_be_equality""]",[]
+223525919,claude-sonnet-5,rules,"s= input()
+if s.count('4') + s.count('7') in (4, 7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5714,0.1212,0.1212,0.0,0,0,0.0,"[""length_as_lucky_count_or""]",[]
+223545787,claude-sonnet-5,reference,"n = input()
+count = 0
+res = 0
+for i in n:
+    if i == '4' or i == '7':
+        res += 1
+if res == 4 or res == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.3,11.1436,11.1436,0.0,0,0,0.0,[],[]
+223545935,claude-sonnet-5,rules,"n=input()
+l=n.count('4')+n.count('7')
+
+if l==4 or l==7 or (l == 4 or l == 7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.1905,0.1525,0.1525,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+223546034,claude-sonnet-5,rules,"n=input()
+l=n.count('4')+n.count('7')
+
+if l==4 or l==7 or all(d == '4' and d == '7'for d in n):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.0192,0.1792,0.1792,0.0,0,0,0.0,"[""generic_flip_bool_op""]",[]
+223546149,claude-sonnet-5,reference,"n = input()
+z=n.count('4')+n.count('7')
+if z == 4 or z== 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.3125,10.5894,10.5894,0.0,0,0,0.0,[],[]
+223566689,claude-sonnet-5,reference,"S = input()
+cnt_four = S.count(""4"")
+cnt_seven = S.count(""7"")
+cnt = cnt_four + cnt_seven
+cnt_str = str(cnt)
+for s in cnt_str:
+    if s != ""4"" and s != ""7"":
+        print(""NO"")
+        exit()
+
+print(""YES"")",True,0.9667,2.508,2.508,0.0,0,0,0.0,[],[]
+223567051,claude-sonnet-5,reference,"n = input()
+c = 0
+for i in n:
+    if i in '47':
+        c += 1
+if c == 4 or c == 7:
+    print('YES')
+else:
+    print('NO')",True,1.0741,0.3589,0.3589,0.0,0,0,0.0,[],[]
+223567360,claude-sonnet-5,reference,"n = input()
+count = 0
+res = 0
+for i in n:
+    if i == '4' or i == '7':
+        res += 1
+if res == 4 or res == 7:
+    print('YES')
+else:
+    print(""NO"")",True,1.0303,0.8725,0.8725,0.0,0,0,0.0,[],[]
+223572201,claude-sonnet-5,rules,"i=int(input())
+t=0
+f=str(i)
+for j in f:
+    if j in '47':
+        t+=1
+    else:
+        pass
+if t == 4 or t == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.186,0.1816,0.1816,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+223585522,claude-sonnet-5,reference,"n=input()
+a=[]
+count=0
+for i in n:
+    a.append(i)
+##print(a)
+
+for j in a:
+    if int(j)==4 or int(j)==7:
+        count+=1
+    else:
+        continue
+if count==4 or count==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.1579,16.7515,16.7515,0.0,0,0,0.0,[],[]
+223629881,claude-sonnet-5,reference,"# -*- coding: utf-8 -*-
+""""""
+Created on Sat Sep 16 22:36:35 2023
+
+@author: He'Bing'Ru
+""""""
+
+num = list(input())
+out = 0
+for i in num :
+    if (i == '4') + (i == '7') :
+        out += 1
+if (out == 4) + (out == 7) + (out == 47) + (out == 74) :
+    print('YES')
+else:
+    print('NO')",True,0.2192,13.6265,13.6265,0.0,0,0,0.0,[],[]
+223673403,claude-sonnet-5,reference,"n = str(input())
+ans = 'NO'
+counts = 0
+for i in n:
+	if i=='4' or i == '7':
+		counts += 1		
+if counts ==4 or counts==7:
+	ans = 'YES'		
+print(ans)",True,0.8378,3.4884,3.4884,0.0,0,0,0.0,[],[]
+223674371,claude-sonnet-5,reference,"n = int(input())
+b = str(n)
+arr2 = ['4','7']
+count =0
+for i in b:
+    if i in arr2:
+        count+=1
+if count ==4 or count ==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.9268,0.696,0.696,0.0,0,0,0.0,[],[]
+223677918,claude-sonnet-5,reference,"# -*- coding: utf-8 -*-
+""""""
+Created on Sun Sep 17 10:01:18 2023
+
+@author: lenovo
+""""""
+
+n=input()
+luc=0
+for i in range(len(n)):
+    if n[i]=='4' or n[i]=='7':
+        luc+=1
+#print(luc)
+if luc==4 or luc==7:
+    print('YES')
+else:print('NO')",True,0.2667,10.3553,10.3553,0.0,0,0,0.0,[],[]
+223726295,claude-sonnet-5,reference,"x = input()
+c7 = x.count(""7"")
+c4 = x.count(""4"")
+s = c7 + c4
+if s == 7 or s == 4:
+	print(""YES"")
+else:
+        print(""NO"")",True,0.5366,0.5807,0.5807,0.0,0,0,0.0,[],[]
+223735227,claude-sonnet-5,rules,"n=input()
+l = n.count('4') + n.count('7')
+count=0
+for i in range(0,l):
+    if(n[i] != 4 or n[i]==7):
+        count=count+1
+if(count==7 or count==4 or count != l):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.1746,5.4798,5.4798,0.0,0,0,0.0,"[""length_assigned_as_count_before_flag_init"", ""generic_flip_compare"", ""generic_flip_compare""]",[]
+223735436,claude-sonnet-5,rules,"n=input()
+l = n.count('4') + n.count('7')
+count=0
+for i in range(0,l):
+    if(n[i] != 4 or n[i]==7):
+        count=count+1
+if(count==l and (count==4 or count==7)):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.1538,1.8585,1.8585,0.0,0,0,0.0,"[""length_assigned_as_count_before_flag_init"", ""generic_flip_compare""]",[]
+223785791,claude-sonnet-5,reference,"n=input()
+a=n.count('4')
+b=n.count('7')
+c=a+b
+if c==4 or c==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.6,0.5121,0.5121,0.0,0,0,0.0,[],[]
+223787021,claude-sonnet-5,reference,"n=input()
+a=n.count('4')
+b=n.count('7')
+c=a+b
+if c==4 or c==7:
+    print('YES')
+else:
+    print('NO')",True,0.6444,1.6244,1.6244,0.0,0,0,0.0,[],[]
+223844233,claude-sonnet-5,reference,"n = input()
+a=n.count('4')
+b=n.count('7')
+if a+b == 4 or a+b ==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.3966,4.9487,4.9487,0.0,0,0,0.0,[],[]
+223921590,claude-sonnet-5,reference,"num = input()
+
+
+count = 0
+
+for n in num:
+    if n in ['4', '7']:
+        count += 1
+
+if count in [4, 7]:
+    print('YES')
+else:
+    print(""NO"")",True,0.7042,19.0483,19.0483,0.0,0,0,0.0,[],[]
+223951330,claude-sonnet-5,reference,"n=int(input())
+a=str(n)
+l=0
+for i in range(len(a)):
+	if a[i] in '47':
+		l+=1
+if l==4 or l==7:
+	print('YES')
+else:
+    print(""NO"")",True,0.5818,10.1407,10.1407,0.0,0,0,0.0,[],[]
+223952142,claude-sonnet-5,reference,"s = input()
+n = s.count('4') + s.count('7')
+if(n == 4 or n == 7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.3636,0.7598,0.7598,0.0,0,0,0.0,[],[]
+224004926,claude-sonnet-5,rules,"in_str = input()
+cntr = 0
+
+if len(in_str) < 1 and len(in_str) > 18:
+    print(""Error_1"")
+
+for ch in in_str:
+    if (ch == '4') or (ch == '7'):
+        cntr +=1
+
+if (cntr == 4) or (cntr == 7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.0156,0.2589,0.2589,0.0,0,0,0.0,"[""generic_flip_bool_op""]",[]
+224019898,claude-sonnet-5,rules,"a=str(input())
+c=0
+for i in a:
+	if i ==""4"" or i==""7"":
+		c+=1
+if '4' in a or '7' in a:
+	if c == 4 or c == 7:
+		print(""YES"")
+	else:
+		print(""NO"")
+else:
+	print(""NO"")",True,0.1552,1.0872,1.0872,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count"", ""generic_flip_bool_op""]",[]
+224107759,claude-sonnet-5,reference,"n = input()
+count = 0
+res = 'YES'
+for i in range(len(n)):
+    if n[i] == '4' or n[i] == '7':
+        count += 1
+count = str(count)
+for i in range(len(count)):
+    if count[i] != '4' and count[i] != '7':
+        res = 'NO'
+        break
+print(res)",True,0.75,8.3227,8.3227,0.0,0,0,0.0,[],[]
+224113939,claude-sonnet-5,reference,"n = input()
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6744,2.7762,2.7762,0.0,0,0,0.0,[],[]
+224115828,claude-sonnet-5,reference,"n = input()
+c = 0
+for i in n:
+    if i in '47':
+        c += 1
+if c == 4 or c == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.5778,3.4842,3.4842,0.0,0,0,0.0,[],[]
+224121778,claude-sonnet-5,reference,"n = input()
+count = 0
+for i in range(len(n)):
+    c = n[i]
+    if c == '4' or c == '7':
+        count += 1
+    else:
+        continue
+if count == 4 or count == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.7615,14.5169,14.5169,0.0,0,0,0.0,[],[]
+224124126,claude-sonnet-5,reference,"n = input()
+count = 0
+for i in n:
+    if (i == '4') or (i == '7'):
+        count+=1
+# print(str(count))
+flag=0
+# print(str(count))
+for j in str(count):
+    
+    if (j=='4') or (j=='7'):
+        flag=0
+    else:
+        flag=1
+# print(flag)
+if flag==0:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6887,11.3873,11.3873,0.0,0,0,0.0,[],[]
+224143246,claude-sonnet-5,reference,"string = input()
+four = string.count(""4"")
+seven = string.count(""7"")
+a = str(four+seven)
+f1 = a.count(""4"")
+s1 = a.count(""7"")
+if (len(a)==f1+s1):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5556,3.9416,3.9416,0.0,0,0,0.0,[],[]
+224165624,claude-sonnet-5,rules,"n = input()
+a = n.count(""4"")
+b = n.count(""7"")
+ 
+if a == 4 and b != 7 or a + b == 4 or a + b == 7 :
+    print(""YES"")
+else:
+    print(""NO"")",True,0.06,1.1751,1.1751,0.0,0,0,0.0,"[""generic_flip_compare"", ""generic_flip_first_or""]",[]
+224173412,claude-sonnet-5,reference,"n=input()
+sum=n.count(""4"")+n.count(""7"")
+if sum==4 or sum==7:
+    print(""YES"")
+else:
+    print('NO')",True,0.7361,11.3774,11.3774,0.0,0,0,0.0,[],[]
+224175663,claude-sonnet-5,reference,"n = input()
+
+if n.count('4') + n.count('7') in [4,7]:
+    print(""YES"")
+else:
+    print('NO')",True,0.537,1.2872,1.2872,0.0,0,0,0.0,[],[]
+224182478,claude-sonnet-5,reference,"n=input()
+t=0
+for i in n:
+    if int(i)==4 or int(i)==7:
+        t+=1
+    else:
+        continue
+if t==4 or t==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6444,13.4201,13.4201,0.0,0,0,0.0,[],[]
+224193145,claude-sonnet-5,reference,"n=input()
+a=n.count('4')
+b=n.count('7')
+if a+b==4 or a+b==7:
+    print('YES')
+else:
+    print('NO')",True,0.54,0.7678,0.7678,0.0,0,0,0.0,[],[]
+224196434,claude-sonnet-5,rules,"n = input()
+c = int(n.count('4')) + int(n.count('7'))
+if c == 4 or c == 7:
+    print('YES')
+else:
+    print('NO')",True,0.1739,0.1764,0.1764,0.0,0,0,0.0,"[""modulo_should_be_equality""]",[]
+224220821,claude-sonnet-5,reference,"n=int(input())
+a=str(n)
+l=0
+for i in range(len(a)):
+	if a[i] in '47':
+		l+=1
+if l==4 or l==7:
+	print('YES')
+else:
+    print(""NO"")",True,0.5867,62.6295,62.6295,0.0,0,0,0.0,[],[]
+224230326,claude-sonnet-5,reference,"n = int(input())
+lucky = 0
+for i in str(n):
+    if i == '4':
+        lucky += 1
+    if i == '7':
+        lucky += 1
+
+# print(lucky)
+if lucky == 4 or lucky == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.4483,21.7175,21.7175,0.0,0,0,0.0,[],[]
+224236513,claude-sonnet-5,reference,"n = input()
+count = 0
+for i in n:
+    if i == ""7"" or i == ""4"":
+        count += 1
+
+if count == 7 or count == 4:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.4156,11.6569,11.6569,0.0,0,0,0.0,[],[]
+224275407,claude-sonnet-5,rules,"n=input()
+n=list(n)
+s = 0
+
+for i in n:
+    if i == ""7"" or i == ""4"":
+        s += 1
+
+# Check if the count of lucky digits (4 or 7) is a lucky number (4 or 7)
+if s == 4 or s == 7 :
+    print(""YES"")
+else:
+    print(""NO"")",True,0.1739,0.2484,0.2484,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+224283905,claude-sonnet-5,rules,"n=input()
+if(n.count('4') + n.count('7') in (4, 7)):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5714,0.1262,0.1262,0.0,0,0,0.0,"[""length_as_lucky_count_or""]",[]
+224292371,claude-sonnet-5,reference,"s = input()
+t = 0
+for i in range(len(s)):
+    if s[i] == '4' or s[i] == '7':
+        t += 1
+t = str(t)
+for i in range(len(t)):
+    if t[i] == '4' or t[i] == '7':
+        u = 0
+    else:
+        u = 1
+        break
+if u == 0:
+    print('YES')
+else:
+    print('NO')",True,0.7222,13.792,13.792,0.0,0,0,0.0,[],[]
+224329149,claude-sonnet-5,reference,"n = int(input())
+n = str(n)
+count = 0
+
+for i in n:
+    if i=='4' or i=='7':
+        count+=1
+        
+
+if count==4 or count==7:
+    print('YES')
+else:
+    print('NO')",True,0.9118,13.2794,13.2794,0.0,0,0,0.0,[],[]
+224530698,claude-sonnet-5,rules,"n=input()
+if n.count('4') + n.count('7') in (4, 7):
+    print('YES')
+else:
+    print('NO')",True,0.6429,3.4066,3.4066,0.0,0,0,0.0,"[""length_as_lucky_count_or_rev"", ""fix_lowercase_yes"", ""fix_lowercase_no""]",[]
+224530740,claude-sonnet-5,rules,"n=input()
+if n.count('4') + n.count('7') in (4, 7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5714,0.119,0.119,0.0,0,0,0.0,"[""length_as_lucky_count_or_rev""]",[]
+224587623,claude-sonnet-5,reference,"n = input()
+
+set_n = set(n)
+
+total = 0
+
+for i in list(n):
+    if i == ""4"" or i == ""7"":
+        total += 1
+        
+    else:
+        total = total
+        
+if total == 4 or total == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2857,32.9811,32.9811,0.0,0,0,0.0,[],[]
+224588289,claude-sonnet-5,reference,"n = input()
+
+indexes_4 = []
+indexes_7 = []
+
+for i, char in enumerate(n):
+    if char == '4':
+        indexes_4.append(i)
+    elif char == '7':
+        indexes_7.append(i)
+
+indexes = indexes_4 + indexes_7
+
+if len(indexes) == 4 or len(indexes) == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5,11.0533,11.0533,0.0,0,0,0.0,[],[]
+224595146,claude-sonnet-5,reference,"n = input()
+
+count = 0
+
+count += n.count(""4"")
+count += n.count(""7"")
+
+if count == 7 or count == 4:
+	print(""YES"")
+else:
+	print(""NO"")",True,0.6053,0.3627,0.3627,0.0,0,0,0.0,[],[]
+224634853,claude-sonnet-5,reference,"n=int(input())
+c=0
+a=0
+while(n>0):
+    a=n%10
+    if a==4 or a==7:
+        c+=1
+    n=n//10
+if c==7 or c==4:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7358,2.7222,2.7222,0.0,0,0,0.0,[],[]
+224637070,claude-sonnet-5,reference,"def lucky_number(n):
+    c = 0
+    for i in n:
+        if i == '4' or i == '7':
+            c += 1
+    # print(count)
+    if c == 4 or c == 7:
+        return ""YES""
+    else:
+        return ""NO""
+
+
+if __name__ == ""__main__"":
+    num = input()
+    print(lucky_number(num))",True,0.52,11.4613,11.4613,0.0,0,0,0.0,[],[]
+224637501,claude-sonnet-5,reference,"n = input()
+count = 0
+for i in n:
+    if i == '4' or i == '7':
+        count += 1
+ris = 'YES'
+for i in str(count):
+    if i != '4' and i != '7':
+        ris = 'NO'
+print(ris)",True,1.7778,2.1221,2.1221,0.0,0,0,0.0,[],[]
+224638269,claude-sonnet-5,reference,"def lucky_number(num):
+    count = 0
+    for i in num:
+        if i == '4' or i == '7':
+            count += 1
+    # print(count)
+    if count == 4 or count == 7:
+        return ""YES""
+    else:
+        return ""NO""
+
+n = input()
+res = lucky_number(n)
+print(res)",True,0.7222,1.8054,1.8054,0.0,0,0,0.0,[],[]
+224640105,claude-sonnet-5,reference,"def lucky_number(n):
+    n_str = str(n)
+    c = 0
+    for digit in n_str:
+        if digit == ""4"" or digit == ""7"":
+            c += 1
+    if c == 4 or c == 7:
+        return ""YES""
+    else:
+        return ""NO""
+n = int(input())
+res = lucky_number(n)
+print(res)",True,0.2281,13.6708,13.6708,0.0,0,0,0.0,[],[]
+224671057,claude-sonnet-5,reference,"n=int(input())
+ans=0
+while n>0:
+    r=n%10
+    if r==4 or r==7:
+        ans+=1 
+    n=n//10 
+if ans==4 or ans==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.814,12.8094,12.8094,0.0,0,0,0.0,[],[]
+224671630,claude-sonnet-5,rules,"n=input()
+if(n.count('4') + n.count('7') in (4, 7)):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6176,0.4749,0.4749,0.0,0,0,0.0,"[""modulo_should_be_equality"", ""length_as_lucky_count_or""]",[]
+224694364,claude-sonnet-5,reference,"n = input()
+luck = 0
+for i in range(len(n)):
+    if n[i] == '4' or n[i] == '7':
+        luck += 1
+luck = str(luck)
+flag = True
+for i in luck:
+    if i == '4' or i == '7':
+        continue
+    else:
+        flag = False
+        break
+if flag:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7963,13.2811,13.2811,0.0,0,0,0.0,[],[]
+224709356,claude-sonnet-5,reference,"x = input()
+total = 0
+for i in range(len(x)):
+    if x[i] == '4' or x[i] == '7':
+        total += 1
+        if total > 7:
+            break
+if total == 4 or total == 7:
+    print('YES')
+else:
+    print('NO')",True,0.5763,11.9312,11.9312,0.0,0,0,0.0,[],[]
+224749407,claude-sonnet-5,reference,"num = input()
+l1 = len(num)
+count = 0
+for x in range(l1):
+    if num[x] == '4':
+        count += 1
+    elif num[x] == '7':
+        count += 1
+if count == 4:
+    print('YES')
+elif count == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.3051,7.7566,7.7566,0.0,0,0,0.0,[],[]
+224757846,claude-sonnet-5,reference,"def isLucky(x):
+    x = x
+    if (x == 0): return False
+    while (x > 0):
+        if not (x % 10 == 4 or x % 10 == 7):
+            return False
+        x = x // 10
+    return True
+
+n = sum((1 for x in input() if x == '4' or x == '7'))
+print(""YES"" if isLucky(n) else ""NO"")",True,0.2537,62.1698,62.1698,0.0,0,0,0.0,[],[]
+224761666,claude-sonnet-5,reference,"s=input()
+count=0
+flag=1
+for i in s:
+    if i=='4' or i=='7':
+        count+=1
+count=str(count)
+for i in count:
+    if i!='7' and i!='4':
+        flag=0
+        break
+if flag==1:
+    print('YES')
+else:
+    print('NO')",True,0.7949,14.4331,14.4331,0.0,0,0,0.0,[],[]
+224774218,claude-sonnet-5,reference,"S = input()
+cnt_four = S.count(""4"")
+cnt_seven = S.count(""7"")
+cnt = cnt_four + cnt_seven
+cnt_str = str(cnt)
+for s in cnt_str:
+    if s != ""4"" and s != ""7"":
+        print(""NO"")
+        exit(0)
+print(""YES"")",True,1.0,2.0414,2.0414,0.0,0,0,0.0,[],[]
+224812839,claude-sonnet-5,reference,"def is_lucky_digit(digit):
+    return digit == '4' or digit == '7'
+
+def count_lucky_digits(number):
+    count = 0
+    while number > 0:
+        digit = str(number % 10)
+        if is_lucky_digit(digit):
+            count += 1
+        number //= 10
+    return count
+
+def is_nearly_lucky_number(n):
+    lucky_digit_count = count_lucky_digits(n)
+    return is_lucky_digit(str(lucky_digit_count))
+
+    # Count the lucky digits (4 and 7) in the number
+    while n > 0:
+        digit = n % 10
+        if is_lucky_digit(digit):
+            lucky_digit_count += 1
+        n //= 10
+
+    # Check if the count of lucky digits is a lucky number
+    return lucky_digit_count == 0 or lucky_digit_count % 4 == 0 or lucky_digit_count % 7 == 0
+
+if __name__ == ""__main__"":
+    n = int(input().strip())
+    if is_nearly_lucky_number(n):
+        print(""YES"")
+    else:
+        print(""NO"")",True,0.4783,32.532,32.532,0.0,0,0,0.0,[],[]
+224820626,claude-sonnet-5,rules,"l=input()
+if l.count('4') + l.count('7') in (4, 7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6176,0.5398,0.5398,0.0,0,0,0.0,"[""modulo_should_be_equality"", ""length_as_lucky_count_or""]",[]
+224821285,claude-sonnet-5,rules,"lucky_number_count=0
+judge=True
+n=list(input())
+for i in n:
+    if i=='4' or i=='7':
+        lucky_number_count+=1
+    else:
+        judge=False
+if  lucky_number_count==4 or lucky_number_count==7:
+    print('YES')
+elif judge > True:
+    print('YES')
+else:
+    print('NO')",True,0.0161,1.5217,1.5217,0.0,0,0,0.0,"[""generic_flip_compare"", ""generic_flip_compare""]",[]
+224871136,claude-sonnet-5,reference,"n = int(input())
+s = str(n)
+count = 0
+for i in s:
+    if i == '4' or i == '7':
+        count = count +1
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7381,3.145,3.145,0.0,0,0,0.0,[],[]
+224873188,claude-sonnet-5,reference,"n = int(input())
+b = str(n)
+arr2 = ['4','7']
+count =0
+for i in b:
+    if i in arr2:
+        count+=1
+if count ==4 or count ==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.5932,1.0874,1.0874,0.0,0,0,0.0,[],[]
+224873253,claude-sonnet-5,reference,"def is_lucky(num):
+    # Check if a number is lucky (contains only 4s and 7s)
+    while num > 0:
+        digit = num % 10
+        if digit != 4 and digit != 7:
+            return False
+        num //= 10
+    return True
+
+n = int(input())  # Input: The integer n
+
+# Count the number of lucky digits (4 and 7) in n
+lucky_count = 0
+while n > 0:
+    digit = n % 10
+    if digit == 4 or digit == 7:
+        lucky_count += 1
+    n //= 10
+
+# Verificar si el conteo de dígitos afortunados es un número afortunado
+if lucky_count == 4 or lucky_count == 7:
+    print(""YES"")
+else:
+    print(""NO"")   # Output: n is not a nearly lucky number",True,0.1047,69.8195,69.8195,0.0,0,0,0.0,[],[]
+224874339,claude-sonnet-5,rules,"n=int(input())
+c=0
+while(n):
+    r=n%10
+    if(r==4 or r==7):
+        c+=1
+    n=n//10
+if c == 4 or c == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.125,0.2174,0.2174,0.0,0,0,0.0,"[""modulo_should_be_equality""]",[]
+224985890,claude-sonnet-5,rules,"""""""
+First we need to check whether the number
+contains only the digits 4 and 7.
+
+Next, we need to determine whether the 
+length of the string is 4 or 7.
+
+If both of these conditions are met,
+the output is YES. Else, NO.
+""""""
+
+input = input()
+listOfNumbers = list(input)
+
+output = """"
+
+
+def nearlyLucky():
+    for i in range(len(input)):
+        if listOfNumbers[i] == '4' and listOfNumbers[i] == '7':
+            return ""NO""
+
+    return ""YES""
+
+
+# Whether string is nearly lucky: 4 or 7
+
+""""""
+Only if the length of the string is nearly lucky,
+as defined as a 4 or a 7, then we will check to
+see if any of the digits are 4 or 7 by running
+the nearlyLucky() function. Else, we just print NO.
+""""""
+if input.count('4') + input.count('7') in (4, 7):
+    output = nearlyLucky()
+else:
+    print(""NO"")
+
+
+# Outputs the right answer, hopefully.
+print(output)",True,0.2466,6.9575,6.9575,0.0,0,0,0.0,"[""length_as_lucky_count_or"", ""generic_flip_compare"", ""generic_flip_compare""]",[]
+224987237,claude-sonnet-5,reference,"n=int(input())
+a=str(n)
+l=0
+for i in range(len(a)):
+	if a[i] in '47':
+		l+=1
+if l==4 or l==7:
+	print('YES')
+else:
+	print('NO')",True,0.6,13.7297,13.7297,0.0,0,0,0.0,[],[]
+224987477,claude-sonnet-5,reference,"n=input()
+a=n.count('4')
+b=n.count('7')
+if a+b==4 or a+b==7:
+    print('YES')
+else:
+    print('NO')",True,1.1714,4.6173,4.6173,0.0,0,0,0.0,[],[]
+225034507,claude-sonnet-5,reference,"def count_lucky_digits(number):
+    count = 0
+    while number > 0:
+        digit = number % 10
+        if digit == 4 or digit == 7:
+            count += 1
+        number //= 10
+    return count
+n = int(input())
+lucky_digit_count = count_lucky_digits(n)
+if lucky_digit_count == 4 or lucky_digit_count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,2.0,35.3639,35.3639,0.0,0,0,0.0,[],[]
+225034690,claude-sonnet-5,reference,"n = input()
+
+if len(n) < 4:
+    print('NO')
+else:
+    lucky_count = 0
+
+    for c in n:
+        if c == '4' or c == '7':
+            lucky_count += 1
+
+    if lucky_count == 4 or lucky_count == 7:
+        print('YES')
+    else:
+        print(""NO"")",True,0.7766,57.2294,57.2294,0.0,0,0,0.0,[],[]
+225042022,claude-sonnet-5,rules,"skaitlis=input()
+
+gar = skaitlis.count('4') + skaitlis.count('7')
+ja=0
+
+for i in range(gar):
+    if(skaitlis[i] != 4) or (skaitlis[i]==7):
+        ja=ja+1
+if ja==4 or ja==7:
+    print('YES')
+else:
+    print('NO')",True,0.1724,1.1726,1.1726,0.0,0,0,0.0,"[""length_assigned_as_count_before_flag_init"", ""generic_flip_compare""]",[]
+225042222,claude-sonnet-5,rules,"lucky = input()
+
+count = 0
+for i in lucky:
+    if i == '4' or i == '7' :
+        count = count + 1
+
+if count == 4 or count == 7:
+    print('YES')
+else :
+    print('NO')",True,0.186,0.1528,0.1528,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+225042292,claude-sonnet-5,reference,"a=input()
+t=0
+for i in a:
+    if i=='4' or i=='7':
+        t=t+1
+if t==4 or t==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.5,1.9077,1.9077,0.0,0,0,0.0,[],[]
+225042889,claude-sonnet-5,reference,"n=input()
+l=len(n)
+sum=0
+for i in range(l):
+    if n[i]==""4"" or n[i]==""7"":
+        sum+=1
+if sum==4 or sum==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.4444,6.5445,6.5445,0.0,0,0,0.0,[],[]
+225043122,claude-sonnet-5,reference,"def main():
+
+    inp = input()
+    IL = 0
+    for i in inp:
+        if i == ""4"" or i == ""7"":
+            IL += 1
+    
+    if IL == 4 or IL == 7:
+        print(""YES"")
+
+    else:
+        print(""NO"")
+    
+    
+
+main()",True,0.6286,1.7906,1.7906,0.0,0,0,0.0,[],[]
+225043439,claude-sonnet-5,reference,"import sys
+n = input()
+s = 0
+for i in range(0, len(n)):
+    if n[i] == '4' or n[i] == '7':
+        s = s+1
+if s == 4 or s == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.806,16.9172,16.9172,0.0,0,0,0.0,[],[]
+225043938,claude-sonnet-5,reference,"def count_lucky_digits(number):
+    count = 0
+    while number > 0:
+        digit = number % 10
+        if digit == 4 or digit == 7:
+            count += 1
+        number //= 10
+    return count
+n = int(input())
+lucky_digit_count = count_lucky_digits(n)
+if lucky_digit_count == 4 or lucky_digit_count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,2.9706,9.167,9.167,0.0,0,0,0.0,[],[]
+225043969,claude-sonnet-5,rules,"skaitlis=input()
+
+gar = skaitlis.count('4') + skaitlis.count('7')
+ja=0
+
+for i in range(gar):
+    if(skaitlis[i] != '4') or (skaitlis[i] != '7'):
+        ja=ja+1
+        #print(ja)
+
+if ja==4 or ja==7 or ja==gar-1:
+    print('YES')
+else:
+    print('NO')",True,0.1692,7.1069,7.1069,0.0,0,0,0.0,"[""length_assigned_as_count_before_flag_init"", ""generic_flip_compare"", ""generic_flip_compare""]",[]
+225044231,claude-sonnet-5,reference,"import sys
+n = input()
+s = 0
+for i in range(0, len(n)):
+    if n[i] == '4' or n[i] == '7':
+        s = s+1
+if s == 4 or s == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.2679,6.5047,6.5047,0.0,0,0,0.0,[],[]
+225044439,claude-sonnet-5,reference,"x = list(input())
+count = 0
+for i in x:
+    if i =='4' or i == '7':
+        count += 1 
+if count == 4 or count == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.8966,1.6298,1.6298,0.0,0,0,0.0,[],[]
+225044679,claude-sonnet-5,reference,"n=str(input())
+cik=n.count(""4"")
+cik2=n.count(""7"")
+
+cik3=cik+cik2
+if (cik3==7):
+    print(""YES"")
+elif (cik3==4):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.8462,0.3554,0.3554,0.0,0,0,0.0,[],[]
+225044785,claude-sonnet-5,rules,"a= input()
+gar = a.count('4') + a.count('7')
+if gar ==4:
+    print(""YES"")
+elif gar==7:
+
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2812,0.1017,0.1017,0.0,0,0,0.0,"[""assign_length_should_be_lucky_count""]",[]
+225045500,claude-sonnet-5,reference,"n=str(input())
+cik=n.count(""4"")
+cik2=n.count(""7"")
+
+cik3=cik+cik2
+
+if (cik3==7):
+    print(""YES"")
+elif (cik3==4):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.0213,1.4548,1.4548,0.0,0,0,0.0,[],[]
+225045660,claude-sonnet-5,rules,"number = input()
+if number.count('4') + number.count('7') in (4, 7):
+  print(""YES"")
+else:
+  print(""NO"")",True,0.5714,0.108,0.108,0.0,0,0,0.0,"[""length_as_lucky_count_or_rev""]",[]
+225088091,claude-sonnet-5,reference,"n = int(input())
+n = str(n)
+count = 0
+
+for i in n:
+    if i=='4' or i=='7':
+        count+=1
+        
+
+if count==4 or count==7:
+    print('YES')
+else:
+    print('NO')",True,0.4658,18.3903,18.3903,0.0,0,0,0.0,[],[]
+225187070,claude-sonnet-5,reference,"n = int(input())
+lucky = 0
+for i in str(n):
+    if i == '4':
+        lucky += 1
+    if i == '7':
+        lucky += 1
+
+# print(lucky)
+if lucky == 4 or lucky == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.5349,13.0225,13.0225,0.0,0,0,0.0,[],[]
+225194980,claude-sonnet-5,rules,"n=str(int(input()))
+for i in range (len(n)):
+ if (n[i] != 4 or n[i]==7) and (n.count('4') + n.count('7') in (4, 7)):
+      print(""YES"")
+      break
+ else:
+      print(""NO"")    
+      break",True,0.2982,1.2795,1.2795,0.0,0,0,0.0,"[""length_as_lucky_count_or_rev"", ""generic_flip_compare""]",[]
+225249773,claude-sonnet-5,reference,"def nearlyLuckyNumber():
+    n = input()
+    nearlyLucky = False
+    count47 = 0
+    for char in n:
+        if char == ""4"" or char == ""7"":
+            count47 += 1   
+            if count47 > 7:
+                break
+        
+    if count47 == 4 or count47 == 7:
+        print(""YES"")
+    else:
+        print(""NO"")
+
+nearlyLuckyNumber()",True,0.66,6.4778,6.4778,0.0,0,0,0.0,[],[]
+225439113,claude-sonnet-5,reference,"lucky=list(map(int,input()))
+
+count=0
+for n in range(len(lucky)):
+    if lucky[n] ==7 or lucky[n] == 4 :
+
+        count+=1
+
+
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.614,4.3761,4.3761,0.0,0,0,0.0,[],[]
+225439811,claude-sonnet-5,rules,"n = int(input())
+
+s = set([i for i in str(n)])
+
+if s != {3,7}:
+    x = 0
+    for i in str(n):
+        if i == ""4"" or i ==""7"":
+            x+=1
+    if x != 7 and x != 4:
+        print('NO')
+    else: print(""YES"")
+else: print(""No"")",True,0.0282,0.7628,0.7628,0.0,0,0,0.0,"[""fix_titlecase_no"", ""generic_flip_bool_op""]",[]
+225461520,claude-sonnet-5,reference,"def is_almost_happy(n):
+    n_str = str(n)
+    count = 0
+    for digit in n_str:
+        if digit == '4' or digit == '7':
+            count += 1
+    if count == 4 or count == 7:
+        return ""YES""
+    else:
+        return ""NO""
+n = int(input())
+result = is_almost_happy(n)
+print(result)",True,2.2353,2.0217,2.0217,0.0,0,0,0.0,[],[]
+225467692,claude-sonnet-5,reference,"s=input()
+c=0
+for i in range(len(s)):
+    if s[i]==""4"" or s[i]==""7"":
+        c+=1
+if(c==4 or c==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6364,11.3438,11.3438,0.0,0,0,0.0,[],[]
+225479315,claude-sonnet-5,reference,"n = int(input())
+b = str(n)
+arr2 = ['4','7']
+count =0
+for i in b:
+    if i in arr2:
+        count+=1
+if count ==4 or count ==7:
+    print('YES')
+else:
+    print('NO')",True,0.5424,12.9846,12.9846,0.0,0,0,0.0,[],[]
+225479982,claude-sonnet-5,reference,"n = int(input())
+b = str(n)
+arr= ['0','1','2','3','5','6','8','9']
+arr2 = ['4','7']
+count =0
+for i in b:
+    if i in arr2:
+        count+=1
+if count ==4 or count ==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.1733,5.0648,5.0648,0.0,0,0,0.0,[],[]
+225527262,claude-sonnet-5,reference,"n=input()
+s=str(n.count(""7"")+n.count(""4""))
+print(""YES"" if len(s.replace('7','').replace('4',''))==0 else ""NO"")",True,0.9091,1.8696,1.8696,0.0,0,0,0.0,[],[]
+225632764,claude-sonnet-5,reference,"num = input()
+based = []
+for n in num:
+    if n not in ['4', '7']:
+        continue
+    based.append(n)
+
+n = str(len(based))
+
+for ele in n:
+    if ele != '4' and ele != '7':
+        print('NO')
+        break
+else:
+    print('YES')",True,0.5714,2.4806,2.4806,0.0,0,0,0.0,[],[]
+225675290,claude-sonnet-5,reference,"n = input()
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+    print('NO')",True,0.7826,7.2903,7.2903,0.0,0,0,0.0,[],[]
+225691667,claude-sonnet-5,rules,"n =  input()
+sum = 0
+for i in n:
+  if i == '4' or i == '7':
+    sum+=1
+if sum == 4 or sum == 7:
+  print('YES')
+else:
+  print('NO')",True,0.0444,0.7692,0.7692,0.0,0,0,0.0,"[""fix_titlecase_yes"", ""fix_titlecase_no""]",[]
+225701316,claude-sonnet-5,reference,"n=int(input())
+count=0
+while n>0:
+   t=n%10
+   if t==4 or t==7:
+       count+=1
+   n=n//10
+if(count==4 or count==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6731,21.1882,21.1882,0.0,0,0,0.0,[],[]
+225718042,claude-sonnet-5,reference,"def lucky_number(n):
+    c=0
+    for i in n:
+        if i == '4' or i == '7':
+            c += 1
+    # print(count)
+    if c == 4 or c == 7:
+        return ""YES""
+    else:
+        return ""NO""
+
+
+if __name__ == ""__main__"":
+    num = input()
+    print(lucky_number(num))",True,0.5091,6.1917,6.1917,0.0,0,0,0.0,[],[]
+225744103,claude-sonnet-5,reference,"n=input()
+count=0
+for i in n:
+    if i == '4' or i == '7':
+        count += 1
+
+if count == 4 or count == 7:
+    print('YES')
+else:
+    print('NO')",True,0.4444,7.4485,7.4485,0.0,0,0,0.0,[],[]
+225744466,claude-sonnet-5,reference,"n = int(input())
+lucky = 0
+for i in str(n):
+    if i == '4':
+        lucky += 1
+    if i == '7':
+        lucky += 1
+
+# print(lucky)
+if lucky == 4 or lucky == 7:
+    print('YES')
+else:
+        print('NO')",True,0.3725,12.0224,12.0224,0.0,0,0,0.0,[],[]
+225770361,claude-sonnet-5,reference,"n = input()
+count = 0
+res = 'YES'
+for i in range(len(n)):
+    if n[i] == '4' or n[i] == '7':
+        count += 1
+count = str(count)
+for i in range(len(count)):
+    if count[i] != '4' and count[i] != '7':
+        res = 'NO'
+        break
+print(res)",True,1.1795,6.0525,6.0525,0.0,0,0,0.0,[],[]
+225819137,claude-sonnet-5,rules,"t=input() 
+if(t.count('4') + t.count('7') == 4 or t.count('4') + t.count('7') == 7):
+    print('YES')
+else :
+    print(""NO"")",True,0.5862,0.2046,0.2046,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count"", ""fix_titlecase_yes""]",[]
+225819490,claude-sonnet-5,rules,"t = input()
+count_4 = t.count(""4"")
+count_7 = t.count(""7"")
+
+if (count_4 >= 0) and (count_7 >= 0) and (count_4 + count_7 == 4 or count_4 + count_7 == 7):
+    print(""YES"") 
+else:
+    print(""NO"")",True,0.2889,10.01,10.01,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count"", ""generic_flip_compare"", ""generic_flip_compare"", ""generic_flip_compare"", ""generic_flip_compare""]",[]
+225819949,claude-sonnet-5,rules,"t = input()
+count_4 = t.count(""4"")
+count_7 = t.count(""7"")
+
+if count_4 >= 0 and count_7 >= 0 and (count_4 + count_7 == 4 or count_4 + count_7 == 7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2889,1.3823,1.3823,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count"", ""generic_flip_compare"", ""generic_flip_compare""]",[]
+225903361,claude-sonnet-5,rules,"s = input()
+res = ''
+for i in s:
+    if i == ""4"" or i == ""7"":
+        res = res + i
+    
+if len(res) == 4 or len(res) == 7:
+    print(""YES"")
+
+else:
+    print(""NO"")",True,0.1778,0.1071,0.1071,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+225911493,claude-sonnet-5,reference,"inp = input()
+count = 0
+for i in range(len(inp)):
+    if int(inp[i]) in [4,7]:
+        count +=1
+if count in [4, 7]:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7662,16.0887,16.0887,0.0,0,0,0.0,[],[]
+226072249,claude-sonnet-5,reference,"n = int(input())
+n = str(n)
+flag = 0
+for x in n:
+    if int(x) == 4 or int(x) == 7:
+        flag += 1
+if flag == 4 or flag == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.459,7.2695,7.2695,0.0,0,0,0.0,[],[]
+226077380,claude-sonnet-5,reference,"a=input()
+t=0
+for i in a:
+    if i=='4' or i=='7':
+        t=t+1
+if t==4 or t==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.52,7.1174,7.1174,0.0,0,0,0.0,[],[]
+226180703,claude-sonnet-5,reference,"s=input()
+count=0
+for i in s:
+    if i=='4' or i=='7':
+        count+=1
+if count==4 or count==7:
+    print('YES')
+else:
+    print('NO')",True,0.1957,8.0577,8.0577,0.0,0,0,0.0,[],[]
+226180997,claude-sonnet-5,reference,"n = input()
+
+count = 0
+for i in n:
+    if i == '4' or i == '7':
+        count += 1
+
+if count == 4 or count == 7:
+  print(""YES"")
+else:
+  print(""NO"")",True,0.1522,10.1206,10.1206,0.0,0,0,0.0,[],[]
+226229437,claude-sonnet-5,reference,"def is_almost_lucky_number(n):
+    n_str = str(n)
+    count = 0
+    for digit in n_str:
+        if digit == '4' or digit == '7':
+            count += 1
+    if count == 4 or count == 7:
+        return ""YES""
+    else:
+        return ""NO""
+n = int(input())
+result = is_almost_lucky_number(n)
+print(result)",True,0.5349,1.9228,1.9228,0.0,0,0,0.0,[],[]
+226230401,claude-sonnet-5,reference,"def is_almost_lucky_number(n):
+    n_str = str(n)
+    count = 0
+    for digit in n_str:
+        if digit == '4' or digit == '7':
+            count += 1
+    if count == 4 or count == 7:
+        return ""YES""
+    else:
+        return ""NO""
+n = int(input())
+result = is_almost_lucky_number(n)
+print(result)",True,0.5556,2.6575,2.6575,0.0,0,0,0.0,[],[]
+226240735,claude-sonnet-5,reference,"n=int(input())
+a=str(n)
+l=0
+for i in range(len(a)):
+	if a[i] in '47':
+		l+=1
+if l==4 or l==7:
+	print('YES')
+else:
+	print('NO')",True,0.3333,15.0888,15.0888,0.0,0,0,0.0,[],[]
+226267124,claude-sonnet-5,reference,"nourinz=input()
+zz=0
+for n in nourinz:
+    if  (int(n) ==4 or int(n) ==7 ):
+         zz=zz+1
+if ((zz==4 or zz==7)):
+    print('YES')
+else:
+    print('NO')",True,0.8526,11.3675,11.3675,0.0,0,0,0.0,[],[]
+226269297,claude-sonnet-5,rules,"n = input()
+
+# Count the lucky digits (4 and 7) in the number
+lucky_count = n.count('4') + n.count('7')
+
+# Check if the count of lucky digits is itself a lucky number
+lucky_digits = str(lucky_count)
+if all((digit in '47' for digit in lucky_digits)):
+    print('YES')
+else:
+    print('NO')",True,0.0244,0.0944,0.0944,0.0,0,0,0.0,"[""duplicate_branch_same_print_yes""]",[]
+226281938,claude-sonnet-5,reference,"from collections import *
+n = input()
+val1 = n.count(""4"")
+val2 = n.count(""7"")
+ans = str(val1 + val2)
+
+for i in str(ans):
+    if i not in ""47"":
+        print(""NO"")
+        break
+else:
+    print(""YES"")",True,1.2917,0.2067,0.2067,0.0,0,0,0.0,[],[]
+226282090,claude-sonnet-5,reference,"x=str(input())
+sum=0
+for i in x:
+    if i=='7' or i=='4':
+        sum+=1
+if sum==7 or sum==4:
+    print('YES')
+else:
+    print(""NO"")",True,1.25,0.2547,0.2547,0.0,0,0,0.0,[],[]
+226282239,claude-sonnet-5,reference,"print('NYOE S'[sum(i in'47'for i in input())in(4,7)::2])",True,1.0,0.1874,0.1874,0.0,0,0,0.0,[],[]
+226282351,claude-sonnet-5,reference,"n = input()
+a=sum(1 for i in n if i in '47')
+if a == 4 or a == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7222,0.4722,0.4722,0.0,0,0,0.0,[],[]
+226283174,claude-sonnet-5,reference,"x = list(input())
+count = 0
+for i in x:
+    if i =='4' or i == '7':
+        count += 1 
+if count == 4 or count == 7:
+    print('YES')
+else:
+    print('NO')",True,1.3333,11.3875,11.3875,0.0,0,0,0.0,[],[]
+226283532,claude-sonnet-5,reference,"num=input()
+c=0
+for i in num:
+    if(i=='4' or i=='7'):
+        c+=1
+if(c==4 or c==7):
+    print('YES')
+else:
+    print(""NO"")",True,0.8125,16.2317,16.2317,0.0,0,0,0.0,[],[]
+226294388,claude-sonnet-5,rules,"a = input()
+n = a.count('4') + a.count('7')
+if n == 4 or n == 7:
+    print('YES')
+else:
+    print('NO')",True,0.4035,5.9435,5.9435,0.0,0,0,0.0,"[""fix_lowercase_yes"", ""fix_lowercase_no"", ""remove_presence_guard"", ""fix_lowercase_no""]",[]
+226294476,claude-sonnet-5,rules,"a = input()
+n = a.count('4') + a.count('7')
+if n == 4 or n == 7:
+    print('YES')
+else:
+    print('NO')",True,0.3684,0.1043,0.1043,0.0,0,0,0.0,"[""remove_presence_guard""]",[]
+226298297,claude-sonnet-5,rules,"a = input()
+if (a.count('7') + a.count('4') == 4 and a.count('7') + a.count('4') == 7) :
+    print(""NO"")
+else:
+    n = a.count('4') + a.count('7')
+    if n==4 or n==7:
+        print('YES')
+    else:
+        print('NO')",True,0.3036,1.2811,1.2811,0.0,0,0,0.0,"[""generic_flip_compare"", ""count_eq_len_should_be_lucky_count"", ""generic_flip_bool_op""]",[]
+226313483,claude-sonnet-5,rules,"# -*- coding: utf-8 -*-
+""""""
+Created on Mon Oct  2 20:18:36 2023
+
+@author: risha
+""""""
+
+n=input()
+c=n.count('4')+n.count('7')
+if c==4 or c==7 :
+    print('YES')
+else:
+    print('NO')",True,0.0526,0.3041,0.3041,0.0,0,0,0.0,"[""fix_titlecase_yes"", ""fix_titlecase_no""]",[]
+226353818,claude-sonnet-5,reference,"n = input()  # Input: The integer n as a string
+
+lucky_count = n.count('4') + n.count('7')
+
+if lucky_count in {4, 7}:
+    print(""YES"")
+else:
+    print('NO')",True,0.5938,0.3248,0.3248,0.0,0,0,0.0,[],[]
+226354295,claude-sonnet-5,rules,"sat = set()
+lis = []
+x = input()
+counter = 0
+for i in x:
+    if i == '4' or i == '7':
+        counter += 1
+    sat.add(i)
+    lis.append(i)
+if sat != {'4', '7'} and sat == {'7', '4'}:
+    print('YES')
+elif counter == 4 or counter == 7:
+    print('YES')
+else:
+    print('NO')",True,0.0247,1.2401,1.2401,0.0,0,0,0.0,"[""generic_flip_compare"", ""generic_flip_bool_op""]",[]
+226368410,claude-sonnet-5,reference,"n = str(input())
+ans = 'NO'
+counts = 0
+for i in n:
+	if i=='4' or i == '7':
+		counts += 1		
+if counts ==4 or counts==7:
+	ans = 'YES'		
+print(ans)",True,0.8571,2.0978,2.0978,0.0,0,0,0.0,[],[]
+226419125,claude-sonnet-5,reference,"def is_almost_lucky(n):
+    lucky_numbers = [4, 7, 44, 47, 74, 77, 444, 447, 474, 477, 744, 747, 774, 777]
+    for num in lucky_numbers:
+        if n % num == 0:
+            return True
+    return False
+
+n = int(input())
+b = str(n)
+arr2 = ['4','7']
+count =0
+for i in b:
+    if i in arr2:
+        count+=1
+if count ==4 or count ==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.6364,0.4629,0.4629,0.0,0,0,0.0,[],[]
+226430643,claude-sonnet-5,reference,"n = int(input())
+count = 0
+while n != 0:
+    if (n % 10 in [4, 7]):
+        count += 1
+    n //= 10
+
+if count in [4, 7]:
+    print('YES')
+else:
+    print('NO')",True,0.3125,17.5325,17.5325,0.0,0,0,0.0,[],[]
+226506708,claude-sonnet-5,reference,"nourinz=input()
+zz=0
+for n in nourinz:
+    if  (int(n) ==4 or int(n) ==7 ):
+         zz=zz+1
+if ((zz==4 or zz==7)):
+    print('YES')
+else:
+    print('NO')",True,0.5636,16.3564,16.3564,0.0,0,0,0.0,[],[]
+226507308,claude-sonnet-5,rules,"nourinz=input()
+zz=0
+if(('4' in nourinz and '7' in nourinz) <= True):
+   for n in nourinz:
+         if  (int(n) ==4 or int(n) ==7 ):
+                zz=zz+1
+if ((zz == 4 or zz == 7)):
+    print('YES')
+else:
+    print('NO')",True,0.1475,1.0054,1.0054,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count"", ""generic_flip_compare""]",[]
+226540223,claude-sonnet-5,reference,"list1=list(str(input()))
+n=list1.count('4')+list1.count('7')
+if n!=0 and (n==4 or n==7):
+    print('YES')
+else:
+    print(""NO"")",True,0.6154,10.6056,10.6056,0.0,0,0,0.0,[],[]
+226560957,claude-sonnet-5,reference,"a=input()
+cnt=0
+clk=1
+for i in a:
+    if i=='4' or i=='7':
+        cnt=cnt+1
+cnt=str(cnt)
+for i in cnt:
+    if i=='4' or i=='7':
+        continue
+    else:
+        print(""NO"")
+        clk=0
+        break
+if clk==1:
+    print(""YES"")",True,1.027,1.9602,1.9602,0.0,0,0,0.0,[],[]
+226571664,claude-sonnet-5,reference,"n=int(input())
+a=str(n)
+l=0
+for i in range(len(a)):
+	if a[i] in '47':
+		l+=1
+if l==4 or l==7:
+	print('YES')
+else:
+	print('NO')",True,1.0588,12.6181,12.6181,0.0,0,0,0.0,[],[]
+226598648,claude-sonnet-5,reference,"n=int(input())
+count=0
+while n>0:
+   t=n%10
+   if t==4 or t==7:
+       count+=1
+   n=n//10
+if(count==4 or count==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.3478,60.0019,60.0019,0.0,0,0,0.0,[],[]
+226635167,claude-sonnet-5,reference,"def generate_lucky_string(n):
+    result = """"
+    current_letter = 'a'
+    lucky = [4, 7]
+
+def checkN(n):
+    strN = str(n)
+    without_47 = strN.replace(""4"", """").replace(""7"", """")
+    if without_47 == 0:
+        return ""YES""
+    delta = len(strN) - len(without_47)
+    if delta == 4 or delta == 7:
+        return ""YES""
+    return ""NO""
+
+n = int(input())
+
+print(checkN(n))",True,1.2581,20.0877,20.0877,0.0,0,0,0.0,[],[]
+226808954,claude-sonnet-5,reference,"n = input()
+cnt = 0
+for char in n:
+  if char == '4' or char == '7':
+    cnt += 1
+for char in str(cnt):
+  if char != '4' and char != '7':
+    print('NO')
+    break
+else:
+  print('YES')",True,1.0,1.7796,1.7796,0.0,0,0,0.0,[],[]
+226809039,claude-sonnet-5,reference,"def check(num):
+    if len(num) == 1:
+        return ""NO""
+    lucky = 0
+    for l in num:
+        if l == '7' or l == '4':
+            lucky += 1
+        
+    if(lucky == 4 or lucky == 7):
+        return(""YES"")
+    else:
+        return(""NO"")
+
+num = input()
+print(check(num))",True,0.3333,12.2468,12.2468,0.0,0,0,0.0,[],[]
+226847570,claude-sonnet-5,reference,"n = input()
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+	print(""NO"")",True,1.0667,1.6472,1.6472,0.0,0,0,0.0,[],[]
+226858461,claude-sonnet-5,rules,"t = input()
+
+if t.count('4') + t.count('7') in (4, 7):
+    print(""YES"")
+else: print(""NO"")",True,0.5714,0.1036,0.1036,0.0,0,0,0.0,"[""length_as_lucky_count_or""]",[]
+226863033,claude-sonnet-5,rules,"num = input()
+count = 0
+
+for i in range(len(num)):
+  if num[i] == '4' or num[i] == '7':
+    count += 1
+if count == 4 or count == 7:
+  print('YES')
+else:
+  print('NO')",True,0.1633,0.114,0.114,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+226865786,claude-sonnet-5,rules,"num = input()
+count = 0
+lucky_nums = ['4','7']
+for i in range(len(num)):
+  if num[i] in lucky_nums:
+    count += 1
+for j in range(len(str(len(num))) - 1 - 1):
+  if str(len(num))[j] not in lucky_nums:
+    count -= 1
+if count == 4 or count == 7:
+  print('YES')
+else:
+  print('NO')",True,0.1944,4.0462,4.0462,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count"", ""generic_shift_range"", ""generic_shift_range""]",[]
+226879615,claude-sonnet-5,reference,"n = int(input())
+b = str(n)
+arr2 = ['4','7']
+count =0
+for i in b:
+    if i in arr2:
+        count+=1
+if count ==4 or count ==7:
+    print('YES')
+else:
+    print('NO')",True,0.6364,69.0867,69.0867,0.0,0,0,0.0,[],[]
+226887406,claude-sonnet-5,reference,"n=int(input())
+c=0
+a=0
+while(n>0):
+    a=n%10
+    if a==4 or a==7:
+        c+=1
+    n=n//10
+if c==7 or c==4:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5179,37.1051,37.1051,0.0,0,0,0.0,[],[]
+226888103,claude-sonnet-5,reference,"n=int(input())
+c=0
+a=0
+while(n>0):
+    a=n%10
+    if a==4 or a==7:
+        c+=1
+    n=n//10
+if c==7 or c==4:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5122,32.0926,32.0926,0.0,0,0,0.0,[],[]
+226890156,claude-sonnet-5,rules,"import sys
+
+input = sys.stdin.readline
+
+def in2i():
+    '''
+    input to int
+    '''
+    return int(input())
+
+def in2il():
+    '''
+    intput to int list
+    '''
+    return (list(map(int, input().split())))
+
+def s2cs():
+    '''
+    string to chars
+    '''
+    s = input()
+    return (list(s[:len(s)]))
+
+s = input()
+count = 0
+for c in s:
+    if c == '4' or c == '7':
+        count += 1
+if count > 0 and (count == 4 or count == 7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.0748,0.1377,0.1377,0.0,0,0,0.0,"[""modulo_should_be_equality""]",[]
+226893764,claude-sonnet-5,reference,"s=input()
+count=0
+for i in s:
+    if i=='4' or i=='7':
+        count+=1
+if count==4 or count==7:
+    print('YES')
+else:
+    print('NO')
+
+
+# In[ ]:",True,0.3846,7.7359,7.7359,0.0,0,0,0.0,[],[]
+226917262,claude-sonnet-5,reference,"s=int(input(""""))
+x=str(s)  
+count=0
+for i in range(len(x)):
+    if int(x[i])==4 or int(x[i])==7:
+        count+=1
+    else:
+        pass
+if count==4 or count==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7143,6.3558,6.3558,0.0,0,0,0.0,[],[]
+226918018,claude-sonnet-5,reference,"n = list(input())
+l = 0
+for i in n:
+    if i == '4' or i == '7':
+        l += 1
+
+print('YES' if l == 4 or l == 7 else 'NO')",True,1.0625,1.5848,1.5848,0.0,0,0,0.0,[],[]
+226930756,claude-sonnet-5,rules,"import sys
+from itertools import permutations
+import collections
+import math
+M = 1000000007
+
+n = (int(sys.stdin.readline()))
+#a = list(map(int,sys.stdin.readline().split()))
+
+a = collections.Counter(str(n))
+if '7' not in a.keys() and '4' not in a.keys():
+    print(""NO"")
+elif a[""7""] + a[""4""] != 4 and a[""7""] + a[""4""] != 7:
+    print(""NO"")
+elif a[""7""] + a[""4""] != 7 and a[""7""] + a[""4""] != 4:
+    print(""NO"")
+else: print(""YES"")",True,0.0092,0.1428,0.1428,0.0,0,0,0.0,"[""generic_flip_bool_op""]",[]
+226950486,claude-sonnet-5,reference,"n = input()
+count = 0
+for i in n:
+    if i == '4' or i == '7':
+        count += 1
+ris = 'YES'
+for i in str(count):
+    if i != '4' and i != '7':
+        ris = 'NO'
+print(ris)",True,1.1,1.7309,1.7309,0.0,0,0,0.0,[],[]
+226984222,claude-sonnet-5,reference,"n = input()
+cnt = 0
+for char in n:
+  if char == '4' or char == '7':
+    cnt += 1
+for char in str(cnt):
+  if char != '4' and char != '7':
+    print('NO')
+    break
+else:
+  print('YES')",True,0.8889,1.9723,1.9723,0.0,0,0,0.0,[],[]
+226990990,claude-sonnet-5,reference,"n = input()
+count = 0
+for i in n:
+    if i == '4' or i == '7':
+        count += 1
+ris = 'YES'
+for i in str(count):
+    if i != '4' and i != '7':
+        ris = 'NO'
+print(ris)",True,0.8919,2.6743,2.6743,0.0,0,0,0.0,[],[]
+226991645,claude-sonnet-5,reference,"s=input()
+count=0
+flag=1
+for i in s:
+    if i=='4' or i=='7':
+        count+=1
+count=str(count)
+for i in count:
+    if i!='7' and i!='4':
+        flag=0
+        break
+if flag==1:
+    print('YES')
+else:
+    print(""NO"")",True,0.8033,18.3613,18.3613,0.0,0,0,0.0,[],[]
+226994374,claude-sonnet-5,reference,"n=int(input())
+st=str(n)
+fors=st.count(""4"")
+sevens=st.count(""7"")
+sum=fors+sevens
+if sum==4 or sum==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5542,8.9759,8.9759,0.0,0,0,0.0,[],[]
+227003651,claude-sonnet-5,rules,"n = input()
+b = list(map(int,list(n)))
+count = 0
+for i in range(len(b)):
+    if b[i] == 4 or b[i] == 7:
+        count += 1
+if (count == 4 or count == 7) and count != 0:
+    print('YES')
+else: print('NO')",True,0.1067,0.1291,0.1291,0.0,0,0,0.0,"[""modulo_should_be_equality""]",[]
+227003854,claude-sonnet-5,rules,"def lucky(a):
+    list = ['4','7']
+    count = 0
+    for i in range(len(a)):
+        if a[i] in list:
+            count += 1
+    if count == 4 or count == 7:
+        return'YES'
+    else:
+        return'NO'
+b = input()
+c = lucky(b)
+print(c)",True,0.1455,0.134,0.134,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+227008023,claude-sonnet-5,reference,"def lucky(a):
+    list = str(a)
+    count = 0
+    for i in range(len(list)):
+        if list[i] == ""4"" or list[i] == ""7"":
+            count = count + 1 
+    # print(a)
+    if count == 4 or count == 7:
+        return True
+    else:
+        return False
+n = int(input())
+check = lucky(n)
+if check == True:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.8427,19.0272,19.0272,0.0,0,0,0.0,[],[]
+227058017,claude-sonnet-5,reference,"n = int(input())
+def is_lucky(number):
+    while number > 0:
+        digit = number % 10
+        if digit != 4 and digit != 7:
+            return False
+        number //= 10
+    return True
+lucky_count = 0
+while n > 0:
+    digit = n % 10
+    if digit == 4 or digit == 7:
+        lucky_count += 1
+    n //= 10
+if lucky_count == 4 or lucky_count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.1047,65.7305,65.7305,0.0,0,0,0.0,[],[]
+227061717,claude-sonnet-5,reference,"lucky = [4,7]
+
+n = input()
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6765,17.9883,17.9883,0.0,0,0,0.0,[],[]
+227063008,claude-sonnet-5,reference,"n =input()
+n = [int(i) for i in n]
+n1 =n.count(4) + n.count(7)
+if n1==7 or n1==4:
+    print(""YES"")
+else:
+    print('NO')",True,0.4483,5.71,5.71,0.0,0,0,0.0,[],[]
+227063435,claude-sonnet-5,reference,"n =input()
+n = [int(i) for i in n]
+n1 =n.count(4) + n.count(7)
+if n1==7 or n1==4:
+    print(""YES"")
+else:
+    print('NO')",True,0.38,0.4497,0.4497,0.0,0,0,0.0,[],[]
+227064077,claude-sonnet-5,rules,"n = input()
+
+list1 = [int(i) for i in n]
+
+count=0
+for i in list1:
+    if i==4 or i==7:
+        count+=1
+
+if count == 4 or count == 7:
+    if (4 == 4 or 4 == 7) or len(list1)==7:
+        print('YES')
+    else:
+        print('NO')
+else:
+    print('NO')",True,0.2609,1.1338,1.1338,0.0,0,0,0.0,"[""len_eq_count_should_be_lucky_count"", ""len_eq_count_should_be_lucky_count""]",[]
+227068459,claude-sonnet-5,rules,"a= input()
+n = 0
+if a.count('4') + a.count('7') in (4, 7):
+  print(""YES"")
+else:
+  for i in a:
+    if i != ""4"" or i != ""7"":
+      n+=1
+  if n == 0:
+    print(""YES"")
+  else:
+    print(""NO"")",True,0.2759,0.1685,0.1685,0.0,0,0,0.0,"[""length_as_lucky_count_or""]",[]
+227069232,claude-sonnet-5,rules,"a= input()
+n = 0
+m = 0
+for i in a:
+  if i != ""4"" and i != ""7"":
+    n+=1
+  else:
+    m+=1
+if n < 0:
+  print(""YES"")
+else:
+  if m == 4 or m == 7:
+    print(""YES"")
+  else:
+    print(""NO"")",True,0.0164,0.9402,0.9402,0.0,0,0,0.0,"[""generic_flip_compare"", ""generic_flip_compare""]",[]
+227084923,claude-sonnet-5,rules,"result = ""hello world!""
+n = int(input())
+if 1 <= n and n <= 10**18:
+    luckyNumbers = ""47""
+    lucky = False
+    count = 0
+    for s in str(n):
+        if s in luckyNumbers:
+            count += 1
+    if count == 4 or count == 7:
+        lucky = True
+    if str(count) in luckyNumbers:
+        result = ""YES""
+    elif lucky == False:
+        result = ""NO""
+print(f""{result}"")",True,0.1084,0.1654,0.1654,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+227096073,claude-sonnet-5,reference,"n=int(input())
+s1=str(n)
+l=[i for i in s1]
+
+lucky = 0
+
+c1=l.count('4')
+c2=l.count('7')
+c=c1+c2
+c1=str(c)
+l1=[i for i in c1]
+
+if lucky == 4 or lucky == 7:
+    print(""YES"")
+else:
+    if c==4 or c==7 or set(l1)=={'4','7'}:
+        print('YES')
+    else:
+        print(""NO"")",True,0.1573,15.532,15.532,0.0,0,0,0.0,[],[]
+227218584,claude-sonnet-5,reference,"x = list(input())
+count = 0
+for i in x:
+    if i =='4' or i == '7':
+        count += 1 
+if count == 4 or count == 7:
+    print('YES')
+else:
+    print('NO')",True,0.2545,9.5681,9.5681,0.0,0,0,0.0,[],[]
+227311298,claude-sonnet-5,reference,"n = input()
+count = 0
+for i in n:
+  if i == ""4"" or i == ""7"":
+    count += 1
+
+print(""YES"" if count == 7 or count == 4 else ""NO"")",True,1.2414,0.4292,0.4292,0.0,0,0,0.0,[],[]
+227339417,claude-sonnet-5,reference,"n=int(input())
+count=0
+while n!=0:
+    a=n%10
+    if a==4 or a==7:
+        count+=1
+    n=n//10
+if count==4 or count==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,1.75,31.1296,31.1296,0.0,0,0,0.0,[],[]
+227434062,claude-sonnet-5,rules,"a = int(input())
+print(""YES"") if str(a).count('4') + str(a).count('7') in (4, 7) else print(""NO"")",True,0.4848,0.1319,0.1319,0.0,0,0,0.0,"[""length_as_lucky_count_or""]",[]
+227434622,claude-sonnet-5,reference,"a = input()
+count = 0
+for i in a:
+    if i=='4' or i=='7':
+        count+=1
+    
+print(""YES"") if( count==4 or count==7) else print(""NO"")",True,0.0455,8.5466,8.5466,0.0,0,0,0.0,[],[]
+227450462,claude-sonnet-5,reference,"num = input()
+output = ""YES""
+S = 0
+
+for i in num:
+    if i in [""4"",""7""]:
+        S += 1
+
+if S not in [4,7]:
+    output = ""NO""
+
+print(output)",True,0.72,0.2133,0.2133,0.0,0,0,0.0,[],[]
+227475848,claude-sonnet-5,reference,"n=int(input())
+c=0
+while n>0:
+    if n%10==4 or n%10==7:
+        c+=1
+    n//=10
+if c==4 or c==7:
+    print(""YES"")
+else:
+    print('NO')",True,1.2424,41.9102,41.9102,0.0,0,0,0.0,[],[]
+227476341,claude-sonnet-5,reference,"n=int(input())
+count=0
+while n>0:
+    if(n%10==7 or n%10==4):
+        count+=1
+    n=n//10
+if(count==4 or count==7):
+    print(""YES"")
+else:
+    print('NO')",True,1.0602,39.1584,39.1584,0.0,0,0,0.0,[],[]
+227481807,claude-sonnet-5,reference,"n = list(map(int,input()))
+a = n.count(4)+n.count(7)
+if a == 7 or a == 4:
+	print(""YES"")
+		
+else:
+    print(""NO"")",True,0.7222,0.4116,0.4116,0.0,0,0,0.0,[],[]
+227510769,claude-sonnet-5,reference,"nourinz=input()
+zz=0
+for n in nourinz:
+    if  (int(n) ==4 or int(n) ==7 ):
+         zz=zz+1
+if ((zz==4 or zz==7)):
+    print('YES')
+else:
+    print(""NO"")
+quit()",True,0.6429,2.0747,2.0747,0.0,0,0,0.0,[],[]
+227574157,claude-sonnet-5,reference,"n = input()
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+    print('NO')",True,0.9286,5.1235,5.1235,0.0,0,0,0.0,[],[]
+227575292,claude-sonnet-5,rules,"i=list(input())
+s=set(i)
+l=list(s)
+if 2 == 4 or 2 == 7:
+    if '4' in l and '7' in l:
+        print('YES')
+    else:
+        print('NO')
+else:
+    c=0
+    if '4' in l or '7' in l:
+        for j in i:
+            if j=='4' or j=='7':
+                c+=1
+        if c == 4 or c == 7:
+            print('YES')
+        else:
+            print('NO')
+    else:
+        print('NO')",True,0.1635,1.6804,1.6804,0.0,0,0,0.0,"[""len_eq_count_should_be_lucky_count"", ""modulo_should_be_equality""]",[]
+227576275,claude-sonnet-5,reference,"num = input()
+output = ""YES""
+S = 0
+
+for i in num:
+    if i in [""4"",""7""]:
+        S += 1
+
+if S not in [4,7]:
+    output = ""NO""
+
+
+print(output)",True,0.2093,1.8391,1.8391,0.0,0,0,0.0,[],[]
+227624739,claude-sonnet-5,reference,"s=input()
+count=0
+for i in s:
+    if i=='4' or i=='7':
+        count+=1
+if count==4 or count==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.2,8.032,8.032,0.0,0,0,0.0,[],[]
+227640310,claude-sonnet-5,reference,"def is_lucky_digit(digit):
+    return digit=='4' or digit=='7'
+def is_nearly_lucky(n):
+    count_lucky_digits=0
+    for digit in str(n):
+        if is_lucky_digit(digit):
+            count_lucky_digits+=1
+    return is_lucky_digit(str(count_lucky_digits))
+
+n=int(input())
+if is_nearly_lucky(n):
+    print(""YES"")
+else:
+    print(""NO"")",True,1.4348,2.0188,2.0188,0.0,0,0,0.0,[],[]
+227688938,claude-sonnet-5,reference,"n=input()
+count=0
+for i in range(0, len(n)):
+    if n[i] == ""4"" or n[i]==""7"":
+        count+=1
+count=str(count)
+count2=0
+ans=None
+for i in range(0, len(count)):
+    if count[i] == ""4"" or count[i]==""7"":
+        ans=True
+    else:
+        ans=False
+        break
+if ans==False:
+    print(""NO"")
+else:
+    print(""YES"")",True,0.1591,5.5744,5.5744,0.0,0,0,0.0,[],[]
+227691686,claude-sonnet-5,rules,"a = input()
+counter4 = 0
+counter7 = 0
+skull = 0
+
+for i in range(len(a)):
+    if(a[i] == ""4""):
+        counter4 += 1
+    elif(a[i] == ""7""):
+        counter7 += 1
+
+if(skull == 0):
+    if((counter4 + counter7 == 4 or counter4 + counter7 == 7)and((counter4 != len(a))or(counter7 != len(a)))):
+        print(""YES"")
+    else:
+        print(""NO"")
+elif(skull != 0):
+    if(counter4 == 4):
+        print(""YES"")
+    elif(counter7 == 7):
+        print(""YES"")
+    elif(counter4 == len(a)):
+        print(""NO"")
+    elif(counter7 == len(a)):
+        print(""NO"")
+    else:
+        print(""NO"")",True,0.084,0.1899,0.1899,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+227771840,claude-sonnet-5,rules,"word=input()
+n=0
+for i in range(len(word)):
+    if word[i] == '4' or word[i] == '7':
+        n+=1
+    else:
+        n+=0
+if n == 4 or n == 7:
+    print('YES')
+else:
+    print('NO')",True,0.1633,0.6169,0.6169,0.0,0,0,0.0,"[""missing_comparison_repeat"", ""missing_comparison_repeat""]",[]
+227771987,claude-sonnet-5,reference,"num = input()
+l1 = len(num)
+count = 0
+for x in range(l1):
+    if num[x] == '4':
+        count += 1
+    elif num[x] == '7':
+        count += 1
+if count == 4:
+    print('YES')
+elif count == 7:
+    print('YES')
+else:
+    print('NO')",True,0.381,5.8808,5.8808,0.0,0,0,0.0,[],[]
+227984195,claude-sonnet-5,reference,"x=0
+x=input()
+x1=0
+for i in x:
+  if i== '4' or i== '7':
+    x1=x1+1
+    
+if x1==7 or x1==4:
+  print(""YES"")
+else:
+    print(""NO"")",True,0.7105,2.043,2.043,0.0,0,0,0.0,[],[]
+228005962,claude-sonnet-5,reference,"num=input()
+c=0
+for i in num:
+    if(i=='4' or i=='7'):
+        c+=1
+if(c==4 or c==7):
+    print('YES')
+else:
+    print(""NO"")",True,0.8125,15.675,15.675,0.0,0,0,0.0,[],[]
+228006905,claude-sonnet-5,reference,"n = input()
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+    print('NO')",True,1.5,1.586,1.586,0.0,0,0,0.0,[],[]
+228051302,claude-sonnet-5,reference,"n = int(input())
+lucky = 0
+for i in str(n):
+    if i == '4':
+        lucky += 1
+    if i == '7':
+        lucky += 1
+
+# print(lucky)
+if lucky == 4 or lucky == 7:
+    print('YES')
+else:
+    print(""NO"")",True,1.7368,2.8079,2.8079,0.0,0,0,0.0,[],[]
+228061926,claude-sonnet-5,rules,"n=int(input())
+n1=str(n)
+count=0
+for char in n1:
+    if char=='4' or char=='7':
+        count+=1
+if count==7 or count==4:
+    print('YES')
+else:
+    print(""NO"")",True,0.0192,0.1218,0.1218,0.0,0,0,0.0,"[""fix_titlecase_yes""]",[]
+228074726,claude-sonnet-5,rules,"s=input()
+c=0
+c1=0
+c2=0
+for i in s:
+    if i=='4' or i=='7':
+        c+=1
+for i in s:
+    if i != '4':
+        c2+=1
+    elif i=='7':
+        c1+=1
+if (c == 4 or c == 7) and c1 <= 1 and c2>=1 :
+    print(""YES"")
+else:
+    print(""NO"")",True,0.1282,4.9155,4.9155,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count"", ""generic_flip_compare"", ""generic_flip_compare""]",[]
+228109968,claude-sonnet-5,reference,"number = input()
+count = 0
+yes = 1
+for d in number:
+    if d == ""4"" or d == ""7"":
+        count += 1
+ris = 'YES'
+for i in str(count):
+    if i != '4' and i != '7':
+        ris = 'NO'
+print(ris)",True,0.303,8.6776,8.6776,0.0,0,0,0.0,[],[]
+228138781,claude-sonnet-5,reference,"x=str(input())
+sum=0
+for i in x:
+    if i=='7' or i=='4':
+        sum+=1
+if sum==7 or sum==4:
+    print('YES')
+else:
+    print('NO')",True,1.2917,0.2385,0.2385,0.0,0,0,0.0,[],[]
+228146504,claude-sonnet-5,rules,"n=input("""")
+
+s=n.count('7')
+f=n.count('4')
+
+if s + f == 4 or s + f == 7:
+  print(""YES"")
+else: 
+  print(""NO"")",True,0.3056,0.088,0.088,0.0,0,0,0.0,"[""len_eq_count_should_be_lucky_count""]",[]
+228152006,claude-sonnet-5,rules,"n=input("""")
+
+s=n.count('7')
+f=n.count('4')
+
+if s + f == 4 or s + f == 7:
+  q=str(len(n))
+  s2=q.count('7')
+  f2=q.count('4')
+  if len(q) >= s2 + f2:
+    print(""YES"")
+  
+else:
+  print(""NO"")",True,0.1846,0.3568,0.3568,0.0,0,0,0.0,"[""len_eq_count_should_be_lucky_count"", ""generic_flip_compare""]",[]
+228156866,claude-sonnet-5,rules,"n=input("""")
+
+s=n.count('7')
+f=n.count('4')
+q=str(len(n))
+s2=q.count('7')
+f2=q.count('4')
+if (s + f == 4 or s + f == 7) and len(q) >= s2 + f2:
+    print(""YES"")
+  
+else:
+  print(""NO"")",True,0.1818,0.407,0.407,0.0,0,0,0.0,"[""len_eq_count_should_be_lucky_count"", ""generic_flip_compare""]",[]
+228178797,claude-sonnet-5,reference,"n = [int(i) for i in list(input())]
+
+count = 0
+for digit in n:
+    if digit == 4 or digit == 7:
+        count += 1
+
+if count != 4 and count != 7:
+    print(""NO"")
+else:
+    print(""YES"")",True,0.566,7.4776,7.4776,0.0,0,0,0.0,[],[]
+228180330,claude-sonnet-5,reference,"N = int(input())
+n = str(N)
+n = list(n)
+l = len(n)
+count = 0
+for num in n:
+    if num == '4' or num == '7':
+        count += 1
+if count ==4 or count ==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.7241,2.9978,2.9978,0.0,0,0,0.0,[],[]
+228189550,claude-sonnet-5,rules,"s=input()
+l=(s.count('4')+s.count('7'))
+if (l == 4 or l == 7) and (('7' in s )and ('4' in s)) or l==4 or l==7:
+    print('YES')
+else:
+    print('NO')",True,0.1481,0.1384,0.1384,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+228247055,claude-sonnet-5,reference,"n = int(input())
+lucky = 0
+for i in str(n):
+    if i == '4':
+        lucky += 1
+    if i == '7':
+        lucky += 1
+
+# print(lucky)
+if lucky == 4 or lucky == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.375,12.5286,12.5286,0.0,0,0,0.0,[],[]
+228297442,claude-sonnet-5,rules,"a = input()
+if a.count('4') + a.count('7') == 4 or a.count('4') + a.count('7') == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5517,0.0867,0.0867,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+228366227,claude-sonnet-5,reference,"n = input()
+c = 0
+for i in n:
+    if i in '47':
+        c += 1
+if c == 4 or c == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.6383,9.8313,9.8313,0.0,0,0,0.0,[],[]
+228379963,claude-sonnet-5,reference,"n=input()
+a=n.count('4')
+b=n.count('7')
+c=a+b
+if c==4 or c==7:
+    print('YES')
+else:
+    print('NO')",True,0.6867,22.3985,22.3985,0.0,0,0,0.0,[],[]
+228387675,claude-sonnet-5,reference,"lucky=list(map(int,input()))
+
+count=0
+for n in range(len(lucky)):
+    if lucky[n] ==7 or lucky[n] == 4 :
+
+        count+=1
+
+
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.4528,6.5649,6.5649,0.0,0,0,0.0,[],[]
+228414452,claude-sonnet-5,reference,"a = input()
+
+if a.count('4') + a.count('7') == 4 or a.count('4') + a.count('7') == 7:
+    print('YES')
+else:
+    print('NO')",True,0.3538,11.5126,11.5126,0.0,0,0,0.0,[],[]
+228450676,claude-sonnet-5,rules,"s = int(input())
+c = 0
+r = str(s)
+for i in range(len(r)):
+    if r[i] == '4' or r[i] == '7':
+        c+=1
+if c == 4 or c == 7:
+    print('YES')
+else:
+    print('NO')",True,0.1552,0.1901,0.1901,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+228500367,claude-sonnet-5,reference,"n=input()
+s=str(n.count(""7"")+n.count(""4""))
+print(""YES"" if len(s.replace('7','').replace('4',''))==0 else ""NO"")",True,1.4062,0.1529,0.1529,0.0,0,0,0.0,[],[]
+228501359,claude-sonnet-5,reference,"# s_num = input()
+#
+
+def is_lucky(s_num):
+    return s_num=='4' or s_num=='7'
+def count_lucky(n):
+    ct=0
+    for i in str(n):
+        if is_lucky(i):
+            ct+=1
+    return ct
+n=int(input())
+res=count_lucky(n)
+if is_lucky(str(res)):
+    print(""YES"")
+else:
+    print('NO')",True,1.1591,0.3482,0.3482,0.0,0,0,0.0,[],[]
+228502572,claude-sonnet-5,reference,"n=input()
+s=str(n.count(""7"")+n.count(""4""))
+print(""YES"" if len(s.replace('7','').replace('4',''))==0 else ""NO"")",True,1.1667,0.2897,0.2897,0.0,0,0,0.0,[],[]
+228516438,claude-sonnet-5,reference,"#110A:nearly lucky number
+def digit(x):
+    digits=[]
+    while(x!=0):
+        digits.append(x%10)
+        x=x//10
+    return(digits)
+def lucky(x):
+    digits = str(x)
+    a = 0
+    for i in range(len(digits)):
+        if digits[i] == ""4"" or digits[i] == ""7"":
+            a = a + 1 
+    # print(a)
+    if a == 4 or a == 7:
+        return True
+    else:
+        return False
+n = int(input())
+check = lucky(n)
+if check == True:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5769,31.5322,31.5322,0.0,0,0,0.0,[],[]
+228528936,claude-sonnet-5,reference,"def digit(x):
+    digits = []
+    while(x != 0):
+        digits.append(x % 10)
+        x = x // 10
+
+    return digits
+
+def lucky(x):
+    digits = str(x)
+    a = 0
+    for i in range(len(digits)):
+        if digits[i] == ""4"" or digits[i] == ""7"":
+            a = a + 1 
+    # print(a)
+    if a == 4 or a == 7:
+        return True
+    else:
+        return False
+n = int(input())
+check = lucky(n)
+if check == True:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5841,27.3895,27.3895,0.0,0,0,0.0,[],[]
+228578339,claude-sonnet-5,reference,"input =input()
+luckyLen = 0
+for i in range(len(input)):
+    if input[i] == '4' or input[i] =='7':
+        luckyLen +=1
+luckyLen = str(luckyLen)
+lucky = True
+for l in luckyLen:
+    if l!= '4' and l!= '7':
+        lucky = False 
+if lucky:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.9508,56.1675,56.1675,0.0,0,0,0.0,[],[]
+228580243,claude-sonnet-5,reference,"n=input()
+s=str(n.count(""7"")+n.count(""4""))
+print(""YES"" if len(s.replace('7','').replace('4',''))==0 else ""NO"")",True,0.878,1.9531,1.9531,0.0,0,0,0.0,[],[]
+228596713,claude-sonnet-5,reference,"a=int(input())
+b=str(a)
+counter=0
+for i in b:
+    if(i==""7""or i==""4""):
+        counter=counter+1
+if(counter==4 or counter==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6,15.1744,15.1744,0.0,0,0,0.0,[],[]
+228596902,claude-sonnet-5,reference,"a=int(input())
+b=str(a)
+counter=0
+for i in b:
+    if(i==""7""or i==""4""):
+        counter=counter+1
+if(counter==4 or counter==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6,14.2978,14.2978,0.0,0,0,0.0,[],[]
+228608357,claude-sonnet-5,reference,"n=str(input())
+cik=n.count(""4"")
+cik2=n.count(""7"")
+
+cik3=cik+cik2
+if (cik3==7):
+    print(""YES"")
+elif (cik3==4):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.75,2.0081,2.0081,0.0,0,0,0.0,[],[]
+228608957,claude-sonnet-5,rules,"n = list(input())
+total =n.count(""4"")+n.count(""7"")
+a = list(set(n))
+if ""4"" in a:
+    if ""7"" in a:   
+        a.remove(""4"")
+        a.remove(""7"")
+if total==7or total==4 or (0 == 4 or 0 == 7)  :
+    print(""YES"")
+else:
+    print(""NO"")",True,0.1268,0.1134,0.1134,0.0,0,0,0.0,"[""len_eq_count_should_be_lucky_count""]",[]
+228613485,claude-sonnet-5,reference,"num = input()
+
+
+count = 0
+
+for n in num:
+    if n in ['4', '7']:
+        count += 1
+
+if count in [4, 7]:
+    print('YES')
+else:
+    print('NO')",True,2.0385,0.1111,0.1111,0.0,0,0,0.0,[],[]
+228632959,claude-sonnet-5,reference,"num = input()
+
+
+count = 0
+
+for n in num:
+    if n in ['4', '7']:
+        count += 1
+
+if count in [4, 7]:
+    print('YES')
+else:
+    print('NO')",True,0.7273,0.4552,0.4552,0.0,0,0,0.0,[],[]
+228677406,claude-sonnet-5,rules,"s = input()
+
+count = 0
+for c in s:
+    if c == ""4"" or c == ""7"":
+        count += 1
+print(""YES"") if count == 4 or count == 7 else print(""NO"")",True,0.2,0.0991,0.0991,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+228760156,claude-sonnet-5,reference,"n = input()
+sum = 0
+for i in range(len(n)):
+    if n[i] == '4' or n[i] == '7':
+        sum += 1
+    else:
+        sum += 0
+if sum == 4 or sum == 7:
+    print('YES')
+else: print('NO')",True,0.2308,5.837,5.837,0.0,0,0,0.0,[],[]
+228765888,claude-sonnet-5,reference,"n = input()
+luck = 0
+for i in range(len(n)):
+    if n[i] == '4' or n[i] == '7':
+        luck += 1
+luck = str(luck)
+flag = True
+for i in luck:
+    if i == '4' or i == '7':
+        continue
+    else:
+        flag = False
+        break
+if flag:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7143,7.8834,7.8834,0.0,0,0,0.0,[],[]
+228810980,claude-sonnet-5,reference,"n = input()
+s = 0
+for i in range(0, len(n)):
+    if n[i] == '4' or n[i] == '7':
+        s = s+1
+if s == 4 or s == 7:
+    print('YES')
+else:
+    print(""NO"")
+        
+#in 8 mins",True,0.381,5.775,5.775,0.0,0,0,0.0,[],[]
+228815027,claude-sonnet-5,reference,"a=int(input())
+s=0
+while a>0:
+    e=a%10
+    if e==4 or e==7:
+        s=s+1
+    a=a//10
+if s==4 or s==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5185,24.2886,24.2886,0.0,0,0,0.0,[],[]
+228827651,claude-sonnet-5,rules,"x = input()
+test = 0
+for i in range(len(x)):
+   if x[i]==""4"" or x[i]==""7"":
+       test+=1
+if test == 4 or test == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.1633,0.103,0.103,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+228828671,claude-sonnet-5,rules,"x = input()
+four = 0
+seven = 0
+for i in range(len(x)):
+   if x[i]==""4"":
+       four+=1
+   if x[i]==""7"":
+       seven+=1 
+if four == 0 and seven == 0:
+    print(""NO"")
+elif int(four + seven) == 4 or int(four + seven) == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.1733,1.3997,1.3997,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count"", ""generic_flip_bool_op""]",[]
+228834983,claude-sonnet-5,reference,"n = input()
+c = int(n.count('4')) + int(n.count('7'))
+if c != 0 and c == 4 or c == 7:
+    print('YES')
+else:
+	print('NO')",True,0.8692,26.6488,26.6488,0.0,0,0,0.0,[],[]
+228840221,claude-sonnet-5,reference,"n = input()
+count = 0
+res = 'YES'
+for i in range(len(n)):
+    if n[i] == '4' or n[i] == '7':
+        count += 1
+count = str(count)
+for i in range(len(count)):
+    if count[i] != '4' and count[i] != '7':
+        res = 'NO'
+        break
+print(res)",True,0.7121,8.7556,8.7556,0.0,0,0,0.0,[],[]
+228885393,claude-sonnet-5,rules,"s = input()
+flag = 0
+for i in range(len(s)):
+    if i == 4 or i == 7:
+        flag = 0
+        
+        
+    else:
+        flag = 1
+        break
+if flag == 0 or (s.count('4') + s.count('7') in (4, 7)):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2581,0.1221,0.1221,0.0,0,0,0.0,"[""length_as_lucky_count_or""]",[]
+228950586,claude-sonnet-5,reference,"n = input()
+
+lucky = True
+nearly_luckly = True
+
+count = 0
+for i in n:
+    if (i == '4') or (i == '7'):
+        count+=1
+# print(str(count))
+flag=0
+# print(str(count))
+for j in str(count):
+    
+    if (j=='4') or (j=='7'):
+        flag=0
+    else:
+        flag=1
+# print(flag)
+if flag==0:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.3824,9.1397,9.1397,0.0,0,0,0.0,[],[]
+228951522,claude-sonnet-5,reference,"s=input()
+count=0
+flag=1
+for i in s:
+    if i=='4' or i=='7':
+        count+=1
+count=str(count)
+for i in count:
+    if i!='7' and i!='4':
+        flag=0
+        break
+if flag==1:
+    print('YES')
+else:
+    print(""NO"")",True,0.4143,11.311,11.311,0.0,0,0,0.0,[],[]
+228962182,claude-sonnet-5,reference,"#!/usr/bin/env python
+# coding: utf-8
+
+# In[12]:
+
+
+n = input()
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+    print(""NO"")
+        
+
+    
+    
+
+
+# In[ ]:",True,0.6538,14.5467,14.5467,0.0,0,0,0.0,[],[]
+228963087,claude-sonnet-5,reference,"#!/usr/bin/env python
+# coding: utf-8
+
+# In[23]:
+
+
+n = input()
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+    print(""NO"")
+        
+
+    
+    
+
+
+# In[ ]:",True,0.6852,21.0665,21.0665,0.0,0,0,0.0,[],[]
+228992809,claude-sonnet-5,reference,"n = int(input())
+n = str(n)
+flag = 0
+for x in n:
+    if int(x) == 4 or int(x) == 7:
+        flag += 1
+if flag == 4 or flag == 7:
+    print(""YES"")
+else:
+    print('NO')",True,0.6237,6.8484,6.8484,0.0,0,0,0.0,[],[]
+229013128,claude-sonnet-5,rules,"a= input()
+num=0
+for i in a:
+    if int(i)==4 or int(i)==7:
+        num+=1
+if num == 4 or num == 7:
+        print('YES')
+else:
+    print('NO')",True,0.1778,0.0982,0.0982,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+229062653,claude-sonnet-5,rules,"a=int(input())
+b=""47""
+a=str(a)
+c=0
+for i in a:
+    if i in b:
+        c=c+1
+if c == 4 or c == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.1702,0.0928,0.0928,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+229066534,claude-sonnet-5,rules,"s = input()
+if(s.count('4') + s.count('7') != 4 and s.count('4') + s.count('7') != 7):
+    print('NO')
+else:
+    print(""YES"")",True,0.5517,0.8096,0.8096,0.0,0,0,0.0,"[""generic_flip_compare"", ""count_eq_len_should_be_lucky_count"", ""generic_flip_compare"", ""generic_flip_compare"", ""demorgan_or_to_and_int""]",[]
+229113935,claude-sonnet-5,reference,"S = input()
+cnt_four = S.count(""4"")
+cnt_seven = S.count(""7"")
+cnt = cnt_four + cnt_seven
+cnt_str = str(cnt)
+for s in cnt_str:
+    if s != ""4"" and s != ""7"":
+        print(""NO"")
+        exit()
+print(""YES"")",True,1.2353,0.7857,0.7857,0.0,0,0,0.0,[],[]
+229114135,claude-sonnet-5,reference,"n=int(input())
+s=str(n)
+sum=0
+for i in s:
+    if i=='4' or i=='7':
+        sum+=1
+s1=str(sum)
+for i in s1:
+    if i=='4' or i=='7':
+        pass
+    else:
+        print(""NO"")
+        break;
+else:
+    print(""YES"")",True,1.1389,0.6518,0.6518,0.0,0,0,0.0,[],[]
+229137965,claude-sonnet-5,reference,"n=input()
+x=str(n.count('4')+n.count('7'))
+if x.count('4')+x.count('7')==len(x):
+  print('YES')
+else:
+    print('NO')",True,0.5385,0.388,0.388,0.0,0,0,0.0,[],[]
+229138430,claude-sonnet-5,reference,"n=int(input())
+a=str(n)
+if (a.count(""4"")+a.count(""7""))==4 or (a.count(""4"")+a.count(""7""))==7:
+    print(""YES"")    
+else:
+    print('NO')",True,0.5714,0.4352,0.4352,0.0,0,0,0.0,[],[]
+229175224,claude-sonnet-5,reference,"n = input()
+count = 0
+for i in n:
+    if i == '4' or i == '7':
+        count += 1
+ris = 'YES'
+for i in str(count):
+    if i != '4' and i != '7':
+        ris = 'NO'
+print(ris)",True,0.4242,10.6794,10.6794,0.0,0,0,0.0,[],[]
+229298423,claude-sonnet-5,reference,"n = input()
+cnt = 0
+for char in n:
+  if char == '4' or char == '7':
+    cnt += 1
+for char in str(cnt):
+  if char != '4' and char != '7':
+    print('NO')
+    break
+else:
+  print('YES')",True,0.8286,1.7155,1.7155,0.0,0,0,0.0,[],[]
+229352308,claude-sonnet-5,reference,"S = input()
+cnt_four = S.count(""4"")
+cnt_seven = S.count(""7"")
+cnt = cnt_four + cnt_seven
+cnt_str = str(cnt)
+for s in cnt_str:
+    if s != ""4"" and s != ""7"":
+        print(""NO"")
+        exit()
+print('YES')",True,1.0,1.5343,1.5343,0.0,0,0,0.0,[],[]
+229352395,claude-sonnet-5,reference,"n = input()
+cnt = 0
+for char in n:
+  if char == '4' or char == '7':
+    cnt += 1
+for char in str(cnt):
+  if char != '4' and char != '7':
+    print('NO')
+    exit()
+else:
+  print('YES')",True,0.6724,7.7699,7.7699,0.0,0,0,0.0,[],[]
+229352585,claude-sonnet-5,rules,"x = input()
+if len(x) == 0:
+    print('NO')
+
+sev, fou = 0, 0
+
+for i in x:
+    if i == '7':
+        sev += 1
+    elif i == '4':
+        fou += 1
+
+if sev + fou == 4 or sev + fou == 7:
+    print('YES')
+else:
+    print('NO')",True,0.1774,0.1042,0.1042,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+229353423,claude-sonnet-5,rules,"x = input()
+if x not in ['7', '4'] and (len(x) == 1):
+    print('NO')
+    exit()
+elif x in ['4', '7'] and (1 == 4 or 1 == 7):
+    print('YES')
+    exit()
+
+sev, fou = 0, 0
+l = []
+l[:] = x
+for i in l:
+    if i == '7':
+        sev += 1
+    elif i == '4':
+        fou += 1
+if sev + fou == 4 or sev + fou == 7:
+    print('YES')
+else:
+    print('NO')",True,0.1942,1.3884,1.3884,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count"", ""len_eq_count_should_be_lucky_count""]",[]
+229358168,claude-sonnet-5,rules,"N = list(input())
+
+a = 0
+b = 0
+
+for k in N:
+    if k == '4' or k == '7':
+        a += 1
+    else:
+        b = 0
+
+if a == 4 or a == 7:
+    print('YES')
+else:
+    print('NO')",True,0.1633,0.0975,0.0975,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+229359438,claude-sonnet-5,reference,"def count_lucky_digits(number):
+    count = 0
+    while number > 0:
+        digit = number % 10
+        if digit == 4 or digit == 7:
+            count += 1
+        number //= 10
+    return count
+n = int(input())
+lucky_digit_count = count_lucky_digits(n)
+if lucky_digit_count == 4 or lucky_digit_count == 7:
+    print(""YES"")
+else:
+    print('NO')",True,1.3404,67.9861,67.9861,0.0,0,0,0.0,[],[]
+229403139,claude-sonnet-5,reference,"a=input()
+t=0
+if a==4 or a==7:
+    print(""NO"")
+for i in a:
+    if i=='4' or i=='7':
+        t=t+1
+if t==4 or t==7:
+    print('YES')
+else:
+    print('NO')",True,0.193,7.3812,7.3812,0.0,0,0,0.0,[],[]
+229431243,claude-sonnet-5,reference,"inp = input()
+res= 0
+for i in inp:
+    if i =='4' or i == '7':
+        res += 1
+if res == 4 or res== 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.0444,7.1508,7.1508,0.0,0,0,0.0,[],[]
+229469247,claude-sonnet-5,reference,"nourinz=input()
+zz=0
+for n in nourinz:
+    if  (int(n) ==4 or int(n) ==7 ):
+         zz=zz+1
+if ((zz==4 or zz==7)):
+    print('YES')
+else:
+    print('NO')",True,0.8239,6.2021,6.2021,0.0,0,0,0.0,[],[]
+229503983,claude-sonnet-5,reference,"no = input()
+count = 0
+for each in no:
+    if each == ""4"" or each == ""7"":
+        count += 1
+        
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print('NO')",True,0.4318,5.2904,5.2904,0.0,0,0,0.0,[],[]
+229506827,claude-sonnet-5,reference,"n = input()
+c = 0
+for i in n:
+    if i in '47':
+        c += 1
+if c == 4 or c == 7:
+    print('YES')
+else:
+    print('NO')",True,0.5686,5.9193,5.9193,0.0,0,0,0.0,[],[]
+229507803,claude-sonnet-5,reference,"a=input()
+t=0
+for i in a:
+    if i=='4' or i=='7':
+        t=t+1
+if t==4 or t==7:
+    print('YES')
+else:
+    print('NO')",True,0.2742,4.7227,4.7227,0.0,0,0,0.0,[],[]
+229514770,claude-sonnet-5,reference,"n = str(input())
+ans = 'NO'
+counts = 0
+for i in n:
+	if i=='4' or i == '7':
+		counts += 1		
+if counts ==4 or counts==7:
+	ans = 'YES'		
+print(ans)",True,0.6923,7.9499,7.9499,0.0,0,0,0.0,[],[]
+229514851,claude-sonnet-5,rules,"s = str(int(input()))
+
+c=0
+for i in s:
+	if i == '4' or i == '7':
+		c += 1
+
+
+if c == 4 or c == 7:
+	print(""YES"")
+
+else:
+	print(""NO"")",True,0.1778,0.0944,0.0944,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+229515032,claude-sonnet-5,rules,"s = str(int(input()))
+
+c=0
+for i in s:
+	if i == '4' or i == '7':
+		c += 1
+
+
+if c == 4 or c == 7:
+	s = str(len(s))
+
+	c=0
+	for i in s:
+		if i == '4' or i == '7':
+			c += 1
+
+	if c <= len(s):
+		print(""YES"")
+	else:
+		print(""NO"")
+
+else:
+	print(""NO"")",True,0.1071,1.3484,1.3484,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count"", ""generic_flip_compare""]",[]
+229515340,claude-sonnet-5,reference,"s=input()
+count=0
+for i in s:
+    if i=='4' or i=='7':
+        count+=1
+if count==4 or count==7:
+    print('YES')
+else:
+	print(""NO"")",True,0.48,5.6468,5.6468,0.0,0,0,0.0,[],[]
+229517882,claude-sonnet-5,rules,"n=input()
+a = n.count('4') + n.count('7')
+if a==4:
+    print(""YES"")
+elif a==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2812,0.0871,0.0871,0.0,0,0,0.0,"[""assign_length_should_be_lucky_count""]",[]
+229521805,claude-sonnet-5,reference,"inputNumber = int(input())
+
+curLucky = 0
+for number in str(inputNumber):
+    if number in '47':
+        curLucky += 1
+
+if all(i in '47' for i in str(curLucky)):
+    print('YES')
+else:
+    print('NO')",True,1.2083,0.1796,0.1796,0.0,0,0,0.0,[],[]
+229632892,claude-sonnet-5,reference,"s = input()
+cnt = 0
+pr = False
+for i in range(len(s)):
+    if s[i] == ""4"" or s[i] == ""7"":
+        cnt += 1
+cnt = str(cnt)
+for i in range(len(cnt)):
+    if cnt[i] != ""4"" and cnt[i] != ""7"":
+        pr = True
+if pr:
+    print(""NO"")
+else:
+    print(""YES"")",True,0.337,6.2993,6.2993,0.0,0,0,0.0,[],[]
+229648705,claude-sonnet-5,reference,"n = input()
+
+counter = 0
+ans = 'YES'
+
+for i in range(len(n)):
+    if n[i] == '4' or n[i] == '7':
+        counter += 1
+
+counter = str(counter)
+
+for i in range(len(counter)):
+    if counter[i] != '4' and counter[i] != '7':
+        ans = 'NO'
+        break
+print(ans)",True,0.9268,6.1858,6.1858,0.0,0,0,0.0,[],[]
+229745735,claude-sonnet-5,reference,"n = input()
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.381,8.0845,8.0845,0.0,0,0,0.0,[],[]
+229766919,claude-sonnet-5,reference,"n = input()
+cnt = 0
+for char in n:
+  if char == '4' or char == '7':
+    cnt += 1
+for char in str(cnt):
+  if char != '4' and char != '7':
+    print('NO')
+    break
+else:
+  print('YES')",True,1.7447,2.0358,2.0358,0.0,0,0,0.0,[],[]
+229768280,claude-sonnet-5,reference,"n=int(input())
+st=str(n)
+fors=st.count(""4"")
+sevens=st.count(""7"")
+sum=fors+sevens
+if sum==4 or sum==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,1.2073,7.8026,7.8026,0.0,0,0,0.0,[],[]
+229770141,claude-sonnet-5,reference,"n = input()
+lucky_digits = ['4', '7']
+lucky_counter = 0
+
+for num in n:
+    if num in lucky_digits:
+        lucky_counter += 1
+
+print(""YES"") if lucky_counter == 4 or lucky_counter == 7 else print(""NO"")",True,0.7429,0.2269,0.2269,0.0,0,0,0.0,[],[]
+229776218,claude-sonnet-5,reference,"n=int(input())
+c=0
+while n>0:
+    if n%10==4 or n%10==7:
+        c+=1
+    n//=10
+if c==4 or c==7:
+    print(""YES"")
+else:
+    print('NO')",True,0.678,13.1263,13.1263,0.0,0,0,0.0,[],[]
+229776680,claude-sonnet-5,reference,"n = int(input())
+count = 0
+
+c = 0
+for _ in range(len(str(n))):
+    if n % 10 == 4 or n % 10 == 7:
+        count += 1
+    n //= 10
+
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.4842,8.8259,8.8259,0.0,0,0,0.0,[],[]
+229793371,claude-sonnet-5,rules,"puzzle = input()
+lucky = 0
+for i in range(len(puzzle)):
+  if puzzle[i] == ""4"" or puzzle[i] == ""7"":
+    lucky += 1
+if lucky == 4 or lucky == 7:
+  print(""YES"")
+else:
+  print(""NO"")",True,0.1633,0.1028,0.1028,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+229833219,claude-sonnet-5,reference,"n = input()
+cnt = 0
+for char in n:
+  if char == '4' or char == '7':
+    cnt += 1
+for char in str(cnt):
+  if char != '4' and char != '7':
+    print('NO')
+    break
+else:
+  print('YES')",True,0.46,10.9813,10.9813,0.0,0,0,0.0,[],[]
+229840670,claude-sonnet-5,rules,"li = list(input()); i = 0
+for el in li:
+    if el == '4' or el == '7':
+        i += 1
+t = list(str(i))
+for el1 in t:
+    if el1 == '4':
+        print('YES')
+        break
+    elif el1 == '7':
+        print('YES')
+        break
+    else:
+        print('NO')
+        break",True,0.05,0.1063,0.1063,0.0,0,0,0.0,"[""missing_comparison_repeat""]",[]
+229882497,claude-sonnet-5,rules,"n = input()
+c = []
+for i in range(len(n)):
+    c.append(n[i])
+    
+cnt = 0
+for i in c:
+    if i == '4' or i == '7':
+        cnt+=1
+        
+if cnt == 4 or cnt == 7:
+    print('YES')
+
+else:
+    print('NO')",True,0.1379,0.108,0.108,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+229893965,claude-sonnet-5,reference,"num=input()
+c=0
+for i in num:
+    if(i=='4' or i=='7'):
+        c+=1
+if(c==4 or c==7):
+    print('YES')
+else:
+    print('NO')",True,0.4853,12.1924,12.1924,0.0,0,0,0.0,[],[]
+229894883,claude-sonnet-5,reference,"a = input()
+
+if a.count('4') + a.count('7') == 4 or a.count('4') + a.count('7') == 7:
+    print('YES')
+else:
+    print('NO')",True,0.5,4.3977,4.3977,0.0,0,0,0.0,[],[]
+229899633,claude-sonnet-5,reference,"n = input()
+lucky_digits = ['4', '7']
+lucky_counter = 0
+
+for num in n:
+    if num in lucky_digits:
+        lucky_counter += 1
+
+print(""YES"") if lucky_counter == 4 or lucky_counter == 7 else print(""NO"")",True,0.463,4.1442,4.1442,0.0,0,0,0.0,[],[]
+229912315,claude-sonnet-5,reference,"n=int(input())
+count=0
+while n>0:
+    if(n%10==7 or n%10==4):
+        count+=1
+    n=n//10
+if(count==4 or count==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6491,31.736,31.736,0.0,0,0,0.0,[],[]
+229912858,claude-sonnet-5,reference,"n=int(input())
+l=0
+while n>0:
+    if n%10==7 or n%10==4:
+        l=l+1
+    n=n//10
+if l==4 or l==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.5625,54.4835,54.4835,0.0,0,0,0.0,[],[]
+229957174,claude-sonnet-5,rules,"data = input()
+num4 = data.count('4')
+num7 = data.count('7')
+
+total = num4 + num7
+if total == 4 or total == 7:
+    print('YES')
+elif total == 0:
+    print('NO')
+elif total == 4 or total == 7:
+    print('YES')
+else:
+    print('NO')",True,0.2353,0.723,0.723,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count"", ""modulo_should_be_equality""]",[]
+229957263,claude-sonnet-5,rules,"data = input()
+num4 = data.count('4')
+num7 = data.count('7')
+
+total = num4 + num7
+if total == 4 or total == 7:
+    print('YES')
+elif total == 0:
+    print('NO')
+elif total == 4 or total == 7:
+    print('YES')
+else:
+    print('NO')",True,0.2353,0.7172,0.7172,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count"", ""modulo_should_be_equality""]",[]
+229957374,claude-sonnet-5,rules,"data = input()
+num4 = data.count('4')
+num7 = data.count('7')
+
+total = num4 + num7
+
+if total == 0:
+    print('NO')
+elif total == 4 or total == 7:
+    print('YES')
+else:
+    print('NO')",True,0.1404,0.0988,0.0988,0.0,0,0,0.0,"[""modulo_should_be_equality""]",[]
+229965858,claude-sonnet-5,reference,"n = input()
+count = 0
+res = 0
+for i in n:
+    if i == '4' or i == '7':
+        res += 1
+if res == 4 or res == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.3636,15.8037,15.8037,0.0,0,0,0.0,[],[]
+229966998,claude-sonnet-5,reference,"a=str(input())
+b=0
+for i in a:
+    if i==""4"" or i==""7"":
+        b=b+1
+if b==4 or b==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.75,13.5597,13.5597,0.0,0,0,0.0,[],[]
+229968203,claude-sonnet-5,reference,"def is_lucky_digit(digit):
+    return digit == '4' or digit == '7'
+
+def count_lucky_digits(number):
+    return sum(1 for digit in str(number) if is_lucky_digit(digit))
+
+def is_lucky_number(n):
+    return n == 4 or n == 7
+
+def is_nearly_lucky_number(n):
+    lucky_digit_count = count_lucky_digits(n)
+    return is_lucky_number(lucky_digit_count)
+
+def main():
+    n = int(input())
+    if is_nearly_lucky_number(n):
+        print('YES')
+    else:
+        print(""NO"")
+
+if __name__ == ""__main__"":
+    main()",True,0.5263,17.361,17.361,0.0,0,0,0.0,[],[]
+229968293,claude-sonnet-5,reference,"def is_lucky_digit(digit):
+    return digit == '4' or digit == '7'
+
+def count_lucky_digits(number):
+    count = 0
+    for digit in str(number):
+        if is_lucky_digit(digit):
+            count += 1
+    return count
+
+def is_lucky(num):
+    return num == 4 or num == 7
+
+def is_nearly_lucky(number):
+    lucky_digit_count = count_lucky_digits(number)
+    return is_lucky(lucky_digit_count)
+
+def main():
+    n = int(input())
+    
+    if is_nearly_lucky(n):
+        print(""YES"")
+    else:
+        print(""NO"")
+
+if __name__ == ""__main__"":
+    main()",True,0.5929,7.2896,7.2896,0.0,0,0,0.0,[],[]
+230013610,claude-sonnet-5,reference,"n=int(input())
+count=0
+while n>0:
+    if(n%10==7 or n%10==4):
+        count+=1
+    n=n//10
+if(count==4 or count==7):
+    print(""YES"")
+else:
+	print(""NO"")",True,0.4082,34.9075,34.9075,0.0,0,0,0.0,[],[]
+230014086,claude-sonnet-5,reference,"n=int(input())
+count=0
+while n>0:
+    if(n%10==7 or n%10==4):
+        count+=1
+    n=n//10
+if(count==4 or count==7):
+    print(""YES"")
+else:
+	print(""NO"")",True,0.4,33.8507,33.8507,0.0,0,0,0.0,[],[]
+230053223,claude-sonnet-5,reference,"n=str(input())
+cik=n.count(""4"")
+cik2=n.count(""7"")
+
+cik3=cik+cik2
+if (cik3==7):
+    print(""YES"")
+elif (cik3==4):
+    print(""YES"")
+else :
+    print(""NO"")",True,0.708,12.8278,12.8278,0.0,0,0,0.0,[],[]
+230060866,claude-sonnet-5,reference,"n=input()
+a=n.count('4')
+b=n.count('7')
+if a+b==4 or a+b==7:
+    print('YES')
+else:
+    print(""NO"")",True,0.2979,2.0466,2.0466,0.0,0,0,0.0,[],[]
+230064590,claude-sonnet-5,rules,"n = int(input())
+k = 0
+s = 0
+s1 = 0
+for i in str(n):
+    if i == '4':
+        k += 1
+    elif i == '7':
+        s += 1
+    else:
+        s1 += 1
+if s1 >= 0:
+    m = 0
+    for i in str(s + k):
+        if i == '4' or i == '7':
+            m += 1
+    if m == len(str(s + k)):
+        print('YES')
+    else:
+        print('NO')
+else:
+    print('NO')",True,0.0102,0.1278,0.1278,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+230071206,claude-sonnet-5,reference,"a=int(input())
+s=0
+while a>0:
+    e=a%10
+    if e==4 or e==7:
+        s=s+1
+    a=a//10
+if s==4 or s==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7209,1.0186,1.0186,0.0,0,0,0.0,[],[]
+230092486,claude-sonnet-5,reference,"def is_lucky(digit):
+    return digit=='4' or digit=='7'
+def count_lucky(n):
+    ct=0
+    for i in str(n):
+        if is_lucky(i):
+            ct+=1
+    return ct
+n=int(input())
+res=count_lucky(n)
+if is_lucky(str(res)):
+    print(""YES"")
+else:
+    print(""NO"")",True,1.3731,2.1467,2.1467,0.0,0,0,0.0,[],[]
+230134010,claude-sonnet-5,reference,"s = input()
+if(s.count('4')+s.count('7') in {4,7}):
+    print(""YES"")
+elif s=={'4'} or s=={'7'}:
+    print(""YES"")
+
+else:
+    print(""NO"")",True,0.4561,8.0198,8.0198,0.0,0,0,0.0,[],[]
+230180626,claude-sonnet-5,reference,"n = int(input())
+b = str(n)
+arr2 = ['4','7']
+count =0
+for i in b:
+    if i in arr2:
+        count+=1
+if count ==4 or count ==7:
+    print('YES')
+else:
+    print('NO')",True,0.56,2.3184,2.3184,0.0,0,0,0.0,[],[]
+230358743,claude-sonnet-5,rules,"n=int(input())
+ans=0
+while n>0:
+    r=n%10
+    if r==4 or r==7:
+        ans+=1 
+    n=n//10 
+if ans==4 or ans==7:
+    print('YES')
+else:
+    print('NO')",True,0.0328,6.8202,6.8202,0.0,0,0,0.0,"[""fix_lowercase_yes"", ""fix_lowercase_no""]",[]
+230380656,claude-sonnet-5,reference,"n=input()
+a=n.count('4')
+b=n.count('7')
+if a+b==4 or a+b==7:
+    print('YES')
+else:
+    print('NO')",True,0.3818,14.9418,14.9418,0.0,0,0,0.0,[],[]
+230397207,claude-sonnet-5,rules,"num = input()
+
+if num.count('4') + num.count('7') in (4, 7) or num.count('4') + num.count('7') in (4, 7):
+    print('YES')
+else:
+    print('NO')",True,0.7812,0.3075,0.3075,0.0,0,0,0.0,"[""set_equals_47"", ""set_equals_47""]",[]
+230403452,claude-sonnet-5,reference,"n=int(input())
+a=str(n)
+l=0
+for i in range(len(a)):
+	if a[i] in '47':
+		l+=1
+if l==4 or l==7:
+	print('YES')
+else:
+    print(""NO"")",True,0.7692,10.1036,10.1036,0.0,0,0,0.0,[],[]
+230502700,claude-sonnet-5,reference,"counter = 0
+a_counter = 0
+num = input()
+
+for digit in num:
+  if digit == '4' or digit == '7':
+    counter += 1
+
+for digit in str(counter):
+  if digit == '4' or digit == '7':
+    a_counter = a_counter + 1
+
+if a_counter == len(str(counter)):
+  output = ""YES""
+else:
+    output=""NO""
+print(output)",True,0.2222,6.4373,6.4373,0.0,0,0,0.0,[],[]
+230651052,claude-sonnet-5,reference,"n = str(input())
+ans = 'NO'
+counts = 0
+for i in n:
+	if i=='4' or i == '7':
+		counts += 1		
+if counts ==4 or counts==7:
+	ans = 'YES'		
+print(ans)",True,1.129,1.7257,1.7257,0.0,0,0,0.0,[],[]
+230652849,claude-sonnet-5,reference,"m=input()
+k=m.count(""4"")+m.count('7')
+for i in str(k) :
+    if i!=""4"" and i!=""7"":
+        m=""NO""
+        break
+if m!=""NO"":
+    m='YES'
+print(m)",True,0.7805,9.3142,9.3142,0.0,0,0,0.0,[],[]
+230744311,claude-sonnet-5,rules,"n=int(input())
+count=0
+while n!=0:
+    a = n % 10
+    if a == 4 or a == 7:
+        count += 1
+    n=n//10
+if count==4 or count==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.0328,0.1382,0.1382,0.0,0,0,0.0,"[""digit_extract_var_mixup""]",[]
+230811908,claude-sonnet-5,reference,"number = input()
+numbers = [""4"",""7""]
+
+count = 0
+
+for digit in number:
+    if digit in numbers:
+        count +=1
+        
+
+if count == 4 or count ==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,1.1034,0.2554,0.2554,0.0,0,0,0.0,[],[]
+230819036,claude-sonnet-5,reference,"a=int(input())
+s=0
+while a>0:
+    e=a%10
+    if e==4 or e==7:
+        s=s+1
+    a=a//10
+if s==4 or s==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6696,52.4512,52.4512,0.0,0,0,0.0,[],[]
+230855076,claude-sonnet-5,reference,"digit = input()
+count = 0
+flag = False
+for ch in digit:
+    if ch == '7' or ch == '4':
+        count += 1
+        
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.193,9.3746,9.3746,0.0,0,0,0.0,[],[]
+230856529,claude-sonnet-5,rules,"digit = input()
+count = 0
+count_4 = 0
+count_7 = 0
+flag = False
+for ch in digit:
+    if ch == '7' :
+        count_7 += 1
+    elif ch == '4':
+        count_4 += 1
+    else:
+        flag = True
+count = count_4 + count_7
+if flag:
+    if count_7 == 7 and count_7 == 4:
+        print(""YES"")
+    elif count_4 == 7 and count_4 == 4:
+        print(""YES"")
+    elif count == 4 or count == 7:
+        print(""YES"")
+    else:
+        print(""NO"")
+else:
+    if count == 4 or count == 7:
+        print(""YES"")
+    else:
+        print(""NO"")",True,0.0171,3.1379,3.1379,0.0,0,0,0.0,"[""generic_flip_bool_op"", ""generic_flip_bool_op""]",[]
+230884755,claude-sonnet-5,rules,"s=input()
+count=0
+for i in s:
+    if i=='4' or i=='7':
+        count+=1
+if (count == 4 or count == 7) and count!=0:
+    print('YES')
+else:
+    print('NO')",True,0.1404,0.1045,0.1045,0.0,0,0,0.0,"[""modulo_should_be_equality_rev""]",[]
+230923324,claude-sonnet-5,reference,"def is_lucky_digit(digit):
+    return digit=='4' or digit=='7'
+def is_nearly_lucky(n):
+    count_lucky_digits=0
+    for digit in str(n):
+        if is_lucky_digit(digit):
+            count_lucky_digits+=1
+    return is_lucky_digit(str(count_lucky_digits))
+
+n=int(input())
+if is_nearly_lucky(n):
+    print(""YES"")
+else:
+    print(""NO"")",True,1.3455,9.9761,9.9761,0.0,0,0,0.0,[],[]
+230934564,claude-sonnet-5,reference,"n=int(input())
+count=0
+while n!=0:
+    a=n%10
+    if a==4 or a==7:
+        count+=1
+    n=n//10
+if count==4 or count==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.728,26.8303,26.8303,0.0,0,0,0.0,[],[]
+230934629,claude-sonnet-5,reference,"n = input()
+c = 0
+for i in n:
+    if i in '47':
+        c += 1
+if c == 4 or c == 7:
+    print('YES')
+else:
+    print(""NO"")",True,0.875,0.2407,0.2407,0.0,0,0,0.0,[],[]
+231026014,claude-sonnet-5,reference,"n=int(input())
+c=0
+while(n>0):
+    if (n%10==4 or n%10==7):
+        
+        c=c+1
+    n=n//10
+
+if (c==7 or c==4):
+    
+    print(""YES"")
+    
+else:
+    print(""NO"")",True,0.3457,45.6768,45.6768,0.0,0,0,0.0,[],[]
+231052126,claude-sonnet-5,reference,"n=int(input())
+c=0
+d=0
+
+while(n):
+    r=n%10
+    if(r==7 or r==4):
+        c+=1
+    n=n//10
+if c==7 or c==4:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.3519,10.6105,10.6105,0.0,0,0,0.0,[],[]
+231117883,claude-sonnet-5,reference,"n=int(input())
+c=0
+d=0
+ 
+while(n):
+    r=n%10
+    if(r==7 or r==4):
+        c+=1
+    n//=10
+    
+if(c==4 or c==7):
+        print(""YES"") 
+else:
+    print(""NO"")",True,0.0714,7.7029,7.7029,0.0,0,0,0.0,[],[]
+231188733,claude-sonnet-5,reference,"number = input()
+numbers = [""4"",""7""]
+
+count = 0
+
+for digit in number:
+    if digit in numbers:
+        count +=1
+        
+
+if count == 4 or count ==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7778,10.7367,10.7367,0.0,0,0,0.0,[],[]
+231207173,claude-sonnet-5,reference,"n = int(input())
+count = 0
+
+while n != 0:
+    if n % 10 == 4 or n % 10 == 7:
+        count += 1
+    n //= 10
+
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7077,11.6047,11.6047,0.0,0,0,0.0,[],[]
+231213014,claude-sonnet-5,reference,"n=int(input())
+ans=0
+while n>0:
+    r=n%10
+    if r==4 or r==7:
+        ans+=1 
+    n=n//10 
+if ans==4 or ans==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6457,43.4314,43.4314,0.0,0,0,0.0,[],[]
+231266330,claude-sonnet-5,rules,"a = input()
+
+c = 0
+
+for i in a:
+    if(i=='4' or i=='7'):
+        c+=1
+if(c==4 or c==7):
+    print('YES')
+else:
+    print('NO')",True,0.0444,0.597,0.597,0.0,0,0,0.0,"[""fix_titlecase_yes"", ""fix_titlecase_no""]",[]
+231380190,claude-sonnet-5,reference,"def lucky():
+    n=input()
+    if n.count('4') + n.count('7') in (4,7):
+        return 'YES'
+    else:
+        return 'NO'
+
+print(lucky())",True,0.6061,8.332,8.332,0.0,0,0,0.0,[],[]
+231431067,claude-sonnet-5,rules,"a=input()
+l=[i for i in a]
+c=0
+for i in range(0,len(a)):
+    if l[i]=='4' or l[i]=='7':
+        c=c+1 
+if c == 4 or c == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.1356,0.1046,0.1046,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+231433369,claude-sonnet-5,reference,"num = input()
+
+
+count = 0
+
+for n in num:
+    if n in ['4', '7']:
+        count += 1
+
+if count in [4, 7]:
+    print('YES')
+else:
+    print('NO')",True,1.6897,0.1376,0.1376,0.0,0,0,0.0,[],[]
+231474367,claude-sonnet-5,reference,"n = input()
+count = 0
+for digit in n:
+    if digit == '4' or digit == '7':
+        count += 1
+if set(str(count)) <= set('47'):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.1778,9.1561,9.1561,0.0,0,0,0.0,[],[]
+231548552,claude-sonnet-5,reference,"n=int(input())
+count=0
+while n>0:
+    if(n%10==7 or n%10==4):
+        count+=1
+    n=n//10
+if(count==4 or count==7):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6452,19.0939,19.0939,0.0,0,0,0.0,[],[]
+231596301,claude-sonnet-5,reference,"n = input()
+
+counter = 0
+ans = 'YES'
+
+for i in range(len(n)):
+    if n[i] == '4' or n[i] == '7':
+        counter += 1
+
+counter = str(counter)
+
+for i in range(len(counter)):
+    if counter[i] != '4' and counter[i] != '7':
+        ans = 'NO'
+        break
+
+print(ans)",True,0.86,5.7019,5.7019,0.0,0,0,0.0,[],[]
+231617716,claude-sonnet-5,reference,"s=int(input(""""))
+x=str(s)  
+count=0
+for i in range(len(x)):
+    if int(x[i])==4 or int(x[i])==7:
+        count+=1
+    else:
+        pass
+if count==4 or count==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.3,4.6201,4.6201,0.0,0,0,0.0,[],[]
+231932479,claude-sonnet-5,reference,"n = input()
+count = 0
+for i in n:
+    if i == '4' or i == '7':
+        count += 1
+ris = 'YES'
+for i in str(count):
+    if i != '4' and i != '7':
+        ris = 'NO'
+print(ris)",True,0.4118,8.4865,8.4865,0.0,0,0,0.0,[],[]
+231985794,claude-sonnet-5,reference,"list1=list(str(input()))
+n=list1.count('4')+list1.count('7')
+if n!=0 and (n==4 or n==7):
+    print('YES')
+else:
+    print(""NO"")",True,0.6042,7.3564,7.3564,0.0,0,0,0.0,[],[]
+232042435,claude-sonnet-5,reference,"def isLucky(s):
+    s = str(s)
+    for i in range(len(s)):
+        if s[i] != ""4"" and s[i] != ""7"":
+            return False
+        else:
+            return True
+def lucky2(l):
+    for i in l:
+        if i!=4 and i!=7:
+            return False
+        else:
+            return True
+def Turnlist(n):
+    n=list(n)
+    for i in range(len(n)):
+        n[i]=int(n[i])
+    return n
+
+
+a = input()
+cnt = a.count(""4"") + a.count(""7"")
+if isLucky(cnt):
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7522,9.2059,9.2059,0.0,0,0,0.0,[],[]
+232058435,claude-sonnet-5,reference,"n = list(input())
+l = 0
+for i in n:
+    if i == '4' or i == '7':
+        l += 1
+
+print('YES' if l == 4 or l == 7 else 'NO')",True,0.6279,5.1114,5.1114,0.0,0,0,0.0,[],[]
+232148335,claude-sonnet-5,rules,"a=int(input())
+b=str(a)
+count = b.count('4') + b.count('7')          
+flag=0
+for i in b:
+    if i not in {'4', '7'}:
+        flag=1
+    else:
+        flag=0 
+if count == 4 or count == 7:
+    print(""YES"")
+elif flag==1 or count!=4 or count!=7 :          
+    print(""NO"")",True,0.1974,1.0142,1.0142,0.0,0,0,0.0,"[""remove_all_lucky_guard"", ""length_assigned_as_count_before_flag_init""]",[]
+232148651,claude-sonnet-5,rules,"a = int(input())
+b = str(a)
+count = b.count('4') + b.count('7')
+flag = 0
+
+for i in b:
+    if i not in {'4', '7'}:
+        flag = 1
+        break
+    else:
+        flag = 0
+
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2419,0.5901,0.5901,0.0,0,0,0.0,"[""remove_all_lucky_guard"", ""length_assigned_as_count_before_flag_init""]",[]
+232202766,claude-sonnet-5,reference,"value = input()
+total = str(value.count(""4"") + value.count(""7""))
+if len(total) == (total.count(""4"") + total.count(""7"")):
+    print(""YES"")
+else:
+	print(""NO"")",True,0.5625,0.3548,0.3548,0.0,0,0,0.0,[],[]
+232208139,claude-sonnet-5,reference,"n = int(input())
+num = str(n)
+ln = len(num)
+count = 0
+i = 0
+while i < ln:
+    if num[i] == ""4"" or num[i] == ""7"":
+        count += 1
+    i += 1
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2206,7.144,7.144,0.0,0,0,0.0,[],[]
+232224140,claude-sonnet-5,rules,"def xingyun(n):
+    n = str(n)
+    if n == ""7"" or n == ""4"":
+        return True
+    for l in range(len(n)):
+        if n[l] != ""7"" or n[l] != ""4"":
+            return False
+        else:
+            continue
+    return True
+    
+    
+N = str(input())
+su = 0
+for i in range(len(N)):
+    if N[i] == ""7"" or N[i] == ""4"":
+        su += 1
+if xingyun(su):
+    print('YES')
+else:
+    print('NO')",True,0.0206,2.4633,2.4633,0.0,0,0,0.0,"[""fix_titlecase_yes"", ""fix_titlecase_no""]",[]
+232272316,claude-sonnet-5,reference,"import math
+
+n = input()
+
+# size = len(n)
+n = int(n)
+
+count = 0
+while n > 0:
+    m = n % 10  
+    if m == 4 or m == 7:
+        count += 1
+    n //= 10 
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.2462,9.8499,9.8499,0.0,0,0,0.0,[],[]
+232373393,claude-sonnet-5,reference,"n = int(input())
+n = str(n)
+count = 0
+
+for i in n:
+    if i=='4' or i=='7':
+        count+=1
+        
+
+if count==4 or count==7:
+    print('YES')
+else:
+    print('NO')",True,0.8333,6.2827,6.2827,0.0,0,0,0.0,[],[]
+232373615,claude-sonnet-5,reference,"a=input()
+l=list(a)
+c=0
+for i in l:
+    if i in '47':
+        c=c+1
+    else:
+        continue
+if c==4 or c==7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.825,0.8852,0.8852,0.0,0,0,0.0,[],[]
+232374741,claude-sonnet-5,rules,"n=int(input())
+s=str(n)
+g=0
+for ele in s:
+    if ele in ""47"":
+        g+=1
+        
+if g == 4 or g == 7:print('YES')
+else:print('NO')",True,0.2381,0.6369,0.6369,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count"", ""fix_lowercase_yes"", ""fix_lowercase_no""]",[]
+232374925,claude-sonnet-5,rules,"n=int(input())
+s=str(n)
+g=0
+for ele in s:
+    if ele in ""47"":
+        g+=1
+        
+if g == 4 or g == 7:print(""YES"")
+else:print(""NO"")",True,0.1905,0.0829,0.0829,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+232381127,claude-sonnet-5,reference,"petya_input = input()
+count = 0
+for i in range(len(petya_input)):
+    if petya_input[i] == ""4"" or petya_input[i] == ""7"":
+        count += 1
+if count == 4 or count == 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.6154,4.7524,4.7524,0.0,0,0,0.0,[],[]
+232381414,claude-sonnet-5,reference,"inp = input()
+res= 0
+for i in inp:
+    if i =='4' or i == '7':
+        res += 1
+# print(res)
+if res == 4 or res== 7:
+    print(""YES"")
+else:
+    print(""NO"")",True,0.7865,4.2719,4.2719,0.0,0,0,0.0,[],[]
+232422674,claude-sonnet-5,reference,"n = input()
+count = 0
+output = 'YES'
+for index in range(len(n)):
+    if (int(n[index]) == 7 ) | (int(n[index]) == 4 ):
+        count += 1
+if (count == 7 ) | (count==4 ):
+    output = 'YES'
+else :
+    output = 'NO'
+
+print(output)",True,1.0,7.5198,7.5198,0.0,0,0,0.0,[],[]
+232430525,claude-sonnet-5,reference,"inputNumber = int(input())
+
+curLucky = 0
+for number in str(inputNumber):
+    if number in '47':
+        curLucky += 1
+
+if all(i in '47' for i in str(curLucky)):
+    print('YES')
+else:
+    print('NO')",True,0.7347,0.5184,0.5184,0.0,0,0,0.0,[],[]
+232451736,claude-sonnet-5,reference,"n = int(input())
+n = str(n)
+count = 0
+for i in range(0,len(n)):
+    if ((n[i]=='4') or (n[i]=='7')) :
+        count += 1
+if ((count == 4) or (count == 7)) :
+    print('YES')
+else:
+    print('NO')",True,0.5263,7.5763,7.5763,0.0,0,0,0.0,[],[]
+232476558,claude-sonnet-5,rules,"n = input()
+c = 0
+for i in n:
+    if i in '47':
+        c+=1
+if c == 4 or c == 7:
+    print('YES')
+else:
+    print('NO')",True,0.2286,0.0834,0.0834,0.0,0,0,0.0,"[""count_eq_len_should_be_lucky_count""]",[]
+232523958,claude-sonnet-5,rules,"n=input()
+count=0
+for i in range(len(n)):
+    if int(n[i])==4 or int(n[i])==7:
+        count+=1
+a='YES'
+b=str(count)
+for j in range(len(b)):
+    if int(b[j]) != 4 and int(b[j]) != 7:
+        a='NO'
+        break
+print(a)",True,0.0125,0.1216,0.1216,0.0,0,0,0.0,"[""demorgan_or_to_and_int""]",[]

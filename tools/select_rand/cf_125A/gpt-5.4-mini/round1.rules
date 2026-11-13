@@ -1,0 +1,212 @@
+rule cm_to_inches_plus_one_then_split
+symptoms: wrong
+match: $n = int(input())
+$ft = $n // 36
+$rem = $n % 36
+$in = $rem // 3
+if $rem % 3 == 2:
+    $in += 1
+print($ft, $in)
+rewrite:
+$n = int(input())
+$x = ($n + 1) // 3
+print($x // 12, $x % 12)
+
+rule float_round_to_nearest_inches_then_split
+symptoms: wrong
+match: $n = int(input())
+$ft = $n / 36
+$frctn, $intzr = $M.modf($ft)
+$ftss = int($intzr)
+$cm = round($frctn * 12)
+print($ftss, $cm)
+rewrite:
+$n = int(input())
+$x = round($n / 3)
+print($x // 12, $x % 12)
+
+rule ceil_on_remainder_inches_should_round_total_inches
+symptoms: wrong
+match: from math import ceil
+$a = int(input())
+$a /= 3
+if $a % 1 < 0.5:
+    $a //= 1
+else:
+    $a = $a // 1 + 1
+print(str($a // 12) + ' ' + str($a % 12))
+rewrite:
+$n = int(input())
+$n = (int($n) + 1) // 3
+print($n // 12, $n % 12)
+
+rule round_remainder_only_should_round_total_inches
+symptoms: wrong
+match: $n = int(input())
+$feet = $n // 36
+$left = $n - 36 * $feet
+$inch = round($left / 3)
+print("{} {}".format($feet, $inch))
+rewrite:
+$n = int(input())
+$x = ($n + 1) // 3
+print($x // 12, $x % 12)
+
+rule incorrect_remainder_modulo_26
+symptoms: wrong
+match: $cms = int(input())
+$inch = $cms // 36
+$cms = $cms % 26
+print($inch, $cms // 3)
+rewrite:
+$n = int(input())
+$a = $n // 36
+$b = ($n - $a * 36) // 3
+$n = $n - 36 * $a - 3 * $b
+$b += ($n == 2)
+if $b == 12:
+    $a, $b = $a + 1, 0
+print($a, $b)
+
+rule direct_rounding_of_inches_should_be_total_round
+symptoms: wrong
+match: $n = int(input())
+if $n % 3 == 0:
+    $b = $n // 3
+elif $n % 3 == 2:
+    $b = $n // 3 + $n % 3
+else:
+    $b = $n // 3
+$a = $b // 12
+$b %= 12
+print($a, $b)
+rewrite:
+import sys
+import math
+$n = int(sys.stdin.readline())
+$d = int(round($n / float(3)))
+print(int($d / 12), $d % 12)
+
+rule round_total_inches_then_split
+symptoms: wrong
+match: from math import *
+$n = int(input())
+$x = round($n / 3)
+$y = $x // 12
+$z = $x - 12 * $y
+print($y, $z)
+rewrite:
+$n = int(input())
+$x = ($n + 1) // 3
+print($x // 12, $x % 12)
+
+rule missing_carry_when_inches_round_to_12
+symptoms: wrong
+match: $n = int(input())
+$a = $n // 36
+$c = $n % 36
+if $c % 3 == 2:
+    $b = ($c // 3) + 1
+else:
+    $b = $c // 3
+print($a, $b)
+rewrite:
+$n = int(input())
+$a = $n // 3
+$b = 0
+if $n % 3 == 2:
+    $a += 1
+if $a >= 12:
+    $b = $a // 12
+    $a = $a % 12
+print($b, $a)
+
+rule integer_division_then_round_remainder
+symptoms: wrong
+match: $n = int(input())
+$a = $n // 36
+$b = $n % 36
+if $b % 3 == 0 or $b % 3 == 1:
+    $b = int($b / 3)
+else:
+    $b = int($b / 3) + 1
+print($a, $b)
+rewrite:
+$n = int(input())
+$x = ($n + 1) // 3
+print($x // 12, $x % 12)
+
+rule float_feet_round_then_inches_round
+symptoms: wrong
+match: $n = float(input())
+$feet = int($n / 36 + 0.5)
+$r = $n - 36 * $feet
+$inch = int($r / 3 + 0.5)
+print($feet, $inch)
+rewrite:
+$n = int(input())
+$a = $n // 3
+$b = $n % 3
+if $b == 2:
+    $a = $a + 1
+$p = $a // 12
+$q = $a % 12
+print($p, $q)
+
+rule off_by_one_plus_two_before_split
+symptoms: wrong
+match: $n = (int(input()) + 2) // 3
+print($n // 12, $n % 12)
+rewrite:
+$n = (int(input()) + 1) // 3
+print($n // 12, $n % 12)
+
+rule split_remainder_then_increment_on_two
+symptoms: wrong
+match: $n = int(input())
+$add = ($n % 36) % 3
+if $add >= 2:
+    $add = 1
+else:
+    $add = 0
+print($n // 36, ($n % 36) // 3 + $add)
+rewrite:
+$x = (int(input()) + 1) // 3
+print($x // 12, $x % 12)
+
+rule leftover_inches_modulo_by_wrong_constant
+symptoms: wrong
+match: $n = int(input())
+$a = $n // 36
+$b = ($n - $a * 36 + 1) // 3
+print($a, $b)
+rewrite:
+$n = int(input())
+$x = $n // 3 + ($n % 3 == 2)
+print($x // 12, $x % 12)
+
+rule bad_round_to_feet_only
+symptoms: wrong
+match: $n = int(input())
+$x = $n // 36
+$y = round($n / 3)
+print($x, $y)
+rewrite:
+$x = (int(input()) + 1) // 3
+print($x // 12, $x % 12)
+
+rule typo_modulo_26_and_no_carry
+symptoms: wrong
+match: $cms = int(input())
+$inch = $cms // 36
+$cms = $cms % 26
+print($inch, $cms // 3)
+rewrite:
+$n = int(input())
+$a = $n // 36
+$b = ($n - 36 * $a) // 3
+$n = $n - 36 * $a - 3 * $b
+$b += ($n == 2)
+if $b == 12:
+    $a, $b = $a + 1, 0
+print($a, $b)

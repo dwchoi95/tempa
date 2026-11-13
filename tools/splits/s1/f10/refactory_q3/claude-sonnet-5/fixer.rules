@@ -1,0 +1,44 @@
+rule fix_dedup_condition_append
+symptoms: wrong
+match:
+    for $i in $lst:
+        if $cond:
+            $acc.append($i)
+where: not match($cond, "$i not in $acc")
+rewrite:
+    for $i in $lst:
+        if $i not in $acc:
+            $acc.append($i)
+
+rule fix_dedup_condition_augassign
+symptoms: wrong
+match:
+    for $i in $lst:
+        if $cond:
+            $acc += [$i]
+where: not match($cond, "$i not in $acc")
+rewrite:
+    for $i in $lst:
+        if $i not in $acc:
+            $acc += [$i]
+
+rule fix_dedup_undefined_accumulator_append_call
+symptoms: wrong, err:NameError
+match:
+    for $i in $lst:
+        if $i not in $bad:
+            $acc += $bad.append($i)
+rewrite:
+    for $i in $lst:
+        if $i not in $acc:
+            $acc.append($i)
+
+rule fix_dedup_set_loses_order
+symptoms: wrong
+match: return set($lst)
+rewrite:
+    newlist = []
+    for i in $lst:
+        if i not in newlist:
+            newlist.append(i)
+    return newlist

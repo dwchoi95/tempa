@@ -1,0 +1,48 @@
+rule binary_search_mid_needs_ceiling
+symptoms: wrong, timeout
+match:
+    $mid = ($lo + $hi) // 2
+    if $cond:
+        $lo = $mid
+    else:
+        $hi = $mid - 1
+    |
+    $mid = ($lo + $hi) // 2
+    if $cond:
+        $hi = $mid - 1
+    else:
+        $lo = $mid
+rewrite:
+    $mid = ($lo + $hi + 1) // 2
+    if $cond:
+        $lo = $mid
+    else:
+        $hi = $mid - 1
+
+rule feasibility_check_strict_to_inclusive
+symptoms: wrong
+match: $a $o:Cmp $b
+where: text($o) in {">", "<"} and regex($b, r"^n$")
+rewrite: $a ${relax[$o]} $b
+table relax: {">": ">=", "<": "<="}
+
+rule feasibility_check_strict_to_inclusive_rev
+symptoms: wrong
+match: $a $o:Cmp $b
+where: text($o) in {">", "<"} and regex($a, r"^n$")
+rewrite: $a ${relax[$o]} $b
+table relax: {">": ">=", "<": "<="}
+
+rule float_div_should_be_floor_in_feasibility_sum
+symptoms: wrong
+match:
+    sum($v / $d for $v in $counts)
+    |
+    sum([$v / $d for $v in $counts])
+rewrite: sum($v // $d for $v in $counts)
+
+rule plain_div_should_be_floor_against_days
+symptoms: wrong
+match: $v / $d
+where: regex($d, r"mid|day|days")
+rewrite: $v // $d

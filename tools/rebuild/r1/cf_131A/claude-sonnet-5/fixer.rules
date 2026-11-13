@@ -1,0 +1,151 @@
+rule capitalize_to_swapcase_near_caps_cond
+symptoms: wrong
+match: $X.capitalize()
+where: inside("if $c:") and (some($c, "$X.isupper()") or some($c, "$X[1:].isupper()") or some($c, "$X[1:] == $X[1:].upper()") or some($c, "$X[1:].upper() == $X[1:]") or some($c, "$X.upper() == $X") or some($c, "$X == $X.upper()"))
+rewrite: $X.swapcase()
+
+rule title_to_swapcase_near_caps_cond
+symptoms: wrong
+match: $X.title()
+where: inside("if $c:") and (some($c, "$X.isupper()") or some($c, "$X[1:].isupper()") or some($c, "$X[1:] == $X[1:].upper()") or some($c, "$X[1:].upper() == $X[1:]") or some($c, "$X.upper() == $X") or some($c, "$X == $X.upper()"))
+rewrite: $X.swapcase()
+
+rule capitalize_to_swapcase_in_index_trick
+symptoms: wrong
+match: [$X, $X.capitalize()][$cond]
+where: some($cond, "$X[1:].isupper()") or some($cond, "$X[1:] == $X[1:].upper()") or some($cond, "$X.isupper()")
+rewrite: [$X, $X.swapcase()][$cond]
+
+rule capitalize_to_swapcase_in_ternary
+symptoms: wrong
+match: $X.capitalize() if $cond else $X
+where: some($cond, "$X.isupper()") or some($cond, "$X[1:].isupper()") or some($cond, "$X[1:] == $X[1:].upper()") or some($cond, "$X[1:].upper() == $X[1:]")
+rewrite: $X.swapcase() if $cond else $X
+
+rule title_to_swapcase_in_ternary
+symptoms: wrong
+match: $X.title() if $cond else $X
+where: some($cond, "$X.isupper()") or some($cond, "$X[1:].isupper()") or some($cond, "$X[1:] == $X[1:].upper()") or some($cond, "$X[1:].upper() == $X[1:]")
+rewrite: $X.swapcase() if $cond else $X
+
+rule isupper_or_rest_isupper_to_equality
+symptoms: wrong
+match: $X.isupper() or $X[1:].isupper()
+rewrite: $X[1:].upper() == $X[1:]
+
+rule rest_isupper_or_isupper_to_equality
+symptoms: wrong
+match: $X[1:].isupper() or $X.isupper()
+rewrite: $X[1:].upper() == $X[1:]
+
+rule if_swapcase_missing_unconditional_print
+symptoms: wrong
+match:
+    if $cond:
+        $X = $X.swapcase()
+        print($X)
+rewrite:
+    if $cond:
+        $X = $X.swapcase()
+    print($X)
+
+rule if_print_swapcase_missing_else
+symptoms: wrong
+match:
+    if $cond:
+        print($X.swapcase())
+rewrite:
+    if $cond:
+        print($X.swapcase())
+    else:
+        print($X)
+
+rule add_singlechar_clause_to_caps_condition
+symptoms: wrong
+match: $X.isupper() or ($X[0].islower() and $X[1:].isupper())
+rewrite: len($X) == 1 or $X.isupper() or ($X[0].islower() and $X[1:].isupper())
+
+rule add_singlechar_clause_to_caps_condition_rev
+symptoms: wrong
+match: ($X[0].islower() and $X[1:].isupper()) or $X.isupper()
+rewrite: len($X) == 1 or ($X[0].islower() and $X[1:].isupper()) or $X.isupper()
+
+rule add_singlechar_clause_to_caps_condition_noparen
+symptoms: wrong
+match: $X.isupper() or $X[0].islower() and $X[1:].isupper()
+rewrite: len($X) == 1 or $X.isupper() or $X[0].islower() and $X[1:].isupper()
+
+rule bare_attr_as_condition_add_call
+symptoms: wrong
+match: if $X.$m:Attr:
+where: text($m) in {"isupper", "islower", "isalpha", "istitle"}
+rewrite: if $X.$m():
+
+rule bare_attr_operand_add_call_and
+symptoms: wrong
+match: $A and $X.$m:Attr
+where: text($m) in {"isupper", "islower", "isalpha", "istitle"}
+rewrite: $A and $X.$m()
+
+rule bare_attr_operand_add_call_or
+symptoms: wrong
+match: $A or $X.$m:Attr
+where: text($m) in {"isupper", "islower", "isalpha", "istitle"}
+rewrite: $A or $X.$m()
+
+rule bare_attr_left_and
+symptoms: wrong
+match: $X.$m:Attr and $A
+where: text($m) in {"isupper", "islower", "isalpha", "istitle"}
+rewrite: $X.$m() and $A
+
+rule bare_attr_left_or
+symptoms: wrong
+match: $X.$m:Attr or $A
+where: text($m) in {"isupper", "islower", "isalpha", "istitle"}
+rewrite: $X.$m() or $A
+
+rule or_upper_truthy_to_isupper
+symptoms: wrong
+match: $A or $X.upper()
+rewrite: $A or $X.isupper()
+
+rule and_upper_truthy_to_isupper
+symptoms: wrong
+match: $A and $X.upper()
+rewrite: $A and $X.isupper()
+
+rule standalone_upper_truthy_to_isupper
+symptoms: wrong
+match: if $X.upper():
+rewrite: if $X.isupper():
+
+rule missing_isupper_and_else_branch
+symptoms: wrong
+match:
+    if len($X) == 1 or $X[1:].upper():
+        $B:Stmts
+    print($A)
+rewrite:
+    if len($X) == 1 or $X[1:].isupper():
+        $B
+    else:
+        $A = $X
+    print($A)
+
+rule elif_isupper_capitalize_missing_singlechar
+symptoms: wrong
+match:
+    if $X.isupper():
+        $A = $X.lower()
+    elif $X[1:].isupper():
+        $A = $X.capitalize()
+    else:
+        $A = $X
+rewrite:
+    if $X.isupper():
+        $A = $X.lower()
+    elif $X[1:].isupper() or len($X) == 1:
+        $A = $X.swapcase()
+    else:
+        $A = $X

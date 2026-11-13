@@ -1,0 +1,113 @@
+rule capitalize_to_swapcase_expr
+symptoms: wrong
+match: $X.capitalize()
+where: kind($X) == "Name" and not field("Expr", "value")
+rewrite: $X.swapcase()
+
+rule capitalize_standalone_assign
+symptoms: wrong
+match: $X.capitalize()
+where: kind($X) == "Name" and field("Expr", "value")
+rewrite: $X = $X.swapcase()
+
+rule title_to_swapcase_expr
+symptoms: wrong
+match: $X.title()
+where: kind($X) == "Name" and not field("Expr", "value")
+rewrite: $X.swapcase()
+
+rule title_standalone_assign
+symptoms: wrong
+match: $X.title()
+where: kind($X) == "Name" and field("Expr", "value")
+rewrite: $X = $X.swapcase()
+
+rule rest_isupper_add_singlechar
+symptoms: wrong
+match: $X[1:].isupper()
+rewrite: (len($X) == 1 or $X[1:].isupper())
+
+rule rest_upper_truthy_to_isupper
+symptoms: wrong
+match: $X[1:].upper()
+where: field("If", "test") or parent("$a or $b") or parent("$a and $b")
+rewrite: (len($X) == 1 or $X[1:].isupper())
+
+rule rest_lower_truthy_to_isupper
+symptoms: wrong
+match: $X[1:].lower()
+where: field("If", "test") or parent("$a or $b") or parent("$a and $b")
+rewrite: (len($X) == 1 or $X[1:].isupper())
+
+rule rest_islower_wrong_to_isupper
+symptoms: wrong
+match: $X[1:].islower()
+rewrite: (len($X) == 1 or $X[1:].isupper())
+
+rule firstchar_lower_truthy_to_islower
+symptoms: wrong
+match: $X[0].lower()
+where: field("If", "test") or parent("$a or $b") or parent("$a and $b")
+rewrite: $X[0].islower()
+
+rule firstchar_upper_truthy_to_isupper
+symptoms: wrong
+match: $X[0].upper()
+where: field("If", "test") or parent("$a or $b") or parent("$a and $b")
+rewrite: $X[0].isupper()
+
+rule missing_parens_islower
+symptoms: wrong, err:TypeError
+match: $X.islower
+where: kind($X) != "Call" and not parent("$X.islower($*ys)")
+rewrite: $X.islower()
+
+rule missing_parens_isupper
+symptoms: wrong, err:TypeError
+match: $X.isupper
+where: kind($X) != "Call" and not parent("$X.isupper($*ys)")
+rewrite: $X.isupper()
+
+rule wrap_assign_manual_capitalize_lower
+symptoms: wrong
+match:
+    $X = $X[0].upper() + $X[1:].lower()
+    print($X)
+rewrite:
+    if $X[1:].upper() == $X[1:]:
+        $X = $X.swapcase()
+    print($X)
+
+rule wrap_assign_manual_capitalize_nolower
+symptoms: wrong
+match:
+    $X = $X[0].upper() + $X[1:]
+    print($X)
+rewrite:
+    if $X[1:].upper() == $X[1:]:
+        $X = $X.swapcase()
+    print($X)
+
+rule wrap_print_manual_capitalize_lower
+symptoms: wrong
+match: print($X[0].upper() + $X[1:].lower())
+rewrite:
+    if $X[1:].upper() == $X[1:]:
+        print($X.swapcase())
+    else:
+        print($X)
+
+rule wrap_print_manual_capitalize_nolower
+symptoms: wrong
+match: print($X[0].upper() + $X[1:])
+rewrite:
+    if $X[1:].upper() == $X[1:]:
+        print($X.swapcase())
+    else:
+        print($X)
+
+rule manual_capitalize_concat_to_swapcase
+symptoms: wrong
+match: $X[0].upper() + $X[1:].lower()
+where: not parent("$X = $X[0].upper() + $X[1:].lower()") and not parent("print($X[0].upper() + $X[1:].lower())")
+rewrite: $X.swapcase()

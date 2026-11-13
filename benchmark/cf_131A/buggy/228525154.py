@@ -1,0 +1,9 @@
+s=input()
+if(s==s.upper()):
+    print(s.capitalize())
+else:
+    w=s[0]
+    w1=s[1]
+    if(w==w.lower()):
+        if(w1==w1.upper()):
+            print(s.capitalize())

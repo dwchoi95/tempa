@@ -1,0 +1,228 @@
+rule capslock_swapcase_condition
+symptoms: wrong
+match:
+    if $cond:
+        $body1:Stmts
+    else:
+        $body2:Stmts
+where:
+    match($cond, "$x.isupper()") or
+    match($cond, "$x[1:].isupper()") or
+    match($cond, "$x[1::].isupper()") or
+    match($cond, "$x[1:len($x)].isupper()") or
+    match($cond, "$x[1:] == $x[1:].upper()") or
+    match($cond, "$x[1:]==$x[1:].upper()") or
+    match($cond, "$x[1:] == $x[1:].upper() or len($x) == 1") or
+    match($cond, "len($x) == 1 or $x[1:] == $x[1:].upper()")
+rewrite:
+    if $cond:
+        $body1
+    else:
+        $body2
+    # keep structure; fixed by more specific rules below
+
+rule capslock_replace_capitalize_with_swapcase
+symptoms: wrong
+match:
+    $x.capitalize()
+where:
+    inside("if $c: $B:Stmts") or inside("if $c:\n    $B:Stmts") or inside("if $c:\n        $B:Stmts")
+rewrite: $x.swapcase()
+
+rule capslock_replace_title_with_swapcase
+symptoms: wrong
+match:
+    $x.title()
+rewrite: $x.swapcase()
+
+rule capslock_replace_lower_capitalize_with_swapcase
+symptoms: wrong
+match:
+    $x.lower().capitalize()
+rewrite: $x.swapcase()
+
+rule capslock_replace_lower_then_capitalize_with_swapcase
+symptoms: wrong
+match:
+    $x.lower()
+    $y.capitalize()
+where:
+    bound($x) and bound($y)
+rewrite:
+    $x.swapcase()
+
+rule capslock_fix_all_upper_return_lower
+symptoms: wrong
+match:
+    if $x.isupper():
+        return $y
+where:
+    match($y, "$x.lower()") or match($y, "$x.swapcase()") or match($y, "$x.capitalize()") or match($y, "$x.title()")
+rewrite:
+    if $x.isupper():
+        return $x.lower()
+
+rule capslock_fix_all_upper_print_lower
+symptoms: wrong
+match:
+    if $x.isupper():
+        print($y)
+where:
+    match($y, "$x") or match($y, "$x.lower()") or match($y, "$x.capitalize()")
+rewrite:
+    if $x.isupper():
+        print($x.lower())
+
+rule capslock_fix_first_and_rest_rule
+symptoms: wrong
+match:
+    if $x[0].islower() and $x[1:].isupper():
+        print($y)
+where:
+    match($y, "$x.capitalize()") or match($y, "$x[0].upper() + $x[1:].lower()") or match($y, "$x[0].upper()+$x[1:].lower()")
+rewrite:
+    if $x[0].islower() and $x[1:].isupper():
+        print($x[0].upper() + $x[1:].lower())
+
+rule capslock_fix_first_and_rest_swapcase
+symptoms: wrong
+match:
+    if $x[0].islower() and $x[1:].isupper():
+        $body:Stmts
+rewrite:
+    if $x[0].islower() and $x[1:].isupper():
+        $body
+
+rule capslock_fix_single_char
+symptoms: wrong
+match:
+    if len($x) == 1:
+        $body:Stmts
+rewrite:
+    if len($x) == 1:
+        $body
+
+rule capslock_fix_single_char_lower_upper
+symptoms: wrong
+match:
+    if len($x) == 1 and $x.islower():
+        print($y)
+where:
+    match($y, "$x.upper()") or match($y, "$x.swapcase()")
+rewrite:
+    if len($x) == 1 and $x.islower():
+        print($x.upper())
+
+rule capslock_fix_single_char_else
+symptoms: wrong
+match:
+    if len($x) == 1:
+        if $x.islower():
+            $a = $b
+        else:
+            $a = $c
+        print($d)
+where:
+    bound($a) and bound($b) and bound($c) and bound($d)
+rewrite:
+    if len($x) == 1:
+        if $x.islower():
+            $a = $b
+        else:
+            $a = $c
+        print($d)
+
+rule capslock_fix_if_isupper_prints_original
+symptoms: wrong
+match:
+    if $x.isupper():
+        print($x)
+rewrite:
+    if $x.isupper():
+        print($x.lower())
+
+rule capslock_fix_swapcase_missed_assign
+symptoms: wrong
+match:
+    $x = $y.swapcase()
+where:
+    match($y, "$z.lower()") or match($y, "$z.capitalize()")
+rewrite:
+    $x = $y
+
+rule capslock_fix_swapcase_missing_assignment
+symptoms: wrong
+match:
+    $x.swapcase()
+rewrite:
+    $x = $x.swapcase()
+
+rule capslock_fix_capitalize_return
+symptoms: wrong
+match:
+    return $x.capitalize()
+rewrite:
+    return $x.swapcase()
+
+rule capslock_fix_title_print
+symptoms: wrong
+match:
+    print($x.title())
+rewrite:
+    print($x.swapcase())
+
+rule capslock_fix_lower_title
+symptoms: wrong
+match:
+    print($x.lower().capitalize())
+rewrite:
+    print($x.swapcase())
+
+rule capslock_fix_conditional_swapcase
+symptoms: wrong
+match:
+    if $x.isupper() or ($x[0].islower() and $x[1:].isupper()):
+        print($y)
+where:
+    match($y, "$x.swapcase()") or match($y, "$x.capitalize()") or match($y, "$x.lower()")
+rewrite:
+    if $x.isupper() or ($x[0].islower() and $x[1:].isupper()):
+        print($x.swapcase())
+
+rule capslock_fix_len1_or_rest_upper
+symptoms: wrong
+match:
+    if len($x) == 1 or $x[1:] == $x[1:].upper():
+        print($y)
+where:
+    match($y, "$x.capitalize()") or match($y, "$x.swapcase()")
+rewrite:
+    if len($x) == 1 or $x[1:] == $x[1:].upper():
+        print($x.swapcase())
+
+rule capslock_fix_upper_or_rest_upper
+symptoms: wrong
+match:
+    if $x.isupper() or $x[1:].isupper():
+        print($y)
+where:
+    match($y, "$x.swapcase()") or match($y, "$x.capitalize()") or match($y, "$x.lower()")
+rewrite:
+    if $x.isupper() or $x[1:].isupper():
+        print($x.swapcase())
+
+rule capslock_fix_redundant_title
+symptoms: wrong
+match:
+    $x = $y.title()
+rewrite:
+    $x = $y.swapcase()
+
+rule capslock_fix_redundant_capitalize
+symptoms: wrong
+match:
+    $x = $y.capitalize()
+where:
+    match($y, "$z.upper()") or match($y, "$z.lower()") or match($y, "$z.swapcase()")
+rewrite:
+    $x = $y.swapcase()

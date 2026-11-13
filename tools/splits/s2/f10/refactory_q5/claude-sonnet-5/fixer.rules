@@ -1,0 +1,42 @@
+rule top_k_no_remove_wrong_accum
+symptoms: wrong, err:TypeError
+match:
+    for $i in range($k - 1):
+        $y = $z
+        for $jvar in $lst:
+            if $y $o:Cmp $jval:
+                $y = $jval
+        $x += $y
+where: $jval == $jvar
+rewrite:
+    for $i in range($k):
+        $y = 0
+        for $jvar in $lst:
+            if $y $o:Cmp $jval:
+                $y = $jval
+        $lst.remove($y)
+        $x.append($y)
+
+rule top_k_range_off_by_one
+symptoms: wrong
+match: range($k2 - 1)
+where: inside("def top_k($lst, $k): $B:Stmts") and $k2 == $k
+rewrite: range($k)
+
+rule top_k_remove_min_then_collect_all
+symptoms: wrong, err:NameError
+match:
+    while $counter < $k:
+        $lst.remove(min($lst))
+        $incr:Stmt
+    $s:Name = []
+    while $lst != []:
+        $s2:Name.append(max($lst))
+        $lst.remove(max($lst))
+rewrite:
+    $s = []
+    $counter = 0
+    while $counter < $k:
+        $s.append(max($lst))
+        $lst.remove(max($lst))
+        $counter = $counter + 1

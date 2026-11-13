@@ -1,0 +1,161 @@
+rule iterate_over_input_not_output
+symptoms: wrong
+match:
+    for $x in $out:
+        $B:Stmts
+where:
+    inside("def $f($*ps): $Body:Stmts") and
+    some($Body, "for $x in $inp:\n        $B") and
+    text($out) != text($inp)
+rewrite:
+    for $x in $inp:
+        $B
+
+rule compare_element_not_whole_list
+symptoms: wrong
+match: if $a not in $b:
+where: regex($a, r'^(lst|list|output|result|new_lst|newlist|keep|seq|new|temp)$') and regex($b, r'^(lst|list|output|result|new_lst|newlist|keep|seq|new)$')
+rewrite: if $a not in $a:
+
+rule compare_against_list_not_self
+symptoms: wrong
+match: if $a not in $b:
+where: text($a) == text($b)
+rewrite: if $a not in new_lst:
+| if $a not in output:
+| if $a not in result:
+| if $a not in newlist:
+| if $a not in keep:
+| if $a not in seq:
+| if $a not in new:
+| if $a not in temp:
+
+rule append_singleton_not_element
+symptoms: wrong
+match:
+    $lst += $x
+where:
+    not match($x, "[$_]")
+rewrite:
+    $lst += [$x]
+
+rule append_method_not_subscript
+symptoms: wrong
+match: $a.append[$x]
+rewrite: $a.append($x)
+
+rule count_method_not_subscript
+symptoms: wrong
+match: $a.count[$x]
+rewrite: $a.count($x)
+
+rule assign_instead_of_compare
+symptoms: wrong
+match: $a == $b
+where: text($a) in {"output", "lst", "new", "result", "new_lst", "newlist"} and text($b) in {"[]"}
+rewrite: $a = $b
+
+rule append_result_element
+symptoms: wrong
+match:
+    if $c:
+        $s
+where:
+    some($s, "$lst += $x") and not some($s, "[$_]")
+rewrite:
+    if $c:
+        $s
+
+rule remove_extras_return_wrong_list
+symptoms: wrong
+match: return $x
+where: text($x) == "lst"
+rewrite: return new_lst
+
+rule use_result_variable_for_setless_dedup
+symptoms: wrong
+match:
+    $res = []
+    for $e in $lst:
+        if $e not in $res:
+            $res += [$e]
+    return $res
+rewrite:
+    $res = []
+    for $e in $lst:
+        if $e not in $res:
+            $res += [$e]
+    return $res
+
+rule fix_seq_tuple_to_list
+symptoms: wrong
+match:
+    $seq = ($x,)
+    for $e in $lst:
+        if $e not in $seq:
+            $seq = $seq + ($e,)
+    return $seq
+rewrite:
+    $seq = []
+    for $e in $lst:
+        if $e not in $seq:
+            $seq = $seq + [$e]
+    return $seq
+
+rule fix_remove_duplicates_by_count
+symptoms: wrong
+match:
+    for $i in range(len($lst)-1):
+        if $lst[$i] in $lst[:$i]+$lst[$i+1:]:
+            $lst.pop($i)
+    return $lst
+rewrite:
+    result = []
+    for $i in range(len($lst)):
+        if $lst[$i] in $lst[:$i]:
+            result = result
+        else:
+            result = result + [$lst[$i]]
+    return result
+
+rule fix_remove_duplicates_nested_loop
+symptoms: wrong
+match:
+    for $i in range($n):
+        for $j in $lst[$i+1:]:
+            if $j == $lst[$i]:
+                $lst.remove($j)
+    return $lst
+where: text($n) == "len(lst)-1" or text($n) == "len(lst) - 1"
+rewrite:
+    result = []
+    check = set()
+    for element in $lst:
+        if element not in check:
+            result.append(element)
+            check.add(element)
+    return result
+
+rule fix_while_dedup_rebuild
+symptoms: wrong
+match:
+    i = 0
+    while i < len($lst):
+        curr = $lst[i]
+        new = []
+        for ele in $lst:
+            if ele == curr:
+                continue
+            new += [ele,]
+        $lst = new.copy
+        i += 1
+    return $lst
+rewrite:
+    result = []
+    counter = 0
+    while counter < len($lst):
+        temp = $lst[counter]
+        if temp not in result:
+            result.append(temp)
+        counter = counter + 1
+    return result

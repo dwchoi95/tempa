@@ -1,0 +1,54 @@
+rule rest_isupper_single_char_fix
+symptoms: wrong
+match: $X[1:].isupper()
+rewrite: $X[1:] == $X[1:].upper()
+
+rule swapcase_name_canonical
+symptoms: wrong
+match: $X:Name.swapcase()
+where: not before("$X = $_.lower()") and not before("$X = $_.upper()")
+rewrite: ($X.swapcase() if len($X) == 1 or $X[1:] == $X[1:].upper() else $X)
+
+rule capitalize_name_canonical
+symptoms: wrong
+match: $X:Name.capitalize()
+where: not before("$X = $_.lower()") and not before("$X = $_.upper()")
+rewrite: ($X.lower() if $X.isupper() else ($X.capitalize() if len($X) == 1 or $X[1:] == $X[1:].upper() else $X))
+
+rule title_name_canonical
+symptoms: wrong
+match: $X:Name.title()
+where: not before("$X = $_.lower()") and not before("$X = $_.upper()")
+rewrite: ($X.lower() if $X.isupper() else ($X.capitalize() if len($X) == 1 or $X[1:] == $X[1:].upper() else $X))
+
+rule capitalize_concat_fix
+symptoms: wrong
+match: $X[0].upper() + $X[1:].lower()
+where: not before("$X = $_.lower()") and not before("$X = $_.upper()")
+rewrite: ($X.lower() if $X.isupper() else ($X.capitalize() if len($X) == 1 or $X[1:] == $X[1:].upper() else $X))
+
+rule capitalize_after_lower_chain
+symptoms: wrong
+match: $X:Name.lower().capitalize()
+rewrite: ($X.lower() if $X.isupper() else ($X.capitalize() if len($X) == 1 or $X[1:] == $X[1:].upper() else $X))
+
+rule swapcase_bare_input
+symptoms: wrong
+match: print(input().swapcase())
+rewrite:
+    _w = input()
+    print(_w.swapcase() if len(_w) == 1 or _w[1:] == _w[1:].upper() else _w)
+
+rule capitalize_bare_input
+symptoms: wrong
+match: print(input().capitalize())
+rewrite:
+    _w = input()
+    print(_w.lower() if _w.isupper() else (_w.capitalize() if len(_w) == 1 or _w[1:] == _w[1:].upper() else _w))
+
+rule title_bare_input
+symptoms: wrong
+match: print(input().title())
+rewrite:
+    _w = input()
+    print(_w.lower() if _w.isupper() else (_w.capitalize() if len(_w) == 1 or _w[1:] == _w[1:].upper() else _w))

@@ -1,0 +1,170 @@
+rule capslock_only_upper_or_suffix_upper_to_guarded_swapcase
+symptoms: wrong
+match:
+    if $A.isupper() or $B[1:].isupper():
+        $X = $B.swapcase()
+        print($X)
+where: $A == $B
+rewrite:
+    if $B[1:] == $B[1:].upper():
+        print($B.swapcase())
+    else:
+        print($B)
+
+rule capslock_single_branch_swapcase_to_guarded_swapcase
+symptoms: wrong
+match:
+    if $X.isupper() or $X[1:].isupper():
+        $V = $X.swapcase()
+        print($V)
+where: true
+rewrite:
+    if $X[1:] == $X[1:].upper():
+        print($X.swapcase())
+    else:
+        print($X)
+
+rule capslock_bad_capitalize_or_uppercase_method_to_guarded_swapcase
+symptoms: wrong
+match:
+    if($X[0].lower()):
+       print($X.capitalize())
+    else:
+       print($X.uppercase())
+rewrite:
+    if $X[1:] == $X[1:].upper():
+        print($X.swapcase())
+    else:
+        print($X)
+
+rule capslock_processed_word_assignment_to_guarded_swapcase
+symptoms: wrong
+match:
+    if $W.isupper():
+        $P = $W.lower()
+    elif $W[1:].isupper():
+        $P = $W.capitalize()
+    else:
+        $P = $W
+    print($P)
+rewrite:
+    if $W[1:] == $W[1:].upper():
+        print($W.swapcase())
+    else:
+        print($W)
+
+rule capslock_print_swapcase_without_guard
+symptoms: wrong
+match:
+    print($X.swapcase())
+rewrite:
+    if $X[1:] == $X[1:].upper():
+        print($X.swapcase())
+    else:
+        print($X)
+
+rule capslock_capitalize_only_to_guarded_swapcase
+symptoms: wrong
+match:
+    $R = $X.capitalize()
+    print($R)
+rewrite:
+    if $X[1:] == $X[1:].upper():
+        print($X.swapcase())
+    else:
+        print($X)
+
+rule capslock_word_uppercase_then_capitalize_to_swapcase
+symptoms: wrong
+match:
+    if(($W[0].islower() and $W[1:].isupper()) or $W.isupper()):
+        $W = $W[0].upper() + $W[1:].lower()
+    print($W)
+rewrite:
+    if ($W[1:] == $W[1:].upper()):
+        print($W.swapcase())
+    else:
+        print($W)
+
+rule capslock_loop_print_capitalize_break_to_guarded_swapcase
+symptoms: wrong
+match:
+    for $I in range(len($X)-1):
+        if($X.isupper()):
+            print($X.capitalize())
+            break
+        elif($X[0].islower() and $X[$I+1].isupper()):
+            print($X.capitalize())
+            break
+        else:
+            print($X)
+            break
+rewrite:
+    if $X[1:] == $X[1:].upper():
+        print($X.swapcase())
+    else:
+        print($X)
+
+rule capslock_helper_correct_to_guarded_swapcase
+symptoms: wrong
+match:
+    def $F($Y):
+        if len($Y) == 1:
+            $Z = $Y.upper()
+        else:
+            $Z = $Y[0].upper() + $Y[1:].lower()
+        return $Z
+    print($F($X))
+rewrite:
+    if $X[1:] == $X[1:].upper():
+        print($X.swapcase())
+    else:
+        print($X)
+
+rule capslock_first_char_lower_branch_to_swapcase
+symptoms: wrong
+match:
+    $C = $S[0]
+    if $C.islower():
+        if $S[1:].isupper():
+            $R = $S.swapcase()
+            print($R)
+        else:
+            print($S)
+    elif $S.isupper():
+        $E = $S.swapcase()
+        print($E)
+    else:
+        print($S)
+rewrite:
+    if $S[1:] == $S[1:].upper():
+        print($S.swapcase())
+    else:
+        print($S)
+
+rule capslock_isupper_or_suffix_isupper_to_guarded_swapcase
+symptoms: wrong
+match:
+    if $N.isupper() or $N[1:].isupper():
+        $N = $N.swapcase()
+        print($N)
+rewrite:
+    if $N[1:] == $N[1:].upper():
+        print($N.swapcase())
+    else:
+        print($N)
+
+rule capslock_isupper_to_lower_or_capitalize
+symptoms: wrong
+match:
+    if $S.isupper() :
+        print($S[0] + $S[1:].lower())
+    elif ($S[0].islower() and $S[1:].isupper()):
+        print($S[0].upper()+ $S[1:].lower())
+    else:
+        print($S)
+rewrite:
+    if $S[1:] == $S[1:].upper():
+        print($S.swapcase())
+    else:
+        print($S)

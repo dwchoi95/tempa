@@ -1,0 +1,34 @@
+Buggy,Model,Source,Patch,Fixed,RPS,ATT_all,ATT_cpu,ATT_api,InT,OuT,$API,Rules_L,Rules_SL
+134903349,gpt-5.4-mini,rules,"def d(n):
+	while len(str(n))!=1:
+		n = sum(int(d) for d in str(n))
+	return n
+
+n = int(input())
+q, r = divmod(n, 9)
+d = [q] + [q + 1] * r + [q] * (8 - r)
+res = 0
+for i in range(9):
+    for j in range(9):
+        res += d[i] * d[j] * d[(i * j) % 9]
+for i in range(1, n + 1):
+    res -= n // i
+print(res)",True,2.5278,2.8677,2.8677,0.0,0,0,0.0,"[""print_root_of_input_should_be_full_solution""]",[]
+70108877,gpt-5.4-mini,reference,"n = int(input())
+q,r = divmod(n,9)
+d = [q]+[q+1]*r+[q]*(8-r)
+res = 0
+for i in range(9):
+    for j in range(9):
+        res += d[i]*d[j]*d[(i*j)%9]
+for i in range(1,n+1): res -= n//i
+print(res)",True,1.1158,8.0222,8.0222,0.0,0,0,0.0,[],[]
+82322301,gpt-5.4-mini,reference,"n = int(input())
+q,r = divmod(n,9)
+d = [q]+[q+1]*r+[q]*(8-r)
+res = 0
+for i in range(9):
+    for j in range(9):
+        res += d[i]*d[j]*d[(i*j)%9]
+for i in range(1,n+1): res -= n//i
+print(res)",True,0.9362,6.9711,6.9711,0.0,0,0,0.0,[],[]

@@ -1,0 +1,226 @@
+rule loop_else_return_len_range
+symptoms: wrong
+match:
+    for $i in range(len($seq)):
+        if $cond:
+            return $i
+        else:
+            return len($seq)
+rewrite:
+    for $i in range(len($seq)):
+        if $cond:
+            return $i
+    return len($seq)
+
+rule loop_else_return_len_enumerate
+symptoms: wrong
+match:
+    for $i, $elem in enumerate($seq):
+        if $cond:
+            return $i
+        else:
+            return len($seq)
+rewrite:
+    for $i, $elem in enumerate($seq):
+        if $cond:
+            return $i
+    return len($seq)
+
+rule off_by_one_return_i_plus_one_enumerate
+symptoms: wrong, err:NameError
+match:
+    for $i, $elem in enumerate($seq):
+        if $x <= $elem:
+            return $i
+    return $i + 1
+rewrite:
+    for $i, $elem in enumerate($seq):
+        if $x <= $elem:
+            return $i
+    return len($seq)
+
+rule off_by_one_return_i_plus_one_range
+symptoms: wrong, err:NameError
+match:
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            return $i
+    return $i + 1
+rewrite:
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            return $i
+    return len($seq)
+
+rule missing_len_fallback_break_range
+symptoms: wrong, err:NameError
+match:
+    for $i in range(len($seq)):
+        if $cond:
+            break
+    return $i
+rewrite:
+    for $i in range(len($seq)):
+        if $cond:
+            break
+    else:
+        return len($seq)
+    return $i
+
+rule missing_len_fallback_break_enumerate
+symptoms: wrong, err:NameError
+match:
+    for $i, $elem in enumerate($seq):
+        if $cond:
+            break
+    return $i
+rewrite:
+    for $i, $elem in enumerate($seq):
+        if $cond:
+            break
+    else:
+        return len($seq)
+    return $i
+
+rule missing_trailing_return_len_range
+symptoms: wrong
+match:
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            return $i
+where: last()
+rewrite:
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            return $i
+    return len($seq)
+
+rule missing_trailing_return_len_enumerate
+symptoms: wrong
+match:
+    for $i, $elem in enumerate($seq):
+        if $x <= $elem:
+            return $i
+where: last()
+rewrite:
+    for $i, $elem in enumerate($seq):
+        if $x <= $elem:
+            return $i
+    return len($seq)
+
+rule loop_elif_lastindex_to_posttest_enumerate
+symptoms: wrong
+match:
+    for $i, $elem in enumerate($seq):
+        if $cond1:
+            return $i
+        elif $cond2:
+            return len($seq)
+        else:
+            continue
+rewrite:
+    for $i, $elem in enumerate($seq):
+        if $cond1:
+            return $i
+    return len($seq)
+
+rule loop_elif_lastindex_to_posttest_range
+symptoms: wrong
+match:
+    for $i in range(len($seq)):
+        if $cond1:
+            return $i
+        elif $cond2:
+            return len($seq)
+        else:
+            continue
+rewrite:
+    for $i in range(len($seq)):
+        if $cond1:
+            return $i
+    return len($seq)
+
+rule strict_less_to_lte_enumerate
+symptoms: wrong
+match:
+    if $x < $elem:
+        return $i
+where: inside("for $i2, $elem2 in enumerate($seq):") and $i2 == $i and $elem2 == $elem
+rewrite:
+    if $x <= $elem:
+        return $i
+
+rule strict_less_to_lte_range
+symptoms: wrong
+match:
+    if $x < $seq[$i]:
+        return $i
+where: inside("for $i2 in range(len($seq2)):") and $i2 == $i and $seq2 == $seq
+rewrite:
+    if $x <= $seq[$i]:
+        return $i
+
+rule empty_check_or_bug
+symptoms: wrong
+match:
+    $seq == () or []
+    |
+    $seq == [] or ()
+rewrite:
+    $seq == () or $seq == []
+    |
+    $seq == [] or $seq == ()
+
+rule wrong_var_in_empty_check
+symptoms: wrong
+match:
+    if $x == () or $x == []:
+        return $r
+where: inside("def $f($x2, $seq): $B:Stmts") and $x2 == $x
+rewrite:
+    if $seq == () or $seq == []:
+        return $r
+
+rule index_len_seq_offbyone
+symptoms: wrong, err:IndexError
+match: $seq[len($seq)]
+rewrite: $seq[len($seq)-1]
+
+rule for_over_int_should_be_range
+symptoms: err:TypeError
+match: for $i in len($seq):
+rewrite: for $i in range(len($seq)):
+
+rule range_len_plus_one_offbyone
+symptoms: wrong, err:IndexError
+match:
+    range(len($seq) + 1)
+    |
+    range(0, len($seq) + 1)
+rewrite:
+    range(len($seq))
+    |
+    range(0, len($seq))
+
+rule len_seq_minus_one_wrong_return
+symptoms: wrong
+match: return len($seq) - 1
+rewrite: return len($seq)
+
+rule len_seq_plus_one_wrong_return
+symptoms: wrong
+match: return len($seq) + 1
+rewrite: return len($seq)
+
+rule else_return_seq_should_be_zero
+symptoms: wrong
+match:
+    if $seq:
+        $T:Stmts
+    else:
+        return $seq
+rewrite:
+    if $seq:
+        $T:Stmts
+    else:
+        return 0

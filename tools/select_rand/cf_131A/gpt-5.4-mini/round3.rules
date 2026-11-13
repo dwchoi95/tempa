@@ -1,0 +1,398 @@
+rule delete_unconditional_lowercase_print
+symptoms: wrong
+match:
+    s = input()
+    k = s.lower()
+    print(k)
+rewrite:
+    s = input()
+    if s.isupper():
+        print(s.lower())
+    elif s[0].islower() and s[1:].isupper():
+        print(s.capitalize())
+    elif len(s) == 1 and s.islower():
+        print(s.upper())
+    else:
+        print(s)
+
+rule fix_capitalize_overwrite
+symptoms: wrong
+match:
+    word = str(input())
+    lower_word = word.lower()
+    capitalize_word = word.capitalize()
+
+    print(capitalize_word)
+rewrite:
+    word = input()
+    if word.isupper():
+        print(word.lower())
+    elif word[0].islower() and word[1:].isupper():
+        print(word.capitalize())
+    elif len(word) == 1 and word.islower():
+        print(word.upper())
+    else:
+        print(word)
+
+rule add_caps_lock_guard_to_always_capitalize
+symptoms: wrong
+match:
+    a = input()
+
+    import string
+
+    if a[0].islower() and a[1:].upper():
+        print(a.capitalize())
+    elif a.upper():
+        print(a)
+    else:
+        print(a.capitalize())
+rewrite:
+    a = input()
+    if a.isupper():
+        print(a.lower())
+    elif a[0].islower() and a[1:].isupper():
+        print(a.capitalize())
+    elif len(a) == 1 and a.islower():
+        print(a.upper())
+    else:
+        print(a)
+
+rule regex_or_upper_to_swapcase
+symptoms: wrong
+match:
+    import re
+
+    word = input()
+    # ans = re.findall(r'^[A-Z]+[a-z]+', word)
+    if re.findall(r'^[a-z][A-Z]+', word) or re.findall(r'^[A-Z]+', word):
+        print(word.swapcase())
+
+    else:
+        print(word)
+rewrite:
+    word = input()
+    if word.isupper():
+        print(word.lower())
+    elif word[0].islower() and word[1:].isupper():
+        print(word.capitalize())
+    elif len(word) == 1 and word.islower():
+        print(word.upper())
+    else:
+        print(word)
+
+rule upper_then_first_char_lower
+symptoms: wrong
+match:
+    s=input()
+    k=s.upper()
+    if k==s:
+        print(s)
+    else:
+        print(k[0]+s[1:len(s)].lower())
+rewrite:
+    s = input()
+    if s.isupper():
+        print(s.lower())
+    elif s[0].islower() and s[1:].isupper():
+        print(s.capitalize())
+    elif len(s) == 1 and s.islower():
+        print(s.upper())
+    else:
+        print(s)
+
+rule fix_ord_loop_copy_case
+symptoms: wrong
+match:
+    str = input()
+    new_str = ""
+    if 1<=len(str)<=100:
+      if 65<=ord(str[0])<=90:
+        new_str = str[0]
+      elif 97<=ord(str[0])<=122:
+        new_str = chr(ord(str[0])-32)
+      for i in range(1, len(str)):
+        if 65<=ord(str[i])<=90:
+          new_str += chr(ord(str[i])+32)
+        elif 97<=ord(str[i])<=122:
+          new_str += str[i]
+    print(new_str)
+rewrite:
+    s = input()
+    if s.isupper():
+        print(s.lower())
+    elif s[0].islower() and s[1:].isupper():
+        print(s.capitalize())
+    elif len(s) == 1 and s.islower():
+        print(s.upper())
+    else:
+        print(s)
+
+rule fix_title_overwrite_on_single_line
+symptoms: wrong
+match:
+    s = input()
+    if len(s)>1:
+        s= s[0].upper() + s[1:].lower()
+    else:
+        s = s.upper()
+    print(s)
+rewrite:
+    s = input()
+    if s.isupper():
+        print(s.lower())
+    elif s[0].islower() and s[1:].isupper():
+        print(s.capitalize())
+    elif len(s) == 1 and s.islower():
+        print(s.upper())
+    else:
+        print(s)
+
+rule fix_capitalize_from_condition_set
+symptoms: wrong
+match:
+    n = str(input())
+    if n.isupper() == True:
+        print(n.lower().capitalize())
+    elif n[0:1].islower() == True and n[1:len(n)].isupper() == True:
+        print(n.lower().capitalize())
+    else: print(n)
+rewrite:
+    n = input()
+    if n.isupper():
+        print(n.lower())
+    elif n[0].islower() and n[1:].isupper():
+        print(n.capitalize())
+    elif len(n) == 1 and n.islower():
+        print(n.upper())
+    else:
+        print(n)
+
+rule fix_casefold_logic
+symptoms: wrong
+match:
+    s = input()
+    if len(s)>=1 or len(s)<= 100:
+
+        if s[0].isupper():
+            print(s[0]+s[1:].casefold())
+        else:
+            if s[1:].isupper():
+                print(s[1:].casefold())
+            else:
+                print(s)
+rewrite:
+    s = input()
+    if s.isupper():
+        print(s.lower())
+    elif s[0].islower() and s[1:].isupper():
+        print(s.capitalize())
+    elif len(s) == 1 and s.islower():
+        print(s.upper())
+    else:
+        print(s)
+
+rule fix_always_capitalize_single_else
+symptoms: wrong
+match:
+    s = input()
+    if len(s)>1:
+        s= s[0].upper() + s[1:].lower()
+    else:
+        s = s.upper()
+    print(s)
+rewrite:
+    s = input()
+    if s.isupper():
+        print(s.lower())
+    elif s[0].islower() and s[1:].isupper():
+        print(s.capitalize())
+    elif len(s) == 1 and s.islower():
+        print(s.upper())
+    else:
+        print(s)
+
+rule fix_swapcase_guard
+symptoms: wrong
+match:
+    word = input()
+    if word.isupper() or word[1:].isupper():
+        print(word.swapcase())
+    else:
+        print(word)
+rewrite:
+    word = input()
+    if word.isupper():
+        print(word.lower())
+    elif word[0].islower() and word[1:].isupper():
+        print(word.capitalize())
+    elif len(word) == 1 and word.islower():
+        print(word.upper())
+    else:
+        print(word)
+
+rule fix_capitalize_title_only
+symptoms: wrong
+match:
+    s = input()
+    s = s.title()
+    print(s)
+rewrite:
+    s = input()
+    if s.isupper():
+        print(s.lower())
+    elif s[0].islower() and s[1:].isupper():
+        print(s.capitalize())
+    elif len(s) == 1 and s.islower():
+        print(s.upper())
+    else:
+        print(s)
+
+rule fix_upper_check_then_capitalize
+symptoms: wrong
+match:
+    s = input()
+    if s.isupper() == True:
+        print(s.swapcase())
+    elif s[0].islower() == True and s[1::].isupper() == True:
+        print(s.swapcase())
+    else:
+        print(s)
+rewrite:
+    s = input()
+    if s.isupper():
+        print(s.lower())
+    elif s[0].islower() and s[1:].isupper():
+        print(s.capitalize())
+    elif len(s) == 1 and s.islower():
+        print(s.upper())
+    else:
+        print(s)
+
+rule fix_capitalize_print_only
+symptoms: wrong
+match:
+    word = input()
+    print(word.capitalize())
+rewrite:
+    word = input()
+    if word.isupper():
+        print(word.lower())
+    elif word[0].islower() and word[1:].isupper():
+        print(word.capitalize())
+    elif len(word) == 1 and word.islower():
+        print(word.upper())
+    else:
+        print(word)
+
+rule fix_word_title_on_guarded_rest_upper
+symptoms: wrong
+match:
+    word=input()
+    print(word.title())
+rewrite:
+    word = input()
+    if word.isupper():
+        print(word.lower())
+    elif word[0].islower() and word[1:].isupper():
+        print(word.capitalize())
+    elif len(word) == 1 and word.islower():
+        print(word.upper())
+    else:
+        print(word)
+
+rule fix_capitalize_from_upper_or_rest_upper
+symptoms: wrong
+match:
+    word = input()
+    if word.isupper() or word[1:].isupper():
+        print(word.swapcase())
+    else:
+        print(word)
+rewrite:
+    word = input()
+    if word.isupper():
+        print(word.lower())
+    elif word[0].islower() and word[1:].isupper():
+        print(word.capitalize())
+    elif len(word) == 1 and word.islower():
+        print(word.upper())
+    else:
+        print(word)
+
+rule fix_capitalize_via_title_or_swapcase
+symptoms: wrong
+match:
+    s=input()
+    if s.lower():
+        print(s)
+    else:
+        print(s.swapcase())
+rewrite:
+    s = input()
+    if s.isupper():
+        print(s.lower())
+    elif s[0].islower() and s[1:].isupper():
+        print(s.capitalize())
+    elif len(s) == 1 and s.islower():
+        print(s.upper())
+    else:
+        print(s)
+
+rule fix_capitalize_from_all_upper_or_rest_upper
+symptoms: wrong
+match:
+    s = input()
+    if s.isupper():
+        print(s)
+    else:
+        s=s.capitalize()
+        print(s)
+rewrite:
+    s = input()
+    if s.isupper():
+        print(s.lower())
+    elif s[0].islower() and s[1:].isupper():
+        print(s.capitalize())
+    elif len(s) == 1 and s.islower():
+        print(s.upper())
+    else:
+        print(s)
+
+rule fix_one_letter_or_rest_upper_swapcase
+symptoms: wrong
+match:
+    a = input()
+    if a[1:].isupper() or (len(a) == 1 and a.islower()):
+        a = a.swapcase()
+    print(a)
+rewrite:
+    a = input()
+    if a.isupper():
+        print(a.lower())
+    elif a[0].islower() and a[1:].isupper():
+        print(a.capitalize())
+    elif len(a) == 1 and a.islower():
+        print(a.upper())
+    else:
+        print(a)
+
+rule fix_upper_rest_upper_to_caseflip
+symptoms: wrong
+match:
+    word = input()
+    if word.isupper() or word[1:].isupper():
+       corrected_word = word.swapcase()
+    else:
+        corrected_word = word
+    print(corrected_word)
+rewrite:
+    word = input()
+    if word.isupper():
+        print(word.lower())
+    elif word[0].islower() and word[1:].isupper():
+        print(word.capitalize())
+    elif len(word) == 1 and word.islower():
+        print(word.upper())
+    else:
+        print(word)

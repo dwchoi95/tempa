@@ -1,0 +1,126 @@
+rule loop_target_iterable_swapped
+symptoms: wrong, err:NameError
+match:
+    for $p in $acc:
+        if $i not in $p:
+            $acc += [$i,]
+    |
+    for $p in $acc:
+        if $i not in $p:
+            $acc.append($i)
+where: inside("def $f($p): $B:Stmts")
+rewrite:
+    for $i in $p:
+        if $i not in $acc:
+            $acc += [$i]
+
+rule check_container_not_element
+symptoms: wrong
+match: if $lst not in $acc:
+where: inside("for $i in $lst:")
+rewrite: if $i not in $acc:
+
+rule return_original_instead_of_accumulator
+symptoms: wrong
+match: return $lst
+where: inside("def $f($lst): $B:Stmts") and (some($B, "$acc:Name.append($_)") or some($B, "$acc:Name += [$_]") or some($B, "$acc:Name += [$_,]")) and $lst != $acc
+rewrite: return $acc
+
+rule append_bracket_call
+symptoms: wrong, err:TypeError
+match: $acc.append[$x]
+rewrite: $acc.append($x)
+
+rule count_bracket_call
+symptoms: wrong, err:TypeError
+match: $acc.count[$x]
+rewrite: $acc.count($x)
+
+rule eq_used_as_assignment
+symptoms: wrong
+match: $acc == $val
+where: field("Expr", "value")
+rewrite: $acc = $val
+
+rule eq_wrapping_append_call
+symptoms: wrong
+match: $acc == $acc.append($x)
+    |
+    $acc == $acc.append[$x]
+rewrite: $acc.append($x)
+
+rule plus_equals_missing_brackets
+symptoms: wrong
+match: $acc += $i
+where: kind($i) != "List" and inside("if $i not in $acc:")
+rewrite: $acc += [$i]
+
+rule init_with_first_element
+symptoms: wrong
+match: $acc = [$lst[0]]
+rewrite: $acc = []
+
+rule tuple_accumulator_to_list
+symptoms: wrong
+match:
+    $acc = ($lst[0],)
+    for $i in $lst:
+        if $i not in $acc:
+            $acc = $acc + ($i,)
+    return $acc
+rewrite:
+    $acc = []
+    for $i in $lst:
+        if $i not in $acc:
+            $acc = $acc + [$i]
+    return $acc
+
+rule mutate_list_nested_removal
+symptoms: wrong, err:IndexError
+match:
+    for $i in range(len($lst)-1):
+        for $j in $lst[$i+1:]:
+            if $j == $lst[$i]:
+                $lst.remove($j)
+    return $lst
+rewrite:
+    result = []
+    for $j in $lst:
+        if $j not in result:
+            result.append($j)
+    return result
+
+rule mutate_list_pop_membership
+symptoms: wrong, err:IndexError
+match:
+    for $i in range(len($lst)-1):
+        if $lst[$i] in $lst[:$i]+$lst[$i+1:]:
+            $lst.pop($i)
+    return $lst
+rewrite:
+    result = []
+    for $i in range(len($lst)):
+        if $lst[$i] not in $lst[:$i]:
+            result.append($lst[$i])
+    return result
+
+rule while_loop_filter_rebuild
+symptoms: wrong, timeout
+match:
+    $i:Name = 0
+    while $i < len($lst):
+        $curr:Name = $lst[$i]
+        $new:Name = []
+        for $ele in $lst:
+            if $ele == $curr:
+                continue
+            $new += [$ele,]
+        $lst = $new.copy
+        $i += 1
+    return $lst
+rewrite:
+    result = []
+    for $ele in $lst:
+        if $ele not in result:
+            result.append($ele)
+    return result

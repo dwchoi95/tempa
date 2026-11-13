@@ -1,0 +1,347 @@
+rule recursive_max_remove_combine_direct
+symptoms: wrong
+match:
+    if $k > len($lst):
+        return False
+    elif $k == 1:
+        return $lst
+    else:
+        $a = max($lst)
+        $lst.remove($a)
+        $l.append($a)
+        return top_k($lst, $k-1)
+rewrite:
+    if $k > len($lst):
+        return False
+    elif $k == 1:
+        return $l + [max($lst)]
+    else:
+        $a = max($lst)
+        $lst.remove($a)
+        $l.append($a)
+        return $l + top_k($lst, $k-1)
+
+rule recursive_max_remove_combine_uncaptured
+symptoms: wrong
+match:
+    if $k > len($lst):
+        return False
+    elif $k == 1:
+        return $lst
+    else:
+        $a = max($lst)
+        $lst.remove($a)
+        $l.append($a)
+        top_k($lst, $k-1)
+        return $l
+rewrite:
+    if $k > len($lst):
+        return False
+    elif $k == 1:
+        return $l + [max($lst)]
+    else:
+        $a = max($lst)
+        $lst.remove($a)
+        $l.append($a)
+        return $l + top_k($lst, $k-1)
+
+rule typo_variable_in_recursive_call
+symptoms: wrong, err:NameError
+match: return [$maxi] + top_k($arg, $k-1)
+where: before("$nl:Name = $lst.copy()") and not ($arg == $nl)
+rewrite: return [$maxi] + top_k($nl, $k-1)
+
+rule max_loop_missing_removal
+symptoms: wrong
+match:
+    $op += [max($lst)]
+    $count += 1
+    |
+    $op.append(max($lst))
+    $count += 1
+rewrite:
+    $op += [max($lst)]
+    $lst.remove(max($lst))
+    $count += 1
+    |
+    $op.append(max($lst))
+    $lst.remove(max($lst))
+    $count += 1
+
+rule missing_k_zero_guard
+symptoms: wrong
+match:
+    while $lst:
+        $B:Stmts
+where: some($B, "if len($sort) == $k:\n    break")
+rewrite:
+    if $k == 0:
+        return []
+    while $lst:
+        $B
+
+rule wrong_k_zero_return_value
+symptoms: wrong
+match:
+    if $k == 0:
+        return $lst
+where: match($lst, "$p:Name")
+rewrite:
+    if $k == 0:
+        return []
+
+rule stray_tuple_index_compare
+symptoms: wrong, err:TypeError
+match: $x[$i:Int] > $y[$i:Int]
+rewrite: $x > $y
+
+rule call_undefined_sort_list
+symptoms: wrong, err:NameError
+match:
+    $a = sort_list($lst)
+    return $a[0:$k]
+rewrite:
+    result = []
+    while $lst:
+        largest = $lst[0]
+        for elem in $lst:
+            if elem > largest:
+                largest = elem
+        $lst.remove(largest)
+        result.append(largest)
+    return result[0:$k]
+
+rule broken_index_shuffle_to_selection_sort
+symptoms: wrong, timeout
+match:
+    $i:Name = 0
+    while $i + 1 < len($lst):
+        if $lst[$i] < $lst[$i + 1]:
+            $lst.extend([$i])
+            $lst.pop($i)
+            $i = 0
+        else:
+            $i += 1
+    return $lst[:$n]
+where: inside("def $f($lst2, $k): $B:Stmts") and $lst2 == $lst
+rewrite:
+    result = []
+    while $lst:
+        largest = $lst[0]
+        for elem in $lst:
+            if elem > largest:
+                largest = elem
+        $lst.remove(largest)
+        result.append(largest)
+    return result[:$k]
+
+rule degenerate_length_difference_condition
+symptoms: wrong, timeout, err:ValueError
+match:
+    while len($lst) $o:Cmp len($lst) - $k:
+        $B:Stmts
+where: text($o) in {">", ">="} and some($B, "$acc:Name.append($_)")
+rewrite:
+    while len($acc) < $k:
+        $B
+
+rule append_remove_return_none
+symptoms: wrong
+match: $acc.append($lst.remove($top))
+rewrite:
+    $acc.append($top)
+    $lst.remove($top)
+
+rule pop_value_instead_of_index
+symptoms: wrong, err:TypeError
+match: $lst.pop(max($lst))
+rewrite: $lst.pop($lst.index(max($lst)))
+
+rule broken_while_i_pop_max
+symptoms: wrong, err:NameError
+match:
+    while i in range($k-1):
+        $acc.append($lst.pop(max($lst)))
+rewrite:
+    for i in range($k):
+        $acc.append($lst.pop($lst.index(max($lst))))
+
+rule selection_sort_wrong_append_variable
+symptoms: wrong, timeout
+match:
+    for $i:Name in $lst:
+        if $i > $largest:
+            $largest = $i
+    $sort.append($i)
+rewrite:
+    for $i in $lst:
+        if $i > $largest:
+            $largest = $i
+    $lst.remove($largest)
+    $sort.append($largest)
+
+rule offbyone_slice_k_minus_one
+symptoms: wrong
+match: return $sort[:$k-1]
+rewrite: return $sort[:$k]
+
+rule off_by_one_range_k_minus_one_double_loop
+symptoms: wrong
+match:
+    for $i:Name in range($k-1):
+        $y:Name = $i
+        for $j:Name in $lst:
+            if $y < $j:
+                $y = $j
+        $x += $y
+rewrite:
+    for $i in range($k):
+        $y = $lst[0]
+        for $j in $lst:
+            if $y < $j:
+                $y = $j
+        $lst.remove($y)
+        $x.append($y)
+
+rule fix_trailing_truncate_wrong_return
+symptoms: wrong
+match:
+    counter = $k
+    while counter != len($lst):
+        $lst.pop()
+        counter += 1
+    return $lst
+where: before("$sort:Name = []")
+rewrite: return $sort[::-1][:$k]
+
+rule broken_manual_swap
+symptoms: wrong
+match:
+    $a[$i] = $a[$j]
+    $a[$j] = $a[$i]
+where: not ($i == $j)
+rewrite:
+    $a[$i], $a[$j] = $a[$j], $a[$i]
+
+rule quicksort_stray_x_compare
+symptoms: wrong, err:NameError
+match: x $o:Cmp pivot
+rewrite: e $o pivot
+
+rule quicksort_single_level_to_recursive
+symptoms: wrong
+match:
+    sort_list = higher + plist + lower
+    return sort_list[:$k]
+    |
+    sort_list = lower + plist + higher
+    return sort_list[:$k]
+    |
+    sort_list = lower + plist + higher
+    sort_list = sort_list[::-1]
+    return sort_list[:$k]
+    |
+    sort_list = lower + plist + higher
+    sort_list = sort_list[::-1]
+    if $k == len($lst):
+        return sort_list[:$k-1]
+    elif $k > len($lst):
+        return sort_list
+    else:
+        return sort_list[:$k]
+rewrite:
+    sort_list = top_k(higher, len(higher)) + plist + top_k(lower, len(lower))
+    return sort_list[:$k]
+    |
+    sort_list = top_k(higher, len(higher)) + plist + top_k(lower, len(lower))
+    return sort_list[:$k]
+    |
+    sort_list = top_k(higher, len(higher)) + plist + top_k(lower, len(lower))
+    return sort_list[:$k]
+    |
+    sort_list = top_k(higher, len(higher)) + plist + top_k(lower, len(lower))
+    return sort_list[:$k]
+
+rule biggest_selection_wrong_reference
+symptoms: wrong
+match:
+    for $x:Name in $lst:
+        if $x $o:Cmp $lst[0]:
+            $biggest = $x
+where: text($o) in {"<", "<=", ">", ">="}
+rewrite:
+    for $x in $lst:
+        if $x > $biggest:
+            $biggest = $x
+
+rule misplaced_extremum_update_in_for_loop
+symptoms: wrong, err:IndexError
+match:
+    for $e:Name in $lst:
+        if $e $o:Cmp $ext:
+            $ext = $e
+        $lst.remove($rm)
+        $acc.append($ap)
+where: text($o) in {">", "<"} and ($rm == $e or $rm == $ext) and ($ap == $e or $ap == $ext)
+rewrite:
+    for $e in $lst:
+        if $e $o $ext:
+            $ext = $e
+    $lst.remove($ext)
+    $acc.append($ext)
+
+rule append_remove_wrong_loop_var
+symptoms: wrong
+match:
+    for $i:Name in $lst:
+        if $i > $largest:
+            $largest = $i
+    $acc.append($i)
+    $lst.remove($i)
+    |
+    for $i:Name in $lst:
+        if $i > $largest:
+            $largest = $i
+    $lst.remove($i)
+    $acc.append($i)
+rewrite:
+    for $i in $lst:
+        if $i > $largest:
+            $largest = $i
+    $acc.append($largest)
+    $lst.remove($largest)
+    |
+    for $i in $lst:
+        if $i > $largest:
+            $largest = $i
+    $lst.remove($largest)
+    $acc.append($largest)
+
+rule return_source_list_instead_of_accumulator
+symptoms: wrong
+match: return $lst[:$k]
+where: inside("def $f($lst2, $k2): $B:Stmts") and some($B, "$result:Name.append($_)") and some($B, "$lst.remove($_)") and not ($lst == $result)
+rewrite: return $result[:$k]
+
+rule reverse_called_as_function
+symptoms: wrong, err:TypeError
+match: list.reverse($x)
+rewrite: $x[::-1]
+
+rule max_loop_typo_append
+symptoms: wrong, err:NameError
+match:
+    $maximum = max($lst)
+    $wrong.append($lst)
+    $lst.remove($maximum)
+where: inside("def $f($lst2, $k): $B:Stmts") and some($B, "$correct:Name = []") and not ($wrong == $correct)
+rewrite:
+    $maximum = max($lst)
+    $correct.append($maximum)
+    $lst.remove($maximum)
+
+rule return_wrong_accumulator_name
+symptoms: wrong, err:NameError
+match: return $wrong:Name
+where: inside("def $f($lst2, $k): $B:Stmts") and some($B, "$correct:Name = []") and not ($wrong == $correct) and not ($wrong == $lst2) and not ($wrong == $k) and not some($B, "$wrong = $_")
+rewrite: return $correct

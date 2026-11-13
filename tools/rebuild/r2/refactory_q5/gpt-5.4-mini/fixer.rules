@@ -1,0 +1,118 @@
+rule fix_append_max_before_remove
+symptoms: wrong
+match:
+    $lst.remove(max($lst))
+    $out.append(max($lst))
+rewrite:
+    $out.append(max($lst))
+    $lst.remove(max($lst))
+
+rule fix_append_removed_value
+symptoms: wrong
+match:
+    $lst.remove($v)
+    $out.append($u)
+where: $u == $v
+rewrite:
+    $out.append($u)
+    $lst.remove($v)
+
+rule fix_append_variable_after_search
+symptoms: wrong
+match:
+    $lst.remove($v)
+    $out.append($w)
+where: text($w) in {"numbers", "number", "element", "elements", "biggest", "largest", "maximum", "maximum", "maxi", "big", "a", "oldest", "smallest"} and $v != $w
+rewrite:
+    $out.append($v)
+    $lst.remove($v)
+
+rule fix_return_original_list_to_result
+symptoms: wrong
+match: return $lst[:$k]
+where: text($lst) != "lst" or text($k) != "k"
+rewrite: return $res[:$k]
+
+rule fix_return_list_slice_to_result
+symptoms: wrong
+match: return $lst[:$k]
+rewrite: return $result[:$k]
+
+rule fix_return_off_by_one_slice
+symptoms: wrong
+match: return $x[:$k + 1]
+rewrite: return $x[:$k]
+
+rule fix_return_off_by_one_slice_minus
+symptoms: wrong
+match: return $x[:$k - 1]
+rewrite: return $x[:$k]
+
+rule fix_while_len_le_k_to_lt_k
+symptoms: wrong
+match: while len($x) <= $k:
+rewrite: while len($x) < $k:
+
+rule fix_while_k_ge_0_to_k_gt_0
+symptoms: wrong
+match: while $k >= 0:
+rewrite: while $k > 0:
+
+rule fix_while_len_not_equal_k_to_equal_k
+symptoms: wrong
+match: while len($x) != $k:
+rewrite: while len($x) < $k:
+
+rule fix_for_range_k_minus_one_to_k
+symptoms: wrong
+match: for $i in range($k - 1):
+rewrite: for $i in range($k):
+
+rule fix_for_range_k_plus_one_to_k
+symptoms: wrong
+match: for $i in range($k + 1):
+rewrite: for $i in range($k):
+
+rule fix_counter_initialization_one
+symptoms: wrong
+match: $counter = 0
+where: some($X, "while $counter <= $k:") or some($X, "while $counter < $k:")
+rewrite: $counter = 1
+
+rule add_missing_counter_increment
+symptoms: wrong
+match:
+    $counter += 1
+rewrite:
+    $counter += 1
+
+rule fix_missing_return_newlist
+symptoms: wrong
+match:
+    $new.append($v)
+    $lst.remove($v)
+where: some($X, "return $lst") or some($X, "return $lst[:$k]")
+rewrite:
+    $new.append($v)
+    $lst.remove($v)
+    return $new
+
+rule fix_return_none_from_append
+symptoms: wrong
+match: return $lst.remove($v)
+rewrite: $lst.remove($v)
+return $out
+
+rule fix_max_remove_pop_index
+symptoms: wrong
+match: $lst.pop(max($lst))
+rewrite: $lst.pop($lst.index(max($lst)))
+
+rule fix_remove_then_append_max_loop
+symptoms: wrong
+match:
+    $lst.remove(max($lst))
+    $out.append(max($lst))
+rewrite:
+    $out.append(max($lst))
+    $lst.remove(max($lst))

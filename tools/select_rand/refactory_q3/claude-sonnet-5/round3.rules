@@ -1,0 +1,123 @@
+rule list_plus_equals_scalar
+symptoms: wrong
+match: $new += $x
+where: inside("def $f($p): $B:Stmts") and some($B, "$new = []") and not match($x, "[$*xs]")
+rewrite: $new += [$x]
+
+rule list_plus_scalar_assign
+symptoms: wrong
+match: $new = $new + $x
+where: inside("def $f($p): $B:Stmts") and some($B, "$new = []") and not match($x, "[$*xs]")
+rewrite: $new = $new + [$x]
+
+rule tuple_plus_equals_scalar
+symptoms: wrong
+match: $new += $x
+where: inside("def $f($p): $B:Stmts") and some($B, "$new = ()") and not match($x, "($*xs)")
+rewrite: $new += ($x,)
+
+rule append_assigned_to_var
+symptoms: wrong
+match: $v = $v.append($x)
+|
+    $v += $v.append($x)
+rewrite: $v.append($x)
+
+rule iterate_over_builtin_list_name
+symptoms: wrong, err:NameError, err:TypeError
+match: for $x in list:
+where: inside("def $f($p): $B:Stmts")
+rewrite: for $x in $p:
+
+rule set_loses_order
+symptoms: wrong
+match: return list(set($lst))
+|
+    return set($lst)
+rewrite:
+    result = []
+    for i in $lst:
+        if i not in result:
+            result.append(i)
+    return result
+
+rule ordereddict_fromkeys
+symptoms: wrong
+match: return list(OrderedDict.fromkeys($lst))
+rewrite:
+    result = []
+    for i in $lst:
+        if i not in result:
+            result.append(i)
+    return result
+
+rule count_remove_variants
+symptoms: wrong
+match:
+    for $x in $lst:
+        if $lst.count($x) > 1:
+            $lst.remove($x)
+    return $lst
+|
+    $lst.reverse()
+    for $x in $lst:
+        if $lst.count($x) > 1:
+            $lst.remove($x)
+    $lst.reverse()
+    return $lst
+|
+    $lst.reverse()
+    for $x in $lst:
+        if $lst.count($x) > 1:
+            $lst.remove($x)
+    return $lst.reverse()
+rewrite:
+    result = []
+    for x in $lst:
+        if x not in result:
+            result.append(x)
+    return result
+
+rule missing_return_after_dedup_loop
+symptoms: wrong
+match:
+    for $x in $lst:
+        if $x not in $new:
+            $new.append($x)
+where: inside("def $f($p): $B:Stmts") and last() and not some($B, "return $new")
+rewrite:
+    for $x in $lst:
+        if $x not in $new:
+            $new.append($x)
+    return $new
+
+rule uninitialized_accumulator
+symptoms: wrong, err:NameError
+match:
+    for $x in $lst:
+        if $x not in $new:
+            $new.append($x)
+where: inside("def $f($p): $B:Stmts") and not some($B, "$new = $_")
+rewrite:
+    $new = []
+    for $x in $lst:
+        if $x not in $new:
+            $new.append($x)
+
+rule range_len_plus_one_should_be_lst
+symptoms: wrong
+match: for $i in range(len($lst) + 1):
+rewrite: for $i in $lst:
+
+rule membership_check_wrong_list
+symptoms: wrong
+match:
+    if $x not in $lst:
+        $new.append($x)
+|
+    if $x not in $lst:
+        $new = $new.append($x)
+where: inside("for $x2 in $lst: $B:Stmts") and $x2 == $x
+rewrite:
+    if $x not in $new:
+        $new.append($x)

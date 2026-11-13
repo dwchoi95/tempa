@@ -1,0 +1,268 @@
+rule count_lucky_digits_then_check_lucky_count
+symptoms: wrong
+match:
+    $count = 0
+    for $v in $s:
+        if $v in "47":
+            $count += 1
+    if $count == len($s):
+        print("YES")
+    else:
+        print("NO")
+where: text($s) != ""
+rewrite:
+    $count = 0
+    for $v in $s:
+        if $v in "47":
+            $count += 1
+    if $count == 4 or $count == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule count_lucky_digits_then_check_lucky_count_single_line_print
+symptoms: wrong
+match: if $count == len($s): print("YES")
+where: regex($count, r'^[A-Za-z_][A-Za-z0-9_]*$') and text($s) != ""
+rewrite: if $count == 4 or $count == 7: print("YES")
+else: print("NO")
+
+rule len_of_filtered_digits_to_lucky_count
+symptoms: wrong
+match:
+    $res = ''
+    for $i in $s:
+        if $i == "4" or $i == "7":
+            $res = $res + $i
+    if len($res) == len($s):
+        print("YES")
+    else:
+        print("NO")
+rewrite:
+    $res = ''
+    for $i in $s:
+        if $i == "4" or $i == "7":
+            $res = $res + $i
+    if len($res) == 4 or len($res) == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule unique_digits_set_misconception
+symptoms: wrong
+match:
+    $seen = []
+    for $i in $s:
+        if $i not in $seen:
+            $seen.append($i)
+    if $a == $seen or $seen == $b:
+        print('YES')
+    else:
+        print('NO')
+where: match($a, "['4','7']") and match($b, "['7','4']")
+rewrite:
+    $seen = []
+    for $i in $s:
+        if $i not in $seen:
+            $seen.append($i)
+    if $seen == ['4', '7'] or $seen == ['7', '4']:
+        print('YES')
+    else:
+        print('NO')
+
+rule digit_scan_else_break_to_count_scan
+symptoms: wrong
+match:
+    $ok = True
+    for $x in $num:
+        if $x != '4' and $x != '7':
+            $ok = False
+            break
+    if $ok == True:
+        print("YES")
+    else:
+        print("NO")
+rewrite:
+    $count = 0
+    for $x in $num:
+        if $x == '4' or $x == '7':
+            $count += 1
+    if $count == 4 or $count == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule all_digits_or_any_digit
+symptoms: wrong
+match:
+    if $cond:
+        print("YES")
+    else:
+        print("NO")
+where: match($cond, "all($d in '47' for $d in $s)") or match($cond, "$s.count('4') + $s.count('7') == len($s)") or match($cond, "$s.count('4') + $s.count('7') == len($s)")
+rewrite:
+    if $s.count('4') + $s.count('7') == 4 or $s.count('4') + $s.count('7') == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule len_based_answer_to_lucky_digit_count
+symptoms: wrong
+match:
+    if len($s) == 4 or len($s) == 7:
+        print("YES")
+    else:
+        print("NO")
+rewrite:
+    if $s.count('4') + $s.count('7') == 4 or $s.count('4') + $s.count('7') == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule count_modulo_lucky_fix
+symptoms: wrong
+match:
+    if ($c % 4 == 0 or $c % 7 == 0) and $c != 0:
+        print('YES')
+    else:
+        print('NO')
+rewrite:
+    if $c == 4 or $c == 7:
+        print('YES')
+    else:
+        print('NO')
+
+rule count_modulo_lucky_fix_plain
+symptoms: wrong
+match:
+    if $c % 4 == 0 or $c % 7 == 0:
+        print("YES")
+    else:
+        print("NO")
+rewrite:
+    if $c == 4 or $c == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule lucky_digit_count_then_lucky_number_check
+symptoms: wrong
+match:
+    $count = 0
+    while $n != 0:
+        if $n % 10 == 4 or $n % 10 == 7:
+            $count += 1
+        $n = $n // 10
+    if $count == 4 or $count == 7:
+        print("YES")
+    else:
+        print("NO")
+rewrite:
+    $count = 0
+    while $n != 0:
+        if $n % 10 == 4 or $n % 10 == 7:
+            $count += 1
+        $n = $n // 10
+    if $count == 4 or $count == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule fix_wrong_any_lucky_digit
+symptoms: wrong
+match:
+    if '4' in $x or '7' in $x:
+        print("YES")
+    else:
+        print("NO")
+rewrite:
+    if $x.count('4') + $x.count('7') == 4 or $x.count('4') + $x.count('7') == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule fix_set_exactly_two_digits
+symptoms: wrong
+match:
+    if set($x) == {'4', '7'} or set($x) == {'7', '4'}:
+        print('YES')
+    else:
+        print('NO')
+rewrite:
+    if $x.count('4') + $x.count('7') == 4 or $x.count('4') + $x.count('7') == 7:
+        print('YES')
+    else:
+        print('NO')
+
+rule fix_counter_divisibility_misconception
+symptoms: wrong
+match:
+    $c = $s.count('4') + $s.count('7')
+    if $c == 0:
+        print('NO')
+    elif $c % 4 == 0 or $c % 7 == 0:
+        print('YES')
+    else:
+        print('NO')
+rewrite:
+    $c = $s.count('4') + $s.count('7')
+    if $c == 4 or $c == 7:
+        print('YES')
+    else:
+        print('NO')
+
+rule fix_count_equals_length_or_nonlucky
+symptoms: wrong
+match:
+    $count = 0
+    for $i in $s:
+        if $i == '4' or $i == '7':
+            $count += 1
+    if $count == len($s):
+        print('YES')
+    else:
+        print('NO')
+rewrite:
+    $count = 0
+    for $i in $s:
+        if $i == '4' or $i == '7':
+            $count += 1
+    if $count == 4 or $count == 7:
+        print('YES')
+    else:
+        print('NO')
+
+rule fix_return_wrong_lucky_digit_check
+symptoms: wrong
+match:
+    return $f($count)
+where: match($f, "$g:Name") and text($g) != "is_lucky_digit"
+rewrite:
+    return $count == 4 or $count == 7
+
+rule fix_bool_loop_or_condition_to_counting
+symptoms: wrong
+match:
+    for $i in $s:
+        if $i != '4' and $i != '7':
+            $flag = False
+            break
+    print("YES" if $flag == True else "NO")
+rewrite:
+    count = 0
+    for $i in $s:
+        if $i == '4' or $i == '7':
+            count += 1
+    if count == 4 or count == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule fix_input_print_noise
+symptoms: wrong
+match:
+    print($x)
+    print($y)
+where: text($x) != text($y)
+rewrite:
+    print($x)

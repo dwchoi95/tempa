@@ -1,0 +1,258 @@
+rule fix_output_yes_no_case_and_count_check_string
+symptoms: wrong
+match:
+    if $c == 4 or $c == 7:
+        $P1
+    else:
+        $P2
+where:
+    text($P1) in {"print('Yes')", 'print("Yes")', "print('yes')", 'print("yes")', "print('NO')", 'print("NO")'} and
+    text($P2) in {"print('No')", 'print("No")', "print('no')", 'print("no")', "print('YES')", 'print(\"YES\")'}
+rewrite:
+    if $c == 4 or $c == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule fix_output_yes_no_case_and_count_check_inline
+symptoms: wrong
+match:
+    print("YES") if $c == 4 or $c == 7 else print("NO")
+rewrite:
+    print("YES") if $c == 4 or $c == 7 else print("NO")
+
+rule fix_digit_comparison_to_string_digits
+symptoms: wrong
+match:
+    if $x == 4 or $x == 7:
+        $B:Stmts
+rewrite:
+    if $x == '4' or $x == '7':
+        $B
+
+rule fix_digit_comparison_to_string_digits_range
+symptoms: wrong
+match:
+    if $x[$i] == 4 or $x[$i] == 7:
+        $B:Stmts
+rewrite:
+    if $x[$i] == '4' or $x[$i] == '7':
+        $B
+
+rule fix_sum_count_lucky_digits_bound_check
+symptoms: wrong
+match:
+    if $N == (4 or 7):
+        $B1:Stmts
+    else:
+        $B2:Stmts
+rewrite:
+    if $N == 4 or $N == 7:
+        $B1
+    else:
+        $B2
+
+rule fix_count_digits_not_all_digits
+symptoms: wrong
+match:
+    if $c == len($s):
+        $B1:Stmts
+    else:
+        $B2:Stmts
+where:
+    some($c, "$v:Name") and some($s, "$v:Name")
+rewrite:
+    if $c == 4 or $c == 7:
+        $B1
+    else:
+        $B2
+
+rule fix_lucky_digit_count_from_counting_all_digits
+symptoms: wrong
+match:
+    $cnt = 0
+    for $i in $s:
+        $cnt = $cnt + 1
+rewrite:
+    $cnt = 0
+    for $i in $s:
+        if $i == '4' or $i == '7':
+            $cnt = $cnt + 1
+
+rule fix_lucky_digit_count_from_isdigit
+symptoms: wrong
+match:
+    $cnt = 0
+    for $ch in $s:
+        if $ch.isdigit():
+            $cnt += 1
+rewrite:
+    $cnt = 0
+    for $ch in $s:
+        if $ch == '4' or $ch == '7':
+            $cnt += 1
+
+rule fix_lucky_digit_count_wrong_index_type
+symptoms: wrong
+match:
+    for $i in range(len($s)):
+        if $s[$i] == 4 or $s[$i] == 7:
+            $cnt += 1
+rewrite:
+    for $i in range(len($s)):
+        if $s[$i] == '4' or $s[$i] == '7':
+            $cnt += 1
+
+rule fix_while_digit_check_to_variable
+symptoms: wrong
+match:
+    while $n > 0:
+        $a = $n % 10
+        if $n == 4 or $n == 7:
+            $cnt += 1
+        $n = $n // 10
+rewrite:
+    while $n > 0:
+        $a = $n % 10
+        if $a == 4 or $a == 7:
+            $cnt += 1
+        $n = $n // 10
+
+rule fix_while_digit_check_to_variable_alt
+symptoms: wrong
+match:
+    while $n != 0:
+        $a = $n % 10
+        if $n == 4 or $n == 7:
+            $cnt += 1
+        $n = $n // 10
+rewrite:
+    while $n != 0:
+        $a = $n % 10
+        if $a == 4 or $a == 7:
+            $cnt += 1
+        $n = $n // 10
+
+rule fix_while_division_to_floor
+symptoms: wrong
+match:
+    $n = int($n / 10)
+rewrite:
+    $n = $n // 10
+
+rule fix_count_digits_with_break_on_nonlucky
+symptoms: wrong
+match:
+    for $i in $s:
+        if $i == '7' or $i == '4':
+            $cnt = $cnt + 1
+        else:
+            break
+rewrite:
+    for $i in $s:
+        if $i == '7' or $i == '4':
+            $cnt = $cnt + 1
+
+rule fix_check_count_not_length
+symptoms: wrong
+match:
+    if $cnt == len($s):
+        $P1:Stmts
+    else:
+        $P2:Stmts
+rewrite:
+    if $cnt == 4 or $cnt == 7:
+        $P1
+    else:
+        $P2
+
+rule fix_count_modulus_logic
+symptoms: wrong
+match:
+    if $count % 4 == 0 or $count % 7 == 0:
+        $P1:Stmts
+    else:
+        $P2:Stmts
+rewrite:
+    if $count == 4 or $count == 7:
+        $P1
+    else:
+        $P2
+
+rule fix_or_truthiness_in_count_check
+symptoms: wrong
+match:
+    if $count == 4 or 7:
+        $P1:Stmts
+    else:
+        $P2:Stmts
+rewrite:
+    if $count == 4 or $count == 7:
+        $P1
+    else:
+        $P2
+
+rule fix_count_and_digit_compare_for_list
+symptoms: wrong
+match:
+    if $count == len($n):
+        $P1:Stmts
+    else:
+        $P2:Stmts
+where:
+    some($n, "list(str(_))") or some($n, "list(input())") or some($n, "list(set(input()))")
+rewrite:
+    if $count == 4 or $count == 7:
+        $P1
+    else:
+        $P2
+
+rule fix_boolean_or_on_counts
+symptoms: wrong
+match:
+    if $a + $b == len($t) or len($t) == 7 or len($t) == 4:
+        $P1:Stmts
+    else:
+        $P2:Stmts
+rewrite:
+    if $a + $b == 4 or $a + $b == 7:
+        $P1
+    else:
+        $P2
+
+rule fix_count_digits_return_bool_to_yes_no
+symptoms: wrong
+match:
+    return $c in ($x, $y)
+rewrite:
+    return "YES" if $c in ($x, $y) else "NO"
+
+rule fix_lucky_function_only_checks_all_digits
+symptoms: wrong
+match:
+    def $f($*args):
+        $B1:Stmts
+        return "YES"
+rewrite:
+    def $f($*args):
+        $B1
+        return "YES" if False else "NO"
+
+rule fix_printed_prompt_input
+symptoms: wrong
+match:
+    n = int(input("Enter a number:"))
+rewrite:
+    n = int(input())
+
+rule fix_printing_debug_values
+symptoms: wrong
+match:
+    print($x)
+rewrite:
+    $X = $x
+|   pass
+where:
+    regex($x, r"^(count|lucky_count|num_t|daudzums|res|cnt|x|c)$")
+rewrite:
+    pass

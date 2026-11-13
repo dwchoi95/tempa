@@ -1,0 +1,253 @@
+rule remove_before_append_max
+symptoms: wrong
+match:
+    $lst.remove(max($lst))
+    $arr.append(max($lst))
+rewrite:
+    $arr.append(max($lst))
+    $lst.remove(max($lst))
+
+rule append_to_undefined_accumulator
+symptoms: wrong, err:NameError
+match: $w:Name.append($x)
+where: inside("def $f($*xs): $B:Stmts") and not some($B, "$w = _") and some($B, "$acc:Name = []") and $acc != $w
+rewrite: $acc.append($x)
+
+rule return_undefined_accumulator
+symptoms: wrong, err:NameError
+match: return $w:Name
+where: inside("def $f($*xs): $B:Stmts") and not some($B, "$w = _") and some($B, "$acc:Name = []") and $acc != $w
+rewrite: return $acc
+
+rule append_undefined_value_use_tracked_var
+symptoms: wrong, err:NameError
+match: $arr.append($x:Name)
+where: inside("def $f($*xs): $B:Stmts") and not some($B, "$x = _") and some($B, "if $e $o:Cmp $v:Name:\n    $v = $e") and $x != $v
+rewrite: $arr.append($v)
+
+rule if_update_wrong_var
+symptoms: wrong, err:NameError
+match:
+    if $e $o:Cmp $v:Name:
+        $w:Name = $e
+where: $w != $v
+rewrite:
+    if $e $o:Cmp $v:Name:
+        $v = $e
+
+rule loop_var_mismatch_in_comparison
+symptoms: wrong, err:NameError
+match:
+    for $e:Name in $lst:
+        if $w:Name $o:Cmp $v:Name:
+            $v = $w
+where: $w != $e
+rewrite:
+    for $e in $lst:
+        if $e $o:Cmp $v:
+            $v = $e
+
+rule use_loopvar_instead_of_tracked_var
+symptoms: wrong
+match:
+    for $e in $lst:
+        if $e $o:Cmp $v:Name:
+            $v = $e
+    $lst.remove($e)
+    $arr.append($e)
+    |
+    for $e in $lst:
+        if $e $o:Cmp $v:Name:
+            $v = $e
+    $arr.append($e)
+    $lst.remove($e)
+where: $e != $v
+rewrite:
+    for $e in $lst:
+        if $e $o:Cmp $v:Name:
+            $v = $e
+    $lst.remove($v)
+    $arr.append($v)
+
+rule init_inside_for_should_be_outside
+symptoms: wrong
+match:
+    for $e in $lst:
+        $v:Name = $lst[0]
+        if $e $o:Cmp $v:
+            $v = $e
+rewrite:
+    $v = $lst[0]
+    for $e in $lst:
+        if $e $o:Cmp $v:
+            $v = $e
+
+rule wrong_comparison_direction_for_max
+symptoms: wrong
+match:
+    $v = $lst[0]
+    for $e in $lst:
+        if $e < $v:
+            $v = $e
+rewrite:
+    $v = $lst[0]
+    for $e in $lst:
+        if $e > $v:
+            $v = $e
+
+rule off_by_one_le_k_loop_condition
+symptoms: wrong
+match: while $c <= $k:
+rewrite: while $c < $k:
+
+rule off_by_one_while_k_ge_zero
+symptoms: wrong
+match: while $k >= 0:
+rewrite: while $k > 0:
+
+rule hardcoded_slice_bound
+symptoms: wrong
+match: return $x[:$n:Int]
+where: inside("def $f($p, $k): $B:Stmts")
+rewrite: return $x[:$k]
+
+rule return_slice_k_plus_one
+symptoms: wrong
+match: return $x[:$k + 1]
+where: inside("def $f($p, $k): $B:Stmts")
+rewrite: return $x[:$k]
+
+rule return_slice_k_minus_one
+symptoms: wrong
+match: return $x[:$k - 1]
+where: inside("def $f($p, $k): $B:Stmts")
+rewrite: return $x[:$k]
+
+rule return_param_instead_of_built_list
+symptoms: wrong
+match: return $p[:$k]
+where: inside("def $f($p, $*ys): $B:Stmts") and some($B, "$res.append($_)") and $res != $p
+rewrite: return $res[:$k]
+
+rule append_wrong_value_arg
+symptoms: wrong
+match:
+    $m = max($lst)
+    $arr.append($lst)
+    $lst.remove($m)
+rewrite:
+    $m = max($lst)
+    $arr.append($m)
+    $lst.remove($m)
+
+rule append_of_remove_returns_none
+symptoms: wrong
+match: $arr.append($lst.remove($v))
+rewrite:
+    $arr.append($v)
+    $lst.remove($v)
+
+rule method_call_using_brackets
+symptoms: wrong, err:TypeError
+match: $o.$m:Attr[$a]
+where: text($m) in {"append", "remove", "pop"}
+rewrite: $o.$m($a)
+
+rule compare_index_to_value_instead_of_element
+symptoms: wrong
+match: if $i == max($lst):
+where: inside("for $i in range(len($lst)):")
+rewrite: if $lst[$i] == max($lst):
+
+rule extend_with_index_instead_of_value
+symptoms: wrong
+match: $lst.extend([$i:Name])
+where: $i != $lst
+rewrite: $lst.extend([$lst[$i]])
+
+rule recursive_call_wrong_list_arg
+symptoms: wrong, err:NameError
+match: $f($w:Name, $k - 1)
+where: inside("def $f($p, $k): $B:Stmts") and not some($B, "$w = _") and some($B, "$acc:Name = $p.copy()") and $acc != $w
+rewrite: $f($acc, $k - 1)
+
+rule missing_return_after_while_loop
+symptoms: wrong
+match: while $c < $k:
+where: last() and inside("def $f($*xs): $B:Stmts") and some($B, "$arr.append($_)") and not some($B, "return $_")
+rewrite:
+    while $c < $k:
+    return $arr
+
+rule missing_list_removal_each_iteration
+symptoms: wrong, timeout
+match:
+    while $c < $k:
+        $arr.append(max($lst))
+        $c += 1
+    |
+    while $c < $k:
+        $arr += [max($lst)]
+        $c += 1
+rewrite:
+    while $c < $k:
+        $arr.append(max($lst))
+        $lst.remove(max($lst))
+        $c += 1
+    |
+    while $c < $k:
+        $arr += [max($lst)]
+        $lst.remove(max($lst))
+        $c += 1
+
+rule search_and_remove_missing_break
+symptoms: wrong
+match:
+    for $i in range(-len($lst), -1):
+        if $lst[$i] == max($lst):
+            $arr.append($lst.pop($i))
+            $cnt += 1
+rewrite:
+    for $i in range(-len($lst), 0):
+        if $lst[$i] == max($lst):
+            $arr.append($lst.pop($i))
+            break
+    $cnt += 1
+
+rule broken_manual_swap
+symptoms: wrong
+match:
+    $lst[$i] = $lst[$j]
+    $lst[$j] = $lst[$i]
+rewrite:
+    $lst[$i], $lst[$j] = $lst[$j], $lst[$i]
+
+rule single_pass_bubble_needs_outer_loop
+symptoms: wrong
+match:
+    for $i in range(len($lst) - 1):
+        if $lst[$i] < $lst[$i + 1]:
+            $lst[$i], $lst[$i + 1] = $lst[$i + 1], $lst[$i]
+rewrite:
+    for $j in range(len($lst)):
+        for $i in range(len($lst) - 1):
+            if $lst[$i] < $lst[$i + 1]:
+                $lst[$i], $lst[$i + 1] = $lst[$i + 1], $lst[$i]
+
+rule return_inside_while_should_be_after
+symptoms: wrong
+match:
+    while $c:
+        $A:Stmts
+        return $r
+where: last()
+rewrite:
+    while $c:
+        $A
+    return $r
+
+rule add_k_zero_check_to_empty_list_guard
+symptoms: wrong
+match: if $lst == []:
+where: first() and inside("def $f($p, $k): $B:Stmts") and $lst == $p
+rewrite: if $lst == [] or $k == 0:

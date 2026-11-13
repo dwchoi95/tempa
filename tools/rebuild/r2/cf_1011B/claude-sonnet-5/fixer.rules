@@ -1,0 +1,22 @@
+rule binary_search_upper_bound_too_small
+symptoms: wrong
+match: $r = $k:Int
+where: $k < 1000 and after("while $r - $l > 1:")
+rewrite: $r = 100000
+
+rule greedy_balance_replace_with_direct_count
+symptoms: wrong
+match:
+    for $j in range(1, len($food)):
+        $B:Stmts
+where: some($B, "$b[$i] -= 1") and some($B, "$b[$k] += 1")
+       and before("$b[0] = $n") and before("$prev_days = $food[0] // $b[0]")
+rewrite:
+    $prev_days = 0
+    for ans_i in range(100, 0, -1):
+        tot = 0
+        for val in $food:
+            tot += val // ans_i
+        if tot >= $n:
+            $prev_days = ans_i
+            break

@@ -1,0 +1,273 @@
+rule bare_return_should_break_in_loop
+symptoms: wrong
+match: return
+where: inside("for $i in $s: $B:Stmts") or inside("while $c: $B:Stmts")
+rewrite: break
+
+rule fix_forward_reference_newseq
+symptoms: wrong, err:NameError
+match:
+    if $c:
+        return 0
+    elif $v[-1] < x:
+        return len($v)
+    $v = list($s)
+where: text($v) != "seq"
+rewrite:
+    if $c:
+        return 0
+    elif $s[-1] < x:
+        return len($s)
+    $v = list($s)
+
+rule empty_check_wrong_return
+symptoms: wrong
+match:
+    if $c:
+        return $v
+where: (match($c, "seq == () or seq == []") or match($c, "seq == [] or seq == ()") or match($c, "seq == ()") or match($c, "seq == []") or match($c, "len(seq) == 0") or match($c, "not seq") or match($c, "list(seq) == []") or match($c, "list(seq) == ()") or match($c, "seq == tuple()") or match($c, "seq is ()")) and not match($v, "0")
+rewrite:
+    if $c:
+        return 0
+
+rule empty_check_assign_instead_of_return
+symptoms: wrong
+match:
+    if $c:
+        $p:Name = $z:Int
+where: (match($c, "seq == () or seq == []") or match($c, "seq == [] or seq == ()")) and text($z) == "0"
+rewrite:
+    if $c:
+        return 0
+
+rule malformed_or_empty_check_a
+symptoms: wrong
+match: seq == () or []
+rewrite: seq == () or seq == []
+
+rule malformed_or_empty_check_b
+symptoms: wrong
+match: seq == [] or ()
+rewrite: seq == [] or seq == ()
+
+rule malformed_and_empty_check_a
+symptoms: wrong
+match: seq == () and []
+rewrite: len(seq) == 0
+
+rule malformed_and_empty_check_b
+symptoms: wrong
+match: seq == [] and ()
+rewrite: len(seq) == 0
+
+rule tuple_only_empty_check_to_general
+symptoms: wrong, err:IndexError
+match: if seq == ():
+where: first()
+rewrite: if len(seq) == 0:
+
+rule loop_returns_len_too_early_range
+symptoms: wrong
+match:
+    for $i in range(len($s)):
+        if $cond:
+            return $i2
+        else:
+            return len($s2)
+    |
+    for $i in range(len($s)):
+        if $cond:
+            return $i2
+        return len($s2)
+where: $i == $i2 and $s == $s2
+rewrite:
+    for $i in range(len($s)):
+        if $cond:
+            return $i2
+    return len($s2)
+
+rule loop_returns_len_too_early_enumerate
+symptoms: wrong
+match:
+    for $i, $e in enumerate($s):
+        if $cond:
+            return $i2
+        else:
+            return len($s2)
+    |
+    for $i, $e in enumerate($s):
+        if $cond:
+            return $i2
+        return len($s2)
+where: $i == $i2 and $s == $s2
+rewrite:
+    for $i, $e in enumerate($s):
+        if $cond:
+            return $i2
+    return len($s2)
+
+rule trailing_offbyone_after_loop
+symptoms: wrong, err:UnboundLocalError
+match: return $i + 1
+where: (before("for $i2 in range(len($s)): $B:Stmts") or before("for $i2, $e in enumerate($s): $B:Stmts")) and $i2 == $i
+rewrite: return len($s)
+
+rule off_by_one_minus_one_return
+symptoms: wrong
+match: return $c - 1
+where: inside("while $c2 < len($s): $B:Stmts") and $c == $c2
+rewrite: return $c
+
+rule missing_trailing_return_len_enumerate
+symptoms: wrong
+match: for $i, $e in enumerate($s): $B:Stmts
+where: last() and not some($B, "return len($s)")
+rewrite:
+    for $i, $e in enumerate($s):
+        $B
+    return len($s)
+
+rule missing_trailing_return_len_range
+symptoms: wrong
+match: for $i in range(len($s)): $B:Stmts
+where: last() and not some($B, "return len($s)")
+rewrite:
+    for $i in range(len($s)):
+        $B
+    return len($s)
+
+rule missing_trailing_return_len_plain
+symptoms: wrong
+match: for $e in $s: $B:Stmts
+where: last() and not some($B, "return len($s)") and regex($B, r"return") and not regex($s, r"^range\(") and not regex($s, r"^enumerate\(")
+rewrite:
+    for $e in $s:
+        $B
+    return len($s)
+
+rule range_missing_len
+symptoms: wrong, err:TypeError
+match: range($s)
+where: text($s) == "seq"
+rewrite: range(len($s))
+
+rule len_range_swapped
+symptoms: wrong, err:TypeError
+match: len(range($s))
+rewrite: range(len($s))
+
+rule bare_len_as_iterable
+symptoms: wrong, err:TypeError
+match: for $i in len($s):
+rewrite: for $i in range(len($s)):
+
+rule shadowed_x_in_enumerate
+symptoms: wrong
+match:
+    for $i, x in enumerate($s):
+        if x < $s2[$i2]:
+            return $i3
+    return $r
+where: $i == $i2 and $i == $i3 and $s == $s2
+rewrite:
+    for $i, elem in enumerate($s):
+        if x <= elem:
+            return $i
+    return len($s)
+
+rule swapped_if_else_return_in_loop
+symptoms: wrong
+match:
+    for $i in range($n):
+        $e2 = $s[$i]
+        if x > $e2:
+            return 0
+        else:
+            return $i2
+where: $i == $i2
+rewrite:
+    for $i in range($n):
+        $e2 = $s[$i]
+        if x <= $e2:
+            return $i
+    return $n
+
+rule flipped_condition_and_value
+symptoms: wrong
+match:
+    if $s[$i] < x:
+        return x
+where: inside("for $i2 in range(len($s2)): $B:Stmts") and $i == $i2 and $s == $s2
+rewrite:
+    if $s[$i] >= x:
+        return $i
+
+rule strict_lt_to_lte_enumerate
+symptoms: wrong
+match: if x < $e:
+where: inside("for $i, $e2 in enumerate($s): $B:Stmts") and $e == $e2
+rewrite: if x <= $e:
+
+rule strict_lt_to_lte_range
+symptoms: wrong
+match: if x < $s[$i]:
+where: inside("for $i2 in range(len($s2)): $B:Stmts") and $i == $i2 and $s == $s2
+rewrite: if x <= $s[$i]:
+
+rule strict_gt_to_gte_enumerate
+symptoms: wrong
+match: if $e > x:
+where: inside("for $i, $e2 in enumerate($s): $B:Stmts") and $e == $e2
+rewrite: if $e >= x:
+
+rule strict_gt_to_gte_range
+symptoms: wrong
+match: if $s[$i] > x:
+where: inside("for $i2 in range(len($s2)): $B:Stmts") and $i == $i2 and $s == $s2
+rewrite: if $s[$i] >= x:
+
+rule overeager_upper_bound_neg1
+symptoms: wrong
+match: x >= seq[-1]
+where: parent("if $c:\n    return len(seq)")
+rewrite: x > seq[-1]
+
+rule overeager_upper_bound_lenexpr
+symptoms: wrong
+match: x >= seq[len(seq)-1]
+where: parent("if $c:\n    return len(seq)")
+rewrite: x > seq[len(seq)-1]
+
+rule count_less_than_flip
+symptoms: wrong
+match:
+    $c:Name = 0
+    for $e in $s:
+        if $e > x:
+            $c2 = $c3 + 1
+    return $c4
+where: $c == $c2 and $c == $c3 and $c == $c4
+rewrite:
+    $c = 0
+    for $e in $s:
+        if x > $e:
+            $c = $c + 1
+    return $c
+
+rule count_less_than_flip_augassign
+symptoms: wrong
+match:
+    $c:Name = 0
+    for $e in $s:
+        if x < $e:
+            $c2 += 1
+        else:
+            break
+where: $c == $c2
+rewrite:
+    $c = 0
+    for $e in $s:
+        if x > $e:
+            $c += 1
+        else:
+            break

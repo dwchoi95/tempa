@@ -1,0 +1,104 @@
+rule inch_round_threshold_two_to_one
+symptoms: wrong
+match: ($n + 2) // 3
+rewrite: ($n + 1) // 3
+
+rule round_add_remainder_instead_of_one
+symptoms: wrong
+match: $b = $n // 3 + $n % 3
+rewrite: $b = $n // 3 + 1
+
+rule feet_floor36_inches_round_independent
+symptoms: wrong
+match:
+    $feet = $n // 36
+    $inc = round($n / 3)
+rewrite:
+    $inc = round($n / 3)
+    $feet = $inc // 12
+    $inc %= 12
+
+rule feet_first_no_rounding_at_all
+symptoms: wrong
+match:
+    $feet = $n // 36
+    $rem = $n % $k:Int
+    print($feet, $rem // 3)
+where: text($k) in {"26", "36"}
+rewrite:
+    $total = $n + 1
+    $feet = $total // 36
+    $rem = ($total % 36) // 3
+    print($feet, $rem)
+
+rule feet_first_divmod_round_threshold
+symptoms: wrong
+match:
+    $feet, $rest = divmod($n, $k1)
+    $inc, $rest2 = divmod($rest, $k2)
+    print($feet, $inc + 1 if $rest2 > 1 else $inc)
+rewrite:
+    $total = ($n + 1) // $k2
+    $feet, $inc = divmod($total, $k1 // $k2)
+    print($feet, $inc)
+
+rule missing_inch_carry_before_print
+symptoms: wrong
+match: print($feet:Name, $inc, $*rest)
+where: before("$feet = $n // 36") or before("$feet = int($n / 36)") or before("$feet = int($n / 36 + 0.5)") or before("$feet = $x // 12")
+rewrite:
+    $incv = $inc
+    if $incv == 12:
+        $incv = 0
+        $feet += 1
+    print($feet, $incv, $*rest)
+
+rule missing_inch_carry_before_print_inline_feet
+symptoms: wrong
+match: print($n // 36, $inc, $*rest)
+rewrite:
+    $feet = $n // 36
+    $incv = $inc
+    if $incv == 12:
+        $incv = 0
+        $feet += 1
+    print($feet, $incv, $*rest)
+
+rule missing_inch_carry_before_print_3arg
+symptoms: wrong
+match: print($feet:Name, $sep, $inc)
+where: before("$feet = $n // 36") or before("$feet = int($n / 36 + 0.5)") or before("$feet = $x // 12")
+rewrite:
+    $incv = $inc
+    if $incv == 12:
+        $incv = 0
+        $feet += 1
+    print($feet, $sep, $incv)
+
+rule missing_inch_carry_before_print_strcat
+symptoms: wrong
+match: print(str($feet:Name) + $sep + str($inc))
+rewrite:
+    $incv = $inc
+    if $incv == 12:
+        $incv = 0
+        $feet += 1
+    print(str($feet) + $sep + str($incv))
+
+rule missing_int_cast_on_print_floats
+symptoms: wrong, err:TypeError
+match: print(str($a // 12)+' '+str($a % 12))
+rewrite: print(str(int($a // 12))+' '+str(int($a % 12)))
+
+rule single_combined_float_output_should_split
+symptoms: wrong
+match: print($n // 36 + ($n % 36) / 3)
+rewrite:
+    $n += 1
+    print($n // 36, $n % 36 // 3)
+
+rule roundhelper_self_reference
+symptoms: wrong
+match: if $f == $c:
+where: inside("def $f($p): $B:Stmts") and text($c) == "1"
+rewrite: if $p <= 1:

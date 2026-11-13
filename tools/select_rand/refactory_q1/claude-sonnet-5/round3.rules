@@ -1,0 +1,204 @@
+rule premature_return_else_range
+symptoms: wrong
+match:
+    for $i in range(len($seq)):
+        if $cond:
+            $S:Stmts
+        else:
+            return $b
+rewrite:
+    for $i in range(len($seq)):
+        if $cond:
+            $S:Stmts
+    return $b
+
+rule premature_return_else_enumerate
+symptoms: wrong
+match:
+    for $i, $e in enumerate($seq):
+        if $cond:
+            $S:Stmts
+        else:
+            return $b
+rewrite:
+    for $i, $e in enumerate($seq):
+        if $cond:
+            $S:Stmts
+    return $b
+
+rule missing_trailing_return_range
+symptoms: wrong
+match:
+    for $i in range(len($seq)):
+        $Body:Stmts
+where: last() and inside("def $f($x, $p): $B:Stmts") and $seq == $p
+rewrite:
+    for $i in range(len($seq)):
+        $Body:Stmts
+    return len($seq)
+
+rule missing_trailing_return_enumerate
+symptoms: wrong
+match:
+    for $i, $e in enumerate($seq):
+        $Body:Stmts
+where: last() and inside("def $f($x, $p): $B:Stmts") and $seq == $p
+rewrite:
+    for $i, $e in enumerate($seq):
+        $Body:Stmts
+    return len($seq)
+
+rule empty_check_wrong_var_and_none
+symptoms: wrong, err:IndexError
+match: if $x == () or $x == []: return None
+where: inside("def $f($x2, $p): $B:Stmts") and $x == $x2
+rewrite: if not $p: return 0
+
+rule return_seq_instead_of_zero
+symptoms: wrong
+match:
+    if $seq:
+        $T:Stmts
+    else:
+        return $seq
+rewrite:
+    if $seq:
+        $T:Stmts
+    else:
+        return 0
+
+rule max_min_guard_missing_loop
+symptoms: wrong
+match:
+    if max($seq) < $x:
+        return len($seq)
+    if $x <= min($seq):
+        return 0
+where: inside("def $f($x2, $p): $B:Stmts") and $x == $x2 and $seq == $p and last()
+rewrite:
+    if max($seq) < $x:
+        return len($seq)
+    if $x <= min($seq):
+        return 0
+    for i, elem in enumerate($seq):
+        if $x <= elem:
+            return i
+    return len($seq)
+
+rule missing_middle_search_loop
+symptoms: wrong
+match:
+    if $x < $seq[0]:
+        return 0
+    elif $x > $seq[-1]:
+        return len($seq)
+where: inside("def $f($x2, $p): $B:Stmts") and $x == $x2 and $seq == $p and last()
+rewrite:
+    if $x < $seq[0]:
+        return 0
+    elif $x > $seq[-1]:
+        return len($seq)
+    for i, elem in enumerate($seq):
+        if $x <= elem:
+            return i
+    return len($seq)
+
+rule for_elem_used_as_index
+symptoms: wrong, err:IndexError, err:TypeError
+match: for $i in $seq:
+where: inside("def $f($x, $p): $B:Stmts") and $seq == $p and some($B, "$seq[$i]")
+rewrite: for $i in range(len($seq)):
+
+rule for_in_len_missing_range
+symptoms: wrong, err:TypeError
+match: for $i in len($seq):
+rewrite: for $i in range(len($seq)):
+
+rule call_instead_of_index
+symptoms: wrong, err:TypeError
+match: $seq($i)
+where: inside("def $f($x, $p): $B:Stmts") and $seq == $p and load($i)
+rewrite: $seq[$i]
+
+rule off_by_one_return_len_plus_one
+symptoms: wrong
+match: return len($seq) + 1
+where: inside("def $f($x, $p): $B:Stmts") and $seq == $p
+rewrite: return len($seq)
+
+rule off_by_one_return_i_minus_one
+symptoms: wrong
+match: return $i - 1
+where: inside("for $i2 in range($_):") and $i == $i2
+rewrite: return $i
+
+rule off_by_one_return_int_i_minus_one
+symptoms: wrong
+match: return int($i - 1)
+where: inside("for $i2 in range($_):") and $i == $i2
+rewrite: return $i
+
+rule off_by_one_return_index_minus_one
+symptoms: wrong
+match: return $seq.index($i) - 1
+rewrite: return $seq.index($i)
+
+rule off_by_one_seq_len_index
+symptoms: wrong, err:IndexError
+match: $seq[len($seq)]
+rewrite: $seq[len($seq) - 1]
+
+rule off_by_one_range_two_arg
+symptoms: wrong, err:IndexError
+match:
+    for $i in range(0, len($seq) + 1):
+        $Body:Stmts
+where: some($Body, "$seq[$i + 1]")
+rewrite:
+    for $i in range(len($seq) - 1):
+        $Body:Stmts
+
+rule off_by_one_range_one_arg
+symptoms: wrong, err:IndexError
+match:
+    for $i in range(len($seq) + 1):
+        $Body:Stmts
+where: some($Body, "$seq[$i + 1]")
+rewrite:
+    for $i in range(len($seq) - 1):
+        $Body:Stmts
+
+rule off_by_one_range_len_minus_one_no_next_index
+symptoms: wrong
+match:
+    for $i in range(len($seq) - 1):
+        $Body:Stmts
+    return len($seq)
+where: not some($Body, "$seq[$i + 1]")
+rewrite:
+    for $i in range(len($seq)):
+        $Body:Stmts
+    return len($seq)
+
+rule or_bare_empty_list_missing_compare
+symptoms: wrong
+match: $seq == () or []
+rewrite: $seq == () or $seq == []
+
+rule or_bare_empty_tuple_missing_compare
+symptoms: wrong
+match: $seq == [] or ()
+rewrite: $seq == [] or $seq == ()
+
+rule list_build_search_empty_branch
+symptoms: wrong, err:NameError
+match:
+    if len($lst1) == 0:
+        $i:Name = 0
+    else:
+        $E:Stmts
+rewrite:
+    if len($lst1) == 0:
+        return 0
+    else:
+        $E:Stmts

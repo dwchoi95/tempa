@@ -1,0 +1,212 @@
+rule assign_wrong_var_in_max_search
+symptoms: wrong
+match:
+    for $elem in $lst:
+        if $elem[1] $o:Cmp $i[1]:
+            $i = $n:Name
+where: text($n) != text($elem)
+rewrite:
+    for $elem in $lst:
+        if $elem[1] $o:Cmp $i[1]:
+            $i = $elem
+
+rule swapped_assignment_in_max_search
+symptoms: wrong
+match:
+    for $elem in $lst:
+        if $elem[1] $o:Cmp $best[1]:
+            $elem = $best
+rewrite:
+    for $elem in $lst:
+        if $elem[1] $o:Cmp $best[1]:
+            $best = $elem
+
+rule broken_assignment_expr_stmt
+symptoms: wrong, err:NameError
+match:
+    if $i[1] $o:Cmp $best[1]:
+        $a - $b
+rewrite:
+    if $i[1] $o:Cmp $best[1]:
+        $best = $b
+
+rule append_wrong_accumulator
+symptoms: wrong, err:NameError
+match: $other:Name.append($x)
+where: inside("def $f($*ps): $Body:Stmts") and some($Body, "$coll:Name = []") and text($other) != text($coll) and not some($Body, "$other:Name = []")
+rewrite: $coll.append($x)
+
+rule return_wrong_accumulator
+symptoms: wrong, err:NameError
+match: return $other:Name
+where: inside("def $f($*ps): $Body:Stmts") and some($Body, "$coll:Name = []") and text($other) != text($coll) and not some($Body, "$other:Name = []")
+rewrite: return $coll
+
+rule duplicate_append_after_loop
+symptoms: wrong
+match:
+    while $c:
+        $B:Stmts
+    $coll:Name.append($x)
+    return $coll2
+where: $coll2 == $coll and some($B, "$coll3:Name.append($x2)") and $coll3 == $coll
+rewrite:
+    while $c:
+        $B
+    return $coll
+
+rule missing_final_return
+symptoms: wrong
+match: while $c:
+where: last() and inside("def $f($*ps): $Body:Stmts") and some($B, "$coll:Name.append($_)") and not some($Body, "return $_")
+rewrite:
+    while $c:
+    return $coll
+
+rule remove_debug_print_in_loop
+symptoms: wrong
+match: print($x)
+where: inside("while $c: $B:Stmts") and last()
+rewrite:
+
+rule print_instead_of_return_with_accumulator
+symptoms: wrong
+match: print($x)
+where: last() and not inside("while $c: $B:Stmts") and not inside("for $v in $l: $B2:Stmts") and inside("def $f($*ps): $Body:Stmts") and some($Body, "$coll:Name = []")
+rewrite: return $coll
+
+rule print_instead_of_return_plain
+symptoms: wrong
+match: print($x)
+where: last() and not inside("while $c: $B:Stmts") and not inside("for $v in $l: $B2:Stmts") and inside("def $f($*ps): $Body:Stmts") and not some($Body, "$coll:Name = []")
+rewrite: return $x
+
+rule init_and_fix_premature_return
+symptoms: wrong
+match:
+    while $c:
+        $B:Stmts
+        return $x:Name
+where: inside("def $f($*ps): $Body:Stmts") and some($Body, "$coll:Name.append($_)") and not some($Body, "$coll2:Name = []")
+rewrite:
+    $coll = []
+    while $c:
+        $B
+    return $coll
+
+rule fix_premature_return_only
+symptoms: wrong
+match:
+    while $c:
+        $B:Stmts
+        return $x:Name
+where: inside("def $f($*ps): $Body:Stmts") and some($Body, "$coll:Name = []")
+rewrite:
+    while $c:
+        $B
+    return $coll
+
+rule init_with_age_not_tuple
+symptoms: wrong, err:TypeError
+match: $best:Name = $lst[0][1]
+where: inside("def $f($*ps): $Body:Stmts") and some($Body, "$e:Name[1] $o:Cmp $best2:Name") and $best2 == $best
+rewrite: $best = $lst[0]
+
+rule compare_scalar_tracker_missing_index
+symptoms: wrong, err:TypeError
+match: $elem[1] $o:Cmp $best:Name
+where: inside("def $f($*ps): $Body:Stmts") and (some($Body, "$best2:Name = $lst[0]") or some($Body, "$best2:Name = $lst[0][1]")) and $best2 == $best
+rewrite: $elem[1] $o:Cmp $best[1]
+
+rule wrong_direction_in_selection
+symptoms: wrong
+match: $elem[1] $o:Cmp $best[1]
+where: inside("while $c: $B:Stmts") and some($B, "$lst2:Name.remove($best2)") and $best2 == $best and text($o) in {"<", "<="}
+rewrite: $elem[1] ${flip[$o]} $best[1]
+table flip: {"<": ">", "<=": ">="}
+
+rule pop_by_stale_index
+symptoms: wrong
+match: $coll:Name.append($lst.pop($i))
+where: prev("for $i in range(len($lst)): $B:Stmts") and some($B, "$oldest:Name = $lst[$i]")
+rewrite:
+    $lst.remove($oldest)
+    $coll.append($oldest)
+
+rule single_pass_aggregate_should_repeat
+symptoms: wrong
+match:
+    for $item in $lst:
+        if min($ages) == $item[1]:
+            $output:Name.append($item)
+            $ages.remove($bad:Name)
+rewrite:
+    while $ages:
+        $m = max($ages)
+        for $item in $lst:
+            if $item[1] == $m:
+                $output.append($item)
+                $ages.remove($m)
+                break
+
+rule single_selection_no_repetition_loop
+symptoms: wrong
+match:
+    for $i in range($start, len($lst)):
+        if $lst[$i][1] $o:Cmp $best:
+            $best = $lst[$i][1]
+            $s = $lst[$i]
+    $coll:Name += $s
+    return $coll
+rewrite:
+    while $lst:
+        $best = $lst[0][1]
+        $s = $lst[0]
+        for $i in range($start, len($lst)):
+            if $lst[$i][1] > $best:
+                $best = $lst[$i][1]
+                $s = $lst[$i]
+        $coll.append($s)
+        $lst.remove($s)
+    return $coll
+
+rule call_then_reverse_misattached
+symptoms: wrong, err:AttributeError
+match: $f($x).reverse()
+where: inside("def $g($*ps): $Body:Stmts") and some($Body, "def $f2($*ps2): $B2:Stmts") and $f2 == $f and not some($B2, "return $_")
+rewrite:
+    $f($x)
+    $x.reverse()
+
+rule return_reverse_returns_none
+symptoms: wrong
+match: return $x.reverse()
+rewrite:
+    $x.reverse()
+    return $x
+
+rule integer_division_slice
+symptoms: wrong, err:TypeError
+match: $n / 2
+rewrite: $n // 2
+
+rule merge_without_recursion
+symptoms: wrong
+match: return merge($left, $right)
+where: inside("def $f($*ps): $Body:Stmts") and match($left, "$l:Name") and match($right, "$r:Name") and some($Body, "$l2:Name = $lst2[:$k]") and $l2 == $left
+rewrite: return merge($f($left), $f($right))
+
+rule merge_compare_direction
+symptoms: wrong
+match: $one[0][1] < $two[0][1]
+where: inside("def $m($*ps): $Body:Stmts") and some($Body, "$one2:Name.pop(0)") and $one2 == $one
+rewrite: $one[0][1] > $two[0][1]
+
+rule merge_missing_flush
+symptoms: wrong
+match: while $one and $two:
+where: inside("def $m($*ps): $Body:Stmts") and some($Body, "$coll:Name = []") and not some($Body, "$coll2:Name.extend($_)")
+rewrite:
+    while $one and $two:
+    $coll.extend($one)
+    $coll.extend($two)

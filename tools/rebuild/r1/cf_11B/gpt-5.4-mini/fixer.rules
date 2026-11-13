@@ -1,0 +1,111 @@
+rule jumping_jack_abs_input_in_while_condition
+symptoms: wrong
+match:
+    x = int(input())
+    $s:Name = 0
+    $n:Name = 0
+    while $cond:
+        $n += 1
+        if $s + $n <= $x:
+            $s += $n
+        else:
+            $s -= $n
+where:
+    text($cond) in {"$s != $x", "$x != $s"}
+rewrite:
+    x = abs(int(input()))
+    $jumps:Name = 0
+    $pos:Name = 0
+    while $pos < x or (pos - x) % 2 != 0:
+        $jumps += 1
+        $pos += $jumps
+
+rule jumping_jack_map_input_to_abs_int
+symptoms: wrong
+match: x = map(int,input())
+rewrite: x = abs(int(input()))
+
+rule jumping_jack_fix_print_count_after_progress_loop
+symptoms: wrong
+match:
+    x = int(input())
+    count = 0
+    pos = 0
+    pos1 = 0
+    while pos != x:
+        count += 1
+        pos1 = pos + count
+        if pos1 < x:
+            pos = pos + count
+        elif pos1 > x:
+            pos = pos - count
+        elif pos1 == x:
+            pos = pos + count
+    print(count)
+rewrite:
+    x = abs(int(input()))
+    jumps = 0
+    pos = 0
+    while pos < x or (pos - x) % 2 != 0:
+        jumps += 1
+        pos += jumps
+    print(jumps)
+
+rule jumping_jack_fix_triangulation_search_loop
+symptoms: wrong
+match:
+    a = int(input())
+    n = 1
+    while True:
+        if a == 0:
+            print(0)
+            break
+        elif a > 0:
+            if (n*n+n)/2 < a:
+                n += 1
+            elif (n*n+n)/2 == a:
+                print(int(n))
+                break
+            elif (n*n+n)/2 > a:
+                c = int(n+(((n*n+n)/2)-a)*2)
+                d = int(n-1+(a-(n*(n-1))/2)*2)
+                print(min(c, d))
+                break
+        elif a < 0:
+            a = abs(a)
+            if (n*n+n)/2 < a:
+                n += 1
+            elif (n*n+n)/2 == a:
+                print(int(n))
+                break
+            elif (n*n+n)/2 > a:
+                c = int(n+(((n*n+n)/2)-a)*2)
+                d = int(n-1+(a-(n*(n-1))/2)*2)
+                print(min(c, d))
+                break
+rewrite:
+    x = abs(int(input()))
+    jumps = 0
+    pos = 0
+    while pos < x or (pos - x) % 2 != 0:
+        jumps += 1
+        pos += jumps
+    print(jumps)
+
+rule jumping_jack_fix_return_count_to_jumps
+symptoms: wrong
+match: return count
+where: inside("def $f($*xs): $B:Stmts") and some($B, "jumps = 0")
+rewrite: return jumps
+
+rule jumping_jack_fix_print_count_to_jumps
+symptoms: wrong
+match: print(count)
+where: inside("def $f($*xs): $B:Stmts") and some($B, "jumps = 0")
+rewrite: print(jumps)
+
+rule jumping_jack_nonnegative_loop_bound_to_abs
+symptoms: wrong
+match: while $cond:
+where: regex($cond, r"\b[a-zA-Z_]\w*\s*[<>]=?\s*0\b") and not regex($cond, r"abs\s*\(")
+rewrite: while abs($cond):

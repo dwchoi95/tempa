@@ -1,0 +1,7 @@
+; a `global __qualname__` in a dead branch of a class body redirects the class body's
+; implicit `__qualname__ = 'C'` to the module: p raises NameError at line 6, q prints C
+(pair
+ (module
+  (class 1 C ((if 2 (const 3 False) ((expr 4 (const 5 None))) ())))
+  (print 6 (name 7 __qualname__)))
+ (sites (stmts 4 ((global 4 __qualname__)))))

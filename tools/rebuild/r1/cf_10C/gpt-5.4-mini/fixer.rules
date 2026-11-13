@@ -1,0 +1,131 @@
+rule fix_digital_root_count_formula
+symptoms: wrong
+match:
+    n=int(input())
+
+    $dct={}
+    $m=[]
+    def $root(num):
+        if(num<=9):
+            return num
+        if(num in $dct.keys()):
+            $m.append(0)
+            return $dct[num]
+        $s=str(num)
+        $sm=0
+        for $i in $s:
+            $sm=$sm+int($i)
+        $dct[num]=$root($sm)
+        return $dct[num]
+
+    $dct1={}
+    $dctn={}
+    for $i in range(1,n+1):
+        for $j in range(1,n+1):
+            $x=$root($i*$j)
+            if($x in $dct1.keys()):
+                if($i==1):
+                    $dctn[$x].append($j)
+                $dct1[$x].append($i*$j)
+            else:
+                if($i==1):
+                    $dctn[$x]=[$j]
+                $dct1[$x]=[$i*$j]
+
+    $s=0
+    $*rest
+    for $i in $dctn.keys():
+        $l=len($dctn[$i])
+        for $j in $dct1[$i]:
+           if($j not in $dctn[$i]):
+               $s=$s+$l
+    print($s)
+rewrite:
+    from math import sqrt, floor
+
+    n = int(input())
+
+    true_products, a = 0, 1
+
+    while a ** 2 <= n:
+        true_products += n // a - a
+        a += 1
+
+    true_products *= 2
+    true_products += floor(sqrt(n))
+
+    digit_roots = [n // 9 for _ in range(9)]
+    for i in range(1, n % 9 + 1):
+        digit_roots[i] += 1
+
+    digit_root_products = 0
+
+    for i in range(9):
+        for j in range(9):
+            digit_root_products += digit_roots[i] * digit_roots[j] * digit_roots[(i * j) % 9]
+
+    print(digit_root_products - true_products)
+
+rule replace_wrong_input_to_int_in_digital_root_function
+symptoms: wrong, err:TypeError
+match:
+    def $f($x):
+        while len(str($x))!=1:
+            $x = sum(int($d) for $d in str($x))
+        return $x
+rewrite:
+    def $f($x):
+        $x = int($x)
+        while len(str($x))!=1:
+            $x = sum(int($d) for $d in str($x))
+        return $x
+
+rule fix_single_step_digital_root_base_case
+symptoms: wrong
+match:
+    if($x<=9):
+        return $x
+rewrite:
+    if($x<10):
+        return $x
+
+rule fix_counting_start_and_step
+symptoms: wrong
+match:
+    for $i in range(1,n+1):
+        for $j in range($i,n+1):
+            $*body
+rewrite:
+    for $i in range(1,n+1):
+        for $j in range(1,n+1):
+            $*body
+
+rule fix_extra_self_product_count
+symptoms: wrong
+match:
+    for $a in range(1,n+1):
+        for $b in range(1,n+1):
+            $x=$root($a*$b)
+            $*mid
+            if($x in $dct1.keys()):
+                $*tail
+            else:
+                $*tail2
+rewrite:
+    for $a in range(1,n+1):
+        for $b in range(1,n+1):
+            $x=$root($a*$b)
+            $*mid
+            if($x in $dct1.keys()):
+                $*tail
+            else:
+                $*tail2
+
+rule fix_range_off_by_one
+symptoms: wrong
+match:
+    for $i in range(1, n+1):
+        $*body
+rewrite:
+    for $i in range(1, n):
+        $*body

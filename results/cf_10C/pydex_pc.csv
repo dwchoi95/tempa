@@ -1,0 +1,107 @@
+Buggy,Model,Source,Patch,Fixed,RPS,ATT_all,ATT_cpu,ATT_api,InT,OuT,$API,Rules_L,Rules_SL
+134903349,claude-sonnet-5,llm,"n = int(input())
+q,r = divmod(n,9)
+d = [q]+[q+1]*r+[q]*(8-r)
+res = 0
+for i in range(9):
+    for j in range(9):
+        res += d[i]*d[j]*d[(i*j)%9]
+for i in range(1,n+1): res -= n//i
+print(res)",True,3.2778,89.8896,4.2634,85.6263,10550,59014,0.594677,[],[]
+70108877,claude-sonnet-5,llm,"from math import sqrt, floor
+
+n = int(input())
+
+true_products, a = 0, 1
+
+while a ** 2 <= n:
+	true_products += n // a - a
+	a += 1
+
+true_products *= 2
+
+true_products += floor(sqrt(n))
+
+digit_roots = [n // 9 for _ in range(9)]
+for i in range(1, n % 9 + 1):
+	digit_roots[i] += 1
+
+digit_root_products = 0
+
+for i in range(9):
+	for j in range(9):
+		digit_root_products += digit_roots[i] * digit_roots[j] * digit_roots[(i * j) % 9]
+
+print(digit_root_products - true_products)",True,1.3895,121.5674,42.0751,79.4922,11590,61793,0.622914,[],[]
+82322301,claude-sonnet-5,llm,"n = int(input())
+q, r = divmod(n, 9)
+d = [q] + [q+1]*r + [q]*(8-r)
+res = 0
+for i in range(9):
+    for j in range(9):
+        res += d[i] * d[j] * d[(i*j) % 9]
+for i in range(1, n+1):
+    res -= n // i
+print(res)",True,0.9362,128.3852,48.6629,79.7223,10550,79551,0.800046,[],[]
+134903349,gpt-5.4-mini,llm,"n = int(input())
+
+true_products = 0
+a = 1
+while a * a <= n:
+    true_products += n // a - a
+    a += 1
+
+true_products *= 2
+true_products += int(n ** 0.5)
+
+digit_roots = [n // 9] * 9
+for i in range(1, n % 9 + 1):
+    digit_roots[i] += 1
+
+digit_root_products = 0
+for i in range(9):
+    for j in range(9):
+        digit_root_products += digit_roots[i] * digit_roots[j] * digit_roots[(i * j) % 9]
+
+print(digit_root_products - true_products)",True,3.9444,3.2052,0.5968,2.6084,7280,1798,0.013551,[],[]
+70108877,gpt-5.4-mini,llm,"from math import sqrt, floor
+
+n = int(input())
+
+true_products, a = 0, 1
+
+while a ** 2 <= n:
+    true_products += n // a - a
+    a += 1
+
+true_products *= 2
+true_products += floor(sqrt(n))
+
+digit_roots = [n // 9 for _ in range(9)]
+for i in range(1, n % 9 + 1):
+    digit_roots[i] += 1
+
+digit_root_products = 0
+
+for i in range(9):
+    for j in range(9):
+        digit_root_products += digit_roots[i] * digit_roots[j] * digit_roots[(i * j) % 9]
+
+print(digit_root_products - true_products)",True,1.3895,44.2354,42.7095,1.5259,8020,1758,0.013926,[],[]
+82322301,gpt-5.4-mini,llm,"n = int(input())
+
+q, r = divmod(n, 9)
+cnt = [q] * 9
+for i in range(1, r + 1):
+    cnt[i] += 1
+
+digit_root_products = 0
+for i in range(9):
+    for j in range(9):
+        digit_root_products += cnt[i] * cnt[j] * cnt[(i * j) % 9]
+
+true_products = 0
+for i in range(1, n + 1):
+    true_products += n // i
+
+print(digit_root_products - true_products)",True,0.9149,55.425,53.1876,2.2374,7280,1337,0.011477,[],[]

@@ -1,0 +1,160 @@
+rule reverse_sort_to_selection_sort_desc
+symptoms: wrong
+match:
+    $lst.sort(key = $key, reverse = True)
+    return $lst
+|
+    $lst.sort(key=lambda $x: $key)
+    return $lst
+rewrite:
+    sort = []
+    while $lst:
+        largest = $lst[0]
+        for element in $lst:
+            if $key(element) > $key(largest):
+                largest = element
+        $lst.remove(largest)
+        sort.append(largest)
+    return sort
+
+rule reverse_sort_to_selection_sort_desc_print_only
+symptoms: wrong
+match:
+    $lst.sort(key = $key, reverse = True)
+    print($lst)
+rewrite:
+    sort = []
+    while $lst:
+        largest = $lst[0]
+        for element in $lst:
+            if $key(element) > $key(largest):
+                largest = element
+        $lst.remove(largest)
+        sort.append(largest)
+    return sort
+
+rule reverse_list_after_ascending_selection
+symptoms: wrong
+match:
+    sort.append($smallest)
+    $lst.remove($smallest)
+    sort.reverse()
+    return sort
+rewrite:
+    sort.append($smallest)
+    $lst.remove($smallest)
+    return sort[::-1]
+
+rule ascending_selection_to_descending_output
+symptoms: wrong
+match:
+    while $lst:
+        $smallest = $lst[0]
+        for $e in $lst:
+            if $e[1] < $smallest[1]:
+                $smallest = $e
+        $lst.remove($smallest)
+        $out.append($smallest)
+    return $out
+where:
+    text($out) in {"sort", "sorted", "result", "new_lst", "newlist", "list1", "output", "final", "s", "a"}
+rewrite:
+    while $lst:
+        $smallest = $lst[0]
+        for $e in $lst:
+            if $e[1] < $smallest[1]:
+                $smallest = $e
+        $lst.remove($smallest)
+        $out.append($smallest)
+    return $out[::-1]
+
+rule selection_compare_tuple_not_age
+symptoms: wrong
+match:
+    if $a $op:Cmp $b:
+        $smallest = $x
+rewrite:
+    if $a[1] $op $b[1]:
+        $smallest = $x
+
+rule selection_compare_name_not_tuple
+symptoms: wrong
+match:
+    if $x > $y:
+        $biggest = $z
+rewrite:
+    if $x[1] > $y[1]:
+        $biggest = $z
+
+rule remove_wrong_variable_after_scan
+symptoms: wrong
+match:
+    $v.remove($wrong)
+    $out.append($wrong)
+where:
+    some($wrong, "$w:Name")
+rewrite:
+    $v.remove($candidate)
+    $out.append($candidate)
+
+rule append_and_remove_must_use_selected_value
+symptoms: wrong
+match:
+    $v.remove($sel[1])
+    $out.append($sel[1])
+rewrite:
+    $v.remove($sel)
+    $out.append($sel)
+
+rule reverse_result_at_end
+symptoms: wrong
+match:
+    return $x
+where:
+    text($x) in {"sort", "result", "new_lst", "newlist", "list1", "output", "final", "s", "a"}
+rewrite:
+    return $x[::-1]
+
+rule missing_return_after_sorting
+symptoms: wrong
+match:
+    $body:Stmts
+where:
+    inside("def $f($*xs): $B:Stmts") and not some($body, "return $_")
+rewrite:
+    $body
+    return lst
+
+rule off_by_one_range_end
+symptoms: wrong
+match:
+    for $i in range(len($lst)-1):
+        $body:Stmts
+rewrite:
+    for $i in range(len($lst)):
+        $body
+
+rule swap_needs_tuple_items_not_values
+symptoms: wrong
+match:
+    $lst[$i][1], $lst[$j][1] = $lst[$j][1], $lst[$i][1]
+rewrite:
+    $lst[$i], $lst[$j] = $lst[$j], $lst[$i]
+
+rule min_to_max_in_selection_loop
+symptoms: wrong
+match:
+    if $e[1] < $best[1]:
+        $best = $e
+rewrite:
+    if $e[1] > $best[1]:
+        $best = $e
+
+rule use_current_element_not_loop_variable
+symptoms: wrong
+match:
+    $lst.remove($i)
+    $out.append($i)
+rewrite:
+    $lst.remove($curr)
+    $out.append($curr)

@@ -1,0 +1,139 @@
+rule append_wrong_variable_after_max_search
+symptoms: wrong
+match:
+    $a = max($lst)
+    $lst.remove($a)
+    $res.append($w)
+where:
+    $w != $a and inside("def $f($*ps): $B:Stmts")
+rewrite:
+    $a = max($lst)
+    $lst.remove($a)
+    $res.append($a)
+
+rule append_max_instead_of_list
+symptoms: wrong
+match:
+    $res.append($x)
+where:
+    inside("def $f($*ps): $B:Stmts") and some($B, "$x = max($lst)") and some($B, "$lst.remove($x)") and some($B, "return $res[:$k]")
+rewrite:
+    $res.append($x)
+
+rule return_lhs_instead_of_result_slice
+symptoms: wrong
+match: return $lst[:$k]
+where:
+    inside("def $f($*ps): $B:Stmts") and some($B, "$res.append($_)") and some($B, "$lst.remove($_)") and some($B, "return $lst[:$k]")
+rewrite: return $res[:$k]
+
+rule return_original_list_slice_after_sorting
+symptoms: wrong
+match: return $lst[:$k]
+where:
+    inside("def $f($*ps): $B:Stmts") and some($B, "$res.append($_)") and some($B, "$lst.remove($_)") and some($B, "return $lst[:$k]") and not some($B, "return $res[:$k]")
+rewrite: return $res[:$k]
+
+rule fix_assignment_to_removed_max_name
+symptoms: wrong
+match:
+    $lst.remove($maxv)
+    $res.append($wrong)
+where:
+    inside("def $f($*ps): $B:Stmts") and $wrong != $maxv
+rewrite:
+    $lst.remove($maxv)
+    $res.append($maxv)
+
+rule fix_return_new_list_instead_of_lst
+symptoms: wrong
+match: return $lst
+where:
+    inside("def $f($*ps): $B:Stmts") and some($B, "$res.append($_)") and some($B, "$lst.remove($_)")
+rewrite: return $res
+
+rule off_by_one_range_to_k
+symptoms: wrong
+match: for $i in range($k $o:Arith $n):
+where:
+    text($o) in {"-", "+"} and $n == 1
+rewrite:
+    for $i in range($k):
+
+rule off_by_one_slice_to_k
+symptoms: wrong
+match: return $x[:$k $o:Arith $n]
+where:
+    text($o) in {"+", "-"} and $n == 1
+rewrite: return $x[:$k]
+
+rule append_before_remove_max
+symptoms: wrong
+match:
+    $lst.remove(max($lst))
+    $res.append(max($lst))
+rewrite:
+    $res.append(max($lst))
+    $lst.remove(max($lst))
+
+rule append_removed_max_after_pop
+symptoms: wrong
+match:
+    $res.append($lst.remove(max($lst)))
+rewrite:
+    $res.append(max($lst))
+    $lst.remove(max($lst))
+
+rule fix_pop_max_as_index
+symptoms: wrong
+match: $lst.pop(max($lst))
+rewrite: $lst.pop($lst.index(max($lst)))
+
+rule fix_remove_max_as_index
+symptoms: wrong
+match: $lst.remove(max($lst))
+rewrite: $lst.pop($lst.index(max($lst)))
+
+rule fix_pop_bracket_call
+symptoms: wrong
+match: $lst.pop[$idx]
+rewrite: $lst.pop($idx)
+
+rule fix_append_bracket_call
+symptoms: wrong
+match: $res.append[$x]
+rewrite: $res.append($x)
+
+rule fix_return_recursive_newlist_name
+symptoms: wrong
+match: return [maxi] + top_k($new, $k - 1)
+where: some($new, "$x:Name = lst.copy()") and some($new, "$x.pop($p)")
+rewrite: return [maxi] + top_k($new, $k - 1)
+
+rule fix_return_recursive_new_list_name
+symptoms: wrong
+match: return [maxi] + top_k($newlst, $k - 1)
+where: some($B, "$newlst = lst.copy()") or some($B, "$newlst = $lst.copy()")
+rewrite: return [maxi] + top_k($newlst, $k - 1)
+
+rule fix_return_if_k_zero
+symptoms: wrong
+match: return $lst
+where: inside("def $f($lst, $k): $B:Stmts") and some($B, "elif k == 0: return $lst")
+rewrite: return []
+
+rule fix_sort_result_variable_name
+symptoms: wrong
+match:
+    $res.append($wrong)
+    $lst.remove($wrong)
+where:
+    inside("def $f($*ps): $B:Stmts") and some($B, "$res = []") and some($B, "while $c < $k:")
+rewrite:
+    $res.append($big)
+    $lst.remove($big)
+
+rule fix_sort_pop_result_name
+symptoms: wrong
+match: $res.append($lst.pop($idx))
+rewrite: $res.append($lst.pop($idx))

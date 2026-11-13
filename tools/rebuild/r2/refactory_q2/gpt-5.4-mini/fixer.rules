@@ -1,0 +1,141 @@
+rule fix_day_name_parameter_in_unique_day
+symptoms: wrong
+match: def unique_day($day, $possible_birthdays):
+    $B:Stmts
+where: some($B, "if $x[1] == day:") or some($B, "if day == $x[1]:") or some($B, "if $x[1] == $y:") or some($B, "if $y == $x[1]:")
+rewrite: def unique_day($day, $possible_birthdays):
+    $B
+
+rule fix_month_name_parameter_in_unique_month
+symptoms: wrong
+match: def unique_month($month, $possible_birthdays):
+    $B:Stmts
+where: some($B, "if $x[0] == month:") or some($B, "if month == $x[0]:") or some($B, "if $x[1] == month:") or some($B, "if month == $x[1]:") or some($B, "if $x[0] == days:") or some($B, "if days == $x[0]:")
+rewrite: def unique_month($month, $possible_birthdays):
+    $B
+
+rule fix_contains_unique_day_argument_day
+symptoms: wrong
+match: if unique_day($arg, $possible_birthdays):
+    $B:Stmts
+where: some($arg, "$x[0]") and not some($arg, "$x[1]")
+rewrite: if unique_day($arg, $possible_birthdays):
+    $B
+
+rule fix_contains_unique_day_argument_month_filter
+symptoms: wrong
+match:
+    if $m == $x[0]:
+        $B:Stmts
+where: inside("def contains_unique_day($month, $possible_birthdays): $BODY:Stmts") and some($B, "unique_day($y[1], $possible_birthdays)") or some($BODY, "if unique_day($y[1], $possible_birthdays):")
+rewrite:
+    if $m == $x[0]:
+        $B
+
+rule fix_contains_unique_day_returning_wrong_branch
+symptoms: wrong
+match:
+    for $i in $seq:
+        if $cond:
+            return True
+        else:
+            return False
+rewrite:
+    for $i in $seq:
+        if $cond:
+            return True
+    return False
+
+rule fix_unique_day_count_comparison
+symptoms: wrong
+match:
+    if $count > 1:
+        return False
+    return True
+where: inside("def unique_day($day, $possible_birthdays): $B:Stmts") or inside("def unique_month($month, $possible_birthdays): $B:Stmts") or inside("def unique_day($day, $possible_birthdays): $B:Stmts") and some($B, "for $x in $possible_birthdays:")
+rewrite:
+    if $count == 1:
+        return True
+    return False
+
+rule fix_unique_month_count_comparison
+symptoms: wrong
+match:
+    if $count > 1:
+        return False
+    return True
+where: inside("def unique_month($month, $possible_birthdays): $B:Stmts") and some($B, "for $x in $possible_birthdays:")
+rewrite:
+    if $count == 1:
+        return True
+    return False
+
+rule fix_count_based_unique_to_eq1
+symptoms: wrong
+match:
+    if $count <= 1:
+        return True
+    else:
+        return False
+rewrite:
+    if $count == 1:
+        return True
+    else:
+        return False
+
+rule fix_misspelled_true_false_and_name
+symptoms: wrong
+match:
+    return true
+rewrite: return True
+
+rule fix_wrong_month_index_in_unique_month
+symptoms: wrong
+match:
+    if $x[1] == $month:
+        $B:Stmts
+rewrite:
+    if $x[0] == $month:
+        $B
+
+rule fix_wrong_day_index_in_contains_unique_day
+symptoms: wrong
+match:
+    if month == $x[1]:
+        if unique_day($d, $possible_birthdays):
+            return True
+rewrite:
+    if month == $x[0]:
+        if unique_day($d, $possible_birthdays):
+            return True
+
+rule fix_return_only_unique_day_to_contains_unique_day
+symptoms: wrong
+match:
+    return
+where: inside("def contains_unique_day($month, $possible_birthdays): $B:Stmts")
+rewrite:
+    for $bday in $possible_birthdays:
+        if $bday[0] == $month:
+            if unique_day($bday[1], $possible_birthdays):
+                return True
+    return False
+
+rule fix_range_off_by_one
+symptoms: wrong, err:IndexError
+match:
+    for $i in range(0, len($seq)+1):
+        $B:Stmts
+rewrite:
+    for $i in range(0, len($seq)):
+        $B
+
+rule fix_len_range_to_len
+symptoms: wrong, err:IndexError
+match:
+    for $i in range(len($seq)):
+        $B:Stmts
+where: some($B, "$seq[$i][1]") or some($B, "$seq[$i][0]")
+rewrite:
+    for $i in range(len($seq)):
+        $B

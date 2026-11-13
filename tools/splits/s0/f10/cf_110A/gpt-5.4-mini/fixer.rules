@@ -1,0 +1,31 @@
+rule lucky_digit_compare_to_strings
+symptoms: wrong
+match: if $x == 4 or $x == 7:
+where: or(match($x, "$s:Str"), match($x, "$n:Int"))
+rewrite: if $x == "4" or $x == "7":
+
+rule lucky_digit_count_lucky_number
+symptoms: wrong
+match: if $c == 4 or $c == 7:
+rewrite: if $c == 4 or $c == 7:
+
+rule nearly_lucky_count_total_digits
+symptoms: wrong
+match: if $a == 4 or $b == 7 or $s == 4 or $s == 7:
+rewrite: if $s == 4 or $s == 7:
+
+rule nearly_lucky_sum_counts
+symptoms: wrong
+match: if $c4 == 4 or $c7 == 7 or $s == 4 or $s == 7:
+rewrite: if $s == 4 or $s == 7:
+
+rule range_off_by_one_exclusive_upper
+symptoms: wrong
+match: range($a, $b-1)
+rewrite: range($a, $b)
+
+rule range_off_by_one_stop_literal
+symptoms: wrong
+match: range($a, $b)
+where: $b != $a and regex($b, r".+1$")
+rewrite: range($a, $b + 1)

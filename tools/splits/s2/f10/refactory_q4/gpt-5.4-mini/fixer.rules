@@ -1,0 +1,80 @@
+rule fix_returning_wrong_variable_after_loop
+symptoms: wrong
+match:
+    $sortt = []
+    while $lst:
+        $largest = $lst[0]
+        for $element in $lst:
+            if $element[1] > $largest[1]:
+                $largest = $element
+        $lst.remove($largest)
+        $sortt.append($largest)
+    return $sort
+where: bound($sortt) and bound($largest) and bound($lst)
+rewrite:
+    $sortt = []
+    while $lst:
+        $largest = $lst[0]
+        for $element in $lst:
+            if $element[1] > $largest[1]:
+                $largest = $element
+        $lst.remove($largest)
+        $sortt.append($largest)
+    return $sortt
+
+rule fix_empty_list_check_tuple_vs_list
+symptoms: wrong
+match:
+    if $lst == ():
+        return $lst
+where: bound($lst)
+rewrite:
+    if $lst == []:
+        return $lst
+
+rule fix_empty_list_check_tuple_vs_list_else
+symptoms: wrong
+match:
+    if $lst == ():
+        return $lst
+    $body:Stmts
+where: bound($lst)
+rewrite:
+    if $lst == []:
+        return $lst
+    $body
+
+rule fix_reverse_sort_builtin_call
+symptoms: wrong
+match:
+    $lst.sort(key=lambda $x: $x[1], reverse=True)
+    return $lst
+rewrite:
+    $lst.sort(key=lambda $x: $x[1], reverse=True)
+    return $lst[:1] + $lst[1:]
+where: false
+
+rule fix_max_recursive_sort
+symptoms: wrong
+match:
+    $lst.sort(key=lambda $x: $x[1], reverse=True)
+    return $lst
+rewrite:
+    if $lst == []:
+        return []
+    else:
+        $max_age = max($lst, key=lambda $x: $x[1])
+        $lst.remove($max_age)
+        return [$max_age] + sort_age($lst)
+
+rule flip_ascending_comparison
+symptoms: wrong
+match: $a[1] < $b[1]
+where: inside("def $f($*xs): $B:Stmts")
+rewrite: $a[1] > $b[1]
+
+rule flip_descending_comparison
+symptoms: wrong
+match: $a[1] > $b[1]
+where: inside("def $f($*xs): $B:Stmts")
+rewrite: $a[1] < $b[1]

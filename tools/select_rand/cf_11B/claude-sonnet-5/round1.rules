@@ -1,0 +1,39 @@
+rule missing_abs_on_input_target
+symptoms: wrong
+match: $x:Name = int(input())
+where: first() and not next("$x = abs($x)")
+rewrite: $x = abs(int(input()))
+
+rule triangular_search_missing_two_step_fallback
+symptoms: wrong
+match:
+    $x:Name = $b*($b+1)//2
+    if ($x-$n)%2==0:
+        return $b
+    return $b+1
+rewrite:
+    $x = $b*($b+1)//2
+    if ($x-$n)%2==0:
+        return $b
+    $x2 = ($b+1)*($b+2)//2
+    if ($x2-$n)%2==0:
+        return $b+1
+    return $b+2
+
+rule triangular_parity_elif_patch
+symptoms: wrong
+match:
+    if $sum==$x:
+        print($i)
+    elif $sum>$x:
+        $A:Stmts
+rewrite:
+    if $sum==$x:
+        print($i)
+    elif $sum>$x:
+        if ($sum-$x)%2==0:
+            print($i)
+        elif ($i+1)%2==1:
+            print($i+1)
+        else:
+            print($i+2)

@@ -1,0 +1,447 @@
+pid,model,buggy,off_repaired,off_tried,off_pruned,off_cut,off_seconds,off_rules,off_patch,on_repaired,on_tried,on_pruned,on_cut,on_seconds,on_rules,on_patch
+refactory_q5,gpt-5.4-mini,wrong_5_001,True,2,0,False,0.146,generic_flip_compare,"def top_k(lst, k):
+    result = []
+    while k > 0:
+        big = max(lst)
+        result.append(big)
+        lst.remove(big)
+        k -= 1
+    return result
+",True,2,0,False,0.362,generic_flip_compare,"def top_k(lst, k):
+    result = []
+    while k > 0:
+        big = max(lst)
+        result.append(big)
+        lst.remove(big)
+        k -= 1
+    return result
+"
+refactory_q5,gpt-5.4-mini,wrong_5_002,False,1000,0,True,5.69,,,False,1000,0,True,6.12,,
+refactory_q5,gpt-5.4-mini,wrong_5_003,False,7,0,False,0.224,,,False,7,0,False,0.336,,
+refactory_q5,gpt-5.4-mini,wrong_5_004,False,1000,0,True,4.857,,,False,1000,6,True,5.506,,
+refactory_q5,gpt-5.4-mini,wrong_5_005,False,1000,0,True,5.994,,,False,1000,1,True,5.946,,
+refactory_q5,gpt-5.4-mini,wrong_5_006,False,1000,0,True,4.598,,,False,1000,1,True,5.687,,
+refactory_q5,gpt-5.4-mini,wrong_5_007,False,1000,0,True,9.304,,,False,1000,0,True,9.57,,
+refactory_q5,gpt-5.4-mini,wrong_5_008,True,5,0,False,0.179,off_by_one_slice_to_k,"def top_k(lst, k):
+    sort = []
+    while lst: 
+        biggest = lst[0]
+        for element in lst:
+            if element > biggest:
+                biggest = element
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort[:k]
+",True,5,0,False,0.405,off_by_one_slice_to_k,"def top_k(lst, k):
+    sort = []
+    while lst: 
+        biggest = lst[0]
+        for element in lst:
+            if element > biggest:
+                biggest = element
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort[:k]
+"
+refactory_q5,gpt-5.4-mini,wrong_5_009,False,47,0,False,0.788,,,False,46,1,False,1.084,,
+refactory_q5,gpt-5.4-mini,wrong_5_010,False,47,0,False,0.776,,,False,46,1,False,1.017,,
+refactory_q5,gpt-5.4-mini,wrong_5_011,False,1000,0,True,3.606,,,False,1000,3,True,4.283,,
+refactory_q5,gpt-5.4-mini,wrong_5_012,False,1000,0,True,6.886,,,False,1000,3,True,7.401,,
+refactory_q5,gpt-5.4-mini,wrong_5_013,False,1000,0,True,6.043,,,False,1000,3,True,6.87,,
+refactory_q5,gpt-5.4-mini,wrong_5_014,False,1000,0,True,5.956,,,False,1000,0,True,7.31,,
+refactory_q5,gpt-5.4-mini,wrong_5_015,False,1000,0,True,7.376,,,False,1000,0,True,7.885,,
+refactory_q5,gpt-5.4-mini,wrong_5_016,False,1000,0,True,6.754,,,False,1000,4,True,7.113,,
+refactory_q5,gpt-5.4-mini,wrong_5_017,True,5,0,False,0.112,fix_assignment_to_removed_max_name,"def top_k(lst, k):
+    result = []
+    while lst:
+        biggest = lst[0]
+        for number in lst:
+            if number > biggest:
+                biggest = number
+        lst.remove(biggest)
+        result.append(biggest)
+    return result[:k]
+",True,5,0,False,0.293,fix_assignment_to_removed_max_name,"def top_k(lst, k):
+    result = []
+    while lst:
+        biggest = lst[0]
+        for number in lst:
+            if number > biggest:
+                biggest = number
+        lst.remove(biggest)
+        result.append(biggest)
+    return result[:k]
+"
+refactory_q5,gpt-5.4-mini,wrong_5_018,True,5,0,False,0.115,off_by_one_slice_to_k,"def top_k(lst, k):
+    # Fill in your code here
+    sort = []
+    while lst: # a is not []
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+        lst.remove(largest)
+        sort.append(largest)
+    return sort[:k]
+",True,5,0,False,0.267,off_by_one_slice_to_k,"def top_k(lst, k):
+    # Fill in your code here
+    sort = []
+    while lst: # a is not []
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+        lst.remove(largest)
+        sort.append(largest)
+    return sort[:k]
+"
+refactory_q5,gpt-5.4-mini,wrong_5_019,True,4,0,False,0.109,append_before_remove_max,"def top_k(lst, k):
+    arranged = []
+    while k>0:
+        arranged.append(max(lst))
+        lst.remove(max(lst))
+        k -= 1
+    return arranged
+    pass
+",True,4,0,False,0.267,append_before_remove_max,"def top_k(lst, k):
+    arranged = []
+    while k>0:
+        arranged.append(max(lst))
+        lst.remove(max(lst))
+        k -= 1
+    return arranged
+    pass
+"
+refactory_q5,gpt-5.4-mini,wrong_5_020,True,4,0,False,0.121,append_before_remove_max,"def top_k(lst, k):
+    arranged = []
+    while k > 0:
+        arranged.append(max(lst))
+        lst.remove(max(lst))
+        k = k-1
+    return arranged
+    pass
+",True,4,0,False,0.274,append_before_remove_max,"def top_k(lst, k):
+    arranged = []
+    while k > 0:
+        arranged.append(max(lst))
+        lst.remove(max(lst))
+        k = k-1
+    return arranged
+    pass
+"
+refactory_q5,gpt-5.4-mini,wrong_5_021,False,1000,0,True,2.742,,,False,1000,21,True,3.512,,
+refactory_q5,gpt-5.4-mini,wrong_5_022,False,1000,0,True,2.8,,,False,1000,533,True,4.663,,
+refactory_q5,gpt-5.4-mini,wrong_5_023,False,1000,0,True,4.562,,,False,1000,0,True,5.266,,
+refactory_q5,gpt-5.4-mini,wrong_5_024,False,1000,0,True,4.551,,,False,1000,0,True,5.33,,
+refactory_q5,gpt-5.4-mini,wrong_5_025,False,1000,0,True,6.112,,,False,1000,0,True,6.95,,
+refactory_q5,gpt-5.4-mini,wrong_5_026,False,1000,0,True,3.208,,,False,1000,1,True,4.023,,
+refactory_q5,gpt-5.4-mini,wrong_5_027,False,5,0,True,13.092,,,False,5,0,True,13.087,,
+refactory_q5,gpt-5.4-mini,wrong_5_028,False,5,0,True,13.135,,,False,5,0,True,13.141,,
+refactory_q5,gpt-5.4-mini,wrong_5_029,False,1000,0,True,5.232,,,False,1000,0,True,5.979,,
+refactory_q5,gpt-5.4-mini,wrong_5_030,False,1000,0,True,5.566,,,False,1000,0,True,6.349,,
+refactory_q5,gpt-5.4-mini,wrong_5_031,False,1000,0,True,4.619,,,False,1000,0,True,5.367,,
+refactory_q5,gpt-5.4-mini,wrong_5_032,False,1000,0,True,4.795,,,False,1000,0,True,5.513,,
+refactory_q5,gpt-5.4-mini,wrong_5_033,False,1000,0,True,4.812,,,False,1000,5,True,5.411,,
+refactory_q5,gpt-5.4-mini,wrong_5_034,False,5,0,False,0.13,,,False,5,0,False,0.167,,
+refactory_q5,gpt-5.4-mini,wrong_5_035,False,35,0,False,0.388,,,False,35,0,False,0.436,,
+refactory_q5,gpt-5.4-mini,wrong_5_036,False,215,0,False,1.841,,,False,210,5,False,2.059,,
+refactory_q5,gpt-5.4-mini,wrong_5_037,False,1000,0,True,4.908,,,False,1000,7,True,5.78,,
+refactory_q5,gpt-5.4-mini,wrong_5_038,False,1000,0,True,81.553,,,False,1000,5,True,84.226,,
+refactory_q5,gpt-5.4-mini,wrong_5_039,False,1000,0,True,82.321,,,False,1000,5,True,84.586,,
+refactory_q5,gpt-5.4-mini,wrong_5_040,False,1000,0,True,79.344,,,False,1000,5,True,84.741,,
+refactory_q5,gpt-5.4-mini,wrong_5_041,False,1000,0,True,82.586,,,False,1000,5,True,84.142,,
+refactory_q5,gpt-5.4-mini,wrong_5_042,False,1000,0,True,5.444,,,False,1000,1,True,5.64,,
+refactory_q5,gpt-5.4-mini,wrong_5_043,False,1000,0,True,83.817,,,False,1000,0,True,83.082,,
+refactory_q5,gpt-5.4-mini,wrong_5_044,False,1000,0,True,4.632,,,False,1000,3,True,5.463,,
+refactory_q5,gpt-5.4-mini,wrong_5_045,True,6,0,False,0.121,generic_flip_compare,"def top_k(lst, k):
+    newlst = []
+    while len(newlst) < k:
+        maximum = lst[0]
+        for i in lst:
+            if i > maximum:
+                maximum = i
+        newlst.append(maximum)
+        lst.remove(maximum)
+    return newlst
+            
+",True,6,0,False,0.333,generic_flip_compare,"def top_k(lst, k):
+    newlst = []
+    while len(newlst) < k:
+        maximum = lst[0]
+        for i in lst:
+            if i > maximum:
+                maximum = i
+        newlst.append(maximum)
+        lst.remove(maximum)
+    return newlst
+            
+"
+refactory_q5,gpt-5.4-mini,wrong_5_046,False,3,0,False,0.123,,,False,3,0,False,0.303,,
+refactory_q5,gpt-5.4-mini,wrong_5_047,False,1000,0,True,57.648,,,False,1000,0,True,57.854,,
+refactory_q5,gpt-5.4-mini,wrong_5_048,False,1000,0,True,36.734,,,False,1000,0,True,37.419,,
+refactory_q5,gpt-5.4-mini,wrong_5_049,False,1000,0,True,3.248,,,False,1000,30,True,4.194,,
+refactory_q5,gpt-5.4-mini,wrong_5_050,False,1000,0,True,3.505,,,False,1000,0,True,4.481,,
+refactory_q5,gpt-5.4-mini,wrong_5_051,False,1000,0,True,89.043,,,False,1000,0,True,88.898,,
+refactory_q5,gpt-5.4-mini,wrong_5_052,False,0,0,False,0.037,,,False,0,0,False,0.212,,
+refactory_q5,gpt-5.4-mini,wrong_5_053,False,1000,0,True,4.565,,,False,1000,0,True,5.28,,
+refactory_q5,gpt-5.4-mini,wrong_5_054,False,1000,0,True,4.17,,,False,1000,0,True,4.447,,
+refactory_q5,gpt-5.4-mini,wrong_5_055,False,1000,0,True,3.832,,,False,1000,0,True,4.449,,
+refactory_q5,gpt-5.4-mini,wrong_5_056,False,1000,0,True,4.673,,,False,1000,0,True,5.309,,
+refactory_q5,gpt-5.4-mini,wrong_5_057,False,1000,0,True,4.61,,,False,1000,0,True,5.263,,
+refactory_q5,gpt-5.4-mini,wrong_5_058,False,1000,0,True,3.27,,,False,1000,0,True,3.971,,
+refactory_q5,gpt-5.4-mini,wrong_5_059,True,4,0,False,0.112,append_removed_max_after_pop,"def top_k(lst, k):
+    new_lst = []
+    for i in range(k):
+        new_lst.append(max(lst))
+        lst.remove(max(lst))
+    return new_lst
+    pass
+",True,4,0,False,0.265,append_removed_max_after_pop,"def top_k(lst, k):
+    new_lst = []
+    for i in range(k):
+        new_lst.append(max(lst))
+        lst.remove(max(lst))
+    return new_lst
+    pass
+"
+refactory_q5,gpt-5.4-mini,wrong_5_060,False,1000,0,True,3.859,,,False,1000,0,True,5.079,,
+refactory_q5,gpt-5.4-mini,wrong_5_061,False,1000,0,True,4.389,,,False,1000,0,True,4.515,,
+refactory_q5,gpt-5.4-mini,wrong_5_062,False,1000,0,True,4.847,,,False,1000,0,True,6.719,,
+refactory_q5,gpt-5.4-mini,wrong_5_063,False,1000,0,True,5.068,,,False,1000,5,True,4.972,,
+refactory_q5,gpt-5.4-mini,wrong_5_064,False,1000,0,True,66.055,,,False,1000,0,True,63.086,,
+refactory_q5,gpt-5.4-mini,wrong_5_065,False,1000,0,True,3.999,,,False,1000,1,True,4.557,,
+refactory_q5,gpt-5.4-mini,wrong_5_066,False,1000,0,True,3.534,,,False,1000,1,True,4.972,,
+refactory_q5,gpt-5.4-mini,wrong_5_067,False,1000,0,True,5.218,,,False,1000,1,True,5.365,,
+refactory_q5,gpt-5.4-mini,wrong_5_068,True,13,0,False,0.166,generic_shift_range|fix_pop_max_as_index,"def top_k(lst, k):
+    new = []
+    for i in range(k - 1 + 1):
+        new.append(lst.pop(lst.index(max(lst))))
+        
+    return new
+        
+",True,12,1,False,0.307,generic_shift_range|fix_pop_max_as_index,"def top_k(lst, k):
+    new = []
+    for i in range(k - 1 + 1):
+        new.append(lst.pop(lst.index(max(lst))))
+        
+    return new
+        
+"
+refactory_q5,gpt-5.4-mini,wrong_5_069,False,7,0,False,0.23,,,False,7,0,False,0.33,,
+refactory_q5,gpt-5.4-mini,wrong_5_070,False,15,0,False,0.253,,,False,15,0,False,0.422,,
+refactory_q5,gpt-5.4-mini,wrong_5_071,False,3,0,False,0.138,,,False,3,0,False,0.301,,
+refactory_q5,gpt-5.4-mini,wrong_5_072,False,1000,0,True,62.665,,,False,1000,0,True,62.861,,
+refactory_q5,gpt-5.4-mini,wrong_5_073,False,1000,0,True,43.337,,,False,1000,0,True,43.941,,
+refactory_q5,gpt-5.4-mini,wrong_5_074,False,1000,0,True,43.737,,,False,1000,0,True,45.181,,
+refactory_q5,gpt-5.4-mini,wrong_5_075,False,3,0,False,0.124,,,False,3,0,False,0.329,,
+refactory_q5,gpt-5.4-mini,wrong_5_076,False,3,0,False,0.127,,,False,3,0,False,0.265,,
+refactory_q5,gpt-5.4-mini,wrong_5_077,True,5,0,False,0.113,return_lhs_instead_of_result_slice,"
+def top_k(lst, k):
+    # Fill in your code here
+ 
+    result = []
+    while lst:
+        minimum = lst[0]  # arbitrary number in list 
+        for x in lst: 
+            if x > minimum:
+                minimum = x
+        result.append(minimum)
+        lst.remove(minimum) 
+    return result[:k]
+",True,5,0,False,0.255,return_lhs_instead_of_result_slice,"
+def top_k(lst, k):
+    # Fill in your code here
+ 
+    result = []
+    while lst:
+        minimum = lst[0]  # arbitrary number in list 
+        for x in lst: 
+            if x > minimum:
+                minimum = x
+        result.append(minimum)
+        lst.remove(minimum) 
+    return result[:k]
+"
+refactory_q5,gpt-5.4-mini,wrong_5_078,False,1000,0,True,83.123,,,False,1000,0,True,83.848,,
+refactory_q5,gpt-5.4-mini,wrong_5_079,True,4,0,False,0.172,generic_flip_compare,"def top_k(lst, k):
+    # Fill in your code here
+    sort_lst = []
+    while lst: # a is not []
+        smallest = lst[0]
+        for element in lst:
+            if element > smallest:
+                smallest = element
+        lst.remove(smallest)
+        sort_lst.append(smallest)
+    return sort_lst[:k]
+",True,4,0,False,0.37,generic_flip_compare,"def top_k(lst, k):
+    # Fill in your code here
+    sort_lst = []
+    while lst: # a is not []
+        smallest = lst[0]
+        for element in lst:
+            if element > smallest:
+                smallest = element
+        lst.remove(smallest)
+        sort_lst.append(smallest)
+    return sort_lst[:k]
+"
+refactory_q5,gpt-5.4-mini,wrong_5_080,True,3,0,False,0.159,generic_flip_compare,"def top_k(lst, k):
+    sotsot = []
+    while len(sotsot) < k:
+        sotsot.append(max(lst))
+        lst.remove(max(lst)) #wont return u any value just modified the list only.
+    return sotsot 
+    
+",True,3,0,False,0.438,generic_flip_compare,"def top_k(lst, k):
+    sotsot = []
+    while len(sotsot) < k:
+        sotsot.append(max(lst))
+        lst.remove(max(lst)) #wont return u any value just modified the list only.
+    return sotsot 
+    
+"
+refactory_q5,gpt-5.4-mini,wrong_5_081,False,9,0,False,0.382,,,False,8,1,False,0.655,,
+refactory_q5,gpt-5.4-mini,wrong_5_082,False,9,0,False,0.384,,,False,8,1,False,0.648,,
+refactory_q5,gpt-5.4-mini,wrong_5_083,True,7,0,False,0.171,return_lhs_instead_of_result_slice,"def top_k(lst, k):
+    result = []
+    for i in range(len(lst)):
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+        lst.remove(largest)
+        result.append(largest)
+    return result[:k]
+",True,7,0,False,0.362,return_lhs_instead_of_result_slice,"def top_k(lst, k):
+    result = []
+    for i in range(len(lst)):
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+        lst.remove(largest)
+        result.append(largest)
+    return result[:k]
+"
+refactory_q5,gpt-5.4-mini,wrong_5_084,False,6,0,False,0.217,,,False,5,1,False,0.446,,
+refactory_q5,gpt-5.4-mini,wrong_5_085,False,1000,0,True,6.899,,,False,1000,1,True,8.376,,
+refactory_q5,gpt-5.4-mini,wrong_5_086,False,3,0,False,0.171,,,False,3,0,False,0.374,,
+refactory_q5,gpt-5.4-mini,wrong_5_087,False,3,0,False,0.177,,,False,3,0,False,0.402,,
+refactory_q5,gpt-5.4-mini,wrong_5_088,False,1000,0,True,2.357,,,False,1000,107,True,3.899,,
+refactory_q5,gpt-5.4-mini,wrong_5_089,False,1000,0,True,5.495,,,False,1000,0,True,5.836,,
+refactory_q5,gpt-5.4-mini,wrong_5_090,False,3,0,False,0.143,,,False,3,0,False,0.27,,
+refactory_q5,gpt-5.4-mini,wrong_5_091,False,1000,0,True,5.422,,,False,1000,0,True,7.585,,
+refactory_q5,gpt-5.4-mini,wrong_5_092,False,1000,0,True,4.922,,,False,1000,5,True,5.128,,
+refactory_q5,gpt-5.4-mini,wrong_5_093,False,1000,0,True,4.884,,,False,1000,0,True,5.637,,
+refactory_q5,gpt-5.4-mini,wrong_5_094,False,1000,0,True,1.762,,,False,1000,1,True,2.623,,
+refactory_q5,gpt-5.4-mini,wrong_5_095,False,1000,0,True,1.681,,,False,1000,0,True,2.601,,
+refactory_q5,gpt-5.4-mini,wrong_5_096,False,1000,0,True,1.575,,,False,1000,5,True,2.353,,
+refactory_q5,gpt-5.4-mini,wrong_5_097,True,11,0,False,0.113,off_by_one_slice_to_k,"def top_k(lst, k):
+    # Fill in your code here
+    sort = []
+    while lst:
+        largest = lst[0]
+        for i in range(len(lst)):
+            if lst[i] > largest:
+                largest = lst[i]
+        sort.append(largest)
+        lst.remove(largest)
+    return sort[:k]
+        
+",True,11,0,False,0.262,off_by_one_slice_to_k,"def top_k(lst, k):
+    # Fill in your code here
+    sort = []
+    while lst:
+        largest = lst[0]
+        for i in range(len(lst)):
+            if lst[i] > largest:
+                largest = lst[i]
+        sort.append(largest)
+        lst.remove(largest)
+    return sort[:k]
+        
+"
+refactory_q5,gpt-5.4-mini,wrong_5_098,False,47,0,False,0.591,,,False,46,1,False,0.794,,
+refactory_q5,gpt-5.4-mini,wrong_5_099,False,47,0,False,0.608,,,False,46,1,False,0.806,,
+refactory_q5,gpt-5.4-mini,wrong_5_100,True,140,0,False,1.106,fix_return_new_list_instead_of_lst|generic_flip_compare|generic_flip_compare|generic_flip_compare,"def top_k(lst, k):
+    l = []
+    if k > len(lst):
+        return False
+    elif k < 1:
+        return l
+    else:
+        while len(l) < k:
+            a = max(lst)
+            lst.remove(a)
+            l.append(a)
+        
+        return l
+        
+    # Fill in your code here
+    pass
+",True,139,1,False,1.346,fix_return_new_list_instead_of_lst|generic_flip_compare|generic_flip_compare|generic_flip_compare,"def top_k(lst, k):
+    l = []
+    if k > len(lst):
+        return False
+    elif k < 1:
+        return l
+    else:
+        while len(l) < k:
+            a = max(lst)
+            lst.remove(a)
+            l.append(a)
+        
+        return l
+        
+    # Fill in your code here
+    pass
+"
+refactory_q5,gpt-5.4-mini,wrong_5_101,False,1000,0,True,5.245,,,False,0,10000,True,60.229,,
+refactory_q5,gpt-5.4-mini,wrong_5_102,False,19,0,False,0.253,,,False,12,7,False,0.478,,
+refactory_q5,gpt-5.4-mini,wrong_5_103,False,4,0,False,0.126,,,False,3,1,False,0.302,,
+refactory_q5,gpt-5.4-mini,wrong_5_104,False,4,0,False,0.125,,,False,3,1,False,0.311,,
+refactory_q5,gpt-5.4-mini,wrong_5_105,False,1000,0,True,4.551,,,False,1000,0,True,5.277,,
+refactory_q5,gpt-5.4-mini,wrong_5_106,False,1000,0,True,3.155,,,False,1000,1,True,3.687,,
+refactory_q5,gpt-5.4-mini,wrong_5_107,True,4,0,False,0.112,off_by_one_range_to_k,"def top_k(lst, k):
+
+    newlst = []
+    for i in range(k):
+        newlst.append(max(lst))
+        lst.remove(max(lst))
+    return newlst
+",True,4,0,False,0.294,off_by_one_range_to_k,"def top_k(lst, k):
+
+    newlst = []
+    for i in range(k):
+        newlst.append(max(lst))
+        lst.remove(max(lst))
+    return newlst
+"
+refactory_q5,gpt-5.4-mini,wrong_5_108,True,6,0,False,0.123,generic_flip_compare,"def top_k(lst, k):
+    new_lst = []
+    counter = 0
+    while counter < k:
+        highest = lst[0]  # arbitrary number in list 
+        for x in lst: 
+            if x > highest:
+                highest = x
+        new_lst.append(highest)
+        lst.remove(highest)
+        counter +=1
+        
+    return new_lst
+",True,6,0,False,0.286,generic_flip_compare,"def top_k(lst, k):
+    new_lst = []
+    counter = 0
+    while counter < k:
+        highest = lst[0]  # arbitrary number in list 
+        for x in lst: 
+            if x > highest:
+                highest = x
+        new_lst.append(highest)
+        lst.remove(highest)
+        counter +=1
+        
+    return new_lst
+"

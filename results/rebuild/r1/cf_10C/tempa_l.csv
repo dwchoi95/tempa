@@ -1,0 +1,69 @@
+Buggy,Model,Source,Patch,Fixed,RPS,ATT_all,ATT_cpu,ATT_api,InT,OuT,$API,Rules_L,Rules_SL
+134903349,claude-sonnet-5,rules,"def d(n):
+	while len(str(n))!=1:
+		n = sum(int(d) for d in str(n))
+	return n
+
+n_1 = int(input())
+q, r = divmod(n_1, 9)
+dd = [q] + [q + 1] * r + [q] * (8 - r)
+res = 0
+for i9 in range(9):
+    for j9 in range(9):
+        res += dd[i9] * dd[j9] * dd[i9 * j9 % 9]
+for isub in range(1, n_1 + 1):
+    res -= n_1 // isub
+print(res)",True,2.5278,3.0493,3.0493,0.0,0,0,0.0,"[""digitalroot_input_wrapper_shortcut""]",[]
+70108877,claude-sonnet-5,rules,"def digr(n):
+    x = sum(int(dig) for dig in str(n))
+    if x<10:
+        return x
+    else:
+        return digr(x)
+n=int(input())
+q, r = divmod(n, 9)
+dd = [q] + [q + 1] * r + [q] * (8 - r)
+res = 0
+for i9 in range(9):
+    for j9 in range(9):
+        res += dd[i9] * dd[j9] * dd[i9 * j9 % 9]
+for isub in range(1, n + 1):
+    res -= n // isub
+d = res
+print(d)",True,0.8211,4.0224,4.0224,0.0,0,0,0.0,"[""digitalroot_bruteforce_pair_count""]",[]
+82322301,claude-sonnet-5,reference,"n = int(input())
+q,r = divmod(n,9)
+d = [q]+[q+1]*r+[q]*(8-r)
+res = 0
+for i in range(9):
+    for j in range(9):
+        res += d[i]*d[j]*d[(i*j)%9]
+for i in range(1,n+1): res -= n//i
+print(res)",True,0.9362,19.5405,19.5405,0.0,0,0,0.0,[],[]
+134903349,gpt-5.4-mini,reference,"n = int(input())
+q,r = divmod(n,9)
+d = [q]+[q+1]*r+[q]*(8-r)
+res = 0
+for i in range(9):
+    for j in range(9):
+        res += d[i]*d[j]*d[(i*j)%9]
+for i in range(1,n+1): res -= n//i
+print(res)",True,3.2778,2.9623,2.9623,0.0,0,0,0.0,[],[]
+70108877,gpt-5.4-mini,reference,"n = int(input())
+q,r = divmod(n,9)
+d = [q]+[q+1]*r+[q]*(8-r)
+res = 0
+for i in range(9):
+    for j in range(9):
+        res += d[i]*d[j]*d[(i*j)%9]
+for i in range(1,n+1): res -= n//i
+print(res)",True,1.1158,7.4898,7.4898,0.0,0,0,0.0,[],[]
+82322301,gpt-5.4-mini,reference,"n = int(input())
+q,r = divmod(n,9)
+d = [q]+[q+1]*r+[q]*(8-r)
+res = 0
+for i in range(9):
+    for j in range(9):
+        res += d[i]*d[j]*d[(i*j)%9]
+for i in range(1,n+1): res -= n//i
+print(res)",True,0.9362,6.7278,6.7278,0.0,0,0,0.0,[],[]

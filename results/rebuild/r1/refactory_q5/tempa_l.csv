@@ -1,0 +1,2545 @@
+Buggy,Model,Source,Patch,Fixed,RPS,ATT_all,ATT_cpu,ATT_api,InT,OuT,$API,Rules_L,Rules_SL
+wrong_5_001,claude-sonnet-5,rules,"def top_k(lst, k):
+    result = []
+    while k > 0:
+        big = max(lst)
+        result.append(big)
+        lst.remove(big)
+        k -= 1
+    return result
+",True,0.0294,0.1156,0.1156,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_5_002,claude-sonnet-5,rules,"def top_k(lst, k):
+    lst_res = lst
+    sort = []
+    while lst_res:
+        largest = lst_res[0]
+        for elements in lst_res:
+            if elements > largest:
+                largest = elements
+        lst_res.remove(largest)
+        sort.append(largest)
+    return sort[:k]
+",True,0.0455,0.1158,0.1158,0.0,0,0,0.0,"[""fix_forvar_typo_in_comparison""]",[]
+wrong_5_003,claude-sonnet-5,rules,"def top_k(lst, k):
+    tmp = []
+    while len(lst) > 0:
+        tmp.append(max(lst))
+        lst.remove(max(lst))
+    return tmp[:k]
+",True,0.0294,0.1183,0.1183,0.0,0,0,0.0,"[""fix_hardcoded_slice_literal""]",[]
+wrong_5_004,claude-sonnet-5,reference,"def top_k(lst, k):
+    sort = []
+    while lst: 
+        biggest = lst[0]
+        for element in lst:
+            if element > biggest:
+                biggest = element
+            else:
+                continue
+        lst.remove(biggest)
+        if len(sort) == k:
+            break
+        else:
+            sort.append(biggest)
+    return sort
+",True,0.3043,3.3764,3.3764,0.0,0,0,0.0,[],[]
+wrong_5_005,claude-sonnet-5,reference,"def top_k(lst, k):
+    sort = []
+    while lst: 
+        biggest = lst[0]
+        for element in lst:
+            if element > biggest:
+                biggest = element
+            else:
+                continue
+        lst.remove(biggest)
+        if len(sort) == k:
+            break
+        else:
+            sort.append(biggest)
+    return sort
+",True,0.2609,7.5849,7.5849,0.0,0,0,0.0,[],[]
+wrong_5_006,claude-sonnet-5,rules,"def top_k(lst, k):
+    if k == 0:
+        return []
+    sort = []
+    while lst: 
+        biggest = lst[0]
+        for element in lst:
+            if element > biggest:
+                biggest = element
+                
+        lst.remove(biggest)
+        sort.append(biggest)
+        if len(sort)==k:
+            break
+    return sort
+",True,0.1522,0.1263,0.1263,0.0,0,0,0.0,"[""insert_k_zero_guard_for_break_style""]",[]
+wrong_5_007,claude-sonnet-5,reference,"def top_k(lst, k):
+    lst1 = []
+    for i in lst:
+        if i >= k:
+            lst1.append(i) 
+    sort = []
+    while lst:
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+        lst.remove(largest)
+        sort.append(largest)
+    return sort[:k]
+",True,0.2037,8.6084,8.6084,0.0,0,0,0.0,[],[]
+wrong_5_008,claude-sonnet-5,rules,"def top_k(lst, k):
+    sort = []
+    while lst: 
+        biggest = lst[0]
+        for element in lst:
+            if element > biggest:
+                biggest = element
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort[:k]
+",True,0.0682,0.1216,0.1216,0.0,0,0,0.0,"[""fix_offbyone_slice_k_plus_1""]",[]
+wrong_5_009,claude-sonnet-5,reference,"def top_k(lst, k):
+    sort_list = []
+    counter = 0
+    while counter < k:
+        sort_list.append(max(lst))
+        lst.remove(max(lst))
+        counter = counter + 1
+    return sort_list
+    
+",True,0.5862,0.7701,0.7701,0.0,0,0,0.0,[],[]
+wrong_5_010,claude-sonnet-5,reference,"def top_k(lst, k):
+    sort_list = []
+    counter = 0
+    while counter < k:
+        sort_list.append(max(lst))
+        lst.remove(max(lst))
+        counter = counter + 1
+    return sort_list
+    
+",True,0.5862,0.7933,0.7933,0.0,0,0,0.0,[],[]
+wrong_5_011,claude-sonnet-5,rules,"def sort_age(lst):
+        new=[]
+        while lst !=[]:
+            big=lst[0]
+            for i in lst:
+                if i > big:
+                    big=i
+            lst.remove(big)
+            new.append(big)
+        return new
+def top_k(lst, k):
+    return sort_age(lst)[:k]
+    pass
+",True,0.0702,0.1255,0.1255,0.0,0,0,0.0,"[""fix_tuple_subscript_leftover""]",[]
+wrong_5_012,claude-sonnet-5,reference,"def top_k(lst, k):
+    if lst==[]:
+        return []
+    lower=[]
+    while lst:
+        higher = lst[0]
+        for plist in lst:
+            if plist > higher:
+                higher = plist
+        lst.remove(higher)
+        lower.append(higher)
+    return lower[:k]
+    pass
+",True,0.6164,7.5165,7.5165,0.0,0,0,0.0,[],[]
+wrong_5_013,claude-sonnet-5,reference,"def top_k(lst, k):
+    if lst==[]:
+        return []
+    lower=[]
+    while lst:
+        higher = lst[0]
+        for plist in lst:
+            if plist > higher:
+                higher = plist
+        lst.remove(higher)
+        lower.append(higher)
+    return lower[:k]
+    pass
+",True,0.6164,7.518,7.518,0.0,0,0,0.0,[],[]
+wrong_5_014,claude-sonnet-5,reference,"def top_k(lst, k):
+    if lst==[]:
+        return []
+    lower=[]
+    while lst:
+        higher = lst[0]
+        for plist in lst:
+            if plist > higher:
+                higher = plist
+        lst.remove(higher)
+        lower.append(higher)
+    return lower[:k]
+    pass
+",True,0.6164,7.4761,7.4761,0.0,0,0,0.0,[],[]
+wrong_5_015,claude-sonnet-5,reference,"def top_k(lst, k):
+    
+    if lst == []:
+        return lst
+    def sorting(nlist):
+        if nlist == []:
+            return nlist
+        lower = []
+        higher = []
+        plist = []
+        pivot = nlist[0]
+        for e in nlist:
+            if e < pivot:
+                lower.append(e)
+            elif e == pivot:
+                plist.append(e)
+            elif e > pivot:
+                higher.append(e)
+        higher = sorting(higher)
+        lower = sorting(lower)
+        return lower + plist + higher
+    
+    sort_list = sorting(lst)
+    sort_list = sort_list[::-1]
+    
+    return sort_list[:k]
+",True,0.4074,8.2599,8.2599,0.0,0,0,0.0,[],[]
+wrong_5_016,claude-sonnet-5,reference,"def top_k(lst, k):
+    
+    if lst == []:
+        return lst
+    
+    lower = []
+    while lst:
+        higher = lst[0]
+        for plist in lst:
+            if plist > higher:
+                higher = plist
+        lower.append(higher)
+        lst.remove(higher)
+    if k > len(lower):
+        return lower
+    else:
+        return lower[:k]
+",True,0.6476,6.2123,6.2123,0.0,0,0,0.0,[],[]
+wrong_5_017,claude-sonnet-5,reference,"def top_k(lst, k):
+    result = []
+    while lst:
+        biggest = lst[0]
+        for number in lst:
+            if number > biggest:
+                biggest = number
+        lst.remove(biggest)
+        result.append(biggest)
+    return result[:k]
+",True,0.0244,7.2783,7.2783,0.0,0,0,0.0,[],[]
+wrong_5_018,claude-sonnet-5,rules,"def top_k(lst, k):
+    # Fill in your code here
+    sort = []
+    while lst: # a is not []
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+        lst.remove(largest)
+        sort.append(largest)
+    return sort[:k]
+",True,0.0682,0.1192,0.1192,0.0,0,0,0.0,"[""fix_offbyone_slice_k_plus_1""]",[]
+wrong_5_019,claude-sonnet-5,rules,"def top_k(lst, k):
+    arranged = []
+    while k>0:
+        arranged.append(max(lst))
+        lst.remove(max(lst))
+        k -= 1
+    return arranged
+    pass
+",True,0.0588,0.1153,0.1153,0.0,0,0,0.0,"[""append_before_remove_maxcall""]",[]
+wrong_5_020,claude-sonnet-5,rules,"def top_k(lst, k):
+    arranged = []
+    while k > 0:
+        arranged.append(max(lst))
+        lst.remove(max(lst))
+        k = k-1
+    return arranged
+    pass
+",True,0.0556,0.1194,0.1194,0.0,0,0,0.0,"[""append_before_remove_maxcall""]",[]
+wrong_5_021,claude-sonnet-5,rules,"def top_k(lst, k):
+    r=[]
+    for qwerty in range(0,k):
+        biggest=lst[0]
+        for k in lst:
+            if biggest<k:
+                biggest=k
+        r.append(biggest)
+        lst.remove(biggest)
+    return r
+        
+",True,0.0476,0.4189,0.4189,0.0,0,0,0.0,"[""fix_bracket_call_syntax"", ""fix_bracket_call_syntax""]",[]
+wrong_5_022,claude-sonnet-5,reference,"def top_k(lst, k):
+    rs=[]
+    for qwerty in range(0,k):
+        biggest=lst[0]
+        for k in lst:
+            if biggest<k:
+                biggest=k
+        rs.append(biggest)
+        lst.remove(biggest)
+    return rs
+",True,0.0714,3.5115,3.5115,0.0,0,0,0.0,[],[]
+wrong_5_023,claude-sonnet-5,reference,"def top_k(lst, k):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for i in lst[1:]:
+            if i > biggest:
+                biggest = i
+        lst.remove(biggest)
+        sort.append(biggest)
+    
+    n = 1
+    sort_k = []
+    while n <= k:
+        sort_k.append(sort.pop(0))
+        n += 1
+    
+    return sort_k
+        
+",True,0.1,5.919,5.919,0.0,0,0,0.0,[],[]
+wrong_5_024,claude-sonnet-5,rules,"def top_k(lst, k):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for i in lst[1:]:
+            if i > biggest:
+                biggest = i
+        lst.remove(biggest)
+        sort.append(biggest)
+    
+    n = 1
+    sort_k = []
+    while n <= k:
+        sort_k.append(sort.pop(0))
+        n += 1
+    
+    return sort_k
+        
+",True,0.0312,0.37,0.37,0.0,0,0,0.0,"[""fix_bracket_call_syntax"", ""fix_assign_wrong_var_in_max_loop""]",[]
+wrong_5_025,claude-sonnet-5,rules,"def top_k(lst, k):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for i in lst[1:]:
+            if i > biggest:
+                biggest = i
+        lst.remove(biggest)
+        sort.append(biggest)
+    
+    n = 1
+    sort_k = []
+    while n <= k:
+        sort_k.append(sort.pop(0))
+        n += 1
+    
+    return sort_k
+        
+",True,0.0156,0.1256,0.1256,0.0,0,0,0.0,"[""fix_assign_wrong_var_in_max_loop""]",[]
+wrong_5_026,claude-sonnet-5,rules,"def top_k(lst, k):
+    if lst==[]:
+        return []
+    sort=[]
+    while lst:
+        largest = lst[0]
+        for i in lst:
+            if i > largest:
+                largest = i
+        lst.remove(largest)
+        sort.append(largest)
+    return sort[:k]
+    pass
+",True,0.0755,0.1274,0.1274,0.0,0,0,0.0,"[""fix_tuple_subscript_leftover""]",[]
+wrong_5_027,claude-sonnet-5,reference,"def top_k(lst, k):
+    sorted_lst = []
+    while lst:
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+        lst.remove(largest)
+        sorted_lst.append(largest)
+    return sorted_lst[:k]
+    pass
+",True,0.1778,47.3862,47.3862,0.0,0,0,0.0,[],[]
+wrong_5_028,claude-sonnet-5,reference,"def top_k(lst, k):
+    sort = []
+    while lst:
+        largest = lst[0]
+        for i in lst:
+            if i > largest:
+                largest = i
+        lst.remove(largest)
+        sort.append(largest)
+    return sort[:k]
+        
+",True,0.2308,23.431,23.431,0.0,0,0,0.0,[],[]
+wrong_5_029,claude-sonnet-5,reference,"def top_k(lst, k):
+    sorted_list = []
+    while lst:
+        smallest = lst[0]
+        for element in lst:
+            if smallest < element:
+                smallest = element
+        lst.remove(smallest)
+        sorted_list.append(smallest)
+    return sorted_list[:k]
+",True,0.2553,9.2017,9.2017,0.0,0,0,0.0,[],[]
+wrong_5_030,claude-sonnet-5,rules,"def top_k(lst, k):
+    if k == 0:
+        return []
+    sort, output = ([], [])
+    while lst:
+        largest = lst[0]
+        for i in lst:
+            if i > largest:
+                largest = i
+        lst.remove(largest)
+        sort.append(largest)
+    for j in sort:
+        output.append(j)
+        if len(output) == k:
+            break
+    return output    
+",True,0.1207,0.1771,0.1771,0.0,0,0,0.0,"[""insert_k_zero_guard_for_break_style""]",[]
+wrong_5_031,claude-sonnet-5,rules,"def top_k(lst, k):
+    new_lst = []
+    while lst:
+        largest = lst[0] 
+        for numbers in lst:
+            if numbers > largest:
+                largest = numbers
+        new_lst.append(largest)
+        lst.remove(largest)
+    return new_lst[:k]
+",True,0.1538,0.1789,0.1789,0.0,0,0,0.0,"[""fix_pop_tracked_value_as_index""]",[]
+wrong_5_032,claude-sonnet-5,reference,"def top_k(lst, k):
+    new_lst = []
+    while lst:
+        largest = lst[0]
+        for numbers in lst:
+            if numbers > largest:
+                largest = numbers
+        lst.remove(largest)
+        new_lst.append(largest)
+    return new_lst[:k]
+",True,0.0976,8.3904,8.3904,0.0,0,0,0.0,[],[]
+wrong_5_033,claude-sonnet-5,rules,"def top_k(lst, k):
+    if k == 0:
+        return []
+    final = []
+    while lst:
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+        lst.remove(largest)
+        final.append(largest)
+        if len(final) == k:
+            break
+    return final
+",True,0.1957,0.6241,0.6241,0.0,0,0,0.0,"[""dedent_remove_append_in_for"", ""insert_k_zero_guard_for_break_style""]",[]
+wrong_5_034,claude-sonnet-5,rules,"def top_k(lst, k):
+    if k == 0:
+        return []
+    final = []
+    while lst:
+        element = max(lst)
+        final += [element,]
+        lst.remove(element)
+        if len(final) == k:
+            break
+    return final
+",True,0.2,0.1268,0.1268,0.0,0,0,0.0,"[""insert_k_zero_guard_for_break_style""]",[]
+wrong_5_035,claude-sonnet-5,rules,"def top_k(lst, k):
+    if k == 0:
+        return []
+    if lst <= []:
+        return []
+    else:
+        final = []
+        while lst:
+            element = max(lst)
+            final += [element]
+            lst.remove(element)
+            if len(final) == k:
+                break
+        return final
+",True,0.1905,0.2276,0.2276,0.0,0,0,0.0,"[""generic_flip_compare"", ""insert_k_zero_guard_for_break_style""]",[]
+wrong_5_036,claude-sonnet-5,rules,"def top_k(lst, k):
+    if lst == [] or k == 0:
+        return []
+    else:
+        final = []
+        while lst:
+            element = max(lst)
+            final += [element]
+            lst.remove(element)
+            if len(final) == k:
+                break
+        return final
+",True,0.1224,0.1237,0.1237,0.0,0,0,0.0,"[""merge_k_zero_branch""]",[]
+wrong_5_037,claude-sonnet-5,reference,"def top_k(lst, k):
+    sort = []
+    while len(sort) < k:
+        smallest = lst[0]
+        for i in lst:
+            if i > smallest:
+                smallest = i
+        lst.remove(smallest)
+        sort.append(smallest)
+    return sort
+",True,0.4643,7.7326,7.7326,0.0,0,0,0.0,[],[]
+wrong_5_038,claude-sonnet-5,reference,"def top_k(lst, k):
+    i=0
+    while i+1<len(lst):
+        if lst[i]<lst[i+1]:
+            lst.extend([lst[i]])
+            lst.pop(i)
+            i=0
+        else:
+            i+=1
+    return lst[:k]
+",True,0.0566,88.6131,88.6131,0.0,0,0,0.0,[],[]
+wrong_5_039,claude-sonnet-5,reference,"def top_k(lst, k):
+    i=0
+    while i+1<len(lst):
+        if lst[i]<lst[i+1]:
+            lst.extend([lst[i]])
+            lst.pop(i)
+            i=0
+        else:
+            i+=1
+    return lst[:k]
+",True,0.0566,88.5696,88.5696,0.0,0,0,0.0,[],[]
+wrong_5_040,claude-sonnet-5,reference,"def top_k(lst, k):
+    i=0
+    while i+1<len(lst):
+        if lst[i]<lst[i+1]:
+            lst.extend([lst[i]])
+            lst.pop(i)
+            i=0
+        else:
+            i+=1
+    return lst[:k]
+",True,0.0893,88.8946,88.8946,0.0,0,0,0.0,[],[]
+wrong_5_041,claude-sonnet-5,reference,"def top_k(lst, k):
+    i=0
+    while i+1<len(lst):
+        if lst[i]<lst[i+1]:
+            lst.extend([lst[i]])
+            lst.pop(i)
+            i=0
+        else:
+            i+=1
+    return lst[:k]
+",True,0.0377,88.8197,88.8197,0.0,0,0,0.0,[],[]
+wrong_5_042,claude-sonnet-5,reference,"def top_k(lst, k):
+    #top k in descending order
+    sort = []
+    x=len(lst)
+    while len(lst)>x-k:
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+        lst.remove(largest)
+        sort.append(largest)
+    return sort
+",True,0.0816,7.9515,7.9515,0.0,0,0,0.0,[],[]
+wrong_5_043,claude-sonnet-5,rules,"def top_k(lst, k):
+    a=[]
+    while lst:
+        largest = lst[0]
+        for i in lst:
+            if i > largest:
+                largest = i
+        lst.remove(largest)
+        a.append(largest)
+    return a[:k]
+",True,0.0976,11.1216,11.1216,0.0,0,0,0.0,"[""dedent_remove_append_in_if""]",[]
+wrong_5_044,claude-sonnet-5,rules,"def top_k(lst, k):
+    af_sort = []
+    while lst:
+        biggest = lst[0] 
+        for element in lst:
+            if element > biggest:
+                biggest = element
+        lst.remove(biggest)
+        af_sort.append(biggest)
+    return af_sort[0:k]
+    
+",True,0.0714,0.3254,0.3254,0.0,0,0,0.0,"[""fix_for_loop_wrong_iterable"", ""dedent_remove_append_in_for""]",[]
+wrong_5_045,claude-sonnet-5,rules,"def top_k(lst, k):
+    newlst = []
+    while len(newlst) < k:
+        maximum = lst[0]
+        for i in lst:
+            if i > maximum:
+                maximum = i
+        newlst.append(maximum)
+        lst.remove(maximum)
+    return newlst
+            
+",True,0.0233,0.1886,0.1886,0.0,0,0,0.0,"[""fix_offbyone_lte_bound""]",[]
+wrong_5_046,claude-sonnet-5,reference,"def top_k(lst, k):
+    new_list = []
+    while len(new_list) < k:
+        maximum = max(lst)
+        new_list.append(maximum)
+        lst.remove(maximum)
+
+    return new_list
+",True,0.0938,0.381,0.381,0.0,0,0,0.0,[],[]
+wrong_5_047,claude-sonnet-5,reference,"def top_k(lst, k):
+    sorted_lst = []
+    while lst:
+        biggest = lst[0]
+        for n in range(len(lst)):
+            if lst[n] >= biggest:
+                biggest = lst[n]
+        lst.remove(biggest)
+        sorted_lst.append(biggest)
+    return sorted_lst[0:k]
+            
+            
+",True,0.3333,62.6901,62.6901,0.0,0,0,0.0,[],[]
+wrong_5_048,claude-sonnet-5,reference,"def top_k(lst, k):
+    sorted_lst = []
+    while lst:
+        biggest = lst[0]
+        for n in range(len(lst)):
+            if lst[n] >= biggest:
+                biggest = lst[n]
+        lst.remove(biggest)
+        sorted_lst.append(biggest)
+    return sorted_lst[0:k]
+            
+            
+",True,0.2941,36.4898,36.4898,0.0,0,0,0.0,[],[]
+wrong_5_049,claude-sonnet-5,rules,"def top_k(lst, k):
+    sorted_lst = []
+    while lst:
+        biggest = lst[0]
+        for n in lst:
+            if n >= biggest:
+                biggest = n
+        lst.remove(biggest)
+        sorted_lst.append(biggest)
+    return sorted_lst[0:k]
+            
+            
+",True,0.087,0.1361,0.1361,0.0,0,0,0.0,"[""fix_forvar_typo_in_comparison""]",[]
+wrong_5_050,claude-sonnet-5,reference,"def top_k(lst, k):
+    newlist = []
+    while len(newlist) < k:
+        newlist += [max(lst)]
+        for i in range(len(lst)):
+            if lst[i] == max(lst):
+                break
+        del lst[i]
+    return newlist
+",True,0.125,3.2142,3.2142,0.0,0,0,0.0,[],[]
+wrong_5_051,claude-sonnet-5,rules,"def top_k(lst, k):
+    a=[]
+    while lst:
+        biggest=lst[0]
+        for i in lst:
+            if i > biggest:
+                biggest = i
+        lst.remove(biggest)
+        a.append(biggest)
+    return a[0:k]
+",True,0.0952,11.109,11.109,0.0,0,0,0.0,"[""dedent_remove_append_in_if""]",[]
+wrong_5_052,claude-sonnet-5,reference,"def top_k(lst,k): #k is the number of values in the lst
+    lst2 = []
+    while lst:
+        a = max(lst)
+        lst2.append(a)
+        lst.remove(a)
+    return lst2[0:k]
+",True,1.0625,0.1228,0.1228,0.0,0,0,0.0,[],[]
+wrong_5_053,claude-sonnet-5,reference,"def top_k(lst, k):
+    count = 0
+    op = []
+    while count < k:
+        op += [max(lst)]
+        lst.remove(max(lst))
+        count += 1
+    return op
+            
+    
+",True,0.3939,5.8192,5.8192,0.0,0,0,0.0,[],[]
+wrong_5_054,claude-sonnet-5,reference,"def top_k(lst, k):
+    count = 0
+    op = []
+    while count < k:
+        op += [max(lst)]
+        lst.remove(max(lst))
+        count += 1
+    return op
+            
+    
+",True,0.3529,5.9614,5.9614,0.0,0,0,0.0,[],[]
+wrong_5_055,claude-sonnet-5,reference,"def top_k(lst, k):
+    values = []
+    while len(values) < k:
+        greatest = lst[0]
+        for item in lst:
+            if item > greatest:
+                greatest = item
+        lst.remove(greatest)
+        values.append(greatest)
+    return values
+",True,0.3125,5.616,5.616,0.0,0,0,0.0,[],[]
+wrong_5_056,claude-sonnet-5,reference,"def top_k(lst, k):
+    values = []
+    while len(values) < k:
+        greatest = lst[0]
+        for item in lst:
+            if item > greatest:
+                greatest = item
+        lst.remove(greatest)
+        values.append(greatest)
+        
+    return values
+
+",True,0.1395,6.8083,6.8083,0.0,0,0,0.0,[],[]
+wrong_5_057,claude-sonnet-5,reference,"def top_k(lst, k):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for element in lst:
+            if element > biggest:
+                biggest = element
+        lst.remove(biggest)
+        if len(sort) == k:
+            return sort
+        else:
+            sort.append(biggest)
+    return sort
+",True,0.2609,7.5342,7.5342,0.0,0,0,0.0,[],[]
+wrong_5_058,claude-sonnet-5,reference,"def top_k(lst, k):
+    new_lst = []
+    for i in range(k):
+        new_lst.append(max(lst))
+        lst.remove(max(lst))
+    return new_lst
+    pass
+",True,0.3043,4.8395,4.8395,0.0,0,0,0.0,[],[]
+wrong_5_059,claude-sonnet-5,rules,"def top_k(lst, k):
+    new_lst = []
+    for i in range(k):
+        new_lst.append(max(lst))
+        lst.remove(max(lst))
+    return new_lst
+    pass
+",True,0.3077,0.1153,0.1153,0.0,0,0,0.0,"[""fix_append_wraps_remove""]",[]
+wrong_5_060,claude-sonnet-5,reference,"def top_k(lst, k):
+    new_lst = []
+    while lst:
+        biggest = lst[0]
+        for x in lst:
+            if biggest < x:
+                biggest = x
+        lst.remove(biggest)
+        new_lst.append(biggest)
+    return new_lst[0:k]
+    
+",True,0.0909,4.8547,4.8547,0.0,0,0,0.0,[],[]
+wrong_5_061,claude-sonnet-5,reference,"def top_k(lst, k):
+    new_lst = []
+    while lst:
+        biggest = lst[0]
+        for x in lst:
+            if x > biggest:
+                biggest = x
+        lst.remove(biggest)
+        new_lst.append(biggest)
+    return new_lst[0:k]
+    
+",True,0.0682,4.7305,4.7305,0.0,0,0,0.0,[],[]
+wrong_5_062,claude-sonnet-5,rules,"def top_k(lst,k):
+    a = []
+    while lst:
+        biggest = lst[0]
+        for element in lst:
+            if element > biggest:
+                biggest = element
+        lst.remove(biggest)
+        a.append(biggest)
+    return a[:k]
+",True,0.0244,0.1222,0.1222,0.0,0,0,0.0,"[""fix_hardcoded_slice_literal""]",[]
+wrong_5_063,claude-sonnet-5,rules,"def top_k(lst, k):
+    if k<=0:
+        return []
+    else:
+        maxi=max(lst)
+        length=len(lst)
+        for i in range(length):
+            if lst[i]==maxi:
+                pos=i
+        new_list = lst.copy()
+        new_list.pop(pos)
+        return [maxi] + top_k(new_list, k - 1)
+",True,0.0169,0.1314,0.1314,0.0,0,0,0.0,"[""fix_recursive_call_typo_var""]",[]
+wrong_5_064,claude-sonnet-5,reference,"def top_k(lst, k):
+    results = []
+    counter = 0
+    while counter < k:
+        for i in range(-len(lst),0):
+            if lst[i] == max(lst):
+                results.append(lst.pop(i))
+                break
+        counter += 1
+    return results
+    pass
+",True,0.1538,72.1056,72.1056,0.0,0,0,0.0,[],[]
+wrong_5_065,claude-sonnet-5,reference,"def top_k(lst, k):
+    x=[]
+    for i in range(0,k):
+        y=lst[0]
+        for j in lst:
+            if j>y:
+                y=j
+        x.append(y)
+        lst.remove(y)
+    return x# Fill in your code here
+    pass
+",True,0.5135,6.2684,6.2684,0.0,0,0,0.0,[],[]
+wrong_5_066,claude-sonnet-5,rules,"def top_k(lst, k):
+    # Fill in your code here
+    a = lst
+    sort = []
+    while a:
+        largest = a[0]
+        for item in a:
+            if item > largest:
+                largest = item
+        a.remove(largest)
+        sort.append(largest)
+    return(sort)[:k]
+",True,0.0833,0.1265,0.1265,0.0,0,0,0.0,"[""fix_tuple_subscript_leftover""]",[]
+wrong_5_067,claude-sonnet-5,reference,"def top_k(lst, k):
+    new = []
+    while len(new) < k:
+        new.append(lst.pop(lst.index(max(lst))))
+    return new
+        
+",True,0.3667,5.4889,5.4889,0.0,0,0,0.0,[],[]
+wrong_5_068,claude-sonnet-5,rules,"def top_k(lst, k):
+    new = []
+    for i in range(k - 1 + 1):
+        new.append(lst.pop(lst.index(max(lst))))
+        
+    return new
+        
+",True,0.2143,0.1901,0.1901,0.0,0,0,0.0,"[""generic_shift_range"", ""fix_pop_max_as_index""]",[]
+wrong_5_069,claude-sonnet-5,rules,"def top_k(lst, k):
+    new = []
+    length = len(lst)
+    while len(lst) > length - k:
+        new.append(lst.pop(lst.index(max(lst))))
+        
+    return new
+        
+",True,0.3438,0.1886,0.1886,0.0,0,0,0.0,"[""fix_pop_max_as_index"", ""fix_constant_while_condition""]",[]
+wrong_5_070,claude-sonnet-5,rules,"def top_k(lst, k):
+    new = []
+    length = len(lst)
+    while len(lst) > length - k:
+        new.append(max(lst))
+        lst.remove(max(lst))
+        
+    return new
+        
+",True,0.5,0.1908,0.1908,0.0,0,0,0.0,"[""fix_constant_while_condition"", ""fix_append_wraps_remove""]",[]
+wrong_5_071,claude-sonnet-5,rules,"def top_k(lst, k):
+    new = []
+    length = len(lst)
+    while len(lst) > length - k:
+        top = max(lst)
+        new.append(top)
+        lst.remove(top)
+        
+    return new
+        
+",True,0.4286,0.2975,0.2975,0.0,0,0,0.0,"[""fix_constant_while_condition"", ""fix_append_wraps_remove"", ""generic_flip_compare""]",[]
+wrong_5_072,claude-sonnet-5,reference,"def top_k(lst, k):
+    results = []
+    counter = 0
+    while counter < k:
+        for i in range(-len(lst),0):
+            if lst[i] == max(lst):
+                results.append(lst.pop(i))
+                break
+        counter += 1
+    return results
+",True,0.1569,70.3084,70.3084,0.0,0,0,0.0,[],[]
+wrong_5_073,claude-sonnet-5,reference,"def top_k(lst, k):
+    results = []
+    counter = 0
+    while counter < k:
+        for i in range(-len(lst),0):
+            if lst[i] == max(lst):
+                results.append(lst.pop(i))
+                break
+        counter += 1
+    return results
+",True,0.12,45.2507,45.2507,0.0,0,0,0.0,[],[]
+wrong_5_074,claude-sonnet-5,reference,"def top_k(lst, k):
+    results = []
+    counter = 0
+    while counter < k:
+        for i in range(-len(lst),0):
+            if lst[i] == max(lst):
+                results.append(lst.pop(i))
+                break
+        counter += 1
+    return results
+",True,0.102,45.0344,45.0344,0.0,0,0,0.0,[],[]
+wrong_5_075,claude-sonnet-5,rules,"def top_k(lst, k):
+    new = []
+    length = len(lst)
+    while len(lst) > length - k:
+        top = max(lst)
+        new.append(top)
+        lst.remove(top)
+        
+    return new
+        
+",True,0.2432,0.1765,0.1765,0.0,0,0,0.0,"[""fix_constant_while_condition"", ""generic_flip_compare""]",[]
+wrong_5_076,claude-sonnet-5,rules,"def top_k(lst, k):
+    new = []
+    length = len(lst)
+    while len(lst) > length - k:
+        top = max(lst)
+        new.append(top)
+        lst.remove(top)
+        
+    return new
+        
+",True,0.2162,0.1158,0.1158,0.0,0,0,0.0,"[""fix_constant_while_condition""]",[]
+wrong_5_077,claude-sonnet-5,rules,"
+def top_k(lst, k):
+    # Fill in your code here
+ 
+    result = []
+    while lst:
+        minimum = lst[0]  # arbitrary number in list 
+        for x in lst: 
+            if x > minimum:
+                minimum = x
+        result.append(minimum)
+        lst.remove(minimum) 
+    return result[:k]
+",True,0.0244,0.119,0.119,0.0,0,0,0.0,"[""fix_return_source_list_sliced""]",[]
+wrong_5_078,claude-sonnet-5,rules,"def top_k(lst, k):
+    sort = []
+    while lst:
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+        lst.remove(largest)
+        sort.append(largest)
+    return sort[:k]
+
+",True,0.0976,11.1079,11.1079,0.0,0,0,0.0,"[""dedent_remove_append_in_if""]",[]
+wrong_5_079,claude-sonnet-5,rules,"def top_k(lst, k):
+    # Fill in your code here
+    sort_lst = []
+    while lst: # a is not []
+        smallest = lst[0]
+        for element in lst:
+            if element > smallest:
+                smallest = element
+        lst.remove(smallest)
+        sort_lst.append(smallest)
+    return sort_lst[:k]
+",True,0.0244,0.1201,0.1201,0.0,0,0,0.0,"[""fix_min_instead_of_max""]",[]
+wrong_5_080,claude-sonnet-5,rules,"def top_k(lst, k):
+    sotsot = []
+    while len(sotsot) < k:
+        sotsot.append(max(lst))
+        lst.remove(max(lst)) #wont return u any value just modified the list only.
+    return sotsot 
+    
+",True,0.0323,0.1157,0.1157,0.0,0,0,0.0,"[""fix_offbyone_lte_bound""]",[]
+wrong_5_081,claude-sonnet-5,reference,"def top_k(lst, k):
+    sotsot = []
+    while len(sotsot)<k:
+        sotsot.append(max(lst))
+        lst.remove(max(lst))
+    return sotsot
+",True,0.0909,0.3209,0.3209,0.0,0,0,0.0,[],[]
+wrong_5_082,claude-sonnet-5,reference,"def top_k(lst, k):
+    sotsot = []
+    while len(sotsot)<k:
+        sotsot.append(max(lst))
+        lst.remove(max(lst))
+    return sotsot
+",True,0.0909,0.4094,0.4094,0.0,0,0,0.0,[],[]
+wrong_5_083,claude-sonnet-5,rules,"def top_k(lst, k):
+    result = []
+    for i in range(len(lst)):
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+        lst.remove(largest)
+        result.append(largest)
+    return result[:k]
+",True,0.0217,0.1471,0.1471,0.0,0,0,0.0,"[""fix_return_source_list_sliced""]",[]
+wrong_5_084,claude-sonnet-5,reference,"def top_k(lst, k):
+	new_list = []
+	for i in range(0, k):
+		new_list += [max(lst)]
+		lst.remove(max(lst))
+	return new_list
+",True,0.4839,0.2893,0.2893,0.0,0,0,0.0,[],[]
+wrong_5_085,claude-sonnet-5,rules,"def top_k(lst, k):
+    result = []
+    length = len(lst)
+    while len(lst) > length - k:
+        biggest = lst[0]
+        for element in lst:
+            if element > biggest:
+                biggest = element
+        result.append(biggest)
+        lst.remove(biggest)
+        
+    return result
+    pass
+",True,0.1633,0.1219,0.1219,0.0,0,0,0.0,"[""fix_constant_while_condition""]",[]
+wrong_5_086,claude-sonnet-5,rules,"def top_k(lst, k):
+    list = []
+    while len(list) < k:
+        a = max(lst)
+        list.append(a)
+        lst.remove(a)
+    return list
+",True,0.0625,0.1189,0.1189,0.0,0,0,0.0,"[""fix_collector_append_mistargeted""]",[]
+wrong_5_087,claude-sonnet-5,reference,"def top_k(lst, k):
+    list = []
+    while len(list) < k:
+        a = max(lst)
+        lst.remove(a)
+        list.append(a)
+    return list
+",True,0.0625,4.3523,4.3523,0.0,0,0,0.0,[],[]
+wrong_5_088,claude-sonnet-5,rules,"def top_k(lst, k):
+    lst = sort_descending(lst)
+    return lst[:k]
+    
+
+def sort_descending(lst):
+    for i in range(len(lst)-1):
+        for j in range(i, len(lst)):
+            if lst[j] > lst[i]:
+                x = lst[i]
+                lst[i] = lst[j]
+                lst[j] = x
+    return lst
+",True,0.0972,0.9236,0.9236,0.0,0,0,0.0,"[""fix_tuple_subscript_leftover"", ""fix_offbyone_slice_k_minus_1""]",[]
+wrong_5_089,claude-sonnet-5,rules,"def top_k(lst, k):
+    newlist = []
+    while lst:
+        biggest = lst[0]
+        for i in lst:
+            if i > biggest:
+                biggest = i
+            else:
+                continue
+        lst.remove(biggest)
+        if len(newlist) == k:
+            break
+        else:
+            newlist.append(biggest)
+    return newlist
+",True,0.0426,0.1256,0.1256,0.0,0,0,0.0,"[""fix_return_misindented_in_loop""]",[]
+wrong_5_090,claude-sonnet-5,reference,"def top_k(lst, k):
+    sort = []
+    while lst:
+        big = max(lst)
+        sort.append(big)
+        lst.remove(big)
+    return sort[0:k]
+",True,0.3659,2.331,2.331,0.0,0,0,0.0,[],[]
+wrong_5_091,claude-sonnet-5,reference,"def top_k(lst, k):
+    lst2 = []
+    while len(lst2) < k:
+        max = lst[0]
+        for i in lst:
+            if i > max:
+                max = i
+        lst.remove(max)
+        lst2.append(max)
+    return lst2
+",True,0.4211,6.8066,6.8066,0.0,0,0,0.0,[],[]
+wrong_5_092,claude-sonnet-5,reference,"def top_k(lst, k):
+    lst2 = []
+    while len(lst2) < k:
+        max = lst[0]
+        for i in lst:
+            if i > max:
+                max = i
+        lst.remove(max)
+        lst2.append(max)
+    return lst2
+",True,0.3721,7.1818,7.1818,0.0,0,0,0.0,[],[]
+wrong_5_093,claude-sonnet-5,rules,"def top_k(lst, k):
+    result = []
+    while lst:
+        biggest = lst[0]
+        for elem in lst:
+            if elem > biggest:
+                biggest = elem
+        lst.remove(biggest)
+        result.append(biggest)
+    
+    return result[:k]
+
+    # Fill in your code here
+    pass
+
+
+",True,0.0238,0.119,0.119,0.0,0,0,0.0,"[""fix_hardcoded_slice_literal""]",[]
+wrong_5_094,claude-sonnet-5,rules,"def top_k(lst, k):
+    for i in range(len(lst)):
+        for j in range(len(lst) - 1):
+            if lst[j] > lst[j + 1]:
+                lst[j], lst[j + 1] = (lst[j + 1], lst[j])
+    lst.reverse()
+    return lst[:k]
+    pass
+",True,0.0469,0.1309,0.1309,0.0,0,0,0.0,"[""fix_broken_swap""]",[]
+wrong_5_095,claude-sonnet-5,rules,"def top_k(lst, k):
+    for i in range(len(lst)):
+        for j in range(len(lst) - 1):
+            if lst[j] > lst[j + 1]:
+                lst[j], lst[j + 1] = (lst[j + 1], lst[j])
+    lst.reverse()
+    return lst[:k]
+    pass
+",True,0.0469,0.1448,0.1448,0.0,0,0,0.0,"[""fix_broken_swap""]",[]
+wrong_5_096,claude-sonnet-5,rules,"def top_k(lst, k):
+    for pass_ in range(len(lst)):
+        for i in range(len(lst) - 1):
+            if lst[i] < lst[i + 1]:
+                lst[i], lst[i + 1] = (lst[i + 1], lst[i])
+    return lst[:k]
+",True,0.1321,0.1284,0.1284,0.0,0,0,0.0,"[""fix_single_pass_should_be_full_bubble_sort""]",[]
+wrong_5_097,claude-sonnet-5,rules,"def top_k(lst, k):
+    # Fill in your code here
+    sort = []
+    while lst:
+        largest = lst[0]
+        for i in range(len(lst)):
+            if lst[i] > largest:
+                largest = lst[i]
+        sort.append(largest)
+        lst.remove(largest)
+    return sort[:k]
+        
+",True,0.0577,0.1249,0.1249,0.0,0,0,0.0,"[""fix_offbyone_slice_k_plus_1""]",[]
+wrong_5_098,claude-sonnet-5,reference,"def top_k(lst, k):
+    if k>len(lst):
+        return None
+    def newsort(lsts):
+        l=[]
+        while lsts:
+            a=lsts[0]
+            for element in lsts:
+                if element>a:
+                    a=element
+            l.append(a)
+            lsts.remove(a)
+        return l
+    newlist=newsort(lst)
+    return newlist[0:k]
+    
+        
+    # Fill in your code here
+    pass
+",True,0.9792,1.1122,1.1122,0.0,0,0,0.0,[],[]
+wrong_5_099,claude-sonnet-5,reference,"def top_k(lst, k):
+    l= []
+    while lst:
+        a = lst[0]
+        for ele in lst:
+            if ele>a:
+                a = ele
+        if len(l)==k:
+            break 
+        else:
+            l.append(a)
+            lst.remove(a)
+    return l
+        
+    # Fill in your code here
+    pass
+",True,0.74,1.1843,1.1843,0.0,0,0,0.0,[],[]
+wrong_5_100,claude-sonnet-5,reference,"def top_k(lst, k):
+    l = []
+    while len(l) < k:
+        a = max(lst)
+        lst.remove(a)
+        l.append(a)
+    return l
+",True,0.3673,2.9273,2.9273,0.0,0,0,0.0,[],[]
+wrong_5_101,claude-sonnet-5,rules,"def top_k(lst, k):
+    # Fill in your code here
+    result = sort(lst)
+    return result[:k]
+
+def sort(lst):
+    sort=[]
+    while lst:
+        largest=lst[0]
+        for elem in lst:
+            if elem > largest:
+                largest = elem
+        lst.remove(largest)
+        sort.append(largest)
+    return sort
+",True,0.0385,0.1212,0.1212,0.0,0,0,0.0,"[""fix_local_name_shadows_called_function""]",[]
+wrong_5_102,claude-sonnet-5,reference,"def top_k(lst, k):
+    counter = []
+    while len(counter) < k:
+        counter.append(lst.pop(lst.index(max(lst))))
+    return counter
+",True,0.4615,0.4578,0.4578,0.0,0,0,0.0,[],[]
+wrong_5_103,claude-sonnet-5,reference,"def top_k(lst, k):
+    counter=0
+    new_lst=[]
+    while counter<k:
+        maxi=max(lst)
+        new_lst.append(maxi)
+        lst.remove(maxi)
+        counter+=1
+    return new_lst
+",True,0.1935,0.4162,0.4162,0.0,0,0,0.0,[],[]
+wrong_5_104,claude-sonnet-5,rules,"def top_k(lst, k):
+    counter=0
+    new_lst=[]
+    while counter < k:
+        maxi = max(lst)
+        new_lst.append(maxi)
+        lst.remove(maxi)
+        counter += 1
+    return new_lst
+",True,0.0571,0.1142,0.1142,0.0,0,0,0.0,"[""add_missing_return""]",[]
+wrong_5_105,claude-sonnet-5,rules,"def top_k(lst, k):
+    sort = []
+    while lst:
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+        lst.remove(largest)
+        sort.append(largest)
+    return sort[:k]
+",True,0.0476,0.119,0.119,0.0,0,0,0.0,"[""fix_hardcoded_slice_literal""]",[]
+wrong_5_106,claude-sonnet-5,reference,"def top_k(lst, k):
+    new = []
+    while lst:
+        i = max(lst)
+        new.append(i)
+        lst.remove(i)
+    output = []
+    for i in range(k):
+        output.append(new[i])
+    return output
+",True,0.7586,4.4106,4.4106,0.0,0,0,0.0,[],[]
+wrong_5_107,claude-sonnet-5,rules,"def top_k(lst, k):
+
+    newlst = []
+    for i in range(k + 1 - 1):
+        newlst.append(max(lst))
+        lst.remove(max(lst))
+    return newlst
+",True,0.0938,0.1161,0.1161,0.0,0,0,0.0,"[""generic_shift_range""]",[]
+wrong_5_108,claude-sonnet-5,rules,"def top_k(lst, k):
+    new_lst = []
+    counter = 0
+    while counter < k:
+        highest = lst[0]
+        for x in lst:
+            if x > highest:
+                highest = x
+        new_lst.append(highest)
+        lst.remove(highest)
+        counter += 1
+        
+    return new_lst
+",True,0.0208,0.1204,0.1204,0.0,0,0,0.0,"[""fix_offbyone_lte_bound""]",[]
+wrong_5_001,gpt-5.4-mini,rules,"def top_k(lst, k):
+    result = []
+    while k > 0:
+        big = max(lst)
+        result.append(big)
+        lst.remove(big)
+        k -= 1
+    return result
+",True,0.0294,0.1494,0.1494,0.0,0,0,0.0,"[""generic_flip_compare""]",[]
+wrong_5_002,gpt-5.4-mini,reference,"def top_k(lst, k):
+    lst_res = lst
+    sort = []
+    while lst_res:
+        largest = lst_res[0]
+        for elements in lst_res:
+            if elements>largest:
+                largest = elements
+        lst_res.remove(largest)
+        sort.append(largest)
+    return sort[:k]
+",True,0.0455,5.0977,5.0977,0.0,0,0,0.0,[],[]
+wrong_5_003,gpt-5.4-mini,reference,"def top_k(lst, k):
+    tmp = []
+    while len(lst) > 0:
+        tmp.append(max(lst))
+        lst.remove(max(lst))
+    return tmp[:k]
+",True,0.0294,0.3327,0.3327,0.0,0,0,0.0,[],[]
+wrong_5_004,gpt-5.4-mini,reference,"def top_k(lst, k):
+    sort = []
+    while lst: 
+        biggest = lst[0]
+        for element in lst:
+            if element > biggest:
+                biggest = element
+            else:
+                continue
+        lst.remove(biggest)
+        if len(sort) == k:
+            break
+        else:
+            sort.append(biggest)
+    return sort
+",True,0.3043,5.4987,5.4987,0.0,0,0,0.0,[],[]
+wrong_5_005,gpt-5.4-mini,reference,"def top_k(lst, k):
+    sort = []
+    while lst: 
+        biggest = lst[0]
+        for element in lst:
+            if element > biggest:
+                biggest = element
+            else:
+                continue
+        lst.remove(biggest)
+        if len(sort) == k:
+            break
+        else:
+            sort.append(biggest)
+    return sort
+",True,0.2609,8.962,8.962,0.0,0,0,0.0,[],[]
+wrong_5_006,gpt-5.4-mini,reference,"def top_k(lst, k):
+    sort = []
+    while len(sort) < k:
+        biggest = lst[0]
+        for element in lst:
+            if element > biggest:
+                biggest = element
+                
+        lst.remove(biggest)
+        sort.append(biggest)
+        if len(sort)==k:
+            break
+    return sort
+",True,0.1304,6.9192,6.9192,0.0,0,0,0.0,[],[]
+wrong_5_007,gpt-5.4-mini,reference,"def top_k(lst, k):
+    lst1 = []
+    for i in lst:
+        if i >= k:
+            lst1.append(i) 
+    sort = []
+    while lst:
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+        lst.remove(largest)
+        sort.append(largest)
+    return sort[:k]
+",True,0.2037,5.6153,5.6153,0.0,0,0,0.0,[],[]
+wrong_5_008,gpt-5.4-mini,reference,"def top_k(lst, k):
+    sort = []
+    while lst: 
+        biggest = lst[0]
+        for element in lst:
+            if element > biggest:
+                biggest = element
+        lst.remove(biggest)
+        sort.append(biggest)
+    return sort[:k]
+",True,0.0682,4.7909,4.7909,0.0,0,0,0.0,[],[]
+wrong_5_009,gpt-5.4-mini,reference,"def top_k(lst, k):
+    sort_list = []
+    counter = 0
+    while counter < k:
+        sort_list.append(max(lst))
+        lst.remove(max(lst))
+        counter = counter + 1
+    return sort_list
+    
+",True,0.5862,0.6871,0.6871,0.0,0,0,0.0,[],[]
+wrong_5_010,gpt-5.4-mini,reference,"def top_k(lst, k):
+    sort_list = []
+    counter = 0
+    while counter < k:
+        sort_list.append(max(lst))
+        lst.remove(max(lst))
+        counter = counter + 1
+    return sort_list
+    
+",True,0.5862,0.6689,0.6689,0.0,0,0,0.0,[],[]
+wrong_5_011,gpt-5.4-mini,reference,"def sort_age(lst):
+        new=[]
+        while lst !=[]:
+            big=lst[0]
+            for i in lst:
+                if i>big:
+                    big=i
+            lst.remove(big)
+            new.append(big)
+        return new
+def top_k(lst, k):
+    return sort_age(lst)[:k]
+    pass
+",True,0.0702,3.2838,3.2838,0.0,0,0,0.0,[],[]
+wrong_5_012,gpt-5.4-mini,reference,"def top_k(lst, k):
+    if lst==[]:
+        return []
+    lower=[]
+    while lst:
+        higher = lst[0]
+        for plist in lst:
+            if plist > higher:
+                higher = plist
+        lst.remove(higher)
+        lower.append(higher)
+    return lower[:k]
+    pass
+",True,0.6164,4.9293,4.9293,0.0,0,0,0.0,[],[]
+wrong_5_013,gpt-5.4-mini,reference,"def top_k(lst, k):
+    if lst==[]:
+        return []
+    lower=[]
+    while lst:
+        higher = lst[0]
+        for plist in lst:
+            if plist > higher:
+                higher = plist
+        lst.remove(higher)
+        lower.append(higher)
+    return lower[:k]
+    pass
+",True,0.6164,4.9436,4.9436,0.0,0,0,0.0,[],[]
+wrong_5_014,gpt-5.4-mini,reference,"def top_k(lst, k):
+    if lst==[]:
+        return []
+    lower=[]
+    while lst:
+        higher = lst[0]
+        for plist in lst:
+            if plist > higher:
+                higher = plist
+        lst.remove(higher)
+        lower.append(higher)
+    return lower[:k]
+    pass
+",True,0.6164,5.0268,5.0268,0.0,0,0,0.0,[],[]
+wrong_5_015,gpt-5.4-mini,reference,"def top_k(lst, k):
+    
+    if lst == []:
+        return lst
+    def sorting(nlist):
+        if nlist == []:
+            return nlist
+        lower = []
+        higher = []
+        plist = []
+        pivot = nlist[0]
+        for e in nlist:
+            if e < pivot:
+                lower.append(e)
+            elif e == pivot:
+                plist.append(e)
+            elif e > pivot:
+                higher.append(e)
+        higher = sorting(higher)
+        lower = sorting(lower)
+        return lower + plist + higher
+    
+    sort_list = sorting(lst)
+    sort_list = sort_list[::-1]
+    
+    return sort_list[:k]
+",True,0.4074,5.5225,5.5225,0.0,0,0,0.0,[],[]
+wrong_5_016,gpt-5.4-mini,reference,"def top_k(lst, k):
+    
+    if lst == []:
+        return lst
+    
+    lower = []
+    while lst:
+        higher = lst[0]
+        for plist in lst:
+            if plist > higher:
+                higher = plist
+        lower.append(higher)
+        lst.remove(higher)
+    if k > len(lower):
+        return lower
+    else:
+        return lower[:k]
+",True,0.6476,4.5507,4.5507,0.0,0,0,0.0,[],[]
+wrong_5_017,gpt-5.4-mini,reference,"def top_k(lst, k):
+    result = []
+    while lst:
+        biggest = lst[0]
+        for number in lst:
+            if number > biggest:
+                biggest = number
+        lst.remove(biggest)
+        result.append(biggest)
+    return result[:k]
+",True,0.0244,4.9236,4.9236,0.0,0,0,0.0,[],[]
+wrong_5_018,gpt-5.4-mini,reference,"def top_k(lst, k):
+    # Fill in your code here
+    sort = []
+    while lst: # a is not []
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+        lst.remove(largest)
+        sort.append(largest)
+    return sort[:k]
+",True,0.0682,5.4454,5.4454,0.0,0,0,0.0,[],[]
+wrong_5_019,gpt-5.4-mini,rules,"def top_k(lst, k):
+    arranged = []
+    while k>0:
+        arranged.append(max(lst))
+        lst.remove(max(lst))
+        k -= 1
+    return arranged
+    pass
+",True,0.0588,0.1164,0.1164,0.0,0,0,0.0,"[""fix_remove_append_order""]",[]
+wrong_5_020,gpt-5.4-mini,rules,"def top_k(lst, k):
+    arranged = []
+    while k > 0:
+        arranged.append(max(lst))
+        lst.remove(max(lst))
+        k = k-1
+    return arranged
+    pass
+",True,0.0556,0.1154,0.1154,0.0,0,0,0.0,"[""fix_remove_append_order""]",[]
+wrong_5_021,gpt-5.4-mini,reference,"def top_k(lst, k):
+    r=[]
+    for qwerty in range(0,k):
+        biggest=lst[0]
+        for k in lst:
+            if biggest<k:
+                biggest=k
+        r.append(biggest)
+        lst.remove(biggest)
+    return r
+        
+",True,0.0476,2.4721,2.4721,0.0,0,0,0.0,[],[]
+wrong_5_022,gpt-5.4-mini,reference,"def top_k(lst, k):
+    rs=[]
+    for qwerty in range(0,k):
+        biggest=lst[0]
+        for k in lst:
+            if biggest<k:
+                biggest=k
+        rs.append(biggest)
+        lst.remove(biggest)
+    return rs
+",True,0.0714,2.9277,2.9277,0.0,0,0,0.0,[],[]
+wrong_5_023,gpt-5.4-mini,reference,"def top_k(lst, k):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for i in lst[1:]:
+            if i > biggest:
+                biggest = i
+        lst.remove(biggest)
+        sort.append(biggest)
+    
+    n = 1
+    sort_k = []
+    while n <= k:
+        sort_k.append(sort.pop(0))
+        n += 1
+    
+    return sort_k
+        
+",True,0.1,5.177,5.177,0.0,0,0,0.0,[],[]
+wrong_5_024,gpt-5.4-mini,reference,"def top_k(lst, k):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for i in lst[1:]:
+            if i > biggest:
+                biggest = i
+        lst.remove(biggest)
+        sort.append(biggest)
+    
+    n = 1
+    sort_k = []
+    while n <= k:
+        sort_k.append(sort.pop(0))
+        n += 1
+    
+    return sort_k
+        
+",True,0.0312,11.0527,11.0527,0.0,0,0,0.0,[],[]
+wrong_5_025,gpt-5.4-mini,reference,"def top_k(lst, k):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for i in lst[1:]:
+            if i > biggest:
+                biggest = i
+        lst.remove(biggest)
+        sort.append(biggest)
+    
+    n = 1
+    sort_k = []
+    while n <= k:
+        sort_k.append(sort.pop(0))
+        n += 1
+    
+    return sort_k
+        
+",True,0.0156,12.2601,12.2601,0.0,0,0,0.0,[],[]
+wrong_5_026,gpt-5.4-mini,reference,"def top_k(lst, k):
+    if lst==[]:
+        return []
+    sort=[]
+    while lst:
+        largest = lst[0]
+        for i in lst:
+            if i > largest:
+                largest = i
+        lst.remove(largest)
+        sort.append(largest)
+    return sort[:k]
+    pass
+",True,0.0755,3.2187,3.2187,0.0,0,0,0.0,[],[]
+wrong_5_027,gpt-5.4-mini,reference,"def top_k(lst, k):
+    sorted_lst = []
+    while lst:
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+        lst.remove(largest)
+        sorted_lst.append(largest)
+    return sorted_lst[:k]
+    pass
+",True,0.1778,43.3676,43.3676,0.0,0,0,0.0,[],[]
+wrong_5_028,gpt-5.4-mini,reference,"def top_k(lst, k):
+    sort = []
+    while lst:
+        largest = lst[0]
+        for i in lst:
+            if i > largest:
+                largest = i
+        lst.remove(largest)
+        sort.append(largest)
+    return sort[:k]
+        
+",True,0.2308,23.4033,23.4033,0.0,0,0,0.0,[],[]
+wrong_5_029,gpt-5.4-mini,reference,"def top_k(lst, k):
+    sorted_list = []
+    while lst:
+        smallest = lst[0]
+        for element in lst:
+            if smallest < element:
+                smallest = element
+        lst.remove(smallest)
+        sorted_list.append(smallest)
+    return sorted_list[:k]
+",True,0.2553,4.877,4.877,0.0,0,0,0.0,[],[]
+wrong_5_030,gpt-5.4-mini,reference,"def top_k(lst, k):
+    klist = []
+    while len(klist) < k:
+        biggest = lst[0]
+        for i in lst:
+            if i > biggest:
+                biggest = i
+        klist.append(biggest)
+        lst.remove(biggest)
+    return klist
+",True,0.6034,5.6435,5.6435,0.0,0,0,0.0,[],[]
+wrong_5_031,gpt-5.4-mini,rules,"def top_k(lst, k):
+    new_lst = []
+    while lst:
+        largest = lst[0] 
+        for numbers in lst:
+            if numbers > largest:
+                largest = numbers
+        new_lst.append(lst.pop(lst.index(largest)))
+    return new_lst[:k]
+",True,0.0769,0.1452,0.1452,0.0,0,0,0.0,"[""fix_wrong_pop_argument_from_value_to_index""]",[]
+wrong_5_032,gpt-5.4-mini,reference,"def top_k(lst, k):
+    new_lst = []
+    while lst:
+        largest = lst[0]
+        for numbers in lst:
+            if numbers > largest:
+                largest = numbers
+        lst.remove(largest)
+        new_lst.append(largest)
+    return new_lst[:k]
+",True,0.0976,5.2383,5.2383,0.0,0,0,0.0,[],[]
+wrong_5_033,gpt-5.4-mini,reference,"def top_k(lst, k):
+    final = []
+    while lst:
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+            else:
+                continue
+        lst.remove(largest)
+        if len(final) == k:
+            break
+        else:
+            final.append(largest)
+    return final
+",True,0.2826,5.0757,5.0757,0.0,0,0,0.0,[],[]
+wrong_5_034,gpt-5.4-mini,reference,"def top_k(lst, k):
+    final = []
+    while len(final) < k:
+        element = max(lst)
+        final += [element,]
+        lst.remove(element)
+        if len(final) == k:
+            break
+    return final
+",True,0.1714,0.2888,0.2888,0.0,0,0,0.0,[],[]
+wrong_5_035,gpt-5.4-mini,reference,"def top_k(lst, k):
+    if lst == [] or k == 0:
+        return []
+    else:
+        final = []
+        while lst:
+            element = max(lst)
+            final += [element,]
+            lst.remove(element)
+            if len(final) == k:
+                break
+        return final
+",True,0.1429,0.93,0.93,0.0,0,0,0.0,[],[]
+wrong_5_036,gpt-5.4-mini,reference,"def top_k(lst, k):
+    if lst == [] or k == 0:
+        return []
+    elif k == 0:
+        return lst
+    else:
+        final = []
+        while lst:
+            element = max(lst)
+            final += [element,]
+            lst.remove(element)
+            if len(final) == k:
+                break
+        return final
+",True,0.1224,3.482,3.482,0.0,0,0,0.0,[],[]
+wrong_5_037,gpt-5.4-mini,reference,"def top_k(lst, k):
+    sort = []
+    while len(sort) < k:
+        smallest = lst[0]
+        for i in lst:
+            if i > smallest:
+                smallest = i
+        lst.remove(smallest)
+        sort.append(smallest)
+    return sort
+",True,0.4643,5.3471,5.3471,0.0,0,0,0.0,[],[]
+wrong_5_038,gpt-5.4-mini,reference,"def top_k(lst, k):
+    i=0
+    while i+1<len(lst):
+        if lst[i]<lst[i+1]:
+            lst.extend([lst[i]])
+            lst.pop(i)
+            i=0
+        else:
+            i+=1
+    return lst[:k]
+",True,0.0566,89.416,89.416,0.0,0,0,0.0,[],[]
+wrong_5_039,gpt-5.4-mini,reference,"def top_k(lst, k):
+    i=0
+    while i+1<len(lst):
+        if lst[i]<lst[i+1]:
+            lst.extend([lst[i]])
+            lst.pop(i)
+            i=0
+        else:
+            i+=1
+    return lst[:k]
+",True,0.0566,89.475,89.475,0.0,0,0,0.0,[],[]
+wrong_5_040,gpt-5.4-mini,reference,"def top_k(lst, k):
+    i=0
+    while i+1<len(lst):
+        if lst[i]<lst[i+1]:
+            lst.extend([lst[i]])
+            lst.pop(i)
+            i=0
+        else:
+            i+=1
+    return lst[:k]
+",True,0.0893,89.5185,89.5185,0.0,0,0,0.0,[],[]
+wrong_5_041,gpt-5.4-mini,reference,"def top_k(lst, k):
+    i=0
+    while i+1<len(lst):
+        if lst[i]<lst[i+1]:
+            lst.extend([lst[i]])
+            lst.pop(i)
+            i=0
+        else:
+            i+=1
+    return lst[:k]
+",True,0.0377,89.4783,89.4783,0.0,0,0,0.0,[],[]
+wrong_5_042,gpt-5.4-mini,reference,"def top_k(lst, k):
+    #top k in descending order
+    sort = []
+    x=len(lst)
+    while len(lst)>x-k:
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+        lst.remove(largest)
+        sort.append(largest)
+    return sort
+",True,0.0816,5.4147,5.4147,0.0,0,0,0.0,[],[]
+wrong_5_043,gpt-5.4-mini,reference,"def top_k(lst, k):
+    a=[]
+    while lst:
+        largest = lst[0]
+        for i in lst:
+            if i > largest:
+                largest = i
+        lst.remove(largest)
+        a.append(largest)
+    return a[:k]
+",True,0.0976,108.9081,108.9081,0.0,0,0,0.0,[],[]
+wrong_5_044,gpt-5.4-mini,reference,"def top_k(lst, k):
+    af_sort = []
+    while lst:
+        biggest = lst[0] 
+        for element in lst:
+            if element > biggest:
+                biggest = element
+        lst.remove(biggest)
+        af_sort.append(biggest)
+    return af_sort[0:k]
+    
+",True,0.0714,4.6564,4.6564,0.0,0,0,0.0,[],[]
+wrong_5_045,gpt-5.4-mini,rules,"def top_k(lst, k):
+    newlst = []
+    while len(newlst) < k:
+        maximum = lst[0]
+        for i in lst:
+            if i > maximum:
+                maximum = i
+        newlst.append(maximum)
+        lst.remove(maximum)
+    return newlst
+            
+",True,0.0233,0.1211,0.1211,0.0,0,0,0.0,"[""fix_while_off_by_one_le""]",[]
+wrong_5_046,gpt-5.4-mini,reference,"def top_k(lst, k):
+    new_list = []
+    while len(new_list) < k:
+        maximum = max(lst)
+        new_list.append(maximum)
+        lst.remove(maximum)
+
+    return new_list
+",True,0.0938,0.3031,0.3031,0.0,0,0,0.0,[],[]
+wrong_5_047,gpt-5.4-mini,reference,"def top_k(lst, k):
+    sorted_lst = []
+    while lst:
+        biggest = lst[0]
+        for n in range(len(lst)):
+            if lst[n] >= biggest:
+                biggest = lst[n]
+        lst.remove(biggest)
+        sorted_lst.append(biggest)
+    return sorted_lst[0:k]
+            
+            
+",True,0.3333,66.123,66.123,0.0,0,0,0.0,[],[]
+wrong_5_048,gpt-5.4-mini,reference,"def top_k(lst, k):
+    sorted_lst = []
+    while lst:
+        biggest = lst[0]
+        for n in range(len(lst)):
+            if lst[n] >= biggest:
+                biggest = lst[n]
+        lst.remove(biggest)
+        sorted_lst.append(biggest)
+    return sorted_lst[0:k]
+            
+            
+",True,0.2941,36.9246,36.9246,0.0,0,0,0.0,[],[]
+wrong_5_049,gpt-5.4-mini,reference,"def top_k(lst, k):
+    sorted_lst = []
+    while lst:
+        biggest = lst[0]
+        for n in range(len(lst)):
+            if lst[n] >= biggest:
+                biggest = lst[n]
+        lst.remove(biggest)
+        sorted_lst.append(biggest)
+    return sorted_lst[0:k]
+            
+            
+",True,0.087,4.0499,4.0499,0.0,0,0,0.0,[],[]
+wrong_5_050,gpt-5.4-mini,reference,"def top_k(lst, k):
+    newlist = []
+    while len(newlist) < k:
+        newlist += [max(lst)]
+        for i in range(len(lst)):
+            if lst[i] == max(lst):
+                break
+        del lst[i]
+    return newlist
+",True,0.125,4.441,4.441,0.0,0,0,0.0,[],[]
+wrong_5_051,gpt-5.4-mini,reference,"def top_k(lst, k):
+    a=[]
+    while lst:
+        biggest=lst[0]
+        for i in lst:
+            if i > biggest:
+                biggest = i
+        lst.remove(biggest)
+        a.append(biggest)
+    return a[0:k]
+",True,0.0952,116.9559,116.9559,0.0,0,0,0.0,[],[]
+wrong_5_052,gpt-5.4-mini,reference,"def top_k(lst,k): #k is the number of values in the lst
+    lst2 = []
+    while lst:
+        a = max(lst)
+        lst2.append(a)
+        lst.remove(a)
+    return lst2[0:k]
+",True,1.0625,0.1186,0.1186,0.0,0,0,0.0,[],[]
+wrong_5_053,gpt-5.4-mini,reference,"def top_k(lst, k):
+    count = 0
+    op = []
+    while count < k:
+        op += [max(lst)]
+        lst.remove(max(lst))
+        count += 1
+    return op
+            
+    
+",True,0.3939,4.9309,4.9309,0.0,0,0,0.0,[],[]
+wrong_5_054,gpt-5.4-mini,reference,"def top_k(lst, k):
+    count = 0
+    op = []
+    while count < k:
+        op += [max(lst)]
+        lst.remove(max(lst))
+        count += 1
+    return op
+            
+    
+",True,0.3529,4.3077,4.3077,0.0,0,0,0.0,[],[]
+wrong_5_055,gpt-5.4-mini,reference,"def top_k(lst, k):
+    values = []
+    while len(values) < k:
+        greatest = lst[0]
+        for item in lst:
+            if item > greatest:
+                greatest = item
+        lst.remove(greatest)
+        values.append(greatest)
+    return values
+",True,0.3125,4.3234,4.3234,0.0,0,0,0.0,[],[]
+wrong_5_056,gpt-5.4-mini,reference,"def top_k(lst, k):
+    values = []
+    while len(values) < k:
+        greatest = lst[0]
+        for item in lst:
+            if item > greatest:
+                greatest = item
+        lst.remove(greatest)
+        values.append(greatest)
+        
+    return values
+
+",True,0.1395,4.5584,4.5584,0.0,0,0,0.0,[],[]
+wrong_5_057,gpt-5.4-mini,reference,"def top_k(lst, k):
+    sort = []
+    while lst:
+        biggest = lst[0]
+        for element in lst:
+            if element > biggest:
+                biggest = element
+        lst.remove(biggest)
+        if len(sort) == k:
+            return sort
+        else:
+            sort.append(biggest)
+    return sort
+",True,0.2609,4.9697,4.9697,0.0,0,0,0.0,[],[]
+wrong_5_058,gpt-5.4-mini,reference,"def top_k(lst, k):
+    new_lst = []
+    for i in range(k):
+        new_lst.append(max(lst))
+        lst.remove(max(lst))
+    return new_lst
+    pass
+",True,0.3043,3.2925,3.2925,0.0,0,0,0.0,[],[]
+wrong_5_059,gpt-5.4-mini,reference,"def top_k(lst, k):
+    new_lst = []
+    for i in range(k):
+        new_lst.append(max(lst))
+        lst.remove(max(lst))
+    return new_lst
+    pass
+",True,0.3077,3.4279,3.4279,0.0,0,0,0.0,[],[]
+wrong_5_060,gpt-5.4-mini,reference,"def top_k(lst, k):
+    new_lst = []
+    while lst:
+        biggest = lst[0]
+        for x in lst:
+            if biggest < x:
+                biggest = x
+        lst.remove(biggest)
+        new_lst.append(biggest)
+    return new_lst[0:k]
+    
+",True,0.0909,3.9327,3.9327,0.0,0,0,0.0,[],[]
+wrong_5_061,gpt-5.4-mini,reference,"def top_k(lst, k):
+    new_lst = []
+    while lst:
+        biggest = lst[0]
+        for x in lst:
+            if x > biggest:
+                biggest = x
+        lst.remove(biggest)
+        new_lst.append(biggest)
+    return new_lst[0:k]
+    
+",True,0.0682,3.9561,3.9561,0.0,0,0,0.0,[],[]
+wrong_5_062,gpt-5.4-mini,reference,"def top_k(lst,k):
+    a = []
+    while lst:
+        biggest = lst[0]
+        for element in lst:
+            if element > biggest:
+                biggest = element
+        lst.remove(biggest)
+        a.append(biggest)
+    return a[0:k]
+",True,0.0488,4.624,4.624,0.0,0,0,0.0,[],[]
+wrong_5_063,gpt-5.4-mini,reference,"def top_k(lst, k):
+    if k<=0:
+        return []
+    else:
+        maxi=max(lst)
+        length=len(lst)
+        for i in range(length):
+            if lst[i]==maxi:
+                pos=i
+        new_list=lst.copy()
+        new_list.pop(pos)
+        return [maxi]+top_k(new_list,k-1)
+",True,0.0169,4.3307,4.3307,0.0,0,0,0.0,[],[]
+wrong_5_064,gpt-5.4-mini,reference,"def top_k(lst, k):
+    results = []
+    counter = 0
+    while counter < k:
+        for i in range(-len(lst),0):
+            if lst[i] == max(lst):
+                results.append(lst.pop(i))
+                break
+        counter += 1
+    return results
+    pass
+",True,0.1538,70.6434,70.6434,0.0,0,0,0.0,[],[]
+wrong_5_065,gpt-5.4-mini,reference,"def top_k(lst, k):
+    x=[]
+    for i in range(0,k):
+        y=lst[0]
+        for j in lst:
+            if j>y:
+                y=j
+        x.append(y)
+        lst.remove(y)
+    return x# Fill in your code here
+    pass
+",True,0.5135,4.0723,4.0723,0.0,0,0,0.0,[],[]
+wrong_5_066,gpt-5.4-mini,reference,"def top_k(lst, k):
+    # Fill in your code here
+    a = lst
+    sort = []
+    while a:
+        largest = a[0]
+        for item in a:
+            if item>largest:
+                largest = item
+        a.remove(largest)
+        sort.append(largest)
+    return(sort)[:k]
+",True,0.0833,3.4389,3.4389,0.0,0,0,0.0,[],[]
+wrong_5_067,gpt-5.4-mini,reference,"def top_k(lst, k):
+    new = []
+    while len(new) < k:
+        new.append(lst.pop(lst.index(max(lst))))
+    return new
+        
+",True,0.3667,4.028,4.028,0.0,0,0,0.0,[],[]
+wrong_5_068,gpt-5.4-mini,rules,"def top_k(lst, k):
+    new = []
+    for i in range(k - 1 + 1):
+        new.append(lst.pop(lst.index(max(lst))))
+        
+    return new
+        
+",True,0.2143,0.2382,0.2382,0.0,0,0,0.0,"[""generic_shift_range"", ""fix_pop_of_max_call""]",[]
+wrong_5_069,gpt-5.4-mini,reference,"def top_k(lst, k):
+    new = []
+    while len(new) < k:
+        new.append(lst.pop(lst.index(max(lst))))
+    return new
+        
+",True,0.3125,0.3053,0.3053,0.0,0,0,0.0,[],[]
+wrong_5_070,gpt-5.4-mini,reference,"def top_k(lst, k):
+    new = []
+    while len(new) < k:
+        new.append(lst.pop(lst.index(max(lst))))
+    return new
+        
+",True,0.3125,0.2502,0.2502,0.0,0,0,0.0,[],[]
+wrong_5_071,gpt-5.4-mini,reference,"def top_k(lst, k):
+    new = []
+    while len(new) < k:
+        top = max(lst)
+        new.append(top)
+        lst.remove(top)
+    return new
+        
+",True,0.3714,0.3566,0.3566,0.0,0,0,0.0,[],[]
+wrong_5_072,gpt-5.4-mini,reference,"def top_k(lst, k):
+    results = []
+    counter = 0
+    while counter < k:
+        for i in range(-len(lst),0):
+            if lst[i] == max(lst):
+                results.append(lst.pop(i))
+                break
+        counter += 1
+    return results
+",True,0.1569,68.4884,68.4884,0.0,0,0,0.0,[],[]
+wrong_5_073,gpt-5.4-mini,reference,"def top_k(lst, k):
+    results = []
+    counter = 0
+    while counter < k:
+        for i in range(-len(lst),0):
+            if lst[i] == max(lst):
+                results.append(lst.pop(i))
+                break
+        counter += 1
+    return results
+",True,0.12,43.4349,43.4349,0.0,0,0,0.0,[],[]
+wrong_5_074,gpt-5.4-mini,reference,"def top_k(lst, k):
+    results = []
+    counter = 0
+    while counter < k:
+        for i in range(-len(lst),0):
+            if lst[i] == max(lst):
+                results.append(lst.pop(i))
+                break
+        counter += 1
+    return results
+",True,0.102,43.4449,43.4449,0.0,0,0,0.0,[],[]
+wrong_5_075,gpt-5.4-mini,reference,"def top_k(lst, k):
+    new = []
+    while len(new) < k:
+        top = max(lst)
+        new.append(top)
+        lst.remove(top)
+        
+    return new
+        
+",True,0.1892,4.4013,4.4013,0.0,0,0,0.0,[],[]
+wrong_5_076,gpt-5.4-mini,reference,"def top_k(lst, k):
+    new = []
+    while len(new) < k:
+        top = max(lst)
+        new.append(top)
+        lst.remove(top)
+        
+    return new
+        
+",True,0.1892,4.4473,4.4473,0.0,0,0,0.0,[],[]
+wrong_5_077,gpt-5.4-mini,reference,"
+def top_k(lst, k):
+    # Fill in your code here
+ 
+    result = []
+    while lst:
+        minimum = lst[0]  # arbitrary number in list 
+        for x in lst: 
+            if x > minimum:
+                minimum = x
+        lst.remove(minimum)
+        result.append(minimum)
+    return result[:k]
+",True,0.0732,10.7515,10.7515,0.0,0,0,0.0,[],[]
+wrong_5_078,gpt-5.4-mini,reference,"def top_k(lst, k):
+    sort = []
+    while lst:
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+        lst.remove(largest)
+        sort.append(largest)
+    return sort[:k]
+
+",True,0.0976,115.0441,115.0441,0.0,0,0,0.0,[],[]
+wrong_5_079,gpt-5.4-mini,rules,"def top_k(lst, k):
+    # Fill in your code here
+    sort_lst = []
+    while lst: # a is not []
+        smallest = lst[0]
+        for element in lst:
+            if element > smallest:
+                smallest = element
+        lst.remove(smallest)
+        sort_lst.append(smallest)
+    return sort_lst[:k]
+",True,0.0244,0.1334,0.1334,0.0,0,0,0.0,"[""fix_reversed_comparison""]",[]
+wrong_5_080,gpt-5.4-mini,rules,"def top_k(lst, k):
+    sotsot = []
+    while len(sotsot) < k:
+        sotsot.append(max(lst))
+        lst.remove(max(lst)) #wont return u any value just modified the list only.
+    return sotsot 
+    
+",True,0.0323,0.1195,0.1195,0.0,0,0,0.0,"[""fix_while_off_by_one_le""]",[]
+wrong_5_081,gpt-5.4-mini,reference,"def top_k(lst, k):
+    sotsot = []
+    while len(sotsot)<k:
+        sotsot.append(max(lst))
+        lst.remove(max(lst))
+    return sotsot
+",True,0.0909,0.3168,0.3168,0.0,0,0,0.0,[],[]
+wrong_5_082,gpt-5.4-mini,reference,"def top_k(lst, k):
+    sotsot = []
+    while len(sotsot)<k:
+        sotsot.append(max(lst))
+        lst.remove(max(lst))
+    return sotsot
+",True,0.0909,0.3884,0.3884,0.0,0,0,0.0,[],[]
+wrong_5_083,gpt-5.4-mini,reference,"def top_k(lst, k):
+    result = []
+    for i in range(len(lst)):
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+        lst.remove(largest)
+        result.append(largest)
+    return result[:k]
+",True,0.0217,4.2348,4.2348,0.0,0,0,0.0,[],[]
+wrong_5_084,gpt-5.4-mini,reference,"def top_k(lst, k):
+	new_list = []
+	for i in range(0, k):
+		new_list += [max(lst)]
+		lst.remove(max(lst))
+	return new_list
+",True,0.4839,0.2853,0.2853,0.0,0,0,0.0,[],[]
+wrong_5_085,gpt-5.4-mini,reference,"def top_k(lst, k):
+    result = []
+    while len(result) < k:
+        biggest = lst[0]
+        for element in lst:
+            if element > biggest:
+                biggest = element
+        result.append(biggest)
+        lst.remove(biggest)
+        
+    return result
+    pass
+",True,0.1429,13.1701,13.1701,0.0,0,0,0.0,[],[]
+wrong_5_086,gpt-5.4-mini,rules,"def top_k(lst, k):
+    new = []
+    while len(new) < k:
+        a = max(lst)
+        lst.remove(a)
+        new.append(a)
+    return new
+",True,0.0938,0.1201,0.1201,0.0,0,0,0.0,"[""replace_list_name_with_new_result_list""]",[]
+wrong_5_087,gpt-5.4-mini,reference,"def top_k(lst, k):
+    list = []
+    while len(list) < k:
+        a = max(lst)
+        lst.remove(a)
+        list.append(a)
+    return list
+",True,0.0625,0.2525,0.2525,0.0,0,0,0.0,[],[]
+wrong_5_088,gpt-5.4-mini,reference,"def top_k(lst, k):
+    lst = sort_descending(lst)
+    return lst[:k]
+    
+
+def sort_descending(lst):
+    for i in range(len(lst)-1):
+        for j in range(i, len(lst)):
+            if lst[j] > lst[i]:
+                x = lst[i]
+                lst[i] = lst[j]
+                lst[j] = x
+    return lst
+",True,0.0972,2.0997,2.0997,0.0,0,0,0.0,[],[]
+wrong_5_089,gpt-5.4-mini,reference,"def top_k(lst, k):
+    newlist = []
+    while lst:
+        biggest = lst[0]
+        for i in lst:
+            if i > biggest:
+                biggest = i
+            else:
+                continue
+        lst.remove(biggest)
+        if len(newlist) == k:
+            break
+        else:
+            newlist.append(biggest)
+    return newlist
+",True,0.0426,4.9795,4.9795,0.0,0,0,0.0,[],[]
+wrong_5_090,gpt-5.4-mini,reference,"def top_k(lst, k):
+    sort = []
+    while lst:
+        big = max(lst)
+        sort.append(big)
+        lst.remove(big)
+    return sort[0:k]
+",True,0.3659,2.312,2.312,0.0,0,0,0.0,[],[]
+wrong_5_091,gpt-5.4-mini,reference,"def top_k(lst, k):
+    lst2 = []
+    while len(lst2) < k:
+        max = lst[0]
+        for i in lst:
+            if i > max:
+                max = i
+        lst.remove(max)
+        lst2.append(max)
+    return lst2
+",True,0.4211,4.5604,4.5604,0.0,0,0,0.0,[],[]
+wrong_5_092,gpt-5.4-mini,reference,"def top_k(lst, k):
+    lst2 = []
+    while len(lst2) < k:
+        max = lst[0]
+        for i in lst:
+            if i > max:
+                max = i
+        lst.remove(max)
+        lst2.append(max)
+    return lst2
+",True,0.3721,4.5452,4.5452,0.0,0,0,0.0,[],[]
+wrong_5_093,gpt-5.4-mini,reference,"def top_k(lst, k):
+    result = []
+    while lst:
+        biggest = lst[0]
+        for elem in lst:
+            if elem > biggest:
+                biggest = elem
+        lst.remove(biggest)
+        result.append(biggest)
+    
+    return result[:k]
+
+    # Fill in your code here
+    pass
+
+
+",True,0.0238,4.6131,4.6131,0.0,0,0,0.0,[],[]
+wrong_5_094,gpt-5.4-mini,reference,"def top_k(lst, k):
+    for i in range(len(lst)):
+        for j in range(len(lst) - 1):
+            if lst[j] > lst[j + 1]:
+                lst[j], lst[j + 1] = lst[j + 1], lst[j]
+    lst.reverse()
+    return lst[:k]
+    pass
+",True,0.0469,2.9871,2.9871,0.0,0,0,0.0,[],[]
+wrong_5_095,gpt-5.4-mini,reference,"def top_k(lst, k):
+    for i in range(len(lst)):
+        for j in range(len(lst) - 1):
+            if lst[j] > lst[j + 1]:
+                lst[j], lst[j + 1] = lst[j + 1], lst[j]
+    lst.reverse()
+    return lst[:k]
+    pass
+",True,0.0469,2.7253,2.7253,0.0,0,0,0.0,[],[]
+wrong_5_096,gpt-5.4-mini,reference,"def top_k(lst, k):
+    for j in range(len(lst)):
+        for i in range(len(lst)-1):
+            if lst[i]<lst[1+i]:
+                lst[i], lst[i+1] = lst[i+1], lst[i]
+    return lst[:k]
+",True,0.1698,3.3223,3.3223,0.0,0,0,0.0,[],[]
+wrong_5_097,gpt-5.4-mini,reference,"def top_k(lst, k):
+    # Fill in your code here
+    sort = []
+    while lst:
+        largest = lst[0]
+        for i in range(len(lst)):
+            if lst[i] > largest:
+                largest = lst[i]
+        sort.append(largest)
+        lst.remove(largest)
+    return sort[:k]
+        
+",True,0.0577,11.4704,11.4704,0.0,0,0,0.0,[],[]
+wrong_5_098,gpt-5.4-mini,reference,"def top_k(lst, k):
+    if k>len(lst):
+        return None
+    def newsort(lsts):
+        l=[]
+        while lsts:
+            a=lsts[0]
+            for element in lsts:
+                if element>a:
+                    a=element
+            l.append(a)
+            lsts.remove(a)
+        return l
+    newlist=newsort(lst)
+    return newlist[0:k]
+    
+        
+    # Fill in your code here
+    pass
+",True,0.9792,0.9613,0.9613,0.0,0,0,0.0,[],[]
+wrong_5_099,gpt-5.4-mini,reference,"def top_k(lst, k):
+    l= []
+    while lst:
+        a = lst[0]
+        for ele in lst:
+            if ele>a:
+                a = ele
+        if len(l)==k:
+            break 
+        else:
+            l.append(a)
+            lst.remove(a)
+    return l
+        
+    # Fill in your code here
+    pass
+",True,0.74,0.9464,0.9464,0.0,0,0,0.0,[],[]
+wrong_5_100,gpt-5.4-mini,reference,"def top_k(lst, k):
+    l = []
+    while len(l) < k:
+        a = max(lst)
+        lst.remove(a)
+        l.append(a)
+    return l
+",True,0.3673,1.9894,1.9894,0.0,0,0,0.0,[],[]
+wrong_5_101,gpt-5.4-mini,reference,"def top_k(lst, k):
+    # Fill in your code here
+    sort_lst=sort(lst)
+    return sort_lst[:k]
+
+def sort(lst):
+    sort=[]
+    while lst:
+        largest=lst[0]
+        for elem in lst:
+            if elem > largest:
+                largest = elem
+        lst.remove(largest)
+        sort.append(largest)
+    return sort
+",True,0.0385,5.3418,5.3418,0.0,0,0,0.0,[],[]
+wrong_5_102,gpt-5.4-mini,reference,"def top_k(lst, k):
+    counter = []
+    while len(counter) < k:
+        counter.append(lst.pop(lst.index(max(lst))))
+    return counter
+",True,0.4615,0.345,0.345,0.0,0,0,0.0,[],[]
+wrong_5_103,gpt-5.4-mini,reference,"def top_k(lst, k):
+    counter=0
+    new_lst=[]
+    while counter<k:
+        maxi=max(lst)
+        new_lst.append(maxi)
+        lst.remove(maxi)
+        counter+=1
+    return new_lst
+",True,0.1935,0.401,0.401,0.0,0,0,0.0,[],[]
+wrong_5_104,gpt-5.4-mini,reference,"def top_k(lst, k):
+    counter=0
+    new_lst=[]
+    while counter<k:
+        maxi=max(lst)
+        new_lst.append(maxi)
+        lst.remove(maxi)
+        counter+=1
+    return new_lst
+",True,0.0571,0.4524,0.4524,0.0,0,0,0.0,[],[]
+wrong_5_105,gpt-5.4-mini,reference,"def top_k(lst, k):
+    sort = []
+    while lst:
+        largest = lst[0]
+        for element in lst:
+            if element > largest:
+                largest = element
+        lst.remove(largest)
+        sort.append(largest)
+    return sort[0:k]
+",True,0.0238,5.3576,5.3576,0.0,0,0,0.0,[],[]
+wrong_5_106,gpt-5.4-mini,reference,"def top_k(lst, k):
+    new = []
+    while lst:
+        i = max(lst)
+        new.append(i)
+        lst.remove(i)
+    output = []
+    for i in range(k):
+        output.append(new[i])
+    return output
+",True,0.7586,3.5655,3.5655,0.0,0,0,0.0,[],[]
+wrong_5_107,gpt-5.4-mini,rules,"def top_k(lst, k):
+
+    newlst = []
+    for i in range(k):
+        newlst.append(max(lst))
+        lst.remove(max(lst))
+    return newlst
+",True,0.0938,0.1125,0.1125,0.0,0,0,0.0,"[""fix_range_off_by_one_minus_one""]",[]
+wrong_5_108,gpt-5.4-mini,rules,"def top_k(lst, k):
+    new_lst = []
+    counter = 0
+    while counter < k:
+        highest = lst[0]
+        for x in lst:
+            if x > highest:
+                highest = x
+        new_lst.append(highest)
+        lst.remove(highest)
+        counter += 1
+        
+    return new_lst
+",True,0.0208,0.1147,0.1147,0.0,0,0,0.0,"[""fix_while_off_by_one_le""]",[]

@@ -1,0 +1,116 @@
+rule cm_to_inches_rounding_plus_one
+symptoms: wrong
+match: (int(input()) + 2) // 3
+rewrite: (int(input()) + 1) // 3
+
+rule round_inches_add_one_after_div3
+symptoms: wrong
+match: ($n + 2) // 3
+where: text($n) != "int(input())"
+rewrite: ($n + 1) // 3
+
+rule ceil_or_round_to_inches_from_remainder
+symptoms: wrong
+match: round($r / 3)
+rewrite: ($r + 1) // 3
+
+rule round_inches_from_half_up_float
+symptoms: wrong
+match: int($x / 3 + 0.5)
+rewrite: round($x / 3)
+
+rule feet_from_cm_should_use_inches
+symptoms: wrong
+match: $n // 36
+where: inside("$_ = int(input())\n$*B") or inside("$_ = int(input())\n$*B")
+rewrite: ($n // 3) // 12
+
+rule inches_from_remaining_cm_should_round
+symptoms: wrong
+match: $n // 3
+where: inside("$_ = int(input())\n$*B") and some($B, "$n // 36")
+rewrite: round($n / 3)
+
+rule feet_and_inches_from_total_inches
+symptoms: wrong
+match: $x // 36, $x % 12
+rewrite: ($x // 12, $x % 12)
+
+rule fix_foot_inches_print_from_total_inches
+symptoms: wrong
+match: print($a, $b)
+where: some($a, "$n // 36") and some($b, "$n % 12")
+rewrite: print($a // 12, $a % 12)
+
+rule add_one_before_split_into_feet_inches
+symptoms: wrong
+match:
+    $n = int(input())
+    $a = $n // 36
+    $b = ($n % 36) // 3
+where: True
+rewrite:
+    $n = int(input()) + 1
+    $a = $n // 36
+    $b = ($n % 36) // 3
+
+rule add_one_before_floor_division
+symptoms: wrong
+match:
+    $n = int(input())
+    $e = $n // 36
+rewrite:
+    $n = int(input()) + 1
+    $e = $n // 36
+
+rule increment_inches_on_remainder_two
+symptoms: wrong
+match:
+    if $r == 2:
+        $b += 1
+where: True
+rewrite:
+    if $r >= 2:
+        $b += 1
+
+rule increment_inches_on_ge_two
+symptoms: wrong
+match:
+    if $r >= 2:
+        $b = $q + 1
+where: True
+rewrite:
+    if $r == 2:
+        $b = $q + 1
+
+rule feet_should_be_based_on_inches_after_rounding
+symptoms: wrong
+match:
+    $a = $n // 36
+    $b = $n % 36 // 3
+where: True
+rewrite:
+    $a = ($n // 3) // 12
+    $b = ($n // 3) % 12
+
+rule carry_over_twelve_inches
+symptoms: wrong
+match:
+    if $x == 12:
+        $f += 1
+        $x = 0
+where: True
+rewrite:
+    if $x == 12:
+        $f += 1
+        $x = 0
+
+rule fix_float_print_pair
+symptoms: wrong
+match: print($a,'  ',$b)
+rewrite: print($a, $b)
+
+rule cast_printed_quotients_to_int
+symptoms: wrong
+match: print($a//12, $a%12)
+rewrite: print(int($a//12), int($a%12))

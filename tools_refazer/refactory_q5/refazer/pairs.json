@@ -1,0 +1,416 @@
+[
+ {
+  "id": "0",
+  "before": "def top_k(lst, k):\n    list = []\n    while len(list) < k:\n        a = max(lst)\n        lst.remove(a)\n        new.append(a)\n    return list\n",
+  "after": "def top_k(lst, k):\n    new_lst = []\n    while len(new_lst) < k:\n        maximum = max(lst)\n        new_lst.append(maximum)\n        lst.remove(maximum)\n\n    return new_lst\n",
+  "n": 2
+ },
+ {
+  "id": "1",
+  "before": "def top_k(lst, k):\n    result = []\n    while lst:\n        biggest = lst[0]\n        for number in lst:\n            if number > biggest:\n                biggest = number\n        lst.remove(biggest)\n        result.append(oldest)\n    return result[:k]\n",
+  "after": "def top_k(lst, k):\n    sort = []\n    while lst: \n        biggest = lst[0]\n        for element in lst:\n            if element > biggest:\n                biggest = element\n        lst.remove(biggest)\n        sort.append(biggest)\n    return sort[:k]\n",
+  "n": 1
+ },
+ {
+  "id": "2",
+  "before": "def top_k(lst, k):\n    sort = []\n    while lst:\n        biggest = lst[0]\n        for i in lst[1:]:\n            if i > biggest:\n                oldest = i\n        lst.remove(biggest)\n        sort.append(biggest)\n    \n    n = 1\n    sort_k = []\n    while n <= k:\n        sort_k.append(sort.pop(0))\n        n += 1\n    \n    return sort_k\n        \n",
+  "after": "def top_k(lst, k):\n    sort = []\n    while lst:\n        biggest = lst[0]\n        for i in lst[1:]:\n            if i > biggest:\n                biggest = i\n        lst.remove(biggest)\n        sort.append(biggest)\n    \n    n = 1\n    sort_k = []\n    while n <= k:\n        sort_k.append(sort.pop(0))\n        n += 1\n    \n    return sort_k\n        \n",
+  "n": 1
+ },
+ {
+  "id": "3",
+  "before": "def top_k(lst, k):\n    arranged = []\n    while k > 0:\n        lst.remove(max(lst))\n        arranged.append(max(lst))\n        k = k-1\n    return arranged\n    pass\n",
+  "after": "def top_k(lst, k):\n    arranged = []\n    while k > 0:\n        arranged.append(max(lst))\n        lst.remove(max(lst))\n        k = k-1\n    return arranged\n    pass\n",
+  "n": 1
+ },
+ {
+  "id": "4",
+  "before": "def top_k(lst, k):\n    new_lst = []\n    while lst:\n        largest = lst[0]\n        for numbers in lst:\n            if numbers > largest:\n                largest = numbers\n        new_lst.append(numbers)\n        lst.remove(numbers)\n    return new_lst[:k]\n",
+  "after": "def top_k(lst, k):\n    sort = []\n    while lst: \n        biggest = lst[0]\n        for element in lst:\n            if element > biggest:\n                biggest = element\n        lst.remove(biggest)\n        sort.append(biggest)\n    return sort[:k]\n",
+  "n": 1
+ },
+ {
+  "id": "5",
+  "before": "\ndef top_k(lst, k):\n    # Fill in your code here\n \n    result = []\n    while lst:\n        minimum = lst[0]  # arbitrary number in list \n        for x in lst: \n            if x > minimum:\n                minimum = x\n        result.append(minimum)\n        lst.remove(minimum) \n    return lst[:k]\n",
+  "after": "def top_k(lst, k):\n    sort = []\n    while lst: \n        biggest = lst[0]\n        for element in lst:\n            if element > biggest:\n                biggest = element\n        lst.remove(biggest)\n        sort.append(biggest)\n    return sort[:k]\n",
+  "n": 1
+ },
+ {
+  "id": "6",
+  "before": "def top_k(lst, k):\n    # Fill in your code here\n    sort=sort(lst)\n    return sort[:k]\n\ndef sort(lst):\n    sort=[]\n    while lst:\n        largest=lst[0]\n        for elem in lst:\n            if elem > largest:\n                largest = elem\n        lst.remove(largest)\n        sort.append(largest)\n    return sort\n",
+  "after": "def sort(lst):\n\tnewlst=[]\n\twhile lst:\n\t\t\n\t\tminimum=lst[0]\n\t\tfor x in lst:\n\t\t\tif x>minimum:\n\t\t\t\tminimum=x\n\t\tnewlst.append(minimum)\n\t\tlst.remove(minimum)\n\treturn newlst\n\t\ndef top_k(lst, k):\n    lst=sort(lst)\n    return lst[:k]\n    # Fill in your code here\n\n",
+  "n": 1
+ },
+ {
+  "id": "7",
+  "before": "def top_k(lst, k):\n    lst_res = lst\n    sort = []\n    while lst_res:\n        largest = lst_res[0]\n        for elements in lst_res:\n            if element > largest:\n                largest = element\n        lst_res.remove(largest)\n        sort.append(largest)\n    return sort[:k]\n",
+  "after": "def top_k(lst, k):\n    lst_res = lst\n    sort = []\n    while lst_res:\n        largest = lst_res[0]\n        for elements in lst_res:\n            if elements > largest:\n                largest = elements\n        lst_res.remove(largest)\n        sort.append(largest)\n    return sort[:k]\n",
+  "n": 1
+ },
+ {
+  "id": "8",
+  "before": "def top_k(lst, k):\n    new_list = []\n    while len(new_list) < k:\n        maximum = max(lst)\n        new_lst.append(lst)\n        lst.remove(maximum)\n\n    return new_lst\n",
+  "after": "def top_k(lst, k):\n    new_lst = []\n    while len(new_lst) < k:\n        maximum = max(lst)\n        new_lst.append(maximum)\n        lst.remove(maximum)\n\n    return new_lst\n",
+  "n": 1
+ },
+ {
+  "id": "9",
+  "before": "def top_k(lst, k):\n    if k<=0:\n        return []\n    else:\n        maxi=max(lst)\n        length=len(lst)\n        for i in range(length):\n            if lst[i]==maxi:\n                pos=i\n        new_list=lst.copy()\n        new_list.pop(pos)\n        return [maxi]+top_k(new_lst,k-1)\n",
+  "after": "def top_k(lst, k):\n    if k<=0:\n        return []\n    else:\n        maxi=max(lst)\n        length=len(lst)\n        for i in range(length):\n            if lst[i]==maxi:\n                pos=i\n        new_list=lst.copy()\n        new_list.pop(pos)\n        return [maxi]+top_k(new_list,k-1)\n",
+  "n": 1
+ },
+ {
+  "id": "10",
+  "before": "def top_k(lst, k):\n    # Fill in your code here\n    sort_lst = []\n    while lst: # a is not []\n        smallest = lst[0]\n        for element in lst:\n            if element < smallest:\n                smallest = element\n        lst.remove(smallest)\n        sort_lst.append(smallest)\n    return sort_lst[:k]\n",
+  "after": "def top_k(lst,k):\n    sort_list = []\n    while lst:\n        biggest = lst[0]\n        for e in lst:\n            if biggest < e:\n                biggest = e\n        lst.remove(biggest)\n        sort_list.append(biggest)\n    return sort_list[:k]\n",
+  "n": 1
+ },
+ {
+  "id": "11",
+  "before": "def top_k(lst, k):\n    result = []\n    for i in range(len(lst)):\n        largest = lst[0]\n        for element in lst:\n            if element > largest:\n                largest = element\n        lst.remove(largest)\n        result.append(largest)\n    return lst[:k]\n",
+  "after": "def top_k(lst, k):\n    result = []\n    for i in range(len(lst)):\n        largest = lst[0]\n        for element in lst:\n            if element > largest:\n                largest = element\n        lst.remove(largest)\n        result.append(largest)\n    return result[:k]\n",
+  "n": 1
+ },
+ {
+  "id": "12",
+  "before": "def top_k(lst, k):\n    new_lst = []\n    counter = 0\n    while counter <= k:\n        highest = lst[0]  # arbitrary number in list \n        for x in lst: \n            if x > highest:\n                highest = x\n        new_lst.append(highest)\n        lst.remove(highest)\n        counter +=1\n        \n    return new_lst\n",
+  "after": "def top_k(lst, k):\n    new_lst = []\n    counter = 1\n    while counter <= k:\n        highest = lst[0]  # arbitrary number in list \n        for x in lst: \n            if x > highest:\n                highest = x\n        new_lst.append(highest)\n        lst.remove(highest)\n        counter +=1\n        \n    return new_lst\n",
+  "n": 1
+ },
+ {
+  "id": "13",
+  "before": "def top_k(lst, k):\n    newlst = []\n    while len(newlst)<=k:\n        maximum = lst[0]\n        for i in lst:\n            if i > maximum:\n                maximum = i\n        newlst.append(maximum)\n        lst.remove(maximum)\n    return newlst\n            \n",
+  "after": "def top_k(lst, k):\n    result = []\n    while len(result) < k:\n        biggest = lst[0]\n        for i in lst:\n            if i > biggest:\n                biggest = i\n        lst.remove(biggest)\n        result.append(biggest)\n    return result\n",
+  "n": 2
+ },
+ {
+  "id": "14",
+  "before": "def top_k(lst, k):\n    result = []\n    while k >= 0:\n        big = max(lst)\n        result.append(big)\n        lst.remove(big)\n        k -= 1\n    return result\n",
+  "after": "def top_k(lst, k):\n    result = []\n    while k > 0:\n        big = max(lst)\n        result.append(big)\n        lst.remove(big)\n        k -= 1\n    return result\n",
+  "n": 1
+ },
+ {
+  "id": "15",
+  "before": "def top_k(lst, k):\n    sotsot = []\n    while len(sotsot) <=k:\n        sotsot.append(max(lst))\n        lst.remove(max(lst)) #wont return u any value just modified the list only.\n    return sotsot \n    \n",
+  "after": "def top_k(lst, k):\n    new_lst = []\n    while len(new_lst) != k:\n        new_lst.append(max(lst))\n        lst.remove(max(lst))\n    return new_lst\n\n",
+  "n": 1
+ },
+ {
+  "id": "16",
+  "before": "def top_k(lst, k):\n    arranged = []\n    while k>0:\n        lst.remove(max(lst))\n        arranged.append(max(lst))\n        k -= 1\n    return arranged\n    pass\n",
+  "after": "def top_k(lst, k):\n    a = []\n    while k > 0:\n        a.append(max(lst))\n        lst.remove(max(lst))\n        k -= 1\n    return a\n    \n",
+  "n": 1
+ },
+ {
+  "id": "17",
+  "before": "def top_k(lst, k):\n    tmp = []\n    while len(lst) > 0:\n        tmp.append(max(lst))\n        lst.remove(max(lst))\n    return tmp[:5]\n",
+  "after": "def top_k(lst, k):\n    tmp = []\n    while len(lst) > 0:\n        tmp.append(max(lst))\n        lst.remove(max(lst))\n    return tmp[:k]\n",
+  "n": 4
+ },
+ {
+  "id": "18",
+  "before": "def top_k(lst, k):\n    counter=0\n    new_lst=[]\n    while counter<k:\n        maxi=max(lst)\n        new_lst.append(maxi)\n        lst.remove(maxi)\n        counter+=1\n",
+  "after": "def top_k(lst, k):\n    counter=0\n    new_lst=[]\n    while counter<k:\n        maxi=max(lst)\n        new_lst.append(maxi)\n        lst.remove(maxi)\n        counter+=1\n    return new_lst\n",
+  "n": 1
+ },
+ {
+  "id": "19",
+  "before": "def top_k(lst, k):\n    r=[]\n    for qwerty in range(0,k):\n        biggest=lst[0]\n        for k in lst:\n            if biggest<k:\n                biggest=k\n        r.append[biggest]\n        lst.remove[biggest]\n    return r\n        \n",
+  "after": "def top_k(lst, k):\n    rs=[]\n    for qwerty in range(0,k):\n        biggest=lst[0]\n        for k in lst:\n            if biggest<k:\n                biggest=k\n        rs.append(biggest)\n        lst.remove(biggest)\n    return rs\n",
+  "n": 3
+ },
+ {
+  "id": "20",
+  "before": "def top_k(lst, k):\n    newlist = []\n    while lst:\n        biggest = lst[0]\n        for i in lst:\n            if i > biggest:\n                biggest = i\n            else:\n                continue\n        lst.remove(biggest)\n        if len(newlist) == k:\n            break\n        else:\n            newlist.append(biggest)\n        return newlist\n",
+  "after": "def top_k(lst, k):\n    newlist = []\n    while lst:\n        biggest = lst[0]\n        for i in lst:\n            if i > biggest:\n                biggest = i\n            else:\n                continue\n        lst.remove(biggest)\n        if len(newlist) == k:\n            break\n        else:\n            newlist.append(biggest)\n    return newlist\n",
+  "n": 1
+ },
+ {
+  "id": "21",
+  "before": "def top_k(lst, k):\n    sort = []\n    while lst: \n        biggest = lst[0]\n        for element in lst:\n            if element > biggest:\n                biggest = element\n        lst.remove(biggest)\n        sort.append(biggest)\n    return sort[:k+1]\n",
+  "after": "def top_k(lst, k):\n    sort = []\n    while lst: \n        biggest = lst[0]\n        for element in lst:\n            if element > biggest:\n                biggest = element\n        lst.remove(biggest)\n        sort.append(biggest)\n    return sort[:k]\n",
+  "n": 4
+ },
+ {
+  "id": "22",
+  "before": "def top_k(lst, k):\n    newlist = []\n    while len(newlist) < k:\n        newlist += [max(lst)]\n        for i in range(len(lst)):\n            if i == max(lst):\n                print(i)\n                break\n        del lst[i]\n    return newlist\n",
+  "after": "def top_k(lst, k):\n    newlist = []\n    while len(newlist) < k:\n        newlist += [max(lst)]\n        for i in range(len(lst)):\n            if lst[i] == max(lst):\n                break\n        del lst[i]\n    return newlist\n",
+  "n": 1
+ },
+ {
+  "id": "23",
+  "before": "def top_k(lst, k):\n    sorted_lst = lst\n    while sorted_lst:\n        largest = sorted_lst[0]\n        for element in sorted_lst:\n            if element > largest:\n                largest = element\n        sorted_lst.remove(largest)\n        sorted_lst.append(largest)\n    return sorted_lst[:k-1]\n    pass\n",
+  "after": "def top_k(lst, k):\n    sorted_lst = []\n    while lst:\n        largest = lst[0]\n        for element in lst:\n            if element > largest:\n                largest = element\n        lst.remove(largest)\n        sorted_lst.append(largest)\n    return sorted_lst[:k]\n    pass\n",
+  "n": 1
+ },
+ {
+  "id": "24",
+  "before": "def top_k(lst, k):\n    i=0\n    while i+1<len(lst):\n        if lst[i]<lst[i+1]:\n            lst.extend([i])\n            lst.pop(i)\n            i=0\n        else:\n            i+=1\n    return lst[:4]\n",
+  "after": "def top_k(lst, k):\n    i=0\n    while i+1<len(lst):\n        if lst[i]<lst[i+1]:\n            lst.extend([lst[i]])\n            lst.pop(i)\n            i=0\n        else:\n            i+=1\n    return lst[:k]\n",
+  "n": 4
+ },
+ {
+  "id": "25",
+  "before": "def top_k(lst, k):\n    sort = []\n    while lst:\n        biggest = lst[0]\n        for i in lst[1:]:\n            if i > biggest:\n                oldest = i\n        lst.remove(biggest)\n        sort.append(biggest)\n    \n    n = 1\n    sort_k = []\n    while n <= k:\n        sort_k.append(sort.pop[0])\n    \n    return sort_k\n        \n",
+  "after": "def top_k(lst, k):\n    sort = []\n    while lst:\n        biggest = lst[0]\n        for i in lst[1:]:\n            if i > biggest:\n                biggest = i\n        lst.remove(biggest)\n        sort.append(biggest)\n    \n    n = 1\n    sort_k = []\n    while n <= k:\n        sort_k.append(sort.pop(0))\n        n += 1\n    \n    return sort_k\n        \n",
+  "n": 1
+ },
+ {
+  "id": "26",
+  "before": "def top_k(lst, k):\n    #top k in descending order\n    sort = []\n    x = len(lst)\n    while x >= x-k:\n        largest = lst[0]\n        for element in lst:\n            if element > largest:\n                largest = element\n        lst.remove(largest)\n        sort.append(largest)\n    return sort\n",
+  "after": "def top_k(lst, k):\n    result = []\n    length=len(lst)\n    while len(lst)>length-k:\n        biggest = lst[0]\n        for element in lst:\n            if element > biggest:\n                biggest = element\n        result.append(biggest)\n        lst.remove(biggest)\n        \n    return result\n    pass\n",
+  "n": 1
+ },
+ {
+  "id": "27",
+  "before": "def sort_age(lst):\n        new=[]\n        while lst !=[]:\n            big=lst[0]\n            for i in lst:\n                if i[1]>big[1]:\n                    big=i\n            lst.remove(big)\n            new.append(big)\n        return new\ndef top_k(lst, k):\n    return sort_age(lst)[:k]\n    pass\n",
+  "after": "def sort_age(lst):\n        new=[]\n        while lst !=[]:\n            big=lst[0]\n            for i in lst:\n                if i>big:\n                    big=i\n            lst.remove(big)\n            new.append(big)\n        return new\ndef top_k(lst, k):\n    return sort_age(lst)[:k]\n    pass\n",
+  "n": 6
+ },
+ {
+  "id": "28",
+  "before": "def top_k(lst, k):\n    counter=0\n    new_lst=[]\n    while counter<k:\n        maxi=max(lst)\n        new_lst.append(maxi)\n        lst.remove(maxi)\n",
+  "after": "def top_k(lst, k):\n    counter=0\n    new_lst=[]\n    while counter<k:\n        maxi=max(lst)\n        new_lst.append(maxi)\n        lst.remove(maxi)\n        counter+=1\n    return new_lst\n",
+  "n": 1
+ },
+ {
+  "id": "29",
+  "before": "def top_k(lst, k):\n    new_lst = []\n    while lst:\n        largest = lst[0] \n        for numbers in lst:\n            if numbers > largest:\n                largest = numbers\n        new_lst.append(lst.pop(largest))\n    return new_lst[:k]\n",
+  "after": "def top_k(lst, k):\n    sort = []\n    while lst: \n        biggest = lst[0]\n        for element in lst:\n            if element > biggest:\n                biggest = element\n        lst.remove(biggest)\n        sort.append(biggest)\n    return sort[:k]\n",
+  "n": 1
+ },
+ {
+  "id": "30",
+  "before": "def top_k(lst, k):\n    sort = []\n    while lst:\n        largest = lst[0]\n        for i in lst:\n            if i > largest:\n                largest = i\n        sort.append(i)\n    return sort[:k-1]\n        \n",
+  "after": "def top_k(lst, k):\n    sort = []\n    while lst: \n        biggest = lst[0]\n        for element in lst:\n            if element > biggest:\n                biggest = element\n        lst.remove(biggest)\n        sort.append(biggest)\n    return sort[:k]\n",
+  "n": 1
+ },
+ {
+  "id": "31",
+  "before": "def top_k(lst, k):\n    i=0\n    while i+1<len(lst):\n        if lst[i]<lst[i+1]:\n            lst.extend([i])\n            lst.pop(i)\n            i=0\n        else:\n            i+=1\n    return lst[:k+1]\n",
+  "after": "def top_k(lst, k):\n    i=0\n    while i+1<len(lst):\n        if lst[i]<lst[i+1]:\n            lst.extend([lst[i]])\n            lst.pop(i)\n            i=0\n        else:\n            i+=1\n    return lst[:k]\n",
+  "n": 1
+ },
+ {
+  "id": "32",
+  "before": "def top_k(lst, k):\n    a = sort_list(lst)\n    return a[0:k]\n            \n",
+  "after": "import heapq\ndef top_k(lst, k):\n    k_sorted = heapq.nlargest(k, lst)\n    return k_sorted\n",
+  "n": 1
+ },
+ {
+  "id": "33",
+  "before": "def top_k(lst, k):\n    new = []\n    while len(lst) > len(lst) - k:\n        new.append(lst.pop(max(lst)))\n        \n    return new\n        \n",
+  "after": "def top_k(lst, k):\n    result = []\n    while len(result) < k:\n        result.append(lst.pop(lst.index(max(lst))))\n    return result\n",
+  "n": 5
+ },
+ {
+  "id": "34",
+  "before": "def top_k(lst, k):\n    sort = []\n    while lst: \n        biggest = lst[0]\n        for element in lst:\n            if ele > biggest:\n                biggest = ele\n                \n        lst.remove(element)\n        sort.append(element)\n        if len(sort)==k:\n            break\n    return sort\n",
+  "after": "def top_k(lst, k):\n    sort = []\n    while lst: \n        biggest = lst[0]\n        for element in lst:\n            if element > biggest:\n                biggest = element\n        lst.remove(biggest)\n        sort.append(biggest)\n    return sort[:k]\n",
+  "n": 4
+ },
+ {
+  "id": "35",
+  "before": "def top_k(lst, k):\n    sotsot = []\n    while lst:\n        while len(sotsot) <=k:\n            sotsot.append(max(lst))\n            lst.remove(max(lst)) #wont return u any value just modified the list only.\n        return sotsot \n    \n",
+  "after": "def top_k(lst, k):\n    new_lst = []\n    while len(new_lst) != k:\n        new_lst.append(max(lst))\n        lst.remove(max(lst))\n    return new_lst\n\n",
+  "n": 2
+ },
+ {
+  "id": "36",
+  "before": "def top_k(lst, k):\n    new_lst = []\n    for i in range(k):\n        new_lst.append(lst.remove(max(lst)))\n    return new_lst\n    pass\n",
+  "after": "def top_k(lst, k):\n    new_lst = []\n    for i in range(k):\n        new_lst.append(max(lst))\n        lst.remove(max(lst))\n    return new_lst\n    pass\n\n",
+  "n": 1
+ },
+ {
+  "id": "37",
+  "before": "def top_k(lst, k):\n    new = []\n    while i in range(k-1):\n        new.append(lst.pop(max(lst)))\n        \n    return new\n        \n",
+  "after": "def top_k(lst, k):\n    result = []\n    while len(result) < k:\n        result.append(lst.pop(lst.index(max(lst))))\n    return result\n",
+  "n": 1
+ },
+ {
+  "id": "38",
+  "before": "def top_k(lst, k):\n    values = []\n    while len(values) < k:\n        for item in lst:\n          greatest = lst[0]\n          if item > greatest:\n            greatest = item\n        lst.remove(greatest)\n        values.append(greatest)\n        \n    return values\n\n",
+  "after": "def top_k(lst, k):\n    result = []\n    while len(result) < k:\n        biggest = lst[0]\n        for i in lst:\n            if i > biggest:\n                biggest = i\n        lst.remove(biggest)\n        result.append(biggest)\n    return result\n",
+  "n": 1
+ },
+ {
+  "id": "39",
+  "before": "def top_k(lst, k):\n    a=[]\n    while lst:\n        largest = lst[0]\n        for i in lst:\n            if i > largest:\n                largest = i\n                lst.remove(largest)\n                a.append(largest)\n    return a[:k]\n",
+  "after": "def top_k(lst,k):\n    newlst=[]\n    while lst:\n        highest=lst[0] #first number\n        for number in lst:\n            if number>highest:\n                highest=number\n        for number in lst:\n            if number==highest:\n                newlst.append(number)\n                lst.remove(number)\n    return newlst[:k]\n",
+  "n": 3
+ },
+ {
+  "id": "40",
+  "before": "def top_k(lst, k):\n    new = []\n    for i in range(k-1):\n        new.append(lst.pop(max(lst)))\n        \n    return new\n        \n",
+  "after": "def top_k(lst, k):\n    result = []\n    while len(result) < k:\n        result.append(lst.pop(lst.index(max(lst))))\n    return result\n",
+  "n": 1
+ },
+ {
+  "id": "41",
+  "before": "def top_k(lst, k):\n    results = []\n    counter = 0\n    while counter < k:\n        for i in range(-len(lst),-1):\n            if lst[i] == max(lst):\n                results.append(lst.pop(i))\n                counter += 1\n    return results\n",
+  "after": "def top_k(lst, k):\n    results = []\n    counter = 0\n    while counter < k:\n        for i in range(-len(lst),0):\n            if lst[i] == max(lst):\n                results.append(lst.pop(i))\n                break\n        counter += 1\n    return results\n",
+  "n": 4
+ },
+ {
+  "id": "42",
+  "before": "def top_k(lst, k):\n    if lst == []:\n        return []\n    else:\n        final = []\n        while lst:\n            element = max(lst)\n            final += [element,]\n            lst.remove(element)\n            if len(final) == k:\n                break\n        return final\n",
+  "after": "def top_k(lst, k):\n    if lst == [] or k == 0:\n        return []\n    else:\n        final = []\n        while lst:\n            element = max(lst)\n            final += [element,]\n            lst.remove(element)\n            if len(final) == k:\n                break\n        return final\n",
+  "n": 1
+ },
+ {
+  "id": "43",
+  "before": "def top_k(lst, k):\n    final = []\n    while lst:\n        element = max(lst)\n        final += [element,]\n        lst.remove(element)\n        if len(final) == k:\n            break\n    return final\n",
+  "after": "def top_k(lst,k): #k is the number of values in the lst\n    lst2 = []\n    while lst:\n        a = max(lst)\n        lst2.append(a)\n        lst.remove(a)\n    return lst2[0:k]\n",
+  "n": 1
+ },
+ {
+  "id": "44",
+  "before": "def top_k(lst, k):\n    new = []\n    while len(lst) >= len(lst) - k:\n        top = max(lst) \n        new.append(lst.remove(top))\n        \n    return new\n        \n",
+  "after": "def top_k(lst, k):\n    new_lst = []\n    while len(new_lst) != k:\n        new_lst.append(max(lst))\n        lst.remove(max(lst))\n    return new_lst\n\n",
+  "n": 1
+ },
+ {
+  "id": "45",
+  "before": "def top_k(lst, k):\n    values = []\n    greatest = lst[0]\n    while len(values) < k:\n        for item in lst:\n            if item > greatest:\n                greatest = item\n        lst.remove(greatest)\n        values.append(greatest)\n        greatest = lst[0]\n    return values\n",
+  "after": "def top_k(lst, k):\n    lst2 = []\n    largest = lst[0]\n    while lst:\n        largest = lst[0]\n        for element in lst:\n            if element > largest:\n                largest = element\n        lst.remove(largest)\n        lst2.append(largest)\n    return lst2[0:k]\n",
+  "n": 1
+ },
+ {
+  "id": "46",
+  "before": "def top_k(lst, k):\n    counter=0\n    new_lst=[]\n    while counter<k:\n        new_lst.append(lst.remove(max(lst)))\n",
+  "after": "def top_k(lst, k):\n    result = []\n    while len(result) < k:\n        result.append(lst.pop(lst.index(max(lst))))\n    return result\n",
+  "n": 1
+ },
+ {
+  "id": "47",
+  "before": "def top_k(lst, k):\n    final = []\n    while lst:\n        largest = lst[0]\n        for element in lst:\n            if element > largest:\n                largest = element\n            lst.remove(largest)\n            final.append(largest)\n        if len(final) == k:\n            break\n    return final\n",
+  "after": "def top_k(lst, k):\n    n= []\n    while lst:\n        big = lst[0]\n        for ele in lst:\n            if ele>big:\n                big = ele\n        if len(n)==k:\n            break \n        else:\n            n.append(big)\n            lst.remove(big)\n    return n\n        \n                \n    \n    pass\n",
+  "n": 1
+ },
+ {
+  "id": "48",
+  "before": "def top_k(lst, k):\n    af_sort = []\n    while lst:\n        biggest = lst[0] \n        for element in a:\n            if element > biggest:\n                biggest = element\n            lst.remove(biggest)\n            af_sort.append(biggest)\n    return af_sort[0:k]\n    \n",
+  "after": "def top_k(lst, k):\n    sort = []\n    while lst:\n        biggest = lst[0]\n        for i in lst:\n            if i > biggest:\n                biggest = i\n        lst.remove(biggest)\n        sort.append(biggest)\n    return sort[0:k]\n",
+  "n": 1
+ },
+ {
+  "id": "49",
+  "before": "def top_k(lst, k):\n    new = []\n    lst.sort()\n    for i in range(k-1):\n        new.append(lst[i])\n    return new\n",
+  "after": "def top_k(lst, k):\n    res = []\n    for i in range(k):\n        res.append(max(lst))\n        lst.remove(max(lst))\n    return res\n",
+  "n": 1
+ },
+ {
+  "id": "50",
+  "before": "def top_k(lst, k):\n    sort = []\n    while lst:\n        smallest = lst[0]\n        for i in lst:\n            if i<smallest:\n                smallest = i\n        lst.remove(smallest)\n        sort.append(smallest)\n    counter = k\n    while counter !=len(lst):\n        lst.pop()\n        counter += 1\n    return lst\n",
+  "after": "def top_k(lst,k):\n    sort = []\n\n    while lst:\n        biggest = lst[0]\n        for element in lst:\n            if element > biggest:\n                biggest = element\n        lst.remove(biggest)\n        sort.append(biggest)\n    new_sort = []\n    for i in range (k):\n        new_sort += [sort[i]]\n    return new_sort\n",
+  "n": 1
+ },
+ {
+  "id": "51",
+  "before": "def top_k(lst, k):\n    sort = []\n    while lst:\n        big = max(lst)\n        sort.append(big)\n        lst.remove(big)\n    \n    output = [n for n in lst if lst.index(n) < k]\n    return output\n",
+  "after": "def top_k(lst, k):\n    sort = []\n    while lst:\n        big = max(lst)\n        sort.append(big)\n        lst.remove(big)\n    output = []\n    for i in range(k):\n        output.append(sort[i])\n    return output\n",
+  "n": 1
+ },
+ {
+  "id": "52",
+  "before": "def top_k(lst, k):\n    new_list = []\n    for i in lst:\n        if k==0:\n            break\n        new_list+=max(lst)\n        k-1\n    return lst\n    pass\n",
+  "after": "def top_k(lst, k):\n    new = []\n    for i in range(k):\n        largest = max(lst)\n        new += [largest]\n        lst.remove(largest)\n    return new\n",
+  "n": 1
+ },
+ {
+  "id": "53",
+  "before": "def top_k(lst, k):\n    lst1 = []\n    for i in lst:\n        if i >= k:\n            lst1.append(i) \n    sort = []\n    while lst1: \n        biggest = lst[0]\n        for element in lst1:\n            if element > biggest:\n                biggest = element\n        lst1.remove(biggest)\n        sort.append(biggest)\n    return sort\n",
+  "after": "def top_k(lst, k):\n    lst_res = lst\n    sort = []\n    while lst_res:\n        largest = lst_res[0]\n        for elements in lst_res:\n            if elements > largest:\n                largest = elements\n        lst_res.remove(largest)\n        sort.append(largest)\n    return sort[:k]\n",
+  "n": 1
+ },
+ {
+  "id": "54",
+  "before": "def top_k(lst, k):\n    count = 0\n    op = []\n    big = lst[0]\n    while count < k:\n        op += [max(lst)]\n        count += 1\n    return op\n            \n    \n",
+  "after": "def top_k(lst, k):\n    count = 0\n    op = []\n    while count < k:\n        op += [max(lst)]\n        lst.remove(max(lst))\n        count += 1\n    return op\n",
+  "n": 3
+ },
+ {
+  "id": "55",
+  "before": "def top_k(lst, k):\n    for i in range(len(lst)-1):\n        if lst[i]<lst[i+1]:\n            lst[i],lst[i+1]=lst[i+1],lst[i]\n    return lst[:k]\n",
+  "after": "def top_k(lst, k):\n    for j in range(len(lst)):\n        for i in range(len(lst)-1):\n            if lst[i]<lst[1+i]:\n                lst[i], lst[i+1] = lst[i+1], lst[i]\n    return lst[:k]\n",
+  "n": 1
+ },
+ {
+  "id": "56",
+  "before": "def top_k(lst, k):\n    sort, output = [], []\n    while lst:\n        largest = lst[0]\n        for i in lst:\n            if i > largest:\n                largest = i\n        lst.remove(largest)\n        sort.append(largest)\n    for j in sort:\n        output.append(j)\n        if len(output) == k:\n            break\n    return output    \n",
+  "after": "def top_k(lst, k):\n    if k == 0 or lst == []:\n        return []\n    else:\n        sort, output = [], []\n        while lst:\n            largest = lst[0]\n            for i in lst:\n                if i > largest:\n                    largest = i\n            lst.remove(largest)\n            sort.append(largest)\n        for j in sort:\n            output.append(j)\n            if len(output) == k:\n                break\n        return output    \n",
+  "n": 1
+ },
+ {
+  "id": "57",
+  "before": "def top_k(lst, k):\n    sorted_list = []\n    while lst:\n        smallest = lst[0]\n        for element in lst:\n            if element < smallest:\n                smallest = element\n            lst.remove(element)\n            sorted_list.append(element)\n    return list.reverse(sorted_list)[:k-1]\n",
+  "after": "def top_k(lst, k):\n    sort = []\n    while lst: \n        biggest = lst[0]\n        for element in lst:\n            if element > biggest:\n                biggest = element\n        lst.remove(biggest)\n        sort.append(biggest)\n    return sort[:k]\n",
+  "n": 1
+ },
+ {
+  "id": "58",
+  "before": "def top_k(lst, k):\n    x = []\n    for i in range(k-1):\n        y = i\n        for j in lst:\n            if y < j:\n                y = j\n        x += y\n    return x    \n                \n                \n    \n    pass\n",
+  "after": "def top_k(lst, k):\n    new = []\n    for i in range(k):\n        largest = max(lst)\n        new += [largest]\n        lst.remove(largest)\n    return new\n",
+  "n": 1
+ },
+ {
+  "id": "59",
+  "before": "def top_k(lst, k):\n    if lst == []:\n        return []\n    elif k == 0:\n        return lst\n    else:\n        final = []\n        while lst:\n            element = max(lst)\n            final += [element,]\n            lst.remove(element)\n            if len(final) == k:\n                break\n        return final\n",
+  "after": "def top_k(lst, k):\n    if lst == [] or k == 0:\n        return []\n    else:\n        final = []\n        while lst:\n            element = max(lst)\n            final += [element,]\n            lst.remove(element)\n            if len(final) == k:\n                break\n        return final\n",
+  "n": 1
+ },
+ {
+  "id": "60",
+  "before": "def top_k(lst, k):\n    l = []\n    if k > len(lst):\n        return False\n    elif k == 1:\n        return lst\n    else:\n        a = max(lst)\n        lst.remove(a)\n        l.append(a)\n        return top_k(lst, k-1)\n        \n    # Fill in your code here\n    pass\n",
+  "after": "def top_k(lst, k):\n    l = []\n    if k > len(lst):\n        return False\n    elif k == 1:\n        return lst\n    else:\n        while len(l) < k:\n            a = max(lst)\n            lst.remove(a)\n            l.append(a)\n        \n        return l\n        \n    # Fill in your code here\n    pass\n",
+  "n": 1
+ },
+ {
+  "id": "61",
+  "before": "def top_k(lst, k):\n    lst2 = []\n    max = lst[0]\n    for i in lst:\n        if i > max:\n            max = i\n        while len(lst2) != k:\n            lst2.append(max)\n    return lst2\n",
+  "after": "def top_k(lst, k):\n\tnew_lst = lst\n\tend = []\n\tfor a in range(k):\n\t\tend.append(max(new_lst))\n\t\tnew_lst.remove(max(new_lst))\n\treturn end\n",
+  "n": 1
+ },
+ {
+  "id": "62",
+  "before": "def top_k(lst, k):\n    l = []\n    if k > len(lst):\n        return False\n    elif k == 1:\n        return lst\n    else:\n        a = max(lst)\n        lst.remove(a)\n        l.append(a)\n        top_k(lst, k-1)\n        return l\n        \n    # Fill in your code here\n    pass\n",
+  "after": "def top_k(lst, k):\n    l = []\n    if k > len(lst):\n        return False\n    elif k == 1:\n        return lst\n    else:\n        while len(l) < k:\n            a = max(lst)\n            lst.remove(a)\n            l.append(a)\n        \n        return l\n        \n    # Fill in your code here\n    pass\n",
+  "n": 1
+ },
+ {
+  "id": "63",
+  "before": "def top_k(lst, k):\n    lst2 = []\n    max = lst[0]\n    for i in lst:\n        if i > max:\n            max = i\n        lst.pop(max)\n        while len(lst2) != k:\n            lst2.append(max)\n    return lst2\n",
+  "after": "def top_k(lst, k):\n    \n    answer = []\n    a = lst[0]\n    \n    while lst:\n        \n        for i in range(len(lst)):\n            answer.append(max(lst))\n            lst.remove(max(lst))\n            \n    return answer[:k]\n\n",
+  "n": 1
+ },
+ {
+  "id": "64",
+  "before": "def top_k(lst, k):\n    for i in range(len(lst)):\n        for j in range(len(lst) - 1):\n            if lst[j] > lst[j + 1]:\n                lst[j] = lst [j + 1]\n                lst[j + 1] = lst[j]\n    lst.reverse()\n    return lst[:k]\n    pass\n",
+  "after": "def top_k(lst, k):\n    for i in range(len(lst)):\n        for j in range(len(lst) - 1):\n            if lst[j] > lst[j + 1]:\n                lst[j], lst[j + 1] = lst[j + 1], lst[j]\n    lst.reverse()\n    return lst[:k]\n    pass\n",
+  "n": 2
+ },
+ {
+  "id": "65",
+  "before": "def top_k(lst, k):\n    sorted_lst = []\n    while lst:\n        for n in range(1, len(lst)):\n            biggest = lst[0]\n            if lst[n] > biggest:\n                biggest = lst[n]\n                lst.remove(biggest)\n                sorted_lst.append(biggest)\n    return sorted_lst[0:3]\n            \n            \n",
+  "after": "def top_k(lst, k):\n    lst2 = []\n\n    while lst:\n        lst2.append(max(lst))\n        lst.remove(max(lst))\n        for x in lst:\n            if x in lst2:\n                lst2.append(x)\n                lst.remove(x)\n    return lst2[:k]\n",
+  "n": 2
+ },
+ {
+  "id": "66",
+  "before": "def top_k(lst, k):\n    n = len(lst) - k\n    counter = 0\n    while counter < k:\n        lst.remove(min(lst))\n        counter = counter + 1\n    sort_list = []\n    while lst != []:\n        sort_lst.append(max(lst))\n        lst.remove(max(lst))\n    return sort_list\n    \n",
+  "after": "def top_k(lst, k):\n    count=0\n    newlst=[]\n    while lst:\n        newlst+=[max(lst)]\n        lst.remove(max(lst))\n    for i in range(k):\n        lst.append(newlst[i])\n    return lst\n",
+  "n": 2
+ },
+ {
+  "id": "67",
+  "before": "def top_k(lst, k):\n    \n    if lst == []:\n        return lst\n    \n    lower = []\n    higher = []\n    plist = []\n    \n    pivot = lst[0]\n    for e in lst:\n        if e < pivot:\n            lower.append(e)\n        if x == pivot:\n            plist.append(e)\n        if x > pivot:\n            higher.append(e)\n    sort_list = lower + plist + higher\n    \n    return sort_list[:k]\n",
+  "after": "def top_k(lst, k):\n    new_list = []\n    while lst:\n        maximum = lst[0]\n        for i in lst:\n            if i > maximum:\n                maximum = i\n        new_list.append(maximum)\n        lst.remove(maximum)\n    new_list_2 = []\n    counter = 0\n    for i in new_list:\n        if counter < k:\n            new_list_2.append(new_list[counter])\n            counter = counter + 1\n    return new_list_2\n",
+  "n": 4
+ },
+ {
+  "id": "68",
+  "before": "def top_k(lst, k):\n    \n    if lst == []:\n        return lst\n    \n    lower = []\n    higher = []\n    plist = []\n    \n    pivot = lst[0]\n    for e in lst:\n        if e < pivot:\n            lower.append(e)\n        if e == pivot:\n            plist.append(e)\n        if e > pivot:\n            higher.append(e)\n    sort_list = lower + plist + higher\n    sort_list = sort_list[::-1]\n    \n    if k == len(lst):\n        return sort_list[:k-1]\n    elif k > len(lst):\n        return sort_list\n    else:\n        return sort_list[:k]\n",
+  "after": "def top_k(lst, k):\n    def quick_sort(lst):\n        def cmp(a,b):\n            if a > b:\n                return True\n            else:\n                return False    \n    \n        if len(lst)==0:\n            return []\n    \n        lst0=[]\n        lst1=[]\n    \n        partition = lst[0]\n    \n        for item in lst[1:]:\n            if cmp(item,partition):\n                lst0.append(item)\n            else:\n                lst1.append(item)\n    \n        return quick_sort(lst0)+[partition]+quick_sort(lst1)\n    \n    return quick_sort(lst)[:k]\n",
+  "n": 1
+ }
+]

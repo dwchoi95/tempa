@@ -1,0 +1,371 @@
+rule fix_yes_no_case_and_spelling
+symptoms: wrong
+match: print($s)
+where: text($s) in {"'Yes'", '"Yes"', "'No'", '"No"', "'yes'", '"yes"', "'no'", '"no"', "'si'", '"si"', "'no'", '"no'"}
+rewrite: print(${map[$s]})
+table map: {"'Yes'": "'YES'", '"Yes"': '"YES"', "'No'": "'NO'", '"No"': '"NO"', "'yes'": "'YES'", '"yes"': '"YES"', "'no'": '"NO"', '"no"': '"NO"', "'si'": "'YES'", '"si"': '"YES"'}
+rule fix_printed_sentence_instead_of_yes_no
+symptoms: wrong
+match: print(f$fmt)
+where: regex($fmt, r"^['\"].*nearly lucky.*['\"]$")
+rewrite: print("YES")
+
+rule fix_digit_variable_used_instead_of_remainder
+symptoms: wrong
+match:
+    $r = $n % 10
+    if $n == 4 or $n == 7:
+        $count += 1
+where: bound($r) and bound($n) and bound($count)
+rewrite:
+    $r = $n % 10
+    if $r == 4 or $r == 7:
+        $count += 1
+
+rule fix_digit_variable_used_instead_of_remainder_cmp
+symptoms: wrong
+match: if $n == 4 or $n == 7:
+where: inside("while $c: $_")
+rewrite: if $r == 4 or $r == 7:
+
+rule fix_assign_plus_to_increment
+symptoms: wrong
+match: $count =+ 1
+rewrite: $count += 1
+
+rule fix_count_lucky_digits_condition
+symptoms: wrong
+match: if $count == 4 or $count == 7:
+rewrite: if $count in (4, 7):
+
+rule fix_count_lucky_digits_condition_eq_order
+symptoms: wrong
+match: if $count == 7 or $count == 4:
+rewrite: if $count in (4, 7):
+
+rule fix_count_lucky_digits_condition_print_expr
+symptoms: wrong
+match: print("YES") if $count == 4 or $count == 7 else print("NO")
+rewrite: print("YES" if $count in (4, 7) else "NO")
+
+rule fix_count_lucky_digits_condition_print_expr_swapped
+symptoms: wrong
+match: print("YES") if $count == 7 or $count == 4 else print("NO")
+rewrite: print("YES" if $count in (4, 7) else "NO")
+
+rule fix_sum_of_counts_then_compare
+symptoms: wrong
+match:
+    $a = $s.count("4")
+    $b = $s.count("7")
+    if ($a+$b)-len($s)==0:
+        print("YES")
+    else:
+        print("NO")
+rewrite:
+    $a = $s.count("4")
+    $b = $s.count("7")
+    if $a + $b in (4, 7):
+        print("YES")
+    else:
+        print("NO")
+
+rule fix_len_check_to_lucky_count
+symptoms: wrong
+match:
+    if len($a) == 7 or len($a) == 4:
+        print('YES')
+    else:
+        print('NO')
+rewrite:
+    if $a.count('4') + $a.count('7') in (4, 7):
+        print('YES')
+    else:
+        print('NO')
+
+rule fix_len_mod_check_to_lucky_count
+symptoms: wrong
+match:
+    if len($n)%4==0 or len($n)%7==0:
+        print("YES")
+    else:
+        print("NO")
+rewrite:
+    if $n.count('4') + $n.count('7') in (4, 7):
+        print("YES")
+    else:
+        print("NO")
+
+rule fix_all_digits_must_be_lucky_to_count_lucky_digits
+symptoms: wrong
+match:
+    for $i in $s:
+        if $i not in ["4","7"]:
+            $out = "NO"
+    print($out)
+rewrite:
+    count = 0
+    for $i in $s:
+        if $i in ["4","7"]:
+            count += 1
+    print("YES" if count in [4, 7] else "NO")
+
+rule fix_all_digits_must_be_lucky_to_count_lucky_digits_break
+symptoms: wrong
+match:
+    for $i in $s:
+        if $i != '4' and $i != '7':
+            $flag = False
+    if $flag:
+        print("YES")
+    else:
+        print("NO")
+rewrite:
+    count = 0
+    for $i in $s:
+        if $i == '4' or $i == '7':
+            count += 1
+    if count == 4 or count == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule fix_all_digits_with_length_check
+symptoms: wrong
+match:
+    if $flag and ($count == 7 or $count == 4):
+        print("YES")
+    else:
+        print("NO")
+rewrite:
+    if $count == 4 or $count == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule fix_digit_scan_using_int_comparison
+symptoms: wrong
+match:
+    if $x[i] == 4 or $x[i] == 7:
+        $count += 1
+rewrite:
+    if $x[i] == "4" or $x[i] == "7":
+        $count += 1
+
+rule fix_digit_scan_using_int_conversion
+symptoms: wrong
+match:
+    if int($x[i]) == 4 or int($x[i]) == 7:
+        $count += 1
+rewrite:
+    if $x[i] == '4' or $x[i] == '7':
+        $count += 1
+
+rule fix_count_digits_isdigit
+symptoms: wrong
+match:
+    if $ch.isdigit():
+        $count += 1
+rewrite:
+    if $ch == '4' or $ch == '7':
+        $count += 1
+
+rule fix_string_count_misused_as_lucky_digits
+symptoms: wrong
+match:
+    if $count == len($s):
+        print("YES")
+    else:
+        print("NO")
+rewrite:
+    if $count == 4 or $count == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule fix_string_count_misused_as_len_of_number
+symptoms: wrong
+match:
+    if $count == len(str($n)):
+        print("YES")
+    else:
+        print("NO")
+rewrite:
+    if $count == 4 or $count == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule fix_wrong_return_lucky_digit_check
+symptoms: wrong
+match:
+    return $f($count)
+where: match($f, "is_lucky_digit")
+rewrite:
+    return $count in (4, 7)
+
+rule fix_return_all_digits_only_to_count
+symptoms: wrong
+match:
+    return all($x in $digits for $x in str($n))
+rewrite:
+    return sum(1 for $x in str($n) if $x in $digits) in (4, 7)
+
+rule fix_count_modulo_test
+symptoms: wrong
+match:
+    if $count % 4 == 0 or $count % 7 == 0:
+        print("YES")
+    else:
+        print("NO")
+rewrite:
+    if $count == 4 or $count == 7:
+        print("YES")
+    else:
+        print("NO")
+
+rule fix_count_len_equality_to_count_membership
+symptoms: wrong
+match:
+    if $count == len($s):
+        print("YES")
+    else:
+        print("NO")
+rewrite:
+    if $count in (4, 7):
+        print("YES")
+    else:
+        print("NO")
+
+rule fix_wrong_or_on_counts
+symptoms: wrong
+match:
+    if $count_4 != 0 and $count_7 != 0 and $count_4 + $count_7 == len($t):
+        print("YES")
+    else:
+        print("NO")
+rewrite:
+    if $count_4 + $count_7 in (4, 7):
+        print("YES")
+    else:
+        print("NO")
+
+rule fix_replace_digits_check
+symptoms: wrong
+match:
+    if int($s) == 0:
+        print("YES")
+    else:
+        print("NO")
+rewrite:
+    if $s.count('4') + $s.count('7') in (4, 7):
+        print("YES")
+    else:
+        print("NO")
+
+rule fix_set_based_unique_digit_check
+symptoms: wrong
+match:
+    if $x != [4,7]:
+        print("NO")
+    else:
+        print("YES")
+rewrite:
+    if $x.count('4') + $x.count('7') in (4, 7):
+        print("YES")
+    else:
+        print("NO")
+
+rule fix_input_prompt
+symptoms: wrong
+match: input("Enter a number:")
+rewrite: input()
+
+rule fix_input_prompt_number
+symptoms: wrong
+match: input("Enter number : ")
+rewrite: input()
+
+rule fix_input_prompt_enter
+symptoms: wrong
+match: int(input("enter"))
+rewrite: int(input())
+
+rule fix_float_division_to_int_division
+symptoms: wrong
+match: $n = int($n / 10)
+rewrite: $n //= 10
+
+rule fix_float_division_to_int_division_var
+symptoms: wrong
+match: $n /= 10
+rewrite: $n //= 10
+
+rule fix_while_digit_check_on_number_instead_of_remainder
+symptoms: wrong
+match:
+    while $n != 0:
+        $a = $n % 10
+        if $n == 4 or $n == 7:
+            $count += 1
+        $n = $n // 10
+rewrite:
+    while $n != 0:
+        $a = $n % 10
+        if $a == 4 or $a == 7:
+            $count += 1
+        $n = $n // 10
+
+rule fix_while_digit_check_on_number_instead_of_remainder_alt
+symptoms: wrong
+match:
+    while $n > 0:
+        $a = $n % 10
+        if $n == 4 or $n == 7:
+            $count += 1
+        $n = $n // 10
+rewrite:
+    while $n > 0:
+        $a = $n % 10
+        if $a == 4 or $a == 7:
+            $count += 1
+        $n = $n // 10
+
+rule fix_output_all_caps
+symptoms: wrong
+match: print("no")
+rewrite: print("NO")
+
+rule fix_output_all_caps_yes
+symptoms: wrong
+match: print("yes")
+rewrite: print("YES")
+
+rule fix_output_all_caps_no
+symptoms: wrong
+match: print("No")
+rewrite: print("NO")
+
+rule fix_output_all_caps_yes_mixed
+symptoms: wrong
+match: print("Yes")
+rewrite: print("YES")
+
+rule fix_output_all_caps_si
+symptoms: wrong
+match: print("si" if $cond else "no")
+rewrite: print("YES" if $cond else "NO")
+
+rule fix_print_count_then_check_count_digits
+symptoms: wrong
+match:
+    print($count)
+    if $flag:
+        print("YES")
+    else:
+        print("NO")
+rewrite:
+    if $count == 4 or $count == 7:
+        print("YES")
+    else:
+        print("NO")

@@ -1,0 +1,62 @@
+rule fix_digital_root_input_to_int
+symptoms: wrong
+match: print(d(input()))
+where: inside("def $f($*xs, $p, $*ys): $B:Stmts")
+rewrite: print(d(int(input())))
+
+rule fix_digital_root_compare_lt_to_lte
+symptoms: wrong
+match: $a < $b
+where: text($a) == "c" and text($b) == "n+1"
+rewrite: $a <= $b
+
+rule fix_digital_root_range_off_by_one
+symptoms: wrong
+match: range(1, $n+1)
+where: some($B, "for $j in range(1,n+1):")
+rewrite: range(1, $n)
+
+rule fix_digital_root_double_count_increment
+symptoms: wrong
+match:
+    $d = $d + 2
+where: some($d, "$d:Name=0") or some($d, "$d:Name = 0")
+rewrite:
+    $d = $d + 1
+
+rule fix_digital_root_root_base_case
+symptoms: wrong
+match:
+    if($num<=9):
+        return $num
+where: inside("def root($num): $B:Stmts")
+rewrite:
+    if($num<10):
+        return $num
+
+rule fix_digital_root_root_cache_recursion
+symptoms: wrong
+match:
+    $dct[$num] = root($sm)
+where: inside("def root($num): $B:Stmts") and some($B, "if($num<=9):")
+rewrite:
+    $dct[$num] = root($sm)
+
+rule fix_digital_root_print_root_expression
+symptoms: wrong
+match: print(d(input()))
+where: inside("def d($x): $B:Stmts")
+rewrite: print(d(int(input())))
+
+rule fix_digital_root_remove_wrong_keys_side_effect
+symptoms: wrong
+match:
+    m.append(0)
+where: inside("def root($num): $B:Stmts")
+rewrite:
+
+rule fix_digital_root_condition_not_equal_to_not_in
+symptoms: wrong
+match: if($j not in dctn[$x]):
+where: inside("for $i in range(1,n+1): $B:Stmts")
+rewrite: if($j not in dctn[$x]):

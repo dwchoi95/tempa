@@ -1,0 +1,92 @@
+rule wrap_input_abs_before_jump_loop
+symptoms: wrong
+match: $x:Name = int(input())
+where: after("while $_ != $x:")
+rewrite: $x = abs(int(input()))
+
+rule if_else_jump_loop_to_canonical
+symptoms: wrong
+match:
+    while $pos != $x:
+        $cnt += 1
+        if $pos + $cnt <= $x:
+            $pos += $cnt
+        else:
+            $pos -= $cnt
+rewrite:
+    while $pos < $x or ($pos-$x) % 2 != 0:
+        $cnt += 1
+        $pos += $cnt
+
+rule elif_chain_jump_loop_to_canonical
+symptoms: wrong
+match:
+    while $pos != $x:
+        $cnt += 1
+        $pos1:Name = $pos + $cnt
+        if $pos1 < $x:
+            $pos = $pos + $cnt
+        elif $pos1 > $x:
+            $pos = $pos - $cnt
+        elif $pos1 == $x:
+            $pos = $pos + $cnt
+rewrite:
+    while $pos < $x or ($pos-$x) % 2 != 0:
+        $cnt += 1
+        $pos += $cnt
+
+rule triangular_formula_whole_program_to_canonical
+symptoms: wrong
+match:
+    $a:Name = int(input())
+    $n:Name = 1
+    while True:
+        if $a == 0:
+            print(0)
+            break
+        elif $a > 0:
+            if ($n*$n+$n)/2 < $a:
+                $n += 1
+            elif ($n*$n+$n)/2 == $a:
+                print(int($n))
+                break
+            elif ($n*$n+$n)/2 > $a:
+                $c:Name = int($n+(($n*$n+$n)/2-$a)*2)
+                $d:Name = int($n-1+($a-($n*($n-1))/2)*2)
+                print(min($c, $d))
+                break
+        elif $a<0:
+            $a = abs($a)
+            if ($n*$n+$n)/2 < $a:
+                $n += 1
+            elif ($n*$n+$n)/2 == $a:
+                print(int($n))
+                break
+            elif ($n*$n+$n)/2 > $a:
+                $c:Name = int($n+(($n*$n+$n)/2-$a)*2)
+                $d:Name = int($n-1+($a-($n*($n-1))/2)*2)
+                print(min($c, $d))
+                break
+rewrite:
+    $a = abs(int(input()))
+    $n = 0
+    pos = 0
+    while pos < $a or (pos-$a) % 2 != 0:
+        $n += 1
+        pos += $n
+    print($n)
+
+rule map_int_input_trivial_to_canonical
+symptoms: wrong, err
+match:
+    $x:Name = map(int, input())
+    print($x2)
+where: $x2 == $x
+rewrite:
+    x = abs(int(input()))
+    jumps = 0
+    pos = 0
+    while pos < x or (pos-x) % 2 != 0:
+        jumps += 1
+        pos += jumps
+    print(jumps)

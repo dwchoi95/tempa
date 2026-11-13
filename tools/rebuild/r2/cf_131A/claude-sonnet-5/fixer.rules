@@ -1,0 +1,64 @@
+rule capitalize_to_swapcase
+symptoms: wrong
+match: $X.capitalize()
+rewrite: $X.swapcase()
+
+rule title_to_swapcase
+symptoms: wrong
+match: $X.title()
+rewrite: $X.swapcase()
+
+rule add_parens_predicate_call
+symptoms: wrong
+match: $X.$m:Attr
+where: text($m) in {"isupper", "islower", "isalpha", "istitle"} and not parent("$X.$m()")
+rewrite: $X.$m()
+
+rule add_single_char_disjunct
+symptoms: wrong
+match: if $C:
+where: (some($C, "$s.isupper()") or some($C, "$s[1:].isupper()")) and not regex($C, r"len\(")
+rewrite: if len($s) == 1 or $C:
+
+rule islower_slice_should_be_isupper
+symptoms: wrong
+match: $X[1:].islower()
+where: inside("if $c:") and some($c, "$X.isupper()")
+rewrite: $X[1:].isupper()
+
+rule bare_upper_call_as_bool_operand
+symptoms: wrong
+match: $X.upper()
+where: parent("$A or $X.upper()") or parent("$X.upper() or $A") or parent("$A and $X.upper()") or parent("$X.upper() and $A")
+rewrite: $X.isupper()
+
+rule bare_lower_call_as_bool_operand
+symptoms: wrong
+match: $X.lower()
+where: parent("$A or $X.lower()") or parent("$X.lower() or $A") or parent("$A and $X.lower()") or parent("$X.lower() and $A")
+rewrite: $X.islower()
+
+rule bare_upper_sole_test
+symptoms: wrong
+match: if $X.upper():
+rewrite: if $X.isupper():
+
+rule bare_lower_sole_test
+symptoms: wrong
+match: if $X.lower():
+rewrite: if $X.islower():
+
+rule single_char_isupper_should_be_islower
+symptoms: wrong
+match:
+    if len($s) == 1 and $s.isupper():
+        print($s.lower())
+rewrite:
+    if len($s) == 1 and $s.islower():
+        print($s.upper())
+
+rule bogus_eq_statement_should_assign
+symptoms: wrong
+match: $x == $y
+where: field("Expr", "value")
+rewrite: $x = $y

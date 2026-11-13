@@ -1,0 +1,409 @@
+rule fix_unique_day_counting_bool_or_truthy
+symptoms: wrong
+match:
+    def unique_day($p1:Name, $p2:Name):
+        $B:Stmts
+where:
+    some($B, "return $X")
+    and some($B, "$c:Name = True")
+    and some($B, "if $v == $p1:\n    $c = False")
+rewrite:
+    def unique_day($p1:Name, $p2:Name):
+        count = 0
+        for birthday in $p2:
+            if birthday[1] == $p1:
+                count += 1
+        return count == 1
+
+rule fix_unique_month_counting_bool_or_truthy
+symptoms: wrong
+match:
+    def unique_month($p1:Name, $p2:Name):
+        $B:Stmts
+where:
+    some($B, "return $X")
+    and some($B, "$c:Name = True")
+    and some($B, "if $v == $p1:\n    $c = False")
+rewrite:
+    def unique_month($p1:Name, $p2:Name):
+        count = 0
+        for birthday in $p2:
+            if birthday[0] == $p1:
+                count += 1
+        return count == 1
+
+rule fix_unique_day_count_ge_to_eq
+symptoms: wrong
+match:
+    def unique_day($p1:Name, $p2:Name):
+        $B:Stmts
+where:
+    some($B, "if $c >= 2:\n    return False\nelse:\n    return True")
+rewrite:
+    def unique_day($p1:Name, $p2:Name):
+        count = 0
+        for birthday in $p2:
+            if birthday[1] == $p1:
+                count += 1
+        return count == 1
+
+rule fix_unique_month_count_ge_to_eq
+symptoms: wrong
+match:
+    def unique_month($p1:Name, $p2:Name):
+        $B:Stmts
+where:
+    some($B, "if $c >= 2:\n    return False\nelse:\n    return True")
+rewrite:
+    def unique_month($p1:Name, $p2:Name):
+        count = 0
+        for birthday in $p2:
+            if birthday[0] == $p1:
+                count += 1
+        return count == 1
+
+rule fix_unique_day_misused_membership_or_string
+symptoms: wrong
+match:
+    def unique_day($p1:Name, $p2:Name):
+        $B:Stmts
+where:
+    some($B, "if $p1 in $x:\n    return True\nelse:\n    return False")
+       or some($B, "if int($p1) in $x:\n    return False\nelse:\n    return True")
+rewrite:
+    def unique_day($p1:Name, $p2:Name):
+        count = 0
+        for birthday in $p2:
+            if birthday[1] == $p1:
+                count += 1
+        return count == 1
+
+rule fix_unique_month_misused_membership_or_string
+symptoms: wrong
+match:
+    def unique_month($p1:Name, $p2:Name):
+        $B:Stmts
+where:
+    some($B, "if $p1 in $x:\n    return False\nelse:\n    return True")
+       or some($B, "if str($p1) == $x:\n    $S:Stmt")
+rewrite:
+    def unique_month($p1:Name, $p2:Name):
+        count = 0
+        for birthday in $p2:
+            if birthday[0] == $p1:
+                count += 1
+        return count == 1
+
+rule fix_unique_day_wrong_index_day
+symptoms: wrong
+match:
+    def unique_day($p1:Name, $p2:Name):
+        $B:Stmts
+where:
+    some($B, "if $X[0] == $p1:")
+       or some($B, "if $p1 == $X[0]:")
+rewrite:
+    def unique_day($p1:Name, $p2:Name):
+        count = 0
+        for birthday in $p2:
+            if birthday[1] == $p1:
+                count += 1
+        return count == 1
+
+rule fix_unique_month_wrong_index_month
+symptoms: wrong
+match:
+    def unique_month($p1:Name, $p2:Name):
+        $B:Stmts
+where:
+    some($B, "if $X[1] == $p1:")
+       or some($B, "if $p1 == $X[1]:")
+rewrite:
+    def unique_month($p1:Name, $p2:Name):
+        count = 0
+        for birthday in $p2:
+            if birthday[0] == $p1:
+                count += 1
+        return count == 1
+
+rule fix_unique_day_off_by_one_true_if_zero
+symptoms: wrong
+match:
+    def unique_day($p1:Name, $p2:Name):
+        $B:Stmts
+where:
+    some($B, "if $c <= 1:\n    return True\nelse:\n    return False")
+       or some($B, "if $c > 1:\n    return False\nelse:\n    return True")
+rewrite:
+    def unique_day($p1:Name, $p2:Name):
+        count = 0
+        for birthday in $p2:
+            if birthday[1] == $p1:
+                count += 1
+        return count == 1
+
+rule fix_unique_month_off_by_one_true_if_zero
+symptoms: wrong
+match:
+    def unique_month($p1:Name, $p2:Name):
+        $B:Stmts
+where:
+    some($B, "if $c <= 1:\n    return True\nelse:\n    return False")
+       or some($B, "if $c > 1:\n    return False\nelse:\n    return True")
+rewrite:
+    def unique_month($p1:Name, $p2:Name):
+        count = 0
+        for birthday in $p2:
+            if birthday[0] == $p1:
+                count += 1
+        return count == 1
+
+rule fix_unique_day_wrong_return_count
+symptoms: wrong
+match:
+    def unique_day($p1:Name, $p2:Name):
+        $B:Stmts
+where:
+    some($B, "return $c")
+    and some($B, "if $c == 1:")
+rewrite:
+    def unique_day($p1:Name, $p2:Name):
+        count = 0
+        for birthday in $p2:
+            if birthday[1] == $p1:
+                count += 1
+        return count == 1
+
+rule fix_unique_month_wrong_return_count
+symptoms: wrong
+match:
+    def unique_month($p1:Name, $p2:Name):
+        $B:Stmts
+where:
+    some($B, "return $c")
+    and some($B, "if $c == 1:")
+rewrite:
+    def unique_month($p1:Name, $p2:Name):
+        count = 0
+        for birthday in $p2:
+            if birthday[0] == $p1:
+                count += 1
+        return count == 1
+
+rule fix_contains_unique_day_return_stubs
+symptoms: wrong
+match:
+    def contains_unique_day($m:Name, $bdays:Name):
+        return
+rewrite:
+    def contains_unique_day($m:Name, $bdays:Name):
+        for birthday in $bdays:
+            if birthday[0] == $m and unique_day(birthday[1], $bdays):
+                return True
+        return False
+
+rule fix_contains_unique_day_pass_stub
+symptoms: wrong
+match:
+    def contains_unique_day($m:Name, $bdays:Name):
+        pass
+rewrite:
+    def contains_unique_day($m:Name, $bdays:Name):
+        for birthday in $bdays:
+            if birthday[0] == $m and unique_day(birthday[1], $bdays):
+                return True
+        return False
+
+rule fix_contains_unique_day_wrong_month_return
+symptoms: wrong
+match:
+    def contains_unique_day($m:Name, $bdays:Name):
+        $B:Stmts
+where:
+    some($B, "if $m == $x[0]:\n    return unique_day($x[1], $bdays)")
+       or some($B, "if $m == $x[0]:\n    if unique_day($x[1], $bdays):\n        return True\n    else:\n        return False")
+rewrite:
+    def contains_unique_day($m:Name, $bdays:Name):
+        for birthday in $bdays:
+            if birthday[0] == $m and unique_day(birthday[1], $bdays):
+                return True
+        return False
+
+rule fix_contains_unique_day_need_loop_not_single_return
+symptoms: wrong
+match:
+    def contains_unique_day($m:Name, $bdays:Name):
+        $B:Stmts
+where:
+    some($B, "if not unique_day and not unique_month:\n    return False\nelse:\n    return True")
+       or some($B, "if $m == $x[0]:\n    return True\nelse:\n    return False")
+rewrite:
+    def contains_unique_day($m:Name, $bdays:Name):
+        for birthday in $bdays:
+            if birthday[0] == $m and unique_day(birthday[1], $bdays):
+                return True
+        return False
+
+rule fix_contains_unique_day_wrong_arg_name
+symptoms: wrong
+match:
+    def contains_unique_day($m:Name, $bdays:Name):
+        $B:Stmts
+where:
+    some($B, "unique_date($x, $bdays)")
+       or some($B, "unique_day($x, $bdays) == False")
+rewrite:
+    def contains_unique_day($m:Name, $bdays:Name):
+        for birthday in $bdays:
+            if birthday[0] == $m and unique_day(birthday[1], $bdays):
+                return True
+        return False
+
+rule fix_contains_unique_day_any_true
+symptoms: wrong
+match:
+    def contains_unique_day($m:Name, $bdays:Name):
+        $B:Stmts
+where:
+    some($B, "if True in $x:\n    return True\nreturn False")
+       or some($B, "if any($x):\n    return True\nreturn False")
+rewrite:
+    def contains_unique_day($m:Name, $bdays:Name):
+        for birthday in $bdays:
+            if birthday[0] == $m and unique_day(birthday[1], $bdays):
+                return True
+        return False
+
+rule fix_contains_unique_day_membership_month_scan
+symptoms: wrong
+match:
+    def contains_unique_day($m:Name, $bdays:Name):
+        $B:Stmts
+where:
+    some($B, "if $m in $x:")
+       or some($B, "if $m == $x[0]:")
+rewrite:
+    def contains_unique_day($m:Name, $bdays:Name):
+        for birthday in $bdays:
+            if birthday[0] == $m and unique_day(birthday[1], $bdays):
+                return True
+        return False
+
+rule fix_contains_unique_day_return_false_inside_loop
+symptoms: wrong
+match:
+    def contains_unique_day($m:Name, $bdays:Name):
+        $B:Stmts
+where:
+    some($B, "else:\n    return False")
+       and some($B, "return True")
+rewrite:
+    def contains_unique_day($m:Name, $bdays:Name):
+        for birthday in $bdays:
+            if birthday[0] == $m and unique_day(birthday[1], $bdays):
+                return True
+        return False
+
+rule fix_contains_unique_day_undefined_zero_return
+symptoms: wrong
+match:
+    def contains_unique_day($m:Name, $bdays:Name):
+        $B:Stmts
+where:
+    some($B, "return $X")
+    and some($B, "if $m == $y[0]:")
+    and some($B, "unique_day($y[1], $bdays)")
+rewrite:
+    def contains_unique_day($m:Name, $bdays:Name):
+        for birthday in $bdays:
+            if birthday[0] == $m and unique_day(birthday[1], $bdays):
+                return True
+        return False
+
+rule fix_wrong_month_index_in_unique_month_and_contains
+symptoms: wrong
+match:
+    def unique_month($m:Name, $bdays:Name):
+        $U:Stmts
+    def contains_unique_day($m2:Name, $bdays2:Name):
+        $C:Stmts
+where:
+    some($U, "if $m == $x[1]:")
+       or some($U, "if $x[1] == $m:")
+       or some($C, "if $m2 == $x[1]:")
+rewrite:
+    def unique_month($m:Name, $bdays:Name):
+        count = 0
+        for birthday in $bdays:
+            if birthday[0] == $m:
+                count += 1
+        return count == 1
+    def contains_unique_day($m2:Name, $bdays2:Name):
+        for birthday in $bdays2:
+            if birthday[0] == $m2 and unique_day(birthday[1], $bdays2):
+                return True
+        return False
+
+rule fix_generic_day_index_misuse_in_unique_day
+symptoms: wrong
+match:
+    def unique_day($d:Name, $bdays:Name):
+        $B:Stmts
+where:
+    some($B, "if $d in $x:")
+       or some($B, "if $d == $x[0]:")
+       or some($B, "if $d == $x[2]:")
+rewrite:
+    def unique_day($d:Name, $bdays:Name):
+        count = 0
+        for birthday in $bdays:
+            if birthday[1] == $d:
+                count += 1
+        return count == 1
+
+rule fix_generic_month_index_misuse_in_unique_month
+symptoms: wrong
+match:
+    def unique_month($m:Name, $bdays:Name):
+        $B:Stmts
+where:
+    some($B, "if $m in $x:")
+       or some($B, "if $m == $x[1]:")
+       or some($B, "if $m == $x[2]:")
+rewrite:
+    def unique_month($m:Name, $bdays:Name):
+        count = 0
+        for birthday in $bdays:
+            if birthday[0] == $m:
+                count += 1
+        return count == 1
+
+rule fix_contains_unique_day_use_any_unique_day
+symptoms: wrong
+match:
+    def contains_unique_day($m:Name, $bdays:Name):
+        $B:Stmts
+where:
+    some($B, "for $x in $ys:\n    if unique_day($x, $bdays):\n        return True")
+       or some($B, "for $x in $ys:\n    if unique_day($x, $bdays) == True:\n        return True")
+rewrite:
+    def contains_unique_day($m:Name, $bdays:Name):
+        for birthday in $bdays:
+            if birthday[0] == $m and unique_day(birthday[1], $bdays):
+                return True
+        return False
+
+rule fix_contains_unique_day_tuple_of_days
+symptoms: wrong
+match:
+    def contains_unique_day($m:Name, $bdays:Name):
+        $B:Stmts
+where:
+    some($B, "$days:Name += ($x[1],)")
+       and some($B, "for $y in $days:")
+rewrite:
+    def contains_unique_day($m:Name, $bdays:Name):
+        for birthday in $bdays:
+            if birthday[0] == $m and unique_day(birthday[1], $bdays):
+                return True
+        return False

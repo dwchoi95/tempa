@@ -1,0 +1,233 @@
+rule loop_var_instead_of_tracker_append
+symptoms: wrong
+match:
+    for $i in $lst:
+        if $cond:
+            $best = $i
+    $lst.remove($i)
+    $out.append($i)
+where: $best != $i
+rewrite:
+    for $i in $lst:
+        if $cond:
+            $best = $i
+    $lst.remove($best)
+    $out.append($best)
+
+rule loop_var_instead_of_tracker_tuple
+symptoms: wrong
+match:
+    for $i in $lst:
+        if $cond:
+            $best = $i
+    $lst.remove($i)
+    $out += ($i,)
+where: $best != $i
+rewrite:
+    for $i in $lst:
+        if $cond:
+            $best = $i
+    $lst.remove($best)
+    $out += ($best,)
+
+rule reversed_assignment_subscript_cmp
+symptoms: wrong
+match:
+    if $p[$k1] $o:Cmp $q[$k2]:
+        $p = $q
+where: $p != $q
+rewrite:
+    if $p[$k1] $o:Cmp $q[$k2]:
+        $q = $p
+
+rule reversed_assignment_equality
+symptoms: wrong
+match:
+    if $a[$k] == $b:
+        $a = $tmp
+where: $a != $tmp
+rewrite:
+    if $a[$k] == $b:
+        $tmp = $a
+
+rule typo_tracker_name_in_condition
+symptoms: wrong, err:NameError
+match:
+    for $elem in $lst:
+        if $elem[$k1] $o:Cmp $v[$k2]:
+            $best = $elem
+where: inside("def sort_age($p): $B:Stmts") and $v != $best and not some($B, "$v = $_")
+rewrite:
+    for $elem in $lst:
+        if $elem[$k1] $o:Cmp $best[$k2]:
+            $best = $elem
+
+rule tracker_assigned_wrong_var
+symptoms: wrong, err:NameError
+match:
+    for $elem in $lst:
+        if $cond:
+            $best = $v
+where: inside("def sort_age($p): $B:Stmts") and $v != $elem and not some($B, "$v = $_") and not some($B, "for $_ in $v:")
+rewrite:
+    for $elem in $lst:
+        if $cond:
+            $best = $elem
+
+rule undefined_list_var_use_param
+symptoms: wrong, err:NameError
+match:
+    $best = $v[0]
+    for $elem in $v:
+where: inside("def sort_age($p): $B:Stmts") and $v != $p and not some($B, "$v = $_")
+rewrite:
+    $best = $p[0]
+    for $elem in $p:
+
+rule misnamed_list_remove
+symptoms: wrong, err:NameError
+match: $wrong.remove($x)
+where: inside("def sort_age($p): $B:Stmts") and $wrong != $p and not some($B, "$wrong = $_")
+rewrite: $p.remove($x)
+
+rule misnamed_output_append
+symptoms: wrong, err:NameError
+match: $wrong.append($x)
+where: inside("def sort_age($p): $B:Stmts") and not some($B, "$wrong = $_") and some($B, "return $out:Name") and $wrong != $out
+rewrite: $out.append($x)
+
+rule listfunc_typo
+symptoms: wrong, err:TypeError
+match: $v[0]
+where: inside("def sort_age($p): $B:Stmts") and builtin($v)
+rewrite: $p[0]
+
+rule min_should_be_max_in_sort
+symptoms: wrong
+match: min($x:Name)
+where: inside("def sort_age($p): $B:Stmts")
+rewrite: max($x)
+
+rule empty_tuple_check_should_be_list
+symptoms: wrong
+match: $x == ()
+where: inside("def sort_age($p): $B:Stmts")
+rewrite: $x == []
+
+rule mergesort_pop_direction
+symptoms: wrong
+match:
+    while $l1 and $l2:
+        if $l1[0][1] < $l2[0][1]:
+            $res.append($l1.pop())
+        else:
+            $res.append($l2.pop())
+rewrite:
+    while $l1 and $l2:
+        if $l1[0][1] < $l2[0][1]:
+            $res.append($l2.pop(0))
+        else:
+            $res.append($l1.pop(0))
+
+rule return_reverse_call_returns_none
+symptoms: wrong
+match: return $x.reverse()
+rewrite:
+    $x.reverse()
+    return $x
+
+rule return_reverse_missing_call
+symptoms: wrong
+match: return $x.reverse
+rewrite:
+    $x.reverse()
+    return $x
+
+rule assign_result_of_append
+symptoms: wrong
+match: $lst = $lst.append($x)
+rewrite: $lst.append($x)
+
+rule duplicate_trailing_append
+symptoms: wrong
+match:
+    while $cond:
+        $Body:Stmts
+    $acc.append($x)
+    return $acc
+where: some($Body, "$acc.append($x)")
+rewrite:
+    while $cond:
+        $Body
+    return $acc
+
+rule print_instead_of_return
+symptoms: wrong
+match: print($x)
+where: parent("def sort_age($p): $B:Stmts") and last()
+rewrite: return $x
+
+rule pass_instead_of_return
+symptoms: wrong
+match: pass
+where: parent("def sort_age($p): $B:Stmts") and last() and some($B, "$acc:Name = []")
+rewrite: return $acc
+
+rule missing_return_after_while
+symptoms: wrong
+match: while $cond:
+where: parent("def sort_age($p): $B:Stmts") and last() and not some($B, "return $_") and some($B, "$acc:Name = []")
+rewrite:
+    while $cond:
+    return $acc
+
+rule early_return_dedent
+symptoms: wrong
+match:
+    while $cond:
+        $Body:Stmts
+        $acc.append($x)
+        return $acc
+rewrite:
+    while $cond:
+        $Body
+        $acc.append($x)
+    return $acc
+
+rule select_min_should_be_max_tracker
+symptoms: wrong
+match:
+    for $elem in $lst:
+        if $elem[$k1] < $best[$k2]:
+            $best = $elem
+where: inside("def sort_age($p): $B:Stmts") and not some($B, "$r:Name.reverse()") and not some($B, "$r:Name[::-1]")
+rewrite:
+    for $elem in $lst:
+        if $elem[$k1] > $best[$k2]:
+            $best = $elem
+
+rule extend_instead_of_append_tuple
+symptoms: wrong, err:TypeError
+match: $out += $x:Name
+where: inside("def sort_age($p): $B:Stmts") and some($B, "$out:Name = []")
+rewrite: $out += ($x,)
+
+rule off_by_one_range_plus_one
+symptoms: wrong, err:IndexError
+match: range($a, len($lst)+1)
+rewrite: range($a, len($lst))
+
+rule off_by_one_range_plus_one_single
+symptoms: wrong, err:IndexError
+match: range(len($lst)+1)
+rewrite: range(len($lst))
+
+rule range_len_should_subtract_one_for_i_plus_1
+symptoms: wrong, err:IndexError
+match:
+    for $i in range(len($lst)):
+        $B:Stmts
+where: some($B, "$lst[$i + 1]")
+rewrite:
+    for $i in range(len($lst)-1):
+        $B

@@ -1,0 +1,139 @@
+rule sort_key_missing_reverse
+symptoms: wrong
+match: $lst.sort(key=lambda $v: $v[1])
+rewrite: $lst.sort(key=lambda $v: $v[1], reverse=True)
+
+rule return_sort_call_split
+symptoms: wrong
+match: return $lst.sort($*args)
+rewrite:
+    $lst.sort($*args)
+    return $lst
+
+rule sort_call_missing_return
+symptoms: wrong
+match: $lst.sort($*args)
+where: last()
+rewrite:
+    $lst.sort($*args)
+    return $lst
+
+rule positional_lambda_sort_to_key
+symptoms: err:TypeError, wrong
+match: $lst.sort($f)
+where: kind($f) == "Lambda"
+rewrite: $lst.sort(key=$f, reverse=True)
+
+rule positional_lambda_sort_with_reverse_to_key
+symptoms: err:TypeError, wrong
+match: $lst.sort($f, reverse=$r)
+where: kind($f) == "Lambda"
+rewrite: $lst.sort(key=$f, reverse=$r)
+
+rule compare_tuple_directly_without_age_index
+symptoms: wrong
+match: if $e:Name $o:Cmp $cur:Name:
+where: text($o) in {"<", ">", "<=", ">="} and inside("def $f($p): $B:Stmts") and some($B, "$cur = $lst2[0]")
+rewrite: if $e[1] $o $cur[1]:
+
+rule selection_min_should_be_max
+symptoms: wrong
+match:
+    for $e in $lst:
+        if $e[1] < $cur[1]:
+            $cur = $e
+    $lst.remove($cur)
+    $out.append($cur)
+where: inside("def $f($p): $B:Stmts") and not some($B, "$_[::-1]") and not some($B, "$_.reverse()") and not some($B, "$_.reverse")
+rewrite:
+    for $e in $lst:
+        if $e[1] > $cur[1]:
+            $cur = $e
+    $lst.remove($cur)
+    $out.append($cur)
+
+rule use_loop_var_instead_of_tracked
+symptoms: wrong
+match:
+    for $e in $lst:
+        if $e[1] $o:Cmp $cur[1]:
+            $cur = $e
+    $lst.remove($e)
+    $out.append($e)
+rewrite:
+    for $e in $lst:
+        if $e[1] $o:Cmp $cur[1]:
+            $cur = $e
+    $lst.remove($cur)
+    $out.append($cur)
+
+rule return_inside_while_to_after
+symptoms: wrong
+match:
+    while $c:
+        $S:Stmts
+        $out.append($cur)
+        return $out
+rewrite:
+    while $c:
+        $S:Stmts
+        $out.append($cur)
+    return $out
+
+rule missing_accumulator_init
+symptoms: wrong, err:NameError
+match: while $c:
+where: inside("def $f($p): $B:Stmts") and some($B, "$out.append($x)") and not some($B, "$out = $_")
+rewrite:
+    $out = []
+    while $c:
+
+rule wrong_while_var
+symptoms: wrong, err:NameError
+match: while $a:Name:
+where: inside("def $f($p): $B:Stmts") and not some($B, "$a = $_") and $a != $p
+rewrite: while $p:
+
+rule hoist_init_out_of_inner_loop
+symptoms: wrong
+match:
+    while $lst:
+        for $i in range($n):
+            $cur = $lst[0]
+            if $lst[$i][1] $o:Cmp $cur[1]:
+                $cur = $lst[$i]
+        $lst.remove($cur)
+        $out.append($cur)
+rewrite:
+    while $lst:
+        $cur = $lst[0]
+        for $i in range($n):
+            if $lst[$i][1] $o:Cmp $cur[1]:
+                $cur = $lst[$i]
+        $lst.remove($cur)
+        $out.append($cur)
+
+rule bubble_swap_fix
+symptoms: wrong, err:TypeError
+match:
+    if $lst[$j][1] $o:Cmp $lst[$k][1]:
+        $lst[$j][1], $lst[$k][1] = $lst[$k][1], $lst[$j][1]
+rewrite:
+    if $lst[$j][1] < $lst[$k][1]:
+        $lst[$j], $lst[$k] = $lst[$k], $lst[$j]
+
+rule len_arg_paren_slip
+symptoms: err:TypeError, wrong
+match: len($lst - $n)
+rewrite: len($lst) - $n
+
+rule print_instead_of_return
+symptoms: wrong
+match: print($X)
+where: last() and not inside("while $c: $B:Stmts") and not inside("for $v in $it: $B:Stmts")
+rewrite: return $X
+
+rule reverse_attr_no_call_in_return
+symptoms: wrong
+match: return $X.reverse
+rewrite: return $X[::-1]

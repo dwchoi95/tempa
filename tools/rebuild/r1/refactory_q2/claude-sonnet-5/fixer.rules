@@ -1,0 +1,150 @@
+rule missing_else_return_false
+symptoms: wrong
+match:
+    if $cond:
+        return True
+where: last() and not inside("for $i in $xs: $B:Stmts") and not inside("while $c: $B:Stmts")
+rewrite:
+    if $cond:
+        return True
+    return False
+
+rule missing_final_return_false_after_loop
+symptoms: wrong
+match:
+    for $i in $xs:
+        if $cond:
+            return True
+where: last()
+rewrite:
+    for $i in $xs:
+        if $cond:
+            return True
+    return False
+
+rule loop_early_false_should_continue
+symptoms: wrong
+match:
+    for $i in $xs:
+        if $cond:
+            return True
+        else:
+            return $_
+where: last()
+rewrite:
+    for $i in $xs:
+        if $cond:
+            return True
+    return False
+
+rule typo_unique_date_call
+symptoms: wrong, err:NameError
+match: $fn:Name($d, $p)
+where: text($fn) == "unique_date"
+rewrite: ${Fix[$fn]}($d, $p)
+table Fix: {"unique_date": "unique_day"}
+
+rule count_threshold_gt_then_true
+symptoms: wrong
+match:
+    if $cnt > 1:
+        return False
+    return True
+rewrite: return $cnt == 1
+
+rule count_threshold_ge_then_true
+symptoms: wrong
+match:
+    if $cnt >= 2:
+        return False
+    return True
+rewrite: return $cnt == 1
+
+rule count_threshold_ifelse_gt
+symptoms: wrong
+match:
+    if $cnt > 1:
+        return False
+    else:
+        return True
+rewrite: return $cnt == 1
+
+rule count_threshold_ifelse_ge
+symptoms: wrong
+match:
+    if $cnt >= 2:
+        return False
+    else:
+        return True
+rewrite: return $cnt == 1
+
+rule count_threshold_le_ifelse
+symptoms: wrong
+match:
+    if $cnt <= 1:
+        return True
+    else:
+        return False
+rewrite: return $cnt == 1
+
+rule count_threshold_le_bare
+symptoms: wrong
+match: return $cnt <= 1
+rewrite: return $cnt == 1
+
+rule count_threshold_ge_bare
+symptoms: wrong
+match: return $cnt >= 2
+rewrite: return $cnt == 1
+
+rule tuple_concat_missing_wrap
+symptoms: wrong
+match: $t = $t + $i
+where: kind($i) == "Name"
+rewrite: $t = $t + ($i,)
+
+rule tuple_should_be_list_for_append
+symptoms: wrong, err:AttributeError
+match: $b:Name = ()
+where: after("$b.append($_)")
+rewrite: $b = []
+
+rule missing_tf_init
+symptoms: wrong, err:NameError
+match:
+    for $i in $xs:
+        if $cond:
+            $t = $t or $e
+    return $t
+where: not before("$t = $_")
+rewrite:
+    $t = False
+    for $i in $xs:
+        if $cond:
+            $t = $t or $e
+    return $t
+
+rule missing_counter_init
+symptoms: wrong, err:NameError
+match:
+    for $i in $xs:
+        if $cond:
+            $t += 1
+    return $t == 1
+    |
+    for $i in $xs:
+        if $cond:
+            $t = $t + 1
+    return $t == 1
+where: not before("$t = $_")
+rewrite:
+    $t = 0
+    for $i in $xs:
+        if $cond:
+            $t += 1
+    return $t == 1
+
+rule while_loop_le_len_should_be_lt
+symptoms: wrong, err:IndexError
+match: while $i <= len($xs):
+rewrite: while $i < len($xs):

@@ -1,0 +1,34 @@
+rule use_before_definition_var
+symptoms: wrong, err:UnboundLocalError, err:NameError
+match:
+    if $cond:
+        return $z
+    elif $V[-1] $o:Cmp $x:
+        return len($V)
+where: after("$V = list($p)")
+rewrite:
+    if $cond:
+        return $z
+    elif $p[-1] $o $x:
+        return len($p)
+
+rule offbyone_max_plus1
+symptoms: wrong
+match:
+    if $x $o1:Cmp $elem:
+        return $r
+    elif $x $o2:Cmp max($seq):
+        return list($seq).index(max($seq)) + 1
+where: text($o2) in {">=", ">"}
+rewrite:
+    if $x $o1 $elem:
+        return $r
+    elif $x > max($seq):
+        return len($seq)
+
+rule strict_lt_should_be_lte
+symptoms: wrong
+match: $a $o:Cmp $b
+where: text($o) in {"<", ">"}
+rewrite: $a ${relax[$o]} $b
+table relax: {"<": "<=", ">": ">="}

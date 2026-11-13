@@ -1,0 +1,65 @@
+id      pid  drawn  dup_official  dup_earlier_draw  candidates  kept  pool  shown_to_builder  voters  need  agree_mean_cands  unanimous_cands  agree_mean_kept  agree_min_kept  unanimous_kept  voters_wrong_on_some_kept                       dropped                                                                                                                                   classes_kept
+C1  cf_110A    336            17                19         300   100   353               106      40   0.9          0.998833              286          0.99875           0.975              95                          1 {"beyond the first 100": 200}                                                                           {"random": 33, "all_lucky": 20, "edge": 6, "zeros": 18, "count": 23}
+C2  cf_131A    314             3                11         300   100   140                93      40   0.9          1.000000              300          1.00000           1.000             100                          0 {"beyond the first 100": 200} {"all_up": 17, "mixed": 10, "first_low_rest_up": 17, "single": 13, "first_up_rest_low": 12, "all_low": 12, "one_low_inside": 10, "max_len": 9}
+C3 cf_1011B    300             0                 0         300   100   164                 2      40   0.9          0.974917                0          0.97500           0.975               0                          1 {"beyond the first 100": 200}           {"max": 7, "one_type": 10, "distinct": 9, "random": 13, "skewed": 12, "m1": 11, "n_gt_m": 13, "few_types": 12, "n1": 9, "n_eq_m": 4}
+C4  cf_125A    378            20                58         300   100    37                17      20   0.9          1.000000              300          1.00000           1.000             100                          0 {"beyond the first 100": 200}                                                                          {"small": 11, "foot_edge": 21, "random": 32, "mod3": 21, "large": 15}
+C5   cf_11B    405            26                79         300   100     2                 1       2   1.0          1.000000              300          1.00000           1.000             100                          0 {"beyond the first 100": 200}                                                                                   {"random": 23, "triangular": 48, "extreme": 10, "small": 19}
+C6   cf_10C    356            18                38         300   100     2                 2       2   1.0          1.000000              300          1.00000           1.000             100                          0 {"beyond the first 100": 200}                                                  {"random": 27, "large": 16, "mod9_edge": 13, "square_edge": 20, "small": 15, "loguniform": 9}
+
+             arm           model  official  also_suite  off_recheck_fail  plain_off_fail  plain_also_suite  share  fail_suite  distinct_fail_texts
+        TEMPA_LF claude-sonnet-5      1187        1182                 0               0              1182  99.58           5                  5.0
+        TEMPA_LF    gpt-5.4-mini      1187        1182                 0               0              1182  99.58           5                  5.0
+         TEMPA_L claude-sonnet-5      1187        1183                 0               0              1183  99.66           4                  4.0
+         TEMPA_L    gpt-5.4-mini      1187        1183                 0               0              1183  99.66           4                  4.0
+          -rules claude-sonnet-5      1187        1181                 0               0              1181  99.49           6                  6.0
+          -rules    gpt-5.4-mini      1187        1181                 0               0              1181  99.49           6                  6.0
+            -amp claude-sonnet-5      1187        1182                 0               0              1182  99.58           5                  5.0
+            -amp    gpt-5.4-mini      1187        1182                 0               0              1182  99.58           5                  5.0
+      -rules-amp claude-sonnet-5      1187        1181                 0               0              1181  99.49           6                  6.0
+      -rules-amp    gpt-5.4-mini      1187        1181                 0               0              1181  99.49           6                  6.0
+       line only claude-sonnet-5      1187        1182                 0               0              1182  99.58           5                  5.0
+       line only    gpt-5.4-mini      1187        1182                 0               0              1182  99.58           5                  5.0
+      block only claude-sonnet-5      1187        1179                 0               0              1179  99.33           8                  5.0
+      block only    gpt-5.4-mini      1187        1180                 0               0              1180  99.41           7                  4.0
+    cluster-once claude-sonnet-5      1187        1184                 0               0              1184  99.75           3                  3.0
+    cluster-once    gpt-5.4-mini      1187        1176                 0               0              1176  99.07          11                  8.0
+       gate 0.25 claude-sonnet-5      1187        1183                 0               0              1183  99.66           4                  4.0
+       gate 0.25    gpt-5.4-mini      1187        1180                 0               0              1180  99.41           7                  7.0
+gate 0.25 -rules claude-sonnet-5      1187        1183                 0               0              1183  99.66           4                  4.0
+gate 0.25 -rules    gpt-5.4-mini      1187        1179                 0               0              1179  99.33           8                  8.0
+      LLM_Direct claude-sonnet-5      1047        1045                 0               0              1045  99.81           2                  2.0
+      LLM_Direct    gpt-5.4-mini       816         812                 0               0               812  99.51           4                  4.0
+           PyDex claude-sonnet-5      1181        1181                 0               0              1181 100.00           0                  0.0
+           PyDex    gpt-5.4-mini      1169        1169                 0               0              1169 100.00           0                  0.0
+       Refactory claude-sonnet-5       933         928                 0              48               880  99.46           5                  5.0
+       Refactory    gpt-5.4-mini       933         928                 0              48               880  99.46           5                  5.0
+
+failures (official-passing, suite-failing rows) by problem
+id                                  C1   C2   C3   C4   C5   C6
+arm              model                                         
+-amp             claude-sonnet-5   4.0  0.0  1.0  0.0  0.0  0.0
+                 gpt-5.4-mini      4.0  0.0  1.0  0.0  0.0  0.0
+-rules           claude-sonnet-5   5.0  0.0  1.0  0.0  0.0  0.0
+                 gpt-5.4-mini      5.0  0.0  1.0  0.0  0.0  0.0
+-rules-amp       claude-sonnet-5   5.0  0.0  1.0  0.0  0.0  0.0
+                 gpt-5.4-mini      5.0  0.0  1.0  0.0  0.0  0.0
+LLM_Direct       claude-sonnet-5   1.0  0.0  0.0  0.0  1.0  0.0
+                 gpt-5.4-mini      4.0  0.0  0.0  0.0  0.0  0.0
+PyDex            claude-sonnet-5   0.0  0.0  0.0  0.0  0.0  0.0
+                 gpt-5.4-mini      0.0  0.0  0.0  0.0  0.0  0.0
+Refactory        claude-sonnet-5   4.0  0.0  1.0  0.0  0.0  0.0
+                 gpt-5.4-mini      4.0  0.0  1.0  0.0  0.0  0.0
+TEMPA_L          claude-sonnet-5   3.0  0.0  1.0  0.0  0.0  0.0
+                 gpt-5.4-mini      3.0  0.0  1.0  0.0  0.0  0.0
+TEMPA_LF         claude-sonnet-5   4.0  0.0  1.0  0.0  0.0  0.0
+                 gpt-5.4-mini      4.0  0.0  1.0  0.0  0.0  0.0
+block only       claude-sonnet-5   6.0  0.0  2.0  0.0  0.0  0.0
+                 gpt-5.4-mini      5.0  0.0  2.0  0.0  0.0  0.0
+cluster-once     claude-sonnet-5   2.0  0.0  0.0  0.0  1.0  0.0
+                 gpt-5.4-mini     11.0  0.0  0.0  0.0  0.0  0.0
+gate 0.25        claude-sonnet-5   2.0  0.0  1.0  0.0  1.0  0.0
+                 gpt-5.4-mini      6.0  0.0  1.0  0.0  0.0  0.0
+gate 0.25 -rules claude-sonnet-5   2.0  0.0  1.0  0.0  1.0  0.0
+                 gpt-5.4-mini      7.0  0.0  1.0  0.0  0.0  0.0
+line only        claude-sonnet-5   4.0  0.0  1.0  0.0  0.0  0.0
+                 gpt-5.4-mini      4.0  0.0  1.0  0.0  0.0  0.0

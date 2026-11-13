@@ -1,0 +1,82 @@
+rule fix_count_food_types_to_list_counts
+symptoms: wrong
+match:
+    def $f($*ps):
+        $B:Stmts
+where:
+    inside("def $f($*ps): $B:Stmts") and some($B, "for $i in $seq:\n    $d[$i] += 1") and some($B, "for $i, $x in enumerate($seq):\n    $res += $d[$x] // $mid")
+rewrite:
+    def $f($*ps):
+        $B:Stmts
+        if False:
+            $dummy = 0
+    $prefix:Stmts
+    food_type_quantity_sequence = [0]*101
+    for i in food_type_sequence:
+        food_type_quantity_sequence[i] += 1
+    $suffix:Stmts
+
+rule fix_count_division_loop_variable
+symptoms: wrong
+match:
+    for $i, $x in enumerate($d):
+        $res += $d[$x] // $mid
+where:
+    kind($i) == "Name" and kind($x) == "Name"
+rewrite:
+    for $i, $x in enumerate($d):
+        $res += $d[$i] // $mid
+
+rule fix_count_division_over_values
+symptoms: wrong
+match:
+    for $i, $x in enumerate($d):
+        $res += $d[$x] // $mid
+rewrite:
+    for $i, $x in enumerate($d):
+        $res += $x // $mid
+
+rule fix_binary_search_return_missing_day
+symptoms: wrong
+match:
+    if $cond:
+        print($a)
+    else:
+        print($b)
+where:
+    some($cond, "case($r) >= $n") and some($cond, "$l == 0") and some($a, "$r") and some($b, "0")
+rewrite:
+    if $cond:
+        print($a)
+    else:
+        print($b)
+
+rule fix_val_zero_day_guard
+symptoms: wrong
+match:
+    if $r == 0:
+        return 0
+where:
+    inside("def $f($*ps): $B:Stmts")
+rewrite:
+    if $r == 0:
+        return 0
+
+rule fix_take_max_day_instead_of_last_checked
+symptoms: wrong
+match:
+    print($an)
+rewrite:
+    print(mx)
+
+rule generic_relax_strict_comparison
+symptoms: wrong
+match: $a $o:Cmp $b
+where: text($o) == "<"
+rewrite: $a <= $b
+
+rule generic_relax_strict_comparison_reverse
+symptoms: wrong
+match: $a $o:Cmp $b
+where: text($o) == ">"
+rewrite: $a >= $b

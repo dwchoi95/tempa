@@ -1,0 +1,67 @@
+Buggy,Model,Source,Patch,Fixed,RPS,ATT_all,ATT_cpu,ATT_api,InT,OuT,$API,Rules_L,Rules_SL
+134903349,claude-sonnet-5,rules,"def d(n):
+	while len(str(n))!=1:
+		n = sum(int(d) for d in str(n))
+	return n
+
+n_1 = int(input())
+q, r = divmod(n_1, 9)
+droots = [q] + [q + 1] * r + [q] * (8 - r)
+res = 0
+for a in range(9):
+    for b in range(9):
+        res += droots[a] * droots[b] * droots[a * b % 9]
+for k in range(1, n_1 + 1):
+    res -= n_1 // k
+print(res)",True,2.5278,7.8423,2.8549,4.9874,1025,372,0.00577,"[""digit_root_bruteforce_closed_form_direct_call""]",[]
+70108877,claude-sonnet-5,reference,"n = int(input())
+q,r = divmod(n,9)
+d = [q]+[q+1]*r+[q]*(8-r)
+res = 0
+for i in range(9):
+    for j in range(9):
+        res += d[i]*d[j]*d[(i*j)%9]
+for i in range(1,n+1): res -= n//i
+print(res)",True,1.1158,113.6533,70.1564,43.4969,1109,4168,0.043898,[],[]
+82322301,claude-sonnet-5,reference,"n = int(input())
+q,r = divmod(n,9)
+d = [q]+[q+1]*r+[q]*(8-r)
+res = 0
+for i in range(9):
+    for j in range(9):
+        res += d[i]*d[j]*d[(i*j)%9]
+for i in range(1,n+1): res -= n//i
+print(res)",True,0.9362,22.2816,22.2816,0.0,0,0,0.0,[],[]
+134903349,gpt-5.4-mini,rules,"def d(n):
+	while len(str(n))!=1:
+		n = sum(int(d) for d in str(n))
+	return n
+
+n_1 = int(input())
+q, r = divmod(n_1, 9)
+d = [q] + [q + 1] * r + [q] * (8 - r)
+res = 0
+for i in range(9):
+    for j in range(9):
+        res += d[i] * d[j] * d[i * j % 9]
+for i in range(1, n_1 + 1):
+    res -= n_1 // i
+print(res)",True,2.5278,4.1912,2.8893,1.3019,746,45,0.000762,"[""fix_digit_root_input_conversion""]",[]
+70108877,gpt-5.4-mini,reference,"n = int(input())
+q,r = divmod(n,9)
+d = [q]+[q+1]*r+[q]*(8-r)
+res = 0
+for i in range(9):
+    for j in range(9):
+        res += d[i]*d[j]*d[(i*j)%9]
+for i in range(1,n+1): res -= n//i
+print(res)",True,1.1158,9.0533,8.1001,0.9532,813,119,0.001145,[],[]
+82322301,gpt-5.4-mini,reference,"n = int(input())
+q,r = divmod(n,9)
+d = [q]+[q+1]*r+[q]*(8-r)
+res = 0
+for i in range(9):
+    for j in range(9):
+        res += d[i]*d[j]*d[(i*j)%9]
+for i in range(1,n+1): res -= n//i
+print(res)",True,0.9362,7.0252,7.0252,0.0,0,0,0.0,[],[]

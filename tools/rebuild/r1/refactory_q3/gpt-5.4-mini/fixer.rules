@@ -1,0 +1,289 @@
+rule fix_for_list_param_name
+symptoms: wrong
+match:
+    for $x in list:
+        $B:Stmts
+where: inside("def $f($p, $*ys): $Body:Stmts") and text($p) != "list"
+rewrite:
+    for $x in $p:
+        $B
+
+rule fix_for_values_param_name
+symptoms: wrong
+match:
+    for $x in list:
+        $B:Stmts
+where: inside("def $f($p, $*ys): $Body:Stmts") and text($p) == "values"
+rewrite:
+    for $x in $p:
+        $B
+
+rule fix_return_wrong_name
+symptoms: wrong
+match: return $x
+where: inside("def $f($p, $*ys): $Body:Stmts") and some($Body, "output = []") and text($x) != "output" and text($x) != $p
+rewrite: return output
+
+rule fix_return_new_list_name
+symptoms: wrong
+match: return $x
+where: inside("def $f($p, $*ys): $Body:Stmts") and some($Body, "new_lst = []") and text($x) != "new_lst" and text($x) != $p
+rewrite: return new_lst
+
+rule fix_return_output_name
+symptoms: wrong
+match: return $x
+where: inside("def $f($p, $*ys): $Body:Stmts") and some($Body, "output = []") and text($x) != "output"
+rewrite: return output
+
+rule fix_return_newlist_name
+symptoms: wrong
+match: return $x
+where: inside("def $f($p, $*ys): $Body:Stmts") and some($Body, "newlist = []") and text($x) != "newlist"
+rewrite: return newlist
+
+rule fix_return_result_name
+symptoms: wrong
+match: return $x
+where: inside("def $f($p, $*ys): $Body:Stmts") and some($Body, "result = []") and text($x) != "result"
+rewrite: return result
+
+rule fix_return_keep_name
+symptoms: wrong
+match: return $x
+where: inside("def $f($p, $*ys): $Body:Stmts") and some($Body, "keep = []") and text($x) != "keep"
+rewrite: return keep
+
+rule fix_return_removed_name
+symptoms: wrong
+match: return $x
+where: inside("def $f($p, $*ys): $Body:Stmts") and some($Body, "removed = []") and text($x) != "removed"
+rewrite: return removed
+
+rule fix_return_new
+symptoms: wrong
+match: return $x
+where: inside("def $f($p, $*ys): $Body:Stmts") and some($Body, "new = []") and text($x) != "new"
+rewrite: return new
+
+rule fix_return_final
+symptoms: wrong
+match: return $x
+where: inside("def $f($p, $*ys): $Body:Stmts") and some($Body, "final = []") and text($x) != "final"
+rewrite: return final
+
+rule fix_return_lst_param
+symptoms: wrong
+match: return $x
+where: inside("def $f($p, $*ys): $Body:Stmts") and text($x) != $p and some($Body, "$v = $p")
+rewrite: return $p
+
+rule fix_return_set_to_list_ordered
+symptoms: wrong
+match: return set($x)
+rewrite:
+    from collections import OrderedDict
+    return list(OrderedDict.fromkeys($x))
+
+rule fix_return_ordereddict_to_list
+symptoms: wrong
+match: return OrderedDict.fromkeys($x)
+rewrite:
+    from collections import OrderedDict
+    return list(OrderedDict.fromkeys($x))
+
+rule fix_list_call_to_param
+symptoms: wrong
+match: for $x in list:
+rewrite: for $x in lst:
+
+rule fix_not_in_self_list
+symptoms: wrong
+match: if $x not in lst:
+rewrite: if $x not in $acc:
+
+rule fix_not_in_result_like_list
+symptoms: wrong
+match: if $x not in lst:
+where: inside("def $f($p, $*ys): $Body:Stmts") and some($Body, "$acc = []") and text($acc) != "lst"
+rewrite: if $x not in $acc:
+
+rule fix_append_vs_count_condition
+symptoms: wrong
+match: if $x in $acc:
+rewrite: if $x not in $acc:
+
+rule fix_count_one_instead_of_zero
+symptoms: wrong
+match: if $seq.count($x) == 1:
+rewrite: if $seq.count($x) == 0:
+
+rule fix_count_less_than_one
+symptoms: wrong
+match: if $seq.count($x) < 1:
+rewrite: if $seq.count($x) == 0:
+
+rule fix_append_to_wrong_list
+symptoms: wrong
+match:
+    $a.append($x)
+where: inside("def $f($p, $*ys): $Body:Stmts") and some($Body, "$acc = []") and text($a) == $p
+rewrite:
+    $acc.append($x)
+
+rule fix_extend_list_element
+symptoms: wrong
+match:
+    $a.extend($x)
+rewrite:
+    $a.extend([$x])
+
+rule fix_plus_equals_singleton
+symptoms: wrong
+match:
+    $a += $x
+where: not match($x, "[$*xs]")
+rewrite:
+    $a += [$x]
+
+rule fix_list_plus_scalar
+symptoms: wrong
+match:
+    $a = $a + $x
+rewrite:
+    $a = $a + [$x]
+
+rule fix_append_method_call
+symptoms: wrong
+match:
+    $a.append.$x
+rewrite:
+    $a.append($x)
+
+rule fix_missing_append_parens
+symptoms: wrong
+match:
+    $a.append($x)
+where: parent("for $i in $xs: $B:Stmts") or parent("if $c: $B:Stmts")
+rewrite:
+    $a.append($x)
+
+rule fix_reverse_call_not_property
+symptoms: wrong
+match: $x.reverse
+rewrite: $x.reverse()
+
+rule fix_copy_reverse_sequence
+symptoms: wrong
+match:
+    $x = $y.copy
+    $x.reverse()
+rewrite:
+    $x = $y.copy()
+    $x.reverse()
+
+rule fix_copy_reverse_reverse_return
+symptoms: wrong
+match:
+    $x = $y.copy
+    $x.reverse()
+    return $x.reverse()
+rewrite:
+    $x = $y.copy()
+    $x.reverse()
+    return $x
+
+rule fix_sort_on_duplicates_solution
+symptoms: wrong
+match:
+    $x.sort()
+    $B:Stmts
+where: some($B, "$x.remove($_)")
+rewrite:
+    $x.sort()
+    $B
+
+rule fix_range_len_minus_one
+symptoms: wrong
+match: for $i in range(len($lst)-1):
+rewrite: for $i in range(len($lst)):
+
+rule fix_range_len_plus_one
+symptoms: wrong
+match: for $i in range(len($lst) + 1):
+rewrite: for $i in range(len($lst)):
+
+rule fix_range_len_variable
+symptoms: wrong
+match: for $i in range($n):
+where: some($n, "len($lst)-1") or some($n, "len($lst) + 1")
+rewrite: for $i in range(len($lst)):
+
+rule fix_off_by_one_while
+symptoms: wrong
+match:
+    while $i < len($lst):
+        $B:Stmts
+where: some($B, "$j += 1") and not some($B, "else:")
+rewrite:
+    while $i < len($lst):
+        $B
+
+rule fix_missing_else_increment
+symptoms: wrong
+match:
+    if $a == $b:
+        $S1:Stmts
+    $j += 1
+rewrite:
+    if $a == $b:
+        $S1
+    else:
+        $j += 1
+
+rule fix_recursive_suffix_addition
+symptoms: wrong
+match:
+    return $x[0] + $f($x[1:])
+where: inside("def $f($p, $*ys): $Body:Stmts")
+rewrite:
+    return [$x[0]] + $f($x[1:])
+
+rule fix_empty_list_none
+symptoms: wrong
+match:
+    if $x == []:
+        return None
+rewrite:
+    if $x == []:
+        return []
+
+rule fix_return_wrong_variable_name_simple
+symptoms: wrong
+match: return $x
+where: some(inside("def $f($p, $*ys): $Body:Stmts"), "$acc = []") and text($x) != "output" and text($x) != "new_list" and text($x) != "new_lst" and text($x) != "result" and text($x) != "final" and text($x) != "keep" and text($x) != "removed" and text($x) != "new" and text($x) != $p
+rewrite: return $acc
+
+rule fix_reverse_then_remove_return
+symptoms: wrong
+match:
+    $x.reverse()
+    return $x.reverse()
+rewrite:
+    $x.reverse()
+    return $x
+
+rule fix_list_index_append
+symptoms: wrong
+match:
+    $a.append[$x]
+rewrite:
+    $a.append($x)
+
+rule fix_list_index_insert
+symptoms: wrong
+match:
+    $a.insert($i, $x)
+where: text($i) == "0" or text($i) == "len[new_lst]-1"
+rewrite:
+    $a.append($x)

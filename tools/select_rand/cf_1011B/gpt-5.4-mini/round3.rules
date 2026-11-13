@@ -1,0 +1,83 @@
+rule fix_frequency_sum_over_values
+symptoms: wrong
+match:
+    for $i:Name,$x:Name in $d:
+        $res += $d[$x] // $mid
+where: regex($i, r"^i$") and regex($x, r"^x$")
+rewrite:
+    for $i,$x in $d:
+        $res += $x // $mid
+
+rule fix_sum_over_frequency_values_alt
+symptoms: wrong
+match:
+    for $v:Name in $freqs:
+        $res += $v // $mid
+where: load($v)
+rewrite:
+    for $v in $freqs:
+        $res += $freqs[$v] // $mid
+
+rule fix_counting_loop_over_list_to_over_values
+symptoms: wrong
+match:
+    for $v in $freqs:
+        $res += $v // $mid
+rewrite:
+    for $v in $freqs.values():
+        $res += $v // $mid
+
+rule fix_binary_search_last_valid_upper_mid
+symptoms: wrong
+match:
+    while $l <= $r:
+        $mid = ($l + $r + 1) // 2
+        if not $cond:
+            $r = $mid - 1
+        else:
+            $l = $mid + 1
+            $an = $mid
+rewrite:
+    while $l <= $r:
+        $mid = ($l + $r) // 2
+        if not $cond:
+            $r = $mid - 1
+        else:
+            $l = $mid + 1
+            $an = $mid
+
+rule fix_binary_search_last_valid_return_candidate
+symptoms: wrong
+match:
+    if $an >= 0:
+        print($an)
+    else:
+        print($r)
+rewrite:
+    if $an >= 0:
+        print($an)
+    else:
+        print(0)
+
+rule fix_zero_day_check_inside_loop
+symptoms: wrong
+match:
+    if $day == 0:
+        print(0)
+        break
+rewrite:
+    if $day == 0:
+        print(0)
+        break
+
+rule fix_return_last_valid_expression
+symptoms: wrong
+match: return $x
+where: regex($x, r"^[A-Za-z_][A-Za-z0-9_]*$")
+rewrite: return $x
+
+rule fix_print_minus_one_to_zero
+symptoms: wrong
+match: print($an)
+where: regex($an, r"^-1$")
+rewrite: print(0)

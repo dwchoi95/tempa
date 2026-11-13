@@ -1,0 +1,164 @@
+rule fix_false_positive_unique_day_month_checks
+symptoms: wrong
+match:
+    if $cond:
+        return True
+    else:
+        return False
+where:
+    some($cond, "count $op:Cmp 1") and text($op) in {">", ">=", "<=", "!="}
+rewrite:
+    return $cond
+
+rule fix_unique_day_count_comparison
+symptoms: wrong
+match:
+    if $count $op:Cmp 1:
+        return True
+    else:
+        return False
+where:
+    text($op) in {">", ">=", "<=", "!="}
+rewrite:
+    return $count == 1
+
+rule fix_unique_month_count_comparison
+symptoms: wrong
+match:
+    if $count $op:Cmp 1:
+        return True
+    else:
+        return False
+where:
+    text($op) in {">", ">=", "<=", "!="}
+rewrite:
+    return $count == 1
+
+rule fix_unique_day_return_bool
+symptoms: wrong
+match:
+    return $count
+where:
+    some($count, "count") and inside("def unique_day($*xs): $B:Stmts")
+rewrite:
+    return $count == 1
+
+rule fix_unique_month_return_bool
+symptoms: wrong
+match:
+    return $count
+where:
+    some($count, "count") and inside("def unique_month($*xs): $B:Stmts")
+rewrite:
+    return $count == 1
+
+rule fix_unique_day_using_instead_of_equality
+symptoms: wrong
+match:
+    if $day in $item:
+        $B:Stmts
+where:
+    inside("def unique_day($*xs): $B2:Stmts") and some($item, "possible_birthdays") and some($day, "day")
+rewrite:
+    if $day == $item[1]:
+        $B
+
+rule fix_unique_month_using_instead_of_equality
+symptoms: wrong
+match:
+    if $month in $item:
+        $B:Stmts
+where:
+    inside("def unique_month($*xs): $B2:Stmts") and some($item, "possible_birthdays") and some($month, "month")
+rewrite:
+    if $month == $item[0]:
+        $B
+
+rule fix_contains_unique_day_month_membership
+symptoms: wrong
+match:
+    if $month in $item:
+        $B:Stmts
+where:
+    inside("def contains_unique_day($*xs): $B2:Stmts") and some($item, "possible_birthdays") and some($month, "month")
+rewrite:
+    if $month == $item[0]:
+        $B
+
+rule fix_contains_unique_day_return_unique_day_result
+symptoms: wrong
+match:
+    return unique_day($d, $seq)
+where:
+    inside("def contains_unique_day($*xs): $B:Stmts")
+rewrite:
+    return unique_day($d, $seq) == True
+
+rule fix_contains_unique_day_return_false_constant
+symptoms: wrong
+match:
+    return $v
+where:
+    text($v) in {"true", "false", "True", "False"} and inside("def contains_unique_day($*xs): $B:Stmts")
+rewrite:
+    return False
+
+rule fix_range_off_by_one_upper_bound
+symptoms: wrong, err:IndexError
+match:
+    range($n)
+where:
+    some($n, "len($x)") and some($x, "possible_birthdays")
+rewrite:
+    range(len($x))
+
+rule fix_indexing_variable_name_day
+symptoms: wrong, err:NameError
+match:
+    if $a == $b[$i][1]:
+        $S:Stmts
+where:
+    some($b, "possible_birthdays") and some($a, "date")
+rewrite:
+    if $a == $b[$i][1]:
+        $S
+
+rule fix_indexing_variable_name_month
+symptoms: wrong, err:NameError
+match:
+    if $a == $b[$i][0]:
+        $S:Stmts
+where:
+    some($b, "possible_birthdays") and some($a, "month")
+rewrite:
+    if $a == $b[$i][0]:
+        $S
+
+rule fix_bool_literal_case
+symptoms: wrong, err:NameError
+match:
+    return true
+rewrite:
+    return True
+
+rule fix_wrong_day_index_in_unique_month
+symptoms: wrong
+match:
+    if $month == $item[1]:
+        $B:Stmts
+where:
+    inside("def unique_month($*xs): $B2:Stmts") and some($item, "possible_birthdays")
+rewrite:
+    if $month == $item[0]:
+        $B
+
+rule fix_wrong_month_index_in_unique_day
+symptoms: wrong
+match:
+    if $day == $item[0]:
+        $B:Stmts
+where:
+    inside("def unique_day($*xs): $B2:Stmts") and some($item, "possible_birthdays")
+rewrite:
+    if $day == $item[1]:
+        $B

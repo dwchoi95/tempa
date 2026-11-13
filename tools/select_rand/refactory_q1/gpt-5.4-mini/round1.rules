@@ -1,0 +1,141 @@
+rule seqsearch_flip_strict_to_nonstrict
+symptoms: wrong
+match: if $a < $b:
+rewrite: if $a <= $b:
+
+rule seqsearch_flip_strict_to_nonstrict_gt
+symptoms: wrong
+match: if $a > $b:
+rewrite: if $a >= $b:
+
+rule seqsearch_range_exclusive_to_inclusive
+symptoms: wrong
+match: range($n1, $n2)
+where: text($n1) == "0" and text($n2) == "len(seq)-1"
+rewrite: range(0, len(seq))
+
+rule seqsearch_wrong_return_len_plus_one
+symptoms: wrong
+match: return len(seq) + 1
+rewrite: return len(seq)
+
+rule seqsearch_wrong_return_i_plus_one_at_end
+symptoms: wrong
+match: return i + 1
+where: inside("def $f($*ps): $B:Stmts") and some($B, "for $i in range(len(seq)):\n    if $c:\n        return i + 1")
+rewrite: return len(seq)
+
+rule seqsearch_empty_guard_to_zero
+symptoms: wrong, err:IndexError
+match: if $seq == () or $seq == []:
+    return $r
+rewrite: if not $seq:
+    return 0
+
+rule seqsearch_empty_guard_to_zero_alt
+symptoms: wrong, err:IndexError
+match: if $seq == [] or $seq == ():
+    return $r
+rewrite: if not $seq:
+    return 0
+
+rule seqsearch_return_first_match_in_loop
+symptoms: wrong
+match:
+    for $i, $elem in enumerate($seq):
+        if $x <= $elem:
+            return $i
+        else:
+            return len($seq)
+rewrite:
+    for $i, $elem in enumerate($seq):
+        if $x <= $elem:
+            return $i
+    return len($seq)
+
+rule seqsearch_return_first_match_in_index_loop
+symptoms: wrong
+match:
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            return $i
+        else:
+            return len($seq)
+rewrite:
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            return $i
+    return len($seq)
+
+rule seqsearch_remove_premature_else_return
+symptoms: wrong
+match:
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            return $i
+        else:
+            return len($seq)
+rewrite:
+    for $i in range(len($seq)):
+        if $x <= $seq[$i]:
+            return $i
+    return len($seq)
+
+rule seqsearch_loop_bound_fix
+symptoms: wrong
+match: for $i in range(len($seq)-1):
+rewrite: for $i in range(len($seq)):
+
+rule seqsearch_fix_negative_index_guard
+symptoms: wrong
+match:
+    if $x <= $seq[$i] and $x > $seq[$i-1]:
+        $B
+where: first()
+rewrite:
+    if $x <= $seq[$i]:
+        $B
+
+rule seqsearch_append_one_past_end_to_end
+symptoms: wrong
+match: return len(seq) + 1
+rewrite: return len(seq)
+
+rule seqsearch_counter_increment_answer
+symptoms: wrong
+match:
+    counter = 0
+    for $i in $seq:
+        if $x > $i:
+            counter = counter + 1
+    return counter
+rewrite:
+    counter = 0
+    for $i in $seq:
+        if $x > $i:
+            counter = counter + 1
+    return counter
+
+rule seqsearch_fix_broken_break_return
+symptoms: wrong
+match:
+    for $i in range(len(seq)):
+        if $x <= $seq[$i]:
+            break
+    return $i
+rewrite:
+    for $i in range(len(seq)):
+        if $x <= $seq[$i]:
+            return $i
+    return len(seq)
+
+rule seqsearch_fix_return_of_index_minus_one
+symptoms: wrong
+match: return $seq.index($v) - 1
+rewrite: return $seq.index($v)
+
+rule seqsearch_fix_return_seq_when_empty
+symptoms: wrong
+match: return $seq
+where: inside("def $f($*ps): $B:Stmts") and some($B, "if len(seq) == 0:\n    return seq")
+rewrite: return 0

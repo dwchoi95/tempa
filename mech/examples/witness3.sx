@@ -1,0 +1,8 @@
+; Proposition 6 witness for part (3): a yield in a dead branch
+(pair
+ (module
+  (def 1 g x
+   ((if 2 (const 3 False) ((expr 4 (const 5 None))) ())
+    (return 6 (const 7 1))))
+  (print 8 (call 9 (name 10 g) (const 11 None))))
+ (sites (stmts 4 ((expr 4 (yield 5 (const 12 0)))))))

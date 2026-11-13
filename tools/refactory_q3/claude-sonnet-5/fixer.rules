@@ -1,0 +1,187 @@
+rule iterate_over_builtin_list
+symptoms: wrong, err:TypeError
+match: for $i in list:
+where: inside("def $f($p): $B:Stmts")
+rewrite: for $i in $p:
+
+rule membership_check_against_source
+symptoms: wrong
+match:
+    if $i not in $lst:
+        $acc.append($i)
+    |
+    if $i not in $lst:
+        $acc += [$i]
+    |
+    if $i not in $lst:
+        $acc += [$i,]
+where: inside("for $i2 in $lst2: $B:Stmts") and $i2 == $i and $lst2 == $lst and not ($acc == $lst)
+rewrite:
+    if $i not in $acc:
+        $acc.append($i)
+    |
+    if $i not in $acc:
+        $acc += [$i]
+    |
+    if $i not in $acc:
+        $acc += [$i,]
+
+rule flip_membership_condition
+symptoms: wrong
+match:
+    if $x in $acc:
+        $acc.append($x)
+rewrite:
+    if $x not in $acc:
+        $acc.append($x)
+
+rule undefined_accumulator_append
+symptoms: wrong, err:NameError
+match: $acc2.append($x)
+where: inside("def $f($*ps): $B:Stmts") and some($B, "$acc:Name = []") and not ($acc2 == $acc) and not some($B, "$acc2 = _")
+rewrite: $acc.append($x)
+
+rule undefined_return_name
+symptoms: wrong, err:NameError
+match: return $acc2
+where: inside("def $f($*ps): $B:Stmts") and some($B, "$acc:Name = []") and not ($acc2 == $acc) and not some($B, "$acc2 = _")
+rewrite: return $acc
+
+rule extend_scalar_to_append
+symptoms: wrong, err:TypeError
+match: $acc.extend($i)
+where: inside("for $i2 in $lst: $B:Stmts") and $i2 == $i and match($i, "$n:Name")
+rewrite: $acc.append($i)
+
+rule extend_list_wrap
+symptoms: wrong
+match: $acc.extend(list($i))
+rewrite: $acc.extend([$i])
+
+rule pop_missing_call
+symptoms: wrong, err:TypeError
+match: $acc.pop
+where: not field("Return", "value")
+rewrite: $acc.pop()
+
+rule reverse_missing_call
+symptoms: wrong
+match: $acc.reverse
+where: not field("Return", "value")
+rewrite: $acc.reverse()
+
+rule return_reverse_returns_none
+symptoms: wrong
+match: return $lst.reverse()
+rewrite:
+    $lst.reverse()
+    return $lst
+
+rule return_reverse_attr_no_call
+symptoms: wrong
+match: return $lst.reverse
+rewrite:
+    $lst.reverse()
+    return $lst
+
+rule reverse_assigned_to_var
+symptoms: wrong, err:AttributeError
+match: $lst2 = $lst.reverse()
+rewrite:
+    $lst.reverse()
+    $lst2 = $lst
+
+rule reverse_attr_assigned_no_call
+symptoms: wrong, err:AttributeError
+match: $lst2 = $lst.reverse
+rewrite:
+    $lst.reverse()
+    $lst2 = $lst
+
+rule ordereddict_lists_typo
+symptoms: wrong, err:NameError
+match: lists($x)
+rewrite: list($x)
+
+rule ordereddict_missing_list_wrap
+symptoms: wrong
+match: return OrderedDict.fromkeys($x)
+rewrite: return list(OrderedDict.fromkeys($x))
+
+rule set_loses_order
+symptoms: wrong
+match:
+    return list(set($x))
+    |
+    return set($x)
+rewrite:
+    output = []
+    for i in $x:
+        if i not in output:
+            output.append(i)
+    return output
+
+rule return_none_for_empty_list
+symptoms: wrong
+match: return None
+where: inside("if $p == []:")
+rewrite: return []
+
+rule missing_return_after_loop
+symptoms: wrong
+match:
+    for $i in $lst:
+        if $i not in $acc:
+            $acc.append($i)
+where: last()
+rewrite:
+    for $i in $lst:
+        if $i not in $acc:
+            $acc.append($i)
+    return $acc
+
+rule bracket_instead_of_call
+symptoms: wrong, err:TypeError
+match: $f.$m:Attr[$x]
+rewrite: $f.$m($x)
+
+rule append_dot_attr_typo
+symptoms: wrong, err:AttributeError
+match: $f.append.$x:Attr
+rewrite: $f.append($x)
+
+rule append_assigned_to_self
+symptoms: wrong
+match: $acc = $acc.append($x)
+rewrite: $acc.append($x)
+
+rule concat_self_plus_item
+symptoms: wrong
+match: $acc += $acc + $x
+where: match($x, "$n:Name")
+rewrite: $acc += [$x]
+
+rule plus_equals_scalar_item
+symptoms: wrong, err:TypeError
+match: $acc += $x
+where: inside("for $x2 in $lst: $B:Stmts") and $x2 == $x and match($x, "$n:Name")
+rewrite: $acc += [$x]
+
+rule missing_else_increment_in_double_while
+symptoms: wrong, timeout
+match:
+    if $lst[$i] == $lst[$j]:
+        $lst = $lst[:$j] + $lst[$j+1:]
+    $j += 1
+where: inside("while $jc < len($lst2):")
+rewrite:
+    if $lst[$i] == $lst[$j]:
+        $lst = $lst[:$j] + $lst[$j+1:]
+    else:
+        $j += 1
+
+rule stray_double_equals_init
+symptoms: wrong
+match: $v == []
+where: not field("If", "test") and not field("While", "test")
+rewrite: $v = []

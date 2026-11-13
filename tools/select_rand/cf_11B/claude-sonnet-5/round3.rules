@@ -1,0 +1,102 @@
+rule binarysearch_missing_plus2_case
+symptoms: wrong
+match:
+    if ($x - $n) % 2 == 0:
+        return $b
+    return $b + 1
+    |
+    if ($x - $n) % 2 == 0:
+        return $b
+    else:
+        return $b + 1
+rewrite:
+    if ($x - $n) % 2 == 0:
+        return $b
+    elif ((($b + 1) * ($b + 2) // 2) - $n) % 2 == 0:
+        return $b + 1
+    else:
+        return $b + 2
+
+rule linearscan_missing_plus2_case
+symptoms: wrong
+match:
+    if $sum == $x:
+        print($i)
+    elif $sum > $x:
+        $a = ($sum - $x) * 2 + $i
+        $sum -= $i
+        $b = $i + ($x - $sum) * 2 - 1
+        if $a >= $b:
+            print($b)
+        elif $a < $b:
+            print($a)
+rewrite:
+    diff = $sum - $x
+    if diff % 2 == 0:
+        print($i)
+    else:
+        s2 = $sum + ($i + 1)
+        if (s2 - $x) % 2 == 0:
+            print($i + 1)
+        else:
+            print($i + 2)
+
+rule bounce_simulation_wrong_algorithm
+symptoms: wrong, timeout
+match:
+    while True:
+        if $x == 0:
+            break
+        $jump += 1
+        $n_p = $cur + $jump
+        if $n_p <= $x:
+            $cur += $jump
+        if $n_p > $x:
+            $cur -= $jump
+        if $cur == $x:
+            break
+rewrite:
+    import math
+    if $x == 0:
+        $jump = 0
+    else:
+        ax = abs($x)
+        n = (-1 + (1 + 8 * ax) ** 0.5) / 2
+        ceil_n = math.ceil(n)
+        s = ceil_n * (ceil_n + 1) // 2
+        if (s - ax) % 2 == 0:
+            $jump = ceil_n
+        else:
+            s2 = (ceil_n + 1) * (ceil_n + 2) // 2
+            if (s2 - ax) % 2 == 0:
+                $jump = ceil_n + 1
+            else:
+                $jump = ceil_n + 2
+
+rule two_counter_simulation_wrong_algorithm
+symptoms: wrong, timeout
+match:
+    while $num != $x:
+        if $num + $ans + 1 <= $x:
+            $ans += 1
+            $num += $ans
+        elif $num + $ans + 1 > $x:
+            $ans += 1
+            $num -= $ans
+rewrite:
+    import math
+    if $x == 0:
+        $ans = 0
+    else:
+        ax = abs($x)
+        n = (-1 + (1 + 8 * ax) ** 0.5) / 2
+        ceil_n = math.ceil(n)
+        s = ceil_n * (ceil_n + 1) // 2
+        if (s - ax) % 2 == 0:
+            $ans = ceil_n
+        else:
+            s2 = (ceil_n + 1) * (ceil_n + 2) // 2
+            if (s2 - ax) % 2 == 0:
+                $ans = ceil_n + 1
+            else:
+                $ans = ceil_n + 2
